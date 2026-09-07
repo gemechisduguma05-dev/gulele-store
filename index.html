@@ -1,22 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gulele Store</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gulele Store</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  color:#222;
+}
+header{
+  background:#17324d;
+  color:white;
+  padding:18px;
+  text-align:center;
+}
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:15px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+.card{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #0001;
+}
+.card h3{margin:0 0 8px;font-size:14px}
+.card strong{font-size:24px}
+
+.form{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px #0001;
+}
+.form h2{margin-top:0}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+input,select,button{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+button{
+  background:#1976d2;
+  color:white;
+  border:0;
+  cursor:pointer;
+  font-weight:bold;
+}
+button:hover{opacity:.9}
+
+.search{
+  margin-bottom:15px;
+}
+
+.table-box{
+  background:white;
+  border-radius:12px;
+  overflow:auto;
+  box-shadow:0 2px 8px #0001;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:850px;
+}
+th,td{
+  padding:12px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+}
+th{
+  background:#17324d;
+  color:white;
+}
+.action{
+  display:flex;
+  gap:5px;
+}
+.in{background:#198754}
+.out{background:#dc3545}
+.delete{background:#6c757d}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#777;
+}
+
+@media(max-width:700px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr}
+  .card strong{font-size:20px}
+}
+</style>
 </head>
+
 <body>
-  <h1>Gulele Store</h1>
-  <p>Store Stock Management System</p>
 
-  <h2>Items</h2>
+<header>
+  <h1>🏪 Gulele Store</h1>
+  <p>Stock Management System</p>
+</header>
 
-  <form>
-    <input type="text" placeholder="Item name">
-    <input type="number" placeholder="Quantity">
-    <input type="number" placeholder="Cost price">
-    <input type="number" placeholder="Selling price">
-    <button type="submit">Add Item</button>
-  </form>
+<div class="container">
+
+  <!-- DASHBOARD -->
+  <div class="cards">
+    <div class="card">
+      <h3>Total Items</h3>
+      <strong id="totalItems">0</strong>
+    </div>
+
+    <div class="card">
+      <h3>Total Quantity</h3>
+      <strong id="totalQty">0</strong>
+    </div>
+
+    <div class="card">
+      <h3>Stock Value</h3>
+      <strong id="stockValue">0</strong>
+    </div>
+
+    <div class="card">
+      <h3>Expected Profit</h3>
+      <strong id="profit">0</strong>
+    </div>
+  </div>
+
+  <!-- ADD ITEM -->
+  <div class="form">
+    <h2>➕ Add New Item</h2>
+
+    <div class="grid">
+
+      <input id="itemName"
+             type="text"
+             placeholder="Item name">
+
+      <input id="category"
+             type="text"
+             placeholder="Category">
+
+      <input id="quantity"
+             type="number"
+             min="0"
+             placeholder="Quantity">
+
+      <input id="costPrice"
+             type="number"
+             min="0"
+             step="0.01"
+             placeholder="Cost price">
+
+      <input id="sellingPrice"
+             type="number"
+             min="0"
+             step="0.01"
+             placeholder="Selling price">
+
+      <button onclick="addItem()">
+        Add Item
+      </button>
+
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <input class="search"
+         id="search"
+         type="text"
+         placeholder="🔎 Search item..."
+         oninput="displayItems()">
+
+  <!-- ITEMS -->
+  <div class="table-box">
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Item</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Cost Price</th>
+          <th>Selling Price</th>
+          <th>Stock Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody id="itemTable">
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+<script>
+
+let items = JSON.parse(localStorage.getItem("guleleItems")) || [];
+
+
+function saveItems(){
+  localStorage.setItem("guleleItems", JSON.stringify(items));
+}
+
+
+function addItem(){
+
+  const name =
+    document.getElementById("itemName").value.trim();
+
+  const category =
+    document.getElementById("category").value.trim();
+
+  const quantity =
+    Number(document.getElementById("quantity").value);
+
+  const cost =
+    Number(document.getElementById("costPrice").value);
+
+  const selling =
+    Number(document.getElementById("sellingPrice").value);
+
+
+  if(!name || !category || quantity < 0 || cost < 0 || selling < 0){
+
+    alert("Please enter all item information.");
+    return;
+  }
+
+
+  const item = {
+
+    id: Date.now(),
+
+    name:name,
+
+    category:category,
+
+    quantity:quantity,
+
+    cost:cost,
+
+    selling:selling
+
+  };
+
+
+  items.push(item);
+
+  saveItems();
+
+  clearForm();
+
+  displayItems();
+
+}
+
+
+function clearForm(){
+
+  document.getElementById("itemName").value="";
+  document.getElementById("category").value="";
+  document.getElementById("quantity").value="";
+  document.getElementById("costPrice").value="";
+  document.getElementById("sellingPrice").value="";
+
+}
+
+
+function stockIn(id){
+
+  const item = items.find(x => x.id === id);
+
+  if(!item) return;
+
+  const amount = Number(
+    prompt("How many items received?")
+  );
+
+  if(amount > 0){
+
+    item.quantity += amount;
+
+    saveItems();
+
+    displayItems();
+
+  }
+
+}
+
+
+function stockOut(id){
+
+  const item = items.find(x => x.id === id);
+
+  if(!item) return;
+
+  const amount = Number(
+    prompt("How many items sold?")
+  );
+
+  if(amount > 0 && amount <= item.quantity){
+
+    item.quantity -= amount;
+
+    saveItems();
+
+    displayItems();
+
+  }else{
+
+    alert("Invalid quantity.");
+
+  }
+
+}
+
+
+function deleteItem(id){
+
+  if(!confirm("Delete this item?")) return;
+
+  items = items.filter(x => x.id !== id);
+
+  saveItems();
+
+  displayItems();
+
+}
+
+
+function displayItems(){
+
+  const table =
+    document.getElementById("itemTable");
+
+  const search =
+    document.getElementById("search").value.toLowerCase();
+
+  table.innerHTML="";
+
+
+  const filtered = items.filter(item =>
+
+    item.name.toLowerCase().includes(search) ||
+
+    item.category.toLowerCase().includes(search)
+
+  );
+
+
+  if(filtered.length === 0){
+
+    table.innerHTML =
+      '<tr><td colspan="8" class="empty">No items found</td></tr>';
+
+  }
+
+
+  filtered.forEach((item,index)=>{
+
+    const stockValue =
+      item.quantity * item.cost;
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+
+      <td>${index + 1}</td>
+
+      <td><strong>${item.name}</strong></td>
+
+      <td>${item.category}</td>
+
+      <td>${item.quantity}</td>
+
+      <td>${item.cost.toFixed(2)}</td>
+
+      <td>${item.selling.toFixed(2)}</td>
+
+      <td>${stockValue.toFixed(2)}</td>
+
+      <td>
+        <div class="action">
+
+          <button class="in"
+            onclick="stockIn(${item.id})">
+            + Stock
+          </button>
+
+          <button class="out"
+            onclick="stockOut(${item.id})">
+            - Stock
+          </button>
+
+          <button class="delete"
+            onclick="deleteItem(${item.id})">
+            Delete
+          </button>
+
+        </div>
+      </td>
+
+    `;
+
+    table.appendChild(row);
+
+  });
+
+
+  updateDashboard();
+
+}
+
+
+function updateDashboard(){
+
+  const totalItems =
+    items.length;
+
+  const totalQty =
+    items.reduce(
+      (sum,item)=>sum + item.quantity,
+      0
+    );
+
+  const stockValue =
+    items.reduce(
+      (sum,item)=>
+        sum + (item.quantity * item.cost),
+      0
+    );
+
+  const profit =
+    items.reduce(
+      (sum,item)=>
+        sum + (item.quantity * (item.selling-item.cost)),
+      0
+    );
+
+
+  document.getElementById("totalItems")
+    .textContent = totalItems;
+
+  document.getElementById("totalQty")
+    .textContent = totalQty;
+
+  document.getElementById("stockValue")
+    .textContent = stockValue.toFixed(2);
+
+  document.getElementById("profit")
+    .textContent = profit.toFixed(2);
+
+}
+
+
+displayItems();
+
+</script>
+
 </body>
 </html>
