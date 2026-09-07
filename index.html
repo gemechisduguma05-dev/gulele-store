@@ -6,105 +6,108 @@
 <title>Gulele Store</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f4f6f8;
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#f4f6f8;
 }
-
-header {
-  background: #17324d;
-  color: white;
-  padding: 20px;
-  text-align: center;
+header{
+  background:#17324d;
+  color:white;
+  padding:20px;
+  text-align:center;
 }
-
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
 }
-
-.box {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
+.box{
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:12px;
 }
-
-input, button {
-  width: 100%;
-  padding: 12px;
-  margin: 6px 0;
-  box-sizing: border-box;
+input,button{
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  box-sizing:border-box;
+  border-radius:7px;
+  border:1px solid #ccc;
 }
-
-button {
-  background: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 6px;
+button{
+  background:#1976d2;
+  color:white;
+  border:0;
+  font-weight:bold;
 }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
+table{
+  width:100%;
+  border-collapse:collapse;
 }
-
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
+th,td{
+  padding:10px;
+  border-bottom:1px solid #ddd;
 }
-
-th {
-  background: #17324d;
-  color: white;
+th{
+  background:#17324d;
+  color:white;
 }
+.action{
+  display:flex;
+  gap:5px;
+}
+.action button{
+  width:auto;
+  padding:8px;
+}
+.in{background:#198754}
+.out{background:#dc3545}
+.del{background:#6c757d}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🏪 Gulele Store</h1>
-  <p>Stock Management System</p>
+<h1>🏪 Gulele Store</h1>
+<p>Stock Management System</p>
 </header>
 
 <div class="container">
 
 <div class="box">
-  <h2>➕ Add Item</h2>
+<h2>➕ Add New Item</h2>
 
-  <input id="name" placeholder="Item name">
+<input id="name" placeholder="Item name">
+<input id="category" placeholder="Category">
+<input id="quantity" type="number" placeholder="Quantity">
+<input id="cost" type="number" step="0.01" placeholder="Cost Price">
+<input id="selling" type="number" step="0.01" placeholder="Selling Price">
 
-  <input id="category" placeholder="Category">
-
-  <input id="quantity" type="number" placeholder="Quantity">
-
-  <input id="cost" type="number" step="0.01" placeholder="Cost Price">
-
-  <input id="selling" type="number" step="0.01" placeholder="Selling Price">
-
-  <button onclick="addItem()">Add Item</button>
+<button onclick="addItem()">Add Item</button>
 </div>
 
 <div class="box">
-  <h2>📦 Items</h2>
+<h2>📦 Stock</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Category</th>
-        <th>Quantity</th>
-        <th>Cost</th>
-        <th>Selling</th>
-      </tr>
-    </thead>
+<input id="search" placeholder="🔎 Search item..." oninput="loadItems()">
 
-    <tbody id="items"></tbody>
-  </table>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Category</th>
+<th>Quantity</th>
+<th>Cost</th>
+<th>Selling</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="itemList"></tbody>
+</table>
 </div>
 
 </div>
@@ -117,78 +120,223 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
-async function loadItems() {
+
+async function loadItems(){
 
   const response = await fetch(
-    SUPABASE_URL + "/rest/v1/items?select=*",
+    SUPABASE_URL + "/rest/v1/items?select=*&order=id.desc",
     {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer " + SUPABASE_KEY
       }
     }
   );
 
   const data = await response.json();
 
-  const table = document.getElementById("items");
+  const search =
+    document.getElementById("search").value.toLowerCase();
 
-  table.innerHTML = "";
+  const list =
+    document.getElementById("itemList");
 
-  data.forEach(item => {
+  list.innerHTML="";
 
-    table.innerHTML += `
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.category}</td>
-        <td>${item.quantity}</td>
-        <td>${item.cost_price}</td>
-        <td>${item.selling_price}</td>
-      </tr>
+  data
+  .filter(item =>
+    item.name.toLowerCase().includes(search) ||
+    item.category.toLowerCase().includes(search)
+  )
+  .forEach(item => {
+
+    list.innerHTML += `
+    <tr>
+
+      <td>${item.name}</td>
+
+      <td>${item.category}</td>
+
+      <td>${item.quantity}</td>
+
+      <td>${item.cost_price}</td>
+
+      <td>${item.selling_price}</td>
+
+      <td>
+        <div class="action">
+
+          <button class="in"
+            onclick="stockIn(${item.id},${item.quantity})">
+            + Stock
+          </button>
+
+          <button class="out"
+            onclick="stockOut(${item.id},${item.quantity})">
+            - Stock
+          </button>
+
+          <button class="del"
+            onclick="deleteItem(${item.id})">
+            Delete
+          </button>
+
+        </div>
+      </td>
+
+    </tr>
     `;
-
   });
 }
 
-async function addItem() {
 
-  const item = {
-    name: document.getElementById("name").value,
-    category: document.getElementById("category").value,
-    quantity: Number(document.getElementById("quantity").value),
-    cost_price: Number(document.getElementById("cost").value),
-    selling_price: Number(document.getElementById("selling").value)
+async function addItem(){
+
+  const item={
+    name:document.getElementById("name").value,
+    category:document.getElementById("category").value,
+    quantity:Number(document.getElementById("quantity").value),
+    cost_price:Number(document.getElementById("cost").value),
+    selling_price:Number(document.getElementById("selling").value)
   };
 
-  const response = await fetch(
+  const response=await fetch(
     SUPABASE_URL + "/rest/v1/items",
     {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Prefer": "return=minimal"
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+SUPABASE_KEY,
+        "Prefer":"return=minimal"
       },
-
-      body: JSON.stringify(item)
+      body:JSON.stringify(item)
     }
   );
 
-  if (response.ok) {
+  if(response.ok){
 
     alert("Item added successfully!");
 
+    document.getElementById("name").value="";
+    document.getElementById("category").value="";
+    document.getElementById("quantity").value="";
+    document.getElementById("cost").value="";
+    document.getElementById("selling").value="";
+
     loadItems();
 
-  } else {
+  }else{
 
-    const error = await response.text();
+    alert("Error: "+await response.text());
 
-    alert("Error: " + error);
   }
 }
+
+
+async function stockIn(id,currentQuantity){
+
+  const amount=Number(
+    prompt("Meeqa galchita?")
+  );
+
+  if(!amount || amount<=0){
+    alert("Quantity sirrii galchi.");
+    return;
+  }
+
+  const newQuantity =
+    Number(currentQuantity)+amount;
+
+  await updateQuantity(id,newQuantity);
+}
+
+
+async function stockOut(id,currentQuantity){
+
+  const amount=Number(
+    prompt("Meeqa baasta/gurgurta?")
+  );
+
+  if(!amount || amount<=0){
+    alert("Quantity sirrii galchi.");
+    return;
+  }
+
+  if(amount>Number(currentQuantity)){
+    alert("Stock gahaa hin qabu!");
+    return;
+  }
+
+  const newQuantity =
+    Number(currentQuantity)-amount;
+
+  await updateQuantity(id,newQuantity);
+}
+
+
+async function updateQuantity(id,newQuantity){
+
+  const response=await fetch(
+    SUPABASE_URL + "/rest/v1/items?id=eq."+id,
+    {
+      method:"PATCH",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+SUPABASE_KEY,
+        "Prefer":"return=minimal"
+      },
+      body:JSON.stringify({
+        quantity:newQuantity
+      })
+    }
+  );
+
+  if(response.ok){
+
+    alert("Stock updated successfully!");
+
+    loadItems();
+
+  }else{
+
+    alert("Error: "+await response.text());
+
+  }
+}
+
+
+async function deleteItem(id){
+
+  if(!confirm("Item kana haquu barbaaddaa?")){
+    return;
+  }
+
+  const response=await fetch(
+    SUPABASE_URL + "/rest/v1/items?id=eq."+id,
+    {
+      method:"DELETE",
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+SUPABASE_KEY
+      }
+    }
+  );
+
+  if(response.ok){
+
+    alert("Item deleted.");
+
+    loadItems();
+
+  }else{
+
+    alert("Error: "+await response.text());
+
+  }
+}
+
 
 loadItems();
 
