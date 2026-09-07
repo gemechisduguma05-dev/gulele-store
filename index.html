@@ -134,10 +134,11 @@ th{
 </div>
 
 </div>
-
+  
 async function updateDashboard() {
+
   const response = await fetch(
-    SUPABASE_URL + "/rest/v1/items?select=quantity,cost_price,selling_price",
+    SUPABASE_URL + "/rest/v1/items?select=*",
     {
       headers: {
         "apikey": SUPABASE_KEY,
@@ -145,6 +146,11 @@ async function updateDashboard() {
       }
     }
   );
+
+  if (!response.ok) {
+    console.log("Dashboard error:", await response.text());
+    return;
+  }
 
   const data = await response.json();
 
@@ -157,7 +163,9 @@ async function updateDashboard() {
 
   const stockValue = data.reduce(
     (sum, item) =>
-      sum + Number(item.quantity || 0) * Number(item.cost_price || 0),
+      sum +
+      Number(item.quantity || 0) *
+      Number(item.cost_price || 0),
     0
   );
 
@@ -165,8 +173,10 @@ async function updateDashboard() {
     (sum, item) =>
       sum +
       Number(item.quantity || 0) *
-      (Number(item.selling_price || 0) -
-       Number(item.cost_price || 0)),
+      (
+        Number(item.selling_price || 0) -
+        Number(item.cost_price || 0)
+      ),
     0
   );
 
@@ -177,7 +187,6 @@ async function updateDashboard() {
   document.getElementById("expectedProfit").textContent =
     expectedProfit.toFixed(2);
 }
-
 updateDashboard();<script>
 
 const SUPABASE_URL =
