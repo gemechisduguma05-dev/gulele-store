@@ -210,10 +210,10 @@ async function loadItems(){
   list.innerHTML="";
 
   data
-  .filter(item =>
-    item.name.toLowerCase().includes(search) ||
-    item.category.toLowerCase().includes(search)
-  )
+ .filter(item =>
+  String(item.name || "").toLowerCase().includes(search) ||
+  String(item.category || "").toLowerCase().includes(search)
+)
   .forEach(item => {
 
     list.innerHTML += `
