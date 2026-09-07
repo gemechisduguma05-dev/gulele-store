@@ -1009,8 +1009,7 @@ async function loginUser() {
       "Email fi password guuti.";
     return;
   }
-document.getElementById("loginPage").style.display = "none";
-document.getElementById("appContent").style.display = "block";
+
   const response = await fetch(
     SUPABASE_URL +
     "/auth/v1/token?grant_type=password",
@@ -1033,24 +1032,23 @@ document.getElementById("appContent").style.display = "block";
 
   if (response.ok) {
 
-  localStorage.setItem(
-    "access_token",
-    data.access_token
-  );
+    localStorage.setItem(
+      "access_token",
+      data.access_token
+    );
 
-  document.getElementById("loginPage").style.display = "none";
-  document.getElementById("appContent").style.display = "block";
-
-  alert("Login successful!");
-
-}
     document.getElementById(
       "loginPage"
     ).style.display = "none";
 
+    document.getElementById(
+      "appContent"
+    ).style.display = "block";
+
     message.textContent = "";
 
-    alert("Login successful!");
+    loadItems();
+    updateDashboard();
 
   } else {
 
