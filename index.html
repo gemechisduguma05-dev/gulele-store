@@ -3,193 +3,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Gulele Store</title>
 
 <style>
-body{
-  font-family:Arial,sans-serif;
-  margin:0;
-  background:#f4f6f8;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
 }
-header{
-  background:#17324d;
-  color:white;
-  padding:20px;
-  text-align:center;
+
+header {
+  background: #17324d;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
-.box{
-  background:white;
-  padding:20px;
-  margin-bottom:20px;
-  border-radius:12px;
+
+.box {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
-input,button{
-  width:100%;
-  padding:12px;
-  margin:6px 0;
-  box-sizing:border-box;
-  border-radius:7px;
-  border:1px solid #ccc;
+
+.box h2 {
+  color: #17324d;
+  margin-top: 0;
 }
-button{
-  background:#1976d2;
-  color:white;
-  border:0;
-  font-weight:bold;
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
 }
-table{
-  width:100%;
-  border-collapse:collapse;
+
+.card {
+  background: #f1f5f9;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
 }
-th,td{
-  padding:10px;
-  border-bottom:1px solid #ddd;
+
+.card strong {
+  display: block;
+  font-size: 22px;
+  color: #1976d2;
+  margin-top: 8px;
 }
-th{
-  background:#17324d;
-  color:white;
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  box-sizing: border-box;
+  border-radius: 7px;
+  border: 1px solid #ccc;
 }
-.action{
-  display:flex;
-  gap:5px;
+
+button {
+  background: #1976d2;
+  color: white;
+  border: 0;
+  font-weight: bold;
+  cursor: pointer;
 }
-.action button{
-  width:auto;
-  padding:8px;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
-.in{background:#198754}
-.out{background:#dc3545}
-.del{background:#6c757d}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #17324d;
+  color: white;
+}
+
+.action {
+  display: flex;
+  gap: 5px;
+}
+
+.action button {
+  width: auto;
+  padding: 8px;
+}
+
+.in {
+  background: #198754;
+}
+
+.out {
+  background: #dc3545;
+}
+
+.edit {
+  background: #f59e0b;
+}
+
+.del {
+  background: #6c757d;
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  .action {
+    flex-direction: column;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🏪 Gulele Store</h1>
-<p>Stock Management System</p>
+  <h1>🏪 Gulele Store</h1>
+  <p>Stock Management System</p>
 </header>
 
 <div class="container">
+
+<!-- DASHBOARD -->
 <div class="box">
   <h2>📊 Dashboard</h2>
 
-  <p>Total Items: <strong id="totalItems">0</strong></p>
+  <div class="dashboard">
 
-  <p>Total Quantity: <strong id="totalQuantity">0</strong></p>
+    <div class="card">
+      Total Items
+      <strong id="totalItems">0</strong>
+    </div>
 
-  <p>Stock Value: <strong id="stockValue">0</strong></p>
+    <div class="card">
+      Total Quantity
+      <strong id="totalQuantity">0</strong>
+    </div>
 
-  <p>Expected Profit: <strong id="expectedProfit">0</strong></p>
+    <div class="card">
+      Stock Value
+      <strong id="stockValue">0.00</strong>
+    </div>
+
+    <div class="card">
+      Expected Profit
+      <strong id="expectedProfit">0.00</strong>
+    </div>
+
+  </div>
 </div>
+
+<!-- ADD ITEM -->
 <div class="box">
-<h2>➕ Add New Item</h2>
 
-<input id="name" placeholder="Item name">
-<select id="category">
-  <option value="">-- Select Category --</option>
-  <option>Meeshaalee Nyaataa Tarsiimawaa</option>
-  <option>Meeshaalee Nyaataa Guyyaa Guyyaa</option>
-  <option>Meeshaalee Dhugaatii</option>
-  <option>Meeshaalee Manaa</option>
-  <option>Meeshaalee Barnootaa</option>
-  <option>Meeshaalee Qulqullinaa</option>
-  <option>Meeshaalee Daa'immanii</option>
-  <option>Meeshaalee Elektirooniksii</option>
-  <option>Meeshaalee Uffataa</option>
-  <option>Meeshaalee Ijaarsaa</option>
-  <option>Meeshaalee Adda Addaa</option>
-</select>
-<input id="quantity" type="number" placeholder="Quantity">
-<input id="cost" type="number" step="0.01" placeholder="Cost Price">
-<input id="selling" type="number" step="0.01" placeholder="Selling Price">
+  <h2>➕ Add New Item</h2>
 
-<button onclick="addItem()">Add Item</button>
+  <input
+    id="name"
+    placeholder="Item name"
+  >
+
+  <select id="category">
+
+    <option value="">
+      -- Select Category --
+    </option>
+
+    <option>Meeshaalee Nyaataa Tarsiimawaa</option>
+    <option>Meeshaalee Nyaataa Guyyaa Guyyaa</option>
+    <option>Meeshaalee Dhugaatii</option>
+    <option>Meeshaalee Manaa</option>
+    <option>Meeshaalee Barnootaa</option>
+    <option>Meeshaalee Qulqullinaa</option>
+    <option>Meeshaalee Daa'immanii</option>
+    <option>Meeshaalee Elektirooniksii</option>
+    <option>Meeshaalee Uffataa</option>
+    <option>Meeshaalee Ijaarsaa</option>
+    <option>Meeshaalee Adda Addaa</option>
+
+  </select>
+
+  <input
+    id="quantity"
+    type="number"
+    placeholder="Quantity"
+  >
+
+  <input
+    id="cost"
+    type="number"
+    step="0.01"
+    placeholder="Cost Price"
+  >
+
+  <input
+    id="selling"
+    type="number"
+    step="0.01"
+    placeholder="Selling Price"
+  >
+
+  <button onclick="addItem()">
+    Add Item
+  </button>
+
 </div>
 
+<!-- ITEMS -->
 <div class="box">
-<h2>📦 Stock</h2>
 
-<input id="search" placeholder="🔎 Search item..." oninput="loadItems()">
+  <h2>📦 Stock</h2>
 
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Category</th>
-<th>Quantity</th>
-<th>Cost</th>
-<th>Selling</th>
-<th>Action</th>
-</tr>
-</thead>
+  <input
+    id="search"
+    placeholder="🔎 Search item..."
+    oninput="loadItems()"
+  >
 
-<tbody id="itemList"></tbody>
-</table>
+  <table>
+
+    <thead>
+
+      <tr>
+        <th>Item</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Cost</th>
+        <th>Selling</th>
+        <th>Action</th>
+      </tr>
+
+    </thead>
+
+    <tbody id="itemList"></tbody>
+
+  </table>
+
 </div>
 
 </div>
-  
-async function updateDashboard() {
 
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/items?select=*",
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
-      }
-    }
-  );
+<script>
 
-  if (!response.ok) {
-    console.log("Dashboard error:", await response.text());
-    return;
-  }
-
-  const data = await response.json();
-
-  const totalItems = data.length;
-
-  const totalQuantity = data.reduce(
-    (sum, item) => sum + Number(item.quantity || 0),
-    0
-  );
-
-  const stockValue = data.reduce(
-    (sum, item) =>
-      sum +
-      Number(item.quantity || 0) *
-      Number(item.cost_price || 0),
-    0
-  );
-
-  const expectedProfit = data.reduce(
-    (sum, item) =>
-      sum +
-      Number(item.quantity || 0) *
-      (
-        Number(item.selling_price || 0) -
-        Number(item.cost_price || 0)
-      ),
-    0
-  );
-
-  document.getElementById("totalItems").textContent = totalItems;
-  document.getElementById("totalQuantity").textContent = totalQuantity;
-  document.getElementById("stockValue").textContent =
-    stockValue.toFixed(2);
-  document.getElementById("expectedProfit").textContent =
-    expectedProfit.toFixed(2);
-}
-updateDashboard();
-
-</script>
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -197,269 +277,685 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
-async function editItem(id, oldName, oldCategory, oldCost, oldSelling) {
 
-  const newName = prompt("Maqaa item:", oldName);
-  if (newName === null) return;
+/* =========================
+   LOAD ITEMS
+========================= */
 
-  const newCategory = prompt("Category:", oldCategory);
-  if (newCategory === null) return;
-
-  const newCost = prompt("Cost Price:", oldCost);
-  if (newCost === null) return;
-
-  const newSelling = prompt("Selling Price:", oldSelling);
-  if (newSelling === null) return;
+async function loadItems() {
 
   const response = await fetch(
-    SUPABASE_URL + "/rest/v1/items?id=eq." + id,
+    SUPABASE_URL +
+    "/rest/v1/items?select=*&order=id.desc",
     {
-      method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Prefer": "return=minimal"
-      },
-      body: JSON.stringify({
-        name: newName,
-        category: newCategory,
-        cost_price: Number(newCost),
-        selling_price: Number(newSelling)
-      })
-    }
-  );
-
-  if (response.ok) {
-    alert("Item updated successfully!");
-    loadItems();
-    updateDashboard();
-  } else {
-    alert("Edit error: " + await response.text());
-  }
-}
-async function loadItems(){
-
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/items?select=*&order=id.desc",
-    {
-      headers:{
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer " + SUPABASE_KEY
+        "Authorization":
+          "Bearer " + SUPABASE_KEY
       }
     }
   );
+
+  if (!response.ok) {
+
+    console.log(
+      "Load error:",
+      await response.text()
+    );
+
+    return;
+  }
 
   const data = await response.json();
 
   const search =
-    document.getElementById("search").value.toLowerCase();
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
 
   const list =
     document.getElementById("itemList");
 
-  list.innerHTML="";
+  list.innerHTML = "";
 
   data
- .filter(item =>
-  String(item.name || "").toLowerCase().includes(search) ||
-  String(item.category || "").toLowerCase().includes(search)
-)
-  .forEach(item => {
+    .filter(item =>
+      String(item.name || "")
+        .toLowerCase()
+        .includes(search) ||
 
-    list.innerHTML += `
-    <tr>
+      String(item.category || "")
+        .toLowerCase()
+        .includes(search)
+    )
+    .forEach(item => {
 
-      <td>${item.name}</td>
+      list.innerHTML += `
 
-      <td>${item.category}</td>
+        <tr>
 
-      <td>${item.quantity}</td>
+          <td>
+            ${item.name || ""}
+          </td>
 
-      <td>${item.cost_price}</td>
+          <td>
+            ${item.category || ""}
+          </td>
 
-      <td>${item.selling_price}</td>
+          <td>
+            ${item.quantity || 0}
+          </td>
 
-      <td>
-        <div class="action">
+          <td>
+            ${item.cost_price || 0}
+          </td>
 
-          <button class="in"
-            onclick="stockIn(${item.id},${item.quantity})">
-            + Stock
-          </button>
+          <td>
+            ${item.selling_price || 0}
+          </td>
 
-          <button class="out"
-            onclick="stockOut(${item.id},${item.quantity})">
-            - Stock
-          </button>
-<button
-  onclick="editItem(${item.id}, '${item.name}', '${item.category}', ${item.cost_price}, ${item.selling_price})">
-  ✏️ Edit
-</button>
-          <button class="del"
-            onclick="deleteItem(${item.id})">
-            Delete
-          </button>
+          <td>
 
-        </div>
-      </td>
+            <div class="action">
 
-    </tr>
-    `;
-  });
+              <button
+                class="in"
+                onclick="stockIn(
+                  ${item.id},
+                  ${item.quantity || 0}
+                )">
+                + Stock
+              </button>
+
+              <button
+                class="out"
+                onclick="stockOut(
+                  ${item.id},
+                  ${item.quantity || 0}
+                )">
+                - Stock
+              </button>
+
+              <button
+                class="edit"
+                onclick="editItem(
+                  ${item.id},
+                  '${String(item.name || "").replace(/'/g, "\\'")}',
+                  '${String(item.category || "").replace(/'/g, "\\'")}',
+                  ${item.cost_price || 0},
+                  ${item.selling_price || 0}
+                )">
+                ✏️ Edit
+              </button>
+
+              <button
+                class="del"
+                onclick="deleteItem(${item.id})">
+                Delete
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+    });
+
+  updateDashboard();
 }
 
 
-async function addItem(){
+/* =========================
+   ADD ITEM
+========================= */
 
-  const item={
-    name:document.getElementById("name").value,
-    category:document.getElementById("category").value,
-    quantity:Number(document.getElementById("quantity").value),
-    cost_price:Number(document.getElementById("cost").value),
-    selling_price:Number(document.getElementById("selling").value)
+async function addItem() {
+
+  const name =
+    document.getElementById("name").value.trim();
+
+  const category =
+    document.getElementById("category").value;
+
+  const quantity =
+    Number(
+      document.getElementById("quantity").value
+    );
+
+  const cost =
+    Number(
+      document.getElementById("cost").value
+    );
+
+  const selling =
+    Number(
+      document.getElementById("selling").value
+    );
+
+  if (!name || !category) {
+
+    alert(
+      "Item name fi category guuti."
+    );
+
+    return;
+  }
+
+  const item = {
+
+    name: name,
+
+    category: category,
+
+    quantity: quantity,
+
+    cost_price: cost,
+
+    selling_price: selling
+
   };
 
-  const response=await fetch(
+  const response = await fetch(
     SUPABASE_URL + "/rest/v1/items",
     {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer "+SUPABASE_KEY,
-        "Prefer":"return=minimal"
+      method: "POST",
+
+      headers: {
+
+        "Content-Type":
+          "application/json",
+
+        "apikey":
+          SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " + SUPABASE_KEY,
+
+        "Prefer":
+          "return=minimal"
+
       },
-      body:JSON.stringify(item)
+
+      body:
+        JSON.stringify(item)
     }
   );
 
-  if(response.ok){
+  if (response.ok) {
 
-    alert("Item added successfully!");
+    alert(
+      "Item added successfully!"
+    );
 
-    document.getElementById("name").value="";
-    document.getElementById("category").value="";
-    document.getElementById("quantity").value="";
-    document.getElementById("cost").value="";
-    document.getElementById("selling").value="";
+    document.getElementById(
+      "name"
+    ).value = "";
+
+    document.getElementById(
+      "category"
+    ).value = "";
+
+    document.getElementById(
+      "quantity"
+    ).value = "";
+
+    document.getElementById(
+      "cost"
+    ).value = "";
+
+    document.getElementById(
+      "selling"
+    ).value = "";
 
     loadItems();
 
-  }else{
+  } else {
 
-    alert("Error: "+await response.text());
+    alert(
+      "Add Error: " +
+      await response.text()
+    );
 
   }
 }
 
 
-async function stockIn(id,currentQuantity){
+/* =========================
+   STOCK IN
+========================= */
 
-  const amount=Number(
-    prompt("Meeqa galchita?")
-  );
+async function stockIn(
+  id,
+  currentQuantity
+) {
 
-  if(!amount || amount<=0){
-    alert("Quantity sirrii galchi.");
+  const amount =
+    Number(
+      prompt(
+        "Meeqa galchita?"
+      )
+    );
+
+  if (!amount || amount <= 0) {
+
+    alert(
+      "Quantity sirrii galchi."
+    );
+
     return;
   }
 
   const newQuantity =
-    Number(currentQuantity)+amount;
+    Number(currentQuantity) + amount;
 
-  await updateQuantity(id,newQuantity);
+  await updateQuantity(
+    id,
+    newQuantity
+  );
 }
 
 
-async function stockOut(id,currentQuantity){
+/* =========================
+   STOCK OUT
+========================= */
 
-  const amount=Number(
-    prompt("Meeqa baasta/gurgurta?")
-  );
+async function stockOut(
+  id,
+  currentQuantity
+) {
 
-  if(!amount || amount<=0){
-    alert("Quantity sirrii galchi.");
+  const amount =
+    Number(
+      prompt(
+        "Meeqa baasta/gurgurta?"
+      )
+    );
+
+  if (!amount || amount <= 0) {
+
+    alert(
+      "Quantity sirrii galchi."
+    );
+
     return;
   }
 
-  if(amount>Number(currentQuantity)){
-    alert("Stock gahaa hin qabu!");
+  if (
+    amount >
+    Number(currentQuantity)
+  ) {
+
+    alert(
+      "Stock gahaa hin qabu!"
+    );
+
     return;
   }
 
   const newQuantity =
-    Number(currentQuantity)-amount;
+    Number(currentQuantity) - amount;
 
-  await updateQuantity(id,newQuantity);
+  await updateQuantity(
+    id,
+    newQuantity
+  );
 }
 
 
-async function updateQuantity(id,newQuantity){
+/* =========================
+   UPDATE QUANTITY
+========================= */
 
-  const response=await fetch(
-    SUPABASE_URL + "/rest/v1/items?id=eq."+id,
+async function updateQuantity(
+  id,
+  newQuantity
+) {
+
+  const response = await fetch(
+    SUPABASE_URL +
+    "/rest/v1/items?id=eq." +
+    id,
     {
-      method:"PATCH",
-      headers:{
-        "Content-Type":"application/json",
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer "+SUPABASE_KEY,
-        "Prefer":"return=minimal"
+
+      method: "PATCH",
+
+      headers: {
+
+        "Content-Type":
+          "application/json",
+
+        "apikey":
+          SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " +
+          SUPABASE_KEY,
+
+        "Prefer":
+          "return=minimal"
+
       },
-      body:JSON.stringify({
-        quantity:newQuantity
-      })
+
+      body:
+        JSON.stringify({
+          quantity:
+            newQuantity
+        })
+
     }
   );
 
-  if(response.ok){
+  if (response.ok) {
 
-    alert("Stock updated successfully!");
+    alert(
+      "Stock updated successfully!"
+    );
 
     loadItems();
-updateDashboard();
 
-  }else{
+  } else {
 
-    alert("Error: "+await response.text());
+    alert(
+      "Stock Error: " +
+      await response.text()
+    );
 
   }
 }
 
 
-async function deleteItem(id){
+/* =========================
+   EDIT ITEM
+========================= */
 
-  if(!confirm("Item kana haquu barbaaddaa?")){
+async function editItem(
+  id,
+  oldName,
+  oldCategory,
+  oldCost,
+  oldSelling
+) {
+
+  const newName =
+    prompt(
+      "Maqaa item:",
+      oldName
+    );
+
+  if (newName === null)
+    return;
+
+  const newCategory =
+    prompt(
+      "Category:",
+      oldCategory
+    );
+
+  if (newCategory === null)
+    return;
+
+  const newCost =
+    prompt(
+      "Cost Price:",
+      oldCost
+    );
+
+  if (newCost === null)
+    return;
+
+  const newSelling =
+    prompt(
+      "Selling Price:",
+      oldSelling
+    );
+
+  if (newSelling === null)
+    return;
+
+  const response = await fetch(
+    SUPABASE_URL +
+    "/rest/v1/items?id=eq." +
+    id,
+    {
+
+      method: "PATCH",
+
+      headers: {
+
+        "Content-Type":
+          "application/json",
+
+        "apikey":
+          SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " +
+          SUPABASE_KEY,
+
+        "Prefer":
+          "return=minimal"
+
+      },
+
+      body:
+        JSON.stringify({
+
+          name:
+            newName,
+
+          category:
+            newCategory,
+
+          cost_price:
+            Number(newCost),
+
+          selling_price:
+            Number(newSelling)
+
+        })
+
+    }
+  );
+
+  if (response.ok) {
+
+    alert(
+      "Item updated successfully!"
+    );
+
+    loadItems();
+
+  } else {
+
+    alert(
+      "Edit Error: " +
+      await response.text()
+    );
+
+  }
+}
+
+
+/* =========================
+   DELETE ITEM
+========================= */
+
+async function deleteItem(
+  id
+) {
+
+  if (
+    !confirm(
+      "Item kana haquu barbaaddaa?"
+    )
+  ) {
+
     return;
   }
 
-  const response=await fetch(
-    SUPABASE_URL + "/rest/v1/items?id=eq."+id,
+  const response = await fetch(
+    SUPABASE_URL +
+    "/rest/v1/items?id=eq." +
+    id,
     {
-      method:"DELETE",
-      headers:{
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer "+SUPABASE_KEY
+
+      method: "DELETE",
+
+      headers: {
+
+        "apikey":
+          SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " +
+          SUPABASE_KEY
+
       }
+
     }
   );
 
-  if(response.ok){
+  if (response.ok) {
 
-    alert("Item deleted.");
+    alert(
+      "Item deleted."
+    );
 
     loadItems();
 
-  }else{
+  } else {
 
-    alert("Error: "+await response.text());
+    alert(
+      "Delete Error: " +
+      await response.text()
+    );
 
   }
 }
 
+
+/* =========================
+   DASHBOARD
+========================= */
+
+async function updateDashboard() {
+
+  const response = await fetch(
+    SUPABASE_URL +
+    "/rest/v1/items?select=*",
+    {
+
+      headers: {
+
+        "apikey":
+          SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " +
+          SUPABASE_KEY
+
+      }
+
+    }
+  );
+
+  if (!response.ok) {
+
+    console.log(
+      "Dashboard Error:",
+      await response.text()
+    );
+
+    return;
+  }
+
+  const data =
+    await response.json();
+
+
+  const totalItems =
+    data.length;
+
+
+  const totalQuantity =
+    data.reduce(
+      (sum, item) =>
+        sum +
+        Number(
+          item.quantity || 0
+        ),
+      0
+    );
+
+
+  const stockValue =
+    data.reduce(
+      (sum, item) =>
+        sum +
+        Number(
+          item.quantity || 0
+        ) *
+        Number(
+          item.cost_price || 0
+        ),
+      0
+    );
+
+
+  const expectedProfit =
+    data.reduce(
+      (sum, item) =>
+        sum +
+        Number(
+          item.quantity || 0
+        ) *
+        (
+          Number(
+            item.selling_price || 0
+          ) -
+          Number(
+            item.cost_price || 0
+          )
+        ),
+      0
+    );
+
+
+  document.getElementById(
+    "totalItems"
+  ).textContent =
+    totalItems;
+
+
+  document.getElementById(
+    "totalQuantity"
+  ).textContent =
+    totalQuantity;
+
+
+  document.getElementById(
+    "stockValue"
+  ).textContent =
+    stockValue.toFixed(2);
+
+
+  document.getElementById(
+    "expectedProfit"
+  ).textContent =
+    expectedProfit.toFixed(2);
+}
+
+
+/* =========================
+   START APP
+========================= */
 
 loadItems();
+
+updateDashboard();
 
 </script>
 
