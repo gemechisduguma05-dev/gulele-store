@@ -122,7 +122,50 @@ th{
 
 </div>
 
-<script>
+async function updateDashboard() {
+  const response = await fetch(
+    SUPABASE_URL + "/rest/v1/items?select=quantity,cost_price,selling_price",
+    {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  const totalItems = data.length;
+
+  const totalQuantity = data.reduce(
+    (sum, item) => sum + Number(item.quantity || 0),
+    0
+  );
+
+  const stockValue = data.reduce(
+    (sum, item) =>
+      sum + Number(item.quantity || 0) * Number(item.cost_price || 0),
+    0
+  );
+
+  const expectedProfit = data.reduce(
+    (sum, item) =>
+      sum +
+      Number(item.quantity || 0) *
+      (Number(item.selling_price || 0) -
+       Number(item.cost_price || 0)),
+    0
+  );
+
+  document.getElementById("totalItems").textContent = totalItems;
+  document.getElementById("totalQuantity").textContent = totalQuantity;
+  document.getElementById("stockValue").textContent =
+    stockValue.toFixed(2);
+  document.getElementById("expectedProfit").textContent =
+    expectedProfit.toFixed(2);
+}
+
+updateDashboard();<script>
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
