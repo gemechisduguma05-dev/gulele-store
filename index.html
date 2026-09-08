@@ -1,10 +1,13 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
+<!DOCTYPE html>
+<html lang="en">
 
-«»
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Login</title><style>
+<title>AAFDRMC - Login</title>
+
+<style>
 
 * {
   box-sizing: border-box;
@@ -29,6 +32,7 @@ body {
 h1,
 h2 {
   text-align: center;
+  color: white;
 }
 
 input {
@@ -47,7 +51,7 @@ button {
   border: none;
   border-radius: 7px;
   background: #1e3a8a;
-  color: White;
+  color: white;
   font-size: 16px;
   cursor: pointer;
 }
@@ -59,25 +63,43 @@ button:hover {
 #loginMessage {
   text-align: center;
   margin-top: 15px;
+  color: white;
 }
 
-</style></head><body><div class="login-box">  <h1>🏢 AAFDRMC</h1>  <h2>🔐 Login</h2><input
-id="loginEmail"
-type="email"
-placeholder="Email"
+</style>
+</head>
 
-«»
-<input
-  type="password"
-  id="loginPassword"
-  placeholder="Password"
-  required
->
-«»
+<body>
+
+<div class="login-box">
+
+  <h1>🏢 AAFDRMC</h1>
+
+  <h2>🔐 Login</h2>
+
+  <input
+    id="loginEmail"
+    type="email"
+    placeholder="Email"
+    required
+  >
+
+  <input
+    id="loginPassword"
+    type="password"
+    placeholder="Password"
+    required
+  >
 
   <button onclick="loginUser()">
     🔐 Login
-  </button>  <p id="loginMessage"></p></div><script>
+  </button>
+
+  <p id="loginMessage"></p>
+
+</div>
+
+<script>
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -89,21 +111,13 @@ const SUPABASE_KEY =
 async function loginUser() {
 
   const email =
-    document.getElementById(
-      "loginEmail"
-    ).value.trim();
-
+    document.getElementById("loginEmail").value.trim();
 
   const password =
-    document.getElementById(
-      "loginPassword"
-    ).value;
-
+    document.getElementById("loginPassword").value;
 
   const message =
-    document.getElementById(
-      "loginMessage"
-    );
+    document.getElementById("loginMessage");
 
 
   if (!email || !password) {
@@ -112,7 +126,6 @@ async function loginUser() {
       "Email fi password guuti.";
 
     return;
-
   }
 
 
@@ -120,68 +133,66 @@ async function loginUser() {
     "Login godhaa jira...";
 
 
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/auth/v1/token?grant_type=password",
-      {
+  try {
 
-        method: "POST",
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/auth/v1/token?grant_type=password",
+        {
+          method: "POST",
 
-        headers: {
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY
+          },
 
-          "Content-Type":
-            "application/json",
-
-          "apikey":
-            SUPABASE_KEY
-
-        },
-
-        body:
-          JSON.stringify({
-
-            email:
-              email,
-
-            password:
-              password
-
+          body: JSON.stringify({
+            email: email,
+            password: password
           })
-
-      }
-    );
-
-
-  const data =
-    await response.json();
+        }
+      );
 
 
-  if (response.ok) {
-
-    localStorage.setItem(
-      "access_token",
-      data.access_token
-    );
+    const data =
+      await response.json();
 
 
-    localStorage.setItem(
-      "refresh_token",
-      data.refresh_token
-    );
+    if (response.ok) {
 
+      localStorage.setItem(
+        "access_token",
+        data.access_token
+      );
 
-    window.location.href =
-      "dashboard.html";
+      localStorage.setItem(
+        "refresh_token",
+        data.refresh_token
+      );
 
+      window.location.href =
+        "dashboard.html";
 
-  } else {
+    } else {
+
+      message.textContent =
+        "Email ykn password sirrii miti.";
+
+    }
+
+  } catch (error) {
 
     message.textContent =
-      "Email ykn password sirrii miti.";
+      "Internet ykn Supabase connection rakkoo qaba.";
+
+    console.log(error);
 
   }
 
 }
 
-</script></body></html>
+</script>
+
+</body>
+</html>
