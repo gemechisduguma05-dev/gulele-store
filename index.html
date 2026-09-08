@@ -569,34 +569,66 @@ async function addItem() {
    STOCK IN
 ========================= */
 
-async function stockIn(
-  id,
-  currentQuantity
-) {
+async function stockIn(id, currentQuantity) {
 
-  const amount =
-    Number(
-      prompt(
-        "Meeqa galchita?"
-      )
-    );
+  const amount = Number(prompt("Meeqa galchita?"));
 
   if (!amount || amount <= 0) {
+    alert("Quantity sirrii galchi.");
+    return;
+  }
 
+  const enteredBy = prompt("Maqaa nama galche:");
+
+  if (!enteredBy) {
+    alert("Maqaa nama galche galchi.");
+    return;
+  }
+
+  const expiryDate = prompt(
+    "EX Date galchi (YYYY-MM-DD):"
+  );
+
+  const response = await fetch(
+    SUPABASE_URL + "/rest/v1/stock_transactions",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization":
+          "Bearer " +
+          (localStorage.getItem("access_token") || SUPABASE_KEY),
+        "Prefer": "return=minimal"
+      },
+
+      body: JSON.stringify({
+        item_id: id,
+        quantity: amount,
+        transaction_type: "IN",
+        entered_by: enteredBy,
+        expiry_date: expiryDate || null
+      })
+    }
+  );
+
+  if (!response.ok) {
     alert(
-      "Quantity sirrii galchi."
+      "Stock In Error: " +
+      await response.text()
     );
-
     return;
   }
 
   const newQuantity =
     Number(currentQuantity) + amount;
 
-  await updateQuantity(
-    id,
-    newQuantity
-  );
+  await updateQuantity(id, newQuantity);
+
+  alert("Stock In galmaa'eera!");
+
+  loadItems();
 }
 
 
