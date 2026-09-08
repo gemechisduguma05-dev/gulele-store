@@ -2,6 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Login</title><style>
+
 * {
   box-sizing: border-box;
 }
@@ -65,6 +66,7 @@ body {
   color: red;
   margin-top: 15px;
 }
+
 </style></head><body><div class="login-box">  <h1>🏢 AAFDRMC</h1>  <h2>🔐 Login</h2><input
 id="loginEmail"
 type="email"
@@ -83,12 +85,20 @@ placeholder="Password"
     🔐 Login
   </button>  <p id="loginMessage"></p></div><script>
 
+/* =========================
+   SUPABASE
+========================= */
+
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
+
+/* =========================
+   LOGIN
+========================= */
 
 async function loginUser() {
 
@@ -109,6 +119,9 @@ async function loginUser() {
     return;
   }
 
+  message.textContent =
+    "Logging in...";
+
   const response = await fetch(
     SUPABASE_URL +
     "/auth/v1/token?grant_type=password",
@@ -127,13 +140,19 @@ async function loginUser() {
     }
   );
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
   if (response.ok) {
 
     localStorage.setItem(
       "access_token",
       data.access_token
+    );
+
+    localStorage.setItem(
+      "refresh_token",
+      data.refresh_token
     );
 
     window.location.href =
