@@ -349,17 +349,15 @@ async function loadItems() {
   );
 
   if (!response.ok) {
-
     console.log(
       "Load error:",
       await response.text()
     );
-
     return;
   }
 
   const data = await response.json();
-   
+
   const searchElement =
     document.getElementById("search");
 
@@ -372,7 +370,7 @@ async function loadItems() {
     document.getElementById("itemList");
 
   if (!list) {
-    console.log("itemList table body hin argamne.");
+    console.log("itemList hin argamne.");
     return;
   }
 
@@ -389,79 +387,75 @@ async function loadItems() {
         .includes(search)
     )
     .forEach(item => {
-.forEach(item => {
 
-  list.innerHTML += `
+      list.innerHTML += `
+        <tr>
 
-    <tr>
+          <td>${item.name || ""}</td>
 
-      <td>${item.name || ""}</td>
+          <td>${item.category || ""}</td>
 
-      <td>${item.category || ""}</td>
+          <td>${item.quantity || 0}</td>
 
-      <td>${item.quantity || 0}</td>
+          <td>${item.cost_price || 0}</td>
 
-      <td>${item.cost_price || 0}</td>
+          <td>${item.selling_price || 0}</td>
 
-      <td>${item.selling_price || 0}</td>
+          <td>${item.expiry_date || ""}</td>
 
-      <td>${item.expiry_date || ""}</td>
+          <td>${item.entered_by || ""}</td>
 
-      <td>${item.entered_by || ""}</td>
+          <td>
+            ${
+              item.created_at
+                ? new Date(item.created_at).toLocaleDateString()
+                : ""
+            }
+          </td>
 
-      <td>
-        ${
-          item.created_at
-            ? new Date(item.created_at).toLocaleDateString()
-            : ""
-        }
-      </td>
+          <td>
+            <div class="action">
 
-      <td>
+              <button
+                class="in"
+                onclick="stockIn(${item.id}, ${item.quantity || 0})">
+                + Stock
+              </button>
 
-        <div class="action">
+              <button
+                class="out"
+                onclick="stockOut(${item.id}, ${item.quantity || 0})">
+                - Stock
+              </button>
 
-          <button
-            class="in"
-            onclick="stockIn(${item.id}, ${item.quantity || 0})">
-            + Stock
-          </button>
+              <button
+                class="edit"
+                onclick="editItem(
+                  ${item.id},
+                  '${String(item.name || "").replace(/'/g, "\\'")}',
+                  '${String(item.category || "").replace(/'/g, "\\'")}',
+                  ${item.cost_price || 0},
+                  ${item.selling_price || 0}
+                )">
+                ✏️ Edit
+              </button>
 
-          <button
-            class="out"
-            onclick="stockOut(${item.id}, ${item.quantity || 0})">
-            - Stock
-          </button>
+              <button
+                class="del"
+                onclick="deleteItem(${item.id})">
+                Delete
+              </button>
 
-          <button
-            class="edit"
-            onclick="editItem(
-              ${item.id},
-              '${String(item.name || "").replace(/'/g, "\\'")}',
-              '${String(item.category || "").replace(/'/g, "\\'")}',
-              ${item.cost_price || 0},
-              ${item.selling_price || 0}
-            )">
-            ✏️ Edit
-          </button>
+            </div>
+          </td>
 
-          <button
-            class="del"
-            onclick="deleteItem(${item.id})">
-            Delete
-          </button>
-
-        </div>
-
-      </td>
-
-    </tr>
-
-  `;
-});
+        </tr>
+      `;
+    });
 
   updateDashboard();
 }
+
 /* =========================
    ADD ITEM
 ========================= */
