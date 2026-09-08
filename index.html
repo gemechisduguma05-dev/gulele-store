@@ -1,7 +1,10 @@
-<!DOCTYPE html><html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Login</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+«»
+
+<title>AAFDRMC - Login</title><style>
 
 * {
   box-sizing: border-box;
@@ -9,61 +12,52 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #1e3a8a, #0f766e);
   font-family: Arial, sans-serif;
+  background: #f1f5f9;
 }
 
 .login-box {
   width: 90%;
   max-width: 400px;
+  margin: 80px auto;
   padding: 30px;
   background: white;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
-.login-box h1 {
+h1,
+h2 {
   text-align: center;
-  margin-bottom: 5px;
 }
 
-.login-box h2 {
-  text-align: center;
-  margin-top: 5px;
-  margin-bottom: 25px;
-}
-
-.login-box input {
+input {
   width: 100%;
   padding: 13px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  margin: 8px 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
   font-size: 16px;
 }
 
-.login-box button {
+button {
   width: 100%;
   padding: 13px;
+  margin-top: 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
   background: #1e3a8a;
   color: white;
   font-size: 16px;
   cursor: pointer;
 }
 
-.login-box button:hover {
+button:hover {
   background: #172554;
 }
 
 #loginMessage {
   text-align: center;
-  color: red;
   margin-top: 15px;
 }
 
@@ -85,10 +79,6 @@ placeholder="Password"
     🔐 Login
   </button>  <p id="loginMessage"></p></div><script>
 
-/* =========================
-   SUPABASE
-========================= */
-
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
@@ -96,20 +86,25 @@ const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* =========================
-   LOGIN
-========================= */
-
 async function loginUser() {
 
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document.getElementById(
+      "loginEmail"
+    ).value.trim();
+
 
   const password =
-    document.getElementById("loginPassword").value;
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
 
   const message =
-    document.getElementById("loginMessage");
+    document.getElementById(
+      "loginMessage"
+    );
+
 
   if (!email || !password) {
 
@@ -117,31 +112,50 @@ async function loginUser() {
       "Email fi password guuti.";
 
     return;
+
   }
 
+
   message.textContent =
-    "Logging in...";
+    "Login godhaa jira...";
 
-  const response = await fetch(
-    SUPABASE_URL +
-    "/auth/v1/token?grant_type=password",
-    {
-      method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY
-      },
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/auth/v1/token?grant_type=password",
+      {
 
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    }
-  );
+        method: "POST",
+
+        headers: {
+
+          "Content-Type":
+            "application/json",
+
+          "apikey":
+            SUPABASE_KEY
+
+        },
+
+        body:
+          JSON.stringify({
+
+            email:
+              email,
+
+            password:
+              password
+
+          })
+
+      }
+    );
+
 
   const data =
     await response.json();
+
 
   if (response.ok) {
 
@@ -150,13 +164,16 @@ async function loginUser() {
       data.access_token
     );
 
+
     localStorage.setItem(
       "refresh_token",
       data.refresh_token
     );
 
+
     window.location.href =
       "dashboard.html";
+
 
   } else {
 
@@ -164,7 +181,7 @@ async function loginUser() {
       "Email ykn password sirrii miti.";
 
   }
+
 }
 
-</script></body>
-</html>
+</script></body></html>
