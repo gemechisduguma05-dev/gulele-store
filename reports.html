@@ -1,0 +1,616 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Reports</title><style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+}
+
+header {
+  background: #1e3a8a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 5px 0 0;
+}
+
+nav {
+  background: white;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  background: #e2e8f0;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background: #cbd5e1;
+}
+
+.container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 25px auto;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.box h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.filter-btn {
+  background: #1e3a8a;
+  color: white;
+}
+
+.clear-btn {
+  background: #64748b;
+  color: white;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+th {
+  background: #1e3a8a;
+  color: white;
+  padding: 11px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.in-row {
+  background: #dcfce7 !important;
+}
+
+.out-row {
+  background: #fee2e2 !important;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.card strong {
+  display: block;
+  font-size: 24px;
+  margin-top: 8px;
+}
+
+.logout {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+</style></head><body><header>  <h1>🏢 AAFDRMC</h1>  <p>Stock Management System</p></header><nav>  <a href="dashboard.html">
+    🏠 Dashboard
+  </a>  <a href="items.html">
+    📦 Items
+  </a>  <a href="stock.html">
+    🔄 Stock In / Out
+  </a>  <a href="reports.html">
+    📊 Reports
+  </a>  <a href="settings.html">
+    ⚙️ Settings
+  </a>  <a href="#" class="logout" onclick="logoutUser()">
+    🚪 Logout
+  </a></nav><div class="container"><!-- FILTER --><div class="box">  <h2>🔎 Report Filter</h2>  <div class="filters"><input
+  id="dateFilter"
+  type="date"
+>
+
+<input
+  id="enteredByFilter"
+  placeholder="Entered By"
+>
+
+<select id="typeFilter">
+
+  <option value="">
+    All Transactions
+  </option>
+
+  <option value="IN">
+    📥 Stock In
+  </option>
+
+  <option value="OUT">
+    📤 Stock Out
+  </option>
+
+</select>
+
+<button
+  class="filter-btn"
+  onclick="loadReport()"
+>
+  🔎 Filter
+</button>
+
+<button
+  class="clear-btn"
+  onclick="clearFilters()"
+>
+  🔄 Clear
+</button>
+
+  </div></div><!-- SUMMARY --><div class="summary">  <div class="card">📥 Total IN
+
+<strong id="reportIn">
+  0
+</strong>
+
+  </div>  <div class="card">📤 Total OUT
+
+<strong id="reportOut">
+  0
+</strong>
+
+  </div>  <div class="card">📊 Transactions
+
+<strong id="reportTransactions">
+  0
+</strong>
+
+  </div></div><!-- REPORT TABLE --><div class="box">  <h2>📋 Stock Report</h2>  <div class="table-container"><table>
+
+  <thead>
+
+    <tr>
+
+      <th>Item</th>
+
+      <th>Type</th>
+
+      <th>Quantity</th>
+
+      <th>EX Date</th>
+
+      <th>Entered By</th>
+
+      <th>Date Entered</th>
+
+    </tr>
+
+  </thead>
+
+  <tbody id="reportList"></tbody>
+
+</table>
+
+  </div></div></div><script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+const accessToken =
+  localStorage.getItem("access_token");
+
+if (!accessToken) {
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================
+   LOAD REPORT
+========================= */
+
+async function loadReport() {
+
+  const token =
+    localStorage.getItem(
+      "access_token"
+    ) || SUPABASE_KEY;
+
+
+  const date =
+    document.getElementById(
+      "dateFilter"
+    ).value;
+
+
+  const enteredBy =
+    document.getElementById(
+      "enteredByFilter"
+    ).value
+    .trim()
+    .toLowerCase();
+
+
+  const type =
+    document.getElementById(
+      "typeFilter"
+    ).value;
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions?select=*&order=id.desc",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+
+  if (!response.ok) {
+
+    alert(
+      "Report Error: " +
+      await response.text()
+    );
+
+    return;
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  const filtered =
+    data.filter(transaction => {
+
+
+      /* DATE FILTER */
+
+      if (date) {
+
+        const transactionDate =
+          transaction.created_at
+            ? transaction.created_at.substring(
+                0,
+                10
+              )
+            : "";
+
+        if (
+          transactionDate !== date
+        ) {
+
+          return false;
+
+        }
+
+      }
+
+
+      /* ENTERED BY FILTER */
+
+      if (enteredBy) {
+
+        const name =
+          String(
+            transaction.entered_by || ""
+          )
+          .toLowerCase();
+
+
+        if (
+          !name.includes(
+            enteredBy
+          )
+        ) {
+
+          return false;
+
+        }
+
+      }
+
+
+      /* TYPE FILTER */
+
+      if (
+        type &&
+        transaction.transaction_type !== type
+      ) {
+
+        return false;
+
+      }
+
+
+      return true;
+
+    });
+
+
+  const list =
+    document.getElementById(
+      "reportList"
+    );
+
+
+  list.innerHTML = "";
+
+
+  let totalIn = 0;
+
+  let totalOut = 0;
+
+
+  for (
+    const transaction of filtered
+  ) {
+
+
+    if (
+      transaction.transaction_type === "IN"
+    ) {
+
+      totalIn +=
+        Number(
+          transaction.quantity || 0
+        );
+
+    }
+
+
+    if (
+      transaction.transaction_type === "OUT"
+    ) {
+
+      totalOut +=
+        Number(
+          transaction.quantity || 0
+        );
+
+    }
+
+
+    let itemName = "";
+
+
+    const itemResponse =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/items?id=eq." +
+        transaction.item_id +
+        "&select=name",
+        {
+          headers: {
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " + token
+          }
+        }
+      );
+
+
+    if (itemResponse.ok) {
+
+      const itemData =
+        await itemResponse.json();
+
+      itemName =
+        itemData[0]?.name || "";
+
+    }
+
+
+    const rowClass =
+      transaction.transaction_type === "IN"
+        ? "in-row"
+        : "out-row";
+
+
+    list.innerHTML += `
+
+      <tr class="${rowClass}">
+
+        <td>
+          ${itemName}
+        </td>
+
+        <td>
+          ${
+            transaction.transaction_type === "IN"
+              ? "📥 IN"
+              : "📤 OUT"
+          }
+        </td>
+
+        <td>
+          ${transaction.quantity || 0}
+        </td>
+
+        <td>
+          ${transaction.expiry_date || ""}
+        </td>
+
+        <td>
+          ${transaction.entered_by || ""}
+        </td>
+
+        <td>
+          ${
+            transaction.created_at
+              ? new Date(
+                  transaction.created_at
+                ).toLocaleDateString()
+              : ""
+          }
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+
+  document.getElementById(
+    "reportIn"
+  ).textContent =
+    totalIn;
+
+
+  document.getElementById(
+    "reportOut"
+  ).textContent =
+    totalOut;
+
+
+  document.getElementById(
+    "reportTransactions"
+  ).textContent =
+    filtered.length;
+
+}
+
+
+/* =========================
+   CLEAR FILTERS
+========================= */
+
+function clearFilters() {
+
+  document.getElementById(
+    "dateFilter"
+  ).value = "";
+
+
+  document.getElementById(
+    "enteredByFilter"
+  ).value = "";
+
+
+  document.getElementById(
+    "typeFilter"
+  ).value = "";
+
+
+  loadReport();
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logoutUser() {
+
+  localStorage.removeItem(
+    "access_token"
+  );
+
+  localStorage.removeItem(
+    "refresh_token"
+  );
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadReport();
+
+</script></body>
+</html>
