@@ -1,0 +1,913 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Items</title><style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+}
+
+header {
+  background: #1e3a8a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 5px 0 0;
+}
+
+nav {
+  background: white;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  background: #e2e8f0;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background: #cbd5e1;
+}
+
+.container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 25px auto;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.box h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.box > button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 7px;
+  background: #16a34a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.box > button:hover {
+  background: #15803d;
+}
+
+
+/* TABLE */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 1000px;
+  border-collapse: collapse;
+}
+
+th {
+  background: #1e3a8a;
+  color: white;
+  padding: 11px;
+  text-align: center;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+tbody tr:nth-child(odd) {
+  background: white;
+}
+
+tbody tr:hover {
+  background: #dbeafe;
+}
+
+
+/* ACTION BUTTONS */
+
+.action {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action button {
+  border: none;
+  padding: 7px 9px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action .edit {
+  background: #2563eb;
+  color: white;
+}
+
+.action .del {
+  background: #991b1b;
+  color: white;
+}
+
+
+/* LOGOUT */
+
+.logout {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+</style></head><body><header>  <h1>🏢 AAFDRMC</h1>  <p>Stock Management System</p></header><nav>  <a href="dashboard.html">
+    🏠 Dashboard
+  </a>  <a href="items.html">
+    📦 Items
+  </a>  <a href="stock.html">
+    🔄 Stock In / Out
+  </a>  <a href="reports.html">
+    📊 Reports
+  </a>  <a href="settings.html">
+    ⚙️ Settings
+  </a>  <a href="#" class="logout" onclick="logoutUser()">
+    🚪 Logout
+  </a></nav><div class="container"><!-- ADD ITEM --><div class="box">  <h2>➕ Add New Item</h2><input
+id="name"
+placeholder="Item name"
+
+«»
+
+  <select id="category"><option value="">
+  -- Select Category --
+</option>
+
+<option>
+  Meeshaalee Nyaataa Tarsiimawaa
+</option>
+
+<option>
+  Meeshaalee Nyaataa Guyyaa Guyyaa
+</option>
+
+<option>
+  Meeshaalee Dhugaatii
+</option>
+
+<option>
+  Meeshaalee Manaa
+</option>
+
+<option>
+  Meeshaalee Barnootaa
+</option>
+
+<option>
+  Meeshaalee Qulqullinaa
+</option>
+
+<option>
+  Meeshaalee Daa'immanii
+</option>
+
+<option>
+  Meeshaalee Elektirooniksii
+</option>
+
+<option>
+  Meeshaalee Uffataa
+</option>
+
+<option>
+  Meeshaalee Ijaarsaa
+</option>
+
+<option>
+  Meeshaalee Adda Addaa
+</option>
+
+  </select><input
+id="quantity"
+type="number"
+placeholder="Quantity"
+
+«»
+
+<input
+id="cost"
+type="number"
+step="0.01"
+placeholder="Cost Price"
+
+«»
+
+<input
+id="selling"
+type="number"
+step="0.01"
+placeholder="Selling Price"
+
+«»
+
+<input
+id="expiryDate"
+type="date"
+
+«»
+
+  <button onclick="addItem()">
+    ➕ Add Item
+  </button></div><!-- ITEMS TABLE --><div class="box">  <h2>📦 Stock Items</h2><input
+id="search"
+placeholder="🔎 Search item or category..."
+oninput="loadItems()"
+
+«»
+
+  <div class="table-container"><table>
+
+  <thead>
+
+    <tr>
+
+      <th>Item</th>
+
+      <th>Category</th>
+
+      <th>Quantity</th>
+
+      <th>Cost</th>
+
+      <th>Selling</th>
+
+      <th>EX Date</th>
+
+      <th>Entered By</th>
+
+      <th>Date Entered</th>
+
+      <th>Action</th>
+
+    </tr>
+
+  </thead>
+
+
+  <tbody id="itemList"></tbody>
+
+</table>
+
+  </div></div></div><script>
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+const accessToken =
+  localStorage.getItem("access_token");
+
+if (!accessToken) {
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================
+   LOAD ITEMS
+========================= */
+
+async function loadItems() {
+
+  const token =
+    localStorage.getItem("access_token")
+    || SUPABASE_KEY;
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items?select=*&order=id.desc",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+
+  if (!response.ok) {
+
+    console.log(
+      "Load error:",
+      await response.text()
+    );
+
+    return;
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  const searchElement =
+    document.getElementById("search");
+
+
+  const search =
+    searchElement
+      ? searchElement.value.toLowerCase()
+      : "";
+
+
+  const list =
+    document.getElementById("itemList");
+
+
+  list.innerHTML = "";
+
+
+  data
+    .filter(item =>
+
+      String(item.name || "")
+        .toLowerCase()
+        .includes(search)
+
+      ||
+
+      String(item.category || "")
+        .toLowerCase()
+        .includes(search)
+
+    )
+
+
+    .forEach(item => {
+
+
+      list.innerHTML += `
+
+        <tr>
+
+          <td>
+            ${item.name || ""}
+          </td>
+
+          <td>
+            ${item.category || ""}
+          </td>
+
+          <td>
+            ${item.quantity || 0}
+          </td>
+
+          <td>
+            ${item.cost_price || 0}
+          </td>
+
+          <td>
+            ${item.selling_price || 0}
+          </td>
+
+          <td>
+            ${item.expiry_date || ""}
+          </td>
+
+          <td>
+            ${item.entered_by || ""}
+          </td>
+
+          <td>
+
+            ${
+              item.created_at
+
+                ? new Date(
+                    item.created_at
+                  ).toLocaleDateString()
+
+                : ""
+
+            }
+
+          </td>
+
+
+          <td>
+
+            <div class="action">
+
+              <button
+                class="edit"
+                onclick="editItem(
+                  ${item.id},
+                  '${String(item.name || "").replace(/'/g, "\\'")}',
+                  '${String(item.category || "").replace(/'/g, "\\'")}',
+                  ${item.cost_price || 0},
+                  ${item.selling_price || 0}
+                )">
+
+                ✏️ Edit
+
+              </button>
+
+
+              <button
+                class="del"
+                onclick="deleteItem(${item.id})">
+
+                🗑️ Delete
+
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+}
+
+
+/* =========================
+   ADD ITEM
+========================= */
+
+async function addItem() {
+
+
+  const name =
+    document.getElementById(
+      "name"
+    ).value.trim();
+
+
+  const category =
+    document.getElementById(
+      "category"
+    ).value;
+
+
+  const quantity =
+    Number(
+      document.getElementById(
+        "quantity"
+      ).value
+    );
+
+
+  const cost =
+    Number(
+      document.getElementById(
+        "cost"
+      ).value
+    );
+
+
+  const selling =
+    Number(
+      document.getElementById(
+        "selling"
+      ).value
+    );
+
+
+  const expiryDate =
+    document.getElementById(
+      "expiryDate"
+    ).value;
+
+
+  if (!name || !category) {
+
+    alert(
+      "Item name fi category guuti."
+    );
+
+    return;
+
+  }
+
+
+  const enteredBy =
+    prompt(
+      "Maqaa nama galche:"
+    );
+
+
+  if (!enteredBy) {
+
+    alert(
+      "Maqaa nama galche galchi."
+    );
+
+    return;
+
+  }
+
+
+  const item = {
+
+    name: name,
+
+    category: category,
+
+    quantity: quantity,
+
+    cost_price: cost,
+
+    selling_price: selling,
+
+    expiry_date:
+      expiryDate || null,
+
+    entered_by:
+      enteredBy
+
+  };
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items",
+      {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type":
+            "application/json",
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " +
+            (
+              localStorage.getItem(
+                "access_token"
+              )
+              || SUPABASE_KEY
+            ),
+
+          "Prefer":
+            "return=minimal"
+
+        },
+
+        body:
+          JSON.stringify(item)
+
+      }
+    );
+
+
+  if (response.ok) {
+
+    alert(
+      "Item added successfully!"
+    );
+
+
+    document.getElementById(
+      "name"
+    ).value = "";
+
+
+    document.getElementById(
+      "category"
+    ).value = "";
+
+
+    document.getElementById(
+      "quantity"
+    ).value = "";
+
+
+    document.getElementById(
+      "cost"
+    ).value = "";
+
+
+    document.getElementById(
+      "selling"
+    ).value = "";
+
+
+    document.getElementById(
+      "expiryDate"
+    ).value = "";
+
+
+    loadItems();
+
+
+  } else {
+
+    alert(
+      "Add Error: " +
+      await response.text()
+    );
+
+  }
+
+}
+
+
+/* =========================
+   EDIT ITEM
+========================= */
+
+async function editItem(
+  id,
+  oldName,
+  oldCategory,
+  oldCost,
+  oldSelling
+) {
+
+
+  const newName =
+    prompt(
+      "Maqaa item:",
+      oldName
+    );
+
+
+  if (newName === null)
+    return;
+
+
+  const newCategory =
+    prompt(
+      "Category:",
+      oldCategory
+    );
+
+
+  if (newCategory === null)
+    return;
+
+
+  const newCost =
+    prompt(
+      "Cost Price:",
+      oldCost
+    );
+
+
+  if (newCost === null)
+    return;
+
+
+  const newSelling =
+    prompt(
+      "Selling Price:",
+      oldSelling
+    );
+
+
+  if (newSelling === null)
+    return;
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      id,
+      {
+
+        method: "PATCH",
+
+        headers: {
+
+          "Content-Type":
+            "application/json",
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " +
+            (
+              localStorage.getItem(
+                "access_token"
+              )
+              || SUPABASE_KEY
+            ),
+
+          "Prefer":
+            "return=minimal"
+
+        },
+
+        body:
+          JSON.stringify({
+
+            name:
+              newName,
+
+            category:
+              newCategory,
+
+            cost_price:
+              Number(newCost),
+
+            selling_price:
+              Number(newSelling)
+
+          })
+
+      }
+    );
+
+
+  if (response.ok) {
+
+    alert(
+      "Item updated successfully!"
+    );
+
+    loadItems();
+
+  } else {
+
+    alert(
+      "Edit Error: " +
+      await response.text()
+    );
+
+  }
+
+}
+
+
+/* =========================
+   DELETE ITEM
+========================= */
+
+async function deleteItem(id) {
+
+
+  if (
+    !confirm(
+      "Item kana haquu barbaaddaa?"
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      id,
+      {
+
+        method: "DELETE",
+
+        headers: {
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " +
+            (
+              localStorage.getItem(
+                "access_token"
+              )
+              || SUPABASE_KEY
+            )
+
+        }
+
+      }
+    );
+
+
+  if (response.ok) {
+
+    alert(
+      "Item deleted."
+    );
+
+    loadItems();
+
+  } else {
+
+    alert(
+      "Delete Error: " +
+      await response.text()
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logoutUser() {
+
+  localStorage.removeItem(
+    "access_token"
+  );
+
+  localStorage.removeItem(
+    "refresh_token"
+  );
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadItems();
+
+</script></body>
+</html>
