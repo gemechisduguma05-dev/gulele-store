@@ -332,8 +332,10 @@ const SUPABASE_KEY =
 /* =========================
    LOAD ITEMS
 ========================= */
-
 async function loadItems() {
+
+  const accessToken =
+    localStorage.getItem("access_token") || SUPABASE_KEY;
 
   const response = await fetch(
     SUPABASE_URL +
@@ -341,8 +343,7 @@ async function loadItems() {
     {
       headers: {
         "apikey": SUPABASE_KEY,
-        "Authorization":
-          "Bearer " + SUPABASE_KEY
+        "Authorization": "Bearer " + accessToken
       }
     }
   );
@@ -359,14 +360,21 @@ async function loadItems() {
 
   const data = await response.json();
 
+  const searchElement =
+    document.getElementById("search");
+
   const search =
-    document
-      .getElementById("search")
-      .value
-      .toLowerCase();
+    searchElement
+      ? searchElement.value.toLowerCase()
+      : "";
 
   const list =
     document.getElementById("itemList");
+
+  if (!list) {
+    console.log("itemList table body hin argamne.");
+    return;
+  }
 
   list.innerHTML = "";
 
@@ -386,45 +394,28 @@ async function loadItems() {
 
         <tr>
 
-          <td>
-            ${item.name || ""}
-          </td>
+          <td>${item.name || ""}</td>
+
+          <td>${item.category || ""}</td>
+
+          <td>${item.quantity || 0}</td>
+
+          <td>${item.cost_price || 0}</td>
+
+          <td>${item.selling_price || 0}</td>
 
           <td>
-            ${item.category || ""}
-          </td>
-
-          <td>
-            ${item.quantity || 0}
-          </td>
-
-          <td>
-            ${item.cost_price || 0}
-          </td>
-
-          <td>
-            ${item.selling_price || 0}
-          </td>
-
-          <td>
-
             <div class="action">
 
               <button
                 class="in"
-                onclick="stockIn(
-                  ${item.id},
-                  ${item.quantity || 0}
-                )">
+                onclick="stockIn(${item.id}, ${item.quantity || 0})">
                 + Stock
               </button>
 
               <button
                 class="out"
-                onclick="stockOut(
-                  ${item.id},
-                  ${item.quantity || 0}
-                )">
+                onclick="stockOut(${item.id}, ${item.quantity || 0})">
                 - Stock
               </button>
 
@@ -447,7 +438,6 @@ async function loadItems() {
               </button>
 
             </div>
-
           </td>
 
         </tr>
@@ -457,8 +447,6 @@ async function loadItems() {
 
   updateDashboard();
 }
-
-
 /* =========================
    ADD ITEM
 ========================= */
