@@ -919,7 +919,33 @@ async function deleteItem(
 ========================= */
 
 async function updateDashboard() {
+const stockInResponse = await fetch(
+  SUPABASE_URL +
+  "/rest/v1/stock_transactions?transaction_type=eq.IN&select=quantity",
+  {
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization":
+        "Bearer " +
+        (localStorage.getItem("access_token") || SUPABASE_KEY)
+    }
+  }
+);
 
+let totalStockIn = 0;
+
+if (stockInResponse.ok) {
+  const stockInData = await stockInResponse.json();
+
+  totalStockIn = stockInData.reduce(
+    (sum, row) =>
+      sum + Number(row.quantity || 0),
+    0
+  );
+}
+
+document.getElementById("totalStockIn").textContent =
+  totalStockIn;
   const response = await fetch(
     SUPABASE_URL +
     "/rest/v1/items?select=*",
