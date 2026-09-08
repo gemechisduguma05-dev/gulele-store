@@ -389,61 +389,76 @@ async function loadItems() {
         .includes(search)
     )
     .forEach(item => {
+.forEach(item => {
 
-      list.innerHTML += `
+  list.innerHTML += `
 
-        <tr>
+    <tr>
 
-          <td>${item.name || ""}</td>
+      <td>${item.name || ""}</td>
 
-          <td>${item.category || ""}</td>
+      <td>${item.category || ""}</td>
 
-          <td>${item.quantity || 0}</td>
+      <td>${item.quantity || 0}</td>
 
-          <td>${item.cost_price || 0}</td>
+      <td>${item.cost_price || 0}</td>
 
-          <td>${item.selling_price || 0}</td>
+      <td>${item.selling_price || 0}</td>
 
-          <td>
-            <div class="action">
+      <td>${item.expiry_date || ""}</td>
 
-              <button
-                class="in"
-                onclick="stockIn(${item.id}, ${item.quantity || 0})">
-                + Stock
-              </button>
+      <td>${item.entered_by || ""}</td>
 
-              <button
-                class="out"
-                onclick="stockOut(${item.id}, ${item.quantity || 0})">
-                - Stock
-              </button>
+      <td>
+        ${
+          item.created_at
+            ? new Date(item.created_at).toLocaleDateString()
+            : ""
+        }
+      </td>
 
-              <button
-                class="edit"
-                onclick="editItem(
-                  ${item.id},
-                  '${String(item.name || "").replace(/'/g, "\\'")}',
-                  '${String(item.category || "").replace(/'/g, "\\'")}',
-                  ${item.cost_price || 0},
-                  ${item.selling_price || 0}
-                )">
-                ✏️ Edit
-              </button>
+      <td>
 
-              <button
-                class="del"
-                onclick="deleteItem(${item.id})">
-                Delete
-              </button>
+        <div class="action">
 
-            </div>
-          </td>
+          <button
+            class="in"
+            onclick="stockIn(${item.id}, ${item.quantity || 0})">
+            + Stock
+          </button>
 
-        </tr>
+          <button
+            class="out"
+            onclick="stockOut(${item.id}, ${item.quantity || 0})">
+            - Stock
+          </button>
 
-      `;
-    });
+          <button
+            class="edit"
+            onclick="editItem(
+              ${item.id},
+              '${String(item.name || "").replace(/'/g, "\\'")}',
+              '${String(item.category || "").replace(/'/g, "\\'")}',
+              ${item.cost_price || 0},
+              ${item.selling_price || 0}
+            )">
+            ✏️ Edit
+          </button>
+
+          <button
+            class="del"
+            onclick="deleteItem(${item.id})">
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    </tr>
+
+  `;
+});
 
   updateDashboard();
 }
