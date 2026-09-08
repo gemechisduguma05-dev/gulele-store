@@ -919,34 +919,10 @@ async function deleteItem(
 ========================= */
 async function updateDashboard() {
 
+  // =========================
   // TOTAL STOCK IN
-  const stockInResponse = await fetch(
-  SUPABASE_URL +
-  "/rest/v1/stock_transactions?transaction_type=eq.IN&select=quantity",
-  {
-    headers: {
-      "apikey": SUPABASE_KEY,
-      "Authorization":
-        "Bearer " +
-        (localStorage.getItem("access_token") || SUPABASE_KEY)
-    }
-  }
-);
+  // =========================
 
-let totalStockIn = 0;
-
-if (stockInResponse.ok) {
-  const stockInData = await stockInResponse.json();
-
-  totalStockIn = stockInData.reduce(
-    (sum, row) =>
-      sum + Number(row.quantity || 0),
-    0
-  );
-}
-
-document.getElementById("totalStockIn").textContent =
-  totalStockIn;
   const stockInResponse = await fetch(
     SUPABASE_URL +
     "/rest/v1/stock_transactions?transaction_type=eq.IN&select=quantity",
@@ -984,7 +960,10 @@ document.getElementById("totalStockIn").textContent =
   }
 
 
+  // =========================
   // ITEMS
+  // =========================
+
   const response = await fetch(
     SUPABASE_URL +
     "/rest/v1/items?select=*",
@@ -992,7 +971,8 @@ document.getElementById("totalStockIn").textContent =
       headers: {
         "apikey": SUPABASE_KEY,
         "Authorization":
-          "Bearer " + SUPABASE_KEY
+          "Bearer " +
+          (localStorage.getItem("access_token") || SUPABASE_KEY)
       }
     }
   );
@@ -1011,12 +991,18 @@ document.getElementById("totalStockIn").textContent =
     await response.json();
 
 
+  // =========================
   // TOTAL ITEMS
+  // =========================
+
   const totalItems =
     data.length;
 
 
+  // =========================
   // TOTAL QUANTITY
+  // =========================
+
   const totalQuantity =
     data.reduce(
       (sum, item) =>
@@ -1025,7 +1011,10 @@ document.getElementById("totalStockIn").textContent =
     );
 
 
+  // =========================
   // STOCK VALUE
+  // =========================
+
   const stockValue =
     data.reduce(
       (sum, item) =>
@@ -1036,7 +1025,10 @@ document.getElementById("totalStockIn").textContent =
     );
 
 
+  // =========================
   // EXPECTED PROFIT
+  // =========================
+
   const expectedProfit =
     data.reduce(
       (sum, item) =>
@@ -1049,6 +1041,10 @@ document.getElementById("totalStockIn").textContent =
       0
     );
 
+
+  // =========================
+  // SHOW DASHBOARD
+  // =========================
 
   document.getElementById(
     "totalItems"
@@ -1072,8 +1068,8 @@ document.getElementById("totalStockIn").textContent =
     "expectedProfit"
   ).textContent =
     expectedProfit.toFixed(2);
-}
-
+}     
+        
 
 
 /* =========================
