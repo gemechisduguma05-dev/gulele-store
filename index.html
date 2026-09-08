@@ -1,261 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC</title>
-
-<style>
-/* STOCK TABLE */
-.box table {
-  width: 100%;
-  border-collapse: collapse;
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Login</title><style>
+* {
+  box-sizing: border-box;
 }
 
-.box table th {
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3a8a, #0f766e);
+  font-family: Arial, sans-serif;
+}
+
+.login-box {
+  width: 90%;
+  max-width: 400px;
+  padding: 30px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.login-box h1 {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
   background: #1e3a8a;
   color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-.box table td {
-  padding: 9px;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-}
-
-/* Row colors */
-.box table tbody tr:nth-child(even) {
-  background: #f1f5f9;
-}
-
-.box table tbody tr:nth-child(odd) {
-  background: #ffffff;
-}
-
-.box table tbody tr:hover {
-  background: #dbeafe;
-}
-
-/* Buttons */
-.action {
-  display: flex;
-  gap: 5px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.action button {
-  border: none;
-  padding: 6px 9px;
-  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
 }
 
-.action .in {
-  background: #16a34a;
-  color: white;
+.login-box button:hover {
+  background: #172554;
 }
 
-.action .out {
-  background: #dc2626;
-  color: white;
+#loginMessage {
+  text-align: center;
+  color: red;
+  margin-top: 15px;
 }
+</style></head><body><div class="login-box">  <h1>🏢 AAFDRMC</h1>  <h2>🔐 Login</h2><input
+id="loginEmail"
+type="email"
+placeholder="Email"
 
-.action .edit {
-  background: #2563eb;
-  color: white;
-}
+«»
 
-.action .del {
-  background: #991b1b;
-  color: white;
-}
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
 
-
-</style>
-</head>
-
-<body>
- <div id="loginPage" style="
-  max-width:400px;
-  margin:80px auto;
-  padding:25px;
-  background:white;
-  border-radius:15px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.15);
-">
-
-  <h1 style="text-align:center;">🏢 AAFDRMC</h1>
-  <h2 style="text-align:center;">Login</h2>
-
-  <input
-    id="loginEmail"
-    type="email"
-    placeholder="Email"
-  >
-
-  <input
-    id="loginPassword"
-    type="password"
-    placeholder="Password"
-  >
+«»
 
   <button onclick="loginUser()">
     🔐 Login
-  </button>
-
-  <p id="loginMessage"
-     style="text-align:center;"></p>
-
-</div>
-
-<div id="appContent">
-
-<header>
-  <h1>🏢 AAFDRMC</h1>
-  <p>Stock Management System</p>
-</header>
-
-<div class="container">
-
-<!-- DASHBOARD -->
-<div class="box">
-  <h2>📊 Dashboard</h2>
-
-  <div class="dashboard">
-
-    <div class="card">
-      Total Items
-      <strong id="totalItems">0</strong>
-    </div>
-<div class="card">
-  📥 Total Stock In
-  <strong id="totalStockIn">0</strong>
-</div>
-    <div class="card">
-      Total Quantity
-      <strong id="totalQuantity">0</strong>
-    </div>
-
-    <div class="card">
-      Stock Value
-      <strong id="stockValue">0.00</strong>
-    </div>
-
-    <div class="card">
-      Expected Profit
-      <strong id="expectedProfit">0.00</strong>
-    </div>
-
-  </div>
-</div>
-
-<!-- ADD ITEM -->
-<div class="box">
-
-  <h2>➕ Add New Item</h2>
-
-  <input
-    id="name"
-    placeholder="Item name"
-  >
-
-  <select id="category">
-
-    <option value="">
-      -- Select Category --
-    </option>
-
-    <option>Meeshaalee Nyaataa Tarsiimawaa</option>
-    <option>Meeshaalee Nyaataa Guyyaa Guyyaa</option>
-    <option>Meeshaalee Dhugaatii</option>
-    <option>Meeshaalee Manaa</option>
-    <option>Meeshaalee Barnootaa</option>
-    <option>Meeshaalee Qulqullinaa</option>
-    <option>Meeshaalee Daa'immanii</option>
-    <option>Meeshaalee Elektirooniksii</option>
-    <option>Meeshaalee Uffataa</option>
-    <option>Meeshaalee Ijaarsaa</option>
-    <option>Meeshaalee Adda Addaa</option>
-
-  </select>
-
-  <input
-    id="quantity"
-    type="number"
-    placeholder="Quantity"
-  >
-
-  <input
-    id="cost"
-    type="number"
-    step="0.01"
-    placeholder="Cost Price"
-  >
-
-  <input
-    id="selling"
-    type="number"
-    step="0.01"
-    placeholder="Selling Price"
-  >
-<input
-  id="expiryDate"
-  type="date"
->
-  <button onclick="addItem()">
-    Add Item
-  </button>
-
-</div>
-
-<!-- ITEMS -->
-<div class="box">
-
-  <h2>📦 Stock</h2>
-
-  <input
-    id="search"
-    placeholder="🔎 Search item..."
-    oninput="loadItems()"
-  >
-
-  <table>
-
-    <thead>
-
-      <tr>
-        <th>Item</th>
-        <th>Category</th>
-        <th>Quantity</th>
-        <th>Cost</th>
-        <th>Selling</th>
-        <th>EX Date</th>
-<th>Entered By</th>
-<th>Date Entered</th>
-        <th>Action</th>
-      </tr>
-
-    </thead>
-
-    <tbody id="itemList"></tbody>
-
-  </table>
-
-</div>
-
-</div>
-
-  </div>
-
-<script>
-
-/* =========================
-   SUPABASE
-========================= */
+  </button>  <p id="loginMessage"></p></div><script>
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -263,756 +89,6 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
-
-/* =========================
-   LOAD ITEMS
-========================= */
-async function loadItems() {
-
-  const accessToken =
-    localStorage.getItem("access_token") || SUPABASE_KEY;
-
-  const response = await fetch(
-    SUPABASE_URL +
-    "/rest/v1/items?select=*&order=id.desc",
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + accessToken
-      }
-    }
-  );
-
-  if (!response.ok) {
-    console.log(
-      "Load error:",
-      await response.text()
-    );
-    return;
-  }
-
-  const data = await response.json();
-
-  const searchElement =
-    document.getElementById("search");
-
-  const search =
-    searchElement
-      ? searchElement.value.toLowerCase()
-      : "";
-
-  const list =
-    document.getElementById("itemList");
-
-  if (!list) {
-    console.log("itemList hin argamne.");
-    return;
-  }
-
-  list.innerHTML = "";
-
-  data
-    .filter(item =>
-      String(item.name || "")
-        .toLowerCase()
-        .includes(search) ||
-
-      String(item.category || "")
-        .toLowerCase()
-        .includes(search)
-    )
-    .forEach(item => {
-
-      list.innerHTML += `
-        <tr>
-
-          <td>${item.name || ""}</td>
-
-          <td>${item.category || ""}</td>
-
-          <td>${item.quantity || 0}</td>
-
-          <td>${item.cost_price || 0}</td>
-
-          <td>${item.selling_price || 0}</td>
-
-          <td>${item.expiry_date || ""}</td>
-
-          <td>${item.entered_by || ""}</td>
-
-          <td>
-            ${
-              item.created_at
-                ? new Date(item.created_at).toLocaleDateString()
-                : ""
-            }
-          </td>
-
-          <td>
-            <div class="action">
-
-              <button
-                class="in"
-                onclick="stockIn(${item.id}, ${item.quantity || 0})">
-                + Stock
-              </button>
-
-              <button
-                class="out"
-                onclick="stockOut(${item.id}, ${item.quantity || 0})">
-                - Stock
-              </button>
-
-              <button
-                class="edit"
-                onclick="editItem(
-                  ${item.id},
-                  '${String(item.name || "").replace(/'/g, "\\'")}',
-                  '${String(item.category || "").replace(/'/g, "\\'")}',
-                  ${item.cost_price || 0},
-                  ${item.selling_price || 0}
-                )">
-                ✏️ Edit
-              </button>
-
-              <button
-                class="del"
-                onclick="deleteItem(${item.id})">
-                Delete
-              </button>
-
-            </div>
-          </td>
-
-        </tr>
-      `;
-    });
-
-  updateDashboard();
-}
-
-/* =========================
-   ADD ITEM
-========================= */
-
-async function addItem() {
-
-  const name =
-    document.getElementById("name").value.trim();
-
-  const category =
-    document.getElementById("category").value;
-
-  const quantity =
-    Number(
-      document.getElementById("quantity").value
-    );
-
-  const cost =
-    Number(
-      document.getElementById("cost").value
-    );
-
-  const selling =
-    Number(
-      document.getElementById("selling").value
-    );
-
-  if (!name || !category) {
-
-    alert(
-      "Item name fi category guuti."
-    );
-
-    return;
-  }
-
-  const item = {
-
-    name: name,
-
-    category: category,
-
-    quantity: quantity,
-
-    cost_price: cost,
-
-    selling_price: selling
-
-  };
-
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/items",
-    {
-      method: "POST",
-
-      headers: {
-
-        "Content-Type":
-          "application/json",
-
-        "apikey":
-          SUPABASE_KEY,
-
-        "Authorization":
-          "Bearer " + SUPABASE_KEY,
-
-        "Prefer":
-          "return=minimal"
-
-      },
-
-      body:
-        JSON.stringify(item)
-    }
-  );
-
-  if (response.ok) {
-
-    alert(
-      "Item added successfully!"
-    );
-
-    document.getElementById(
-      "name"
-    ).value = "";
-
-    document.getElementById(
-      "category"
-    ).value = "";
-
-    document.getElementById(
-      "quantity"
-    ).value = "";
-
-    document.getElementById(
-      "cost"
-    ).value = "";
-
-    document.getElementById(
-      "selling"
-    ).value = "";
-
-    loadItems();
-
-  } else {
-
-    alert(
-      "Add Error: " +
-      await response.text()
-    );
-
-  }
-}
-
-
-/* =========================
-   STOCK IN
-========================= */
-
-async function stockIn(id, currentQuantity) {
-
-  const amount = Number(prompt("Meeqa galchita?"));
-
-  if (!amount || amount <= 0) {
-    alert("Quantity sirrii galchi.");
-    return;
-  }
-
-  const enteredBy = prompt("Maqaa nama galche:");
-
-  if (!enteredBy) {
-    alert("Maqaa nama galche galchi.");
-    return;
-  }
-
-  const expiryDate = prompt(
-    "EX Date galchi (YYYY-MM-DD):"
-  );
-
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/stock_transactions",
-    {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
-        "Authorization":
-          "Bearer " +
-          (localStorage.getItem("access_token") || SUPABASE_KEY),
-        "Prefer": "return=minimal"
-      },
-
-      body: JSON.stringify({
-        item_id: id,
-        quantity: amount,
-        transaction_type: "IN",
-        entered_by: enteredBy,
-        expiry_date: expiryDate || null
-      })
-    }
-  );
-
-  if (!response.ok) {
-    alert(
-      "Stock In Error: " +
-      await response.text()
-    );
-    return;
-  }
-
-  const newQuantity =
-    Number(currentQuantity) + amount;
-
-  await updateQuantity(id, newQuantity);
-
-  alert("Stock In galmaa'eera!");
-
-  loadItems();
-}
-
-
-/* =========================
-   STOCK OUT
-========================= */
-
-async function stockOut(
-  id,
-  currentQuantity
-) {
-
-  const amount =
-    Number(
-      prompt(
-        "Meeqa baasta/gurgurta?"
-      )
-    );
-
-  if (!amount || amount <= 0) {
-
-    alert(
-      "Quantity sirrii galchi."
-    );
-
-    return;
-  }
-
-  if (
-    amount >
-    Number(currentQuantity)
-  ) {
-
-    alert(
-      "Stock gahaa hin qabu!"
-    );
-
-    return;
-  }
-
-  const newQuantity =
-    Number(currentQuantity) - amount;
-
-  await updateQuantity(
-    id,
-    newQuantity
-  );
-}
-
-
-/* =========================
-   UPDATE QUANTITY
-========================= */
-
-async function updateQuantity(
-  id,
-  newQuantity
-) {
-
-  const response = await fetch(
-    SUPABASE_URL +
-    "/rest/v1/items?id=eq." +
-    id,
-    {
-
-      method: "PATCH",
-
-      headers: {
-
-        "Content-Type":
-          "application/json",
-
-        "apikey":
-          SUPABASE_KEY,
-
-        "Authorization":
-          "Bearer " +
-          SUPABASE_KEY,
-
-        "Prefer":
-          "return=minimal"
-
-      },
-
-      body:
-        JSON.stringify({
-          quantity:
-            newQuantity
-        })
-
-    }
-  );
-
-  if (response.ok) {
-
-    alert(
-      "Stock updated successfully!"
-    );
-
-    loadItems();
-
-  } else {
-
-    alert(
-      "Stock Error: " +
-      await response.text()
-    );
-
-  }
-}
-
-
-/* =========================
-   EDIT ITEM
-========================= */
-
-async function editItem(
-  id,
-  oldName,
-  oldCategory,
-  oldCost,
-  oldSelling
-) {
-
-  const newName =
-    prompt(
-      "Maqaa item:",
-      oldName
-    );
-
-  if (newName === null)
-    return;
-
-  const newCategory =
-    prompt(
-      "Category:",
-      oldCategory
-    );
-
-  if (newCategory === null)
-    return;
-
-  const newCost =
-    prompt(
-      "Cost Price:",
-      oldCost
-    );
-
-  if (newCost === null)
-    return;
-
-  const newSelling =
-    prompt(
-      "Selling Price:",
-      oldSelling
-    );
-
-  if (newSelling === null)
-    return;
-
-  const response = await fetch(
-    SUPABASE_URL +
-    "/rest/v1/items?id=eq." +
-    id,
-    {
-
-      method: "PATCH",
-
-      headers: {
-
-        "Content-Type":
-          "application/json",
-
-        "apikey":
-          SUPABASE_KEY,
-
-        "Authorization":
-          "Bearer " +
-          SUPABASE_KEY,
-
-        "Prefer":
-          "return=minimal"
-
-      },
-
-      body:
-        JSON.stringify({
-
-          name:
-            newName,
-
-          category:
-            newCategory,
-
-          cost_price:
-            Number(newCost),
-
-          selling_price:
-            Number(newSelling)
-
-        })
-
-    }
-  );
-
-  if (response.ok) {
-
-    alert(
-      "Item updated successfully!"
-    );
-
-    loadItems();
-
-  } else {
-
-    alert(
-      "Edit Error: " +
-      await response.text()
-    );
-
-  }
-}
-
-
-/* =========================
-   DELETE ITEM
-========================= */
-
-async function deleteItem(
-  id
-) {
-
-  if (
-    !confirm(
-      "Item kana haquu barbaaddaa?"
-    )
-  ) {
-
-    return;
-  }
-
-  const response = await fetch(
-    SUPABASE_URL +
-    "/rest/v1/items?id=eq." +
-    id,
-    {
-
-      method: "DELETE",
-
-      headers: {
-
-        "apikey":
-          SUPABASE_KEY,
-
-        "Authorization":
-          "Bearer " +
-          SUPABASE_KEY
-
-      }
-
-    }
-  );
-
-  if (response.ok) {
-
-    alert(
-      "Item deleted."
-    );
-
-    loadItems();
-
-  } else {
-
-    alert(
-      "Delete Error: " +
-      await response.text()
-    );
-
-  }
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-async function updateDashboard() {
-
-  // =========================
-  // TOTAL STOCK IN
-  // =========================
-
-  const stockInResponse = await fetch(
-    SUPABASE_URL +
-    "/rest/v1/stock_transactions?transaction_type=eq.IN&select=quantity",
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization":
-          "Bearer " +
-          (localStorage.getItem("access_token") || SUPABASE_KEY)
-      }
-    }
-  );
-
-  let totalStockIn = 0;
-
-  if (stockInResponse.ok) {
-
-    const stockInData =
-      await stockInResponse.json();
-
-    totalStockIn =
-      stockInData.reduce(
-        (sum, row) =>
-          sum + Number(row.quantity || 0),
-        0
-      );
-  }
-
-  const stockInElement =
-    document.getElementById("totalStockIn");
-
-  if (stockInElement) {
-    stockInElement.textContent =
-      totalStockIn;
-  }
-
-
-  // =========================
-  // ITEMS
-  // =========================
-
-  const response = await fetch(
-    SUPABASE_URL +
-    "/rest/v1/items?select=*",
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization":
-          "Bearer " +
-          (localStorage.getItem("access_token") || SUPABASE_KEY)
-      }
-    }
-  );
-
-  if (!response.ok) {
-
-    console.log(
-      "Dashboard Error:",
-      await response.text()
-    );
-
-    return;
-  }
-
-  const data =
-    await response.json();
-
-
-  // =========================
-  // TOTAL ITEMS
-  // =========================
-
-  const totalItems =
-    data.length;
-
-
-  // =========================
-  // TOTAL QUANTITY
-  // =========================
-
-  const totalQuantity =
-    data.reduce(
-      (sum, item) =>
-        sum + Number(item.quantity || 0),
-      0
-    );
-
-
-  // =========================
-  // STOCK VALUE
-  // =========================
-
-  const stockValue =
-    data.reduce(
-      (sum, item) =>
-        sum +
-        Number(item.quantity || 0) *
-        Number(item.cost_price || 0),
-      0
-    );
-
-
-  // =========================
-  // EXPECTED PROFIT
-  // =========================
-
-  const expectedProfit =
-    data.reduce(
-      (sum, item) =>
-        sum +
-        Number(item.quantity || 0) *
-        (
-          Number(item.selling_price || 0) -
-          Number(item.cost_price || 0)
-        ),
-      0
-    );
-
-
-  // =========================
-  // SHOW DASHBOARD
-  // =========================
-
-  document.getElementById(
-    "totalItems"
-  ).textContent =
-    totalItems;
-
-
-  document.getElementById(
-    "totalQuantity"
-  ).textContent =
-    totalQuantity;
-
-
-  document.getElementById(
-    "stockValue"
-  ).textContent =
-    stockValue.toFixed(2);
-
-
-  document.getElementById(
-    "expectedProfit"
-  ).textContent =
-    expectedProfit.toFixed(2);
-}     
-        
-
-
-/* =========================
-   START APP
-========================= */
 
 async function loginUser() {
 
@@ -1026,8 +102,10 @@ async function loginUser() {
     document.getElementById("loginMessage");
 
   if (!email || !password) {
+
     message.textContent =
       "Email fi password guuti.";
+
     return;
   }
 
@@ -1058,18 +136,8 @@ async function loginUser() {
       data.access_token
     );
 
-    document.getElementById(
-      "loginPage"
-    ).style.display = "none";
-
-    document.getElementById(
-      "appContent"
-    ).style.display = "block";
-
-    message.textContent = "";
-
-    loadItems();
-    updateDashboard();
+    window.location.href =
+      "dashboard.html";
 
   } else {
 
@@ -1078,9 +146,6 @@ async function loginUser() {
 
   }
 }
-</script>
 
-</div>
-
-</body>
-</html>>
+</script></body>
+</html>
