@@ -1,0 +1,965 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Stock In / Out</title><style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+}
+
+header {
+  background: #1e3a8a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 5px 0 0;
+}
+
+nav {
+  background: white;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  background: #e2e8f0;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background: #cbd5e1;
+}
+
+.container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 25px auto;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.box h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.stock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.stock-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.stock-card.in {
+  border-top: 5px solid #16a34a;
+}
+
+.stock-card.out {
+  border-top: 5px solid #dc2626;
+}
+
+.stock-card h3 {
+  text-align: center;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.stock-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.stock-card.in button {
+  background: #16a34a;
+}
+
+.stock-card.out button {
+  background: #dc2626;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 950px;
+  border-collapse: collapse;
+}
+
+th {
+  background: #1e3a8a;
+  color: white;
+  padding: 11px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+.in-row {
+  background: #dcfce7 !important;
+}
+
+.out-row {
+  background: #fee2e2 !important;
+}
+
+.logout {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+</style></head><body><header>  <h1>🏢 AAFDRMC</h1>  <p>Stock Management System</p></header><nav>  <a href="dashboard.html">
+    🏠 Dashboard
+  </a>  <a href="items.html">
+    📦 Items
+  </a>  <a href="stock.html">
+    🔄 Stock In / Out
+  </a>  <a href="reports.html">
+    📊 Reports
+  </a>  <a href="settings.html">
+    ⚙️ Settings
+  </a>  <a href="#" class="logout" onclick="logoutUser()">
+    🚪 Logout
+  </a></nav><div class="container"><div class="box">  <h2>🔄 Stock Management</h2>  <div class="stock-grid"><!-- STOCK IN -->
+
+<div class="stock-card in">
+
+  <h3>📥 Stock In</h3>
+
+  <select id="inItem">
+
+    <option value="">
+      -- Select Item --
+    </option>
+
+  </select>
+
+  <input
+    id="inQuantity"
+    type="number"
+    min="1"
+    placeholder="Quantity"
+  >
+
+  <input
+    id="inExpiry"
+    type="date"
+  >
+
+  <input
+    id="inEnteredBy"
+    placeholder="Entered By"
+  >
+
+  <button onclick="stockIn()">
+    ➕ Add Stock In
+  </button>
+
+</div>
+
+
+<!-- STOCK OUT -->
+
+<div class="stock-card out">
+
+  <h3>📤 Stock Out</h3>
+
+  <select id="outItem">
+
+    <option value="">
+      -- Select Item --
+    </option>
+
+  </select>
+
+  <input
+    id="outQuantity"
+    type="number"
+    min="1"
+    placeholder="Quantity"
+  >
+
+  <input
+    id="outEnteredBy"
+    placeholder="Entered By"
+  >
+
+  <button onclick="stockOut()">
+    ➖ Add Stock Out
+  </button>
+
+</div>
+
+  </div></div><!-- TRANSACTIONS --><div class="box">  <h2>📋 Stock Transactions</h2>  <div class="table-container"><table>
+
+  <thead>
+
+    <tr>
+      <th>Item</th>
+      <th>Type</th>
+      <th>Quantity</th>
+      <th>EX Date</th>
+      <th>Entered By</th>
+      <th>Date</th>
+    </tr>
+
+  </thead>
+
+  <tbody id="transactionList"></tbody>
+
+</table>
+
+  </div></div></div><script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+const accessToken =
+  localStorage.getItem("access_token");
+
+if (!accessToken) {
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================
+   LOAD ITEMS
+========================= */
+
+async function loadItemsForStock() {
+
+  const token =
+    localStorage.getItem("access_token")
+    || SUPABASE_KEY;
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items?select=id,name,quantity,expiry_date&order=name.asc",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+  if (!response.ok) {
+
+    console.log(
+      "Items Load Error:",
+      await response.text()
+    );
+
+    return;
+  }
+
+  const data =
+    await response.json();
+
+  const inSelect =
+    document.getElementById("inItem");
+
+  const outSelect =
+    document.getElementById("outItem");
+
+  inSelect.innerHTML =
+    '<option value="">-- Select Item --</option>';
+
+  outSelect.innerHTML =
+    '<option value="">-- Select Item --</option>';
+
+
+  data.forEach(item => {
+
+    const option1 =
+      document.createElement("option");
+
+    option1.value =
+      item.id;
+
+    option1.textContent =
+      item.name +
+      " (Stock: " +
+      Number(item.quantity || 0) +
+      ")";
+
+    inSelect.appendChild(option1);
+
+
+    const option2 =
+      document.createElement("option");
+
+    option2.value =
+      item.id;
+
+    option2.textContent =
+      item.name +
+      " (Stock: " +
+      Number(item.quantity || 0) +
+      ")";
+
+    outSelect.appendChild(option2);
+
+  });
+
+}
+
+
+/* =========================
+   STOCK IN
+========================= */
+
+async function stockIn() {
+
+  const itemId =
+    Number(
+      document.getElementById(
+        "inItem"
+      ).value
+    );
+
+  const quantity =
+    Number(
+      document.getElementById(
+        "inQuantity"
+      ).value
+    );
+
+  const expiryDate =
+    document.getElementById(
+      "inExpiry"
+    ).value;
+
+  const enteredBy =
+    document.getElementById(
+      "inEnteredBy"
+    ).value.trim();
+
+
+  if (
+    !itemId ||
+    !quantity ||
+    quantity <= 0 ||
+    !enteredBy
+  ) {
+
+    alert(
+      "Item, quantity fi Entered By guuti."
+    );
+
+    return;
+  }
+
+
+  const token =
+    localStorage.getItem(
+      "access_token"
+    ) || SUPABASE_KEY;
+
+
+  const transactionResponse =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions",
+      {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type":
+            "application/json",
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " + token,
+
+          "Prefer":
+            "return=minimal"
+
+        },
+
+        body:
+          JSON.stringify({
+
+            item_id:
+              itemId,
+
+            quantity:
+              quantity,
+
+            transaction_type:
+              "IN",
+
+            entered_by:
+              enteredBy,
+
+            expiry_date:
+              expiryDate || null
+
+          })
+
+      }
+    );
+
+
+  if (!transactionResponse.ok) {
+
+    alert(
+      "Stock In Error: " +
+      await transactionResponse.text()
+    );
+
+    return;
+
+  }
+
+
+  const itemResponse =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      itemId +
+      "&select=quantity",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+
+  const itemData =
+    await itemResponse.json();
+
+
+  const currentQuantity =
+    Number(
+      itemData[0]?.quantity || 0
+    );
+
+
+  const newQuantity =
+    currentQuantity + quantity;
+
+
+  await updateQuantity(
+    itemId,
+    newQuantity
+  );
+
+
+  alert(
+    "Stock In galmaa'eera!"
+  );
+
+
+  document.getElementById(
+    "inItem"
+  ).value = "";
+
+  document.getElementById(
+    "inQuantity"
+  ).value = "";
+
+  document.getElementById(
+    "inExpiry"
+  ).value = "";
+
+  document.getElementById(
+    "inEnteredBy"
+  ).value = "";
+
+
+  loadItemsForStock();
+
+  loadTransactions();
+
+}
+
+
+/* =========================
+   STOCK OUT
+========================= */
+
+async function stockOut() {
+
+  const itemId =
+    Number(
+      document.getElementById(
+        "outItem"
+      ).value
+    );
+
+  const quantity =
+    Number(
+      document.getElementById(
+        "outQuantity"
+      ).value
+    );
+
+  const enteredBy =
+    document.getElementById(
+      "outEnteredBy"
+    ).value.trim();
+
+
+  if (
+    !itemId ||
+    !quantity ||
+    quantity <= 0 ||
+    !enteredBy
+  ) {
+
+    alert(
+      "Item, quantity fi Entered By guuti."
+    );
+
+    return;
+  }
+
+
+  const token =
+    localStorage.getItem(
+      "access_token"
+    ) || SUPABASE_KEY;
+
+
+  const itemResponse =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      itemId +
+      "&select=quantity",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+
+  const itemData =
+    await itemResponse.json();
+
+
+  const currentQuantity =
+    Number(
+      itemData[0]?.quantity || 0
+    );
+
+
+  if (quantity > currentQuantity) {
+
+    alert(
+      "Stock gahaa hin qabu!"
+    );
+
+    return;
+  }
+
+
+  const transactionResponse =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions",
+      {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type":
+            "application/json",
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " + token,
+
+          "Prefer":
+            "return=minimal"
+
+        },
+
+        body:
+          JSON.stringify({
+
+            item_id:
+              itemId,
+
+            quantity:
+              quantity,
+
+            transaction_type:
+              "OUT",
+
+            entered_by:
+              enteredBy,
+
+            expiry_date:
+              null
+
+          })
+
+      }
+    );
+
+
+  if (!transactionResponse.ok) {
+
+    alert(
+      "Stock Out Error: " +
+      await transactionResponse.text()
+    );
+
+    return;
+
+  }
+
+
+  const newQuantity =
+    currentQuantity - quantity;
+
+
+  await updateQuantity(
+    itemId,
+    newQuantity
+  );
+
+
+  alert(
+    "Stock Out galmaa'eera!"
+  );
+
+
+  document.getElementById(
+    "outItem"
+  ).value = "";
+
+  document.getElementById(
+    "outQuantity"
+  ).value = "";
+
+  document.getElementById(
+    "outEnteredBy"
+  ).value = "";
+
+
+  loadItemsForStock();
+
+  loadTransactions();
+
+}
+
+
+/* =========================
+   UPDATE QUANTITY
+========================= */
+
+async function updateQuantity(
+  id,
+  newQuantity
+) {
+
+  const token =
+    localStorage.getItem(
+      "access_token"
+    ) || SUPABASE_KEY;
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      id,
+      {
+
+        method: "PATCH",
+
+        headers: {
+
+          "Content-Type":
+            "application/json",
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " + token,
+
+          "Prefer":
+            "return=minimal"
+
+        },
+
+        body:
+          JSON.stringify({
+
+            quantity:
+              newQuantity
+
+          })
+
+      }
+    );
+
+
+  if (!response.ok) {
+
+    console.log(
+      "Quantity Update Error:",
+      await response.text()
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD TRANSACTIONS
+========================= */
+
+async function loadTransactions() {
+
+  const token =
+    localStorage.getItem(
+      "access_token"
+    ) || SUPABASE_KEY;
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions?select=*&order=id.desc",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+
+  if (!response.ok) {
+
+    console.log(
+      "Transaction Load Error:",
+      await response.text()
+    );
+
+    return;
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  const list =
+    document.getElementById(
+      "transactionList"
+    );
+
+
+  list.innerHTML = "";
+
+
+  for (
+    const transaction of data
+  ) {
+
+    let itemName = "";
+
+
+    const itemResponse =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/items?id=eq." +
+        transaction.item_id +
+        "&select=name",
+        {
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + token
+          }
+        }
+      );
+
+
+    if (itemResponse.ok) {
+
+      const itemData =
+        await itemResponse.json();
+
+      itemName =
+        itemData[0]?.name || "";
+
+    }
+
+
+    const rowClass =
+      transaction.transaction_type === "IN"
+        ? "in-row"
+        : "out-row";
+
+
+    list.innerHTML += `
+
+      <tr class="${rowClass}">
+
+        <td>
+          ${itemName}
+        </td>
+
+        <td>
+          ${
+            transaction.transaction_type === "IN"
+              ? "📥 IN"
+              : "📤 OUT"
+          }
+        </td>
+
+        <td>
+          ${transaction.quantity || 0}
+        </td>
+
+        <td>
+          ${transaction.expiry_date || ""}
+        </td>
+
+        <td>
+          ${transaction.entered_by || ""}
+        </td>
+
+        <td>
+          ${
+            transaction.created_at
+              ? new Date(
+                  transaction.created_at
+                ).toLocaleDateString()
+              : ""
+          }
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logoutUser() {
+
+  localStorage.removeItem(
+    "access_token"
+  );
+
+  localStorage.removeItem(
+    "refresh_token"
+  );
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadItemsForStock();
+
+loadTransactions();
+
+</script></body>
+</html>
