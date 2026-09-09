@@ -6,165 +6,250 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Category</title>
+<title>AAFDRMC - Categories</title>
 
 <style>
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
-  color: #1e293b;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
 }
 
-header {
-  background: #1e3a8a;
-  color: white;
-  padding: 20px;
-  text-align: center;
+header{
+  background:#1e3a8a;
+  color:white;
+  padding:18px;
+  text-align:center;
 }
 
-header h1 {
-  margin: 0;
+header h1{
+  margin:0;
+  font-size:22px;
 }
 
-header p {
-  margin: 5px 0 0;
+.container{
+  width:96%;
+  max-width:1400px;
+  margin:20px auto;
 }
 
-nav {
-  background: white;
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.top-bar{
+  background:white;
+  padding:18px;
+  border-radius:10px;
+  margin-bottom:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-nav a {
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 7px;
-  background: #e2e8f0;
-  color: #1e293b;
-  font-weight: bold;
+.title{
+  font-size:22px;
+  font-weight:bold;
+  color:#1e3a8a;
 }
 
-nav a:hover {
-  background: #cbd5e1;
+.buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
 }
 
-.container {
-  width: 95%;
-  max-width: 1400px;
-  margin: 25px auto;
+.btn{
+  border:none;
+  padding:10px 16px;
+  border-radius:7px;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+  text-decoration:none;
 }
 
-.box {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+.btn-add{
+  background:#15803d;
 }
 
-.box h2 {
-  margin-top: 0;
-  text-align: center;
+.btn-stock{
+  background:#1e3a8a;
 }
 
-.table-container {
-  width: 100%;
-  overflow-x: auto;
+.form-box{
+  display:none;
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 850px;
+.form-box.show{
+  display:block;
 }
 
-th,
-td {
-  padding: 12px;
-  border-bottom: 1px solid #e2e8f0;
-  text-align: center;
+.form-title{
+  font-size:20px;
+  font-weight:bold;
+  color:#1e3a8a;
+  margin-bottom:15px;
 }
 
-th {
-  background: #1e3a8a;
-  color: white;
-}
-
-tbody tr:nth-child(even) {
-  background: #f8fafc;
-}
-
-tbody tr:hover {
-  background: #dbeafe;
-}
-
-.total-box {
-  display: grid;
+.form-grid{
+  display:grid;
   grid-template-columns:
-    repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
+  repeat(auto-fit,minmax(230px,1fr));
+  gap:14px;
 }
 
-.total-card {
-  background: #eff6ff;
-  padding: 18px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: bold;
+.form-group{
+  display:flex;
+  flex-direction:column;
 }
 
-.total-card strong {
-  display: block;
-  font-size: 22px;
-  margin-top: 8px;
+.form-group label{
+  font-weight:bold;
+  margin-bottom:6px;
 }
 
-.back {
-  display: inline-block;
-  margin-bottom: 15px;
-  padding: 10px 15px;
-  background: #e2e8f0;
-  color: #1e293b;
-  text-decoration: none;
-  border-radius: 7px;
-  font-weight: bold;
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:11px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  font-size:15px;
 }
 
-.logout {
-  background: #dc2626 !important;
-  color: white !important;
+.form-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:17px;
 }
 
-.error {
-  text-align: center;
-  color: #dc2626;
-  font-weight: bold;
+.save-btn,
+.cancel-btn{
+  border:none;
+  padding:11px 20px;
+  border-radius:7px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.loading {
-  text-align: center;
-  font-weight: bold;
-  padding: 25px;
+.save-btn{
+  background:#15803d;
 }
 
-.empty {
-  text-align: center;
-  padding: 25px;
-  font-weight: bold;
+.cancel-btn{
+  background:#64748b;
+}
+
+.message{
+  display:none;
+  padding:12px;
+  border-radius:7px;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+.message.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.message.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.category-box{
+  background:white;
+  padding:18px;
+  border-radius:10px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.category-title{
+  font-size:19px;
+  font-weight:bold;
+  color:#1e3a8a;
+  margin-bottom:10px;
+}
+
+.category-total{
+  background:#eff6ff;
+  padding:12px;
+  border-radius:7px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.table-box{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
+}
+
+th{
+  background:#1e3a8a;
+  color:white;
+  padding:12px;
+  text-align:left;
+}
+
+td{
+  padding:11px;
+  border-bottom:1px solid #e2e8f0;
+}
+
+tr:hover{
+  background:#f8fafc;
+}
+
+.edit-btn{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:7px 11px;
+  border-radius:6px;
+  cursor:pointer;
+  margin-right:5px;
+}
+
+.delete-btn{
+  background:#dc2626;
+  color:white;
+  border:none;
+  padding:7px 11px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.empty{
+  text-align:center;
+  padding:20px;
+  color:#64748b;
+}
+
+.info{
+  background:#f8fafc;
+  padding:12px;
+  border-radius:7px;
+  margin-bottom:15px;
+  color:#475569;
 }
 
 </style>
@@ -173,131 +258,236 @@ tbody tr:hover {
 
 <body>
 
-
 <header>
 
-<h1>🏢 AAFDRMC</h1>
-
-<p>Stock Management System</p>
+<h1>
+AAFDRMC - CATEGORY MANAGEMENT
+</h1>
 
 </header>
-
-
-<nav>
-
-<a href="dashboard.html">
-🏠 Dashboard
-</a>
-
-<a href="items.html">
-📦 Items
-</a>
-
-<a href="stock.html">
-🔄 Stock In / Out
-</a>
-
-<a href="reports.html">
-📊 Reports
-</a>
-
-<a href="settings.html">
-⚙️ Settings
-</a>
-
-<a href="#"
-   class="logout"
-   onclick="logoutUser()">
-🚪 Logout
-</a>
-
-</nav>
 
 
 <div class="container">
 
 
-<a href="dashboard.html"
-   class="back">
-⬅️ Back to Dashboard
+<div class="top-bar">
+
+<div class="title">
+📦 Category & Item Management
+</div>
+
+<div class="buttons">
+
+<button
+class="btn btn-add"
+onclick="openAddForm()">
+
+➕ Add New Item
+
+</button>
+
+<a
+href="stock.html"
+class="btn btn-stock">
+
+📊 Stock Management
+
 </a>
 
-
-<div class="box">
-
-
-<h2 id="categoryTitle">
-📂 Loading Category...
-</h2>
-
-
-<div class="table-container">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>#</th>
-
-<th>Item Name</th>
-
-<th>Unit</th>
-
-<th>Opening</th>
-
-<th>Stock In</th>
-
-<th>Stock Out</th>
-
-<th>Balance</th>
-
-<th>EX Date</th>
-
-<th>Entered By</th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="itemsTable">
-
-<tr>
-
-<td colspan="9"
-    class="loading">
-
-Loading...
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+</div>
 
 </div>
 
 
-<div class="total-box"
-     id="unitTotals">
+<div id="message"
+class="message">
+</div>
+
+
+<!-- =====================================================
+     ADD / EDIT ITEM
+===================================================== -->
+
+<div id="itemForm"
+class="form-box">
+
+<div id="formTitle"
+class="form-title">
+
+➕ Add New Item
 
 </div>
 
 
+<div class="info">
+
+ℹ️ Item page keessatti maqaa, unit fi category qofa galchina.
+Quantity fi stock information hundi Stock page irraa dhufa.
+
 </div>
+
+
+<div class="form-grid">
+
+
+<div class="form-group">
+
+<label>
+Item Name / Maqaa Item
+</label>
+
+<input
+type="text"
+id="itemName"
+placeholder="Fakkeenya: Xaafii">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Unit / Safartuu
+</label>
+
+<select id="itemUnit">
+
+<option value="">
+-- Select Unit --
+</option>
+
+<option value="Kg">
+Kg
+</option>
+
+<option value="Quintal">
+Quintal
+</option>
+
+<option value="Ton">
+Ton
+</option>
+
+<option value="Liter">
+Liter
+</option>
+
+<option value="Piece">
+Piece
+</option>
+
+<option value="Carton">
+Carton
+</option>
+
+<option value="Bag">
+Bag
+</option>
+
+<option value="Packet">
+Packet
+</option>
+
+<option value="Set">
+Set
+</option>
+
+<option value="Pair">
+Pair
+</option>
+
+<option value="Other">
+Other
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Category
+</label>
+
+<select id="itemCategory">
+
+<option value="">
+-- Select Category --
+</option>
+
+<option value="Strategic Food Items">
+🥫 Strategic Food Items
+</option>
+
+<option value="Daily Food Items">
+🍚 Daily Food Items
+</option>
+
+<option value="Daily Non-Food Items">
+📦 Daily Non-Food Items
+</option>
+
+<option value="Non-Food Kitchen Items">
+🍳 Non-Food Kitchen Items
+</option>
+
+<option value="Non-Food Hygiene Items">
+🧼 Non-Food Hygiene Items
+</option>
+
+<option value="Non-Food Construction Materials">
+🧱 Non-Food Construction Materials
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-buttons">
+
+<button
+id="saveButton"
+class="save-btn"
+onclick="saveItem()">
+
+💾 Save Item
+
+</button>
+
+<button
+class="cancel-btn"
+onclick="closeForm()">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<div id="categoriesContainer"></div>
+
 
 </div>
 
 
 <script>
 
-/* =========================================
+
+/* =====================================================
    SUPABASE
-========================================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -306,655 +496,996 @@ const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* =========================================
-   LOGIN CHECK
-========================================= */
+/* =====================================================
+   HEADERS
+===================================================== */
+
+function getHeaders(){
 
 const accessToken =
-localStorage.getItem("access_token");
-
-if (!accessToken) {
-
-  window.location.href =
-  "index.html";
-
-}
-
-
-const token =
 localStorage.getItem("access_token")
 || SUPABASE_KEY;
 
+return {
 
-/* =========================================
-   GET CATEGORY PARAMETER
-========================================= */
+"apikey":
+SUPABASE_KEY,
 
-const params =
-new URLSearchParams(
-  window.location.search
+"Authorization":
+"Bearer " + accessToken,
+
+"Content-Type":
+"application/json"
+
+};
+
+}
+
+
+/* =====================================================
+   SIX CATEGORIES ONLY
+===================================================== */
+
+const categories = [
+
+"Strategic Food Items",
+
+"Daily Food Items",
+
+"Daily Non-Food Items",
+
+"Non-Food Kitchen Items",
+
+"Non-Food Hygiene Items",
+
+"Non-Food Construction Materials"
+
+];
+
+
+const categoryNames = {
+
+"Strategic Food Items":
+"🥫 Strategic Food Items / Meeshaalee Nyaataa Tarsiimawaa / ስትራቴጂክ ምግብ ነክ",
+
+"Daily Food Items":
+"🍚 Daily Food Items / Meeshaalee Nyaataa Guyyaa Guyyaa / የዕለት ምግብ እቃዎች",
+
+"Daily Non-Food Items":
+"📦 Daily Non-Food Items / Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / የዕለት ምግብ ነክ ያልሆኑ እቃዎች",
+
+"Non-Food Kitchen Items":
+"🍳 Non-Food Kitchen Items / Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / የምግብ ማብሰያ እቃዎች",
+
+"Non-Food Hygiene Items":
+"🧼 Non-Food Hygiene Items / Meeshaalee Qulqullinaa / የንጽሕና እቃዎች",
+
+"Non-Food Construction Materials":
+"🧱 Non-Food Construction Materials / Meeshaalee Ijaarsaa / የግንባታ እቃዎች"
+
+};
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+let allItems = [];
+
+let allStock = [];
+
+let editItemId = null;
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   LOAD ITEMS
+===================================================== */
+
+async function loadItems(){
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items?select=*&order=id.asc",
+
+{
+headers:
+getHeaders()
+}
+
 );
 
-const categoryParam =
-params.get("category");
+if(!response.ok){
 
+const error =
+await response.text();
 
-/* =========================================
-   LOAD CATEGORY AND ITEMS
-========================================= */
+console.log(
+"Items Error:",
+error
+);
 
-async function loadCategoryItems() {
+showMessage(
+"Items load hin milkoofne: " + error,
+"error"
+);
 
-  const table =
-  document.getElementById("itemsTable");
+return;
 
-  const title =
-  document.getElementById("categoryTitle");
+}
 
+allItems =
+await response.json();
 
-  if (!categoryParam) {
+await loadStock();
 
-    title.textContent =
-    "📂 Category not selected";
+}
 
-    table.innerHTML = `
-      <tr>
-        <td colspan="9"
-            class="error">
-          Category not selected
-        </td>
-      </tr>
-    `;
+catch(error){
 
-    return;
+console.log(error);
 
-  }
+showMessage(
+"Network error.",
+"error"
+);
 
-
-  try {
-
-
-    /* =====================================
-       LOAD ALL SIX CATEGORIES
-    ===================================== */
-
-    const categoryResponse =
-    await fetch(
-
-      SUPABASE_URL +
-      "/rest/v1/store_categories?select=id,name&order=id.asc",
-
-      {
-        headers: {
-
-          "apikey":
-          SUPABASE_KEY,
-
-          "Authorization":
-          "Bearer " + token
-
-        }
-
-      }
-
-    );
-
-
-    if (!categoryResponse.ok) {
-
-      throw new Error(
-        "Category load failed"
-      );
-
-    }
-
-
-    const categories =
-    await categoryResponse.json();
-
-
-    let selectedCategory = null;
-
-
-    /* =====================================
-       CASE 1:
-       URL CONTAINS UUID
-    ===================================== */
-
-    selectedCategory =
-    categories.find(
-      c =>
-      String(c.id)
-      === String(categoryParam)
-    );
-
-
-    /* =====================================
-       CASE 2:
-       URL CONTAINS 1,2,3,4,5,6
-
-       Map number to category position
-    ===================================== */
-
-    if (!selectedCategory) {
-
-      const number =
-      Number(categoryParam);
-
-      if (
-        number >= 1 &&
-        number <= categories.length
-      ) {
-
-        selectedCategory =
-        categories[number - 1];
-
-      }
-
-    }
-
-
-    if (!selectedCategory) {
-
-      title.textContent =
-      "📂 Category not found";
-
-      table.innerHTML = `
-        <tr>
-          <td colspan="9"
-              class="error">
-            Category hin argamne.
-          </td>
-        </tr>
-      `;
-
-      return;
-
-    }
-
-
-    /* =====================================
-       SHOW CATEGORY NAME
-    ===================================== */
-
-    title.textContent =
-    "📂 " +
-    selectedCategory.name;
-
-
-    const realCategoryId =
-    selectedCategory.id;
-
-
-    /* =====================================
-       LOAD ITEMS USING REAL UUID
-    ===================================== */
-
-    const itemsResponse =
-    await fetch(
-
-      SUPABASE_URL +
-      "/rest/v1/items?category_id=eq." +
-      encodeURIComponent(realCategoryId) +
-      "&select=*"+
-      "&order=id.asc",
-
-      {
-        headers: {
-
-          "apikey":
-          SUPABASE_KEY,
-
-          "Authorization":
-          "Bearer " + token
-
-        }
-
-      }
-
-    );
-
-
-    if (!itemsResponse.ok) {
-
-      throw new Error(
-        await itemsResponse.text()
-      );
-
-    }
-
-
-    const items =
-    await itemsResponse.json();
-
-
-    /* =====================================
-       NO ITEMS
-    ===================================== */
-
-    if (!items.length) {
-
-      table.innerHTML = `
-        <tr>
-          <td colspan="9"
-              class="empty">
-
-            📦 Category kana keessatti
-            item hin jiru.
-
-          </td>
-        </tr>
-      `;
-
-      document.getElementById(
-        "unitTotals"
-      ).innerHTML = "";
-
-      return;
-
-    }
-
-
-    /* =====================================
-       LOAD STOCK TRANSACTIONS
-    ===================================== */
-
-    const transactionResponse =
-    await fetch(
-
-      SUPABASE_URL +
-      "/rest/v1/stock_transactions?select=*",
-
-      {
-        headers: {
-
-          "apikey":
-          SUPABASE_KEY,
-
-          "Authorization":
-          "Bearer " + token
-
-        }
-
-      }
-
-    );
-
-
-    let transactions = [];
-
-
-    if (transactionResponse.ok) {
-
-      transactions =
-      await transactionResponse.json();
-
-    }
-
-
-    /* =====================================
-       DISPLAY ITEMS
-    ===================================== */
-
-    table.innerHTML = "";
-
-
-    const unitTotals = {};
-
-
-    items.forEach(
-      (item, index) => {
-
-
-        /* =================================
-           FIND TRANSACTIONS FOR THIS ITEM
-        ================================= */
-
-        const itemTransactions =
-        transactions.filter(
-          t =>
-          String(t.item_id)
-          === String(item.id)
-        );
-
-
-        /* =================================
-           STOCK IN
-        ================================= */
-
-        const stockIn =
-        itemTransactions
-        .filter(
-          t =>
-          String(
-            t.transaction_type || ""
-          )
-          .toUpperCase()
-          === "IN"
-        )
-        .reduce(
-          (sum, t) =>
-          sum +
-          Number(t.quantity || 0),
-          0
-        );
-
-
-        /* =================================
-           STOCK OUT
-        ================================= */
-
-        const stockOut =
-        itemTransactions
-        .filter(
-          t =>
-          String(
-            t.transaction_type || ""
-          )
-          .toUpperCase()
-          === "OUT"
-        )
-        .reduce(
-          (sum, t) =>
-          sum +
-          Number(t.quantity || 0),
-          0
-        );
-
-
-        /* =================================
-           OPENING
-        ================================= */
-
-        const opening =
-        Number(item.quantity || 0);
-
-
-        /* =================================
-           BALANCE
-        ================================= */
-
-        const balance =
-        opening +
-        stockIn -
-        stockOut;
-
-
-        /* =================================
-           UNIT
-        ================================= */
-
-        const unit =
-        String(
-          item.unit || "Unknown"
-        ).trim();
-
-
-        /* =================================
-           UNIT TOTAL
-        ================================= */
-
-        if (!unitTotals[unit]) {
-
-          unitTotals[unit] = {
-
-            opening: 0,
-
-            in: 0,
-
-            out: 0,
-
-            balance: 0
-
-          };
-
-        }
-
-
-        unitTotals[unit].opening +=
-        opening;
-
-        unitTotals[unit].in +=
-        stockIn;
-
-        unitTotals[unit].out +=
-        stockOut;
-
-        unitTotals[unit].balance +=
-        balance;
-
-
-        /* =================================
-           CREATE TABLE ROW
-        ================================= */
-
-        const row =
-        document.createElement("tr");
-
-
-        row.innerHTML = `
-
-          <td>
-            ${index + 1}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              item.name || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(unit)}
-          </td>
-
-          <td>
-            ${opening}
-          </td>
-
-          <td>
-            ${stockIn}
-          </td>
-
-          <td>
-            ${stockOut}
-          </td>
-
-          <td>
-            <strong>
-              ${balance}
-            </strong>
-          </td>
-
-          <td>
-            ${
-              item.expiry_date
-              ? escapeHTML(
-                  item.expiry_date
-                )
-              : "-"
-            }
-          </td>
-
-          <td>
-            ${escapeHTML(
-              item.entered_by || "-"
-            )}
-          </td>
-
-        `;
-
-
-        table.appendChild(row);
-
-      }
-    );
-
-
-    /* =====================================
-       UNIT TOTAL CARDS
-    ===================================== */
-
-    const totalsContainer =
-    document.getElementById(
-      "unitTotals"
-    );
-
-
-    totalsContainer.innerHTML = "";
-
-
-    Object.keys(unitTotals)
-    .sort()
-    .forEach(unit => {
-
-
-      const total =
-      unitTotals[unit];
-
-
-      const card =
-      document.createElement("div");
-
-
-      card.className =
-      "total-card";
-
-
-      card.innerHTML = `
-
-        📏 ${escapeHTML(unit)}
-
-        <strong>
-          ${total.balance}
-        </strong>
-
-        <small>
-
-          Opening:
-          ${total.opening}
-
-          <br>
-
-          Stock In:
-          ${total.in}
-
-          <br>
-
-          Stock Out:
-          ${total.out}
-
-          <br>
-
-          Balance:
-          ${total.balance}
-
-        </small>
-
-      `;
-
-
-      totalsContainer.appendChild(
-        card
-      );
-
-    });
-
-
-  } catch (error) {
-
-
-    console.error(
-      "Category Error:",
-      error
-    );
-
-
-    table.innerHTML = `
-
-      <tr>
-
-        <td colspan="9"
-            class="error">
-
-          ❌ Data load failed.<br>
-
-          ${escapeHTML(
-            error.message || ""
-          )}
-
-        </td>
-
-      </tr>
-
-    `;
-
-  }
+}
 
 }
 
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
+/* =====================================================
+   LOAD STOCK TRANSACTIONS
+===================================================== */
 
-function escapeHTML(value) {
+async function loadStock(){
 
-  return String(value)
+try{
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
+const response =
+await fetch(
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
+SUPABASE_URL +
+"/rest/v1/stock_transactions?select=*&order=id.asc",
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
+{
+headers:
+getHeaders()
+}
 
-    .replace(
-      /"/g,
-      "&quot;"
-    )
+);
 
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.log(
+"Stock Error:",
+error
+);
+
+allStock = [];
+
+displayCategories();
+
+return;
+
+}
+
+allStock =
+await response.json();
+
+displayCategories();
+
+}
+
+catch(error){
+
+console.log(error);
+
+allStock = [];
+
+displayCategories();
+
+}
 
 }
 
 
-/* =========================================
-   LOGOUT
-========================================= */
+/* =====================================================
+   CALCULATE STOCK
+===================================================== */
 
-function logoutUser() {
+function getItemStock(itemId){
 
-  localStorage.removeItem(
-    "access_token"
-  );
+let total = 0;
 
-  localStorage.removeItem(
-    "refresh_token"
-  );
+allStock.forEach(stock => {
 
-  window.location.href =
-  "index.html";
+if(
+String(stock.item_id) !==
+String(itemId)
+){
+return;
+}
+
+const quantity =
+Number(stock.quantity) || 0;
+
+const type =
+String(
+stock.transaction_type || ""
+).toUpperCase();
+
+
+if(
+type === "IN"
+){
+
+total += quantity;
+
+}
+
+else if(
+type === "OUT"
+){
+
+total -= quantity;
+
+}
+
+});
+
+return total;
 
 }
 
 
-/* =========================================
+/* =====================================================
+   FORMAT NUMBER
+===================================================== */
+
+function formatNumber(number){
+
+return Number(number)
+.toLocaleString(
+"en-US",
+{
+maximumFractionDigits:2
+}
+);
+
+}
+
+
+/* =====================================================
+   DISPLAY CATEGORIES
+===================================================== */
+
+function displayCategories(){
+
+const container =
+document.getElementById(
+"categoriesContainer"
+);
+
+container.innerHTML = "";
+
+
+categories.forEach(category => {
+
+
+const items =
+allItems.filter(
+item =>
+item.category === category
+);
+
+
+/* CATEGORY TOTALS BY UNIT */
+
+let totals = {};
+
+
+items.forEach(item => {
+
+const stock =
+getItemStock(item.id);
+
+const unit =
+item.unit || "Other";
+
+
+if(!totals[unit]){
+totals[unit] = 0;
+}
+
+totals[unit] += stock;
+
+});
+
+
+let totalText = "";
+
+
+Object.keys(totals).forEach(unit => {
+
+if(totalText){
+totalText += " | ";
+}
+
+totalText +=
+formatNumber(totals[unit])
++ " "
++ unit;
+
+});
+
+
+if(!totalText){
+
+totalText = "0";
+
+}
+
+
+/* CATEGORY BOX */
+
+const box =
+document.createElement("div");
+
+box.className =
+"category-box";
+
+
+box.innerHTML = `
+
+<div class="category-title">
+
+${categoryNames[category]}
+
+</div>
+
+<div class="category-total">
+
+📊 Current Stock:
+${escapeHTML(totalText)}
+
+</div>
+
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>No</th>
+
+<th>Item Name</th>
+
+<th>Current Stock</th>
+
+<th>Unit</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${
+items.length === 0
+
+?
+
+`
+
+<tr>
+
+<td
+colspan="5"
+class="empty">
+
+Item hin jiru.
+
+</td>
+
+</tr>
+
+`
+
+:
+
+items.map(
+(item,index) => {
+
+const stock =
+getItemStock(item.id);
+
+return `
+
+<tr>
+
+<td>
+${index + 1}
+</td>
+
+<td>
+<strong>
+${escapeHTML(item.name || "")}
+</strong>
+</td>
+
+<td>
+${formatNumber(stock)}
+</td>
+
+<td>
+${escapeHTML(item.unit || "")}
+</td>
+
+<td>
+
+<button
+class="edit-btn"
+onclick="editItem('${String(item.id)}')">
+
+✏️ Edit
+
+</button>
+
+<button
+class="delete-btn"
+onclick="deleteItem('${String(item.id)}')">
+
+🗑️ Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}
+).join("")
+
+}
+
+</tbody>
+
+</table>
+
+</div>
+
+`;
+
+container.appendChild(box);
+
+});
+
+}
+
+
+/* =====================================================
+   OPEN ADD FORM
+===================================================== */
+
+function openAddForm(){
+
+editItemId = null;
+
+document.getElementById(
+"formTitle"
+).textContent =
+"➕ Add New Item";
+
+document.getElementById(
+"saveButton"
+).textContent =
+"💾 Save Item";
+
+document.getElementById(
+"itemName"
+).value = "";
+
+document.getElementById(
+"itemUnit"
+).value = "";
+
+document.getElementById(
+"itemCategory"
+).value = "";
+
+document.getElementById(
+"itemForm"
+).classList.add("show");
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+
+
+/* =====================================================
+   CLOSE
+===================================================== */
+
+function closeForm(){
+
+editItemId = null;
+
+document.getElementById(
+"itemForm"
+).classList.remove("show");
+
+}
+
+
+/* =====================================================
+   SAVE ITEM
+===================================================== */
+
+async function saveItem(){
+
+const name =
+document.getElementById(
+"itemName"
+).value.trim();
+
+const unit =
+document.getElementById(
+"itemUnit"
+).value;
+
+const category =
+document.getElementById(
+"itemCategory"
+).value;
+
+
+if(!name){
+
+showMessage(
+"Item maqaa galchi.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!unit){
+
+showMessage(
+"Safartuu filadhu.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!category){
+
+showMessage(
+"Category filadhu.",
+"error"
+);
+
+return;
+
+}
+
+
+const data = {
+
+name:name,
+
+unit:unit,
+
+category:category
+
+};
+
+
+/* =====================================================
+   INSERT
+===================================================== */
+
+if(editItemId === null){
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items",
+
+{
+
+method:"POST",
+
+headers:{
+
+...getHeaders(),
+
+"Prefer":
+"return=representation"
+
+},
+
+body:
+JSON.stringify(data)
+
+}
+
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.log(
+"Insert Error:",
+error
+);
+
+showMessage(
+"Save hin milkoofne: " + error,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item haaraan galmaa'e.",
+"success"
+);
+
+closeForm();
+
+await loadItems();
+
+}
+
+catch(error){
+
+console.log(error);
+
+showMessage(
+"Network error.",
+"error"
+);
+
+}
+
+return;
+
+}
+
+
+/* =====================================================
+   UPDATE
+===================================================== */
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items?id=eq." +
+encodeURIComponent(editItemId),
+
+{
+
+method:"PATCH",
+
+headers:{
+
+...getHeaders(),
+
+"Prefer":
+"return=representation"
+
+},
+
+body:
+JSON.stringify(data)
+
+}
+
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.log(
+"Update Error:",
+error
+);
+
+showMessage(
+"Edit hin milkoofne: " + error,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item sirreeffame.",
+"success"
+);
+
+closeForm();
+
+await loadItems();
+
+}
+
+catch(error){
+
+console.log(error);
+
+showMessage(
+"Network error.",
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+function editItem(id){
+
+const item =
+allItems.find(
+i =>
+String(i.id) ===
+String(id)
+);
+
+if(!item){
+
+showMessage(
+"Item hin argamne.",
+"error"
+);
+
+return;
+
+}
+
+
+editItemId = id;
+
+
+document.getElementById(
+"formTitle"
+).textContent =
+"✏️ Edit Item";
+
+
+document.getElementById(
+"saveButton"
+).textContent =
+"💾 Update Item";
+
+
+document.getElementById(
+"itemName"
+).value =
+item.name || "";
+
+
+document.getElementById(
+"itemUnit"
+).value =
+item.unit || "";
+
+
+document.getElementById(
+"itemCategory"
+).value =
+item.category || "";
+
+
+document.getElementById(
+"itemForm"
+).classList.add("show");
+
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+async function deleteItem(id){
+
+const item =
+allItems.find(
+i =>
+String(i.id) ===
+String(id)
+);
+
+if(!item)
+return;
+
+
+const confirmed =
+confirm(
+`"${item.name}" haqachuu mirkaneessitaa?`
+);
+
+if(!confirmed)
+return;
+
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items?id=eq." +
+encodeURIComponent(id),
+
+{
+
+method:"DELETE",
+
+headers:
+getHeaders()
+
+}
+
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.log(
+"Delete Error:",
+error
+);
+
+showMessage(
+"Delete hin milkoofne: " + error,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"🗑️ Item haqame.",
+"success"
+);
+
+await loadItems();
+
+}
+
+catch(error){
+
+console.log(error);
+
+showMessage(
+"Network error.",
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(text,type){
+
+const box =
+document.getElementById(
+"message"
+);
+
+box.textContent =
+text;
+
+box.className =
+"message " + type;
+
+
+setTimeout(()=>{
+
+box.className =
+"message";
+
+},5000);
+
+}
+
+
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
-loadCategoryItems();
+loadItems();
 
 </script>
 
