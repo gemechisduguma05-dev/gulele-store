@@ -76,8 +76,8 @@ header h1{
   background:#15803d;
 }
 
-.btn-stock{
-  background:#1e3a8a;
+.btn-back{
+  background:#64748b;
 }
 
 .form-box{
@@ -180,7 +180,7 @@ header h1{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:900px;
+  min-width:850px;
 }
 
 th{
@@ -223,6 +223,12 @@ tr:hover{
   line-height:1.5;
 }
 
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+}
+
 </style>
 
 </head>
@@ -243,6 +249,10 @@ AAFDRMC - ITEM MANAGEMENT
 <div class="container">
 
 
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
 <div class="top-bar">
 
 <div class="title">
@@ -250,6 +260,7 @@ AAFDRMC - ITEM MANAGEMENT
 </div>
 
 <div class="buttons">
+
 
 <button
 class="btn btn-add"
@@ -259,18 +270,22 @@ onclick="openAddForm()">
 
 </button>
 
-<a
-href="stock.html"
-class="btn btn-stock">
 
-📊 Stock Management
+<button
+class="btn btn-back"
+onclick="goBack()">
 
-</a>
+⬅️ Back
+
+</button>
+
 
 </div>
 
 </div>
 
+
+<!-- MESSAGE -->
 
 <div
 id="message"
@@ -278,13 +293,14 @@ class="message">
 </div>
 
 
-<!-- =================================================
-     ADD / EDIT
-================================================= -->
+<!-- =====================================================
+     ADD / EDIT FORM
+===================================================== -->
 
 <div
 id="itemForm"
 class="form-box">
+
 
 <div
 id="formTitle"
@@ -298,24 +314,28 @@ class="form-title">
 <div class="form-grid">
 
 
+<!-- ITEM NAME -->
+
 <div class="form-group">
 
 <label>
-Item Name
+Item Name / Maqaa Item
 </label>
 
 <input
 type="text"
 id="itemName"
-placeholder="Item maqaa galchi">
+placeholder="Fakkeenya: Xaafii">
 
 </div>
 
 
+<!-- UNIT -->
+
 <div class="form-group">
 
 <label>
-Unit
+Unit / Safartuu
 </label>
 
 <select id="itemUnit">
@@ -324,12 +344,12 @@ Unit
 -- Select Unit --
 </option>
 
-<option value="Quintal">
-Quintal
-</option>
-
 <option value="Kg">
 Kg
+</option>
+
+<option value="Quintal">
+Quintal
 </option>
 
 <option value="Ton">
@@ -373,10 +393,12 @@ Other
 </div>
 
 
+<!-- CATEGORY -->
+
 <div class="form-group">
 
 <label>
-Category
+Category / Ramaddii
 </label>
 
 <select id="itemCategory">
@@ -385,53 +407,60 @@ Category
 -- Select Category --
 </option>
 
-<option value="Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ">
 
-🥫 Meeshaalee Nyaataa Tarsiimawaa /
-Strategic Food Items /
+<option value="Strategic Food Items">
+
+🥫 Strategic Food Items /
+Meeshaalee Nyaataa Tarsiimawaa /
 ስትራቴጂክ ምግብ ነክ
 
 </option>
 
-<option value="Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / ምግብ ነክ የእለት ደሪሽ">
 
-🍚 Meeshaalee Nyaataa Guyyaa Guyyaa /
-Daily Food Items /
-ምግብ ነክ የእለት ደሪሽ
+<option value="Daily Food Items">
 
-</option>
-
-<option value="Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ">
-
-📦 Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
-Daily Non-Food Items /
-ምግብ ነክ ያልሆነ የእለት ደሪሽ
+🍚 Daily Food Items /
+Meeshaalee Nyaataa Guyyaa Guyyaa /
+የዕለት ምግብ እቃዎች
 
 </option>
 
-<option value="Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ የምግብ እቃ">
 
-🍳 Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan /
-Non-Food Kitchen Items /
-ምግብ ነክ ያልሆነ የምግብ እቃ
+<option value="Daily Non-Food Items">
 
-</option>
-
-<option value="Meeshaalee Qulqullinaa / Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና">
-
-🧼 Meeshaalee Qulqullinaa /
-Non-Food Hygiene Items /
-ምግብ ነክ ያልሆነ የንጽሕና
+📦 Daily Non-Food Items /
+Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
+የዕለት ምግብ ነክ ያልሆኑ እቃዎች
 
 </option>
 
-<option value="Meeshaalee Ijaarsaa / Non-Food Construction Materials / ምግብ ነክ ያልሆነ የግንባታ እቃዎች">
 
-🧱 Meeshaalee Ijaarsaa /
-Non-Food Construction Materials /
-ምግብ ነክ ያልሆነ የግንባታ እቃዎች
+<option value="Non-Food Kitchen Items">
+
+🍳 Non-Food Kitchen Items /
+Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan /
+የምግብ ማዘጋጃ እቃዎች
 
 </option>
+
+
+<option value="Non-Food Hygiene Items">
+
+🧼 Non-Food Hygiene Items /
+Meeshaalee Qulqullinaa /
+የንጽሕና እቃዎች
+
+</option>
+
+
+<option value="Non-Food Construction Materials">
+
+🧱 Non-Food Construction Materials /
+Meeshaalee Ijaarsaa /
+የግንባታ እቃዎች
+
+</option>
+
 
 </select>
 
@@ -442,6 +471,7 @@ Non-Food Construction Materials /
 
 <div class="form-buttons">
 
+
 <button
 id="saveButton"
 class="save-btn"
@@ -451,6 +481,7 @@ onclick="saveItem()">
 
 </button>
 
+
 <button
 class="cancel-btn"
 onclick="closeForm()">
@@ -459,14 +490,15 @@ Cancel
 
 </button>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- =================================================
-     TABLE
-================================================= -->
+
+<!-- =====================================================
+     ITEMS TABLE
+===================================================== -->
 
 <div class="table-box">
 
@@ -497,7 +529,7 @@ Cancel
 
 <td
 colspan="5"
-style="text-align:center;padding:25px">
+class="empty">
 
 Loading...
 
@@ -540,7 +572,7 @@ const accessToken =
 localStorage.getItem("access_token")
 || SUPABASE_KEY;
 
-return{
+return {
 
 "apikey":
 SUPABASE_KEY,
@@ -566,7 +598,7 @@ let editItemId = null;
 
 
 /* =====================================================
-   ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value){
@@ -603,7 +635,7 @@ const response =
 await fetch(
 
 SUPABASE_URL +
-"/rest/v1/items?select=*&order=id.asc",
+"/rest/v1/items?select=id,name,unit,category&order=id.asc",
 
 {
 headers:
@@ -611,6 +643,7 @@ getHeaders()
 }
 
 );
+
 
 if(!response.ok){
 
@@ -628,7 +661,7 @@ table.innerHTML = `
 
 <td
 colspan="5"
-style="text-align:center">
+class="empty">
 
 Items load hin milkoofne.
 
@@ -641,6 +674,7 @@ Items load hin milkoofne.
 return;
 
 }
+
 
 allItems =
 await response.json();
@@ -662,7 +696,7 @@ table.innerHTML = `
 
 <td
 colspan="5"
-style="text-align:center">
+class="empty">
 
 Network error.
 
@@ -678,7 +712,7 @@ Network error.
 
 
 /* =====================================================
-   DISPLAY
+   DISPLAY ITEMS
 ===================================================== */
 
 function displayItems(){
@@ -699,9 +733,7 @@ table.innerHTML = `
 
 <td
 colspan="5"
-style="
-text-align:center;
-padding:25px">
+class="empty">
 
 Item hin jiru.
 
@@ -719,6 +751,7 @@ return;
 allItems.forEach(
 (item,index)=>{
 
+
 const category =
 item.category || "—";
 
@@ -733,41 +766,63 @@ row.innerHTML = `
 ${index + 1}
 </td>
 
-<td>
-<strong>
-${escapeHTML(item.name || "")}
-</strong>
-</td>
 
 <td>
-${escapeHTML(item.unit || "")}
+
+<strong>
+
+${escapeHTML(
+item.name || ""
+)}
+
+</strong>
+
 </td>
+
+
+<td>
+
+${escapeHTML(
+item.unit || ""
+)}
+
+</td>
+
 
 <td class="category-text">
-${escapeHTML(category)}
+
+${escapeHTML(
+category
+)}
+
 </td>
 
+
 <td>
+
 
 <button
 class="edit-btn"
-onclick="editItem(${item.id})">
+onclick="editItem('${String(item.id)}')">
 
 ✏️ Edit
 
 </button>
 
+
 <button
 class="delete-btn"
-onclick="deleteItem(${item.id})">
+onclick="deleteItem('${String(item.id)}')">
 
 🗑️ Delete
 
 </button>
 
+
 </td>
 
 `;
+
 
 table.appendChild(row);
 
@@ -777,38 +832,53 @@ table.appendChild(row);
 
 
 /* =====================================================
-   ADD FORM
+   OPEN ADD FORM
 ===================================================== */
 
 function openAddForm(){
 
 editItemId = null;
 
+
 document.getElementById(
 "formTitle"
 ).textContent =
 "➕ Add New Item";
+
 
 document.getElementById(
 "saveButton"
 ).textContent =
 "💾 Save Item";
 
+
 document.getElementById(
 "itemName"
 ).value = "";
+
 
 document.getElementById(
 "itemUnit"
 ).value = "";
 
+
 document.getElementById(
 "itemCategory"
 ).value = "";
 
+
 document.getElementById(
 "itemForm"
 ).classList.add("show");
+
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
 
 }
 
@@ -820,6 +890,7 @@ document.getElementById(
 function closeForm(){
 
 editItemId = null;
+
 
 document.getElementById(
 "itemForm"
@@ -833,6 +904,7 @@ document.getElementById(
 ===================================================== */
 
 async function saveItem(){
+
 
 const name =
 document.getElementById(
@@ -852,10 +924,12 @@ document.getElementById(
 ).value;
 
 
+/* VALIDATION */
+
 if(!name){
 
 showMessage(
-"Item maqaa galchi.",
+"❌ Item maqaa galchi.",
 "error"
 );
 
@@ -867,7 +941,7 @@ return;
 if(!unit){
 
 showMessage(
-"Unit filadhu.",
+"❌ Unit / Safartuu filadhu.",
 "error"
 );
 
@@ -879,7 +953,7 @@ return;
 if(!category){
 
 showMessage(
-"Category filadhu.",
+"❌ Category filadhu.",
 "error"
 );
 
@@ -888,30 +962,25 @@ return;
 }
 
 
-/*
-=======================================================
-IMPORTANT
+/* =====================================================
+   IMPORTANT
 
-category_id HIN ERGINU.
+   As keessatti quantity,
+   category_id,
+   stock information
+   hin erginu.
 
-Sababni:
-category_id database kee keessatti UUID dha.
-
-Category maqaa guutuu category column keessatti
-galmeessina.
-=======================================================
-*/
+   Items page:
+   name + unit + category qofa.
+===================================================== */
 
 const data = {
 
-name:
-name,
+name:name,
 
-unit:
-unit,
+unit:unit,
 
-category:
-category
+category:category
 
 };
 
@@ -1010,7 +1079,7 @@ await fetch(
 
 SUPABASE_URL +
 "/rest/v1/items?id=eq." +
-editItemId,
+encodeURIComponent(editItemId),
 
 {
 
@@ -1107,8 +1176,7 @@ return;
 }
 
 
-editItemId =
-id;
+editItemId = id;
 
 
 document.getElementById(
@@ -1158,7 +1226,7 @@ behavior:"smooth"
 
 
 /* =====================================================
-   DELETE
+   DELETE ITEM
 ===================================================== */
 
 async function deleteItem(id){
@@ -1196,7 +1264,7 @@ await fetch(
 
 SUPABASE_URL +
 "/rest/v1/items?id=eq." +
-id,
+encodeURIComponent(id),
 
 {
 
@@ -1248,6 +1316,31 @@ showMessage(
 "Network error.",
 "error"
 );
+
+}
+
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+function goBack(){
+
+if(
+document.referrer &&
+document.referrer !== window.location.href
+){
+
+history.back();
+
+}
+
+else{
+
+window.location.href =
+"index.html";
 
 }
 
