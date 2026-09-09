@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Category</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+header {
+  background: #1e3a8a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 5px 0 0;
+}
+
+nav {
+  background: white;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  background: #e2e8f0;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background: #cbd5e1;
+}
+
+.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: 25px auto;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.box h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+th {
+  background: #1e3a8a;
+  color: white;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+.total-box {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.total-card {
+  background: #eff6ff;
+  padding: 18px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.total-card strong {
+  display: block;
+  font-size: 22px;
+  margin-top: 8px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: #e2e8f0;
+  color: #1e293b;
+  text-decoration: none;
+  border-radius: 7px;
+  font-weight: bold;
+}
+
+.logout {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+.error {
+  text-align: center;
+  color: #dc2626;
+  font-weight: bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🏢 AAFDRMC</h1>
+
+<p>Stock Management System</p>
+
+</header>
+
+
+<nav>
+
+<a href="dashboard.html">
+🏠 Dashboard
+</a>
+
+<a href="items.html">
+📦 Items
+</a>
+
+<a href="stock.html">
+🔄 Stock In / Out
+</a>
+
+<a href="reports.html">
+📊 Reports
+</a>
+
+<a href="settings.html">
+⚙️ Settings
+</a>
+
+<a href="#"
+   class="logout"
+   onclick="logoutUser()">
+🚪 Logout
+</a>
+
+</nav>
+
+
+<div class="container">
+
+<a href="dashboard.html"
+   class="back">
+⬅️ Back to Dashboard
+</a>
+
+
+<div class="box">
+
+<h2 id="categoryTitle">
+📂 Loading Category...
+</h2>
+
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+
+<th>Item Name</th>
+
+<th>Unit</th>
+
+<th>Opening</th>
+
+<th>Stock In</th>
+
+<th>Stock Out</th>
+
+<th>Balance</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="itemsTable">
+
+<tr>
+
+<td colspan="7">
+Loading...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="total-box"
+     id="unitTotals">
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+
+
+/* =========================
+   LOGIN CHECK
+========================= */
+
+const accessToken =
+localStorage.getItem("access_token");
+
+if (!accessToken) {
+
+  window.location.href =
+  "index.html";
+
+}
+
+
+const token =
+localStorage.getItem("access_token")
+|| SUPABASE_KEY;
+
+
+/* =========================
+   GET CATEGORY ID
+========================= */
+
+const params =
+new URLSearchParams(
+  window.location.search
+);
+
+const categoryId =
+params.get("category");
+
+
+/* =========================
+   CATEGORY NAMES
+========================= */
+
+const categoryNames = {
+
+  "1":
+  "🥫 Strategic Food Items",
+
+  "2":
+  "🍚 Daily Food Items",
+
+  "3":
+  "📦 Daily Non-Food Items",
+
+  "4":
+  "🍳 Non-Food Kitchen Items",
+
+  "5":
+  "🧼 Non-Food Hygiene Items",
+
+  "6":
+  "🧱 Non-Food Construction Materials"
+
+};
+
+
+/* =========================
+   SHOW CATEGORY NAME
+========================= */
+
+document.getElementById(
+  "categoryTitle"
+).textContent =
+categoryNames[categoryId]
+|| "📂 Stock Category";
+
+
+/* =========================
+   LOAD CATEGORY ITEMS
+========================= */
+
+async function loadCategoryItems() {
+
+  const table =
+  document.getElementById(
+    "itemsTable"
+  );
+
+
+  if (!categoryId) {
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="7"
+            class="error">
+          Category not selected
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+
+  /* =========================
+     LOAD ITEMS
+  ========================= */
+
+  const response =
+  await fetch(
+
+    SUPABASE_URL +
+    "/rest/v1/items?category_id=eq."
+    + encodeURIComponent(categoryId)
+    + "&select=*",
+
+    {
+      headers: {
+
+        "apikey":
+        SUPABASE_KEY,
+
+        "Authorization":
+        "Bearer " + token
+
+      }
+
+    }
+
+  );
+
+
+  if (!response.ok) {
+
+    console.log(
+      await response.text()
+    );
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="7"
+            class="error">
+          Failed to load items
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+
+  const items =
+  await response.json();
+
+
+  /* =========================
+     NO ITEMS
+  ========================= */
+
+  if (items.length === 0) {
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="7">
+          No items found in this category
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+
+  /* =========================
+     LOAD TRANSACTIONS
+  ========================= */
+
+  const transactionResponse =
+  await fetch(
+
+    SUPABASE_URL +
+    "/rest/v1/stock_transactions?select=*",
+
+    {
+      headers: {
+
+        "apikey":
+        SUPABASE_KEY,
+
+        "Authorization":
+        "Bearer " + token
+
+      }
+
+    }
+
+  );
+
+
+  let transactions = [];
+
+
+  if (transactionResponse.ok) {
+
+    transactions =
+    await transactionResponse.json();
+
+  }
+
+
+  /* =========================
+     DISPLAY ITEMS
+  ========================= */
+
+  table.innerHTML = "";
+
+
+  const unitTotals = {};
+
+
+  items.forEach(
+    (item, index) => {
+
+
+      const itemTransactions =
+      transactions.filter(
+        t =>
+        String(t.item_id)
+        === String(item.id)
+      );
+
+
+      const stockIn =
+      itemTransactions
+      .filter(
+        t =>
+        String(
+          t.transaction_type
+        ).toUpperCase()
+        === "IN"
+      )
+      .reduce(
+        (sum, t) =>
+        sum +
+        Number(t.quantity || 0),
+        0
+      );
+
+
+      const stockOut =
+      itemTransactions
+      .filter(
+        t =>
+        String(
+          t.transaction_type
+        ).toUpperCase()
+        === "OUT"
+      )
+      .reduce(
+        (sum, t) =>
+        sum +
+        Number(t.quantity || 0),
+        0
+      );
+
+
+      const opening =
+      Number(item.quantity || 0);
+
+
+      const balance =
+      opening +
+      stockIn -
+      stockOut;
+
+
+      const unit =
+      (item.unit || "Unknown")
+      .trim();
+
+
+      /* =========================
+         UNIT TOTAL
+      ========================= */
+
+      if (!unitTotals[unit]) {
+
+        unitTotals[unit] = {
+          opening: 0,
+          in: 0,
+          out: 0,
+          balance: 0
+        };
+
+      }
+
+
+      unitTotals[unit].opening +=
+      opening;
+
+      unitTotals[unit].in +=
+      stockIn;
+
+      unitTotals[unit].out +=
+      stockOut;
+
+      unitTotals[unit].balance +=
+      balance;
+
+
+      /* =========================
+         TABLE ROW
+      ========================= */
+
+      const row =
+      document.createElement("tr");
+
+
+      row.innerHTML = `
+
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+          ${escapeHTML(item.name)}
+        </td>
+
+        <td>
+          ${escapeHTML(unit)}
+        </td>
+
+        <td>
+          ${opening}
+        </td>
+
+        <td>
+          ${stockIn}
+        </td>
+
+        <td>
+          ${stockOut}
+        </td>
+
+        <td>
+          <strong>
+            ${balance}
+          </strong>
+        </td>
+
+      `;
+
+
+      table.appendChild(row);
+
+    }
+  );
+
+
+  /* =========================
+     UNIT TOTAL DISPLAY
+  ========================= */
+
+  const totalsContainer =
+  document.getElementById(
+    "unitTotals"
+  );
+
+
+  totalsContainer.innerHTML = "";
+
+
+  Object.keys(unitTotals)
+  .sort()
+  .forEach(unit => {
+
+
+    const total =
+    unitTotals[unit];
+
+
+    const card =
+    document.createElement("div");
+
+
+    card.className =
+    "total-card";
+
+
+    card.innerHTML = `
+
+      📏 ${escapeHTML(unit)}
+
+      <strong>
+        ${total.balance}
+      </strong>
+
+      <small>
+        Opening: ${total.opening}
+        <br>
+        In: ${total.in}
+        <br>
+        Out: ${total.out}
+      </small>
+
+    `;
+
+
+    totalsContainer.appendChild(
+      card
+    );
+
+  });
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logoutUser() {
+
+  localStorage.removeItem(
+    "access_token"
+  );
+
+  localStorage.removeItem(
+    "refresh_token"
+  );
+
+  window.location.href =
+  "index.html";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadCategoryItems();
+
+</script>
+
+</body>
+</html>
