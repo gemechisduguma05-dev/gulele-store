@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Stock Management</title>
 
@@ -49,11 +49,10 @@ header h1 {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.category-title {
-  font-size: 20px;
+.title {
+  font-size: 21px;
   font-weight: bold;
   color: #1e3a8a;
-  line-height: 1.5;
 }
 
 .buttons {
@@ -80,18 +79,23 @@ header h1 {
   background: #dc2626;
 }
 
-.btn-all {
+.btn-blue {
   background: #1e3a8a;
 }
 
-.btn-back {
-  background: #475569;
+.btn-gray {
+  background: #64748b;
 }
+
+
+/* ===============================
+   FORM
+================================ */
 
 .form-box {
   display: none;
   background: white;
-  padding: 18px;
+  padding: 20px;
   border-radius: 10px;
   margin-bottom: 18px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -119,7 +123,7 @@ header h1 {
   display: grid;
   grid-template-columns:
     repeat(auto-fit, minmax(210px, 1fr));
-  gap: 12px;
+  gap: 13px;
 }
 
 .form-group {
@@ -129,16 +133,16 @@ header h1 {
 
 .form-group label {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .form-group input,
 .form-group select {
+  width: 100%;
   padding: 10px;
   border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  border-radius: 7px;
   font-size: 15px;
-  background: white;
 }
 
 .form-group input:focus,
@@ -147,10 +151,14 @@ header h1 {
   border-color: #1e3a8a;
 }
 
+.readonly {
+  background: #f8fafc;
+}
+
 .submit-row {
-  margin-top: 15px;
   display: flex;
   gap: 10px;
+  margin-top: 17px;
 }
 
 .save-btn {
@@ -170,9 +178,39 @@ header h1 {
   background: #dc2626;
 }
 
-.cancel-btn {
+.cancel {
   background: #64748b;
 }
+
+
+/* ===============================
+   MESSAGE
+================================ */
+
+.message {
+  display: none;
+  padding: 12px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.message.success {
+  display: block;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.message.error {
+  display: block;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+/* ===============================
+   SUMMARY
+================================ */
 
 .summary {
   display: grid;
@@ -184,17 +222,22 @@ header h1 {
 
 .card {
   background: white;
-  padding: 15px;
+  padding: 16px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .card strong {
   display: block;
-  font-size: 25px;
-  margin-top: 6px;
+  font-size: 27px;
+  margin-top: 7px;
   color: #1e3a8a;
 }
+
+
+/* ===============================
+   TABLE
+================================ */
 
 .table-box {
   background: white;
@@ -206,7 +249,7 @@ header h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1250px;
+  min-width: 1200px;
 }
 
 th {
@@ -248,6 +291,11 @@ td {
   color: #991b1b;
 }
 
+
+/* ===============================
+   UNIT TOTAL
+================================ */
+
 #unitTotals {
   display: grid;
   grid-template-columns:
@@ -275,25 +323,6 @@ td {
   color: #475569;
 }
 
-.message {
-  display: none;
-  padding: 12px;
-  border-radius: 7px;
-  margin-bottom: 12px;
-}
-
-.message.success {
-  display: block;
-  background: #dcfce7;
-  color: #166534;
-}
-
-.message.error {
-  display: block;
-  background: #fee2e2;
-  color: #991b1b;
-}
-
 </style>
 
 </head>
@@ -304,7 +333,9 @@ td {
 
 <header>
 
-<h1>AAFDRMC - STOCK MANAGEMENT</h1>
+<h1>
+AAFDRMC - STOCK MANAGEMENT
+</h1>
 
 </header>
 
@@ -313,95 +344,95 @@ td {
 
 
 <!-- =================================================
-     HEADER
+     TOP BAR
 ================================================= -->
 
 <div class="top-bar">
 
-<div
-  id="categoryTitle"
-  class="category-title">
-
-  📦 Stock Management
-
+<div class="title">
+📦 Stock Management
 </div>
 
 
 <div class="buttons">
 
-<button
-  class="btn btn-in"
-  onclick="openStockForm('IN')">
 
-  ➕ Stock IN
+<button
+class="btn btn-in"
+onclick="openStockForm('IN')">
+
+➕ Stock IN
 
 </button>
 
 
 <button
-  class="btn btn-out"
-  onclick="openStockForm('OUT')">
+class="btn btn-out"
+onclick="openStockForm('OUT')">
 
-  ➖ Stock OUT
-
-</button>
-
-
-<button
-  class="btn btn-all"
-  onclick="filterTransactions('ALL')">
-
-  📋 All
+➖ Stock OUT
 
 </button>
 
 
 <button
-  class="btn btn-in"
-  onclick="filterTransactions('IN')">
+class="btn btn-blue"
+onclick="filterTransactions('ALL')">
 
-  🟢 IN Report
+📋 All
 
 </button>
 
 
 <button
-  class="btn btn-out"
-  onclick="filterTransactions('OUT')">
+class="btn btn-in"
+onclick="filterTransactions('IN')">
 
-  🔴 OUT Report
+🟢 IN Report
+
+</button>
+
+
+<button
+class="btn btn-out"
+onclick="filterTransactions('OUT')">
+
+🔴 OUT Report
 
 </button>
 
 
 <a
-  href="items.html"
-  class="btn btn-back"
-  style="text-decoration:none">
+href="items.html"
+class="btn btn-gray"
+style="text-decoration:none">
 
-  ← Items
+← Items
 
 </a>
 
+
 </div>
 
 </div>
+
 
 
 <div
-  id="message"
-  class="message">
+id="message"
+class="message">
 </div>
 
 
 
 <!-- =================================================
-     STOCK IN
+     STOCK IN FORM
 ================================================= -->
 
 <div
-  id="stockInForm"
-  class="form-box">
+id="stockInForm"
+class="form-box">
+
 
 <div class="form-title in">
 
@@ -413,33 +444,12 @@ td {
 <div class="form-grid">
 
 
-<!-- CATEGORY -->
-
-<div class="form-group">
-
-<label>
-Category
-</label>
-
-<select
-  id="inCategory"
-  onchange="loadItemsByCategory('IN')">
-
-<option value="">
--- Select Category --
-</option>
-
-</select>
-
-</div>
-
-
 <!-- ITEM -->
 
 <div class="form-group">
 
 <label>
-Item
+Item Name
 </label>
 
 <select id="inItem">
@@ -453,24 +463,6 @@ Item
 </div>
 
 
-<!-- QUANTITY -->
-
-<div class="form-group">
-
-<label>
-Quantity
-</label>
-
-<input
-  type="number"
-  id="inQuantity"
-  min="0.01"
-  step="any"
-  placeholder="Quantity">
-
-</div>
-
-
 <!-- UNIT -->
 
 <div class="form-group">
@@ -480,9 +472,28 @@ Unit
 </label>
 
 <input
-  type="text"
-  id="inUnit"
-  readonly>
+type="text"
+id="inUnit"
+class="readonly"
+readonly>
+
+</div>
+
+
+<!-- QUANTITY -->
+
+<div class="form-group">
+
+<label>
+Quantity
+</label>
+
+<input
+type="number"
+id="inQuantity"
+min="0.01"
+step="any"
+placeholder="Quantity">
 
 </div>
 
@@ -496,8 +507,8 @@ Expiry Date
 </label>
 
 <input
-  type="date"
-  id="inExpiryDate">
+type="date"
+id="inExpiryDate">
 
 </div>
 
@@ -511,9 +522,9 @@ Entered By
 </label>
 
 <input
-  type="text"
-  id="inEnteredBy"
-  placeholder="Nama nama galche">
+type="text"
+id="inEnteredBy"
+placeholder="Nama nama galche">
 
 </div>
 
@@ -527,20 +538,22 @@ Signature / Mallattoo
 </label>
 
 <input
-  type="text"
-  id="inSignature"
-  placeholder="Mallattoo">
+type="text"
+id="inSignature"
+placeholder="Mallattoo">
 
 </div>
+
 
 </div>
 
 
 <div class="submit-row">
 
+
 <button
-  class="save-btn save-in"
-  onclick="saveStock('IN')">
+class="save-btn save-in"
+onclick="saveStock('IN')">
 
 💾 Save Stock IN
 
@@ -548,12 +561,13 @@ Signature / Mallattoo
 
 
 <button
-  class="save-btn cancel-btn"
-  onclick="closeStockForms()">
+class="save-btn cancel"
+onclick="closeForms()">
 
 Cancel
 
 </button>
+
 
 </div>
 
@@ -562,12 +576,13 @@ Cancel
 
 
 <!-- =================================================
-     STOCK OUT
+     STOCK OUT FORM
 ================================================= -->
 
 <div
-  id="stockOutForm"
-  class="form-box">
+id="stockOutForm"
+class="form-box">
+
 
 <div class="form-title out">
 
@@ -579,33 +594,12 @@ Cancel
 <div class="form-grid">
 
 
-<!-- CATEGORY -->
-
-<div class="form-group">
-
-<label>
-Category
-</label>
-
-<select
-  id="outCategory"
-  onchange="loadItemsByCategory('OUT')">
-
-<option value="">
--- Select Category --
-</option>
-
-</select>
-
-</div>
-
-
 <!-- ITEM -->
 
 <div class="form-group">
 
 <label>
-Item
+Item Name
 </label>
 
 <select id="outItem">
@@ -619,24 +613,6 @@ Item
 </div>
 
 
-<!-- QUANTITY -->
-
-<div class="form-group">
-
-<label>
-Quantity
-</label>
-
-<input
-  type="number"
-  id="outQuantity"
-  min="0.01"
-  step="any"
-  placeholder="Quantity">
-
-</div>
-
-
 <!-- UNIT -->
 
 <div class="form-group">
@@ -646,9 +622,28 @@ Unit
 </label>
 
 <input
-  type="text"
-  id="outUnit"
-  readonly>
+type="text"
+id="outUnit"
+class="readonly"
+readonly>
+
+</div>
+
+
+<!-- QUANTITY -->
+
+<div class="form-group">
+
+<label>
+Quantity
+</label>
+
+<input
+type="number"
+id="outQuantity"
+min="0.01"
+step="any"
+placeholder="Quantity">
 
 </div>
 
@@ -662,9 +657,9 @@ Issued By
 </label>
 
 <input
-  type="text"
-  id="outIssuedBy"
-  placeholder="Nama nama baase">
+type="text"
+id="outIssuedBy"
+placeholder="Nama nama baase">
 
 </div>
 
@@ -678,20 +673,22 @@ Signature / Mallattoo
 </label>
 
 <input
-  type="text"
-  id="outSignature"
-  placeholder="Mallattoo">
+type="text"
+id="outSignature"
+placeholder="Mallattoo">
 
 </div>
+
 
 </div>
 
 
 <div class="submit-row">
 
+
 <button
-  class="save-btn save-out"
-  onclick="saveStock('OUT')">
+class="save-btn save-out"
+onclick="saveStock('OUT')">
 
 💾 Save Stock OUT
 
@@ -699,12 +696,13 @@ Signature / Mallattoo
 
 
 <button
-  class="save-btn cancel-btn"
-  onclick="closeStockForms()">
+class="save-btn cancel"
+onclick="closeForms()">
 
 Cancel
 
 </button>
+
 
 </div>
 
@@ -717,6 +715,7 @@ Cancel
 ================================================= -->
 
 <div class="summary">
+
 
 <div class="card">
 
@@ -761,12 +760,13 @@ Current Balance
 
 </div>
 
+
 </div>
 
 
 
 <!-- =================================================
-     TABLE
+     TRANSACTION TABLE
 ================================================= -->
 
 <div class="table-box">
@@ -779,7 +779,7 @@ Current Balance
 
 <th>No</th>
 
-<th>Item</th>
+<th>Item Name</th>
 
 <th>Quantity</th>
 
@@ -809,8 +809,8 @@ Current Balance
 <tr>
 
 <td
-  colspan="11"
-  style="text-align:center">
+colspan="11"
+style="text-align:center;padding:25px">
 
 Loading...
 
@@ -825,6 +825,10 @@ Loading...
 </div>
 
 
+
+<!-- =================================================
+     UNIT TOTALS
+================================================= -->
 
 <div id="unitTotals"></div>
 
@@ -876,7 +880,7 @@ SUPABASE_KEY,
 
 
 /* =====================================================
-   HTML SECURITY
+   ESCAPE
 ===================================================== */
 
 function escapeHTML(value) {
@@ -897,84 +901,12 @@ return String(value ?? "")
 
 
 /* =====================================================
-   CATEGORIES
-===================================================== */
-
-const categories = {
-
-"1":
-"🥫 Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ",
-
-"2":
-"🍚 Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / ምግብ ነክ የእለት ደሪሽ",
-
-"3":
-"📦 Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ",
-
-"4":
-"🍳 Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ",
-
-"5":
-"🧼 Meeshaalee Qulqullinaa / Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና",
-
-"6":
-"🧱 Meeshaalee Ijaarsaa / Non-Food Construction Materials / ምግብ ነክ ያልallii / የህንጻ መሳሪያ"
-
-};
-
-
-/* =====================================================
    GLOBAL
 ===================================================== */
 
 let allItems = [];
 
 let allTransactions = [];
-
-
-/* =====================================================
-   CATEGORY SELECTS
-===================================================== */
-
-function fillCategories() {
-
-const inCategory =
-document.getElementById("inCategory");
-
-
-const outCategory =
-document.getElementById("outCategory");
-
-
-Object.entries(categories)
-.forEach(([id,name]) => {
-
-const option1 =
-document.createElement("option");
-
-option1.value =
-name;
-
-option1.textContent =
-name;
-
-inCategory.appendChild(option1);
-
-
-const option2 =
-document.createElement("option");
-
-option2.value =
-name;
-
-option2.textContent =
-name;
-
-outCategory.appendChild(option2);
-
-});
-
-}
 
 
 /* =====================================================
@@ -1000,7 +932,7 @@ getHeaders()
 if(!response.ok) {
 
 console.log(
-"Items error:",
+"Items Error:",
 await response.text()
 );
 
@@ -1037,7 +969,7 @@ getHeaders()
 if(!response.ok) {
 
 console.log(
-"Transactions error:",
+"Transactions Error:",
 await response.text()
 );
 
@@ -1052,108 +984,64 @@ return await response.json();
 
 
 /* =====================================================
-   LOAD ITEMS BY CATEGORY
+   FILL ITEM LIST
 ===================================================== */
 
-function loadItemsByCategory(type) {
+function fillItemLists() {
 
-const category =
-type === "IN"
-
-? document.getElementById(
-"inCategory"
-).value
-
-: document.getElementById(
-"outCategory"
-).value;
+const inSelect =
+document.getElementById("inItem");
 
 
-const select =
-type === "IN"
-
-? document.getElementById(
-"inItem"
-)
-
-: document.getElementById(
-"outItem"
-);
+const outSelect =
+document.getElementById("outItem");
 
 
-const unitInput =
-type === "IN"
-
-? document.getElementById(
-"inUnit"
-)
-
-: document.getElementById(
-"outUnit"
-);
-
-
-select.innerHTML = `
-
+inSelect.innerHTML = `
 <option value="">
 -- Select Item --
 </option>
-
 `;
 
-unitInput.value = "";
+
+outSelect.innerHTML = `
+<option value="">
+-- Select Item --
+</option>
+`;
 
 
-if(!category) {
-
-return;
-
-}
-
-
-const items =
-allItems.filter(
+allItems.forEach(
 
 item => {
 
-const itemCategory =
-String(
-item.category || ""
-).trim();
+const option1 =
+document.createElement("option");
 
 
-return itemCategory ===
-String(category).trim();
-
-}
-
-);
-
-
-items.forEach(
-
-item => {
-
-const option =
-document.createElement(
-"option"
-);
-
-
-option.value =
+option1.value =
 item.id;
 
 
-option.textContent =
+option1.textContent =
 item.name;
 
 
-option.dataset.unit =
+option1.dataset.unit =
 item.unit || "";
 
 
-select.appendChild(
-option
+inSelect.appendChild(
+option1
+);
+
+
+const option2 =
+option1.cloneNode(true);
+
+
+outSelect.appendChild(
+option2
 );
 
 }
@@ -1213,7 +1101,7 @@ option?.dataset?.unit || "";
 
 function openStockForm(type) {
 
-closeStockForms();
+closeForms();
 
 
 if(type === "IN") {
@@ -1237,10 +1125,10 @@ document.getElementById(
 
 
 /* =====================================================
-   CLOSE FORM
+   CLOSE
 ===================================================== */
 
-function closeStockForms() {
+function closeForms() {
 
 document.getElementById(
 "stockInForm"
@@ -1278,9 +1166,11 @@ box.className =
 
 
 setTimeout(
-() => {
+function() {
+
 box.className =
 "message";
+
 },
 4000
 );
@@ -1300,8 +1190,6 @@ let quantity = 0;
 
 let unit = "";
 
-let category = "";
-
 let enteredBy = "";
 
 let issuedBy = "";
@@ -1311,17 +1199,11 @@ let expiryDate = "";
 let signature = "";
 
 
-/* ================================
+/* ===============================================
    IN
-================================ */
+================================================ */
 
 if(type === "IN") {
-
-category =
-document.getElementById(
-"inCategory"
-).value;
-
 
 itemId =
 document.getElementById(
@@ -1363,17 +1245,11 @@ document.getElementById(
 }
 
 
-/* ================================
+/* ===============================================
    OUT
-================================ */
+================================================ */
 
 if(type === "OUT") {
-
-category =
-document.getElementById(
-"outCategory"
-).value;
-
 
 itemId =
 document.getElementById(
@@ -1409,21 +1285,9 @@ document.getElementById(
 }
 
 
-/* ================================
+/* ===============================================
    VALIDATION
-================================ */
-
-if(!category) {
-
-showMessage(
-"Category filadhu.",
-"error"
-);
-
-return;
-
-}
-
+================================================ */
 
 if(!itemId) {
 
@@ -1473,9 +1337,9 @@ return;
 }
 
 
-/* ================================
+/* ===============================================
    ITEM
-================================ */
+================================================ */
 
 const item =
 allItems.find(
@@ -1499,9 +1363,9 @@ return;
 }
 
 
-/* ================================
+/* ===============================================
    OUT BALANCE CHECK
-================================ */
+================================================ */
 
 if(type === "OUT") {
 
@@ -1525,7 +1389,9 @@ itemTransactions.forEach(
 t => {
 
 const q =
-Number(t.quantity || 0);
+Number(
+t.quantity || 0
+);
 
 
 const transactionType =
@@ -1570,7 +1436,7 @@ if(quantity > balance) {
 
 showMessage(
 
-`Stock hin gahu. Balance: ${balance} ${unit}`,
+`Stock hin gahu. Balance jiru: ${balance} ${unit}`,
 
 "error"
 
@@ -1583,9 +1449,17 @@ return;
 }
 
 
-/* ================================
+/* ===============================================
+   CATEGORY FROM ITEM
+================================================ */
+
+const category =
+item.category || null;
+
+
+/* ===============================================
    DATA
-================================ */
+================================================ */
 
 const data = {
 
@@ -1604,9 +1478,6 @@ type,
 transaction_type:
 type,
 
-category:
-category,
-
 entered_by:
 enteredBy,
 
@@ -1616,15 +1487,18 @@ issuedBy,
 expiry_date:
 expiryDate || null,
 
+category:
+category,
+
 signature:
 signature
 
 };
 
 
-/* ================================
-   INSERT
-================================ */
+/* ===============================================
+   SAVE
+================================================ */
 
 try {
 
@@ -1674,11 +1548,14 @@ errorText,
 "error"
 );
 
-
 return;
 
 }
 
+
+/* ===============================================
+   SUCCESS
+================================================ */
 
 showMessage(
 
@@ -1693,7 +1570,9 @@ type === "IN"
 );
 
 
-closeStockForms();
+clearForm(type);
+
+closeForms();
 
 
 await loadStock();
@@ -1703,7 +1582,7 @@ await loadStock();
 catch(error) {
 
 console.log(
-"Save error:",
+"Save Error:",
 error
 );
 
@@ -1719,12 +1598,72 @@ showMessage(
 
 
 /* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm(type) {
+
+if(type === "IN") {
+
+document.getElementById(
+"inItem"
+).value = "";
+
+document.getElementById(
+"inUnit"
+).value = "";
+
+document.getElementById(
+"inQuantity"
+).value = "";
+
+document.getElementById(
+"inExpiryDate"
+).value = "";
+
+document.getElementById(
+"inEnteredBy"
+).value = "";
+
+document.getElementById(
+"inSignature"
+).value = "";
+
+}
+
+
+if(type === "OUT") {
+
+document.getElementById(
+"outItem"
+).value = "";
+
+document.getElementById(
+"outUnit"
+).value = "";
+
+document.getElementById(
+"outQuantity"
+).value = "";
+
+document.getElementById(
+"outIssuedBy"
+).value = "";
+
+document.getElementById(
+"outSignature"
+).value = "";
+
+}
+
+}
+
+
+/* =====================================================
    LOAD STOCK
 ===================================================== */
 
 async function loadStock() {
-
-try {
 
 allItems =
 await loadItems();
@@ -1734,19 +1673,12 @@ allTransactions =
 await loadTransactions();
 
 
+fillItemLists();
+
+
 displayTransactions(
 allTransactions
 );
-
-}
-
-catch(error) {
-
-console.log(
-error
-);
-
-}
 
 }
 
@@ -1772,7 +1704,6 @@ let totalIn = 0;
 
 let totalOut = 0;
 
-
 let opening = 0;
 
 
@@ -1790,9 +1721,33 @@ item.quantity ||
 });
 
 
+if(transactions.length === 0) {
+
+table.innerHTML = `
+
+<tr>
+
+<td
+colspan="11"
+style="
+text-align:center;
+padding:25px">
+
+Transaction hin jiru.
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+
 transactions.forEach(
 
 (t,index) => {
+
 
 const item =
 allItems.find(
@@ -1856,7 +1811,9 @@ ${quantity}
 
 <td>
 ${escapeHTML(
-t.unit || item?.unit || ""
+t.unit ||
+item?.unit ||
+""
 )}
 </td>
 
@@ -1868,9 +1825,11 @@ type === "OUT"
 : "badge-in"
 }">
 
-${type === "OUT"
+${
+type === "OUT"
 ? "🔴 OUT"
-: "🟢 IN"}
+: "🟢 IN"
+}
 
 </span>
 
@@ -1896,7 +1855,9 @@ t.expiry_date || "—"
 
 <td>
 ${escapeHTML(
-t.category || ""
+t.category ||
+item?.category ||
+""
 )}
 </td>
 
@@ -1907,12 +1868,18 @@ t.created_at || ""
 </td>
 
 <td>
+
 ${
 t.signature
+
 ? "✍️ " +
-escapeHTML(t.signature)
+escapeHTML(
+t.signature
+)
+
 : "—"
 }
+
 </td>
 
 `;
@@ -1959,7 +1926,7 @@ transactions
 
 
 /* =====================================================
-   UNIT TOTALS
+   UNIT TOTAL
 ===================================================== */
 
 function updateUnitTotals(
@@ -2001,8 +1968,8 @@ item?.unit ||
 if(!totals[unit]) {
 
 totals[unit] = {
-in:0,
-out:0
+in: 0,
+out: 0
 };
 
 }
@@ -2023,11 +1990,13 @@ t.transaction ||
 
 
 if(type === "IN")
-totals[unit].in += quantity;
+totals[unit].in +=
+quantity;
 
 
 if(type === "OUT")
-totals[unit].out += quantity;
+totals[unit].out +=
+quantity;
 
 });
 
@@ -2078,7 +2047,10 @@ ${total.out}
 <br>
 
 Balance:
-${total.in - total.out}
+${
+total.in -
+total.out
+}
 
 </small>
 
@@ -2136,11 +2108,10 @@ transactions
    START
 ===================================================== */
 
-fillCategories();
-
 loadStock();
 
 </script>
+
 
 </body>
 
