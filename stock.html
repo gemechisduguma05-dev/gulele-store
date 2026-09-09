@@ -37,7 +37,7 @@ header h1 {
 
 .container {
   width: 96%;
-  max-width: 1450px;
+  max-width: 1500px;
   margin: 20px auto;
 }
 
@@ -69,6 +69,7 @@ header h1 {
   cursor: pointer;
   color: white;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .btn-in {
@@ -88,9 +89,9 @@ header h1 {
 }
 
 
-/* ===============================
+/* ============================
    FORM
-================================ */
+============================ */
 
 .form-box {
   display: none;
@@ -145,12 +146,6 @@ header h1 {
   font-size: 15px;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: #1e3a8a;
-}
-
 .readonly {
   background: #f8fafc;
 }
@@ -183,9 +178,9 @@ header h1 {
 }
 
 
-/* ===============================
+/* ============================
    MESSAGE
-================================ */
+============================ */
 
 .message {
   display: none;
@@ -208,9 +203,9 @@ header h1 {
 }
 
 
-/* ===============================
+/* ============================
    SUMMARY
-================================ */
+============================ */
 
 .summary {
   display: grid;
@@ -235,13 +230,23 @@ header h1 {
 }
 
 
-/* ===============================
-   TABLE
-================================ */
+/* ============================
+   REPORT
+============================ */
+
+.section-title {
+  background: white;
+  padding: 15px;
+  margin-bottom: 2px;
+  border-radius: 10px 10px 0 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e3a8a;
+}
 
 .table-box {
   background: white;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
   overflow-x: auto;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
@@ -249,29 +254,89 @@ header h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1200px;
+  min-width: 900px;
 }
 
 th {
   background: #1e3a8a;
   color: white;
-  padding: 11px;
+  padding: 12px;
   text-align: left;
   white-space: nowrap;
 }
 
 td {
-  padding: 10px;
+  padding: 11px;
   border-bottom: 1px solid #e2e8f0;
   white-space: nowrap;
 }
 
-.in-row {
-  border-left: 5px solid #15803d;
+.item-row {
+  cursor: pointer;
 }
 
-.out-row {
-  border-left: 5px solid #dc2626;
+.item-row:hover {
+  background: #eff6ff;
+}
+
+.balance {
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
+.click-text {
+  color: #2563eb;
+  font-weight: bold;
+}
+
+
+/* ============================
+   DETAILS
+============================ */
+
+.details-box {
+  display: none;
+  background: white;
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.details-box.show {
+  display: block;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.details-title {
+  font-size: 21px;
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
+.close-details {
+  background: #64748b;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.details-table {
+  overflow-x: auto;
+}
+
+.details-table table {
+  min-width: 1050px;
 }
 
 .badge {
@@ -292,9 +357,9 @@ td {
 }
 
 
-/* ===============================
+/* ============================
    UNIT TOTAL
-================================ */
+============================ */
 
 #unitTotals {
   display: grid;
@@ -356,7 +421,6 @@ AAFDRMC - STOCK MANAGEMENT
 
 <div class="buttons">
 
-
 <button
 class="btn btn-in"
 onclick="openStockForm('IN')">
@@ -377,45 +441,24 @@ onclick="openStockForm('OUT')">
 
 <button
 class="btn btn-blue"
-onclick="filterTransactions('ALL')">
+onclick="showReport()">
 
-📋 All
-
-</button>
-
-
-<button
-class="btn btn-in"
-onclick="filterTransactions('IN')">
-
-🟢 IN Report
-
-</button>
-
-
-<button
-class="btn btn-out"
-onclick="filterTransactions('OUT')">
-
-🔴 OUT Report
+📋 Stock Report
 
 </button>
 
 
 <a
 href="items.html"
-class="btn btn-gray"
-style="text-decoration:none">
+class="btn btn-gray">
 
 ← Items
 
 </a>
 
-
 </div>
 
 </div>
-
 
 
 <div
@@ -426,13 +469,12 @@ class="message">
 
 
 <!-- =================================================
-     STOCK IN FORM
+     STOCK IN
 ================================================= -->
 
 <div
 id="stockInForm"
 class="form-box">
-
 
 <div class="form-title in">
 
@@ -443,8 +485,6 @@ class="form-box">
 
 <div class="form-grid">
 
-
-<!-- ITEM -->
 
 <div class="form-group">
 
@@ -463,8 +503,6 @@ Item Name
 </div>
 
 
-<!-- UNIT -->
-
 <div class="form-group">
 
 <label>
@@ -479,8 +517,6 @@ readonly>
 
 </div>
 
-
-<!-- QUANTITY -->
 
 <div class="form-group">
 
@@ -498,8 +534,6 @@ placeholder="Quantity">
 </div>
 
 
-<!-- EXPIRY -->
-
 <div class="form-group">
 
 <label>
@@ -512,8 +546,6 @@ id="inExpiryDate">
 
 </div>
 
-
-<!-- ENTERED BY -->
 
 <div class="form-group">
 
@@ -529,8 +561,6 @@ placeholder="Nama nama galche">
 </div>
 
 
-<!-- SIGNATURE -->
-
 <div class="form-group">
 
 <label>
@@ -544,12 +574,10 @@ placeholder="Mallattoo">
 
 </div>
 
-
 </div>
 
 
 <div class="submit-row">
-
 
 <button
 class="save-btn save-in"
@@ -568,7 +596,6 @@ Cancel
 
 </button>
 
-
 </div>
 
 </div>
@@ -576,13 +603,12 @@ Cancel
 
 
 <!-- =================================================
-     STOCK OUT FORM
+     STOCK OUT
 ================================================= -->
 
 <div
 id="stockOutForm"
 class="form-box">
-
 
 <div class="form-title out">
 
@@ -593,8 +619,6 @@ class="form-box">
 
 <div class="form-grid">
 
-
-<!-- ITEM -->
 
 <div class="form-group">
 
@@ -613,8 +637,6 @@ Item Name
 </div>
 
 
-<!-- UNIT -->
-
 <div class="form-group">
 
 <label>
@@ -629,8 +651,6 @@ readonly>
 
 </div>
 
-
-<!-- QUANTITY -->
 
 <div class="form-group">
 
@@ -648,8 +668,6 @@ placeholder="Quantity">
 </div>
 
 
-<!-- ISSUED BY -->
-
 <div class="form-group">
 
 <label>
@@ -664,8 +682,6 @@ placeholder="Nama nama baase">
 </div>
 
 
-<!-- SIGNATURE -->
-
 <div class="form-group">
 
 <label>
@@ -679,12 +695,10 @@ placeholder="Mallattoo">
 
 </div>
 
-
 </div>
 
 
 <div class="submit-row">
-
 
 <button
 class="save-btn save-out"
@@ -703,7 +717,6 @@ Cancel
 
 </button>
 
-
 </div>
 
 </div>
@@ -715,6 +728,17 @@ Cancel
 ================================================= -->
 
 <div class="summary">
+
+
+<div class="card">
+
+Total Items
+
+<strong id="totalItems">
+0
+</strong>
+
+</div>
 
 
 <div class="card">
@@ -760,14 +784,20 @@ Current Balance
 
 </div>
 
-
 </div>
 
 
 
 <!-- =================================================
-     TRANSACTION TABLE
+     GROUPED ITEM REPORT
 ================================================= -->
+
+<div class="section-title">
+
+📊 Stock Report — Itemoota Walitti Qabaman
+
+</div>
+
 
 <div class="table-box">
 
@@ -781,35 +811,29 @@ Current Balance
 
 <th>Item Name</th>
 
-<th>Quantity</th>
-
 <th>Unit</th>
 
-<th>Transaction</th>
+<th>Opening</th>
 
-<th>Entered By</th>
+<th>Stock IN</th>
 
-<th>Issued By</th>
+<th>Stock OUT</th>
 
-<th>Expiry Date</th>
+<th>Balance</th>
 
-<th>Category</th>
-
-<th>Date / Time</th>
-
-<th>Signature</th>
+<th>Details</th>
 
 </tr>
 
 </thead>
 
 
-<tbody id="stockTable">
+<tbody id="reportTable">
 
 <tr>
 
 <td
-colspan="11"
+colspan="8"
 style="text-align:center;padding:25px">
 
 Loading...
@@ -827,7 +851,79 @@ Loading...
 
 
 <!-- =================================================
-     UNIT TOTALS
+     DETAILS
+================================================= -->
+
+<div
+id="detailsBox"
+class="details-box">
+
+
+<div class="details-header">
+
+<div
+id="detailsTitle"
+class="details-title">
+
+</div>
+
+
+<button
+class="close-details"
+onclick="closeDetails()">
+
+✖ Close
+
+</button>
+
+</div>
+
+
+<div class="details-table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>No</th>
+
+<th>Transaction</th>
+
+<th>Quantity</th>
+
+<th>Unit</th>
+
+<th>Entered By</th>
+
+<th>Issued By</th>
+
+<th>Expiry Date</th>
+
+<th>Date / Time</th>
+
+<th>Signature</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="detailsTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+
+<!-- =================================================
+     UNIT TOTAL
 ================================================= -->
 
 <div id="unitTotals"></div>
@@ -984,14 +1080,13 @@ return await response.json();
 
 
 /* =====================================================
-   FILL ITEM LIST
+   ITEM LISTS
 ===================================================== */
 
 function fillItemLists() {
 
 const inSelect =
 document.getElementById("inItem");
-
 
 const outSelect =
 document.getElementById("outItem");
@@ -1003,7 +1098,6 @@ inSelect.innerHTML = `
 </option>
 `;
 
-
 outSelect.innerHTML = `
 <option value="">
 -- Select Item --
@@ -1011,85 +1105,59 @@ outSelect.innerHTML = `
 `;
 
 
-allItems.forEach(
-
-item => {
+allItems.forEach(item => {
 
 const option1 =
 document.createElement("option");
 
-
 option1.value =
 item.id;
 
-
 option1.textContent =
 item.name;
-
 
 option1.dataset.unit =
 item.unit || "";
 
 
-inSelect.appendChild(
-option1
-);
+inSelect.appendChild(option1);
 
 
 const option2 =
 option1.cloneNode(true);
 
+outSelect.appendChild(option2);
 
-outSelect.appendChild(
-option2
-);
-
-}
-
-);
+});
 
 }
 
 
 /* =====================================================
-   ITEM UNIT
+   UNIT WHEN ITEM SELECTED
 ===================================================== */
 
-document.getElementById(
-"inItem"
-).addEventListener(
-"change",
-function() {
+document.getElementById("inItem")
+.addEventListener("change", function() {
 
 const option =
-this.options[
-this.selectedIndex
-];
+this.options[this.selectedIndex];
 
-
-document.getElementById(
-"inUnit"
-).value =
+document.getElementById("inUnit")
+.value =
 option?.dataset?.unit || "";
 
 });
 
 
-document.getElementById(
-"outItem"
-).addEventListener(
-"change",
-function() {
+document.getElementById("outItem")
+.addEventListener("change", function() {
 
 const option =
-this.options[
-this.selectedIndex
-];
+this.options[this.selectedIndex];
 
-
-document.getElementById(
-"outUnit"
-).value =
+document.getElementById("outUnit")
+.value =
 option?.dataset?.unit || "";
 
 });
@@ -1125,7 +1193,7 @@ document.getElementById(
 
 
 /* =====================================================
-   CLOSE
+   CLOSE FORM
 ===================================================== */
 
 function closeForms() {
@@ -1133,7 +1201,6 @@ function closeForms() {
 document.getElementById(
 "stockInForm"
 ).classList.remove("show");
-
 
 document.getElementById(
 "stockOutForm"
@@ -1146,34 +1213,24 @@ document.getElementById(
    MESSAGE
 ===================================================== */
 
-function showMessage(
-text,
-type
-) {
+function showMessage(text,type) {
 
 const box =
-document.getElementById(
-"message"
-);
-
+document.getElementById("message");
 
 box.textContent =
 text;
-
 
 box.className =
 "message " + type;
 
 
-setTimeout(
-function() {
+setTimeout(() => {
 
 box.className =
 "message";
 
-},
-4000
-);
+},4000);
 
 }
 
@@ -1185,23 +1242,13 @@ box.className =
 async function saveStock(type) {
 
 let itemId = "";
-
 let quantity = 0;
-
 let unit = "";
-
 let enteredBy = "";
-
 let issuedBy = "";
-
 let expiryDate = "";
-
 let signature = "";
 
-
-/* ===============================================
-   IN
-================================================ */
 
 if(type === "IN") {
 
@@ -1210,7 +1257,6 @@ document.getElementById(
 "inItem"
 ).value;
 
-
 quantity =
 Number(
 document.getElementById(
@@ -1218,24 +1264,20 @@ document.getElementById(
 ).value
 );
 
-
 unit =
 document.getElementById(
 "inUnit"
 ).value;
-
 
 enteredBy =
 document.getElementById(
 "inEnteredBy"
 ).value.trim();
 
-
 expiryDate =
 document.getElementById(
 "inExpiryDate"
 ).value;
-
 
 signature =
 document.getElementById(
@@ -1245,17 +1287,12 @@ document.getElementById(
 }
 
 
-/* ===============================================
-   OUT
-================================================ */
-
 if(type === "OUT") {
 
 itemId =
 document.getElementById(
 "outItem"
 ).value;
-
 
 quantity =
 Number(
@@ -1264,18 +1301,15 @@ document.getElementById(
 ).value
 );
 
-
 unit =
 document.getElementById(
 "outUnit"
 ).value;
 
-
 issuedBy =
 document.getElementById(
 "outIssuedBy"
 ).value.trim();
-
 
 signature =
 document.getElementById(
@@ -1284,10 +1318,6 @@ document.getElementById(
 
 }
 
-
-/* ===============================================
-   VALIDATION
-================================================ */
 
 if(!itemId) {
 
@@ -1337,17 +1367,11 @@ return;
 }
 
 
-/* ===============================================
-   ITEM
-================================================ */
-
 const item =
 allItems.find(
-
 i =>
 String(i.id) ===
 String(itemId)
-
 );
 
 
@@ -1364,7 +1388,7 @@ return;
 
 
 /* ===============================================
-   OUT BALANCE CHECK
+   CHECK OUT BALANCE
 ================================================ */
 
 if(type === "OUT") {
@@ -1380,19 +1404,13 @@ String(itemId)
 
 
 let totalIn = 0;
-
 let totalOut = 0;
 
 
-itemTransactions.forEach(
-
-t => {
+itemTransactions.forEach(t => {
 
 const q =
-Number(
-t.quantity || 0
-);
-
+Number(t.quantity || 0);
 
 const transactionType =
 String(
@@ -1402,18 +1420,11 @@ t.transaction ||
 ).toUpperCase();
 
 
-if(transactionType === "IN") {
-
+if(transactionType === "IN")
 totalIn += q;
 
-}
-
-
-if(transactionType === "OUT") {
-
+if(transactionType === "OUT")
 totalOut += q;
-
-}
 
 });
 
@@ -1435,11 +1446,8 @@ totalOut;
 if(quantity > balance) {
 
 showMessage(
-
-`Stock hin gahu. Balance jiru: ${balance} ${unit}`,
-
+`Stock hin gahu. Balance: ${balance} ${unit}`,
 "error"
-
 );
 
 return;
@@ -1497,7 +1505,7 @@ signature
 
 
 /* ===============================================
-   SAVE
+   INSERT
 ================================================ */
 
 try {
@@ -1535,12 +1543,10 @@ if(!response.ok) {
 const errorText =
 await response.text();
 
-
 console.log(
 "Save Error:",
 errorText
 );
-
 
 showMessage(
 "Save hin milkoofne: " +
@@ -1552,10 +1558,6 @@ return;
 
 }
 
-
-/* ===============================================
-   SUCCESS
-================================================ */
 
 showMessage(
 
@@ -1574,7 +1576,6 @@ clearForm(type);
 
 closeForms();
 
-
 await loadStock();
 
 }
@@ -1585,7 +1586,6 @@ console.log(
 "Save Error:",
 error
 );
-
 
 showMessage(
 "Network error.",
@@ -1660,7 +1660,7 @@ document.getElementById(
 
 
 /* =====================================================
-   LOAD STOCK
+   LOAD EVERYTHING
 ===================================================== */
 
 async function loadStock() {
@@ -1668,67 +1668,375 @@ async function loadStock() {
 allItems =
 await loadItems();
 
-
 allTransactions =
 await loadTransactions();
 
 
 fillItemLists();
 
-
-displayTransactions(
-allTransactions
-);
+showReport();
 
 }
 
 
 /* =====================================================
-   DISPLAY
+   GROUP ITEMS
 ===================================================== */
 
-function displayTransactions(
-transactions
-) {
+function buildGroupedReport() {
 
-const table =
-document.getElementById(
-"stockTable"
-);
+const groups = {};
 
 
-table.innerHTML = "";
+allItems.forEach(item => {
+
+const key =
+String(item.name || "")
+.trim()
+.toLowerCase();
 
 
-let totalIn = 0;
+if(!groups[key]) {
 
-let totalOut = 0;
+groups[key] = {
 
-let opening = 0;
+name:
+item.name || "",
+
+unit:
+item.unit || "",
+
+opening: 0,
+
+in: 0,
+
+out: 0,
+
+itemIds: []
+
+};
+
+}
 
 
-allItems.forEach(
-
-item => {
-
-opening +=
+groups[key].opening +=
 Number(
 item.opening_quantity ||
 item.quantity ||
 0
 );
 
+
+groups[key].itemIds.push(
+item.id
+);
+
 });
+
+
+allTransactions.forEach(t => {
+
+const item =
+allItems.find(
+
+i =>
+String(i.id) ===
+String(t.item_id)
+
+);
+
+
+if(!item)
+return;
+
+
+const key =
+String(item.name || "")
+.trim()
+.toLowerCase();
+
+
+if(!groups[key]) {
+
+groups[key] = {
+
+name:
+item.name || "",
+
+unit:
+item.unit || "",
+
+opening: 0,
+
+in: 0,
+
+out: 0,
+
+itemIds: []
+
+};
+
+}
+
+
+const quantity =
+Number(t.quantity || 0);
+
+
+const type =
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase();
+
+
+if(type === "IN") {
+
+groups[key].in +=
+quantity;
+
+}
+
+
+if(type === "OUT") {
+
+groups[key].out +=
+quantity;
+
+}
+
+});
+
+
+return Object.values(groups);
+
+}
+
+
+/* =====================================================
+   SHOW REPORT
+===================================================== */
+
+function showReport() {
+
+const reportTable =
+document.getElementById(
+"reportTable"
+);
+
+
+const groups =
+buildGroupedReport();
+
+
+reportTable.innerHTML = "";
+
+
+let totalOpening = 0;
+let totalIn = 0;
+let totalOut = 0;
+
+
+groups.forEach(
+(group,index) => {
+
+
+const balance =
+group.opening +
+group.in -
+group.out;
+
+
+totalOpening +=
+group.opening;
+
+totalIn +=
+group.in;
+
+totalOut +=
+group.out;
+
+
+const row =
+document.createElement("tr");
+
+
+row.className =
+"item-row";
+
+
+row.onclick =
+function() {
+
+showItemDetails(
+group.name
+);
+
+};
+
+
+row.innerHTML = `
+
+<td>
+${index + 1}
+</td>
+
+<td>
+<strong>
+${escapeHTML(group.name)}
+</strong>
+</td>
+
+<td>
+${escapeHTML(group.unit)}
+</td>
+
+<td>
+${group.opening}
+</td>
+
+<td>
+${group.in}
+</td>
+
+<td>
+${group.out}
+</td>
+
+<td class="balance">
+${balance}
+</td>
+
+<td class="click-text">
+👆 Click
+</td>
+
+`;
+
+
+reportTable.appendChild(row);
+
+});
+
+
+document.getElementById(
+"totalItems"
+).textContent =
+groups.length;
+
+
+document.getElementById(
+"totalOpening"
+).textContent =
+totalOpening;
+
+
+document.getElementById(
+"totalIn"
+).textContent =
+totalIn;
+
+
+document.getElementById(
+"totalOut"
+).textContent =
+totalOut;
+
+
+document.getElementById(
+"totalBalance"
+).textContent =
+totalOpening +
+totalIn -
+totalOut;
+
+
+updateUnitTotals();
+
+}
+
+
+/* =====================================================
+   ITEM DETAILS
+===================================================== */
+
+function showItemDetails(itemName) {
+
+const detailsBox =
+document.getElementById(
+"detailsBox"
+);
+
+
+const detailsTitle =
+document.getElementById(
+"detailsTitle"
+);
+
+
+const detailsTable =
+document.getElementById(
+"detailsTable"
+);
+
+
+const normalizedName =
+String(itemName)
+.trim()
+.toLowerCase();
+
+
+const matchingItems =
+allItems.filter(
+
+item =>
+String(item.name || "")
+.trim()
+.toLowerCase() ===
+normalizedName
+
+);
+
+
+const matchingIds =
+matchingItems.map(
+item => item.id
+);
+
+
+const transactions =
+allTransactions.filter(
+
+t =>
+matchingIds.some(
+
+id =>
+String(id) ===
+String(t.item_id)
+
+)
+
+);
+
+
+detailsTitle.textContent =
+"📦 " +
+itemName +
+" — Transaction Details";
+
+
+detailsTable.innerHTML = "";
 
 
 if(transactions.length === 0) {
 
-table.innerHTML = `
+detailsTable.innerHTML = `
 
 <tr>
 
 <td
-colspan="11"
+colspan="9"
 style="
 text-align:center;
 padding:25px">
@@ -1745,8 +2053,15 @@ Transaction hin jiru.
 
 
 transactions.forEach(
-
 (t,index) => {
+
+
+const type =
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase();
 
 
 const item =
@@ -1759,32 +2074,8 @@ String(t.item_id)
 );
 
 
-const type =
-String(
-t.transaction_type ||
-t.transaction ||
-""
-).toUpperCase();
-
-
-const quantity =
-Number(
-t.quantity || 0
-);
-
-
-if(type === "IN")
-totalIn += quantity;
-
-
-if(type === "OUT")
-totalOut += quantity;
-
-
 const row =
-document.createElement(
-"tr"
-);
+document.createElement("tr");
 
 
 row.className =
@@ -1797,24 +2088,6 @@ row.innerHTML = `
 
 <td>
 ${index + 1}
-</td>
-
-<td>
-${escapeHTML(
-item?.name || ""
-)}
-</td>
-
-<td>
-${quantity}
-</td>
-
-<td>
-${escapeHTML(
-t.unit ||
-item?.unit ||
-""
-)}
 </td>
 
 <td>
@@ -1836,14 +2109,26 @@ type === "OUT"
 </td>
 
 <td>
+${Number(t.quantity || 0)}
+</td>
+
+<td>
 ${escapeHTML(
-t.entered_by || ""
+t.unit ||
+item?.unit ||
+""
 )}
 </td>
 
 <td>
 ${escapeHTML(
-t.issued_by || ""
+t.entered_by || "—"
+)}
+</td>
+
+<td>
+${escapeHTML(
+t.issued_by || "—"
 )}
 </td>
 
@@ -1855,15 +2140,7 @@ t.expiry_date || "—"
 
 <td>
 ${escapeHTML(
-t.category ||
-item?.category ||
-""
-)}
-</td>
-
-<td>
-${escapeHTML(
-t.created_at || ""
+formatDate(t.created_at)
 )}
 </td>
 
@@ -1871,12 +2148,8 @@ t.created_at || ""
 
 ${
 t.signature
-
 ? "✍️ " +
-escapeHTML(
-t.signature
-)
-
+escapeHTML(t.signature)
 : "—"
 }
 
@@ -1885,53 +2158,67 @@ t.signature
 `;
 
 
-table.appendChild(
+detailsTable.appendChild(
 row
 );
 
 });
 
 
-document.getElementById(
-"totalOpening"
-).textContent =
-opening;
-
-
-document.getElementById(
-"totalIn"
-).textContent =
-totalIn;
-
-
-document.getElementById(
-"totalOut"
-).textContent =
-totalOut;
-
-
-document.getElementById(
-"totalBalance"
-).textContent =
-opening +
-totalIn -
-totalOut;
-
-
-updateUnitTotals(
-transactions
+detailsBox.classList.add(
+"show"
 );
+
+
+detailsBox.scrollIntoView({
+behavior: "smooth",
+block: "start"
+});
 
 }
 
 
 /* =====================================================
-   UNIT TOTAL
+   CLOSE DETAILS
 ===================================================== */
 
-function updateUnitTotals(
-transactions
-) {
+function closeDetails() {
+
+document.getElementById(
+"detailsBox"
+).classList.remove("show");
+
+}
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(value) {
+
+if(!value)
+return "—";
+
+
+const date =
+new Date(value);
+
+
+if(isNaN(date.getTime()))
+return value;
+
+
+return date.toLocaleString();
+
+}
+
+
+/* =====================================================
+   UNIT TOTALS
+===================================================== */
+
+function updateUnitTotals() {
 
 const container =
 document.getElementById(
@@ -1945,9 +2232,40 @@ container.innerHTML = "";
 const totals = {};
 
 
-transactions.forEach(
+allItems.forEach(item => {
 
-t => {
+const unit =
+String(
+item.unit || "Unknown"
+).trim();
+
+
+if(!totals[unit]) {
+
+totals[unit] = {
+
+opening: 0,
+
+in: 0,
+
+out: 0
+
+};
+
+}
+
+
+totals[unit].opening +=
+Number(
+item.opening_quantity ||
+item.quantity ||
+0
+);
+
+});
+
+
+allTransactions.forEach(t => {
 
 const item =
 allItems.find(
@@ -1959,26 +2277,35 @@ String(t.item_id)
 );
 
 
+if(!item)
+return;
+
+
 const unit =
+String(
 t.unit ||
-item?.unit ||
-"Unknown";
+item.unit ||
+"Unknown"
+).trim();
 
 
 if(!totals[unit]) {
 
 totals[unit] = {
+
+opening: 0,
+
 in: 0,
+
 out: 0
+
 };
 
 }
 
 
 const quantity =
-Number(
-t.quantity || 0
-);
+Number(t.quantity || 0);
 
 
 const type =
@@ -2003,18 +2330,20 @@ quantity;
 
 Object.keys(totals)
 .sort()
-.forEach(
-
-unit => {
+.forEach(unit => {
 
 const total =
 totals[unit];
 
 
+const balance =
+total.opening +
+total.in -
+total.out;
+
+
 const card =
-document.createElement(
-"div"
-);
+document.createElement("div");
 
 
 card.className =
@@ -2026,15 +2355,15 @@ card.innerHTML = `
 📏 ${escapeHTML(unit)}
 
 <strong>
-
-${
-total.in -
-total.out
-}
-
+${balance}
 </strong>
 
 <small>
+
+Opening:
+${total.opening}
+
+<br>
 
 Stock IN:
 ${total.in}
@@ -2047,10 +2376,7 @@ ${total.out}
 <br>
 
 Balance:
-${
-total.in -
-total.out
-}
+${balance}
 
 </small>
 
@@ -2067,51 +2393,12 @@ card
 
 
 /* =====================================================
-   FILTER
-===================================================== */
-
-function filterTransactions(
-type
-) {
-
-let transactions =
-allTransactions;
-
-
-if(type !== "ALL") {
-
-transactions =
-transactions.filter(
-
-t =>
-
-String(
-t.transaction_type ||
-t.transaction ||
-""
-).toUpperCase() ===
-type
-
-);
-
-}
-
-
-displayTransactions(
-transactions
-);
-
-}
-
-
-/* =====================================================
    START
 ===================================================== */
 
 loadStock();
 
 </script>
-
 
 </body>
 
