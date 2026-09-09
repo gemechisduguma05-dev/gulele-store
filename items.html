@@ -87,7 +87,6 @@ select {
   border: 1px solid #cbd5e1;
   border-radius: 7px;
   font-size: 15px;
-  background: white;
 }
 
 .box > button {
@@ -112,7 +111,7 @@ select {
 
 table {
   width: 100%;
-  min-width: 1100px;
+  min-width: 1200px;
   border-collapse: collapse;
 }
 
@@ -170,11 +169,9 @@ tbody tr:hover {
   color: white !important;
 }
 
-label {
-  display: block;
+.success {
+  color: #15803d;
   font-weight: bold;
-  margin-bottom: 6px;
-  color: #1e293b;
 }
 
 </style>
@@ -182,7 +179,6 @@ label {
 </head>
 
 <body>
-
 
 <header>
 
@@ -236,19 +232,11 @@ onclick="logoutUser()">
 <h2>➕ Add New Item</h2>
 
 
-<label>
-Item Name
-</label>
-
 <input
 id="name"
 placeholder="Item name"
 >
 
-
-<label>
-Category
-</label>
 
 <select id="category">
 
@@ -258,10 +246,6 @@ Category
 
 </select>
 
-
-<label>
-Unit / Safartuu
-</label>
 
 <select id="unit">
 
@@ -304,10 +288,6 @@ Set
 </select>
 
 
-<label>
-Quantity
-</label>
-
 <input
 id="quantity"
 type="number"
@@ -317,10 +297,6 @@ placeholder="Quantity"
 >
 
 
-<label>
-Cost Price
-</label>
-
 <input
 id="cost"
 type="number"
@@ -329,10 +305,6 @@ min="0"
 placeholder="Cost Price"
 >
 
-
-<label>
-Selling Price
-</label>
 
 <input
 id="selling"
@@ -344,13 +316,12 @@ placeholder="Selling Price"
 
 
 <label>
-EX Date
+<strong>EX Date</strong>
 </label>
 
 <input
 id="expiryDate"
 type="date"
-required
 >
 
 
@@ -460,6 +431,26 @@ localStorage.getItem("access_token")
 || SUPABASE_KEY;
 
 
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+
+    .replace(/&/g, "&amp;")
+
+    .replace(/</g, "&lt;")
+
+    .replace(/>/g, "&gt;")
+
+    .replace(/"/g, "&quot;")
+
+    .replace(/'/g, "&#039;");
+
+}
+
 
 /* =========================
    LOAD CATEGORIES
@@ -468,36 +459,31 @@ localStorage.getItem("access_token")
 async function loadCategories() {
 
   const categorySelect =
-  document.getElementById("category");
+    document.getElementById("category");
 
 
   try {
 
     const response =
-    await fetch(
+      await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/store_categories?select=id,name&order=id.asc",
+        SUPABASE_URL +
+        "/rest/v1/store_categories?select=id,name&order=name.asc",
 
-      {
-        method: "GET",
+        {
+          headers: {
 
-        headers: {
+            "apikey":
+              SUPABASE_KEY,
 
-          "apikey":
-          SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + token
 
-          "Authorization":
-          "Bearer " + token,
-
-          "Content-Type":
-          "application/json"
+          }
 
         }
 
-      }
-
-    );
+      );
 
 
     if (!response.ok) {
@@ -507,21 +493,13 @@ async function loadCategories() {
         await response.text()
       );
 
-      categorySelect.innerHTML = `
-
-        <option value="">
-          Category load failed
-        </option>
-
-      `;
-
       return;
 
     }
 
 
     const categories =
-    await response.json();
+      await response.json();
 
 
     categorySelect.innerHTML = `
@@ -536,15 +514,15 @@ async function loadCategories() {
     categories.forEach(category => {
 
       const option =
-      document.createElement("option");
+        document.createElement("option");
 
 
       option.value =
-      category.id;
+        category.id;
 
 
       option.textContent =
-      category.name;
+        category.name;
 
 
       categorySelect.appendChild(
@@ -566,6 +544,90 @@ async function loadCategories() {
 }
 
 
+/* =========================
+   LOAD EXPIRY DATES
+   FROM STOCK TRANSACTIONS
+========================= */
+
+async function loadExpiryDates() {
+
+  try {
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/stock_transactions?select=id,item_id,expiry_date&order=id.desc",
+
+        {
+
+          headers: {
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " + token
+
+          }
+
+        }
+
+      );
+
+
+    if (!response.ok) {
+
+      console.log(
+        "Expiry load error:",
+        await response.text()
+      );
+
+      return {};
+
+    }
+
+
+    const transactions =
+      await response.json();
+
+
+    const expiryMap = {};
+
+
+    transactions.forEach(transaction => {
+
+      if (
+        transaction.item_id &&
+        !(transaction.item_id in expiryMap)
+      ) {
+
+        expiryMap[
+          transaction.item_id
+        ] =
+          transaction.expiry_date || "";
+
+      }
+
+    });
+
+
+    return expiryMap;
+
+
+  } catch (error) {
+
+    console.log(
+      "Expiry error:",
+      error
+    );
+
+    return {};
+
+  }
+
+}
+
 
 /* =========================
    LOAD ITEMS
@@ -576,30 +638,26 @@ async function loadItems() {
   try {
 
     const response =
-    await fetch(
+      await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/items?select=*&order=id.desc",
+        SUPABASE_URL +
+        "/rest/v1/items?select=*&order=id.desc",
 
-      {
-        method: "GET",
+        {
 
-        headers: {
+          headers: {
 
-          "apikey":
-          SUPABASE_KEY,
+            "apikey":
+              SUPABASE_KEY,
 
-          "Authorization":
-          "Bearer " + token,
+            "Authorization":
+              "Bearer " + token
 
-          "Content-Type":
-          "application/json"
+          }
 
         }
 
-      }
-
-    );
+      );
 
 
     if (!response.ok) {
@@ -615,22 +673,26 @@ async function loadItems() {
 
 
     const data =
-    await response.json();
+      await response.json();
+
+
+    const expiryMap =
+      await loadExpiryDates();
 
 
     const search =
-    document.getElementById(
-      "search"
-    )
-    .value
-    .toLowerCase()
-    .trim();
+      document.getElementById(
+        "search"
+      )
+      .value
+      .toLowerCase()
+      .trim();
 
 
     const list =
-    document.getElementById(
-      "itemList"
-    );
+      document.getElementById(
+        "itemList"
+      );
 
 
     list.innerHTML = "";
@@ -653,6 +715,10 @@ async function loadItems() {
     )
 
     .forEach(item => {
+
+
+      const expiryDate =
+        expiryMap[item.id] || "";
 
 
       list.innerHTML += `
@@ -684,11 +750,7 @@ async function loadItems() {
           </td>
 
           <td>
-            ${
-              item.expiry_date
-              ? item.expiry_date
-              : "-"
-            }
+            ${escapeHTML(expiryDate)}
           </td>
 
           <td>
@@ -699,36 +761,32 @@ async function loadItems() {
 
             ${
               item.created_at
-
               ? new Date(
                   item.created_at
                 ).toLocaleDateString()
-
               : ""
-
             }
 
           </td>
-
 
           <td>
 
             <div class="action">
 
               <button
-              class="edit"
-              onclick="editItem('${item.id}')">
+                class="edit"
+                onclick="editItem(${item.id})">
 
-              ✏️ Edit
+                ✏️ Edit
 
               </button>
 
 
               <button
-              class="del"
-              onclick="deleteItem('${item.id}')">
+                class="del"
+                onclick="deleteItem(${item.id})">
 
-              🗑️ Delete
+                🗑️ Delete
 
               </button>
 
@@ -746,14 +804,13 @@ async function loadItems() {
   } catch (error) {
 
     console.log(
-      "Items error:",
+      "Items load error:",
       error
     );
 
   }
 
 }
-
 
 
 /* =========================
@@ -764,62 +821,61 @@ async function addItem() {
 
 
   const name =
-  document.getElementById(
-    "name"
-  ).value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
 
 
   const categorySelect =
-  document.getElementById(
-    "category"
-  );
+    document.getElementById(
+      "category"
+    );
 
 
   const categoryId =
-  categorySelect.value;
-
-
-  const selectedOption =
-  categorySelect.options[
-    categorySelect.selectedIndex
-  ];
+    categorySelect.value;
 
 
   const categoryName =
-  selectedOption
-  ? selectedOption.text
-  : "";
+    categorySelect.options[
+      categorySelect.selectedIndex
+    ]?.text || "";
 
 
   const unit =
-  document.getElementById(
-    "unit"
-  ).value;
+    document.getElementById(
+      "unit"
+    ).value;
 
 
-  const quantityValue =
-  document.getElementById(
-    "quantity"
-  ).value;
+  const quantity =
+    Number(
+      document.getElementById(
+        "quantity"
+      ).value
+    );
 
 
-  const costValue =
-  document.getElementById(
-    "cost"
-  ).value;
+  const cost =
+    Number(
+      document.getElementById(
+        "cost"
+      ).value
+    );
 
 
-  const sellingValue =
-  document.getElementById(
-    "selling"
-  ).value;
+  const selling =
+    Number(
+      document.getElementById(
+        "selling"
+      ).value
+    );
 
 
   const expiryDate =
-  document.getElementById(
-    "expiryDate"
-  ).value;
-
+    document.getElementById(
+      "expiryDate"
+    ).value;
 
 
   /* =========================
@@ -860,8 +916,8 @@ async function addItem() {
 
 
   if (
-    quantityValue === "" ||
-    Number(quantityValue) < 0
+    isNaN(quantity) ||
+    quantity < 0
   ) {
 
     alert(
@@ -873,58 +929,14 @@ async function addItem() {
   }
 
 
-  if (costValue === "") {
-
-    alert(
-      "Cost Price galchi."
-    );
-
-    return;
-
-  }
-
-
-  if (sellingValue === "") {
-
-    alert(
-      "Selling Price galchi."
-    );
-
-    return;
-
-  }
-
-
-  /* =========================
-     EX DATE REQUIRED
-  ========================= */
-
-  if (!expiryDate) {
-
-    alert(
-      "EX Date galchi."
-    );
-
-    return;
-
-  }
-
-
-
-  /* =========================
-     ENTERED BY
-  ========================= */
-
   const enteredBy =
-  prompt(
-    "Maqaa nama galche:"
-  );
+    prompt(
+      "Maqaa nama galche:"
+    );
 
 
-  if (
-    enteredBy === null ||
-    enteredBy.trim() === ""
-  ) {
+  if (!enteredBy ||
+      !enteredBy.trim()) {
 
     alert(
       "Maqaa nama galche galchi."
@@ -935,158 +947,275 @@ async function addItem() {
   }
 
 
-
   /* =========================
-     ITEM OBJECT
+     SAVE ITEM
+     
+     NOTE:
+     expiry_date hin ergu.
+     Sababni isaa items table
+     keessatti column sun hin jiru.
   ========================= */
 
   const item = {
 
     name:
-    name,
+      name,
 
     category_id:
-    categoryId,
+      categoryId,
 
     category:
-    categoryName,
+      categoryName,
 
     unit:
-    unit,
+      unit,
 
     quantity:
-    Number(quantityValue),
+      quantity,
 
     cost_price:
-    Number(costValue),
+      cost,
 
     selling_price:
-    Number(sellingValue),
-
-    expiry_date:
-    expiryDate,
+      selling,
 
     entered_by:
-    enteredBy.trim()
+      enteredBy.trim()
 
   };
 
 
-
-  /* =========================
-     SAVE TO SUPABASE
-  ========================= */
-
   try {
 
-    const response =
-    await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/items",
+    /* =========================
+       1. SAVE ITEM
+    ========================= */
 
-      {
+    const itemResponse =
+      await fetch(
 
-        method: "POST",
+        SUPABASE_URL +
+        "/rest/v1/items",
 
-        headers: {
+        {
 
-          "Content-Type":
-          "application/json",
+          method: "POST",
 
-          "apikey":
-          SUPABASE_KEY,
+          headers: {
 
-          "Authorization":
-          "Bearer " + token,
+            "Content-Type":
+              "application/json",
 
-          "Prefer":
-          "return=minimal"
+            "apikey":
+              SUPABASE_KEY,
 
-        },
+            "Authorization":
+              "Bearer " + token,
 
-        body:
-        JSON.stringify(item)
+            "Prefer":
+              "return=representation"
 
-      }
+          },
 
-    );
+          body:
+            JSON.stringify(item)
 
+        }
 
-    if (response.ok) {
-
-
-      alert(
-        "✅ Item successfully saved!"
       );
 
 
-      /* CLEAR FORM */
-
-      document.getElementById(
-        "name"
-      ).value = "";
-
-
-      document.getElementById(
-        "category"
-      ).value = "";
-
-
-      document.getElementById(
-        "unit"
-      ).value = "";
-
-
-      document.getElementById(
-        "quantity"
-      ).value = "";
-
-
-      document.getElementById(
-        "cost"
-      ).value = "";
-
-
-      document.getElementById(
-        "selling"
-      ).value = "";
-
-
-      document.getElementById(
-        "expiryDate"
-      ).value = "";
-
-
-      loadItems();
-
-
-    } else {
-
+    if (!itemResponse.ok) {
 
       const error =
-      await response.text();
+        await itemResponse.text();
 
 
       alert(
-        "❌ Add Error:\n" +
+        "❌ Item Add Error:\n" +
         error
       );
+
+      return;
 
     }
 
 
+    const savedItems =
+      await itemResponse.json();
+
+
+    if (
+      !savedItems ||
+      !savedItems.length
+    ) {
+
+      alert(
+        "❌ Item save ta'e, garuu ID hin argamne."
+      );
+
+      return;
+
+    }
+
+
+    const savedItem =
+      savedItems[0];
+
+
+    /* =========================
+       2. SAVE STOCK IN
+    ========================= */
+
+    const stockTransaction = {
+
+      item_id:
+        savedItem.id,
+
+      transaction_type:
+        "IN",
+
+      quantity:
+        quantity,
+
+      entered_by:
+        enteredBy.trim(),
+
+      expiry_date:
+        expiryDate || null,
+
+      category:
+        categoryName
+
+    };
+
+
+    const stockResponse =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/stock_transactions",
+
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " + token,
+
+            "Prefer":
+              "return=minimal"
+
+          },
+
+          body:
+            JSON.stringify(
+              stockTransaction
+            )
+
+        }
+
+      );
+
+
+    if (!stockResponse.ok) {
+
+      const stockError =
+        await stockResponse.text();
+
+
+      /*
+        Item duraan save ta'eera.
+        Stock transaction qofa yoo
+        fail ta'e, item hin haqnu.
+      */
+
+      alert(
+        "⚠️ Item save ta'eera.\n\n" +
+        "Garuu Stock IN save hin taane.\n\n" +
+        stockError
+      );
+
+      loadItems();
+
+      return;
+
+    }
+
+
+    /* =========================
+       SUCCESS
+    ========================= */
+
+    alert(
+      "✅ Item fi Stock IN sirriitti galmaa'aniiru!"
+    );
+
+
+    /* CLEAR FORM */
+
+    document.getElementById(
+      "name"
+    ).value = "";
+
+
+    document.getElementById(
+      "category"
+    ).value = "";
+
+
+    document.getElementById(
+      "unit"
+    ).value = "";
+
+
+    document.getElementById(
+      "quantity"
+    ).value = "";
+
+
+    document.getElementById(
+      "cost"
+    ).value = "";
+
+
+    document.getElementById(
+      "selling"
+    ).value = "";
+
+
+    document.getElementById(
+      "expiryDate"
+    ).value = "";
+
+
+    await loadItems();
+
+
   } catch (error) {
+
+    console.log(
+      "Add item error:",
+      error
+    );
 
     alert(
       "❌ Connection Error:\n" +
-      error
+      error.message
     );
 
   }
 
 }
-
 
 
 /* =========================
@@ -1098,29 +1227,30 @@ async function editItem(id) {
 
   try {
 
+
     const response =
-    await fetch(
+      await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/items?id=eq." +
-      encodeURIComponent(id) +
-      "&select=*",
+        SUPABASE_URL +
+        "/rest/v1/items?id=eq." +
+        id +
+        "&select=*",
 
-      {
+        {
 
-        headers: {
+          headers: {
 
-          "apikey":
-          SUPABASE_KEY,
+            "apikey":
+              SUPABASE_KEY,
 
-          "Authorization":
-          "Bearer " + token
+            "Authorization":
+              "Bearer " + token
+
+          }
 
         }
 
-      }
-
-    );
+      );
 
 
     if (!response.ok) {
@@ -1135,7 +1265,7 @@ async function editItem(id) {
 
 
     const items =
-    await response.json();
+      await response.json();
 
 
     if (!items.length) {
@@ -1150,340 +1280,133 @@ async function editItem(id) {
 
 
     const item =
-    items[0];
+      items[0];
 
-
-    /* ITEM NAME */
 
     const newName =
-    prompt(
-      "Item Name:",
-      item.name || ""
-    );
+      prompt(
+        "Item Name:",
+        item.name || ""
+      );
 
 
     if (newName === null)
-    return;
-
-
-    if (!newName.trim()) {
-
-      alert(
-        "Item name duwwaa ta'uu hin qabu."
-      );
-
       return;
 
-    }
 
-
-
-    /* CATEGORY */
-
-    const categoriesResponse =
-    await fetch(
-
-      SUPABASE_URL +
-      "/rest/v1/store_categories?select=id,name&order=id.asc",
-
-      {
-
-        headers: {
-
-          "apikey":
-          SUPABASE_KEY,
-
-          "Authorization":
-          "Bearer " + token
-
-        }
-
-      }
-
-    );
-
-
-    if (!categoriesResponse.ok) {
-
-      alert(
-        "Categories load failed."
+    const newCategory =
+      prompt(
+        "Category:",
+        item.category || ""
       );
 
+
+    if (newCategory === null)
       return;
 
-    }
-
-
-    const categories =
-    await categoriesResponse.json();
-
-
-    let categoryText =
-    categories
-    .map(
-      (c, index) =>
-      `${index + 1}. ${c.name}`
-    )
-    .join("\n");
-
-
-    const currentCategoryIndex =
-    categories.findIndex(
-      c =>
-      String(c.id) ===
-      String(item.category_id)
-    );
-
-
-    const categoryAnswer =
-    prompt(
-
-      "Category filadhu:\n\n" +
-      categoryText +
-      "\n\nLakkoofsa galchi:",
-      
-      currentCategoryIndex >= 0
-      ? String(currentCategoryIndex + 1)
-      : ""
-
-    );
-
-
-    if (categoryAnswer === null)
-    return;
-
-
-    const categoryNumber =
-    Number(categoryAnswer);
-
-
-    if (
-      !Number.isInteger(categoryNumber) ||
-      categoryNumber < 1 ||
-      categoryNumber > categories.length
-    ) {
-
-      alert(
-        "Category number sirrii miti."
-      );
-
-      return;
-
-    }
-
-
-    const selectedCategory =
-    categories[
-      categoryNumber - 1
-    ];
-
-
-
-    /* UNIT */
 
     const newUnit =
-    prompt(
-      "Unit / Safartuu:",
-      item.unit || ""
-    );
+      prompt(
+        "Unit / Safartuu:",
+        item.unit || ""
+      );
 
 
     if (newUnit === null)
-    return;
-
-
-    if (!newUnit.trim()) {
-
-      alert(
-        "Unit galchi."
-      );
-
       return;
 
-    }
-
-
-
-    /* QUANTITY */
 
     const newQuantity =
-    prompt(
-      "Quantity:",
-      item.quantity ?? 0
-    );
+      prompt(
+        "Quantity:",
+        item.quantity ?? 0
+      );
 
 
     if (newQuantity === null)
-    return;
-
-
-    if (
-      newQuantity === "" ||
-      Number(newQuantity) < 0
-    ) {
-
-      alert(
-        "Quantity sirrii galchi."
-      );
-
       return;
 
-    }
-
-
-
-    /* COST */
 
     const newCost =
-    prompt(
-      "Cost Price:",
-      item.cost_price ?? 0
-    );
+      prompt(
+        "Cost Price:",
+        item.cost_price ?? 0
+      );
 
 
     if (newCost === null)
-    return;
-
-
-    if (
-      newCost === "" ||
-      Number(newCost) < 0
-    ) {
-
-      alert(
-        "Cost Price sirrii galchi."
-      );
-
       return;
 
-    }
-
-
-
-    /* SELLING */
 
     const newSelling =
-    prompt(
-      "Selling Price:",
-      item.selling_price ?? 0
-    );
+      prompt(
+        "Selling Price:",
+        item.selling_price ?? 0
+      );
 
 
     if (newSelling === null)
-    return;
-
-
-    if (
-      newSelling === "" ||
-      Number(newSelling) < 0
-    ) {
-
-      alert(
-        "Selling Price sirrii galchi."
-      );
-
       return;
 
-    }
-
-
-
-    /* EX DATE */
-
-    const newExpiryDate =
-    prompt(
-      "EX Date (YYYY-MM-DD):",
-      item.expiry_date || ""
-    );
-
-
-    if (newExpiryDate === null)
-    return;
-
-
-    if (!newExpiryDate.trim()) {
-
-      alert(
-        "EX Date galchi."
-      );
-
-      return;
-
-    }
-
-
-
-    /* =========================
-       UPDATE DATA
-    ========================= */
 
     const updateData = {
 
       name:
-      newName.trim(),
-
-      category_id:
-      selectedCategory.id,
+        newName.trim(),
 
       category:
-      selectedCategory.name,
+        newCategory.trim(),
 
       unit:
-      newUnit.trim(),
+        newUnit.trim(),
 
       quantity:
-      Number(newQuantity),
+        Number(newQuantity),
 
       cost_price:
-      Number(newCost),
+        Number(newCost),
 
       selling_price:
-      Number(newSelling),
-
-      expiry_date:
-      newExpiryDate
+        Number(newSelling)
 
     };
 
 
-
-    /* =========================
-       UPDATE SUPABASE
-    ========================= */
-
     const updateResponse =
-    await fetch(
+      await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/items?id=eq." +
-      encodeURIComponent(id),
+        SUPABASE_URL +
+        "/rest/v1/items?id=eq." +
+        id,
 
-      {
+        {
 
-        method: "PATCH",
+          method: "PATCH",
 
-        headers: {
+          headers: {
 
-          "Content-Type":
-          "application/json",
+            "Content-Type":
+              "application/json",
 
-          "apikey":
-          SUPABASE_KEY,
+            "apikey":
+              SUPABASE_KEY,
 
-          "Authorization":
-          "Bearer " + token,
+            "Authorization":
+              "Bearer " + token,
 
-          "Prefer":
-          "return=minimal"
+            "Prefer":
+              "return=minimal"
 
-        },
+          },
 
-        body:
-        JSON.stringify(updateData)
+          body:
+            JSON.stringify(
+              updateData
+            )
 
-      }
+        }
 
-    );
+      );
 
 
     if (updateResponse.ok) {
@@ -1507,14 +1430,13 @@ async function editItem(id) {
   } catch (error) {
 
     alert(
-      "❌ Edit Connection Error:\n" +
-      error
+      "❌ Edit Error:\n" +
+      error.message
     );
 
   }
 
 }
-
 
 
 /* =========================
@@ -1526,7 +1448,7 @@ async function deleteItem(id) {
 
   if (
     !confirm(
-      "Item kana haquu barbaaddaa?"
+      "Item kana fi Stock Transaction isaa hunda haquu barbaaddaa?"
     )
   ) {
 
@@ -1537,98 +1459,123 @@ async function deleteItem(id) {
 
   try {
 
-    const response =
-    await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/items?id=eq." +
-      encodeURIComponent(id),
+    /* =========================
+       1. DELETE STOCK TRANSACTIONS
+    ========================= */
 
-      {
+    const stockResponse =
+      await fetch(
 
-        method: "DELETE",
+        SUPABASE_URL +
+        "/rest/v1/stock_transactions?item_id=eq." +
+        id,
 
-        headers: {
+        {
 
-          "apikey":
-          SUPABASE_KEY,
+          method: "DELETE",
 
-          "Authorization":
-          "Bearer " + token
+          headers: {
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " + token,
+
+            "Prefer":
+              "return=minimal"
+
+          }
 
         }
 
-      }
+      );
 
+
+    if (!stockResponse.ok) {
+
+      const error =
+        await stockResponse.text();
+
+
+      alert(
+        "❌ Stock transaction haquu hin dandeenye:\n" +
+        error
+      );
+
+      return;
+
+    }
+
+
+    /* =========================
+       2. DELETE ITEM
+    ========================= */
+
+    const itemResponse =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/items?id=eq." +
+        id,
+
+        {
+
+          method: "DELETE",
+
+          headers: {
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " + token,
+
+            "Prefer":
+              "return=minimal"
+
+          }
+
+        }
+
+      );
+
+
+    if (!itemResponse.ok) {
+
+      const error =
+        await itemResponse.text();
+
+
+      alert(
+        "❌ Item Delete Error:\n" +
+        error
+      );
+
+      return;
+
+    }
+
+
+    alert(
+      "✅ Item fi Stock Transaction haqamanii jiru."
     );
 
 
-    if (response.ok) {
-
-      alert(
-        "✅ Item deleted."
-      );
-
-      loadItems();
-
-    } else {
-
-      alert(
-        "❌ Delete Error:\n" +
-        await response.text()
-      );
-
-    }
+    loadItems();
 
 
   } catch (error) {
 
     alert(
-      "❌ Delete Connection Error:\n" +
-      error
+      "❌ Delete Error:\n" +
+      error.message
     );
 
   }
 
 }
-
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHTML(value) {
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
 
 
 /* =========================
@@ -1646,10 +1593,9 @@ function logoutUser() {
   );
 
   window.location.href =
-  "index.html";
+    "index.html";
 
 }
-
 
 
 /* =========================
