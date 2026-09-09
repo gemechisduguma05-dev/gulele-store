@@ -169,11 +169,16 @@ tbody tr:hover {
   color: white !important;
 }
 
+.category-option {
+  white-space: normal;
+}
+
 </style>
 
 </head>
 
 <body>
+
 
 <header>
 
@@ -234,37 +239,13 @@ placeholder="Item name"
 
 
 <!-- =========================
-     CATEGORY - 6 CATEGORIES
+     CATEGORY
 ========================= -->
 
 <select id="category">
 
 <option value="">
 -- Select Category --
-</option>
-
-<option value="1">
-Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂካ ምግብ ነክ
-</option>
-
-<option value="2">
-Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / ምግብ ነክ የእለት ደሪሽ
-</option>
-
-<option value="3">
-Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ
-</option>
-
-<option value="4">
-Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ
-</option>
-
-<option value="5">
-Meeshaalee Qulqullinaa / Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና
-</option>
-
-<option value="6">
-Meeshaalee Ijaarsaa / Non-Food Construction Materials / ምግብ ነክ ያልሆነ የህንጻ መሳሪያ
 </option>
 
 </select>
@@ -420,6 +401,7 @@ oninput="loadItems()"
 
 <script>
 
+
 /* =========================
    SUPABASE
 ========================= */
@@ -438,6 +420,7 @@ const SUPABASE_KEY =
 const accessToken =
 localStorage.getItem("access_token");
 
+
 if (!accessToken) {
 
   window.location.href =
@@ -452,34 +435,109 @@ localStorage.getItem("access_token")
 
 
 /* =========================
-   CATEGORY NAME FUNCTION
+   LOAD CATEGORIES
 ========================= */
 
-function getCategoryName(categoryId) {
+async function loadCategories() {
 
-  const categories = {
+  const categorySelect =
+  document.getElementById("category");
 
-    "1":
-    "Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂካ ምግብ ነክ",
 
-    "2":
-    "Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / ምግብ ነክ የእለት ደሪሽ",
+  try {
 
-    "3":
-    "Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ",
+    const response =
+    await fetch(
 
-    "4":
-    "Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ",
+      SUPABASE_URL +
+      "/rest/v1/store_categories?select=id,name&order=id.asc",
 
-    "5":
-    "Meeshaalee Qulqullinaa / Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና",
+      {
 
-    "6":
-    "Meeshaalee Ijaarsaa / Non-Food Construction Materials / ምግብ ነክ ያልሆነ የህንጻ መሳሪያ"
+        headers: {
 
-  };
+          "apikey":
+          SUPABASE_KEY,
 
-  return categories[String(categoryId)] || "";
+          "Authorization":
+          "Bearer " + token
+
+        }
+
+      }
+
+    );
+
+
+    if (!response.ok) {
+
+      const error =
+      await response.text();
+
+      console.log(
+        "Category load error:",
+        error
+      );
+
+      categorySelect.innerHTML = `
+
+        <option value="">
+        -- Category Load Error --
+        </option>
+
+      `;
+
+      return;
+
+    }
+
+
+    const categories =
+    await response.json();
+
+
+    categorySelect.innerHTML = `
+
+      <option value="">
+      -- Select Category --
+      </option>
+
+    `;
+
+
+    categories.forEach(category => {
+
+      const option =
+      document.createElement("option");
+
+
+      option.value =
+      category.id;
+
+
+      option.textContent =
+      category.name;
+
+
+      option.className =
+      "category-option";
+
+
+      categorySelect.appendChild(
+        option
+      );
+
+    });
+
+
+  } catch (error) {
+
+    console.log(
+      "Category error:",
+      error
+    );
+
+  }
 
 }
 
@@ -490,174 +548,206 @@ function getCategoryName(categoryId) {
 
 async function loadItems() {
 
-  const response =
-  await fetch(
+  try {
 
-    SUPABASE_URL +
-    "/rest/v1/items?select=*&order=id.desc",
+    const response =
+    await fetch(
 
-    {
-      headers: {
+      SUPABASE_URL +
+      "/rest/v1/items?select=*&order=id.desc",
 
-        "apikey":
-        SUPABASE_KEY,
+      {
 
-        "Authorization":
-        "Bearer " + token
+        headers: {
+
+          "apikey":
+          SUPABASE_KEY,
+
+          "Authorization":
+          "Bearer " + token
+
+        }
 
       }
 
+    );
+
+
+    if (!response.ok) {
+
+      console.log(
+        "Load error:",
+        await response.text()
+      );
+
+      return;
+
     }
 
-  );
+
+    const data =
+    await response.json();
 
 
-  if (!response.ok) {
+    const search =
+    document.getElementById(
+      "search"
+    )
+    .value
+    .toLowerCase()
+    .trim();
+
+
+    const list =
+    document.getElementById(
+      "itemList"
+    );
+
+
+    list.innerHTML = "";
+
+
+    data
+
+    .filter(item => {
+
+      const itemName =
+      String(
+        item.name || ""
+      )
+      .toLowerCase();
+
+
+      const categoryName =
+      String(
+        item.category || ""
+      )
+      .toLowerCase();
+
+
+      return (
+
+        itemName.includes(search)
+
+        ||
+
+        categoryName.includes(search)
+
+      );
+
+    })
+
+
+    .forEach(item => {
+
+      list.innerHTML += `
+
+        <tr>
+
+          <td>
+            ${escapeHTML(
+              item.name || ""
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              item.category || ""
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              item.unit || ""
+            )}
+          </td>
+
+
+          <td>
+            ${item.quantity ?? 0}
+          </td>
+
+
+          <td>
+            ${item.cost_price ?? 0}
+          </td>
+
+
+          <td>
+            ${item.selling_price ?? 0}
+          </td>
+
+
+          <td>
+            ${item.expiry_date || ""}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              item.entered_by || ""
+            )}
+          </td>
+
+
+          <td>
+
+            ${
+              item.created_at
+
+              ? new Date(
+                  item.created_at
+                ).toLocaleDateString()
+
+              : ""
+
+            }
+
+          </td>
+
+
+          <td>
+
+            <div class="action">
+
+              <button
+              class="edit"
+              onclick="editItem('${item.id}')">
+
+              ✏️ Edit
+
+              </button>
+
+
+              <button
+              class="del"
+              onclick="deleteItem('${item.id}')">
+
+              🗑️ Delete
+
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+
+  } catch (error) {
 
     console.log(
-      "Load error:",
-      await response.text()
+      "Load items error:",
+      error
     );
-
-    return;
 
   }
-
-
-  const data =
-  await response.json();
-
-
-  const search =
-  document.getElementById(
-    "search"
-  )
-  .value
-  .toLowerCase();
-
-
-  const list =
-  document.getElementById(
-    "itemList"
-  );
-
-
-  list.innerHTML = "";
-
-
-  data
-
-  .filter(item => {
-
-    const categoryName =
-      item.category ||
-      getCategoryName(item.category_id);
-
-    return (
-
-      String(item.name || "")
-      .toLowerCase()
-      .includes(search)
-
-      ||
-
-      String(categoryName || "")
-      .toLowerCase()
-      .includes(search)
-
-    );
-
-  })
-
-  .forEach(item => {
-
-    const categoryName =
-      item.category ||
-      getCategoryName(item.category_id);
-
-
-    list.innerHTML += `
-
-      <tr>
-
-        <td>
-          ${escapeHTML(item.name || "")}
-        </td>
-
-        <td>
-          ${escapeHTML(categoryName)}
-        </td>
-
-        <td>
-          ${escapeHTML(item.unit || "")}
-        </td>
-
-        <td>
-          ${item.quantity || 0}
-        </td>
-
-        <td>
-          ${item.cost_price || 0}
-        </td>
-
-        <td>
-          ${item.selling_price || 0}
-        </td>
-
-        <td>
-          ${item.expiry_date || ""}
-        </td>
-
-        <td>
-          ${escapeHTML(item.entered_by || "")}
-        </td>
-
-        <td>
-
-          ${
-            item.created_at
-
-            ? new Date(
-                item.created_at
-              ).toLocaleDateString()
-
-            : ""
-
-          }
-
-        </td>
-
-
-        <td>
-
-          <div class="action">
-
-            <button
-            class="edit"
-            onclick="editItem(${item.id})">
-
-            ✏️ Edit
-
-            </button>
-
-
-            <button
-            class="del"
-            onclick="deleteItem(${item.id})">
-
-            🗑️ Delete
-
-            </button>
-
-          </div>
-
-        </td>
-
-      </tr>
-
-    `;
-
-  });
 
 }
 
@@ -672,7 +762,9 @@ async function addItem() {
   const name =
   document.getElementById(
     "name"
-  ).value.trim();
+  )
+  .value
+  .trim();
 
 
   const categorySelect =
@@ -685,11 +777,16 @@ async function addItem() {
   categorySelect.value;
 
 
-  const categoryName =
+  const selectedOption =
   categorySelect.options[
     categorySelect.selectedIndex
-  ]
-  ?.text.trim();
+  ];
+
+
+  const categoryName =
+  selectedOption
+  ? selectedOption.textContent.trim()
+  : "";
 
 
   const unit =
@@ -698,34 +795,40 @@ async function addItem() {
   ).value;
 
 
-  const quantity =
-  Number(
-    document.getElementById(
-      "quantity"
-    ).value
-  );
+  const quantityValue =
+  document.getElementById(
+    "quantity"
+  ).value;
 
 
-  const cost =
-  Number(
-    document.getElementById(
-      "cost"
-    ).value
-  );
+  const costValue =
+  document.getElementById(
+    "cost"
+  ).value;
 
 
-  const selling =
-  Number(
-    document.getElementById(
-      "selling"
-    ).value
-  );
+  const sellingValue =
+  document.getElementById(
+    "selling"
+  ).value;
 
 
   const expiryDate =
   document.getElementById(
     "expiryDate"
   ).value;
+
+
+  const quantity =
+  Number(quantityValue);
+
+
+  const cost =
+  Number(costValue || 0);
+
+
+  const selling =
+  Number(sellingValue || 0);
 
 
   /* =========================
@@ -766,6 +869,7 @@ async function addItem() {
 
 
   if (
+    quantityValue === "" ||
     isNaN(quantity) ||
     quantity < 0
   ) {
@@ -779,9 +883,37 @@ async function addItem() {
   }
 
 
+  if (
+    isNaN(cost) ||
+    cost < 0
+  ) {
+
+    alert(
+      "Cost Price sirrii galchi."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    isNaN(selling) ||
+    selling < 0
+  ) {
+
+    alert(
+      "Selling Price sirrii galchi."
+    );
+
+    return;
+
+  }
+
+
   /* =========================
      ENTERED BY
-  ========================= */
+========================= */
 
   const enteredBy =
   prompt(
@@ -789,7 +921,10 @@ async function addItem() {
   );
 
 
-  if (!enteredBy) {
+  if (
+    enteredBy === null ||
+    !enteredBy.trim()
+  ) {
 
     alert(
       "Maqaa nama galche galchi."
@@ -801,7 +936,7 @@ async function addItem() {
 
 
   /* =========================
-     ITEM OBJECT
+     ITEM DATA
 ========================= */
 
   const item = {
@@ -810,7 +945,7 @@ async function addItem() {
     name,
 
     category_id:
-    Number(categoryId),
+    categoryId,
 
     category:
     categoryName,
@@ -831,107 +966,117 @@ async function addItem() {
     expiryDate || null,
 
     entered_by:
-    enteredBy
+    enteredBy.trim()
 
   };
 
 
   /* =========================
-     SAVE TO SUPABASE
+     SAVE
 ========================= */
 
-  const response =
-  await fetch(
+  try {
 
-    SUPABASE_URL +
-    "/rest/v1/items",
+    const response =
+    await fetch(
 
-    {
+      SUPABASE_URL +
+      "/rest/v1/items",
 
-      method: "POST",
+      {
 
-      headers: {
+        method: "POST",
 
-        "Content-Type":
-        "application/json",
+        headers: {
 
-        "apikey":
-        SUPABASE_KEY,
+          "Content-Type":
+          "application/json",
 
-        "Authorization":
-        "Bearer " + token,
+          "apikey":
+          SUPABASE_KEY,
 
-        "Prefer":
-        "return=minimal"
+          "Authorization":
+          "Bearer " + token,
 
-      },
+          "Prefer":
+          "return=minimal"
 
-      body:
-      JSON.stringify(item)
+        },
 
-    }
+        body:
+        JSON.stringify(item)
 
-  );
+      }
 
-
-  if (response.ok) {
-
-
-    alert(
-      "✅ Item successfully saved!"
     );
 
 
-    /* CLEAR FORM */
+    if (response.ok) {
 
-    document.getElementById(
-      "name"
-    ).value = "";
-
-
-    document.getElementById(
-      "category"
-    ).value = "";
+      alert(
+        "✅ Item successfully saved!"
+      );
 
 
-    document.getElementById(
-      "unit"
-    ).value = "";
+      /* CLEAR FORM */
+
+      document.getElementById(
+        "name"
+      ).value = "";
 
 
-    document.getElementById(
-      "quantity"
-    ).value = "";
+      document.getElementById(
+        "category"
+      ).value = "";
 
 
-    document.getElementById(
-      "cost"
-    ).value = "";
+      document.getElementById(
+        "unit"
+      ).value = "";
 
 
-    document.getElementById(
-      "selling"
-    ).value = "";
+      document.getElementById(
+        "quantity"
+      ).value = "";
 
 
-    document.getElementById(
-      "expiryDate"
-    ).value = "";
+      document.getElementById(
+        "cost"
+      ).value = "";
 
 
-    loadItems();
+      document.getElementById(
+        "selling"
+      ).value = "";
 
 
-  } else {
+      document.getElementById(
+        "expiryDate"
+      ).value = "";
 
 
-    const error =
-    await response.text();
+      await loadItems();
 
+
+    } else {
+
+      const error =
+      await response.text();
+
+
+      alert(
+        "❌ Add Error:\n" +
+        error
+      );
+
+    }
+
+
+  } catch (error) {
 
     alert(
-      "❌ Add Error:\n" +
-      error
+      "❌ Connection Error:\n" +
+      error.message
     );
 
   }
@@ -946,190 +1091,322 @@ async function addItem() {
 async function editItem(id) {
 
 
-  const response =
-  await fetch(
+  try {
 
-    SUPABASE_URL +
-    "/rest/v1/items?id=eq." +
-    id +
-    "&select=*",
+    const response =
+    await fetch(
 
-    {
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      encodeURIComponent(id) +
+      "&select=*",
 
-      headers: {
+      {
 
-        "apikey":
-        SUPABASE_KEY,
+        headers: {
 
-        "Authorization":
-        "Bearer " + token
+          "apikey":
+          SUPABASE_KEY,
+
+          "Authorization":
+          "Bearer " + token
+
+        }
 
       }
 
+    );
+
+
+    if (!response.ok) {
+
+      alert(
+        "Item load failed."
+      );
+
+      return;
+
     }
 
-  );
+
+    const items =
+    await response.json();
 
 
-  if (!response.ok) {
+    if (!items.length) {
 
-    alert(
-      "Item load failed."
+      alert(
+        "Item hin argamne."
+      );
+
+      return;
+
+    }
+
+
+    const item =
+    items[0];
+
+
+    /* =========================
+       NAME
+    ========================= */
+
+    const newName =
+    prompt(
+      "Item Name:",
+      item.name || ""
     );
 
+
+    if (newName === null)
     return;
 
-  }
 
+    /* =========================
+       CATEGORY
+    ========================= */
 
-  const items =
-  await response.json();
-
-
-  if (!items.length) {
-
-    alert(
-      "Item hin argamne."
+    const categorySelect =
+    document.getElementById(
+      "category"
     );
 
-    return;
 
-  }
-
-
-  const item =
-  items[0];
-
-
-  const newName =
-  prompt(
-    "Item Name:",
-    item.name || ""
-  );
-
-
-  if (newName === null)
-  return;
-
-
-  const newCategory =
-  prompt(
-    "Category:",
-    item.category ||
-    getCategoryName(
-      item.category_id
+    const categoryOptions =
+    Array.from(
+      categorySelect.options
     )
-  );
+    .filter(
+      option => option.value
+    );
 
 
-  if (newCategory === null)
-  return;
+    let categoryText =
+    "Filannoo:\n\n";
 
 
-  const newUnit =
-  prompt(
-    "Unit / Safartuu:",
-    item.unit || ""
-  );
+    categoryOptions.forEach(
+      (option, index) => {
+
+        categoryText +=
+        (index + 1) +
+        ". " +
+        option.textContent +
+        "\n\n";
+
+      }
+    );
 
 
-  if (newUnit === null)
-  return;
+    const currentCategory =
+    item.category || "";
 
 
-  const newCost =
-  prompt(
-    "Cost Price:",
-    item.cost_price || 0
-  );
+    const categoryChoice =
+    prompt(
+
+      categoryText +
+      "\nLakkoofsa Category filadhu:",
+      
+      getCategoryNumber(
+        currentCategory,
+        categoryOptions
+      )
+
+    );
 
 
-  if (newCost === null)
-  return;
+    if (
+      categoryChoice === null
+    )
+    return;
 
 
-  const newSelling =
-  prompt(
-    "Selling Price:",
-    item.selling_price || 0
-  );
+    const categoryIndex =
+    Number(categoryChoice) - 1;
 
 
-  if (newSelling === null)
-  return;
+    if (
+      isNaN(categoryIndex) ||
+      categoryIndex < 0 ||
+      categoryIndex >= categoryOptions.length
+    ) {
 
+      alert(
+        "Category filannoo sirrii hin taane."
+      );
 
-  const updateData = {
-
-    name:
-    newName,
-
-    category:
-    newCategory,
-
-    unit:
-    newUnit,
-
-    cost_price:
-    Number(newCost),
-
-    selling_price:
-    Number(newSelling)
-
-  };
-
-
-  const updateResponse =
-  await fetch(
-
-    SUPABASE_URL +
-    "/rest/v1/items?id=eq." +
-    id,
-
-    {
-
-      method: "PATCH",
-
-      headers: {
-
-        "Content-Type":
-        "application/json",
-
-        "apikey":
-        SUPABASE_KEY,
-
-        "Authorization":
-        "Bearer " + token,
-
-        "Prefer":
-        "return=minimal"
-
-      },
-
-      body:
-      JSON.stringify(updateData)
+      return;
 
     }
 
-  );
+
+    const selectedCategory =
+    categoryOptions[
+      categoryIndex
+    ];
 
 
-  if (updateResponse.ok) {
+    /* =========================
+       UNIT
+    ========================= */
 
-    alert(
-      "✅ Item updated successfully!"
+    const newUnit =
+    prompt(
+      "Unit / Safartuu:",
+      item.unit || ""
     );
 
-    loadItems();
 
-  } else {
+    if (newUnit === null)
+    return;
+
+
+    /* =========================
+       COST
+    ========================= */
+
+    const newCost =
+    prompt(
+      "Cost Price:",
+      item.cost_price ?? 0
+    );
+
+
+    if (newCost === null)
+    return;
+
+
+    /* =========================
+       SELLING
+    ========================= */
+
+    const newSelling =
+    prompt(
+      "Selling Price:",
+      item.selling_price ?? 0
+    );
+
+
+    if (newSelling === null)
+    return;
+
+
+    const updateData = {
+
+      name:
+      newName.trim(),
+
+      category_id:
+      selectedCategory.value,
+
+      category:
+      selectedCategory.textContent.trim(),
+
+      unit:
+      newUnit.trim(),
+
+      cost_price:
+      Number(newCost),
+
+      selling_price:
+      Number(newSelling)
+
+    };
+
+
+    const updateResponse =
+    await fetch(
+
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      encodeURIComponent(id),
+
+      {
+
+        method: "PATCH",
+
+        headers: {
+
+          "Content-Type":
+          "application/json",
+
+          "apikey":
+          SUPABASE_KEY,
+
+          "Authorization":
+          "Bearer " + token,
+
+          "Prefer":
+          "return=minimal"
+
+        },
+
+        body:
+        JSON.stringify(updateData)
+
+      }
+
+    );
+
+
+    if (updateResponse.ok) {
+
+      alert(
+        "✅ Item updated successfully!"
+      );
+
+      await loadItems();
+
+    } else {
+
+      alert(
+        "❌ Edit Error:\n" +
+        await updateResponse.text()
+      );
+
+    }
+
+
+  } catch (error) {
 
     alert(
-      "❌ Edit Error:\n" +
-      await updateResponse.text()
+      "❌ Edit Connection Error:\n" +
+      error.message
     );
 
   }
+
+}
+
+
+/* =========================
+   GET CATEGORY NUMBER
+========================= */
+
+function getCategoryNumber(
+  currentCategory,
+  options
+) {
+
+  const index =
+  options.findIndex(
+    option =>
+    option.textContent.trim()
+    ===
+    currentCategory.trim()
+  );
+
+
+  if (index >= 0) {
+
+    return index + 1;
+
+  }
+
+
+  return 1;
 
 }
 
@@ -1141,56 +1418,70 @@ async function editItem(id) {
 async function deleteItem(id) {
 
 
-  if (
-    !confirm(
-      "Item kana haquu barbaaddaa?"
-    )
-  ) {
+  const confirmDelete =
+  confirm(
+    "Item kana haquu barbaaddaa?"
+  );
+
+
+  if (!confirmDelete) {
 
     return;
 
   }
 
 
-  const response =
-  await fetch(
+  try {
 
-    SUPABASE_URL +
-    "/rest/v1/items?id=eq." +
-    id,
+    const response =
+    await fetch(
 
-    {
+      SUPABASE_URL +
+      "/rest/v1/items?id=eq." +
+      encodeURIComponent(id),
 
-      method: "DELETE",
+      {
 
-      headers: {
+        method: "DELETE",
 
-        "apikey":
-        SUPABASE_KEY,
+        headers: {
 
-        "Authorization":
-        "Bearer " + token
+          "apikey":
+          SUPABASE_KEY,
+
+          "Authorization":
+          "Bearer " + token
+
+        }
 
       }
 
-    }
-
-  );
-
-
-  if (response.ok) {
-
-    alert(
-      "✅ Item deleted."
     );
 
-    loadItems();
 
-  } else {
+    if (response.ok) {
+
+      alert(
+        "✅ Item deleted."
+      );
+
+      await loadItems();
+
+    } else {
+
+      alert(
+        "❌ Delete Error:\n" +
+        await response.text()
+      );
+
+    }
+
+
+  } catch (error) {
 
     alert(
-      "❌ Delete Error:\n" +
-      await response.text()
+      "❌ Delete Connection Error:\n" +
+      error.message
     );
 
   }
@@ -1206,15 +1497,30 @@ function escapeHTML(value) {
 
   return String(value)
 
-    .replace(/&/g, "&amp;")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-    .replace(/</g, "&lt;")
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-    .replace(/>/g, "&gt;")
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
-    .replace(/"/g, "&quot;")
+    .replace(
+      /"/g,
+      "&quot;"
+    )
 
-    .replace(/'/g, "&#039;");
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
@@ -1243,9 +1549,12 @@ function logoutUser() {
    START
 ========================= */
 
+loadCategories();
+
 loadItems();
 
 </script>
 
 </body>
+
 </html>
