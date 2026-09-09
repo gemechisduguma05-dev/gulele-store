@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Stock In / Out</title>
+<title>AAFDRMC - Category</title>
 
 <style>
 
@@ -57,6 +57,10 @@ nav a {
   font-weight: bold;
 }
 
+nav a:hover {
+  background: #cbd5e1;
+}
+
 .container {
   width: 95%;
   max-width: 1400px;
@@ -66,67 +70,15 @@ nav a {
 .box {
   background: white;
   padding: 20px;
-  margin-bottom: 20px;
   border-radius: 12px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
 .box h2 {
-  text-align: center;
   margin-top: 0;
-}
-
-.stock-grid {
-  display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.stock-card {
-  padding: 20px;
-  border-radius: 12px;
-  background: #f8fafc;
-}
-
-.stock-card.in {
-  border-top: 5px solid #16a34a;
-}
-
-.stock-card.out {
-  border-top: 5px solid #dc2626;
-}
-
-.stock-card h3 {
   text-align: center;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 7px;
-  font-size: 15px;
-}
-
-.stock-card button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 7px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.stock-card.in button {
-  background: #16a34a;
-}
-
-.stock-card.out button {
-  background: #dc2626;
+  font-size: 28px;
 }
 
 .table-container {
@@ -136,32 +88,62 @@ select {
 
 table {
   width: 100%;
-  min-width: 950px;
   border-collapse: collapse;
+  min-width: 850px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: center;
 }
 
 th {
   background: #1e3a8a;
   color: white;
-  padding: 11px;
 }
 
-td {
-  padding: 10px;
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+.balance {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.total-box {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.total-card {
+  background: #eff6ff;
+  padding: 18px;
+  border-radius: 10px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  font-weight: bold;
 }
 
-tbody tr:nth-child(even) {
-  background: #f1f5f9;
+.total-card strong {
+  display: block;
+  font-size: 24px;
+  margin-top: 8px;
 }
 
-.in-row {
-  background: #dcfce7 !important;
-}
-
-.out-row {
-  background: #fee2e2 !important;
+.back {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: #e2e8f0;
+  color: #1e293b;
+  text-decoration: none;
+  border-radius: 7px;
+  font-weight: bold;
 }
 
 .logout {
@@ -169,11 +151,25 @@ tbody tr:nth-child(even) {
   color: white !important;
 }
 
+.error {
+  text-align: center;
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.loading {
+  text-align: center;
+  padding: 25px;
+  font-weight: bold;
+}
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -218,99 +214,22 @@ tbody tr:nth-child(even) {
 <div class="container">
 
 
-<!-- STOCK FORM -->
+<a href="dashboard.html"
+   class="back">
+⬅️ Back to Dashboard
+</a>
+
 
 <div class="box">
 
-<h2>🔄 Stock Management</h2>
 
-<div class="stock-grid">
+<h2 id="categoryTitle">
+📂 Loading Category...
+</h2>
 
-
-<!-- STOCK IN -->
-
-<div class="stock-card in">
-
-<h3>📥 Stock In</h3>
-
-<select id="inItem">
-
-<option value="">
--- Select Item --
-</option>
-
-</select>
-
-<input
-  id="inQuantity"
-  type="number"
-  min="0.01"
-  step="any"
-  placeholder="Quantity"
->
-
-<input
-  id="inExpiry"
-  type="date"
->
-
-<input
-  id="inEnteredBy"
-  placeholder="Entered By"
->
-
-<button onclick="stockIn()">
-➕ Add Stock In
-</button>
-
-</div>
-
-
-<!-- STOCK OUT -->
-
-<div class="stock-card out">
-
-<h3>📤 Stock Out</h3>
-
-<select id="outItem">
-
-<option value="">
--- Select Item --
-</option>
-
-</select>
-
-<input
-  id="outQuantity"
-  type="number"
-  min="0.01"
-  step="any"
-  placeholder="Quantity"
->
-
-<input
-  id="outEnteredBy"
-  placeholder="Entered By"
->
-
-<button onclick="stockOut()">
-➖ Add Stock Out
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- TRANSACTIONS -->
-
-<div class="box">
-
-<h2>📋 Stock Transactions</h2>
 
 <div class="table-container">
+
 
 <table>
 
@@ -318,30 +237,34 @@ tbody tr:nth-child(even) {
 
 <tr>
 
-<th>Item</th>
+<th>#</th>
 
-<th>Category</th>
+<th>Item Name</th>
 
-<th>Type</th>
+<th>Unit</th>
 
-<th>Quantity</th>
+<th>Opening</th>
 
-<th>EX Date</th>
+<th>Stock In</th>
 
-<th>Entered By</th>
+<th>Stock Out</th>
 
-<th>Date</th>
+<th>Balance</th>
 
 </tr>
 
 </thead>
 
-<tbody id="transactionList">
+
+<tbody id="itemsTable">
 
 <tr>
 
-<td colspan="7">
+<td colspan="7"
+    class="loading">
+
 Loading...
+
 </td>
 
 </tr>
@@ -350,14 +273,24 @@ Loading...
 
 </table>
 
-</div>
 
 </div>
+
+
+<div class="total-box"
+     id="unitTotals">
+
+</div>
+
+
+</div>
+
 
 </div>
 
 
 <script>
+
 
 /* =====================================================
    SUPABASE
@@ -365,6 +298,7 @@ Loading...
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
+
 
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
@@ -377,9 +311,11 @@ const SUPABASE_KEY =
 const accessToken =
 localStorage.getItem("access_token");
 
+
 if (!accessToken) {
 
-  window.location.href = "index.html";
+  window.location.href =
+    "index.html";
 
 }
 
@@ -397,7 +333,8 @@ function getHeaders() {
 
   return {
 
-    "apikey": SUPABASE_KEY,
+    "apikey":
+      SUPABASE_KEY,
 
     "Authorization":
       "Bearer " + token
@@ -408,77 +345,346 @@ function getHeaders() {
 
 
 /* =====================================================
-   LOAD ITEMS
+   CATEGORY NUMBER
 ===================================================== */
 
-async function loadItemsForStock() {
+const params =
+new URLSearchParams(
+  window.location.search
+);
+
+
+const categoryId =
+params.get("category");
+
+
+/* =====================================================
+   CATEGORY INFORMATION
+===================================================== */
+
+const categories = {
+
+  "1": {
+
+    title:
+      "🥫 Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ",
+
+    keywords: [
+      "strategic food",
+      "meeshaalee nyaataa tarsiimawaa",
+      "tarsiimawaa",
+      "strategic"
+    ]
+
+  },
+
+
+  "2": {
+
+    title:
+      "🍚 Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / የዕለት ምግብ ነክ",
+
+    keywords: [
+      "daily food",
+      "meeshaalee nyaataa guyyaa guyyaa",
+      "meeshaalee nyaataa guyyaa",
+      "guyyaa guyyaa",
+      "daily"
+    ]
+
+  },
+
+
+  "3": {
+
+    title:
+      "📦 Meeshaalee Guyyaa Guyyaa Nyaata Hin Taane / Daily Non-Food Items",
+
+    keywords: [
+      "daily non-food",
+      "daily non food",
+      "meeshaalee guyyaa guyyaa nyaata hin taane",
+      "nyaata hin taane",
+      "non-food daily"
+    ]
+
+  },
+
+
+  "4": {
+
+    title:
+      "🍳 Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ",
+
+    keywords: [
+      "non-food kitchen",
+      "non food kitchen",
+      "meeshaalee nyaataa hin taane ittiin nyaata qopheessan",
+      "kitchen"
+    ]
+
+  },
+
+
+  "5": {
+
+    title:
+      "🧼 Meeshaalee Nyaataa Hin Taane Kan Qulqullinaa / Non-Food Hygiene Items",
+
+    keywords: [
+      "non-food hygiene",
+      "non food hygiene",
+      "hygiene",
+      "meeshaalee qulqullinaa"
+    ]
+
+  },
+
+
+  "6": {
+
+    title:
+      "🧱 Meeshaalee Nyaataa Hin Taane Kan Ijaarsaa / Non-Food Construction Materials",
+
+    keywords: [
+      "non-food construction",
+      "non food construction",
+      "construction",
+      "construction materials",
+      "meeshaalee ijaarsaa",
+      "ijaarsa"
+    ]
+
+  }
+
+};
+
+
+/* =====================================================
+   SHOW CATEGORY TITLE
+===================================================== */
+
+const currentCategory =
+categories[categoryId];
+
+
+document.getElementById(
+  "categoryTitle"
+).textContent =
+currentCategory
+  ? currentCategory.title
+  : "📂 Stock Category";
+
+
+/* =====================================================
+   NORMALIZE CATEGORY
+===================================================== */
+
+function normalize(value) {
+
+  return String(value || "")
+    .toLowerCase()
+    .trim();
+
+}
+
+
+/* =====================================================
+   CHECK CATEGORY
+===================================================== */
+
+function itemBelongsToCategory(
+  item,
+  category
+) {
+
+  if (!category) {
+    return false;
+  }
+
+
+  const itemCategory =
+    normalize(item.category);
+
+
+  /*
+    Match exact category text
+    or known category keywords.
+  */
+
+  return category.keywords.some(
+    keyword => {
+
+      return itemCategory.includes(
+        normalize(keyword)
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   LOAD CATEGORY ITEMS
+===================================================== */
+
+async function loadCategoryItems() {
+
+  const table =
+    document.getElementById(
+      "itemsTable"
+    );
+
+
+  if (!currentCategory) {
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td colspan="7"
+            class="error">
+
+          Category hin argamne.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
 
   try {
 
-    const response =
+
+    /* =================================================
+       LOAD ALL ITEMS
+
+       IMPORTANT:
+       We intentionally load all items and filter
+       using the category TEXT.
+
+       This avoids UUID/category_id mismatch.
+    ================================================= */
+
+    const itemsResponse =
       await fetch(
 
         SUPABASE_URL +
-        "/rest/v1/items" +
-        "?select=id,name,unit,opening_quantity" +
-        "&order=name.asc",
+        "/rest/v1/items?select=*",
 
         {
-          headers: getHeaders()
+
+          headers:
+            getHeaders()
+
         }
 
       );
 
 
-    if (!response.ok) {
+    if (!itemsResponse.ok) {
 
       console.log(
-        "Items Load Error:",
-        await response.text()
+        await itemsResponse.text()
       );
+
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td colspan="7"
+              class="error">
+
+            Items load failed.
+
+          </td>
+
+        </tr>
+
+      `;
 
       return;
 
     }
 
 
-    const data =
-      await response.json();
-
-
-    const inSelect =
-      document.getElementById("inItem");
-
-    const outSelect =
-      document.getElementById("outItem");
-
-
-    inSelect.innerHTML =
-      '<option value="">-- Select Item --</option>';
-
-    outSelect.innerHTML =
-      '<option value="">-- Select Item --</option>';
+    const allItems =
+      await itemsResponse.json();
 
 
     /*
-      Calculate current balance for every item
+      Filter by CATEGORY TEXT
     */
+
+    const items =
+      allItems.filter(
+        item =>
+          itemBelongsToCategory(
+            item,
+            currentCategory
+          )
+      );
+
+
+    /* =================================================
+       NO ITEMS
+    ================================================= */
+
+    if (items.length === 0) {
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td colspan="7">
+
+            Category kana keessatti
+            item hin jiru.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      document.getElementById(
+        "unitTotals"
+      ).innerHTML = "";
+
+      return;
+
+    }
+
+
+    /* =================================================
+       LOAD TRANSACTIONS
+    ================================================= */
 
     const transactionResponse =
       await fetch(
 
         SUPABASE_URL +
-        "/rest/v1/stock_transactions" +
-        "?select=item_id,transaction_type,quantity",
+        "/rest/v1/stock_transactions?select=*",
 
         {
-          headers: getHeaders()
+
+          headers:
+            getHeaders()
+
         }
 
       );
 
 
     let transactions = [];
+
 
     if (transactionResponse.ok) {
 
@@ -488,813 +694,309 @@ async function loadItemsForStock() {
     }
 
 
-    data.forEach(item => {
+    /* =================================================
+       DISPLAY
+    ================================================= */
 
-      const itemTransactions =
-        transactions.filter(
-          t =>
-            String(t.item_id) ===
-            String(item.id)
-        );
+    table.innerHTML = "";
 
 
-      const stockIn =
-        itemTransactions
-        .filter(
-          t =>
-            String(
-              t.transaction_type
-            ).toUpperCase() === "IN"
-        )
-        .reduce(
-          (sum, t) =>
-            sum + Number(t.quantity || 0),
-          0
-        );
+    const unitTotals = {};
 
 
-      const stockOut =
-        itemTransactions
-        .filter(
-          t =>
-            String(
-              t.transaction_type
-            ).toUpperCase() === "OUT"
-        )
-        .reduce(
-          (sum, t) =>
-            sum + Number(t.quantity || 0),
-          0
-        );
+    items.forEach(
+      (item, index) => {
 
 
-      const opening =
-        Number(
-          item.opening_quantity || 0
-        );
+        /*
+          Match item ID safely.
 
+          IMPORTANT:
+          item.id is UUID.
+          DO NOT use Number().
+        */
 
-      const balance =
-        opening +
-        stockIn -
-        stockOut;
+        const itemTransactions =
+          transactions.filter(
+            t =>
+              String(t.item_id) ===
+              String(item.id)
+          );
 
 
-      const option1 =
-        document.createElement("option");
+        /* =============================================
+           STOCK IN
+        ============================================= */
 
+        const stockIn =
+          itemTransactions
 
-      option1.value =
-        item.id;
+          .filter(
+            t =>
+              String(
+                t.transaction_type
+              ).toUpperCase() === "IN"
+          )
 
+          .reduce(
+            (sum, t) =>
+              sum +
+              Number(
+                t.quantity || 0
+              ),
+            0
+          );
 
-      option1.textContent =
-        item.name +
-        " | Stock: " +
-        balance +
-        (item.unit
-          ? " " + item.unit
-          : "");
 
+        /* =============================================
+           STOCK OUT
+        ============================================= */
 
-      inSelect.appendChild(option1);
+        const stockOut =
+          itemTransactions
 
+          .filter(
+            t =>
+              String(
+                t.transaction_type
+              ).toUpperCase() === "OUT"
+          )
 
-      const option2 =
-        document.createElement("option");
+          .reduce(
+            (sum, t) =>
+              sum +
+              Number(
+                t.quantity || 0
+              ),
+            0
+          );
 
 
-      option2.value =
-        item.id;
+        /* =============================================
+           OPENING
 
+           IMPORTANT:
+           Opening is NOT items.quantity anymore.
 
-      option2.textContent =
-        item.name +
-        " | Stock: " +
-        balance +
-        (item.unit
-          ? " " + item.unit
-          : "");
+           It comes from opening_quantity.
+        ============================================= */
 
+        const opening =
+          Number(
+            item.opening_quantity || 0
+          );
 
-      outSelect.appendChild(option2);
 
-    });
+        /* =============================================
+           BALANCE
+        ============================================= */
 
+        const balance =
+          opening +
+          stockIn -
+          stockOut;
 
-  } catch (error) {
 
-    console.log(
-      "Load Items Error:",
-      error
-    );
+        /* =============================================
+           UNIT
+        ============================================= */
 
-  }
+        const unit =
+          String(
+            item.unit || "Unknown"
+          ).trim();
 
-}
 
+        /* =============================================
+           UNIT TOTAL
+        ============================================= */
 
-/* =====================================================
-   STOCK IN
-===================================================== */
+        if (!unitTotals[unit]) {
 
-async function stockIn() {
+          unitTotals[unit] = {
 
-  const itemId =
-    document.getElementById(
-      "inItem"
-    ).value;
+            opening: 0,
 
+            in: 0,
 
-  const quantity =
-    Number(
-      document.getElementById(
-        "inQuantity"
-      ).value
-    );
+            out: 0,
 
+            balance: 0
 
-  const expiryDate =
-    document.getElementById(
-      "inExpiry"
-    ).value;
-
-
-  const enteredBy =
-    document.getElementById(
-      "inEnteredBy"
-    ).value.trim();
-
-
-  if (
-    !itemId ||
-    !quantity ||
-    quantity <= 0 ||
-    !enteredBy
-  ) {
-
-    alert(
-      "Item, Quantity fi Entered By guuti."
-    );
-
-    return;
-
-  }
-
-
-  /*
-    EX DATE is required for STOCK IN
-  */
-
-  if (!expiryDate) {
-
-    alert(
-      "EX Date galchi."
-    );
-
-    return;
-
-  }
-
-
-  try {
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions",
-
-        {
-
-          method: "POST",
-
-          headers: {
-
-            ...getHeaders(),
-
-            "Content-Type":
-              "application/json",
-
-            "Prefer":
-              "return=minimal"
-
-          },
-
-          body:
-            JSON.stringify({
-
-              item_id:
-                itemId,
-
-              quantity:
-                quantity,
-
-              transaction_type:
-                "IN",
-
-              entered_by:
-                enteredBy,
-
-              expiry_date:
-                expiryDate
-
-            })
+          };
 
         }
 
-      );
 
+        unitTotals[unit].opening +=
+          opening;
 
-    if (!response.ok) {
 
-      alert(
-        "Stock In Error: " +
-        await response.text()
-      );
+        unitTotals[unit].in +=
+          stockIn;
 
-      return;
 
-    }
+        unitTotals[unit].out +=
+          stockOut;
 
 
-    /*
-      IMPORTANT:
-      We DO NOT update items.quantity here.
+        unitTotals[unit].balance +=
+          balance;
 
-      Opening remains Opening.
-      Stock In remains Stock In.
-      Balance is calculated from transactions.
-    */
 
+        /* =============================================
+           TABLE ROW
+        ============================================= */
 
-    alert(
-      "✅ Stock In fi EX Date sirriitti galmaa'eera!"
-    );
+        const row =
+          document.createElement(
+            "tr"
+          );
 
 
-    document.getElementById(
-      "inItem"
-    ).value = "";
-
-
-    document.getElementById(
-      "inQuantity"
-    ).value = "";
-
-
-    document.getElementById(
-      "inExpiry"
-    ).value = "";
-
-
-    document.getElementById(
-      "inEnteredBy"
-    ).value = "";
-
-
-    await loadItemsForStock();
-
-    await loadTransactions();
-
-
-  } catch (error) {
-
-    alert(
-      "Stock In Error: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   STOCK OUT
-===================================================== */
-
-async function stockOut() {
-
-  const itemId =
-    document.getElementById(
-      "outItem"
-    ).value;
-
-
-  const quantity =
-    Number(
-      document.getElementById(
-        "outQuantity"
-      ).value
-    );
-
-
-  const enteredBy =
-    document.getElementById(
-      "outEnteredBy"
-    ).value.trim();
-
-
-  if (
-    !itemId ||
-    !quantity ||
-    quantity <= 0 ||
-    !enteredBy
-  ) {
-
-    alert(
-      "Item, Quantity fi Entered By guuti."
-    );
-
-    return;
-
-  }
-
-
-  try {
-
-    /*
-      Get opening quantity
-    */
-
-    const itemResponse =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/items" +
-        "?id=eq." +
-        encodeURIComponent(itemId) +
-        "&select=opening_quantity",
-
-        {
-          headers: getHeaders()
-        }
-
-      );
-
-
-    if (!itemResponse.ok) {
-
-      alert(
-        "Item load error."
-      );
-
-      return;
-
-    }
-
-
-    const itemData =
-      await itemResponse.json();
-
-
-    if (!itemData.length) {
-
-      alert(
-        "Item hin argamne."
-      );
-
-      return;
-
-    }
-
-
-    const opening =
-      Number(
-        itemData[0].opening_quantity || 0
-      );
-
-
-    /*
-      Get transactions for this item
-    */
-
-    const transactionResponse =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions" +
-        "?item_id=eq." +
-        encodeURIComponent(itemId) +
-        "&select=transaction_type,quantity",
-
-        {
-          headers: getHeaders()
-        }
-
-      );
-
-
-    if (!transactionResponse.ok) {
-
-      alert(
-        "Transaction load error."
-      );
-
-      return;
-
-    }
-
-
-    const transactions =
-      await transactionResponse.json();
-
-
-    let totalIn = 0;
-
-    let totalOut = 0;
-
-
-    transactions.forEach(t => {
-
-      if (
-        String(
-          t.transaction_type
-        ).toUpperCase() === "IN"
-      ) {
-
-        totalIn +=
-          Number(t.quantity || 0);
-
-      }
-
-
-      if (
-        String(
-          t.transaction_type
-        ).toUpperCase() === "OUT"
-      ) {
-
-        totalOut +=
-          Number(t.quantity || 0);
-
-      }
-
-    });
-
-
-    const balance =
-      opening +
-      totalIn -
-      totalOut;
-
-
-    if (quantity > balance) {
-
-      alert(
-        "❌ Stock gahaa hin qabu.\n\n" +
-        "Available Stock: " +
-        balance
-      );
-
-      return;
-
-    }
-
-
-    /*
-      Stock OUT has no expiry date
-    */
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions",
-
-        {
-
-          method: "POST",
-
-          headers: {
-
-            ...getHeaders(),
-
-            "Content-Type":
-              "application/json",
-
-            "Prefer":
-              "return=minimal"
-
-          },
-
-          body:
-            JSON.stringify({
-
-              item_id:
-                itemId,
-
-              quantity:
-                quantity,
-
-              transaction_type:
-                "OUT",
-
-              entered_by:
-                enteredBy,
-
-              expiry_date:
-                null
-
-            })
-
-        }
-
-      );
-
-
-    if (!response.ok) {
-
-      alert(
-        "Stock Out Error: " +
-        await response.text()
-      );
-
-      return;
-
-    }
-
-
-    alert(
-      "✅ Stock Out galmaa'eera!"
-    );
-
-
-    document.getElementById(
-      "outItem"
-    ).value = "";
-
-
-    document.getElementById(
-      "outQuantity"
-    ).value = "";
-
-
-    document.getElementById(
-      "outEnteredBy"
-    ).value = "";
-
-
-    await loadItemsForStock();
-
-    await loadTransactions();
-
-
-  } catch (error) {
-
-    alert(
-      "Stock Out Error: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   LOAD TRANSACTIONS
-===================================================== */
-
-async function loadTransactions() {
-
-  try {
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions" +
-        "?select=*" +
-        "&order=id.desc",
-
-        {
-          headers: getHeaders()
-        }
-
-      );
-
-
-    if (!response.ok) {
-
-      console.log(
-        "Transaction Load Error:",
-        await response.text()
-      );
-
-      return;
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    const list =
-      document.getElementById(
-        "transactionList"
-      );
-
-
-    list.innerHTML = "";
-
-
-    if (!data.length) {
-
-      list.innerHTML = `
-        <tr>
-          <td colspan="7">
-            No transactions found
-          </td>
-        </tr>
-      `;
-
-      return;
-
-    }
-
-
-    /*
-      Load all items once
-    */
-
-    const itemResponse =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/items" +
-        "?select=id,name,category",
-
-        {
-          headers: getHeaders()
-        }
-
-      );
-
-
-    let items = [];
-
-    if (itemResponse.ok) {
-
-      items =
-        await itemResponse.json();
-
-    }
-
-
-    data.forEach(transaction => {
-
-      const item =
-        items.find(
-          i =>
-            String(i.id) ===
-            String(transaction.item_id)
-        );
-
-
-      const itemName =
-        item?.name || "Unknown";
-
-
-      const category =
-        item?.category || "";
-
-
-      const rowClass =
-        String(
-          transaction.transaction_type
-        ).toUpperCase() === "IN"
-          ? "in-row"
-          : "out-row";
-
-
-      const type =
-        String(
-          transaction.transaction_type
-        ).toUpperCase() === "IN"
-          ? "📥 IN"
-          : "📤 OUT";
-
-
-      const expiry =
-        transaction.expiry_date
-          ? formatDate(
-              transaction.expiry_date
-            )
-          : "-";
-
-
-      const enteredBy =
-        transaction.entered_by || "";
-
-
-      const date =
-        transaction.created_at
-          ? formatDateTime(
-              transaction.created_at
-            )
-          : "";
-
-
-      list.innerHTML += `
-
-        <tr class="${rowClass}">
+        row.innerHTML = `
 
           <td>
-            ${escapeHTML(itemName)}
+            ${index + 1}
           </td>
 
           <td>
-            ${escapeHTML(category)}
-          </td>
-
-          <td>
-            ${type}
-          </td>
-
-          <td>
-            ${Number(
-              transaction.quantity || 0
+            ${escapeHTML(
+              item.name
             )}
           </td>
 
           <td>
-            ${expiry}
+            ${escapeHTML(
+              unit
+            )}
           </td>
 
           <td>
-            ${escapeHTML(enteredBy)}
+            ${opening}
           </td>
 
           <td>
-            ${date}
+            ${stockIn}
           </td>
 
-        </tr>
+          <td>
+            ${stockOut}
+          </td>
 
-      `;
+          <td class="balance">
 
-    });
+            ${balance}
+
+          </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+      }
+    );
+
+
+    /* =================================================
+       UNIT TOTAL CARDS
+    ================================================= */
+
+    const totalsContainer =
+      document.getElementById(
+        "unitTotals"
+      );
+
+
+    totalsContainer.innerHTML = "";
+
+
+    Object.keys(unitTotals)
+      .sort()
+      .forEach(
+        unit => {
+
+
+          const total =
+            unitTotals[unit];
+
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+
+          card.className =
+            "total-card";
+
+
+          card.innerHTML = `
+
+            📏 ${escapeHTML(unit)}
+
+            <strong>
+              ${total.balance}
+            </strong>
+
+            <small>
+
+              Opening:
+              ${total.opening}
+
+              <br>
+
+              Stock In:
+              ${total.in}
+
+              <br>
+
+              Stock Out:
+              ${total.out}
+
+              <br>
+
+              Balance:
+              ${total.balance}
+
+            </small>
+
+          `;
+
+
+          totalsContainer.appendChild(
+            card
+          );
+
+        }
+      );
 
 
   } catch (error) {
 
     console.log(
-      "Transaction Error:",
+      "Category Error:",
       error
     );
 
-  }
 
-}
+    table.innerHTML = `
 
+      <tr>
 
-/* =====================================================
-   DATE
-===================================================== */
+        <td colspan="7"
+            class="error">
 
-function formatDate(dateValue) {
+          Error loading category.
 
-  if (!dateValue) return "";
+        </td>
 
-  const parts =
-    String(dateValue).split("-");
+      </tr>
 
-
-  if (parts.length === 3) {
-
-    return (
-      parts[2] +
-      "/" +
-      parts[1] +
-      "/" +
-      parts[0]
-    );
+    `;
 
   }
-
-
-  return dateValue;
-
-}
-
-
-function formatDateTime(dateValue) {
-
-  const d =
-    new Date(dateValue);
-
-
-  if (isNaN(d.getTime())) {
-
-    return "";
-
-  }
-
-
-  return d.toLocaleDateString();
 
 }
 
@@ -1349,6 +1051,7 @@ function logoutUser() {
     "refresh_token"
   );
 
+
   window.location.href =
     "index.html";
 
@@ -1359,11 +1062,10 @@ function logoutUser() {
    START
 ===================================================== */
 
-loadItemsForStock();
-
-loadTransactions();
+loadCategoryItems();
 
 </script>
 
 </body>
+
 </html>
