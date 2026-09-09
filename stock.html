@@ -1,3 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Stock</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+header {
+  background: #1e3a8a;
+  color: white;
+  padding: 18px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.top-bar {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.category-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e3a8a;
+  line-height: 1.5;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 9px 15px;
+  background: #1e3a8a;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.table-box {
+  background: white;
+  border-radius: 10px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+th {
+  background: #1e3a8a;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 11px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+.balance {
+  font-weight: bold;
+}
+
+.error {
+  color: #dc2626;
+  text-align: center;
+  padding: 20px;
+}
+
+.loading {
+  text-align: center;
+  padding: 25px;
+}
+
+#unitTotals {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.total-card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-weight: bold;
+}
+
+.total-card strong {
+  display: block;
+  font-size: 28px;
+  margin: 8px 0;
+  color: #1e3a8a;
+}
+
+.total-card small {
+  color: #475569;
+  line-height: 1.7;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <h1>AAFDRMC - STOCK MANAGEMENT</h1>
+
+</header>
+
+
+<div class="container">
+
+
+  <!-- =============================================
+       CATEGORY HEADER
+  ============================================== -->
+
+  <div class="top-bar">
+
+    <div
+      id="categoryTitle"
+      class="category-title">
+
+      📂 Stock Category
+
+    </div>
+
+
+    <a
+      href="items.html"
+      class="back-btn">
+
+      ← Back to Items
+
+    </a>
+
+  </div>
+
+
+  <!-- =============================================
+       STOCK TABLE
+  ============================================== -->
+
+  <div class="table-box">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>No</th>
+
+          <th>Item Name</th>
+
+          <th>Unit</th>
+
+          <th>Opening</th>
+
+          <th>Stock In</th>
+
+          <th>Stock Out</th>
+
+          <th>Balance</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="itemsTable">
+
+        <tr>
+
+          <td
+            colspan="7"
+            class="loading">
+
+            Loading stock...
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- =============================================
+       UNIT TOTALS
+  ============================================== -->
+
+  <div id="unitTotals"></div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   SUPABASE CONFIGURATION
+===================================================== */
+
+const SUPABASE_URL =
+  "https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+
+
+/* =====================================================
+   SUPABASE HEADERS
+===================================================== */
+
+function getHeaders() {
+
+  const accessToken =
+    localStorage.getItem("access_token")
+    || SUPABASE_KEY;
+
+
+  return {
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Authorization":
+      "Bearer " + accessToken,
+
+    "Content-Type":
+      "application/json"
+
+  };
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+  return String(value)
+
+    .replace(/&/g, "&amp;")
+
+    .replace(/</g, "&lt;")
+
+    .replace(/>/g, "&gt;")
+
+    .replace(/"/g, "&quot;")
+
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   GET CATEGORY ID FROM URL
+===================================================== */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const categoryId =
+  params.get("category_id")
+  || params.get("categoryId")
+  || params.get("id");
+
+
 /* =====================================================
    CATEGORY INFORMATION
 ===================================================== */
@@ -30,7 +357,10 @@ const categories = {
 ===================================================== */
 
 const categoryTitle =
-  document.getElementById("categoryTitle");
+  document.getElementById(
+    "categoryTitle"
+  );
+
 
 categoryTitle.textContent =
   categories[categoryId]
@@ -44,55 +374,101 @@ categoryTitle.textContent =
 async function loadCategoryItems() {
 
   const table =
-    document.getElementById("itemsTable");
+    document.getElementById(
+      "itemsTable"
+    );
+
+
+  /* ===================================================
+     CHECK CATEGORY
+  =================================================== */
 
   if (!categoryId) {
 
     table.innerHTML = `
+
       <tr>
-        <td colspan="7" class="error">
+
+        <td
+          colspan="7"
+          class="error">
+
           Category hin argamne.
+
         </td>
+
       </tr>
+
     `;
 
     return;
+
   }
+
 
   try {
 
-    /* ================================================
-       LOAD ITEMS BY CATEGORY_ID ONLY
-    ================================================ */
+
+    /* =================================================
+       LOAD ITEMS BY CATEGORY_ID
+    ================================================= */
 
     const itemsResponse =
       await fetch(
+
         SUPABASE_URL +
+
         "/rest/v1/items?category_id=eq." +
-        encodeURIComponent(categoryId) +
+
+        encodeURIComponent(
+          categoryId
+        ) +
+
         "&select=*",
+
         {
-          headers: getHeaders()
+
+          headers:
+            getHeaders()
+
         }
+
       );
 
+
+    /* =================================================
+       CHECK ITEMS RESPONSE
+    ================================================= */
 
     if (!itemsResponse.ok) {
 
       console.log(
+
         "Items Error:",
+
         await itemsResponse.text()
+
       );
 
+
       table.innerHTML = `
+
         <tr>
-          <td colspan="7" class="error">
+
+          <td
+            colspan="7"
+            class="error">
+
             Items load failed.
+
           </td>
+
         </tr>
+
       `;
 
       return;
+
     }
 
 
@@ -100,39 +476,56 @@ async function loadCategoryItems() {
       await itemsResponse.json();
 
 
-    /* ================================================
+    /* =================================================
        NO ITEMS
-    ================================================ */
+    ================================================= */
 
     if (items.length === 0) {
 
       table.innerHTML = `
+
         <tr>
+
           <td colspan="7">
-            Category kana keessatti item hin jiru.
+
+            Category kana keessatti
+            item hin jiru.
+
           </td>
+
         </tr>
+
       `;
+
 
       document.getElementById(
         "unitTotals"
       ).innerHTML = "";
 
+
       return;
+
     }
 
 
-    /* ================================================
-       LOAD TRANSACTIONS
-    ================================================ */
+    /* =================================================
+       LOAD ALL STOCK TRANSACTIONS
+    ================================================= */
 
     const transactionResponse =
       await fetch(
+
         SUPABASE_URL +
+
         "/rest/v1/stock_transactions?select=*",
+
         {
-          headers: getHeaders()
+
+          headers:
+            getHeaders()
+
         }
+
       );
 
 
@@ -147,111 +540,157 @@ async function loadCategoryItems() {
     }
 
 
-    /* ================================================
-       DISPLAY ITEMS
-    ================================================ */
+    /* =================================================
+       CLEAR TABLE
+    ================================================= */
 
     table.innerHTML = "";
+
 
     const unitTotals = {};
 
 
+    /* =================================================
+       DISPLAY EACH ITEM
+    ================================================= */
+
     items.forEach(
+
       (item, index) => {
 
-        /* ============================================
-           MATCH TRANSACTION WITH ITEM ID
-        ============================================ */
+
+        /* =============================================
+           MATCH TRANSACTION WITH ITEM
+        ============================================= */
 
         const itemTransactions =
           transactions.filter(
+
             t =>
+
               String(t.item_id) ===
               String(item.id)
+
           );
 
 
-        /* ============================================
+        /* =============================================
            STOCK IN
-        ============================================ */
+        ============================================= */
 
         const stockIn =
+
           itemTransactions
+
             .filter(
+
               t =>
+
                 String(
                   t.transaction_type
-                ).toUpperCase() === "IN"
+                ).toUpperCase() ===
+                "IN"
+
             )
+
             .reduce(
+
               (sum, t) =>
+
                 sum +
-                Number(t.quantity || 0),
+
+                Number(
+                  t.quantity || 0
+                ),
+
               0
+
             );
 
 
-        /* ============================================
+        /* =============================================
            STOCK OUT
-        ============================================ */
+        ============================================= */
 
         const stockOut =
+
           itemTransactions
+
             .filter(
+
               t =>
+
                 String(
                   t.transaction_type
-                ).toUpperCase() === "OUT"
+                ).toUpperCase() ===
+                "OUT"
+
             )
+
             .reduce(
+
               (sum, t) =>
+
                 sum +
-                Number(t.quantity || 0),
+
+                Number(
+                  t.quantity || 0
+                ),
+
               0
+
             );
 
 
-        /* ============================================
-           OPENING
-        ============================================ */
+        /* =============================================
+           OPENING QUANTITY
+        ============================================= */
 
         const opening =
+
           Number(
             item.opening_quantity || 0
           );
 
 
-        /* ============================================
+        /* =============================================
            BALANCE
-        ============================================ */
+        ============================================= */
 
         const balance =
+
           opening +
           stockIn -
           stockOut;
 
 
-        /* ============================================
+        /* =============================================
            UNIT
-        ============================================ */
+        ============================================= */
 
         const unit =
+
           String(
             item.unit || "Unknown"
           ).trim();
 
 
-        /* ============================================
-           UNIT TOTAL
-        ============================================ */
+        /* =============================================
+           CREATE UNIT TOTAL
+        ============================================= */
 
         if (!unitTotals[unit]) {
 
           unitTotals[unit] = {
+
             opening: 0,
+
             in: 0,
+
             out: 0,
+
             balance: 0
+
           };
 
         }
@@ -260,22 +699,27 @@ async function loadCategoryItems() {
         unitTotals[unit].opening +=
           opening;
 
+
         unitTotals[unit].in +=
           stockIn;
 
+
         unitTotals[unit].out +=
           stockOut;
+
 
         unitTotals[unit].balance +=
           balance;
 
 
-        /* ============================================
-           TABLE ROW
-        ============================================ */
+        /* =============================================
+           CREATE TABLE ROW
+        ============================================= */
 
         const row =
-          document.createElement("tr");
+          document.createElement(
+            "tr"
+          );
 
 
         row.innerHTML = `
@@ -285,7 +729,9 @@ async function loadCategoryItems() {
           </td>
 
           <td>
-            ${escapeHTML(item.name || "")}
+            ${escapeHTML(
+              item.name || ""
+            )}
           </td>
 
           <td>
@@ -311,15 +757,18 @@ async function loadCategoryItems() {
         `;
 
 
-        table.appendChild(row);
+        table.appendChild(
+          row
+        );
 
       }
+
     );
 
 
-    /* ================================================
+    /* =================================================
        UNIT TOTAL CARDS
-    ================================================ */
+    ================================================= */
 
     const totalsContainer =
       document.getElementById(
@@ -331,16 +780,22 @@ async function loadCategoryItems() {
 
 
     Object.keys(unitTotals)
+
       .sort()
+
       .forEach(
+
         unit => {
+
 
           const total =
             unitTotals[unit];
 
 
           const card =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
 
 
           card.className =
@@ -385,24 +840,52 @@ async function loadCategoryItems() {
           );
 
         }
+
       );
 
 
-  } catch (error) {
+  }
+
+
+  catch (error) {
 
     console.log(
       "Category Error:",
       error
     );
 
+
     table.innerHTML = `
+
       <tr>
-        <td colspan="7" class="error">
+
+        <td
+          colspan="7"
+          class="error">
+
           Error loading category.
+
         </td>
+
       </tr>
+
     `;
 
   }
 
 }
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadCategoryItems();
+
+
+</script>
+
+
+</body>
+
+</html>
