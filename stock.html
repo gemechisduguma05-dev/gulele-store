@@ -41,11 +41,6 @@ header h1 {
   margin: 20px auto;
 }
 
-
-/* ================================================
-   CATEGORY HEADER
-================================================ */
-
 .top-bar {
   background: white;
   padding: 16px;
@@ -92,11 +87,6 @@ header h1 {
 .btn-back {
   background: #475569;
 }
-
-
-/* ================================================
-   FORM
-================================================ */
 
 .form-box {
   display: none;
@@ -148,16 +138,13 @@ header h1 {
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   font-size: 15px;
+  background: white;
 }
 
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
   border-color: #1e3a8a;
-}
-
-.full {
-  grid-column: 1 / -1;
 }
 
 .submit-row {
@@ -187,11 +174,6 @@ header h1 {
   background: #64748b;
 }
 
-
-/* ================================================
-   SUMMARY
-================================================ */
-
 .summary {
   display: grid;
   grid-template-columns:
@@ -214,11 +196,6 @@ header h1 {
   color: #1e3a8a;
 }
 
-
-/* ================================================
-   TABLE
-================================================ */
-
 .table-box {
   background: white;
   border-radius: 10px;
@@ -229,7 +206,7 @@ header h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1300px;
+  min-width: 1250px;
 }
 
 th {
@@ -246,10 +223,6 @@ td {
   white-space: nowrap;
 }
 
-tr:hover {
-  background: #f8fafc;
-}
-
 .in-row {
   border-left: 5px solid #15803d;
 }
@@ -257,11 +230,6 @@ tr:hover {
 .out-row {
   border-left: 5px solid #dc2626;
 }
-
-
-/* ================================================
-   BADGE
-================================================ */
 
 .badge {
   padding: 5px 9px;
@@ -279,11 +247,6 @@ tr:hover {
   background: #fee2e2;
   color: #991b1b;
 }
-
-
-/* ================================================
-   TOTALS
-================================================ */
 
 #unitTotals {
   display: grid;
@@ -312,16 +275,11 @@ tr:hover {
   color: #475569;
 }
 
-
-/* ================================================
-   MESSAGE
-================================================ */
-
 .message {
+  display: none;
   padding: 12px;
   border-radius: 7px;
   margin-bottom: 12px;
-  display: none;
 }
 
 .message.success {
@@ -336,11 +294,6 @@ tr:hover {
   color: #991b1b;
 }
 
-.loading {
-  text-align: center;
-  padding: 25px;
-}
-
 </style>
 
 </head>
@@ -351,7 +304,7 @@ tr:hover {
 
 <header>
 
-  <h1>AAFDRMC - STOCK MANAGEMENT</h1>
+<h1>AAFDRMC - STOCK MANAGEMENT</h1>
 
 </header>
 
@@ -360,92 +313,80 @@ tr:hover {
 
 
 <!-- =================================================
-     CATEGORY HEADER
+     HEADER
 ================================================= -->
 
 <div class="top-bar">
 
-  <div
-    id="categoryTitle"
-    class="category-title">
+<div
+  id="categoryTitle"
+  class="category-title">
 
-    📂 Stock Category
-
-  </div>
-
-
-  <div class="buttons">
-
-    <a
-      href="items.html"
-      style="
-        text-decoration:none;
-        display:inline-block;
-        padding:10px 16px;
-        border-radius:7px;
-        color:white;
-        background:#475569;
-        font-weight:bold;
-      ">
-
-      ← Items
-
-    </a>
-
-
-    <button
-      class="btn btn-in"
-      onclick="openStockForm('IN')">
-
-      + Stock IN
-
-    </button>
-
-
-    <button
-      class="btn btn-out"
-      onclick="openStockForm('OUT')">
-
-      − Stock OUT
-
-    </button>
-
-
-    <button
-      class="btn btn-all"
-      onclick="filterTransactions('ALL')">
-
-      All Transactions
-
-    </button>
-
-
-    <button
-      class="btn btn-in"
-      onclick="filterTransactions('IN')">
-
-      IN Report
-
-    </button>
-
-
-    <button
-      class="btn btn-out"
-      onclick="filterTransactions('OUT')">
-
-      OUT Report
-
-    </button>
-
-  </div>
+  📦 Stock Management
 
 </div>
 
 
+<div class="buttons">
 
-<!-- =================================================
-     MESSAGE
-================================================= -->
+<button
+  class="btn btn-in"
+  onclick="openStockForm('IN')">
+
+  ➕ Stock IN
+
+</button>
+
+
+<button
+  class="btn btn-out"
+  onclick="openStockForm('OUT')">
+
+  ➖ Stock OUT
+
+</button>
+
+
+<button
+  class="btn btn-all"
+  onclick="filterTransactions('ALL')">
+
+  📋 All
+
+</button>
+
+
+<button
+  class="btn btn-in"
+  onclick="filterTransactions('IN')">
+
+  🟢 IN Report
+
+</button>
+
+
+<button
+  class="btn btn-out"
+  onclick="filterTransactions('OUT')">
+
+  🔴 OUT Report
+
+</button>
+
+
+<a
+  href="items.html"
+  class="btn btn-back"
+  style="text-decoration:none">
+
+  ← Items
+
+</a>
+
+</div>
+
+</div>
+
 
 <div
   id="message"
@@ -455,229 +396,317 @@ tr:hover {
 
 
 <!-- =================================================
-     STOCK IN FORM
+     STOCK IN
 ================================================= -->
 
 <div
   id="stockInForm"
   class="form-box">
 
-  <div class="form-title in">
-    🟢 Stock IN — Meeshaa Galchuu
-  </div>
+<div class="form-title in">
+
+🟢 Stock IN — Meeshaa Galchuu
+
+</div>
 
 
-  <div class="form-grid">
+<div class="form-grid">
 
 
-    <div class="form-group">
+<!-- CATEGORY -->
 
-      <label>Item</label>
+<div class="form-group">
 
-      <select id="inItem">
+<label>
+Category
+</label>
 
-        <option value="">
-          -- Select Item --
-        </option>
+<select
+  id="inCategory"
+  onchange="loadItemsByCategory('IN')">
 
-      </select>
+<option value="">
+-- Select Category --
+</option>
 
-    </div>
+</select>
 
-
-    <div class="form-group">
-
-      <label>Quantity</label>
-
-      <input
-        type="number"
-        id="inQuantity"
-        min="0.01"
-        step="any"
-        placeholder="Quantity">
-
-    </div>
+</div>
 
 
-    <div class="form-group">
+<!-- ITEM -->
 
-      <label>Unit</label>
+<div class="form-group">
 
-      <input
-        type="text"
-        id="inUnit"
-        readonly>
+<label>
+Item
+</label>
 
-    </div>
+<select id="inItem">
 
+<option value="">
+-- Select Item --
+</option>
 
-    <div class="form-group">
+</select>
 
-      <label>Expiry Date</label>
-
-      <input
-        type="date"
-        id="inExpiryDate">
-
-    </div>
+</div>
 
 
-    <div class="form-group">
+<!-- QUANTITY -->
 
-      <label>Entered By</label>
+<div class="form-group">
 
-      <input
-        type="text"
-        id="inEnteredBy"
-        placeholder="Nama galche">
+<label>
+Quantity
+</label>
 
-    </div>
+<input
+  type="number"
+  id="inQuantity"
+  min="0.01"
+  step="any"
+  placeholder="Quantity">
 
-
-    <div class="form-group">
-
-      <label>Signature</label>
-
-      <input
-        type="text"
-        id="inSignature"
-        placeholder="Mallattoo / maqaa">
-
-    </div>
+</div>
 
 
-  </div>
+<!-- UNIT -->
+
+<div class="form-group">
+
+<label>
+Unit
+</label>
+
+<input
+  type="text"
+  id="inUnit"
+  readonly>
+
+</div>
 
 
-  <div class="submit-row">
+<!-- EXPIRY -->
 
-    <button
-      class="save-btn save-in"
-      onclick="saveStock('IN')">
+<div class="form-group">
 
-      💾 Save Stock IN
+<label>
+Expiry Date
+</label>
 
-    </button>
+<input
+  type="date"
+  id="inExpiryDate">
+
+</div>
 
 
-    <button
-      class="save-btn cancel-btn"
-      onclick="closeStockForms()">
+<!-- ENTERED BY -->
 
-      Cancel
+<div class="form-group">
 
-    </button>
+<label>
+Entered By
+</label>
 
-  </div>
+<input
+  type="text"
+  id="inEnteredBy"
+  placeholder="Nama nama galche">
+
+</div>
+
+
+<!-- SIGNATURE -->
+
+<div class="form-group">
+
+<label>
+Signature / Mallattoo
+</label>
+
+<input
+  type="text"
+  id="inSignature"
+  placeholder="Mallattoo">
+
+</div>
+
+</div>
+
+
+<div class="submit-row">
+
+<button
+  class="save-btn save-in"
+  onclick="saveStock('IN')">
+
+💾 Save Stock IN
+
+</button>
+
+
+<button
+  class="save-btn cancel-btn"
+  onclick="closeStockForms()">
+
+Cancel
+
+</button>
+
+</div>
 
 </div>
 
 
 
 <!-- =================================================
-     STOCK OUT FORM
+     STOCK OUT
 ================================================= -->
 
 <div
   id="stockOutForm"
   class="form-box">
 
-  <div class="form-title out">
-    🔴 Stock OUT — Meeshaa Baasuu
-  </div>
+<div class="form-title out">
+
+🔴 Stock OUT — Meeshaa Baasuu
+
+</div>
 
 
-  <div class="form-grid">
+<div class="form-grid">
 
 
-    <div class="form-group">
+<!-- CATEGORY -->
 
-      <label>Item</label>
+<div class="form-group">
 
-      <select id="outItem">
+<label>
+Category
+</label>
 
-        <option value="">
-          -- Select Item --
-        </option>
+<select
+  id="outCategory"
+  onchange="loadItemsByCategory('OUT')">
 
-      </select>
+<option value="">
+-- Select Category --
+</option>
 
-    </div>
+</select>
 
-
-    <div class="form-group">
-
-      <label>Quantity</label>
-
-      <input
-        type="number"
-        id="outQuantity"
-        min="0.01"
-        step="any"
-        placeholder="Quantity">
-
-    </div>
+</div>
 
 
-    <div class="form-group">
+<!-- ITEM -->
 
-      <label>Unit</label>
+<div class="form-group">
 
-      <input
-        type="text"
-        id="outUnit"
-        readonly>
+<label>
+Item
+</label>
 
-    </div>
+<select id="outItem">
 
+<option value="">
+-- Select Item --
+</option>
 
-    <div class="form-group">
+</select>
 
-      <label>Issued By</label>
-
-      <input
-        type="text"
-        id="outIssuedBy"
-        placeholder="Nama baase">
-
-    </div>
+</div>
 
 
-    <div class="form-group">
+<!-- QUANTITY -->
 
-      <label>Signature</label>
+<div class="form-group">
 
-      <input
-        type="text"
-        id="outSignature"
-        placeholder="Mallattoo / maqaa">
+<label>
+Quantity
+</label>
 
-    </div>
+<input
+  type="number"
+  id="outQuantity"
+  min="0.01"
+  step="any"
+  placeholder="Quantity">
 
-
-  </div>
-
-
-  <div class="submit-row">
-
-    <button
-      class="save-btn save-out"
-      onclick="saveStock('OUT')">
-
-      💾 Save Stock OUT
-
-    </button>
+</div>
 
 
-    <button
-      class="save-btn cancel-btn"
-      onclick="closeStockForms()">
+<!-- UNIT -->
 
-      Cancel
+<div class="form-group">
 
-    </button>
+<label>
+Unit
+</label>
 
-  </div>
+<input
+  type="text"
+  id="outUnit"
+  readonly>
+
+</div>
+
+
+<!-- ISSUED BY -->
+
+<div class="form-group">
+
+<label>
+Issued By
+</label>
+
+<input
+  type="text"
+  id="outIssuedBy"
+  placeholder="Nama nama baase">
+
+</div>
+
+
+<!-- SIGNATURE -->
+
+<div class="form-group">
+
+<label>
+Signature / Mallattoo
+</label>
+
+<input
+  type="text"
+  id="outSignature"
+  placeholder="Mallattoo">
+
+</div>
+
+</div>
+
+
+<div class="submit-row">
+
+<button
+  class="save-btn save-out"
+  onclick="saveStock('OUT')">
+
+💾 Save Stock OUT
+
+</button>
+
+
+<button
+  class="save-btn cancel-btn"
+  onclick="closeStockForms()">
+
+Cancel
+
+</button>
+
+</div>
 
 </div>
 
@@ -689,55 +718,55 @@ tr:hover {
 
 <div class="summary">
 
-  <div class="card">
+<div class="card">
 
-    Total Opening
+Total Opening
 
-    <strong id="totalOpening">
-      0
-    </strong>
+<strong id="totalOpening">
+0
+</strong>
 
-  </div>
-
-
-  <div class="card">
-
-    Total Stock IN
-
-    <strong id="totalIn">
-      0
-    </strong>
-
-  </div>
+</div>
 
 
-  <div class="card">
+<div class="card">
 
-    Total Stock OUT
+Total Stock IN
 
-    <strong id="totalOut">
-      0
-    </strong>
+<strong id="totalIn">
+0
+</strong>
 
-  </div>
+</div>
 
 
-  <div class="card">
+<div class="card">
 
-    Current Balance
+Total Stock OUT
 
-    <strong id="totalBalance">
-      0
-    </strong>
+<strong id="totalOut">
+0
+</strong>
 
-  </div>
+</div>
+
+
+<div class="card">
+
+Current Balance
+
+<strong id="totalBalance">
+0
+</strong>
+
+</div>
 
 </div>
 
 
 
 <!-- =================================================
-     TRANSACTION TABLE
+     TABLE
 ================================================= -->
 
 <div class="table-box">
@@ -750,17 +779,13 @@ tr:hover {
 
 <th>No</th>
 
-<th>Item ID</th>
-
-<th>Item Name</th>
+<th>Item</th>
 
 <th>Quantity</th>
 
 <th>Unit</th>
 
 <th>Transaction</th>
-
-<th>Transaction Type</th>
 
 <th>Entered By</th>
 
@@ -769,8 +794,6 @@ tr:hover {
 <th>Expiry Date</th>
 
 <th>Category</th>
-
-<th>Category ID</th>
 
 <th>Date / Time</th>
 
@@ -786,10 +809,10 @@ tr:hover {
 <tr>
 
 <td
-  colspan="14"
-  class="loading">
+  colspan="11"
+  style="text-align:center">
 
-  Loading...
+Loading...
 
 </td>
 
@@ -802,10 +825,6 @@ tr:hover {
 </div>
 
 
-
-<!-- =================================================
-     UNIT TOTALS
-================================================= -->
 
 <div id="unitTotals"></div>
 
@@ -822,10 +841,11 @@ tr:hover {
 ===================================================== */
 
 const SUPABASE_URL =
-  "https://sslabegtsxlkafuygmar.supabase.co";
+"https://sslabegtsxlkafuygmar.supabase.co";
+
 
 const SUPABASE_KEY =
-  "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
 /* =====================================================
@@ -834,104 +854,77 @@ const SUPABASE_KEY =
 
 function getHeaders() {
 
-  const accessToken =
-    localStorage.getItem("access_token")
-    || SUPABASE_KEY;
+const accessToken =
+localStorage.getItem("access_token")
+|| SUPABASE_KEY;
 
-  return {
 
-    "apikey":
-      SUPABASE_KEY,
+return {
 
-    "Authorization":
-      "Bearer " + accessToken,
+"apikey":
+SUPABASE_KEY,
 
-    "Content-Type":
-      "application/json"
+"Authorization":
+"Bearer " + accessToken,
 
-  };
+"Content-Type":
+"application/json"
+
+};
 
 }
 
 
 /* =====================================================
-   ESCAPE HTML
+   HTML SECURITY
 ===================================================== */
 
 function escapeHTML(value) {
 
-  return String(value ?? "")
+return String(value ?? "")
 
-    .replace(/&/g, "&amp;")
+.replace(/&/g,"&amp;")
 
-    .replace(/</g, "&lt;")
+.replace(/</g,"&lt;")
 
-    .replace(/>/g, "&gt;")
+.replace(/>/g,"&gt;")
 
-    .replace(/"/g, "&quot;")
+.replace(/"/g,"&quot;")
 
-    .replace(/'/g, "&#039;");
+.replace(/'/g,"&#039;");
 
 }
 
 
 /* =====================================================
-   CATEGORY ID
-===================================================== */
-
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
-
-
-const categoryId =
-  params.get("category_id")
-  || params.get("categoryId")
-  || params.get("id");
-
-
-/* =====================================================
-   CATEGORY INFORMATION
+   CATEGORIES
 ===================================================== */
 
 const categories = {
 
-  "1":
-    "🥫 Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ",
+"1":
+"🥫 Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ",
 
-  "2":
-    "🍚 Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / ምግብ ነክ የእለት ደሪሽ",
+"2":
+"🍚 Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / ምግብ ነክ የእለት ደሪሽ",
 
-  "3":
-    "📦 Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ",
+"3":
+"📦 Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ",
 
-  "4":
-    "🍳 Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ",
+"4":
+"🍳 Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ",
 
-  "5":
-    "🧼 Meeshaalee Qulqullinaa / Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና",
+"5":
+"🧼 Meeshaalee Qulqullinaa / Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና",
 
-  "6":
-    "🧱 Meeshaalee Ijaarsaa / Non-Food Construction Materials / ምግብ ነክ ያልሆነ የህንጻ መሳሪያ"
+"6":
+"🧱 Meeshaalee Ijaarsaa / Non-Food Construction Materials / ምግብ ነክ ያልallii / የህንጻ መሳሪያ"
 
 };
 
 
 /* =====================================================
-   SHOW CATEGORY
-===================================================== */
-
-document.getElementById(
-  "categoryTitle"
-).textContent =
-
-  categories[categoryId]
-  || "📂 Stock Management";
-
-
-/* =====================================================
-   GLOBAL DATA
+   GLOBAL
 ===================================================== */
 
 let allItems = [];
@@ -940,38 +933,83 @@ let allTransactions = [];
 
 
 /* =====================================================
+   CATEGORY SELECTS
+===================================================== */
+
+function fillCategories() {
+
+const inCategory =
+document.getElementById("inCategory");
+
+
+const outCategory =
+document.getElementById("outCategory");
+
+
+Object.entries(categories)
+.forEach(([id,name]) => {
+
+const option1 =
+document.createElement("option");
+
+option1.value =
+name;
+
+option1.textContent =
+name;
+
+inCategory.appendChild(option1);
+
+
+const option2 =
+document.createElement("option");
+
+option2.value =
+name;
+
+option2.textContent =
+name;
+
+outCategory.appendChild(option2);
+
+});
+
+}
+
+
+/* =====================================================
    LOAD ITEMS
 ===================================================== */
 
 async function loadItems() {
 
-  const response =
-    await fetch(
+const response =
+await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/items?select=*&order=id.asc",
+SUPABASE_URL +
+"/rest/v1/items?select=*&order=id.asc",
 
-      {
-        headers:
-          getHeaders()
-      }
+{
+headers:
+getHeaders()
+}
 
-    );
-
-
-  if (!response.ok) {
-
-    console.log(
-      "Items Error:",
-      await response.text()
-    );
-
-    return [];
-
-  }
+);
 
 
-  return await response.json();
+if(!response.ok) {
+
+console.log(
+"Items error:",
+await response.text()
+);
+
+return [];
+
+}
+
+
+return await response.json();
 
 }
 
@@ -982,186 +1020,145 @@ async function loadItems() {
 
 async function loadTransactions() {
 
-  const response =
-    await fetch(
+const response =
+await fetch(
 
-      SUPABASE_URL +
-      "/rest/v1/stock_transactions?select=*&order=id.desc",
+SUPABASE_URL +
+"/rest/v1/stock_transactions?select=*&order=id.desc",
 
-      {
-        headers:
-          getHeaders()
-      }
+{
+headers:
+getHeaders()
+}
 
-    );
-
-
-  if (!response.ok) {
-
-    console.log(
-      "Transaction Error:",
-      await response.text()
-    );
-
-    return [];
-
-  }
+);
 
 
-  return await response.json();
+if(!response.ok) {
+
+console.log(
+"Transactions error:",
+await response.text()
+);
+
+return [];
+
+}
+
+
+return await response.json();
 
 }
 
 
 /* =====================================================
-   LOAD STOCK
+   LOAD ITEMS BY CATEGORY
 ===================================================== */
 
-async function loadStock() {
+function loadItemsByCategory(type) {
 
-  try {
+const category =
+type === "IN"
 
-    allItems =
-      await loadItems();
+? document.getElementById(
+"inCategory"
+).value
 
-
-    allTransactions =
-      await loadTransactions();
-
-
-    fillItemSelects();
-
-
-    let transactions =
-      allTransactions;
+: document.getElementById(
+"outCategory"
+).value;
 
 
-    if (categoryId) {
+const select =
+type === "IN"
 
-      transactions =
-        transactions.filter(
+? document.getElementById(
+"inItem"
+)
 
-          t =>
-
-            String(
-              t.category_id
-            ) ===
-            String(categoryId)
-
-        );
-
-    }
+: document.getElementById(
+"outItem"
+);
 
 
-    displayTransactions(
-      transactions
-    );
+const unitInput =
+type === "IN"
 
-  }
+? document.getElementById(
+"inUnit"
+)
 
-  catch(error) {
+: document.getElementById(
+"outUnit"
+);
 
-    console.log(
-      "Stock Error:",
-      error
-    );
 
-  }
+select.innerHTML = `
+
+<option value="">
+-- Select Item --
+</option>
+
+`;
+
+unitInput.value = "";
+
+
+if(!category) {
+
+return;
 
 }
 
 
-/* =====================================================
-   FILL ITEM SELECT
-===================================================== */
+const items =
+allItems.filter(
 
-function fillItemSelects() {
+item => {
 
-  const inSelect =
-    document.getElementById(
-      "inItem"
-    );
-
-  const outSelect =
-    document.getElementById(
-      "outItem"
-    );
+const itemCategory =
+String(
+item.category || ""
+).trim();
 
 
-  inSelect.innerHTML = `
-    <option value="">
-      -- Select Item --
-    </option>
-  `;
+return itemCategory ===
+String(category).trim();
+
+}
+
+);
 
 
-  outSelect.innerHTML = `
-    <option value="">
-      -- Select Item --
-    </option>
-  `;
+items.forEach(
+
+item => {
+
+const option =
+document.createElement(
+"option"
+);
 
 
-  let items =
-    allItems;
+option.value =
+item.id;
 
 
-  if (categoryId) {
-
-    items =
-      allItems.filter(
-
-        item =>
-
-          String(
-            item.category_id
-          ) ===
-          String(categoryId)
-
-      );
-
-  }
+option.textContent =
+item.name;
 
 
-  items.forEach(
-
-    item => {
-
-      const option1 =
-        document.createElement(
-          "option"
-        );
+option.dataset.unit =
+item.unit || "";
 
 
-      option1.value =
-        item.id;
+select.appendChild(
+option
+);
 
+}
 
-      option1.textContent =
-        `${item.name} — ${item.unit || ""}`;
-
-
-      option1.dataset.unit =
-        item.unit || "";
-
-
-      inSelect.appendChild(
-        option1
-      );
-
-
-      const option2 =
-        option1.cloneNode(true);
-
-
-      outSelect.appendChild(
-        option2
-      );
-
-    }
-
-  );
-
+);
 
 }
 
@@ -1171,49 +1168,43 @@ function fillItemSelects() {
 ===================================================== */
 
 document.getElementById(
-  "inItem"
+"inItem"
 ).addEventListener(
+"change",
+function() {
 
-  "change",
-
-  function() {
-
-    const option =
-      this.options[
-        this.selectedIndex
-      ];
-
-    document.getElementById(
-      "inUnit"
-    ).value =
-      option?.dataset?.unit || "";
-
-  }
-
-);
+const option =
+this.options[
+this.selectedIndex
+];
 
 
 document.getElementById(
-  "outItem"
+"inUnit"
+).value =
+option?.dataset?.unit || "";
+
+});
+
+
+document.getElementById(
+"outItem"
 ).addEventListener(
+"change",
+function() {
 
-  "change",
+const option =
+this.options[
+this.selectedIndex
+];
 
-  function() {
 
-    const option =
-      this.options[
-        this.selectedIndex
-      ];
+document.getElementById(
+"outUnit"
+).value =
+option?.dataset?.unit || "";
 
-    document.getElementById(
-      "outUnit"
-    ).value =
-      option?.dataset?.unit || "";
-
-  }
-
-);
+});
 
 
 /* =====================================================
@@ -1222,82 +1213,77 @@ document.getElementById(
 
 function openStockForm(type) {
 
-  closeStockForms();
+closeStockForms();
 
 
-  if(type === "IN") {
+if(type === "IN") {
 
-    document.getElementById(
-      "stockInForm"
-    ).classList.add("show");
+document.getElementById(
+"stockInForm"
+).classList.add("show");
 
-  }
+}
 
 
-  if(type === "OUT") {
+if(type === "OUT") {
 
-    document.getElementById(
-      "stockOutForm"
-    ).classList.add("show");
+document.getElementById(
+"stockOutForm"
+).classList.add("show");
 
-  }
+}
 
 }
 
 
 /* =====================================================
-   CLOSE FORMS
+   CLOSE FORM
 ===================================================== */
 
 function closeStockForms() {
 
-  document.getElementById(
-    "stockInForm"
-  ).classList.remove("show");
+document.getElementById(
+"stockInForm"
+).classList.remove("show");
 
 
-  document.getElementById(
-    "stockOutForm"
-  ).classList.remove("show");
+document.getElementById(
+"stockOutForm"
+).classList.remove("show");
 
 }
 
 
 /* =====================================================
-   SHOW MESSAGE
+   MESSAGE
 ===================================================== */
 
 function showMessage(
-  text,
-  type
+text,
+type
 ) {
 
-  const box =
-    document.getElementById(
-      "message"
-    );
+const box =
+document.getElementById(
+"message"
+);
 
 
-  box.textContent =
-    text;
+box.textContent =
+text;
 
 
-  box.className =
-    "message " + type;
+box.className =
+"message " + type;
 
 
-  setTimeout(
-
-    () => {
-
-      box.className =
-        "message";
-
-    },
-
-    4000
-
-  );
+setTimeout(
+() => {
+box.className =
+"message";
+},
+4000
+);
 
 }
 
@@ -1308,868 +1294,666 @@ function showMessage(
 
 async function saveStock(type) {
 
-  let itemId;
-  let quantity;
-  let unit;
-  let enteredBy = "";
-  let issuedBy = "";
-  let expiryDate = "";
-  let signature = "";
+let itemId = "";
 
+let quantity = 0;
 
-  /* ===============================================
-     STOCK IN
-  =============================================== */
+let unit = "";
 
-  if(type === "IN") {
+let category = "";
 
-    itemId =
-      document.getElementById(
-        "inItem"
-      ).value;
+let enteredBy = "";
 
+let issuedBy = "";
 
-    quantity =
-      Number(
-        document.getElementById(
-          "inQuantity"
-        ).value
-      );
+let expiryDate = "";
 
+let signature = "";
 
-    unit =
-      document.getElementById(
-        "inUnit"
-      ).value;
 
+/* ================================
+   IN
+================================ */
 
-    enteredBy =
-      document.getElementById(
-        "inEnteredBy"
-      ).value.trim();
+if(type === "IN") {
 
+category =
+document.getElementById(
+"inCategory"
+).value;
 
-    expiryDate =
-      document.getElementById(
-        "inExpiryDate"
-      ).value;
 
+itemId =
+document.getElementById(
+"inItem"
+).value;
 
-    signature =
-      document.getElementById(
-        "inSignature"
-      ).value.trim();
 
-  }
+quantity =
+Number(
+document.getElementById(
+"inQuantity"
+).value
+);
 
 
-  /* ===============================================
-     STOCK OUT
-  =============================================== */
+unit =
+document.getElementById(
+"inUnit"
+).value;
 
-  if(type === "OUT") {
 
-    itemId =
-      document.getElementById(
-        "outItem"
-      ).value;
+enteredBy =
+document.getElementById(
+"inEnteredBy"
+).value.trim();
 
 
-    quantity =
-      Number(
-        document.getElementById(
-          "outQuantity"
-        ).value
-      );
+expiryDate =
+document.getElementById(
+"inExpiryDate"
+).value;
 
 
-    unit =
-      document.getElementById(
-        "outUnit"
-      ).value;
+signature =
+document.getElementById(
+"inSignature"
+).value.trim();
 
+}
 
-    issuedBy =
-      document.getElementById(
-        "outIssuedBy"
-      ).value.trim();
 
+/* ================================
+   OUT
+================================ */
 
-    signature =
-      document.getElementById(
-        "outSignature"
-      ).value.trim();
+if(type === "OUT") {
 
-  }
+category =
+document.getElementById(
+"outCategory"
+).value;
 
 
-  /* ===============================================
-     VALIDATION
-  =============================================== */
+itemId =
+document.getElementById(
+"outItem"
+).value;
 
-  if(!itemId) {
 
-    showMessage(
-      "Item filadhu.",
-      "error"
-    );
+quantity =
+Number(
+document.getElementById(
+"outQuantity"
+).value
+);
 
-    return;
 
-  }
+unit =
+document.getElementById(
+"outUnit"
+).value;
 
 
-  if(!quantity || quantity <= 0) {
+issuedBy =
+document.getElementById(
+"outIssuedBy"
+).value.trim();
 
-    showMessage(
-      "Quantity sirrii galchi.",
-      "error"
-    );
 
-    return;
+signature =
+document.getElementById(
+"outSignature"
+).value.trim();
 
-  }
+}
 
 
-  if(type === "IN" && !enteredBy) {
+/* ================================
+   VALIDATION
+================================ */
 
-    showMessage(
-      "Maqaa nama galche galchi.",
-      "error"
-    );
+if(!category) {
 
-    return;
+showMessage(
+"Category filadhu.",
+"error"
+);
 
-  }
+return;
 
+}
 
-  if(type === "OUT" && !issuedBy) {
 
-    showMessage(
-      "Maqaa nama baase galchi.",
-      "error"
-    );
+if(!itemId) {
 
-    return;
+showMessage(
+"Item filadhu.",
+"error"
+);
 
-  }
+return;
 
+}
 
-  /* ===============================================
-     FIND ITEM
-  =============================================== */
 
-  const item =
-    allItems.find(
+if(!quantity || quantity <= 0) {
 
-      i =>
-        String(i.id) ===
-        String(itemId)
+showMessage(
+"Quantity sirrii galchi.",
+"error"
+);
 
-    );
+return;
 
+}
 
-  if(!item) {
 
-    showMessage(
-      "Item hin argamne.",
-      "error"
-    );
+if(type === "IN" && !enteredBy) {
 
-    return;
+showMessage(
+"Nama galche galchi.",
+"error"
+);
 
-  }
+return;
 
+}
 
-  /* ===============================================
-     STOCK OUT BALANCE CHECK
-  =============================================== */
 
-  if(type === "OUT") {
+if(type === "OUT" && !issuedBy) {
 
-    const itemTransactions =
-      allTransactions.filter(
+showMessage(
+"Nama baase galchi.",
+"error"
+);
 
-        t =>
+return;
 
-          String(t.item_id) ===
-          String(itemId)
+}
 
-      );
 
+/* ================================
+   ITEM
+================================ */
 
-    let totalIn = 0;
+const item =
+allItems.find(
 
-    let totalOut = 0;
+i =>
+String(i.id) ===
+String(itemId)
 
+);
 
-    itemTransactions.forEach(
 
-      t => {
+if(!item) {
 
-        const q =
-          Number(
-            t.quantity || 0
-          );
+showMessage(
+"Item hin argamne.",
+"error"
+);
 
+return;
 
-        const transactionType =
-          String(
-            t.transaction_type
-            || t.transaction
-            || ""
-          ).toUpperCase();
+}
 
 
-        if(
-          transactionType === "IN"
-        ) {
+/* ================================
+   OUT BALANCE CHECK
+================================ */
 
-          totalIn += q;
+if(type === "OUT") {
 
-        }
+const itemTransactions =
+allTransactions.filter(
 
+t =>
+String(t.item_id) ===
+String(itemId)
 
-        if(
-          transactionType === "OUT"
-        ) {
+);
 
-          totalOut += q;
 
-        }
+let totalIn = 0;
 
-      }
+let totalOut = 0;
 
-    );
 
+itemTransactions.forEach(
 
-    const opening =
-      Number(
-        item.opening_quantity
-        || item.quantity
-        || 0
-      );
+t => {
 
+const q =
+Number(t.quantity || 0);
 
-    const balance =
-      opening +
-      totalIn -
-      totalOut;
 
+const transactionType =
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase();
 
-    if(quantity > balance) {
 
-      showMessage(
+if(transactionType === "IN") {
 
-        `Stock hin gahu. Balance jiru: ${balance} ${unit}`,
+totalIn += q;
 
-        "error"
+}
 
-      );
 
-      return;
+if(transactionType === "OUT") {
 
-    }
+totalOut += q;
 
-  }
+}
 
+});
 
-  /* ===============================================
-     CATEGORY
-  =============================================== */
 
-  const finalCategoryId =
-    item.category_id
-    || categoryId
-    || "";
+const opening =
+Number(
+item.opening_quantity ||
+item.quantity ||
+0
+);
 
 
-  const finalCategory =
-    item.category
-    || categories[
-         String(finalCategoryId)
-       ]
-    || "";
+const balance =
+opening +
+totalIn -
+totalOut;
 
 
-  /* ===============================================
-     TRANSACTION DATA
-  =============================================== */
+if(quantity > balance) {
 
-  const data = {
+showMessage(
 
-    item_id:
-      itemId,
+`Stock hin gahu. Balance: ${balance} ${unit}`,
 
-    quantity:
-      quantity,
+"error"
 
-    transaction:
-      type,
+);
 
-    transaction_type:
-      type,
+return;
 
-    entered_by:
-      enteredBy,
+}
 
-    issued_by:
-      issuedBy,
+}
 
-    expiry_date:
-      expiryDate || null,
 
-    category:
-      finalCategory,
+/* ================================
+   DATA
+================================ */
 
-    category_id:
-      finalCategoryId,
+const data = {
 
-    signature:
-      signature,
+item_id:
+itemId,
 
-    unit:
-      unit
+quantity:
+quantity,
 
-  };
+unit:
+unit,
 
+transaction:
+type,
 
-  /* ===============================================
-     INSERT
-  =============================================== */
+transaction_type:
+type,
 
-  try {
+category:
+category,
 
-    const response =
-      await fetch(
+entered_by:
+enteredBy,
 
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions",
+issued_by:
+issuedBy,
 
-        {
+expiry_date:
+expiryDate || null,
 
-          method:
-            "POST",
+signature:
+signature
 
-          headers: {
+};
 
-            ...getHeaders(),
 
-            "Prefer":
-              "return=representation"
+/* ================================
+   INSERT
+================================ */
 
-          },
+try {
 
-          body:
-            JSON.stringify(
-              data
-            )
+const response =
+await fetch(
 
-        }
+SUPABASE_URL +
+"/rest/v1/stock_transactions",
 
-      );
+{
 
+method:
+"POST",
 
-    if(!response.ok) {
+headers: {
 
-      const errorText =
-        await response.text();
+...getHeaders(),
 
+"Prefer":
+"return=representation"
 
-      console.log(
-        "Save Error:",
-        errorText
-      );
+},
 
+body:
+JSON.stringify(data)
 
-      showMessage(
-        "Stock save hin milkoofne: " +
-        errorText,
-        "error"
-      );
+}
 
+);
 
-      return;
 
-    }
+if(!response.ok) {
 
+const errorText =
+await response.text();
 
-    showMessage(
 
-      type === "IN"
+console.log(
+"Save Error:",
+errorText
+);
 
-        ? "✅ Stock IN milkaa'inaan galmaa'e."
 
-        : "✅ Stock OUT milkaa'inaan galmaa'e.",
+showMessage(
+"Save hin milkoofne: " +
+errorText,
+"error"
+);
 
-      "success"
 
-    );
+return;
 
+}
 
-    closeStockForms();
 
+showMessage(
 
-    /* =============================================
-       CLEAR FORM
-    ============================================= */
+type === "IN"
 
-    if(type === "IN") {
+? "✅ Stock IN milkaa'inaan galmaa'e."
 
-      document.getElementById(
-        "inItem"
-      ).value = "";
+: "✅ Stock OUT milkaa'inaan galmaa'e.",
 
-      document.getElementById(
-        "inQuantity"
-      ).value = "";
+"success"
 
-      document.getElementById(
-        "inUnit"
-      ).value = "";
+);
 
-      document.getElementById(
-        "inExpiryDate"
-      ).value = "";
 
-      document.getElementById(
-        "inEnteredBy"
-      ).value = "";
+closeStockForms();
 
-      document.getElementById(
-        "inSignature"
-      ).value = "";
 
-    }
+await loadStock();
 
+}
 
-    if(type === "OUT") {
+catch(error) {
 
-      document.getElementById(
-        "outItem"
-      ).value = "";
+console.log(
+"Save error:",
+error
+);
 
-      document.getElementById(
-        "outQuantity"
-      ).value = "";
 
-      document.getElementById(
-        "outUnit"
-      ).value = "";
+showMessage(
+"Network error.",
+"error"
+);
 
-      document.getElementById(
-        "outIssuedBy"
-      ).value = "";
-
-      document.getElementById(
-        "outSignature"
-      ).value = "";
-
-    }
-
-
-    /* =============================================
-       RELOAD
-    ============================================= */
-
-    await loadStock();
-
-  }
-
-  catch(error) {
-
-    console.log(
-      "Save error:",
-      error
-    );
-
-
-    showMessage(
-      "Network error.",
-      "error"
-    );
-
-  }
+}
 
 }
 
 
 /* =====================================================
-   DISPLAY TRANSACTIONS
+   LOAD STOCK
+===================================================== */
+
+async function loadStock() {
+
+try {
+
+allItems =
+await loadItems();
+
+
+allTransactions =
+await loadTransactions();
+
+
+displayTransactions(
+allTransactions
+);
+
+}
+
+catch(error) {
+
+console.log(
+error
+);
+
+}
+
+}
+
+
+/* =====================================================
+   DISPLAY
 ===================================================== */
 
 function displayTransactions(
-  transactions
+transactions
 ) {
 
-  const table =
-    document.getElementById(
-      "stockTable"
-    );
+const table =
+document.getElementById(
+"stockTable"
+);
 
 
-  table.innerHTML = "";
+table.innerHTML = "";
 
 
-  if(
-    transactions.length === 0
-  ) {
+let totalIn = 0;
 
-    table.innerHTML = `
+let totalOut = 0;
 
-      <tr>
 
-        <td colspan="14">
+let opening = 0;
 
-          Transaction hin jiru.
 
-        </td>
+allItems.forEach(
 
-      </tr>
+item => {
 
-    `;
+opening +=
+Number(
+item.opening_quantity ||
+item.quantity ||
+0
+);
 
+});
 
-    updateSummary(
-      []
-    );
 
+transactions.forEach(
 
-    updateUnitTotals(
-      []
-    );
+(t,index) => {
 
+const item =
+allItems.find(
 
-    return;
+i =>
+String(i.id) ===
+String(t.item_id)
 
-  }
+);
 
 
-  transactions.forEach(
+const type =
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase();
 
-    (t, index) => {
 
+const quantity =
+Number(
+t.quantity || 0
+);
 
-      const item =
-        allItems.find(
 
-          i =>
+if(type === "IN")
+totalIn += quantity;
 
-            String(i.id) ===
-            String(t.item_id)
 
-        );
+if(type === "OUT")
+totalOut += quantity;
 
 
-      const itemName =
-        t.item_name
-        || item?.name
-        || "";
+const row =
+document.createElement(
+"tr"
+);
 
 
-      const unit =
-        t.unit
-        || item?.unit
-        || "";
+row.className =
+type === "OUT"
+? "out-row"
+: "in-row";
 
 
-      const transaction =
-        String(
-          t.transaction_type
-          || t.transaction
-          || ""
-        ).toUpperCase();
+row.innerHTML = `
 
+<td>
+${index + 1}
+</td>
 
-      const transactionType =
-        t.transaction_type
-        || transaction;
+<td>
+${escapeHTML(
+item?.name || ""
+)}
+</td>
 
+<td>
+${quantity}
+</td>
 
-      const enteredBy =
-        t.entered_by
-        || "";
+<td>
+${escapeHTML(
+t.unit || item?.unit || ""
+)}
+</td>
 
-
-      const issuedBy =
-        t.issued_by
-        || "";
-
-
-      const expiryDate =
-        t.expiry_date
-        || "—";
-
-
-      const category =
-        t.category
-        || item?.category
-        || categories[
-             String(
-               t.category_id
-             )
-           ]
-        || "";
-
-
-      const signature =
-        t.signature
-        || "";
-
-
-      const dateTime =
-        t.created_at
-        || t.transaction_date
-        || t.date
-        || "";
-
-
-      const row =
-        document.createElement(
-          "tr"
-        );
-
-
-      row.className =
-        transaction === "OUT"
-        ? "out-row"
-        : "in-row";
-
-
-      row.innerHTML = `
-
-        <td>
-          ${index + 1}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            t.item_id
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            itemName
-          )}
-        </td>
-
-        <td>
-          ${Number(
-            t.quantity || 0
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            unit
-          )}
-        </td>
-
-        <td>
-
-          <span class="badge ${
-            transaction === "OUT"
-              ? "badge-out"
-              : "badge-in"
-          }">
-
-            ${
-              transaction === "OUT"
-              ? "🔴 OUT"
-              : "🟢 IN"
-            }
-
-          </span>
-
-        </td>
-
-        <td>
-          ${escapeHTML(
-            transactionType
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            enteredBy
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            issuedBy
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            expiryDate
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            category
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            t.category_id
-            || ""
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            dateTime
-          )}
-        </td>
-
-        <td>
-
-          ${
-            signature
-            ? "✍️ " +
-              escapeHTML(
-                signature
-              )
-            : "—"
-          }
-
-        </td>
-
-      `;
-
-
-      table.appendChild(
-        row
-      );
-
-    }
-
-  );
-
-
-  updateSummary(
-    transactions
-  );
-
-
-  updateUnitTotals(
-    transactions
-  );
-
+<td>
+
+<span class="badge ${
+type === "OUT"
+? "badge-out"
+: "badge-in"
+}">
+
+${type === "OUT"
+? "🔴 OUT"
+: "🟢 IN"}
+
+</span>
+
+</td>
+
+<td>
+${escapeHTML(
+t.entered_by || ""
+)}
+</td>
+
+<td>
+${escapeHTML(
+t.issued_by || ""
+)}
+</td>
+
+<td>
+${escapeHTML(
+t.expiry_date || "—"
+)}
+</td>
+
+<td>
+${escapeHTML(
+t.category || ""
+)}
+</td>
+
+<td>
+${escapeHTML(
+t.created_at || ""
+)}
+</td>
+
+<td>
+${
+t.signature
+? "✍️ " +
+escapeHTML(t.signature)
+: "—"
 }
+</td>
+
+`;
 
 
-/* =====================================================
-   SUMMARY
-===================================================== */
+table.appendChild(
+row
+);
 
-function updateSummary(
-  transactions
-) {
-
-  let totalIn = 0;
-
-  let totalOut = 0;
+});
 
 
-  transactions.forEach(
-
-    t => {
-
-      const type =
-        String(
-          t.transaction_type
-          || t.transaction
-          || ""
-        ).toUpperCase();
+document.getElementById(
+"totalOpening"
+).textContent =
+opening;
 
 
-      const quantity =
-        Number(
-          t.quantity || 0
-        );
+document.getElementById(
+"totalIn"
+).textContent =
+totalIn;
 
 
-      if(type === "IN") {
-
-        totalIn += quantity;
-
-      }
-
-
-      if(type === "OUT") {
-
-        totalOut += quantity;
-
-      }
-
-    }
-
-  );
+document.getElementById(
+"totalOut"
+).textContent =
+totalOut;
 
 
-  let opening = 0;
+document.getElementById(
+"totalBalance"
+).textContent =
+opening +
+totalIn -
+totalOut;
 
 
-  allItems.forEach(
-
-    item => {
-
-      if(
-
-        !categoryId ||
-
-        String(
-          item.category_id
-        ) ===
-        String(categoryId)
-
-      ) {
-
-        opening +=
-          Number(
-            item.opening_quantity
-            || item.quantity
-            || 0
-          );
-
-      }
-
-    }
-
-  );
-
-
-  document.getElementById(
-    "totalOpening"
-  ).textContent =
-    opening;
-
-
-  document.getElementById(
-    "totalIn"
-  ).textContent =
-    totalIn;
-
-
-  document.getElementById(
-    "totalOut"
-  ).textContent =
-    totalOut;
-
-
-  document.getElementById(
-    "totalBalance"
-  ).textContent =
-
-    opening +
-    totalIn -
-    totalOut;
+updateUnitTotals(
+transactions
+);
 
 }
 
@@ -2179,156 +1963,133 @@ function updateSummary(
 ===================================================== */
 
 function updateUnitTotals(
-  transactions
+transactions
 ) {
 
-  const container =
-    document.getElementById(
-      "unitTotals"
-    );
+const container =
+document.getElementById(
+"unitTotals"
+);
 
 
-  container.innerHTML = "";
+container.innerHTML = "";
 
 
-  const totals = {};
+const totals = {};
 
 
-  transactions.forEach(
+transactions.forEach(
 
-    t => {
+t => {
 
-      const item =
-        allItems.find(
+const item =
+allItems.find(
 
-          i =>
+i =>
+String(i.id) ===
+String(t.item_id)
 
-            String(i.id) ===
-            String(t.item_id)
-
-        );
-
-
-      const unit =
-        t.unit
-        || item?.unit
-        || "Unknown";
+);
 
 
-      if(
-        !totals[unit]
-      ) {
-
-        totals[unit] = {
-
-          in: 0,
-
-          out: 0
-
-        };
-
-      }
+const unit =
+t.unit ||
+item?.unit ||
+"Unknown";
 
 
-      const quantity =
-        Number(
-          t.quantity || 0
-        );
+if(!totals[unit]) {
+
+totals[unit] = {
+in:0,
+out:0
+};
+
+}
 
 
-      const type =
-        String(
-          t.transaction_type
-          || t.transaction
-          || ""
-        ).toUpperCase();
+const quantity =
+Number(
+t.quantity || 0
+);
 
 
-      if(type === "IN") {
-
-        totals[unit].in +=
-          quantity;
-
-      }
-
-
-      if(type === "OUT") {
-
-        totals[unit].out +=
-          quantity;
-
-      }
-
-    }
-
-  );
+const type =
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase();
 
 
-  Object.keys(totals)
-    .sort()
-    .forEach(
-
-      unit => {
-
-        const total =
-          totals[unit];
+if(type === "IN")
+totals[unit].in += quantity;
 
 
-        const card =
-          document.createElement(
-            "div"
-          );
+if(type === "OUT")
+totals[unit].out += quantity;
+
+});
 
 
-        card.className =
-          "total-card";
+Object.keys(totals)
+.sort()
+.forEach(
+
+unit => {
+
+const total =
+totals[unit];
 
 
-        card.innerHTML = `
-
-          📏 ${escapeHTML(
-            unit
-          )}
-
-          <strong>
-
-            ${
-              total.in -
-              total.out
-            }
-
-          </strong>
-
-          <small>
-
-            Stock In:
-            ${total.in}
-
-            <br>
-
-            Stock Out:
-            ${total.out}
-
-            <br>
-
-            Net Movement:
-            ${
-              total.in -
-              total.out
-            }
-
-          </small>
-
-        `;
+const card =
+document.createElement(
+"div"
+);
 
 
-        container.appendChild(
-          card
-        );
+card.className =
+"total-card";
 
-      }
 
-    );
+card.innerHTML = `
+
+📏 ${escapeHTML(unit)}
+
+<strong>
+
+${
+total.in -
+total.out
+}
+
+</strong>
+
+<small>
+
+Stock IN:
+${total.in}
+
+<br>
+
+Stock OUT:
+${total.out}
+
+<br>
+
+Balance:
+${total.in - total.out}
+
+</small>
+
+`;
+
+
+container.appendChild(
+card
+);
+
+});
 
 }
 
@@ -2338,52 +2099,35 @@ function updateUnitTotals(
 ===================================================== */
 
 function filterTransactions(
-  type
+type
 ) {
 
-  let transactions =
-    allTransactions;
+let transactions =
+allTransactions;
 
 
-  if(categoryId) {
+if(type !== "ALL") {
 
-    transactions =
-      transactions.filter(
+transactions =
+transactions.filter(
 
-        t =>
+t =>
 
-          String(
-            t.category_id
-          ) ===
-          String(categoryId)
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase() ===
+type
 
-      );
+);
 
-  }
-
-
-  if(type !== "ALL") {
-
-    transactions =
-      transactions.filter(
-
-        t =>
-
-          String(
-            t.transaction_type
-            || t.transaction
-            || ""
-          ).toUpperCase() ===
-          type
-
-      );
-
-  }
+}
 
 
-  displayTransactions(
-    transactions
-  );
+displayTransactions(
+transactions
+);
 
 }
 
@@ -2392,10 +2136,12 @@ function filterTransactions(
    START
 ===================================================== */
 
+fillCategories();
+
 loadStock();
 
 </script>
 
-
 </body>
+
 </html>
