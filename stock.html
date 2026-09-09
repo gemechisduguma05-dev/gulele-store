@@ -2,10 +2,13 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Stock</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Stock Management</title>
 
 <style>
 
@@ -34,9 +37,14 @@ header h1 {
 
 .container {
   width: 96%;
-  max-width: 1400px;
+  max-width: 1450px;
   margin: 20px auto;
 }
+
+
+/* ================================================
+   CATEGORY HEADER
+================================================ */
 
 .top-bar {
   background: white;
@@ -54,29 +62,162 @@ header h1 {
 }
 
 .buttons {
-  margin-top: 12px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  margin-top: 12px;
 }
 
 .btn {
   border: none;
-  padding: 9px 15px;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 7px;
   cursor: pointer;
-  text-decoration: none;
   color: white;
-  background: #1e3a8a;
+  font-weight: bold;
 }
 
-.btn.in {
+.btn-in {
   background: #15803d;
 }
 
-.btn.out {
+.btn-out {
   background: #dc2626;
 }
+
+.btn-all {
+  background: #1e3a8a;
+}
+
+.btn-back {
+  background: #475569;
+}
+
+
+/* ================================================
+   FORM
+================================================ */
+
+.form-box {
+  display: none;
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.form-box.show {
+  display: block;
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.form-title.in {
+  color: #15803d;
+}
+
+.form-title.out {
+  color: #dc2626;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #1e3a8a;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.submit-row {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.save-btn {
+  border: none;
+  padding: 11px 20px;
+  border-radius: 7px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-in {
+  background: #15803d;
+}
+
+.save-out {
+  background: #dc2626;
+}
+
+.cancel-btn {
+  background: #64748b;
+}
+
+
+/* ================================================
+   SUMMARY
+================================================ */
+
+.summary {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card strong {
+  display: block;
+  font-size: 25px;
+  margin-top: 6px;
+  color: #1e3a8a;
+}
+
+
+/* ================================================
+   TABLE
+================================================ */
 
 .table-box {
   background: white;
@@ -88,7 +229,7 @@ header h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1200px;
+  min-width: 1300px;
 }
 
 th {
@@ -117,6 +258,11 @@ tr:hover {
   border-left: 5px solid #dc2626;
 }
 
+
+/* ================================================
+   BADGE
+================================================ */
+
 .badge {
   padding: 5px 9px;
   border-radius: 20px;
@@ -134,51 +280,15 @@ tr:hover {
   color: #991b1b;
 }
 
-.signature {
-  font-size: 20px;
-}
 
-.error {
-  color: #dc2626;
-  text-align: center;
-  padding: 20px;
-}
-
-.loading {
-  text-align: center;
-  padding: 25px;
-}
-
-.summary {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(180px, 1fr)
-  );
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.card {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.card strong {
-  display: block;
-  font-size: 25px;
-  margin-top: 6px;
-  color: #1e3a8a;
-}
+/* ================================================
+   TOTALS
+================================================ */
 
 #unitTotals {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(220px, 1fr)
-  );
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
   margin-top: 20px;
 }
@@ -202,142 +312,502 @@ tr:hover {
   color: #475569;
 }
 
+
+/* ================================================
+   MESSAGE
+================================================ */
+
+.message {
+  padding: 12px;
+  border-radius: 7px;
+  margin-bottom: 12px;
+  display: none;
+}
+
+.message.success {
+  display: block;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.message.error {
+  display: block;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.loading {
+  text-align: center;
+  padding: 25px;
+}
+
 </style>
+
 </head>
 
 
 <body>
 
+
 <header>
+
   <h1>AAFDRMC - STOCK MANAGEMENT</h1>
+
 </header>
 
 
 <div class="container">
 
 
-  <!-- CATEGORY -->
+<!-- =================================================
+     CATEGORY HEADER
+================================================= -->
 
-  <div class="top-bar">
+<div class="top-bar">
 
-    <div
-      id="categoryTitle"
-      class="category-title">
-      📂 Stock Category
-    </div>
+  <div
+    id="categoryTitle"
+    class="category-title">
 
-    <div class="buttons">
-
-      <a
-        href="items.html"
-        class="btn">
-        ← Items
-      </a>
-
-      <button
-        class="btn in"
-        onclick="filterTransactions('IN')">
-        Stock IN
-      </button>
-
-      <button
-        class="btn out"
-        onclick="filterTransactions('OUT')">
-        Stock OUT
-      </button>
-
-      <button
-        class="btn"
-        onclick="filterTransactions('ALL')">
-        All
-      </button>
-
-    </div>
+    📂 Stock Category
 
   </div>
 
 
-  <!-- SUMMARY -->
+  <div class="buttons">
 
-  <div class="summary">
+    <a
+      href="items.html"
+      style="
+        text-decoration:none;
+        display:inline-block;
+        padding:10px 16px;
+        border-radius:7px;
+        color:white;
+        background:#475569;
+        font-weight:bold;
+      ">
 
-    <div class="card">
-      Total Opening
-      <strong id="totalOpening">0</strong>
+      ← Items
+
+    </a>
+
+
+    <button
+      class="btn btn-in"
+      onclick="openStockForm('IN')">
+
+      + Stock IN
+
+    </button>
+
+
+    <button
+      class="btn btn-out"
+      onclick="openStockForm('OUT')">
+
+      − Stock OUT
+
+    </button>
+
+
+    <button
+      class="btn btn-all"
+      onclick="filterTransactions('ALL')">
+
+      All Transactions
+
+    </button>
+
+
+    <button
+      class="btn btn-in"
+      onclick="filterTransactions('IN')">
+
+      IN Report
+
+    </button>
+
+
+    <button
+      class="btn btn-out"
+      onclick="filterTransactions('OUT')">
+
+      OUT Report
+
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- =================================================
+     MESSAGE
+================================================= -->
+
+<div
+  id="message"
+  class="message">
+</div>
+
+
+
+<!-- =================================================
+     STOCK IN FORM
+================================================= -->
+
+<div
+  id="stockInForm"
+  class="form-box">
+
+  <div class="form-title in">
+    🟢 Stock IN — Meeshaa Galchuu
+  </div>
+
+
+  <div class="form-grid">
+
+
+    <div class="form-group">
+
+      <label>Item</label>
+
+      <select id="inItem">
+
+        <option value="">
+          -- Select Item --
+        </option>
+
+      </select>
+
     </div>
 
-    <div class="card">
-      Total Stock IN
-      <strong id="totalIn">0</strong>
+
+    <div class="form-group">
+
+      <label>Quantity</label>
+
+      <input
+        type="number"
+        id="inQuantity"
+        min="0.01"
+        step="any"
+        placeholder="Quantity">
+
     </div>
 
-    <div class="card">
-      Total Stock OUT
-      <strong id="totalOut">0</strong>
+
+    <div class="form-group">
+
+      <label>Unit</label>
+
+      <input
+        type="text"
+        id="inUnit"
+        readonly>
+
     </div>
 
-    <div class="card">
-      Current Balance
-      <strong id="totalBalance">0</strong>
+
+    <div class="form-group">
+
+      <label>Expiry Date</label>
+
+      <input
+        type="date"
+        id="inExpiryDate">
+
     </div>
+
+
+    <div class="form-group">
+
+      <label>Entered By</label>
+
+      <input
+        type="text"
+        id="inEnteredBy"
+        placeholder="Nama galche">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Signature</label>
+
+      <input
+        type="text"
+        id="inSignature"
+        placeholder="Mallattoo / maqaa">
+
+    </div>
+
 
   </div>
 
 
-  <!-- TRANSACTION TABLE -->
+  <div class="submit-row">
 
-  <div class="table-box">
+    <button
+      class="save-btn save-in"
+      onclick="saveStock('IN')">
 
-    <table>
+      💾 Save Stock IN
 
-      <thead>
-
-        <tr>
-
-          <th>No</th>
-          <th>Item ID</th>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Unit</th>
-          <th>Transaction</th>
-          <th>Transaction Type</th>
-          <th>Entered By</th>
-          <th>Issued By</th>
-          <th>Expiry Date</th>
-          <th>Category</th>
-          <th>Category ID</th>
-          <th>Date / Time</th>
-          <th>Signature</th>
-
-        </tr>
-
-      </thead>
+    </button>
 
 
-      <tbody id="stockTable">
+    <button
+      class="save-btn cancel-btn"
+      onclick="closeStockForms()">
 
-        <tr>
+      Cancel
 
-          <td
-            colspan="14"
-            class="loading">
+    </button>
 
-            Loading stock transactions...
+  </div>
 
-          </td>
+</div>
 
-        </tr>
 
-      </tbody>
 
-    </table>
+<!-- =================================================
+     STOCK OUT FORM
+================================================= -->
+
+<div
+  id="stockOutForm"
+  class="form-box">
+
+  <div class="form-title out">
+    🔴 Stock OUT — Meeshaa Baasuu
+  </div>
+
+
+  <div class="form-grid">
+
+
+    <div class="form-group">
+
+      <label>Item</label>
+
+      <select id="outItem">
+
+        <option value="">
+          -- Select Item --
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Quantity</label>
+
+      <input
+        type="number"
+        id="outQuantity"
+        min="0.01"
+        step="any"
+        placeholder="Quantity">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Unit</label>
+
+      <input
+        type="text"
+        id="outUnit"
+        readonly>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Issued By</label>
+
+      <input
+        type="text"
+        id="outIssuedBy"
+        placeholder="Nama baase">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Signature</label>
+
+      <input
+        type="text"
+        id="outSignature"
+        placeholder="Mallattoo / maqaa">
+
+    </div>
+
 
   </div>
 
 
-  <!-- UNIT TOTALS -->
+  <div class="submit-row">
 
-  <div id="unitTotals"></div>
+    <button
+      class="save-btn save-out"
+      onclick="saveStock('OUT')">
+
+      💾 Save Stock OUT
+
+    </button>
+
+
+    <button
+      class="save-btn cancel-btn"
+      onclick="closeStockForms()">
+
+      Cancel
+
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- =================================================
+     SUMMARY
+================================================= -->
+
+<div class="summary">
+
+  <div class="card">
+
+    Total Opening
+
+    <strong id="totalOpening">
+      0
+    </strong>
+
+  </div>
+
+
+  <div class="card">
+
+    Total Stock IN
+
+    <strong id="totalIn">
+      0
+    </strong>
+
+  </div>
+
+
+  <div class="card">
+
+    Total Stock OUT
+
+    <strong id="totalOut">
+      0
+    </strong>
+
+  </div>
+
+
+  <div class="card">
+
+    Current Balance
+
+    <strong id="totalBalance">
+      0
+    </strong>
+
+  </div>
+
+</div>
+
+
+
+<!-- =================================================
+     TRANSACTION TABLE
+================================================= -->
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>No</th>
+
+<th>Item ID</th>
+
+<th>Item Name</th>
+
+<th>Quantity</th>
+
+<th>Unit</th>
+
+<th>Transaction</th>
+
+<th>Transaction Type</th>
+
+<th>Entered By</th>
+
+<th>Issued By</th>
+
+<th>Expiry Date</th>
+
+<th>Category</th>
+
+<th>Category ID</th>
+
+<th>Date / Time</th>
+
+<th>Signature</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="stockTable">
+
+<tr>
+
+<td
+  colspan="14"
+  class="loading">
+
+  Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<!-- =================================================
+     UNIT TOTALS
+================================================= -->
+
+<div id="unitTotals"></div>
 
 
 </div>
@@ -348,7 +818,7 @@ tr:hover {
 
 
 /* =====================================================
-   SUPABASE CONFIGURATION
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -391,10 +861,15 @@ function getHeaders() {
 function escapeHTML(value) {
 
   return String(value ?? "")
+
     .replace(/&/g, "&amp;")
+
     .replace(/</g, "&lt;")
+
     .replace(/>/g, "&gt;")
+
     .replace(/"/g, "&quot;")
+
     .replace(/'/g, "&#039;");
 
 }
@@ -408,6 +883,7 @@ const params =
   new URLSearchParams(
     window.location.search
   );
+
 
 const categoryId =
   params.get("category_id")
@@ -443,7 +919,7 @@ const categories = {
 
 
 /* =====================================================
-   CATEGORY TITLE
+   SHOW CATEGORY
 ===================================================== */
 
 document.getElementById(
@@ -451,16 +927,16 @@ document.getElementById(
 ).textContent =
 
   categories[categoryId]
-  || "📂 Stock Category";
+  || "📂 Stock Management";
 
 
 /* =====================================================
    GLOBAL DATA
 ===================================================== */
 
-let allTransactions = [];
-
 let allItems = [];
+
+let allTransactions = [];
 
 
 /* =====================================================
@@ -473,7 +949,7 @@ async function loadItems() {
     await fetch(
 
       SUPABASE_URL +
-      "/rest/v1/items?select=*",
+      "/rest/v1/items?select=*&order=id.asc",
 
       {
         headers:
@@ -543,12 +1019,6 @@ async function loadTransactions() {
 
 async function loadStock() {
 
-  const table =
-    document.getElementById(
-      "stockTable"
-    );
-
-
   try {
 
     allItems =
@@ -559,9 +1029,8 @@ async function loadStock() {
       await loadTransactions();
 
 
-    /* ===============================================
-       FILTER BY CATEGORY
-    =============================================== */
+    fillItemSelects();
+
 
     let transactions =
       allTransactions;
@@ -570,7 +1039,7 @@ async function loadStock() {
     if (categoryId) {
 
       transactions =
-        allTransactions.filter(
+        transactions.filter(
 
           t =>
 
@@ -588,32 +1057,737 @@ async function loadStock() {
       transactions
     );
 
-
   }
 
-  catch (error) {
+  catch(error) {
 
     console.log(
       "Stock Error:",
       error
     );
 
+  }
 
-    table.innerHTML = `
+}
 
-      <tr>
 
-        <td
-          colspan="14"
-          class="error">
+/* =====================================================
+   FILL ITEM SELECT
+===================================================== */
 
-          Error loading stock.
+function fillItemSelects() {
 
-        </td>
+  const inSelect =
+    document.getElementById(
+      "inItem"
+    );
 
-      </tr>
+  const outSelect =
+    document.getElementById(
+      "outItem"
+    );
 
-    `;
+
+  inSelect.innerHTML = `
+    <option value="">
+      -- Select Item --
+    </option>
+  `;
+
+
+  outSelect.innerHTML = `
+    <option value="">
+      -- Select Item --
+    </option>
+  `;
+
+
+  let items =
+    allItems;
+
+
+  if (categoryId) {
+
+    items =
+      allItems.filter(
+
+        item =>
+
+          String(
+            item.category_id
+          ) ===
+          String(categoryId)
+
+      );
+
+  }
+
+
+  items.forEach(
+
+    item => {
+
+      const option1 =
+        document.createElement(
+          "option"
+        );
+
+
+      option1.value =
+        item.id;
+
+
+      option1.textContent =
+        `${item.name} — ${item.unit || ""}`;
+
+
+      option1.dataset.unit =
+        item.unit || "";
+
+
+      inSelect.appendChild(
+        option1
+      );
+
+
+      const option2 =
+        option1.cloneNode(true);
+
+
+      outSelect.appendChild(
+        option2
+      );
+
+    }
+
+  );
+
+
+}
+
+
+/* =====================================================
+   ITEM UNIT
+===================================================== */
+
+document.getElementById(
+  "inItem"
+).addEventListener(
+
+  "change",
+
+  function() {
+
+    const option =
+      this.options[
+        this.selectedIndex
+      ];
+
+    document.getElementById(
+      "inUnit"
+    ).value =
+      option?.dataset?.unit || "";
+
+  }
+
+);
+
+
+document.getElementById(
+  "outItem"
+).addEventListener(
+
+  "change",
+
+  function() {
+
+    const option =
+      this.options[
+        this.selectedIndex
+      ];
+
+    document.getElementById(
+      "outUnit"
+    ).value =
+      option?.dataset?.unit || "";
+
+  }
+
+);
+
+
+/* =====================================================
+   OPEN FORM
+===================================================== */
+
+function openStockForm(type) {
+
+  closeStockForms();
+
+
+  if(type === "IN") {
+
+    document.getElementById(
+      "stockInForm"
+    ).classList.add("show");
+
+  }
+
+
+  if(type === "OUT") {
+
+    document.getElementById(
+      "stockOutForm"
+    ).classList.add("show");
+
+  }
+
+}
+
+
+/* =====================================================
+   CLOSE FORMS
+===================================================== */
+
+function closeStockForms() {
+
+  document.getElementById(
+    "stockInForm"
+  ).classList.remove("show");
+
+
+  document.getElementById(
+    "stockOutForm"
+  ).classList.remove("show");
+
+}
+
+
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
+
+function showMessage(
+  text,
+  type
+) {
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+
+  box.textContent =
+    text;
+
+
+  box.className =
+    "message " + type;
+
+
+  setTimeout(
+
+    () => {
+
+      box.className =
+        "message";
+
+    },
+
+    4000
+
+  );
+
+}
+
+
+/* =====================================================
+   SAVE STOCK
+===================================================== */
+
+async function saveStock(type) {
+
+  let itemId;
+  let quantity;
+  let unit;
+  let enteredBy = "";
+  let issuedBy = "";
+  let expiryDate = "";
+  let signature = "";
+
+
+  /* ===============================================
+     STOCK IN
+  =============================================== */
+
+  if(type === "IN") {
+
+    itemId =
+      document.getElementById(
+        "inItem"
+      ).value;
+
+
+    quantity =
+      Number(
+        document.getElementById(
+          "inQuantity"
+        ).value
+      );
+
+
+    unit =
+      document.getElementById(
+        "inUnit"
+      ).value;
+
+
+    enteredBy =
+      document.getElementById(
+        "inEnteredBy"
+      ).value.trim();
+
+
+    expiryDate =
+      document.getElementById(
+        "inExpiryDate"
+      ).value;
+
+
+    signature =
+      document.getElementById(
+        "inSignature"
+      ).value.trim();
+
+  }
+
+
+  /* ===============================================
+     STOCK OUT
+  =============================================== */
+
+  if(type === "OUT") {
+
+    itemId =
+      document.getElementById(
+        "outItem"
+      ).value;
+
+
+    quantity =
+      Number(
+        document.getElementById(
+          "outQuantity"
+        ).value
+      );
+
+
+    unit =
+      document.getElementById(
+        "outUnit"
+      ).value;
+
+
+    issuedBy =
+      document.getElementById(
+        "outIssuedBy"
+      ).value.trim();
+
+
+    signature =
+      document.getElementById(
+        "outSignature"
+      ).value.trim();
+
+  }
+
+
+  /* ===============================================
+     VALIDATION
+  =============================================== */
+
+  if(!itemId) {
+
+    showMessage(
+      "Item filadhu.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!quantity || quantity <= 0) {
+
+    showMessage(
+      "Quantity sirrii galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(type === "IN" && !enteredBy) {
+
+    showMessage(
+      "Maqaa nama galche galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(type === "OUT" && !issuedBy) {
+
+    showMessage(
+      "Maqaa nama baase galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* ===============================================
+     FIND ITEM
+  =============================================== */
+
+  const item =
+    allItems.find(
+
+      i =>
+        String(i.id) ===
+        String(itemId)
+
+    );
+
+
+  if(!item) {
+
+    showMessage(
+      "Item hin argamne.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* ===============================================
+     STOCK OUT BALANCE CHECK
+  =============================================== */
+
+  if(type === "OUT") {
+
+    const itemTransactions =
+      allTransactions.filter(
+
+        t =>
+
+          String(t.item_id) ===
+          String(itemId)
+
+      );
+
+
+    let totalIn = 0;
+
+    let totalOut = 0;
+
+
+    itemTransactions.forEach(
+
+      t => {
+
+        const q =
+          Number(
+            t.quantity || 0
+          );
+
+
+        const transactionType =
+          String(
+            t.transaction_type
+            || t.transaction
+            || ""
+          ).toUpperCase();
+
+
+        if(
+          transactionType === "IN"
+        ) {
+
+          totalIn += q;
+
+        }
+
+
+        if(
+          transactionType === "OUT"
+        ) {
+
+          totalOut += q;
+
+        }
+
+      }
+
+    );
+
+
+    const opening =
+      Number(
+        item.opening_quantity
+        || item.quantity
+        || 0
+      );
+
+
+    const balance =
+      opening +
+      totalIn -
+      totalOut;
+
+
+    if(quantity > balance) {
+
+      showMessage(
+
+        `Stock hin gahu. Balance jiru: ${balance} ${unit}`,
+
+        "error"
+
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  /* ===============================================
+     CATEGORY
+  =============================================== */
+
+  const finalCategoryId =
+    item.category_id
+    || categoryId
+    || "";
+
+
+  const finalCategory =
+    item.category
+    || categories[
+         String(finalCategoryId)
+       ]
+    || "";
+
+
+  /* ===============================================
+     TRANSACTION DATA
+  =============================================== */
+
+  const data = {
+
+    item_id:
+      itemId,
+
+    quantity:
+      quantity,
+
+    transaction:
+      type,
+
+    transaction_type:
+      type,
+
+    entered_by:
+      enteredBy,
+
+    issued_by:
+      issuedBy,
+
+    expiry_date:
+      expiryDate || null,
+
+    category:
+      finalCategory,
+
+    category_id:
+      finalCategoryId,
+
+    signature:
+      signature,
+
+    unit:
+      unit
+
+  };
+
+
+  /* ===============================================
+     INSERT
+  =============================================== */
+
+  try {
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/stock_transactions",
+
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            ...getHeaders(),
+
+            "Prefer":
+              "return=representation"
+
+          },
+
+          body:
+            JSON.stringify(
+              data
+            )
+
+        }
+
+      );
+
+
+    if(!response.ok) {
+
+      const errorText =
+        await response.text();
+
+
+      console.log(
+        "Save Error:",
+        errorText
+      );
+
+
+      showMessage(
+        "Stock save hin milkoofne: " +
+        errorText,
+        "error"
+      );
+
+
+      return;
+
+    }
+
+
+    showMessage(
+
+      type === "IN"
+
+        ? "✅ Stock IN milkaa'inaan galmaa'e."
+
+        : "✅ Stock OUT milkaa'inaan galmaa'e.",
+
+      "success"
+
+    );
+
+
+    closeStockForms();
+
+
+    /* =============================================
+       CLEAR FORM
+    ============================================= */
+
+    if(type === "IN") {
+
+      document.getElementById(
+        "inItem"
+      ).value = "";
+
+      document.getElementById(
+        "inQuantity"
+      ).value = "";
+
+      document.getElementById(
+        "inUnit"
+      ).value = "";
+
+      document.getElementById(
+        "inExpiryDate"
+      ).value = "";
+
+      document.getElementById(
+        "inEnteredBy"
+      ).value = "";
+
+      document.getElementById(
+        "inSignature"
+      ).value = "";
+
+    }
+
+
+    if(type === "OUT") {
+
+      document.getElementById(
+        "outItem"
+      ).value = "";
+
+      document.getElementById(
+        "outQuantity"
+      ).value = "";
+
+      document.getElementById(
+        "outUnit"
+      ).value = "";
+
+      document.getElementById(
+        "outIssuedBy"
+      ).value = "";
+
+      document.getElementById(
+        "outSignature"
+      ).value = "";
+
+    }
+
+
+    /* =============================================
+       RELOAD
+    ============================================= */
+
+    await loadStock();
+
+  }
+
+  catch(error) {
+
+    console.log(
+      "Save error:",
+      error
+    );
+
+
+    showMessage(
+      "Network error.",
+      "error"
+    );
 
   }
 
@@ -637,7 +1811,7 @@ function displayTransactions(
   table.innerHTML = "";
 
 
-  if (
+  if(
     transactions.length === 0
   ) {
 
@@ -655,7 +1829,16 @@ function displayTransactions(
 
     `;
 
-    updateSummary([]);
+
+    updateSummary(
+      []
+    );
+
+
+    updateUnitTotals(
+      []
+    );
+
 
     return;
 
@@ -666,10 +1849,6 @@ function displayTransactions(
 
     (t, index) => {
 
-
-      /* =============================================
-         FIND ITEM
-      ============================================= */
 
       const item =
         allItems.find(
@@ -694,21 +1873,10 @@ function displayTransactions(
         || "";
 
 
-      const category =
-        t.category
-        || item?.category
-        || categories[
-             String(
-               t.category_id
-             )
-           ]
-        || "";
-
-
       const transaction =
         String(
-          t.transaction
-          || t.transaction_type
+          t.transaction_type
+          || t.transaction
           || ""
         ).toUpperCase();
 
@@ -725,18 +1893,27 @@ function displayTransactions(
 
       const issuedBy =
         t.issued_by
-        || t.exited_by
         || "";
 
 
       const expiryDate =
         t.expiry_date
+        || "—";
+
+
+      const category =
+        t.category
+        || item?.category
+        || categories[
+             String(
+               t.category_id
+             )
+           ]
         || "";
 
 
       const signature =
         t.signature
-        || t.sign
         || "";
 
 
@@ -767,7 +1944,7 @@ function displayTransactions(
 
         <td>
           ${escapeHTML(
-            t.item_id || ""
+            t.item_id
           )}
         </td>
 
@@ -797,9 +1974,11 @@ function displayTransactions(
               : "badge-in"
           }">
 
-            ${escapeHTML(
-              transaction
-            )}
+            ${
+              transaction === "OUT"
+              ? "🔴 OUT"
+              : "🟢 IN"
+            }
 
           </span>
 
@@ -837,7 +2016,8 @@ function displayTransactions(
 
         <td>
           ${escapeHTML(
-            t.category_id || ""
+            t.category_id
+            || ""
           )}
         </td>
 
@@ -847,15 +2027,15 @@ function displayTransactions(
           )}
         </td>
 
-        <td class="signature">
+        <td>
 
           ${
             signature
-              ? "✍️ " +
-                escapeHTML(
-                  signature
-                )
-              : "—"
+            ? "✍️ " +
+              escapeHTML(
+                signature
+              )
+            : "—"
           }
 
         </td>
@@ -915,22 +2095,16 @@ function updateSummary(
         );
 
 
-      if (
-        type === "IN"
-      ) {
+      if(type === "IN") {
 
-        totalIn +=
-          quantity;
+        totalIn += quantity;
 
       }
 
 
-      if (
-        type === "OUT"
-      ) {
+      if(type === "OUT") {
 
-        totalOut +=
-          quantity;
+        totalOut += quantity;
 
       }
 
@@ -946,12 +2120,15 @@ function updateSummary(
 
     item => {
 
-      if (
+      if(
+
         !categoryId ||
+
         String(
           item.category_id
         ) ===
         String(categoryId)
+
       ) {
 
         opening +=
@@ -989,6 +2166,7 @@ function updateSummary(
   document.getElementById(
     "totalBalance"
   ).textContent =
+
     opening +
     totalIn -
     totalOut;
@@ -1037,15 +2215,15 @@ function updateUnitTotals(
         || "Unknown";
 
 
-      if (!totals[unit]) {
+      if(
+        !totals[unit]
+      ) {
 
         totals[unit] = {
 
           in: 0,
 
-          out: 0,
-
-          balance: 0
+          out: 0
 
         };
 
@@ -1066,9 +2244,7 @@ function updateUnitTotals(
         ).toUpperCase();
 
 
-      if (
-        type === "IN"
-      ) {
+      if(type === "IN") {
 
         totals[unit].in +=
           quantity;
@@ -1076,9 +2252,7 @@ function updateUnitTotals(
       }
 
 
-      if (
-        type === "OUT"
-      ) {
+      if(type === "OUT") {
 
         totals[unit].out +=
           quantity;
@@ -1112,7 +2286,9 @@ function updateUnitTotals(
 
         card.innerHTML = `
 
-          📏 ${escapeHTML(unit)}
+          📏 ${escapeHTML(
+            unit
+          )}
 
           <strong>
 
@@ -1158,7 +2334,7 @@ function updateUnitTotals(
 
 
 /* =====================================================
-   FILTER TRANSACTIONS
+   FILTER
 ===================================================== */
 
 function filterTransactions(
@@ -1169,7 +2345,7 @@ function filterTransactions(
     allTransactions;
 
 
-  if (categoryId) {
+  if(categoryId) {
 
     transactions =
       transactions.filter(
@@ -1186,9 +2362,7 @@ function filterTransactions(
   }
 
 
-  if (
-    type !== "ALL"
-  ) {
+  if(type !== "ALL") {
 
     transactions =
       transactions.filter(
@@ -1221,6 +2395,7 @@ function filterTransactions(
 loadStock();
 
 </script>
+
 
 </body>
 </html>
