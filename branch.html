@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Branch</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
+}
+
+header{
+  background:#1e3a8a;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:24px;
+}
+
+header p{
+  margin:7px 0 0;
+}
+
+.container{
+  width:95%;
+  max-width:1200px;
+  margin:25px auto;
+}
+
+.back{
+  display:inline-block;
+  text-decoration:none;
+  background:#64748b;
+  color:white;
+  padding:10px 16px;
+  border-radius:7px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+.back:hover{
+  background:#475569;
+}
+
+.branch-title{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.1);
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.branch-title h2{
+  margin:0;
+  color:#1e3a8a;
+  font-size:28px;
+}
+
+.branch-title p{
+  margin:8px 0 0;
+  color:#64748b;
+}
+
+.menu{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+
+.menu-card{
+  background:white;
+  padding:25px 20px;
+  border-radius:12px;
+  text-decoration:none;
+  color:#1e293b;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.1);
+  transition:.2s;
+}
+
+.menu-card:hover{
+  transform:translateY(-4px);
+  background:#e0f2fe;
+}
+
+.icon{
+  font-size:38px;
+  display:block;
+  margin-bottom:12px;
+}
+
+.menu-card strong{
+  display:block;
+  font-size:19px;
+  color:#1e3a8a;
+}
+
+.menu-card span{
+  display:block;
+  margin-top:7px;
+  font-size:14px;
+  color:#64748b;
+}
+
+.logout{
+  background:#dc2626;
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:7px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+🏢 AAFDRMC
+</h1>
+
+<p>
+Stock Management System
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<a
+href="dashboard.html"
+class="back">
+
+⬅️ Back to Main
+
+</a>
+
+
+<div class="branch-title">
+
+<h2 id="branchName">
+Loading...
+</h2>
+
+<p>
+Branch Management
+</p>
+
+</div>
+
+
+<div class="menu">
+
+
+<a
+href="#"
+class="menu-card"
+onclick="openItems()">
+
+<span class="icon">
+📦
+</span>
+
+<strong>
+Items
+</strong>
+
+<span>
+Manage items for this branch
+</span>
+
+</a>
+
+
+<a
+href="#"
+class="menu-card"
+onclick="openStock()">
+
+<span class="icon">
+🔄
+</span>
+
+<strong>
+Stock In / Out
+</strong>
+
+<span>
+Receive and issue stock
+</span>
+
+</a>
+
+
+<a
+href="#"
+class="menu-card"
+onclick="openReports()">
+
+<span class="icon">
+📊
+</span>
+
+<strong>
+Stock Report
+</strong>
+
+<span>
+View stock and transaction report
+</span>
+
+</a>
+
+
+</div>
+
+
+<div style="text-align:center;">
+
+<button
+class="logout"
+onclick="logoutUser()">
+
+🚪 Logout
+
+</button>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =================================================
+   GET BRANCH FROM URL
+================================================= */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const branch =
+params.get("branch");
+
+
+/* =================================================
+   CHECK BRANCH
+================================================= */
+
+if(!branch){
+
+document.getElementById(
+"branchName"
+).textContent =
+"Branch hin filatamne";
+
+}else{
+
+document.getElementById(
+"branchName"
+).textContent =
+"🏪 " + branch + " Branch";
+
+}
+
+
+/* =================================================
+   OPEN ITEMS
+================================================= */
+
+function openItems(){
+
+if(!branch)
+return;
+
+window.location.href =
+"items.html?branch=" +
+encodeURIComponent(branch);
+
+}
+
+
+/* =================================================
+   OPEN STOCK
+================================================= */
+
+function openStock(){
+
+if(!branch)
+return;
+
+window.location.href =
+"stock.html?branch=" +
+encodeURIComponent(branch);
+
+}
+
+
+/* =================================================
+   OPEN REPORTS
+================================================= */
+
+function openReports(){
+
+if(!branch)
+return;
+
+window.location.href =
+"reports.html?branch=" +
+encodeURIComponent(branch);
+
+}
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+function logoutUser(){
+
+localStorage.removeItem(
+"access_token"
+);
+
+localStorage.removeItem(
+"refresh_token"
+);
+
+window.location.href =
+"index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
