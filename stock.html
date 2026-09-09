@@ -1,461 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC - Category</title>
-
-<style>
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
-  color: #1e293b;
-}
-
-header {
-  background: #1e3a8a;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0;
-}
-
-header p {
-  margin: 5px 0 0;
-}
-
-nav {
-  background: white;
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-nav a {
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 7px;
-  background: #e2e8f0;
-  color: #1e293b;
-  font-weight: bold;
-}
-
-nav a:hover {
-  background: #cbd5e1;
-}
-
-.container {
-  width: 95%;
-  max-width: 1400px;
-  margin: 25px auto;
-}
-
-.box {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-}
-
-.box h2 {
-  margin-top: 0;
-  text-align: center;
-  font-size: 28px;
-}
-
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 850px;
-}
-
-th,
-td {
-  padding: 12px;
-  border-bottom: 1px solid #e2e8f0;
-  text-align: center;
-}
-
-th {
-  background: #1e3a8a;
-  color: white;
-}
-
-tbody tr:hover {
-  background: #f8fafc;
-}
-
-.balance {
-  font-weight: bold;
-  font-size: 17px;
-}
-
-.total-box {
-  display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.total-card {
-  background: #eff6ff;
-  padding: 18px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.total-card strong {
-  display: block;
-  font-size: 24px;
-  margin-top: 8px;
-}
-
-.back {
-  display: inline-block;
-  margin-bottom: 15px;
-  padding: 10px 15px;
-  background: #e2e8f0;
-  color: #1e293b;
-  text-decoration: none;
-  border-radius: 7px;
-  font-weight: bold;
-}
-
-.logout {
-  background: #dc2626 !important;
-  color: white !important;
-}
-
-.error {
-  text-align: center;
-  color: #dc2626;
-  font-weight: bold;
-}
-
-.loading {
-  text-align: center;
-  padding: 25px;
-  font-weight: bold;
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<header>
-
-<h1>🏢 AAFDRMC</h1>
-
-<p>Stock Management System</p>
-
-</header>
-
-
-<nav>
-
-<a href="dashboard.html">
-🏠 Dashboard
-</a>
-
-<a href="items.html">
-📦 Items
-</a>
-
-<a href="stock.html">
-🔄 Stock In / Out
-</a>
-
-<a href="reports.html">
-📊 Reports
-</a>
-
-<a href="settings.html">
-⚙️ Settings
-</a>
-
-<a href="#"
-   class="logout"
-   onclick="logoutUser()">
-🚪 Logout
-</a>
-
-</nav>
-
-
-<div class="container">
-
-
-<a href="dashboard.html"
-   class="back">
-⬅️ Back to Dashboard
-</a>
-
-
-<div class="box">
-
-
-<h2 id="categoryTitle">
-📂 Loading Category...
-</h2>
-
-
-<div class="table-container">
-
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>#</th>
-
-<th>Item Name</th>
-
-<th>Unit</th>
-
-<th>Opening</th>
-
-<th>Stock In</th>
-
-<th>Stock Out</th>
-
-<th>Balance</th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="itemsTable">
-
-<tr>
-
-<td colspan="7"
-    class="loading">
-
-Loading...
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-
-</div>
-
-
-<div class="total-box"
-     id="unitTotals">
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-<script>
-
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
-const SUPABASE_URL =
-"https://sslabegtsxlkafuygmar.supabase.co";
-
-
-const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-const accessToken =
-localStorage.getItem("access_token");
-
-
-if (!accessToken) {
-
-  window.location.href =
-    "index.html";
-
-}
-
-
-const token =
-localStorage.getItem("access_token")
-|| SUPABASE_KEY;
-
-
-/* =====================================================
-   HEADERS
-===================================================== */
-
-function getHeaders() {
-
-  return {
-
-    "apikey":
-      SUPABASE_KEY,
-
-    "Authorization":
-      "Bearer " + token
-
-  };
-
-}
-
-
-/* =====================================================
-   CATEGORY NUMBER
-===================================================== */
-
-const params =
-new URLSearchParams(
-  window.location.search
-);
-
-
-const categoryId =
-params.get("category");
-
-
 /* =====================================================
    CATEGORY INFORMATION
 ===================================================== */
 
 const categories = {
 
-  "1": {
+  "1":
+    "🥫 Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ",
 
-    title:
-      "🥫 Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ",
+  "2":
+    "🍚 Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / ምግብ ነክ የእለት ደሪሽ",
 
-    keywords: [
-      "strategic food",
-      "meeshaalee nyaataa tarsiimawaa",
-      "tarsiimawaa",
-      "strategic"
-    ]
+  "3":
+    "📦 Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ",
 
-  },
+  "4":
+    "🍳 Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ",
 
+  "5":
+    "🧼 Meeshaalee Qulqullinaa / Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና",
 
-  "2": {
-
-    title:
-      "🍚 Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / የዕለት ምግብ ነክ",
-
-    keywords: [
-      "daily food",
-      "meeshaalee nyaataa guyyaa guyyaa",
-      "meeshaalee nyaataa guyyaa",
-      "guyyaa guyyaa",
-      "daily"
-    ]
-
-  },
-
-
-  "3": {
-
-    title:
-      "📦 Meeshaalee Guyyaa Guyyaa Nyaata Hin Taane / Daily Non-Food Items",
-
-    keywords: [
-      "daily non-food",
-      "daily non food",
-      "meeshaalee guyyaa guyyaa nyaata hin taane",
-      "nyaata hin taane",
-      "non-food daily"
-    ]
-
-  },
-
-
-  "4": {
-
-    title:
-      "🍳 Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / ምግብ ነክ ያልሆነ ምግብ እቃ",
-
-    keywords: [
-      "non-food kitchen",
-      "non food kitchen",
-      "meeshaalee nyaataa hin taane ittiin nyaata qopheessan",
-      "kitchen"
-    ]
-
-  },
-
-
-  "5": {
-
-    title:
-      "🧼 Meeshaalee Nyaataa Hin Taane Kan Qulqullinaa / Non-Food Hygiene Items",
-
-    keywords: [
-      "non-food hygiene",
-      "non food hygiene",
-      "hygiene",
-      "meeshaalee qulqullinaa"
-    ]
-
-  },
-
-
-  "6": {
-
-    title:
-      "🧱 Meeshaalee Nyaataa Hin Taane Kan Ijaarsaa / Non-Food Construction Materials",
-
-    keywords: [
-      "non-food construction",
-      "non food construction",
-      "construction",
-      "construction materials",
-      "meeshaalee ijaarsaa",
-      "ijaarsa"
-    ]
-
-  }
+  "6":
+    "🧱 Meeshaalee Ijaarsaa / Non-Food Construction Materials / ምግብ ነክ ያልሆነ የህንጻ መሳሪያ"
 
 };
 
@@ -464,65 +29,12 @@ const categories = {
    SHOW CATEGORY TITLE
 ===================================================== */
 
-const currentCategory =
-categories[categoryId];
+const categoryTitle =
+  document.getElementById("categoryTitle");
 
-
-document.getElementById(
-  "categoryTitle"
-).textContent =
-currentCategory
-  ? currentCategory.title
-  : "📂 Stock Category";
-
-
-/* =====================================================
-   NORMALIZE CATEGORY
-===================================================== */
-
-function normalize(value) {
-
-  return String(value || "")
-    .toLowerCase()
-    .trim();
-
-}
-
-
-/* =====================================================
-   CHECK CATEGORY
-===================================================== */
-
-function itemBelongsToCategory(
-  item,
-  category
-) {
-
-  if (!category) {
-    return false;
-  }
-
-
-  const itemCategory =
-    normalize(item.category);
-
-
-  /*
-    Match exact category text
-    or known category keywords.
-  */
-
-  return category.keywords.some(
-    keyword => {
-
-      return itemCategory.includes(
-        normalize(keyword)
-      );
-
-    }
-  );
-
-}
+categoryTitle.textContent =
+  categories[categoryId]
+  || "📂 Stock Category";
 
 
 /* =====================================================
@@ -532,126 +44,74 @@ function itemBelongsToCategory(
 async function loadCategoryItems() {
 
   const table =
-    document.getElementById(
-      "itemsTable"
-    );
+    document.getElementById("itemsTable");
 
-
-  if (!currentCategory) {
+  if (!categoryId) {
 
     table.innerHTML = `
-
       <tr>
-
-        <td colspan="7"
-            class="error">
-
+        <td colspan="7" class="error">
           Category hin argamne.
-
         </td>
-
       </tr>
-
     `;
 
     return;
-
   }
-
 
   try {
 
-
-    /* =================================================
-       LOAD ALL ITEMS
-
-       IMPORTANT:
-       We intentionally load all items and filter
-       using the category TEXT.
-
-       This avoids UUID/category_id mismatch.
-    ================================================= */
+    /* ================================================
+       LOAD ITEMS BY CATEGORY_ID ONLY
+    ================================================ */
 
     const itemsResponse =
       await fetch(
-
         SUPABASE_URL +
-        "/rest/v1/items?select=*",
-
+        "/rest/v1/items?category_id=eq." +
+        encodeURIComponent(categoryId) +
+        "&select=*",
         {
-
-          headers:
-            getHeaders()
-
+          headers: getHeaders()
         }
-
       );
 
 
     if (!itemsResponse.ok) {
 
       console.log(
+        "Items Error:",
         await itemsResponse.text()
       );
 
-
       table.innerHTML = `
-
         <tr>
-
-          <td colspan="7"
-              class="error">
-
+          <td colspan="7" class="error">
             Items load failed.
-
           </td>
-
         </tr>
-
       `;
 
       return;
-
     }
 
 
-    const allItems =
+    const items =
       await itemsResponse.json();
 
 
-    /*
-      Filter by CATEGORY TEXT
-    */
-
-    const items =
-      allItems.filter(
-        item =>
-          itemBelongsToCategory(
-            item,
-            currentCategory
-          )
-      );
-
-
-    /* =================================================
+    /* ================================================
        NO ITEMS
-    ================================================= */
+    ================================================ */
 
     if (items.length === 0) {
 
       table.innerHTML = `
-
         <tr>
-
           <td colspan="7">
-
-            Category kana keessatti
-            item hin jiru.
-
+            Category kana keessatti item hin jiru.
           </td>
-
         </tr>
-
       `;
 
       document.getElementById(
@@ -659,27 +119,20 @@ async function loadCategoryItems() {
       ).innerHTML = "";
 
       return;
-
     }
 
 
-    /* =================================================
+    /* ================================================
        LOAD TRANSACTIONS
-    ================================================= */
+    ================================================ */
 
     const transactionResponse =
       await fetch(
-
         SUPABASE_URL +
         "/rest/v1/stock_transactions?select=*",
-
         {
-
-          headers:
-            getHeaders()
-
+          headers: getHeaders()
         }
-
       );
 
 
@@ -694,12 +147,11 @@ async function loadCategoryItems() {
     }
 
 
-    /* =================================================
-       DISPLAY
-    ================================================= */
+    /* ================================================
+       DISPLAY ITEMS
+    ================================================ */
 
     table.innerHTML = "";
-
 
     const unitTotals = {};
 
@@ -707,14 +159,9 @@ async function loadCategoryItems() {
     items.forEach(
       (item, index) => {
 
-
-        /*
-          Match item ID safely.
-
-          IMPORTANT:
-          item.id is UUID.
-          DO NOT use Number().
-        */
+        /* ============================================
+           MATCH TRANSACTION WITH ITEM ID
+        ============================================ */
 
         const itemTransactions =
           transactions.filter(
@@ -724,62 +171,49 @@ async function loadCategoryItems() {
           );
 
 
-        /* =============================================
+        /* ============================================
            STOCK IN
-        ============================================= */
+        ============================================ */
 
         const stockIn =
           itemTransactions
-
-          .filter(
-            t =>
-              String(
-                t.transaction_type
-              ).toUpperCase() === "IN"
-          )
-
-          .reduce(
-            (sum, t) =>
-              sum +
-              Number(
-                t.quantity || 0
-              ),
-            0
-          );
+            .filter(
+              t =>
+                String(
+                  t.transaction_type
+                ).toUpperCase() === "IN"
+            )
+            .reduce(
+              (sum, t) =>
+                sum +
+                Number(t.quantity || 0),
+              0
+            );
 
 
-        /* =============================================
+        /* ============================================
            STOCK OUT
-        ============================================= */
+        ============================================ */
 
         const stockOut =
           itemTransactions
-
-          .filter(
-            t =>
-              String(
-                t.transaction_type
-              ).toUpperCase() === "OUT"
-          )
-
-          .reduce(
-            (sum, t) =>
-              sum +
-              Number(
-                t.quantity || 0
-              ),
-            0
-          );
+            .filter(
+              t =>
+                String(
+                  t.transaction_type
+                ).toUpperCase() === "OUT"
+            )
+            .reduce(
+              (sum, t) =>
+                sum +
+                Number(t.quantity || 0),
+              0
+            );
 
 
-        /* =============================================
+        /* ============================================
            OPENING
-
-           IMPORTANT:
-           Opening is NOT items.quantity anymore.
-
-           It comes from opening_quantity.
-        ============================================= */
+        ============================================ */
 
         const opening =
           Number(
@@ -787,9 +221,9 @@ async function loadCategoryItems() {
           );
 
 
-        /* =============================================
+        /* ============================================
            BALANCE
-        ============================================= */
+        ============================================ */
 
         const balance =
           opening +
@@ -797,9 +231,9 @@ async function loadCategoryItems() {
           stockOut;
 
 
-        /* =============================================
+        /* ============================================
            UNIT
-        ============================================= */
+        ============================================ */
 
         const unit =
           String(
@@ -807,22 +241,17 @@ async function loadCategoryItems() {
           ).trim();
 
 
-        /* =============================================
+        /* ============================================
            UNIT TOTAL
-        ============================================= */
+        ============================================ */
 
         if (!unitTotals[unit]) {
 
           unitTotals[unit] = {
-
             opening: 0,
-
             in: 0,
-
             out: 0,
-
             balance: 0
-
           };
 
         }
@@ -831,27 +260,22 @@ async function loadCategoryItems() {
         unitTotals[unit].opening +=
           opening;
 
-
         unitTotals[unit].in +=
           stockIn;
 
-
         unitTotals[unit].out +=
           stockOut;
-
 
         unitTotals[unit].balance +=
           balance;
 
 
-        /* =============================================
+        /* ============================================
            TABLE ROW
-        ============================================= */
+        ============================================ */
 
         const row =
-          document.createElement(
-            "tr"
-          );
+          document.createElement("tr");
 
 
         row.innerHTML = `
@@ -861,15 +285,11 @@ async function loadCategoryItems() {
           </td>
 
           <td>
-            ${escapeHTML(
-              item.name
-            )}
+            ${escapeHTML(item.name || "")}
           </td>
 
           <td>
-            ${escapeHTML(
-              unit
-            )}
+            ${escapeHTML(unit)}
           </td>
 
           <td>
@@ -885,9 +305,7 @@ async function loadCategoryItems() {
           </td>
 
           <td class="balance">
-
             ${balance}
-
           </td>
 
         `;
@@ -899,9 +317,9 @@ async function loadCategoryItems() {
     );
 
 
-    /* =================================================
+    /* ================================================
        UNIT TOTAL CARDS
-    ================================================= */
+    ================================================ */
 
     const totalsContainer =
       document.getElementById(
@@ -917,15 +335,12 @@ async function loadCategoryItems() {
       .forEach(
         unit => {
 
-
           const total =
             unitTotals[unit];
 
 
           const card =
-            document.createElement(
-              "div"
-            );
+            document.createElement("div");
 
 
           card.className =
@@ -980,92 +395,14 @@ async function loadCategoryItems() {
       error
     );
 
-
     table.innerHTML = `
-
       <tr>
-
-        <td colspan="7"
-            class="error">
-
+        <td colspan="7" class="error">
           Error loading category.
-
         </td>
-
       </tr>
-
     `;
 
   }
 
 }
-
-
-/* =====================================================
-   SECURITY
-===================================================== */
-
-function escapeHTML(value) {
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logoutUser() {
-
-  localStorage.removeItem(
-    "access_token"
-  );
-
-  localStorage.removeItem(
-    "refresh_token"
-  );
-
-
-  window.location.href =
-    "index.html";
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-loadCategoryItems();
-
-</script>
-
-</body>
-
-</html>
