@@ -469,7 +469,7 @@ class="message">
 
 
 <!-- =================================================
-     STOCK IN
+     STOCK IN FORM
 ================================================= -->
 
 <div
@@ -603,7 +603,7 @@ Cancel
 
 
 <!-- =================================================
-     STOCK OUT
+     STOCK OUT FORM
 ================================================= -->
 
 <div
@@ -743,7 +743,7 @@ Total Items
 
 <div class="card">
 
-Total Opening
+Opening
 
 <strong id="totalOpening">
 0
@@ -789,7 +789,7 @@ Current Balance
 
 
 <!-- =================================================
-     GROUPED ITEM REPORT
+     GROUPED REPORT
 ================================================= -->
 
 <div class="section-title">
@@ -864,7 +864,6 @@ class="details-box">
 <div
 id="detailsTitle"
 class="details-title">
-
 </div>
 
 
@@ -911,7 +910,6 @@ onclick="closeDetails()">
 
 
 <tbody id="detailsTable">
-
 </tbody>
 
 </table>
@@ -1080,7 +1078,7 @@ return await response.json();
 
 
 /* =====================================================
-   ITEM LISTS
+   ITEM LIST
 ===================================================== */
 
 function fillItemLists() {
@@ -1134,7 +1132,7 @@ outSelect.appendChild(option2);
 
 
 /* =====================================================
-   UNIT WHEN ITEM SELECTED
+   UNIT
 ===================================================== */
 
 document.getElementById("inItem")
@@ -1164,13 +1162,12 @@ option?.dataset?.unit || "";
 
 
 /* =====================================================
-   OPEN FORM
+   FORM
 ===================================================== */
 
 function openStockForm(type) {
 
 closeForms();
-
 
 if(type === "IN") {
 
@@ -1179,7 +1176,6 @@ document.getElementById(
 ).classList.add("show");
 
 }
-
 
 if(type === "OUT") {
 
@@ -1191,10 +1187,6 @@ document.getElementById(
 
 }
 
-
-/* =====================================================
-   CLOSE FORM
-===================================================== */
 
 function closeForms() {
 
@@ -1388,7 +1380,8 @@ return;
 
 
 /* ===============================================
-   CHECK OUT BALANCE
+   STOCK OUT BALANCE
+   Opening is ALWAYS 0
 ================================================ */
 
 if(type === "OUT") {
@@ -1420,25 +1413,23 @@ t.transaction ||
 ).toUpperCase();
 
 
-if(transactionType === "IN")
+if(transactionType === "IN") {
+
 totalIn += q;
 
-if(transactionType === "OUT")
+}
+
+
+if(transactionType === "OUT") {
+
 totalOut += q;
+
+}
 
 });
 
 
-const opening =
-Number(
-item.opening_quantity ||
-item.quantity ||
-0
-);
-
-
 const balance =
-opening +
 totalIn -
 totalOut;
 
@@ -1446,8 +1437,11 @@ totalOut;
 if(quantity > balance) {
 
 showMessage(
+
 `Stock hin gahu. Balance: ${balance} ${unit}`,
+
 "error"
+
 );
 
 return;
@@ -1458,15 +1452,10 @@ return;
 
 
 /* ===============================================
-   CATEGORY FROM ITEM
-================================================ */
+   SAVE DATA
 
-const category =
-item.category || null;
-
-
-/* ===============================================
-   DATA
+   NOTE:
+   Category is NOT selected here.
 ================================================ */
 
 const data = {
@@ -1496,17 +1485,13 @@ expiry_date:
 expiryDate || null,
 
 category:
-category,
+item.category || null,
 
 signature:
 signature
 
 };
 
-
-/* ===============================================
-   INSERT
-================================================ */
 
 try {
 
@@ -1598,7 +1583,7 @@ showMessage(
 
 
 /* =====================================================
-   CLEAR FORM
+   CLEAR
 ===================================================== */
 
 function clearForm(type) {
@@ -1660,7 +1645,7 @@ document.getElementById(
 
 
 /* =====================================================
-   LOAD EVERYTHING
+   LOAD STOCK
 ===================================================== */
 
 async function loadStock() {
@@ -1671,7 +1656,6 @@ await loadItems();
 allTransactions =
 await loadTransactions();
 
-
 fillItemLists();
 
 showReport();
@@ -1680,7 +1664,7 @@ showReport();
 
 
 /* =====================================================
-   GROUP ITEMS
+   GROUP ITEMS BY NAME
 ===================================================== */
 
 function buildGroupedReport() {
@@ -1719,12 +1703,11 @@ itemIds: []
 }
 
 
-groups[key].opening +=
-Number(
-item.opening_quantity ||
-item.quantity ||
-0
-);
+/* IMPORTANT:
+   Opening is ALWAYS 0.
+*/
+
+groups[key].opening = 0;
 
 
 groups[key].itemIds.push(
@@ -1815,7 +1798,7 @@ return Object.values(groups);
 
 
 /* =====================================================
-   SHOW REPORT
+   REPORT
 ===================================================== */
 
 function showReport() {
@@ -1833,7 +1816,6 @@ buildGroupedReport();
 reportTable.innerHTML = "";
 
 
-let totalOpening = 0;
 let totalIn = 0;
 let totalOut = 0;
 
@@ -1842,14 +1824,18 @@ groups.forEach(
 (group,index) => {
 
 
+/*
+   OPENING ALWAYS 0
+*/
+
+const opening = 0;
+
+
 const balance =
-group.opening +
+opening +
 group.in -
 group.out;
 
-
-totalOpening +=
-group.opening;
 
 totalIn +=
 group.in;
@@ -1893,7 +1879,7 @@ ${escapeHTML(group.unit)}
 </td>
 
 <td>
-${group.opening}
+0
 </td>
 
 <td>
@@ -1929,7 +1915,7 @@ groups.length;
 document.getElementById(
 "totalOpening"
 ).textContent =
-totalOpening;
+0;
 
 
 document.getElementById(
@@ -1947,7 +1933,6 @@ totalOut;
 document.getElementById(
 "totalBalance"
 ).textContent =
-totalOpening +
 totalIn -
 totalOut;
 
@@ -2192,7 +2177,7 @@ document.getElementById(
 
 
 /* =====================================================
-   DATE FORMAT
+   DATE
 ===================================================== */
 
 function formatDate(value) {
@@ -2244,8 +2229,6 @@ if(!totals[unit]) {
 
 totals[unit] = {
 
-opening: 0,
-
 in: 0,
 
 out: 0
@@ -2253,14 +2236,6 @@ out: 0
 };
 
 }
-
-
-totals[unit].opening +=
-Number(
-item.opening_quantity ||
-item.quantity ||
-0
-);
 
 });
 
@@ -2292,8 +2267,6 @@ item.unit ||
 if(!totals[unit]) {
 
 totals[unit] = {
-
-opening: 0,
 
 in: 0,
 
@@ -2337,13 +2310,14 @@ totals[unit];
 
 
 const balance =
-total.opening +
 total.in -
 total.out;
 
 
 const card =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 
 card.className =
@@ -2361,7 +2335,7 @@ ${balance}
 <small>
 
 Opening:
-${total.opening}
+0
 
 <br>
 
