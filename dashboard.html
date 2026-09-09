@@ -1,8 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Dashboard</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>AAFDRMC - Dashboard</title>
+
+<style>
 * {
   box-sizing: border-box;
 }
@@ -11,6 +15,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f1f5f9;
+  color: #1e293b;
 }
 
 header {
@@ -62,6 +67,7 @@ nav a:hover {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
 .box h2 {
@@ -90,90 +96,248 @@ nav a:hover {
   margin-top: 10px;
 }
 
+.category-card {
+  text-decoration: none;
+  color: #1e293b;
+  cursor: pointer;
+  transition: 0.2s;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-card:hover {
+  transform: translateY(-3px);
+  background: #e0f2fe;
+}
+
+.category-number {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+  color: #64748b;
+}
+
+.category-name {
+  font-size: 17px;
+}
+
+.total-section {
+  margin-top: 20px;
+}
+
+.unit-total {
+  background: #eff6ff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
 .logout {
   background: #dc2626 !important;
   color: white !important;
 }
+</style>
+</head>
 
-</style></head><body><header>  <h1>🏢 AAFDRMC</h1>  <p>Stock Management System</p></header><nav>  <a href="dashboard.html">
+<body>
+
+<header>
+  <h1>🏢 AAFDRMC</h1>
+  <p>Stock Management System</p>
+</header>
+
+<nav>
+
+  <a href="dashboard.html">
     🏠 Dashboard
-  </a>  <a href="items.html">
+  </a>
+
+  <a href="items.html">
     📦 Items
-  </a>  <a href="stock.html">
+  </a>
+
+  <a href="stock.html">
     🔄 Stock In / Out
-  </a>  <a href="reports.html">
+  </a>
+
+  <a href="reports.html">
     📊 Reports
-  </a>  <a href="settings.html">
+  </a>
+
+  <a href="settings.html">
     ⚙️ Settings
-  </a>  <a href="#" class="logout" onclick="logoutUser()">
+  </a>
+
+  <a href="#" class="logout" onclick="logoutUser()">
     🚪 Logout
-  </a></nav><div class="container">  <div class="box"><h2>📊 Dashboard</h2>
+  </a>
 
-<div class="dashboard">
+</nav>
 
-  <div class="card">
 
-    Total Items
+<div class="container">
 
-    <strong id="totalItems">
-      0
-    </strong>
+  <!-- =========================
+       DASHBOARD SUMMARY
+  ========================= -->
+
+  <div class="box">
+
+    <h2>📊 Dashboard</h2>
+
+    <div class="dashboard">
+
+      <div class="card">
+        Total Items
+        <strong id="totalItems">0</strong>
+      </div>
+
+      <div class="card">
+        📥 Total Stock In
+        <strong id="totalStockIn">0</strong>
+      </div>
+
+      <div class="card">
+        📤 Total Stock Out
+        <strong id="totalStockOut">0</strong>
+      </div>
+
+      <div class="card">
+        📦 Total Quantity
+        <strong id="totalQuantity">0</strong>
+      </div>
+
+      <div class="card">
+        💰 Stock Value
+        <strong id="stockValue">0.00</strong>
+      </div>
+
+      <div class="card">
+        📈 Expected Profit
+        <strong id="expectedProfit">0.00</strong>
+      </div>
+
+    </div>
 
   </div>
 
 
-  <div class="card">
+  <!-- =========================
+       SIX CATEGORIES
+  ========================= -->
 
-    📥 Total Stock In
+  <div class="box">
 
-    <strong id="totalStockIn">
-      0
-    </strong>
+    <h2>📂 Stock Categories</h2>
+
+    <div class="dashboard">
+
+      <a href="category.html?category=1"
+         class="card category-card">
+
+        <div>
+          <span class="category-number">CATEGORY 1</span>
+          <span class="category-name">
+            🥫 Strategic Food Items
+          </span>
+        </div>
+
+      </a>
+
+
+      <a href="category.html?category=2"
+         class="card category-card">
+
+        <div>
+          <span class="category-number">CATEGORY 2</span>
+          <span class="category-name">
+            🍚 Daily Food Items
+          </span>
+        </div>
+
+      </a>
+
+
+      <a href="category.html?category=3"
+         class="card category-card">
+
+        <div>
+          <span class="category-number">CATEGORY 3</span>
+          <span class="category-name">
+            📦 Daily Non-Food Items
+          </span>
+        </div>
+
+      </a>
+
+
+      <a href="category.html?category=4"
+         class="card category-card">
+
+        <div>
+          <span class="category-number">CATEGORY 4</span>
+          <span class="category-name">
+            🍳 Non-Food Kitchen Items
+          </span>
+        </div>
+
+      </a>
+
+
+      <a href="category.html?category=5"
+         class="card category-card">
+
+        <div>
+          <span class="category-number">CATEGORY 5</span>
+          <span class="category-name">
+            🧼 Non-Food Hygiene Items
+          </span>
+        </div>
+
+      </a>
+
+
+      <a href="category.html?category=6"
+         class="card category-card">
+
+        <div>
+          <span class="category-number">CATEGORY 6</span>
+          <span class="category-name">
+            🧱 Non-Food Construction Materials
+          </span>
+        </div>
+
+      </a>
+
+    </div>
 
   </div>
 
-<div class="card">
-  📤 Total Stock Out
-  <strong id="totalStockOut">
-    0
-  </strong>
+
+  <!-- =========================
+       UNIT TOTALS
+  ========================= -->
+
+  <div class="box">
+
+    <h2>📏 Quantity by Unit</h2>
+
+    <div id="unitTotals">
+      <p style="text-align:center;">
+        Loading...
+      </p>
+    </div>
+
+  </div>
+
 </div>
-  
-  <div class="card">
-
-    📦 Total Quantity
-
-    <strong id="totalQuantity">
-      0
-    </strong>
-
-  </div>
 
 
-  <div class="card">
-
-    💰 Stock Value
-
-    <strong id="stockValue">
-      0.00
-    </strong>
-
-  </div>
-
-
-  <div class="card">
-
-    📈 Expected Profit
-
-    <strong id="expectedProfit">
-      0.00
-    </strong>
-
-  </div>
-
-</div>
-
-  </div></div><script>
+<script>
 
 /* =========================
    SUPABASE
@@ -252,6 +416,48 @@ async function updateDashboard() {
     "totalStockIn"
   ).textContent =
     totalStockIn;
+
+
+  /* =========================
+     STOCK OUT
+  ========================= */
+
+  const stockOutResponse =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions?transaction_type=eq.OUT&select=quantity",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+
+  let totalStockOut = 0;
+
+
+  if (stockOutResponse.ok) {
+
+    const stockOutData =
+      await stockOutResponse.json();
+
+    totalStockOut =
+      stockOutData.reduce(
+        (sum, row) =>
+          sum + Number(row.quantity || 0),
+        0
+      );
+
+  }
+
+
+  document.getElementById(
+    "totalStockOut"
+  ).textContent =
+    totalStockOut;
 
 
   /* =========================
@@ -341,7 +547,7 @@ async function updateDashboard() {
 
 
   /* =========================
-     SHOW
+     SHOW DASHBOARD
   ========================= */
 
   document.getElementById(
@@ -366,6 +572,76 @@ async function updateDashboard() {
     "expectedProfit"
   ).textContent =
     expectedProfit.toFixed(2);
+
+
+  /* =========================
+     UNIT TOTALS
+     WAL FAKKAATAA QOFA
+  ========================= */
+
+  const unitTotals = {};
+
+
+  data.forEach(item => {
+
+    const unit =
+      (item.unit || "Unknown").trim();
+
+    const quantity =
+      Number(item.quantity || 0);
+
+
+    if (!unitTotals[unit]) {
+      unitTotals[unit] = 0;
+    }
+
+
+    unitTotals[unit] += quantity;
+
+  });
+
+
+  const unitContainer =
+    document.getElementById("unitTotals");
+
+
+  unitContainer.innerHTML = "";
+
+
+  const units =
+    Object.keys(unitTotals);
+
+
+  if (units.length === 0) {
+
+    unitContainer.innerHTML =
+      "<p style='text-align:center;'>No quantity available</p>";
+
+    return;
+
+  }
+
+
+  units.sort();
+
+
+  units.forEach(unit => {
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "unit-total";
+
+    div.textContent =
+      "📦 " +
+      unit +
+      " = " +
+      unitTotals[unit];
+
+    unitContainer.appendChild(div);
+
+  });
 
 }
 
@@ -396,5 +672,7 @@ function logoutUser() {
 
 updateDashboard();
 
-</script></body>
+</script>
+
+</body>
 </html>
