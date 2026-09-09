@@ -2,11 +2,8 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Stock</title>
 
@@ -36,14 +33,14 @@ header h1 {
 }
 
 .container {
-  width: 95%;
-  max-width: 1200px;
+  width: 96%;
+  max-width: 1400px;
   margin: 20px auto;
 }
 
 .top-bar {
   background: white;
-  padding: 15px;
+  padding: 16px;
   border-radius: 10px;
   margin-bottom: 15px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -56,14 +53,29 @@ header h1 {
   line-height: 1.5;
 }
 
-.back-btn {
-  display: inline-block;
-  margin-top: 10px;
+.buttons {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
   padding: 9px 15px;
-  background: #1e3a8a;
-  color: white;
-  text-decoration: none;
   border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  background: #1e3a8a;
+}
+
+.btn.in {
+  background: #15803d;
+}
+
+.btn.out {
+  background: #dc2626;
 }
 
 .table-box {
@@ -76,27 +88,54 @@ header h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 750px;
+  min-width: 1200px;
 }
 
 th {
   background: #1e3a8a;
   color: white;
-  padding: 12px;
+  padding: 11px;
   text-align: left;
+  white-space: nowrap;
 }
 
 td {
-  padding: 11px;
+  padding: 10px;
   border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
 }
 
 tr:hover {
   background: #f8fafc;
 }
 
-.balance {
+.in-row {
+  border-left: 5px solid #15803d;
+}
+
+.out-row {
+  border-left: 5px solid #dc2626;
+}
+
+.badge {
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: bold;
+}
+
+.badge-in {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-out {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.signature {
+  font-size: 20px;
 }
 
 .error {
@@ -108,6 +147,30 @@ tr:hover {
 .loading {
   text-align: center;
   padding: 25px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(180px, 1fr)
+  );
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card strong {
+  display: block;
+  font-size: 25px;
+  margin-top: 6px;
+  color: #1e3a8a;
 }
 
 #unitTotals {
@@ -125,7 +188,6 @@ tr:hover {
   padding: 18px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  font-weight: bold;
 }
 
 .total-card strong {
@@ -136,57 +198,93 @@ tr:hover {
 }
 
 .total-card small {
-  color: #475569;
   line-height: 1.7;
+  color: #475569;
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <header>
-
   <h1>AAFDRMC - STOCK MANAGEMENT</h1>
-
 </header>
 
 
 <div class="container">
 
 
-  <!-- =============================================
-       CATEGORY HEADER
-  ============================================== -->
+  <!-- CATEGORY -->
 
   <div class="top-bar">
 
     <div
       id="categoryTitle"
       class="category-title">
-
       📂 Stock Category
-
     </div>
 
+    <div class="buttons">
 
-    <a
-      href="items.html"
-      class="back-btn">
+      <a
+        href="items.html"
+        class="btn">
+        ← Items
+      </a>
 
-      ← Back to Items
+      <button
+        class="btn in"
+        onclick="filterTransactions('IN')">
+        Stock IN
+      </button>
 
-    </a>
+      <button
+        class="btn out"
+        onclick="filterTransactions('OUT')">
+        Stock OUT
+      </button>
+
+      <button
+        class="btn"
+        onclick="filterTransactions('ALL')">
+        All
+      </button>
+
+    </div>
 
   </div>
 
 
-  <!-- =============================================
-       STOCK TABLE
-  ============================================== -->
+  <!-- SUMMARY -->
+
+  <div class="summary">
+
+    <div class="card">
+      Total Opening
+      <strong id="totalOpening">0</strong>
+    </div>
+
+    <div class="card">
+      Total Stock IN
+      <strong id="totalIn">0</strong>
+    </div>
+
+    <div class="card">
+      Total Stock OUT
+      <strong id="totalOut">0</strong>
+    </div>
+
+    <div class="card">
+      Current Balance
+      <strong id="totalBalance">0</strong>
+    </div>
+
+  </div>
+
+
+  <!-- TRANSACTION TABLE -->
 
   <div class="table-box">
 
@@ -197,33 +295,34 @@ tr:hover {
         <tr>
 
           <th>No</th>
-
+          <th>Item ID</th>
           <th>Item Name</th>
-
+          <th>Quantity</th>
           <th>Unit</th>
-
-          <th>Opening</th>
-
-          <th>Stock In</th>
-
-          <th>Stock Out</th>
-
-          <th>Balance</th>
+          <th>Transaction</th>
+          <th>Transaction Type</th>
+          <th>Entered By</th>
+          <th>Issued By</th>
+          <th>Expiry Date</th>
+          <th>Category</th>
+          <th>Category ID</th>
+          <th>Date / Time</th>
+          <th>Signature</th>
 
         </tr>
 
       </thead>
 
 
-      <tbody id="itemsTable">
+      <tbody id="stockTable">
 
         <tr>
 
           <td
-            colspan="7"
+            colspan="14"
             class="loading">
 
-            Loading stock...
+            Loading stock transactions...
 
           </td>
 
@@ -236,9 +335,7 @@ tr:hover {
   </div>
 
 
-  <!-- =============================================
-       UNIT TOTALS
-  ============================================== -->
+  <!-- UNIT TOTALS -->
 
   <div id="unitTotals"></div>
 
@@ -262,7 +359,7 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   SUPABASE HEADERS
+   HEADERS
 ===================================================== */
 
 function getHeaders() {
@@ -270,7 +367,6 @@ function getHeaders() {
   const accessToken =
     localStorage.getItem("access_token")
     || SUPABASE_KEY;
-
 
   return {
 
@@ -294,30 +390,24 @@ function getHeaders() {
 
 function escapeHTML(value) {
 
-  return String(value)
-
+  return String(value ?? "")
     .replace(/&/g, "&amp;")
-
     .replace(/</g, "&lt;")
-
     .replace(/>/g, "&gt;")
-
     .replace(/"/g, "&quot;")
-
     .replace(/'/g, "&#039;");
 
 }
 
 
 /* =====================================================
-   GET CATEGORY ID FROM URL
+   CATEGORY ID
 ===================================================== */
 
 const params =
   new URLSearchParams(
     window.location.search
   );
-
 
 const categoryId =
   params.get("category_id")
@@ -353,504 +443,158 @@ const categories = {
 
 
 /* =====================================================
-   SHOW CATEGORY TITLE
+   CATEGORY TITLE
 ===================================================== */
 
-const categoryTitle =
-  document.getElementById(
-    "categoryTitle"
-  );
+document.getElementById(
+  "categoryTitle"
+).textContent =
 
-
-categoryTitle.textContent =
   categories[categoryId]
   || "📂 Stock Category";
 
 
 /* =====================================================
-   LOAD CATEGORY ITEMS
+   GLOBAL DATA
 ===================================================== */
 
-async function loadCategoryItems() {
+let allTransactions = [];
 
-  const table =
-    document.getElementById(
-      "itemsTable"
-    );
+let allItems = [];
 
 
-  /* ===================================================
-     CHECK CATEGORY
-  =================================================== */
+/* =====================================================
+   LOAD ITEMS
+===================================================== */
 
-  if (!categoryId) {
+async function loadItems() {
 
-    table.innerHTML = `
+  const response =
+    await fetch(
 
-      <tr>
+      SUPABASE_URL +
+      "/rest/v1/items?select=*",
 
-        <td
-          colspan="7"
-          class="error">
-
-          Category hin argamne.
-
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  try {
-
-
-    /* =================================================
-       LOAD ITEMS BY CATEGORY_ID
-    ================================================= */
-
-    const itemsResponse =
-      await fetch(
-
-        SUPABASE_URL +
-
-        "/rest/v1/items?category_id=eq." +
-
-        encodeURIComponent(
-          categoryId
-        ) +
-
-        "&select=*",
-
-        {
-
-          headers:
-            getHeaders()
-
-        }
-
-      );
-
-
-    /* =================================================
-       CHECK ITEMS RESPONSE
-    ================================================= */
-
-    if (!itemsResponse.ok) {
-
-      console.log(
-
-        "Items Error:",
-
-        await itemsResponse.text()
-
-      );
-
-
-      table.innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="7"
-            class="error">
-
-            Items load failed.
-
-          </td>
-
-        </tr>
-
-      `;
-
-      return;
-
-    }
-
-
-    const items =
-      await itemsResponse.json();
-
-
-    /* =================================================
-       NO ITEMS
-    ================================================= */
-
-    if (items.length === 0) {
-
-      table.innerHTML = `
-
-        <tr>
-
-          <td colspan="7">
-
-            Category kana keessatti
-            item hin jiru.
-
-          </td>
-
-        </tr>
-
-      `;
-
-
-      document.getElementById(
-        "unitTotals"
-      ).innerHTML = "";
-
-
-      return;
-
-    }
-
-
-    /* =================================================
-       LOAD ALL STOCK TRANSACTIONS
-    ================================================= */
-
-    const transactionResponse =
-      await fetch(
-
-        SUPABASE_URL +
-
-        "/rest/v1/stock_transactions?select=*",
-
-        {
-
-          headers:
-            getHeaders()
-
-        }
-
-      );
-
-
-    let transactions = [];
-
-
-    if (transactionResponse.ok) {
-
-      transactions =
-        await transactionResponse.json();
-
-    }
-
-
-    /* =================================================
-       CLEAR TABLE
-    ================================================= */
-
-    table.innerHTML = "";
-
-
-    const unitTotals = {};
-
-
-    /* =================================================
-       DISPLAY EACH ITEM
-    ================================================= */
-
-    items.forEach(
-
-      (item, index) => {
-
-
-        /* =============================================
-           MATCH TRANSACTION WITH ITEM
-        ============================================= */
-
-        const itemTransactions =
-          transactions.filter(
-
-            t =>
-
-              String(t.item_id) ===
-              String(item.id)
-
-          );
-
-
-        /* =============================================
-           STOCK IN
-        ============================================= */
-
-        const stockIn =
-
-          itemTransactions
-
-            .filter(
-
-              t =>
-
-                String(
-                  t.transaction_type
-                ).toUpperCase() ===
-                "IN"
-
-            )
-
-            .reduce(
-
-              (sum, t) =>
-
-                sum +
-
-                Number(
-                  t.quantity || 0
-                ),
-
-              0
-
-            );
-
-
-        /* =============================================
-           STOCK OUT
-        ============================================= */
-
-        const stockOut =
-
-          itemTransactions
-
-            .filter(
-
-              t =>
-
-                String(
-                  t.transaction_type
-                ).toUpperCase() ===
-                "OUT"
-
-            )
-
-            .reduce(
-
-              (sum, t) =>
-
-                sum +
-
-                Number(
-                  t.quantity || 0
-                ),
-
-              0
-
-            );
-
-
-        /* =============================================
-           OPENING QUANTITY
-        ============================================= */
-
-        const opening =
-
-          Number(
-            item.opening_quantity || 0
-          );
-
-
-        /* =============================================
-           BALANCE
-        ============================================= */
-
-        const balance =
-
-          opening +
-          stockIn -
-          stockOut;
-
-
-        /* =============================================
-           UNIT
-        ============================================= */
-
-        const unit =
-
-          String(
-            item.unit || "Unknown"
-          ).trim();
-
-
-        /* =============================================
-           CREATE UNIT TOTAL
-        ============================================= */
-
-        if (!unitTotals[unit]) {
-
-          unitTotals[unit] = {
-
-            opening: 0,
-
-            in: 0,
-
-            out: 0,
-
-            balance: 0
-
-          };
-
-        }
-
-
-        unitTotals[unit].opening +=
-          opening;
-
-
-        unitTotals[unit].in +=
-          stockIn;
-
-
-        unitTotals[unit].out +=
-          stockOut;
-
-
-        unitTotals[unit].balance +=
-          balance;
-
-
-        /* =============================================
-           CREATE TABLE ROW
-        ============================================= */
-
-        const row =
-          document.createElement(
-            "tr"
-          );
-
-
-        row.innerHTML = `
-
-          <td>
-            ${index + 1}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              item.name || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(unit)}
-          </td>
-
-          <td>
-            ${opening}
-          </td>
-
-          <td>
-            ${stockIn}
-          </td>
-
-          <td>
-            ${stockOut}
-          </td>
-
-          <td class="balance">
-            ${balance}
-          </td>
-
-        `;
-
-
-        table.appendChild(
-          row
-        );
-
+      {
+        headers:
+          getHeaders()
       }
 
     );
 
 
-    /* =================================================
-       UNIT TOTAL CARDS
-    ================================================= */
+  if (!response.ok) {
 
-    const totalsContainer =
-      document.getElementById(
-        "unitTotals"
-      );
+    console.log(
+      "Items Error:",
+      await response.text()
+    );
 
-
-    totalsContainer.innerHTML = "";
-
-
-    Object.keys(unitTotals)
-
-      .sort()
-
-      .forEach(
-
-        unit => {
-
-
-          const total =
-            unitTotals[unit];
-
-
-          const card =
-            document.createElement(
-              "div"
-            );
-
-
-          card.className =
-            "total-card";
-
-
-          card.innerHTML = `
-
-            📏 ${escapeHTML(unit)}
-
-            <strong>
-              ${total.balance}
-            </strong>
-
-            <small>
-
-              Opening:
-              ${total.opening}
-
-              <br>
-
-              Stock In:
-              ${total.in}
-
-              <br>
-
-              Stock Out:
-              ${total.out}
-
-              <br>
-
-              Balance:
-              ${total.balance}
-
-            </small>
-
-          `;
-
-
-          totalsContainer.appendChild(
-            card
-          );
-
-        }
-
-      );
-
+    return [];
 
   }
 
 
+  return await response.json();
+
+}
+
+
+/* =====================================================
+   LOAD TRANSACTIONS
+===================================================== */
+
+async function loadTransactions() {
+
+  const response =
+    await fetch(
+
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions?select=*&order=id.desc",
+
+      {
+        headers:
+          getHeaders()
+      }
+
+    );
+
+
+  if (!response.ok) {
+
+    console.log(
+      "Transaction Error:",
+      await response.text()
+    );
+
+    return [];
+
+  }
+
+
+  return await response.json();
+
+}
+
+
+/* =====================================================
+   LOAD STOCK
+===================================================== */
+
+async function loadStock() {
+
+  const table =
+    document.getElementById(
+      "stockTable"
+    );
+
+
+  try {
+
+    allItems =
+      await loadItems();
+
+
+    allTransactions =
+      await loadTransactions();
+
+
+    /* ===============================================
+       FILTER BY CATEGORY
+    =============================================== */
+
+    let transactions =
+      allTransactions;
+
+
+    if (categoryId) {
+
+      transactions =
+        allTransactions.filter(
+
+          t =>
+
+            String(
+              t.category_id
+            ) ===
+            String(categoryId)
+
+        );
+
+    }
+
+
+    displayTransactions(
+      transactions
+    );
+
+
+  }
+
   catch (error) {
 
     console.log(
-      "Category Error:",
+      "Stock Error:",
       error
     );
 
@@ -860,10 +604,10 @@ async function loadCategoryItems() {
       <tr>
 
         <td
-          colspan="7"
+          colspan="14"
           class="error">
 
-          Error loading category.
+          Error loading stock.
 
         </td>
 
@@ -877,15 +621,606 @@ async function loadCategoryItems() {
 
 
 /* =====================================================
+   DISPLAY TRANSACTIONS
+===================================================== */
+
+function displayTransactions(
+  transactions
+) {
+
+  const table =
+    document.getElementById(
+      "stockTable"
+    );
+
+
+  table.innerHTML = "";
+
+
+  if (
+    transactions.length === 0
+  ) {
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td colspan="14">
+
+          Transaction hin jiru.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    updateSummary([]);
+
+    return;
+
+  }
+
+
+  transactions.forEach(
+
+    (t, index) => {
+
+
+      /* =============================================
+         FIND ITEM
+      ============================================= */
+
+      const item =
+        allItems.find(
+
+          i =>
+
+            String(i.id) ===
+            String(t.item_id)
+
+        );
+
+
+      const itemName =
+        t.item_name
+        || item?.name
+        || "";
+
+
+      const unit =
+        t.unit
+        || item?.unit
+        || "";
+
+
+      const category =
+        t.category
+        || item?.category
+        || categories[
+             String(
+               t.category_id
+             )
+           ]
+        || "";
+
+
+      const transaction =
+        String(
+          t.transaction
+          || t.transaction_type
+          || ""
+        ).toUpperCase();
+
+
+      const transactionType =
+        t.transaction_type
+        || transaction;
+
+
+      const enteredBy =
+        t.entered_by
+        || "";
+
+
+      const issuedBy =
+        t.issued_by
+        || t.exited_by
+        || "";
+
+
+      const expiryDate =
+        t.expiry_date
+        || "";
+
+
+      const signature =
+        t.signature
+        || t.sign
+        || "";
+
+
+      const dateTime =
+        t.created_at
+        || t.transaction_date
+        || t.date
+        || "";
+
+
+      const row =
+        document.createElement(
+          "tr"
+        );
+
+
+      row.className =
+        transaction === "OUT"
+        ? "out-row"
+        : "in-row";
+
+
+      row.innerHTML = `
+
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.item_id || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            itemName
+          )}
+        </td>
+
+        <td>
+          ${Number(
+            t.quantity || 0
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            unit
+          )}
+        </td>
+
+        <td>
+
+          <span class="badge ${
+            transaction === "OUT"
+              ? "badge-out"
+              : "badge-in"
+          }">
+
+            ${escapeHTML(
+              transaction
+            )}
+
+          </span>
+
+        </td>
+
+        <td>
+          ${escapeHTML(
+            transactionType
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            enteredBy
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            issuedBy
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            expiryDate
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            category
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.category_id || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            dateTime
+          )}
+        </td>
+
+        <td class="signature">
+
+          ${
+            signature
+              ? "✍️ " +
+                escapeHTML(
+                  signature
+                )
+              : "—"
+          }
+
+        </td>
+
+      `;
+
+
+      table.appendChild(
+        row
+      );
+
+    }
+
+  );
+
+
+  updateSummary(
+    transactions
+  );
+
+
+  updateUnitTotals(
+    transactions
+  );
+
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+function updateSummary(
+  transactions
+) {
+
+  let totalIn = 0;
+
+  let totalOut = 0;
+
+
+  transactions.forEach(
+
+    t => {
+
+      const type =
+        String(
+          t.transaction_type
+          || t.transaction
+          || ""
+        ).toUpperCase();
+
+
+      const quantity =
+        Number(
+          t.quantity || 0
+        );
+
+
+      if (
+        type === "IN"
+      ) {
+
+        totalIn +=
+          quantity;
+
+      }
+
+
+      if (
+        type === "OUT"
+      ) {
+
+        totalOut +=
+          quantity;
+
+      }
+
+    }
+
+  );
+
+
+  let opening = 0;
+
+
+  allItems.forEach(
+
+    item => {
+
+      if (
+        !categoryId ||
+        String(
+          item.category_id
+        ) ===
+        String(categoryId)
+      ) {
+
+        opening +=
+          Number(
+            item.opening_quantity
+            || item.quantity
+            || 0
+          );
+
+      }
+
+    }
+
+  );
+
+
+  document.getElementById(
+    "totalOpening"
+  ).textContent =
+    opening;
+
+
+  document.getElementById(
+    "totalIn"
+  ).textContent =
+    totalIn;
+
+
+  document.getElementById(
+    "totalOut"
+  ).textContent =
+    totalOut;
+
+
+  document.getElementById(
+    "totalBalance"
+  ).textContent =
+    opening +
+    totalIn -
+    totalOut;
+
+}
+
+
+/* =====================================================
+   UNIT TOTALS
+===================================================== */
+
+function updateUnitTotals(
+  transactions
+) {
+
+  const container =
+    document.getElementById(
+      "unitTotals"
+    );
+
+
+  container.innerHTML = "";
+
+
+  const totals = {};
+
+
+  transactions.forEach(
+
+    t => {
+
+      const item =
+        allItems.find(
+
+          i =>
+
+            String(i.id) ===
+            String(t.item_id)
+
+        );
+
+
+      const unit =
+        t.unit
+        || item?.unit
+        || "Unknown";
+
+
+      if (!totals[unit]) {
+
+        totals[unit] = {
+
+          in: 0,
+
+          out: 0,
+
+          balance: 0
+
+        };
+
+      }
+
+
+      const quantity =
+        Number(
+          t.quantity || 0
+        );
+
+
+      const type =
+        String(
+          t.transaction_type
+          || t.transaction
+          || ""
+        ).toUpperCase();
+
+
+      if (
+        type === "IN"
+      ) {
+
+        totals[unit].in +=
+          quantity;
+
+      }
+
+
+      if (
+        type === "OUT"
+      ) {
+
+        totals[unit].out +=
+          quantity;
+
+      }
+
+    }
+
+  );
+
+
+  Object.keys(totals)
+    .sort()
+    .forEach(
+
+      unit => {
+
+        const total =
+          totals[unit];
+
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "total-card";
+
+
+        card.innerHTML = `
+
+          📏 ${escapeHTML(unit)}
+
+          <strong>
+
+            ${
+              total.in -
+              total.out
+            }
+
+          </strong>
+
+          <small>
+
+            Stock In:
+            ${total.in}
+
+            <br>
+
+            Stock Out:
+            ${total.out}
+
+            <br>
+
+            Net Movement:
+            ${
+              total.in -
+              total.out
+            }
+
+          </small>
+
+        `;
+
+
+        container.appendChild(
+          card
+        );
+
+      }
+
+    );
+
+}
+
+
+/* =====================================================
+   FILTER TRANSACTIONS
+===================================================== */
+
+function filterTransactions(
+  type
+) {
+
+  let transactions =
+    allTransactions;
+
+
+  if (categoryId) {
+
+    transactions =
+      transactions.filter(
+
+        t =>
+
+          String(
+            t.category_id
+          ) ===
+          String(categoryId)
+
+      );
+
+  }
+
+
+  if (
+    type !== "ALL"
+  ) {
+
+    transactions =
+      transactions.filter(
+
+        t =>
+
+          String(
+            t.transaction_type
+            || t.transaction
+            || ""
+          ).toUpperCase() ===
+          type
+
+      );
+
+  }
+
+
+  displayTransactions(
+    transactions
+  );
+
+}
+
+
+/* =====================================================
    START
 ===================================================== */
 
-loadCategoryItems();
-
+loadStock();
 
 </script>
 
-
 </body>
-
 </html>
