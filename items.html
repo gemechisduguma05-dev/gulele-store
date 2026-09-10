@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Items</title>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -26,13 +21,54 @@ body{
 header{
   background:#1e3a8a;
   color:white;
-  padding:18px;
-  text-align:center;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
 
 header h1{
   margin:0;
   font-size:23px;
+}
+
+header p{
+  margin:5px 0 0;
+  font-size:14px;
+}
+
+.logout{
+  border:0;
+  background:#dc2626;
+  color:white;
+  padding:10px 16px;
+  border-radius:7px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+nav{
+  background:white;
+  padding:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+nav a{
+  text-decoration:none;
+  color:#1e3a8a;
+  font-weight:bold;
+  padding:10px 13px;
+  border-radius:7px;
+}
+
+nav a:hover,
+nav a.active{
+  background:#1e3a8a;
+  color:white;
 }
 
 .container{
@@ -41,79 +77,35 @@ header h1{
   margin:20px auto;
 }
 
-.top-bar{
-  background:white;
-  padding:18px;
-  border-radius:12px;
-  margin-bottom:18px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.title{
-  font-size:23px;
-  font-weight:bold;
-  color:#1e3a8a;
-}
-
 .branch-box{
-  margin-top:12px;
-  padding:13px;
-  border-radius:8px;
   background:#eff6ff;
-  border:1px solid #bfdbfe;
+  border:2px solid #bfdbfe;
   color:#1e3a8a;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:18px;
   font-weight:bold;
-}
-
-.buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:14px;
-}
-
-.btn{
-  border:0;
-  padding:11px 17px;
-  border-radius:8px;
-  cursor:pointer;
-  color:white;
-  font-weight:bold;
-  font-size:15px;
-}
-
-.btn-add{
-  background:#15803d;
-}
-
-.btn-back{
-  background:#64748b;
+  text-align:center;
 }
 
 .form-box{
-  display:none;
   background:white;
   padding:20px;
   border-radius:12px;
-  margin-bottom:18px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.form-box.show{
-  display:block;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+  margin-bottom:20px;
 }
 
 .form-title{
   color:#1e3a8a;
-  font-size:20px;
+  font-size:21px;
   font-weight:bold;
-  margin-bottom:15px;
+  margin-bottom:17px;
 }
 
 .form-grid{
   display:grid;
-  grid-template-columns:
-  repeat(auto-fit,minmax(230px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   gap:14px;
 }
 
@@ -127,43 +119,54 @@ header h1{
   margin-bottom:7px;
 }
 
-.form-group input,
-.form-group select{
-  padding:12px;
+input,
+select{
+  width:100%;
+  padding:11px;
   border:1px solid #cbd5e1;
-  border-radius:8px;
+  border-radius:7px;
   font-size:15px;
+  background:white;
 }
 
-.form-buttons{
+input:focus,
+select:focus{
+  outline:none;
+  border-color:#2563eb;
+}
+
+.save-row{
+  margin-top:18px;
   display:flex;
   gap:10px;
-  margin-top:18px;
+  flex-wrap:wrap;
 }
 
-.save-btn,
-.cancel-btn{
+.save-btn{
   border:0;
-  padding:11px 20px;
-  border-radius:8px;
+  background:#15803d;
   color:white;
+  padding:11px 20px;
+  border-radius:7px;
   font-weight:bold;
   cursor:pointer;
 }
 
-.save-btn{
-  background:#15803d;
-}
-
-.cancel-btn{
+.clear-btn{
+  border:0;
   background:#64748b;
+  color:white;
+  padding:11px 20px;
+  border-radius:7px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .message{
   display:none;
-  padding:13px;
+  padding:12px;
   border-radius:8px;
-  margin-bottom:15px;
+  margin-bottom:18px;
   font-weight:bold;
 }
 
@@ -179,169 +182,131 @@ header h1{
   color:#991b1b;
 }
 
-.message.info{
-  display:block;
-  background:#dbeafe;
-  color:#1e40af;
+.section-title{
+  background:white;
+  color:#1e3a8a;
+  padding:16px;
+  border-radius:10px 10px 0 0;
+  font-size:21px;
+  font-weight:bold;
 }
 
 .table-box{
   background:white;
-  border-radius:12px;
   overflow-x:auto;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  border-radius:0 0 10px 10px;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:1000px;
+  min-width:850px;
 }
 
 th{
   background:#1e3a8a;
   color:white;
-  padding:13px;
+  padding:12px;
   text-align:left;
+  white-space:nowrap;
 }
 
 td{
-  padding:12px;
+  padding:11px;
   border-bottom:1px solid #e2e8f0;
+  white-space:nowrap;
 }
 
 tr:hover{
   background:#f8fafc;
 }
 
-.edit-btn{
-  background:#2563eb;
-  color:white;
-  border:0;
-  padding:7px 11px;
-  border-radius:6px;
-  cursor:pointer;
-  margin-right:5px;
-}
-
-.delete-btn{
-  background:#dc2626;
-  color:white;
-  border:0;
-  padding:7px 11px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.category-text{
-  font-size:13px;
-  line-height:1.5;
-}
-
-.empty,
-.loading{
+.empty{
   text-align:center;
   padding:25px;
   color:#64748b;
 }
 
-.main-control{
-  background:#fef3c7;
-  border:1px solid #f59e0b;
-  color:#92400e;
-  padding:12px;
-  border-radius:8px;
-  margin-top:12px;
+.category-badge{
+  background:#eff6ff;
+  color:#1e3a8a;
+  padding:5px 8px;
+  border-radius:6px;
+  font-size:12px;
   font-weight:bold;
 }
 
 @media(max-width:600px){
-
-  .buttons{
+  header{
     flex-direction:column;
+    align-items:flex-start;
   }
 
-  .btn{
-    width:100%;
+  .container{
+    width:94%;
   }
-
-  .form-buttons{
-    flex-direction:column;
-  }
-
-  .save-btn,
-  .cancel-btn{
-    width:100%;
-  }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-<h1>
-AAFDRMC - ITEM MANAGEMENT
-</h1>
+  <div>
+    <h1>AAFDRMC</h1>
+    <p>Stock Management System</p>
+  </div>
+
+  <button
+    class="logout"
+    onclick="logoutUser()">
+    Logout
+  </button>
 
 </header>
+
+
+<nav>
+
+  <a href="dashboard.html">
+    🏠 Main
+  </a>
+
+  <a href="branch.html">
+    🏪 Branches
+  </a>
+
+  <a href="items.html" class="active">
+    📦 Items
+  </a>
+
+  <a href="stock.html">
+    📥📤 Stock In / Out
+  </a>
+
+  <a href="reports.html">
+    📊 Reports
+  </a>
+
+  <a href="settings.html">
+    ⚙️ Settings
+  </a>
+
+</nav>
 
 
 <div class="container">
 
 
-<!-- TOP BAR -->
-
-<div class="top-bar">
-
-<div class="title">
-📦 Item Management
-</div>
-
+<!-- BRANCH -->
 
 <div
-id="branchBox"
-class="branch-box">
+  id="branchBox"
+  class="branch-box">
 
-📍 Branch: Loading...
-
-</div>
-
-
-<div
-id="mainControl"
-class="main-control"
-style="display:none;">
-
-👑 MAIN CONTROL: Branch 12 hunda to'achuu dandeessa.
-
-</div>
-
-
-<div class="buttons">
-
-<button
-class="btn btn-add"
-onclick="openAddForm()">
-
-➕ Add New Item
-
-</button>
-
-
-<button
-class="btn btn-back"
-onclick="goBack()">
-
-⬅️ Back
-
-</button>
-
-</div>
+  Loading Branch...
 
 </div>
 
@@ -349,199 +314,208 @@ onclick="goBack()">
 <!-- MESSAGE -->
 
 <div
-id="message"
-class="message">
+  id="message"
+  class="message">
 </div>
 
 
-<!-- FORM -->
+<!-- ADD ITEM -->
 
-<div
-id="itemForm"
-class="form-box">
+<div class="form-box">
+
+  <div class="form-title">
+    ➕ Add New Item
+  </div>
 
 
-<div
-id="formTitle"
-class="form-title">
+  <div class="form-grid">
 
-➕ Add New Item
+
+    <!-- CATEGORY -->
+
+    <div class="form-group">
+
+      <label>
+        Category
+      </label>
+
+      <select id="category">
+
+        <option value="">
+          -- Select Category --
+        </option>
+
+        <option value="1">
+          Strategic Food Items / ስትራቴጂካ ምግብ ነክ
+        </option>
+
+        <option value="2">
+          Daily Food Items / ምግብ ነክ የእለት ደሪሽ
+        </option>
+
+        <option value="3">
+          Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ
+        </option>
+
+        <option value="4">
+          Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና
+        </option>
+
+        <option value="5">
+          Non-Food Kitchen Items
+        </option>
+
+        <option value="6">
+          Non-Food Building / Construction Items
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ITEM NAME -->
+
+    <div class="form-group">
+
+      <label>
+        Item Name
+      </label>
+
+      <input
+        id="itemName"
+        type="text"
+        placeholder="Item name">
+
+    </div>
+
+
+    <!-- UNIT -->
+
+    <div class="form-group">
+
+      <label>
+        Unit
+      </label>
+
+      <select id="unit">
+
+        <option value="">
+          -- Select Unit --
+        </option>
+
+        <option value="Piece">
+          Piece
+        </option>
+
+        <option value="Kg">
+          Kg
+        </option>
+
+        <option value="Quintal">
+          Quintal
+        </option>
+
+        <option value="Carton">
+          Carton
+        </option>
+
+        <option value="Bag">
+          Bag
+        </option>
+
+        <option value="Liter">
+          Liter
+        </option>
+
+        <option value="Meter">
+          Meter
+        </option>
+
+        <option value="Set">
+          Set
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- COST -->
+
+    <div class="form-group">
+
+      <label>
+        Cost Price
+      </label>
+
+      <input
+        id="costPrice"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="0.00">
+
+    </div>
+
+
+    <!-- SELLING -->
+
+    <div class="form-group">
+
+      <label>
+        Selling Price
+      </label>
+
+      <input
+        id="sellingPrice"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="0.00">
+
+    </div>
+
+
+  </div>
+
+
+  <div class="save-row">
+
+    <button
+      class="save-btn"
+      id="saveButton"
+      onclick="saveItem()">
+
+      💾 Save New Item
+
+    </button>
+
+
+    <button
+      class="clear-btn"
+      onclick="clearForm()">
+
+      Clear
+
+    </button>
+
+  </div>
 
 </div>
 
 
-<div class="form-grid">
+<!-- ITEM LIST -->
 
+<div class="section-title">
 
-<!-- ITEM NAME -->
-
-<div class="form-group">
-
-<label>
-Item Name / Maqaa Item
-</label>
-
-<input
-type="text"
-id="itemName"
-placeholder="Fakkeenya: Xaafii">
+  📦 Items —
+  <span id="listBranch">
+    Branch
+  </span>
 
 </div>
 
-
-<!-- UNIT -->
-
-<div class="form-group">
-
-<label>
-Unit / Safartuu
-</label>
-
-<select id="itemUnit">
-
-<option value="">
--- Select Unit --
-</option>
-
-<option value="Kg">Kg</option>
-
-<option value="Quintal">Quintal</option>
-
-<option value="Ton">Ton</option>
-
-<option value="Liter">Liter</option>
-
-<option value="Piece">Piece</option>
-
-<option value="Carton">Carton</option>
-
-<option value="Bag">Bag</option>
-
-<option value="Packet">Packet</option>
-
-<option value="Set">Set</option>
-
-<option value="Pair">Pair</option>
-
-<option value="Other">Other</option>
-
-</select>
-
-</div>
-
-
-<!-- CATEGORY -->
-
-<div class="form-group">
-
-<label>
-Category / Ramaddii
-</label>
-
-<select id="itemCategory">
-
-<option value="">
--- Select Category --
-</option>
-
-
-<option value="Strategic Food Items">
-🥫 Strategic Food Items /
-Meeshaalee Nyaataa Tarsiimawaa /
-ስትራቴጂክ ምግብ ነክ
-</option>
-
-
-<option value="Daily Food Items">
-🍚 Daily Food Items /
-Meeshaalee Nyaataa Guyyaa Guyyaa /
-የዕለት ምግብ እቃዎች
-</option>
-
-
-<option value="Daily Non-Food Items">
-📦 Daily Non-Food Items /
-Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
-የዕለት ምግብ ነክ ያልሆኑ እቃዎች
-</option>
-
-
-<option value="Non-Food Kitchen Items">
-🍳 Non-Food Kitchen Items /
-Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan /
-የምግብ ማዘጋጃ እቃዎች
-</option>
-
-
-<option value="Non-Food Hygiene Items">
-🧼 Non-Food Hygiene Items /
-Meeshaalee Qulqullinaa /
-የንጽሕና እቃዎች
-</option>
-
-
-<option value="Non-Food Construction Materials">
-🧱 Non-Food Construction Materials /
-Meeshaalee Ijaarsaa /
-የግንባታ እቃዎች
-</option>
-
-</select>
-
-</div>
-
-
-<!-- BRANCH FOR MAIN -->
-
-<div
-id="branchGroup"
-class="form-group"
-style="display:none;">
-
-<label>
-🏪 Branch / Damee
-</label>
-
-<select id="itemBranch">
-
-<option value="">
--- Select Branch --
-</option>
-
-</select>
-
-</div>
-
-
-</div>
-
-
-<div class="form-buttons">
-
-<button
-id="saveButton"
-class="save-btn"
-onclick="saveItem()">
-
-💾 Save Item
-
-</button>
-
-
-<button
-class="cancel-btn"
-onclick="closeForm()">
-
-Cancel
-
-</button>
-
-</div>
-
-</div>
-
-
-<!-- TABLE -->
 
 <div class="table-box">
 
@@ -552,16 +526,12 @@ Cancel
 <tr>
 
 <th>No</th>
-
 <th>Item Name</th>
-
-<th>Unit</th>
-
 <th>Category</th>
-
-<th>Branch</th>
-
-<th>Action</th>
+<th>Unit</th>
+<th>Cost Price</th>
+<th>Selling Price</th>
+<th>Created Date</th>
 
 </tr>
 
@@ -573,10 +543,10 @@ Cancel
 <tr>
 
 <td
-colspan="6"
-class="loading">
+colspan="7"
+class="empty">
 
-⏳ Loading items...
+Loading items...
 
 </td>
 
@@ -606,84 +576,52 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   BRANCH 12
+   LOGIN CHECK
 ===================================================== */
 
-const BRANCHES = [
+if(
+  localStorage.getItem("is_logged_in")
+  !==
+  "true"
+){
 
-"Gulele",
-"Addis Katama",
-"Kolfee",
-"Nifas Silk Lafto",
-"Kirkos",
-"Lami Kura",
-"Arada",
-"Lideta",
-"Bole",
-"Ekaa",
-"Akaki Kality",
-"Center"
+  window.location.href =
+    "index.html";
 
-];
-
-
-/* =====================================================
-   GLOBAL
-===================================================== */
-
-let allItems = [];
-
-let allBranches = [];
-
-let editItemId = null;
+}
 
 
 /* =====================================================
    CURRENT BRANCH
 ===================================================== */
 
-const selectedBranch =
+const branchId =
+localStorage.getItem(
+  "selected_branch_id"
+);
+
+const branchName =
 localStorage.getItem(
   "selected_branch_name"
-) || "";
-
-
-const isMain =
-selectedBranch === "Main";
+)
+||
+"Unknown Branch";
 
 
 /* =====================================================
    SHOW BRANCH
 ===================================================== */
 
-const branchBox =
 document.getElementById(
   "branchBox"
-);
+).textContent =
+"🏢 Current Branch: " +
+branchName;
 
-
-if(isMain){
-
-  branchBox.textContent =
-    "👑 Branch: MAIN - Head Office";
-
-  document.getElementById(
-    "mainControl"
-  ).style.display =
-    "block";
-
-}else if(selectedBranch){
-
-  branchBox.textContent =
-    "📍 Branch: " +
-    selectedBranch;
-
-}else{
-
-  branchBox.textContent =
-    "⚠️ Branch hin filatamne";
-
-}
+document.getElementById(
+  "listBranch"
+).textContent =
+branchName;
 
 
 /* =====================================================
@@ -692,57 +630,22 @@ if(isMain){
 
 function getHeaders(){
 
-  const accessToken =
-    localStorage.getItem(
-      "access_token"
-    );
-
-
-  const headers = {
+  return {
 
     "apikey":
       SUPABASE_KEY,
 
+    "Authorization":
+      "Bearer " +
+      SUPABASE_KEY,
+
     "Content-Type":
-      "application/json"
+      "application/json",
+
+    "Prefer":
+      "return=representation"
 
   };
-
-
-  /*
-   IMPORTANT:
-
-   Publishable key JWT miti.
-
-   Kanaaf akka:
-   Authorization:
-   Bearer sb_publishable...
-
-   hin erginu.
-
-   Yoo access_token JWT dhugaa jiraate
-   qofa fayyadamna.
-  */
-
-  if(accessToken){
-
-    const parts =
-      accessToken.split(".");
-
-    if(parts.length === 3){
-
-      headers[
-        "Authorization"
-      ] =
-        "Bearer " +
-        accessToken;
-
-    }
-
-  }
-
-
-  return headers;
 
 }
 
@@ -751,36 +654,56 @@ function getHeaders(){
    ESCAPE HTML
 ===================================================== */
 
-function escapeHTML(value){
+function escapeHtml(value){
 
   return String(
     value ?? ""
   )
 
-  .replace(
-    /&/g,
-    "&amp;"
-  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
-  .replace(
-    /</g,
-    "&lt;"
-  )
+}
 
-  .replace(
-    />/g,
-    "&gt;"
-  )
 
-  .replace(
-    /"/g,
-    "&quot;"
-  )
+/* =====================================================
+   CATEGORY NAME
+===================================================== */
 
-  .replace(
-    /'/g,
-    "&#039;"
-  );
+function categoryName(id){
+
+  const categories = {
+
+    "1":
+    "Strategic Food Items / ስትራቴጂካ ምግብ ነክ",
+
+    "2":
+    "Daily Food Items / ምግብ ነክ የእለት ደሪሽ",
+
+    "3":
+    "Daily Non-Food Items / ምግብ ነክ ያልሆነ የእለት ደሪሽ",
+
+    "4":
+    "Non-Food Hygiene Items / ምግብ ነክ ያልሆነ የንጽሕና",
+
+    "5":
+    "Non-Food Kitchen Items",
+
+    "6":
+    "Non-Food Building / Construction Items"
+
+  };
+
+  return categories[
+    String(id)
+  ]
+  ||
+  id
+  ||
+  "—";
 
 }
 
@@ -794,637 +717,17 @@ function showMessage(
   type
 ){
 
-  const message =
+  const box =
     document.getElementById(
       "message"
     );
 
-
-  message.textContent =
+  box.textContent =
     text;
 
-
-  message.className =
+  box.className =
     "message " +
     type;
-
-}
-
-
-/* =====================================================
-   LOAD BRANCHES
-===================================================== */
-
-async function loadBranches(){
-
-  try{
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/branches" +
-        "?select=id,branch_code,branch_name" +
-        "&order=branch_code.asc",
-
-        {
-
-          method:"GET",
-
-          headers:
-            getHeaders()
-
-        }
-
-      );
-
-
-    if(!response.ok){
-
-      console.error(
-        await response.text()
-      );
-
-      return;
-
-    }
-
-
-    allBranches =
-      await response.json();
-
-
-    const select =
-      document.getElementById(
-        "itemBranch"
-      );
-
-
-    select.innerHTML =
-      '<option value="">-- Select Branch --</option>';
-
-
-    /*
-      Main irraa branch filachuu danda'a.
-      Branch tokko yoo seene, branch isaa
-      ofumaan filatama.
-    */
-
-    allBranches.forEach(
-      branch => {
-
-        const option =
-          document.createElement(
-            "option"
-          );
-
-
-        option.value =
-          branch.id;
-
-
-        option.textContent =
-          (
-            branch.branch_code
-            ? branch.branch_code + " - "
-            : ""
-          ) +
-          (
-            branch.branch_name || ""
-          );
-
-
-        select.appendChild(
-          option
-        );
-
-      }
-
-    );
-
-  }
-
-  catch(error){
-
-    console.error(
-      "Branch loading error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   FIND BRANCH ID
-===================================================== */
-
-function getSelectedBranchId(){
-
-  if(!selectedBranch){
-    return null;
-  }
-
-
-  const branch =
-    allBranches.find(
-
-      b =>
-        String(
-          b.branch_name
-        ).trim().toLowerCase()
-        ===
-        String(
-          selectedBranch
-        ).trim().toLowerCase()
-
-    );
-
-
-  if(branch){
-
-    return branch.id;
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =====================================================
-   LOAD ITEMS
-===================================================== */
-
-async function loadItems(){
-
-  const table =
-    document.getElementById(
-      "itemsTable"
-    );
-
-
-  table.innerHTML = `
-
-    <tr>
-
-      <td
-      colspan="6"
-      class="loading">
-
-      ⏳ Items loading...
-
-      </td>
-
-    </tr>
-
-  `;
-
-
-  try{
-
-    let url =
-      SUPABASE_URL +
-      "/rest/v1/items" +
-      "?select=id,name,unit,category,branch_id" +
-      "&order=id.asc";
-
-
-    /*
-      MAIN = Branch 12 hunda
-
-      Branch = kan ofii isaa qofa
-    */
-
-    if(!isMain){
-
-      const branchId =
-        getSelectedBranchId();
-
-
-      if(!branchId){
-
-        table.innerHTML = `
-
-          <tr>
-
-            <td
-            colspan="6"
-            class="empty">
-
-            ❌ Branch ID argachuu hin dandeenye.
-
-            </td>
-
-          </tr>
-
-        `;
-
-        showMessage(
-          "❌ Branch ID argachuu hin dandeenye. Supabase branches table ilaali.",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      url +=
-        "&branch_id=eq." +
-        encodeURIComponent(
-          branchId
-        );
-
-    }
-
-
-    const response =
-      await fetch(
-
-        url,
-
-        {
-
-          method:"GET",
-
-          headers:
-            getHeaders()
-
-        }
-
-      );
-
-
-    if(!response.ok){
-
-      const error =
-        await response.text();
-
-
-      console.error(
-        "Load Items Error:",
-        error
-      );
-
-
-      if(
-        error.includes(
-          "JWT expired"
-        )
-      ){
-
-        handleExpiredSession();
-
-        return;
-
-      }
-
-
-      table.innerHTML = `
-
-        <tr>
-
-          <td
-          colspan="6"
-          class="empty">
-
-          ❌ Items load hin milkoofne.
-
-          </td>
-
-        </tr>
-
-      `;
-
-
-      showMessage(
-        "❌ Items load hin milkoofne: " +
-        error,
-        "error"
-      );
-
-
-      return;
-
-    }
-
-
-    allItems =
-      await response.json();
-
-
-    displayItems();
-
-  }
-
-  catch(error){
-
-    console.error(
-      error
-    );
-
-
-    table.innerHTML = `
-
-      <tr>
-
-        <td
-        colspan="6"
-        class="empty">
-
-        ❌ Network error.
-
-        </td>
-
-      </tr>
-
-    `;
-
-
-    showMessage(
-      "❌ Network error.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   GET BRANCH NAME
-===================================================== */
-
-function getBranchName(
-  branchId
-){
-
-  const branch =
-    allBranches.find(
-
-      b =>
-        String(b.id) ===
-        String(branchId)
-
-    );
-
-
-  if(branch){
-
-    return (
-      branch.branch_name || ""
-    );
-
-  }
-
-
-  return "Unknown";
-
-}
-
-
-/* =====================================================
-   DISPLAY ITEMS
-===================================================== */
-
-function displayItems(){
-
-  const table =
-    document.getElementById(
-      "itemsTable"
-    );
-
-
-  table.innerHTML = "";
-
-
-  if(
-    allItems.length === 0
-  ){
-
-    table.innerHTML = `
-
-      <tr>
-
-        <td
-        colspan="6"
-        class="empty">
-
-        📦 Item hin jiru.
-
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  allItems.forEach(
-    (item,index)=>{
-
-      const category =
-        item.category ||
-        "—";
-
-
-      const branchName =
-        getBranchName(
-          item.branch_id
-        );
-
-
-      const row =
-        document.createElement(
-          "tr"
-        );
-
-
-      row.innerHTML = `
-
-        <td>
-          ${index + 1}
-        </td>
-
-
-        <td>
-
-          <strong>
-
-            ${escapeHTML(
-              item.name
-            )}
-
-          </strong>
-
-        </td>
-
-
-        <td>
-
-          ${escapeHTML(
-            item.unit
-          )}
-
-        </td>
-
-
-        <td
-        class="category-text">
-
-          ${escapeHTML(
-            category
-          )}
-
-        </td>
-
-
-        <td>
-
-          ${escapeHTML(
-            branchName
-          )}
-
-        </td>
-
-
-        <td>
-
-          <button
-          class="edit-btn"
-          onclick="editItem('${String(item.id)}')">
-
-          ✏️ Edit
-
-          </button>
-
-
-          <button
-          class="delete-btn"
-          onclick="deleteItem('${String(item.id)}')">
-
-          🗑️ Delete
-
-          </button>
-
-        </td>
-
-      `;
-
-
-      table.appendChild(
-        row
-      );
-
-    }
-
-  );
-
-}
-
-
-/* =====================================================
-   OPEN ADD FORM
-===================================================== */
-
-function openAddForm(){
-
-  editItemId = null;
-
-
-  document.getElementById(
-    "formTitle"
-  ).textContent =
-    "➕ Add New Item";
-
-
-  document.getElementById(
-    "saveButton"
-  ).textContent =
-    "💾 Save Item";
-
-
-  document.getElementById(
-    "itemName"
-  ).value = "";
-
-
-  document.getElementById(
-    "itemUnit"
-  ).value = "";
-
-
-  document.getElementById(
-    "itemCategory"
-  ).value = "";
-
-
-  const branchGroup =
-    document.getElementById(
-      "branchGroup"
-    );
-
-
-  const branchSelect =
-    document.getElementById(
-      "itemBranch"
-    );
-
-
-  if(isMain){
-
-    branchGroup.style.display =
-      "flex";
-
-    branchSelect.value =
-      "";
-
-  }else{
-
-    branchGroup.style.display =
-      "none";
-
-  }
-
-
-  document.getElementById(
-    "itemForm"
-  ).classList.add(
-    "show"
-  );
-
-
-  window.scrollTo({
-
-    top:0,
-
-    behavior:"smooth"
-
-  });
-
-}
-
-
-/* =====================================================
-   CLOSE FORM
-===================================================== */
-
-function closeForm(){
-
-  editItemId = null;
-
-
-  document.getElementById(
-    "itemForm"
-  ).classList.remove(
-    "show"
-  );
 
 }
 
@@ -1435,6 +738,26 @@ function closeForm(){
 
 async function saveItem(){
 
+  /* CHECK BRANCH */
+
+  if(!branchId){
+
+    showMessage(
+      "❌ Branch hin filatamne. Gara Main Menu deebi'ii Branch filadhu.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const category =
+    document.getElementById(
+      "category"
+    ).value;
+
+
   const name =
     document.getElementById(
       "itemName"
@@ -1443,20 +766,44 @@ async function saveItem(){
 
   const unit =
     document.getElementById(
-      "itemUnit"
+      "unit"
     ).value;
 
 
-  const category =
-    document.getElementById(
-      "itemCategory"
-    ).value;
+  const costPrice =
+    Number(
+      document.getElementById(
+        "costPrice"
+      ).value || 0
+    );
+
+
+  const sellingPrice =
+    Number(
+      document.getElementById(
+        "sellingPrice"
+      ).value || 0
+    );
+
+
+  /* VALIDATION */
+
+  if(!category){
+
+    showMessage(
+      "❌ Category filadhu.",
+      "error"
+    );
+
+    return;
+
+  }
 
 
   if(!name){
 
     showMessage(
-      "❌ Item maqaa galchi.",
+      "❌ Item Name galchi.",
       "error"
     );
 
@@ -1477,10 +824,10 @@ async function saveItem(){
   }
 
 
-  if(!category){
+  if(costPrice < 0){
 
     showMessage(
-      "❌ Category filadhu.",
+      "❌ Cost Price sirrii galchi.",
       "error"
     );
 
@@ -1489,455 +836,153 @@ async function saveItem(){
   }
 
 
-  /* ===================================================
-     BRANCH ID
-  =================================================== */
+  if(sellingPrice < 0){
 
-  let branchId =
-    null;
+    showMessage(
+      "❌ Selling Price sirrii galchi.",
+      "error"
+    );
 
-
-  if(isMain){
-
-    branchId =
-      document.getElementById(
-        "itemBranch"
-      ).value;
-
-
-    if(!branchId){
-
-      showMessage(
-        "❌ Main irraa item galchuuf Branch filadhu.",
-        "error"
-      );
-
-      return;
-
-    }
-
-  }else{
-
-    branchId =
-      getSelectedBranchId();
-
-
-    if(!branchId){
-
-      showMessage(
-        "❌ Branch ID hin argamne.",
-        "error"
-      );
-
-      return;
-
-    }
+    return;
 
   }
 
 
-  const data = {
+  /* BUTTON */
 
-    name:name,
-
-    unit:unit,
-
-    category:category,
-
-    branch_id:branchId
-
-  };
-
-
-  const saveButton =
+  const button =
     document.getElementById(
       "saveButton"
     );
 
-
-  saveButton.disabled =
+  button.disabled =
     true;
 
-
-  saveButton.textContent =
+  button.textContent =
     "⏳ Saving...";
 
 
+  /* =================================================
+     CHECK DUPLICATE ITEM IN SAME BRANCH
+  ================================================= */
+
   try{
 
-    let response;
-
-
-    /* =================================================
-       ADD
-    ================================================= */
-
-    if(
-      editItemId === null
-    ){
-
-      response =
-        await fetch(
-
-          SUPABASE_URL +
-          "/rest/v1/items",
-
-          {
-
-            method:"POST",
-
-            headers:{
-
-              ...getHeaders(),
-
-              "Prefer":
-                "return=representation"
-
-            },
-
-            body:
-              JSON.stringify(
-                data
-              )
-
-          }
-
-        );
-
-    }
-
-
-    /* =================================================
-       EDIT
-    ================================================= */
-
-    else{
-
-      response =
-        await fetch(
-
-          SUPABASE_URL +
-          "/rest/v1/items?id=eq." +
-          encodeURIComponent(
-            editItemId
-          ),
-
-          {
-
-            method:"PATCH",
-
-            headers:{
-
-              ...getHeaders(),
-
-              "Prefer":
-                "return=representation"
-
-            },
-
-            body:
-              JSON.stringify(
-                data
-              )
-
-          }
-
-        );
-
-    }
-
-
-    if(!response.ok){
-
-      const error =
-        await response.text();
-
-
-      console.error(
-        "Save Error:",
-        error
+    const checkUrl =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?select=id" +
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchId
+      ) +
+      "&name=ilike." +
+      encodeURIComponent(
+        name
       );
 
 
-      if(
-        error.includes(
-          "JWT expired"
-        )
-      ){
+    const checkResponse =
+      await fetch(
+        checkUrl,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
 
-        handleExpiredSession();
+
+    if(checkResponse.ok){
+
+      const existing =
+        await checkResponse.json();
+
+      if(existing.length > 0){
+
+        showMessage(
+          "❌ Item kun branch kana keessatti duraan jira.",
+          "error"
+        );
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "💾 Save New Item";
 
         return;
 
       }
 
-
-      showMessage(
-        "❌ Save/Edit hin milkoofne: " +
-        error,
-        "error"
-      );
-
-      return;
-
     }
 
 
-    if(
-      editItemId === null
-    ){
+    /* =================================================
+       INSERT ITEM
+    ================================================= */
 
-      showMessage(
-        "✅ Item haaraan galmaa'e.",
-        "success"
-      );
+    const data = {
 
-    }else{
+      branch_id:
+        branchId,
 
-      showMessage(
-        "✅ Item sirreeffame.",
-        "success"
-      );
+      name:
+        name,
 
-    }
+      unit:
+        unit,
 
+      cost_price:
+        costPrice,
 
-    closeForm();
+      selling_price:
+        sellingPrice,
 
+      category:
+        categoryName(category),
 
-    await loadItems();
+      category_id:
+        Number(category)
 
-  }
+    };
 
-  catch(error){
-
-    console.error(
-      error
-    );
-
-
-    showMessage(
-      "❌ Network error.",
-      "error"
-    );
-
-  }
-
-  finally{
-
-    saveButton.disabled =
-      false;
-
-
-    saveButton.textContent =
-      editItemId === null
-        ? "💾 Save Item"
-        : "💾 Update Item";
-
-  }
-
-}
-
-
-/* =====================================================
-   EDIT ITEM
-===================================================== */
-
-function editItem(id){
-
-  const item =
-    allItems.find(
-
-      i =>
-        String(i.id) ===
-        String(id)
-
-    );
-
-
-  if(!item){
-
-    showMessage(
-      "❌ Item hin argamne.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  editItemId =
-    id;
-
-
-  document.getElementById(
-    "formTitle"
-  ).textContent =
-    "✏️ Edit Item";
-
-
-  document.getElementById(
-    "saveButton"
-  ).textContent =
-    "💾 Update Item";
-
-
-  document.getElementById(
-    "itemName"
-  ).value =
-    item.name || "";
-
-
-  document.getElementById(
-    "itemUnit"
-  ).value =
-    item.unit || "";
-
-
-  document.getElementById(
-    "itemCategory"
-  ).value =
-    item.category || "";
-
-
-  const branchGroup =
-    document.getElementById(
-      "branchGroup"
-    );
-
-
-  if(isMain){
-
-    branchGroup.style.display =
-      "flex";
-
-
-    document.getElementById(
-      "itemBranch"
-    ).value =
-      item.branch_id || "";
-
-  }else{
-
-    branchGroup.style.display =
-      "none";
-
-  }
-
-
-  document.getElementById(
-    "itemForm"
-  ).classList.add(
-    "show"
-  );
-
-
-  window.scrollTo({
-
-    top:0,
-
-    behavior:"smooth"
-
-  });
-
-}
-
-
-/* =====================================================
-   DELETE ITEM
-===================================================== */
-
-async function deleteItem(id){
-
-  const item =
-    allItems.find(
-
-      i =>
-        String(i.id) ===
-        String(id)
-
-    );
-
-
-  if(!item){
-
-    showMessage(
-      "❌ Item hin argamne.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const confirmDelete =
-    confirm(
-
-      "Item kana haquu barbaaddaa?\n\n" +
-      item.name
-
-    );
-
-
-  if(!confirmDelete){
-
-    return;
-
-  }
-
-
-  try{
 
     const response =
       await fetch(
 
         SUPABASE_URL +
-        "/rest/v1/items?id=eq." +
-        encodeURIComponent(
-          id
-        ),
+        "/rest/v1/items",
 
         {
 
-          method:"DELETE",
+          method:"POST",
 
-          headers:
-            getHeaders()
+          headers:getHeaders(),
+
+          body:
+            JSON.stringify(
+              data
+            )
 
         }
 
       );
 
 
+    const result =
+      await response.text();
+
+
     if(!response.ok){
 
-      const error =
-        await response.text();
-
-
       console.error(
-        error
+        "Save item error:",
+        result
       );
 
-
-      if(
-        error.includes(
-          "JWT expired"
-        )
-      ){
-
-        handleExpiredSession();
-
-        return;
-
-      }
-
-
       showMessage(
-        "❌ Item haquun hin milkoofne: " +
-        error,
+        "❌ Item save hin milkoofne: " +
+        result,
         "error"
       );
 
@@ -1946,27 +991,292 @@ async function deleteItem(id){
     }
 
 
+    /* SUCCESS */
+
     showMessage(
-      "✅ Item haqameera.",
+      "✅ Item haaraan branch " +
+      branchName +
+      " keessatti galmaa'e.",
       "success"
     );
 
 
+    clearForm();
+
     await loadItems();
 
-  }
 
-  catch(error){
+  }catch(error){
 
     console.error(
+      "Save error:",
       error
     );
 
-
     showMessage(
-      "❌ Network error.",
+      "❌ Network error. Mee connection kee ilaali.",
       "error"
     );
+
+  }
+
+
+  button.disabled =
+    false;
+
+  button.textContent =
+    "💾 Save New Item";
+
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm(){
+
+  document.getElementById(
+    "category"
+  ).value = "";
+
+  document.getElementById(
+    "itemName"
+  ).value = "";
+
+  document.getElementById(
+    "unit"
+  ).value = "";
+
+  document.getElementById(
+    "costPrice"
+  ).value = "";
+
+  document.getElementById(
+    "sellingPrice"
+  ).value = "";
+
+}
+
+
+/* =====================================================
+   LOAD ITEMS
+===================================================== */
+
+async function loadItems(){
+
+  const table =
+    document.getElementById(
+      "itemsTable"
+    );
+
+
+  if(!branchId){
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="7"
+          class="empty">
+
+          ❌ Branch hin filatamne.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+
+  try{
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchId
+      ) +
+      "&order=id.asc";
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
+
+
+    if(!response.ok){
+
+      const error =
+        await response.text();
+
+      console.error(
+        "Load items error:",
+        error
+      );
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td
+            colspan="7"
+            class="empty">
+
+            ❌ Items loading error.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    const items =
+      await response.json();
+
+
+    table.innerHTML =
+      "";
+
+
+    if(items.length === 0){
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td
+            colspan="7"
+            class="empty">
+
+            📦 Branch kana keessatti Item
+            haaraan hin galmoofne.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    items.forEach(
+      (item,index)=>{
+
+        const row =
+          document.createElement(
+            "tr"
+          );
+
+
+        row.innerHTML = `
+
+          <td>
+            ${index + 1}
+          </td>
+
+          <td>
+            <strong>
+              ${escapeHtml(
+                item.name
+              )}
+            </strong>
+          </td>
+
+          <td>
+
+            <span
+              class="category-badge">
+
+              ${escapeHtml(
+                item.category
+                ||
+                categoryName(
+                  item.category_id
+                )
+              )}
+
+            </span>
+
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.unit
+            )}
+          </td>
+
+          <td>
+            ${Number(
+              item.cost_price || 0
+            ).toLocaleString()}
+          </td>
+
+          <td>
+            ${Number(
+              item.selling_price || 0
+            ).toLocaleString()}
+          </td>
+
+          <td>
+            ${formatDate(
+              item.created_at
+            )}
+          </td>
+
+        `;
+
+
+        table.appendChild(
+          row
+        );
+
+      }
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Items error:",
+      error
+    );
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="7"
+          class="empty">
+
+          ❌ Network error.
+
+        </td>
+
+      </tr>
+
+    `;
 
   }
 
@@ -1974,10 +1284,42 @@ async function deleteItem(id){
 
 
 /* =====================================================
-   EXPIRED SESSION
+   DATE
 ===================================================== */
 
-function handleExpiredSession(){
+function formatDate(value){
+
+  if(!value)
+    return "—";
+
+
+  const date =
+    new Date(value);
+
+
+  if(
+    isNaN(
+      date.getTime()
+    )
+  ){
+
+    return escapeHtml(
+      value
+    );
+
+  }
+
+
+  return date.toLocaleString();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logoutUser(){
 
   localStorage.removeItem(
     "access_token"
@@ -1988,36 +1330,32 @@ function handleExpiredSession(){
   );
 
   localStorage.removeItem(
+    "user"
+  );
+
+  localStorage.removeItem(
+    "user_id"
+  );
+
+  localStorage.removeItem(
+    "user_branch"
+  );
+
+  localStorage.removeItem(
     "is_logged_in"
   );
 
-  showMessage(
-    "🔐 Login session expired. Irra deebi'ii login godhi.",
-    "error"
+  localStorage.removeItem(
+    "selected_branch_name"
   );
 
-
-  setTimeout(
-    function(){
-
-      window.location.href =
-        "index.html";
-
-    },
-    1500
+  localStorage.removeItem(
+    "selected_branch_id"
   );
 
-}
-
-
-/* =====================================================
-   BACK
-===================================================== */
-
-function goBack(){
 
   window.location.href =
-    "dashboard.html";
+    "index.html";
 
 }
 
@@ -2026,37 +1364,9 @@ function goBack(){
    START
 ===================================================== */
 
-async function start(){
-
-  /*
-    Login check
-  */
-
-  if(
-    localStorage.getItem(
-      "is_logged_in"
-    ) !== "true"
-  ){
-
-    window.location.href =
-      "index.html";
-
-    return;
-
-  }
-
-
-  await loadBranches();
-
-  await loadItems();
-
-}
-
-
-start();
+loadItems();
 
 </script>
 
 </body>
-
 </html>
