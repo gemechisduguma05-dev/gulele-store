@@ -21,8 +21,11 @@ body{
 header{
   background:#1e3a8a;
   color:white;
-  padding:18px;
-  text-align:center;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
 
 header h1{
@@ -31,61 +34,56 @@ header h1{
 }
 
 header p{
-  margin:6px 0 0;
+  margin:5px 0 0;
+  font-size:14px;
+}
+
+.back{
+  background:#64748b;
+  color:white;
+  border:0;
+  padding:10px 15px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
 .container{
   width:96%;
-  max-width:1400px;
+  max-width:1450px;
   margin:20px auto;
 }
 
-.top-bar,
-.form-box,
-.table-box{
+.branch-box{
   background:white;
-  border-radius:12px;
-  box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-
-.top-bar{
-  padding:16px;
+  padding:18px;
+  border-radius:10px;
   margin-bottom:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.btn{
-  border:0;
-  padding:11px 16px;
-  border-radius:7px;
-  color:white;
+.branch-title{
+  color:#1e3a8a;
+  font-size:21px;
   font-weight:bold;
-  cursor:pointer;
-  text-decoration:none;
 }
 
-.blue{background:#1e3a8a}
-.green{background:#15803d}
-.gray{background:#64748b}
+.branch-sub{
+  margin-top:7px;
+  color:#64748b;
+}
 
 .form-box{
-  display:none;
+  background:white;
   padding:20px;
+  border-radius:10px;
   margin-bottom:18px;
-}
-
-.form-box.show{
-  display:block;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .form-title{
   color:#1e3a8a;
-  font-size:21px;
+  font-size:20px;
   font-weight:bold;
   margin-bottom:16px;
 }
@@ -93,7 +91,7 @@ header p{
 .form-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:14px;
+  gap:13px;
 }
 
 .form-group{
@@ -101,13 +99,13 @@ header p{
   flex-direction:column;
 }
 
-label{
+.form-group label{
   font-weight:bold;
   margin-bottom:6px;
 }
 
-input,
-select{
+.form-group input,
+.form-group select{
   width:100%;
   padding:11px;
   border:1px solid #cbd5e1;
@@ -115,30 +113,26 @@ select{
   font-size:15px;
 }
 
-input:focus,
-select:focus{
-  outline:none;
-  border-color:#2563eb;
-}
-
-.save-row{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
-}
-
-.save-btn{
+.save{
+  margin-top:16px;
+  background:#15803d;
+  color:white;
   border:0;
   padding:11px 20px;
   border-radius:7px;
-  background:#15803d;
-  color:white;
-  font-weight:bold;
   cursor:pointer;
+  font-weight:bold;
 }
 
-.cancel-btn{
+.cancel{
+  margin-top:16px;
   background:#64748b;
+  color:white;
+  border:0;
+  padding:11px 20px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
 .message{
@@ -161,18 +155,47 @@ select:focus{
   color:#991b1b;
 }
 
-.section-title{
-  padding:16px;
+.summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.card{
   background:white;
+  padding:18px;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.card h3{
+  margin:0;
+  color:#64748b;
+  font-size:14px;
+}
+
+.card strong{
+  display:block;
   color:#1e3a8a;
-  font-size:21px;
+  font-size:28px;
+  margin-top:8px;
+}
+
+.table-title{
+  background:white;
+  padding:16px;
+  border-radius:10px 10px 0 0;
+  color:#1e3a8a;
+  font-size:20px;
   font-weight:bold;
-  border-radius:12px 12px 0 0;
 }
 
 .table-box{
+  background:white;
   overflow-x:auto;
-  border-radius:0 0 12px 12px;
+  border-radius:0 0 10px 10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 table{
@@ -196,52 +219,47 @@ td{
 }
 
 tr:hover{
-  background:#f8fafc;
+  background:#eff6ff;
 }
 
-.action-btn{
-  border:0;
-  padding:7px 11px;
-  border-radius:6px;
+.edit-btn{
+  background:#2563eb;
   color:white;
+  border:0;
+  padding:7px 10px;
+  border-radius:5px;
   cursor:pointer;
   font-weight:bold;
 }
 
-.edit{
-  background:#2563eb;
-}
-
-.delete{
+.delete-btn{
   background:#dc2626;
-}
-
-.branch-badge{
-  background:#eff6ff;
-  color:#1e3a8a;
-  padding:5px 9px;
-  border-radius:15px;
+  color:white;
+  border:0;
+  padding:7px 10px;
+  border-radius:5px;
+  cursor:pointer;
   font-weight:bold;
 }
 
-.category-badge{
-  background:#f1f5f9;
-  color:#475569;
-  padding:5px 9px;
+.badge{
+  display:inline-block;
+  padding:5px 8px;
   border-radius:15px;
+  background:#eff6ff;
+  color:#1e3a8a;
+  font-weight:bold;
+  font-size:12px;
+}
+
+.hidden{
+  display:none;
 }
 
 @media(max-width:600px){
-  .container{
-    width:94%;
-  }
-
-  .save-row{
+  header{
     flex-direction:column;
-  }
-
-  .save-btn{
-    width:100%;
+    align-items:flex-start;
   }
 }
 </style>
@@ -250,360 +268,310 @@ tr:hover{
 <body>
 
 <header>
-  <h1>AAFDRMC - ITEMS</h1>
-  <p>Item Management System</p>
+
+<div>
+<h1>AAFDRMC</h1>
+<p>Stock Management System</p>
+</div>
+
+<button class="back" onclick="goBack()">
+⬅️ Back to Dashboard
+</button>
+
 </header>
+
 
 <div class="container">
 
-  <div class="top-bar">
 
-    <div class="buttons">
+<!-- BRANCH -->
 
-      <button
-        class="btn green"
-        onclick="openItemForm()">
-        ➕ Add New Item
-      </button>
+<div class="branch-box">
 
-      <a
-        href="dashboard.html"
-        class="btn blue">
-        🏠 Main Dashboard
-      </a>
+<div class="branch-title" id="branchTitle">
+Loading Branch...
+</div>
 
-      <a
-        href="index.html"
-        class="btn gray">
-        ⬅️ Back
-      </a>
+<div class="branch-sub">
+Items galmeessuu fi bulchuu
+</div>
 
-    </div>
+</div>
 
-  </div>
 
+<!-- MESSAGE -->
 
-  <div
-    id="message"
-    class="message">
-  </div>
+<div id="message" class="message"></div>
 
 
-  <!-- ADD ITEM -->
+<!-- ADD / EDIT FORM -->
 
-  <div
-    id="itemForm"
-    class="form-box">
+<div class="form-box">
 
-    <div class="form-title">
-      📦 Add New Item
-    </div>
+<div class="form-title" id="formTitle">
+➕ Add New Item
+</div>
 
-    <div class="form-grid">
 
+<div class="form-grid">
 
-      <!-- ITEM ID -->
 
-      <div class="form-group">
+<div class="form-group">
 
-        <label>
-          Item ID
-        </label>
+<label>
+Item Name
+</label>
 
-        <input
-          id="itemId"
-          type="text"
-          placeholder="Item ID">
+<input
+type="text"
+id="itemName"
+placeholder="Maqaa Item">
 
-      </div>
+</div>
 
 
-      <!-- ITEM NAME -->
+<div class="form-group">
 
-      <div class="form-group">
+<label>
+Unit
+</label>
 
-        <label>
-          Item Name
-        </label>
+<select id="itemUnit">
 
-        <input
-          id="itemName"
-          type="text"
-          placeholder="Item Name">
+<option value="">
+-- Select Unit --
+</option>
 
-      </div>
+<option value="Quintal">
+Quintal
+</option>
 
+<option value="Kg">
+Kg
+</option>
 
-      <!-- UNIT -->
+<option value="Carton">
+Carton
+</option>
 
-      <div class="form-group">
+<option value="Bag">
+Bag
+</option>
 
-        <label>
-          Unit
-        </label>
+<option value="Piece">
+Piece
+</option>
 
-        <select id="itemUnit">
+<option value="Liter">
+Liter
+</option>
 
-          <option value="">
-            -- Select Unit --
-          </option>
+<option value="Box">
+Box
+</option>
 
-          <option value="Quintal">
-            Quintal
-          </option>
+<option value="Packet">
+Packet
+</option>
 
-          <option value="Kg">
-            Kg
-          </option>
+<option value="Other">
+Other
+</option>
 
-          <option value="Carton">
-            Carton
-          </option>
+</select>
 
-          <option value="Box">
-            Box
-          </option>
+</div>
 
-          <option value="Piece">
-            Piece
-          </option>
 
-          <option value="Liter">
-            Liter
-          </option>
+<div class="form-group">
 
-          <option value="Bag">
-            Bag
-          </option>
+<label>
+Category
+</label>
 
-          <option value="Other">
-            Other
-          </option>
+<select id="itemCategory">
 
-        </select>
+<option value="">
+-- Select Category --
+</option>
 
-      </div>
+<option value="Strategic Food Items">
+Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items
+</option>
 
+<option value="Daily Food Items">
+Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items
+</option>
 
-      <!-- COST -->
+<option value="Daily Non-Food Items">
+Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items
+</option>
 
-      <div class="form-group">
+<option value="Non-Food Hygiene Items">
+Meeshaalee Qulqullinaa / Non-Food Hygiene Items
+</option>
 
-        <label>
-          Cost Price
-        </label>
+<option value="Non-Food Kitchen Items">
+Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items
+</option>
 
-        <input
-          id="costPrice"
-          type="number"
-          min="0"
-          step="any"
-          placeholder="Cost Price">
+<option value="Non-Food Building/Construction Items">
+Meeshaa Ijaarsa Manaaf Oolu / Non-Food Building/Construction Items
+</option>
 
-      </div>
+</select>
 
+</div>
 
-      <!-- SELLING -->
 
-      <div class="form-group">
+<div class="form-group">
 
-        <label>
-          Selling Price
-        </label>
+<label>
+Cost Price
+</label>
 
-        <input
-          id="sellingPrice"
-          type="number"
-          min="0"
-          step="any"
-          placeholder="Selling Price">
+<input
+type="number"
+id="costPrice"
+min="0"
+step="0.01"
+placeholder="0">
 
-      </div>
+</div>
 
 
-      <!-- CATEGORY -->
+<div class="form-group">
 
-      <div class="form-group">
+<label>
+Selling Price
+</label>
 
-        <label>
-          Category
-        </label>
+<input
+type="number"
+id="sellingPrice"
+min="0"
+step="0.01"
+placeholder="0">
 
-        <select id="itemCategory">
+</div>
 
-          <option value="">
-            -- Select Category --
-          </option>
 
-          <option value="Strategic Food Items">
-            Strategic Food Items
-          </option>
+<div class="form-group">
 
-          <option value="Daily Food Items">
-            Daily Food Items
-          </option>
+<label>
+Expiry Date
+</label>
 
-          <option value="Daily Non-Food Items">
-            Daily Non-Food Items
-          </option>
+<input
+type="date"
+id="expiryDate">
 
-          <option value="Non-Food Hygiene Items">
-            Non-Food Hygiene Items
-          </option>
+</div>
 
-          <option value="Non-Food Kitchen Items">
-            Non-Food Kitchen Items
-          </option>
 
-          <option value="Non-Food Building/Construction Items">
-            Non-Food Building/Construction Items
-          </option>
+</div>
 
-        </select>
 
-      </div>
+<button
+id="saveButton"
+class="save"
+onclick="saveItem()">
 
+💾 Save New Item
 
-      <!-- BRANCH -->
+</button>
 
-      <div class="form-group">
 
-        <label>
-          Branch
-        </label>
+<button
+id="cancelButton"
+class="cancel hidden"
+onclick="cancelEdit()">
 
-        <select id="itemBranch">
+Cancel Edit
 
-          <option value="">
-            -- Select Branch --
-          </option>
+</button>
 
-          <option value="Main">
-            Main
-          </option>
+</div>
 
-          <option value="Gulele">
-            Gulele
-          </option>
 
-          <option value="Addis Katama">
-            Addis Katama
-          </option>
+<!-- SUMMARY -->
 
-          <option value="Kolfee">
-            Kolfee
-          </option>
+<div class="summary">
 
-          <option value="Nifas Silk Lafto">
-            Nifas Silk Lafto
-          </option>
+<div class="card">
+<h3>Total Items</h3>
+<strong id="totalItems">0</strong>
+</div>
 
-          <option value="Kirkos">
-            Kirkos
-          </option>
+<div class="card">
+<h3>Total Quantity</h3>
+<strong id="totalQuantity">0</strong>
+</div>
 
-          <option value="Lami Kura">
-            Lami Kura
-          </option>
+<div class="card">
+<h3>Total Stock Value</h3>
+<strong id="totalValue">0</strong>
+</div>
 
-          <option value="Arada">
-            Arada
-          </option>
+</div>
 
-          <option value="Lideta">
-            Lideta
-          </option>
 
-          <option value="Bole">
-            Bole
-          </option>
+<!-- TABLE -->
 
-          <option value="Ekaa">
-            Ekaa
-          </option>
+<div class="table-title">
 
-          <option value="Akaki Kality">
-            Akaki Kality
-          </option>
+📦 Item Register
 
-          <option value="Center">
-            Center
-          </option>
+<span id="tableBranch"></span>
 
-        </select>
+</div>
 
-      </div>
 
-    </div>
+<div class="table-box">
 
+<table>
 
-    <div class="save-row">
+<thead>
 
-      <button
-        class="save-btn"
-        onclick="saveItem()">
-        💾 Save New Item
-      </button>
+<tr>
 
-      <button
-        class="save-btn cancel-btn"
-        onclick="closeItemForm()">
-        Cancel
-      </button>
+<th>No</th>
+<th>ID</th>
+<th>Item Name</th>
+<th>Unit</th>
+<th>Category</th>
+<th>Quantity</th>
+<th>Cost Price</th>
+<th>Selling Price</th>
+<th>Expiry Date</th>
+<th>Branch</th>
+<th>Created</th>
+<th>Action</th>
 
-    </div>
+</tr>
 
-  </div>
+</thead>
 
 
-  <!-- ITEMS -->
+<tbody id="itemsTable">
 
-  <div class="section-title">
-    📋 Registered Items
-  </div>
+<tr>
 
-  <div class="table-box">
+<td colspan="12"
+style="text-align:center;padding:25px">
 
-    <table>
+Loading...
 
-      <thead>
+</td>
 
-        <tr>
+</tr>
 
-          <th>No</th>
-          <th>Item ID</th>
-          <th>Item Name</th>
-          <th>Unit</th>
-          <th>Cost Price</th>
-          <th>Selling Price</th>
-          <th>Category</th>
-          <th>Branch</th>
-          <th>Quantity</th>
-          <th>Action</th>
+</tbody>
 
-        </tr>
+</table>
 
-      </thead>
+</div>
 
-      <tbody id="itemsTable">
-
-        <tr>
-
-          <td
-            colspan="10"
-            style="text-align:center;padding:25px">
-
-            Loading...
-
-          </td>
-
-        </tr>
-
-      </tbody>
-
-    </table>
-
-  </div>
 
 </div>
 
@@ -622,66 +590,54 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   BRANCHES
+   BRANCH
 ===================================================== */
 
-const BRANCHES = {
+const branchId =
+localStorage.getItem("selected_branch_id");
 
-  "Main":"Main",
-
-  "Gulele":"Gulele",
-
-  "Addis Katama":"Addis Katama",
-
-  "Kolfee":"Kolfee",
-
-  "Nifas Silk Lafto":"Nifas Silk Lafto",
-
-  "Kirkos":"Kirkos",
-
-  "Lami Kura":"Lami Kura",
-
-  "Arada":"Arada",
-
-  "Lideta":"Lideta",
-
-  "Bole":"Bole",
-
-  "Ekaa":"Ekaa",
-
-  "Akaki Kality":"Akaki Kality",
-
-  "Center":"Center"
-
-};
-
-
-/* =====================================================
-   CATEGORIES — 6 ONLY
-===================================================== */
-
-const CATEGORIES = [
-
-  "Strategic Food Items",
-
-  "Daily Food Items",
-
-  "Daily Non-Food Items",
-
-  "Non-Food Hygiene Items",
-
-  "Non-Food Kitchen Items",
-
-  "Non-Food Building/Construction Items"
-
-];
+const branchName =
+localStorage.getItem("selected_branch_name") ||
+"Main";
 
 
 /* =====================================================
    GLOBAL
 ===================================================== */
 
-let items = [];
+let allItems = [];
+
+let editingId = null;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const branchTitle =
+document.getElementById("branchTitle");
+
+const tableBranch =
+document.getElementById("tableBranch");
+
+const itemsTable =
+document.getElementById("itemsTable");
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
 
 
 /* =====================================================
@@ -690,38 +646,18 @@ let items = [];
 
 function getHeaders(){
 
-  return {
+return {
 
-    "apikey":
-      SUPABASE_KEY,
+"apikey":
+SUPABASE_KEY,
 
-    "Authorization":
-      "Bearer " + SUPABASE_KEY,
+"Authorization":
+"Bearer " + SUPABASE_KEY,
 
-    "Content-Type":
-      "application/json",
+"Content-Type":
+"application/json"
 
-    "Prefer":
-      "return=representation"
-
-  };
-
-}
-
-
-/* =====================================================
-   ESCAPE
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+};
 
 }
 
@@ -730,342 +666,36 @@ function escapeHTML(value){
    MESSAGE
 ===================================================== */
 
-function showMessage(
-  text,
-  type
-){
+function showMessage(text,type){
 
-  const box =
-    document.getElementById(
-      "message"
-    );
+const box =
+document.getElementById("message");
 
-  box.textContent =
-    text;
+box.textContent = text;
 
-  box.className =
-    "message " + type;
+box.className =
+"message " + type;
 
-  setTimeout(
-    ()=>{
-      box.className =
-        "message";
-    },
-    5000
-  );
+setTimeout(()=>{
+
+box.className = "message";
+
+},5000);
 
 }
 
 
 /* =====================================================
-   FORM
+   BRANCH DISPLAY
 ===================================================== */
 
-function openItemForm(){
+function showBranch(){
 
-  document.getElementById(
-    "itemForm"
-  ).classList.add("show");
+branchTitle.textContent =
+"🏢 Branch: " + branchName;
 
-}
-
-
-function closeItemForm(){
-
-  document.getElementById(
-    "itemForm"
-  ).classList.remove("show");
-
-}
-
-
-/* =====================================================
-   SAVE ITEM
-===================================================== */
-
-async function saveItem(){
-
-  const itemId =
-    document.getElementById(
-      "itemId"
-    ).value.trim();
-
-  const name =
-    document.getElementById(
-      "itemName"
-    ).value.trim();
-
-  const unit =
-    document.getElementById(
-      "itemUnit"
-    ).value;
-
-  const costPrice =
-    Number(
-      document.getElementById(
-        "costPrice"
-      ).value || 0
-    );
-
-  const sellingPrice =
-    Number(
-      document.getElementById(
-        "sellingPrice"
-      ).value || 0
-    );
-
-  const category =
-    document.getElementById(
-      "itemCategory"
-    ).value;
-
-  const branchName =
-    document.getElementById(
-      "itemBranch"
-    ).value;
-
-
-  /* VALIDATION */
-
-  if(!itemId){
-
-    showMessage(
-      "❌ Item ID galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!name){
-
-    showMessage(
-      "❌ Item Name galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!unit){
-
-    showMessage(
-      "❌ Unit filadhu.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!category){
-
-    showMessage(
-      "❌ Category filadhu.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!branchName){
-
-    showMessage(
-      "❌ Branch filadhu.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(costPrice < 0){
-
-    showMessage(
-      "❌ Cost Price sirrii miti.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(sellingPrice < 0){
-
-    showMessage(
-      "❌ Selling Price sirrii miti.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /* CHECK DUPLICATE ITEM ID */
-
-  const duplicate =
-    items.find(
-      item =>
-        String(item.id) ===
-        String(itemId)
-    );
-
-
-  if(duplicate){
-
-    showMessage(
-      "❌ Item ID kun duraan jira.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /* ===================================================
-     BRANCH ID
-     Maqaa branch akka branch_id
-     fayyadama.
-  =================================================== */
-
-  const data = {
-
-    id: itemId,
-
-    name: name,
-
-    unit: unit,
-
-    quantity: 0,
-
-    cost_price: costPrice,
-
-    selling_price: sellingPrice,
-
-    category: category,
-
-    branch_id: branchName
-
-  };
-
-
-  try{
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/items",
-
-        {
-
-          method:"POST",
-
-          headers:getHeaders(),
-
-          body:
-            JSON.stringify(data)
-
-        }
-
-      );
-
-
-    const text =
-      await response.text();
-
-
-    if(!response.ok){
-
-      console.error(
-        "Save item error:",
-        text
-      );
-
-      showMessage(
-        "❌ Item save hin milkoofne: " +
-        text,
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    showMessage(
-      "✅ Item haaraan sirriitti galmaa'e.",
-      "success"
-    );
-
-
-    clearForm();
-
-    closeItemForm();
-
-    await loadItems();
-
-  }
-  catch(error){
-
-    console.error(
-      error
-    );
-
-    showMessage(
-      "❌ Network error.",
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   CLEAR FORM
-===================================================== */
-
-function clearForm(){
-
-  document.getElementById(
-    "itemId"
-  ).value = "";
-
-  document.getElementById(
-    "itemName"
-  ).value = "";
-
-  document.getElementById(
-    "itemUnit"
-  ).value = "";
-
-  document.getElementById(
-    "costPrice"
-  ).value = "";
-
-  document.getElementById(
-    "sellingPrice"
-  ).value = "";
-
-  document.getElementById(
-    "itemCategory"
-  ).value = "";
-
-  document.getElementById(
-    "itemBranch"
-  ).value = "";
+tableBranch.textContent =
+" — " + branchName;
 
 }
 
@@ -1076,335 +706,829 @@ function clearForm(){
 
 async function loadItems(){
 
-  const table =
-    document.getElementById(
-      "itemsTable"
-    );
+itemsTable.innerHTML = `
 
-  table.innerHTML = `
+<tr>
+<td colspan="12"
+style="text-align:center;padding:25px">
+⏳ Items loading...
+</td>
+</tr>
 
-    <tr>
-
-      <td
-        colspan="10"
-        style="text-align:center;padding:25px">
-
-        ⏳ Loading items...
-
-      </td>
-
-    </tr>
-
-  `;
+`;
 
 
-  try{
+try{
 
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/items" +
-        "?select=*" +
-        "&order=id.asc",
-
-        {
-
-          method:"GET",
-
-          headers:getHeaders()
-
-        }
-
-      );
+let url =
+SUPABASE_URL +
+"/rest/v1/items?select=*";
 
 
-    const text =
-      await response.text();
+/*
+  Main:
+  branch 12 hundaa
+
+  Branch:
+  branch sana qofa
+*/
+
+if(
+branchId &&
+branchName !== "Main"
+){
+
+url +=
+"&branch_id=eq." +
+encodeURIComponent(branchId);
+
+}
 
 
-    if(!response.ok){
-
-      console.error(
-        "Load items error:",
-        text
-      );
-
-      table.innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="10"
-            style="text-align:center;padding:25px">
-
-            ❌ Items loading error.
-
-          </td>
-
-        </tr>
-
-      `;
-
-      return;
-
-    }
+url += "&order=id.asc";
 
 
-    items =
-      JSON.parse(text);
+const response =
+await fetch(
+url,
+{
+method:"GET",
+headers:getHeaders()
+}
+);
 
 
-    renderItems();
+if(!response.ok){
 
-  }
-  catch(error){
+const error =
+await response.text();
 
-    console.error(
-      error
-    );
+console.error(error);
 
-    table.innerHTML = `
+itemsTable.innerHTML = `
 
-      <tr>
+<tr>
+<td colspan="12"
+style="text-align:center;padding:25px;color:#991b1b">
 
-        <td
-          colspan="10"
-          style="text-align:center;padding:25px">
+❌ Items loading error
 
-          ❌ Network error.
+</td>
+</tr>
 
-        </td>
+`;
 
-      </tr>
+showMessage(
+"Items dubbisuun hin milkoofne.",
+"error"
+);
 
-    `;
+return;
 
-  }
+}
+
+
+allItems =
+await response.json();
+
+
+renderItems();
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ Network error.",
+"error"
+);
+
+}
 
 }
 
 
 /* =====================================================
-   RENDER
+   RENDER ITEMS
 ===================================================== */
 
 function renderItems(){
 
-  const table =
-    document.getElementById(
-      "itemsTable"
-    );
+itemsTable.innerHTML = "";
 
-  table.innerHTML = "";
+let totalQuantity = 0;
 
-
-  if(items.length === 0){
-
-    table.innerHTML = `
-
-      <tr>
-
-        <td
-          colspan="10"
-          style="text-align:center;padding:25px">
-
-          📦 Item tokko illee hin galmoofne.
-
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
+let totalValue = 0;
 
 
-  items.forEach(
-    (item,index)=>{
+if(allItems.length === 0){
 
-      const row =
-        document.createElement(
-          "tr"
-        );
+itemsTable.innerHTML = `
 
+<tr>
 
-      row.innerHTML = `
+<td colspan="12"
+style="text-align:center;padding:30px">
 
-        <td>
-          ${index + 1}
-        </td>
+📦 Item haaraan hin galmoofne.
 
-        <td>
-          <strong>
-            ${escapeHTML(item.id)}
-          </strong>
-        </td>
+</td>
 
-        <td>
-          ${escapeHTML(item.name)}
-        </td>
+</tr>
 
-        <td>
-          ${escapeHTML(item.unit)}
-        </td>
+`;
 
-        <td>
-          ${Number(
-            item.cost_price || 0
-          ).toLocaleString()}
-        </td>
-
-        <td>
-          ${Number(
-            item.selling_price || 0
-          ).toLocaleString()}
-        </td>
-
-        <td>
-          <span class="category-badge">
-            ${escapeHTML(
-              item.category || "—"
-            )}
-          </span>
-        </td>
-
-        <td>
-          <span class="branch-badge">
-            ${escapeHTML(
-              item.branch_id || "—"
-            )}
-          </span>
-        </td>
-
-        <td>
-          ${Number(
-            item.quantity || 0
-          ).toLocaleString()}
-        </td>
-
-        <td>
-
-          <button
-            class="action-btn delete"
-            onclick="deleteItem('${escapeHTML(item.id)}')">
-
-            🗑 Delete
-
-          </button>
-
-        </td>
-
-      `;
+}
 
 
-      table.appendChild(
-        row
-      );
+allItems.forEach(
+(item,index)=>{
 
-    }
-  );
+const quantity =
+Number(item.quantity || 0);
+
+const cost =
+Number(item.cost_price || 0);
+
+totalQuantity += quantity;
+
+totalValue +=
+quantity * cost;
+
+
+const row =
+document.createElement("tr");
+
+
+row.innerHTML = `
+
+<td>
+${index + 1}
+</td>
+
+<td>
+<span class="badge">
+${escapeHTML(item.id)}
+</span>
+</td>
+
+<td>
+<strong>
+${escapeHTML(item.name)}
+</strong>
+</td>
+
+<td>
+${escapeHTML(item.unit || "")}
+</td>
+
+<td>
+${escapeHTML(item.category || "")}
+</td>
+
+<td>
+${quantity}
+</td>
+
+<td>
+${cost.toLocaleString()}
+</td>
+
+<td>
+${Number(
+item.selling_price || 0
+).toLocaleString()}
+</td>
+
+<td>
+${escapeHTML(
+item.expiry_date || "—"
+)}
+</td>
+
+<td>
+${escapeHTML(
+item.branch_name ||
+branchName
+)}
+</td>
+
+<td>
+${escapeHTML(
+formatDate(item.created_at)
+)}
+</td>
+
+<td>
+
+<button
+class="edit-btn"
+onclick="editItem('${escapeHTML(item.id)}')">
+
+✏️ Edit
+
+</button>
+
+<button
+class="delete-btn"
+onclick="deleteItem('${escapeHTML(item.id)}')">
+
+🗑️ Delete
+
+</button>
+
+</td>
+
+`;
+
+itemsTable.appendChild(row);
+
+});
+
+
+document.getElementById(
+"totalItems"
+).textContent =
+allItems.length;
+
+
+document.getElementById(
+"totalQuantity"
+).textContent =
+totalQuantity.toLocaleString();
+
+
+document.getElementById(
+"totalValue"
+).textContent =
+totalValue.toLocaleString();
 
 }
 
 
 /* =====================================================
-   DELETE ITEM
+   SAVE ITEM
 ===================================================== */
 
-async function deleteItem(
-  id
-){
+async function saveItem(){
 
-  const item =
-    items.find(
-      i =>
-        String(i.id) ===
-        String(id)
-    );
+const name =
+document.getElementById(
+"itemName"
+).value.trim();
 
 
-  if(!item)
-    return;
+const unit =
+document.getElementById(
+"itemUnit"
+).value;
 
 
-  const confirmed =
-    confirm(
-      "Item kana haqeeqa galuu? " +
-      item.name
-    );
+const category =
+document.getElementById(
+"itemCategory"
+).value;
 
 
-  if(!confirmed)
-    return;
+const costPrice =
+Number(
+document.getElementById(
+"costPrice"
+).value || 0
+);
 
 
-  try{
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/items" +
-        "?id=eq." +
-        encodeURIComponent(id),
-
-        {
-
-          method:"DELETE",
-
-          headers:getHeaders()
-
-        }
-
-      );
+const sellingPrice =
+Number(
+document.getElementById(
+"sellingPrice"
+).value || 0
+);
 
 
-    const text =
-      await response.text();
+const expiryDate =
+document.getElementById(
+"expiryDate"
+).value;
 
 
-    if(!response.ok){
+if(!name){
 
-      console.error(
-        "Delete error:",
-        text
-      );
+showMessage(
+"❌ Item Name galchi.",
+"error"
+);
 
-      showMessage(
-        "❌ Item haqamuu hin dandeenye: " +
-        text,
-        "error"
-      );
+return;
 
-      return;
-
-    }
+}
 
 
-    showMessage(
-      "✅ Item haqame.",
-      "success"
-    );
+if(!unit){
+
+showMessage(
+"❌ Unit filadhu.",
+"error"
+);
+
+return;
+
+}
 
 
-    await loadItems();
+if(!category){
 
-  }
-  catch(error){
+showMessage(
+"❌ Category filadhu.",
+"error"
+);
 
-    console.error(
-      error
-    );
+return;
 
-    showMessage(
-      "❌ Network error.",
-      "error"
-    );
+}
 
-  }
+
+/*
+  Branch ID dirqama.
+*/
+
+if(!branchId){
+
+showMessage(
+"❌ Branch ID hin jiru. Gara Login deebi'ii Branch filadhu.",
+"error"
+);
+
+return;
+
+}
+
+
+/* ===================================================
+   NEW ITEM
+=================================================== */
+
+const data = {
+
+name:name,
+
+unit:unit,
+
+category:category,
+
+cost_price:costPrice,
+
+selling_price:sellingPrice,
+
+expiry_date:
+expiryDate || null,
+
+branch_id:branchId
+
+};
+
+
+/* ===================================================
+   EDIT
+=================================================== */
+
+if(editingId){
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items" +
+"?id=eq." +
+encodeURIComponent(editingId),
+
+{
+
+method:"PATCH",
+
+headers:{
+...getHeaders(),
+"Prefer":
+"return=representation"
+},
+
+body:
+JSON.stringify(data)
+
+}
+
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.error(error);
+
+showMessage(
+"❌ Item sirreessuun hin milkoofne: " +
+error,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item sirriitti sirreeffame.",
+"success"
+);
+
+
+cancelEdit();
+
+await loadItems();
+
+return;
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ Network error.",
+"error"
+);
+
+return;
+
+}
+
+}
+
+
+/* ===================================================
+   INSERT NEW ITEM
+=================================================== */
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items",
+
+{
+
+method:"POST",
+
+headers:{
+...getHeaders(),
+"Prefer":
+"return=representation"
+},
+
+body:
+JSON.stringify(data)
+
+}
+
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.error(error);
+
+showMessage(
+"❌ Item galmeessuun hin milkoofne: " +
+error,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item haaraan sirriitti galmaa'e.",
+"success"
+);
+
+
+clearForm();
+
+await loadItems();
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ Network error.",
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   EDIT ITEM
+===================================================== */
+
+function editItem(id){
+
+const item =
+allItems.find(
+x => String(x.id) === String(id)
+);
+
+
+if(!item){
+
+showMessage(
+"❌ Item hin argamne.",
+"error"
+);
+
+return;
+
+}
+
+
+editingId =
+item.id;
+
+
+document.getElementById(
+"formTitle"
+).textContent =
+"✏️ Edit Item";
+
+
+document.getElementById(
+"itemName"
+).value =
+item.name || "";
+
+
+document.getElementById(
+"itemUnit"
+).value =
+item.unit || "";
+
+
+document.getElementById(
+"itemCategory"
+).value =
+item.category || "";
+
+
+document.getElementById(
+"costPrice"
+).value =
+item.cost_price || 0;
+
+
+document.getElementById(
+"sellingPrice"
+).value =
+item.selling_price || 0;
+
+
+document.getElementById(
+"expiryDate"
+).value =
+item.expiry_date || "";
+
+
+document.getElementById(
+"saveButton"
+).textContent =
+"💾 Save Changes";
+
+
+document.getElementById(
+"cancelButton"
+).classList.remove(
+"hidden"
+);
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =====================================================
+   CANCEL EDIT
+===================================================== */
+
+function cancelEdit(){
+
+editingId = null;
+
+
+document.getElementById(
+"formTitle"
+).textContent =
+"➕ Add New Item";
+
+
+document.getElementById(
+"saveButton"
+).textContent =
+"💾 Save New Item";
+
+
+document.getElementById(
+"cancelButton"
+).classList.add(
+"hidden"
+);
+
+
+clearForm();
+
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm(){
+
+document.getElementById(
+"itemName"
+).value = "";
+
+
+document.getElementById(
+"itemUnit"
+).value = "";
+
+
+document.getElementById(
+"itemCategory"
+).value = "";
+
+
+document.getElementById(
+"costPrice"
+).value = "";
+
+
+document.getElementById(
+"sellingPrice"
+).value = "";
+
+
+document.getElementById(
+"expiryDate"
+).value = "";
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+async function deleteItem(id){
+
+const item =
+allItems.find(
+x => String(x.id) === String(id)
+);
+
+
+if(!item)
+return;
+
+
+const yes =
+confirm(
+"Item kana haquu? \n\n" +
+item.name
+);
+
+
+if(!yes)
+return;
+
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items" +
+"?id=eq." +
+encodeURIComponent(id),
+
+{
+
+method:"DELETE",
+
+headers:getHeaders()
+
+}
+
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.error(error);
+
+showMessage(
+"❌ Item haqamuu hin dandeenye: " +
+error,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item haqameera.",
+"success"
+);
+
+
+await loadItems();
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ Network error.",
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(value){
+
+if(!value)
+return "—";
+
+
+const date =
+new Date(value);
+
+
+if(
+isNaN(
+date.getTime()
+)
+)
+return value;
+
+
+return date.toLocaleString();
+
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+function goBack(){
+
+window.location.href =
+"dashboard.html";
 
 }
 
@@ -1412,6 +1536,8 @@ async function deleteItem(
 /* =====================================================
    START
 ===================================================== */
+
+showBranch();
 
 loadItems();
 
