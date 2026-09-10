@@ -1,6 +1,16 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Login</title><style>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Login</title>
+
+<style>
 
 *{
   box-sizing:border-box;
@@ -22,9 +32,18 @@ body{
   box-shadow:0 5px 20px rgba(0,0,0,.18);
 }
 
-h1,h2{
+h1,
+h2{
   text-align:center;
   color:white;
+}
+
+h1{
+  margin-bottom:8px;
+}
+
+h2{
+  margin-top:0;
 }
 
 label{
@@ -43,6 +62,12 @@ input{
   border-radius:8px;
   font-size:16px;
   background:white;
+  outline:none;
+}
+
+select:focus,
+input:focus{
+  border-color:#60a5fa;
 }
 
 button{
@@ -55,6 +80,16 @@ button{
   color:white;
   font-size:16px;
   font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.92;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .change-button{
@@ -77,6 +112,7 @@ button{
   text-align:center;
   font-weight:bold;
   min-height:22px;
+  line-height:1.5;
 }
 
 .footer{
@@ -86,140 +122,313 @@ button{
   font-size:13px;
 }
 
-</style></head><body><div class="login-box"><h1>🏢 AAFDRMC</h1><h2>🔐 User Login</h2><label>
-📍 Select Branch
-</label><select id="branchSelect"><option value="">
--- Select Branch --
-</option><option value="Main">
-Main
-</option><option value="Gulele">
-Gulele
-</option><option value="Addis Katama">
-Addis Katama
-</option><option value="Kolfee">
-Kolfee
-</option><option value="Nifas Silk Lafto">
-Nifas Silk Lafto
-</option><option value="Kirkos">
-Kirkos
-</option><option value="Lami Kura">
-Lami Kura
-</option><option value="Arada">
-Arada
-</option><option value="Lideta">
-Lideta
-</option><option value="Bole">
-Bole
-</option><option value="Ekaa">
-Ekaa
-</option><option value="Akaki Kality">
-Akaki Kality
-</option><option value="Center">
-Center
-</option></select><div id="branchInfo"
-class="branch-info">📍 Branch hin filatamne
+</style>
 
-</div><label>
+</head>
+
+
+<body>
+
+
+<div class="login-box">
+
+
+<h1>
+🏢 AAFDRMC
+</h1>
+
+
+<h2>
+🔐 User Login
+</h2>
+
+
+<!-- =====================================================
+     BRANCH
+===================================================== -->
+
+<label>
+📍 Select Branch
+</label>
+
+
+<select id="branchSelect">
+
+
+<option value="">
+-- Select Branch --
+</option>
+
+
+<option value="Main">
+Main
+</option>
+
+
+<option value="Gulele">
+Gulele
+</option>
+
+
+<option value="Addis Katama">
+Addis Katama
+</option>
+
+
+<option value="Kolfee">
+Kolfee
+</option>
+
+
+<option value="Nifas Silk Lafto">
+Nifas Silk Lafto
+</option>
+
+
+<option value="Kirkos">
+Kirkos
+</option>
+
+
+<option value="Lami Kura">
+Lami Kura
+</option>
+
+
+<option value="Arada">
+Arada
+</option>
+
+
+<option value="Lideta">
+Lideta
+</option>
+
+
+<option value="Bole">
+Bole
+</option>
+
+
+<option value="Ekaa">
+Ekaa
+</option>
+
+
+<option value="Akaki Kality">
+Akaki Kality
+</option>
+
+
+<option value="Center">
+Center
+</option>
+
+
+</select>
+
+
+<!-- =====================================================
+     BRANCH INFORMATION
+===================================================== -->
+
+<div
+id="branchInfo"
+class="branch-info">
+
+📍 Branch hin filatamne
+
+</div>
+
+
+<!-- =====================================================
+     USER ID
+===================================================== -->
+
+<label>
 👤 User ID
-</label><input
+</label>
+
+
+<input
 id="loginUserId"
 type="text"
-placeholder="User ID">
+placeholder="User ID"
+autocomplete="username">
+
+
+<!-- =====================================================
+     PASSWORD
+===================================================== -->
 
 <label>
 🔑 Password
-</label><input
+</label>
+
+
+<input
 id="loginPassword"
 type="password"
-placeholder="Password">
+placeholder="Password"
+autocomplete="current-password">
 
-<button onclick="loginUser()">
+
+<!-- =====================================================
+     LOGIN BUTTON
+===================================================== -->
+
+<button
+id="loginButton"
+onclick="loginUser()">
+
 🔐 Login
-</button><button
+
+</button>
+
+
+<!-- =====================================================
+     CHANGE BRANCH
+===================================================== -->
+
+<button
 class="change-button"
 onclick="changeBranch()">
 
 🔄 Change Branch
 
-</button><p id="loginMessage"></p><div class="footer">
+</button>
+
+
+<!-- =====================================================
+     MESSAGE
+===================================================== -->
+
+<p
+id="loginMessage">
+</p>
+
+
+<div class="footer">
+
 AAFDRMC Stock Management System
-</div></div><script>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+"https://sslabegtsxlkafuygmar.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const branchSelect =
+document.getElementById(
+  "branchSelect"
+);
+
+
+const branchInfo =
+document.getElementById(
+  "branchInfo"
+);
+
+
+const loginMessage =
+document.getElementById(
+  "loginMessage"
+);
+
+
+const loginButton =
+document.getElementById(
+  "loginButton"
+);
+
 
 /* =====================================================
    BRANCH SELECTION
 ===================================================== */
 
-const branchSelect =
-document.getElementById("branchSelect");
-
-const branchInfo =
-document.getElementById("branchInfo");
-
-const loginMessage =
-document.getElementById("loginMessage");
-
-
-/* =====================================================
-   WHEN BRANCH IS SELECTED
-===================================================== */
-
 branchSelect.addEventListener(
-"change",
-function(){
+  "change",
+  function(){
 
     const branchName =
-        this.options[
-            this.selectedIndex
-        ].text;
+      this.value;
 
 
-    if(!this.value){
+    if(!branchName){
 
-        localStorage.removeItem(
-            "selected_branch_name"
-        );
+      localStorage.removeItem(
+        "selected_branch_name"
+      );
 
-        localStorage.removeItem(
-            "selected_branch_id"
-        );
+      localStorage.removeItem(
+        "selected_branch_id"
+      );
 
-        branchInfo.textContent =
-            "📍 Branch hin filatamne";
 
-        loginMessage.textContent = "";
+      branchInfo.textContent =
+        "📍 Branch hin filatamne";
 
-        return;
+
+      loginMessage.textContent =
+        "";
+
+
+      return;
+
     }
 
 
-    /* SAVE EXACT NAME */
+    /* SAVE BRANCH NAME */
 
     localStorage.setItem(
-        "selected_branch_name",
-        branchName
+      "selected_branch_name",
+      branchName
     );
 
 
-    /* USE NAME AS ID */
+    /*
+      Branch ID keessatti maqaa
+      fayyadamna.
+    */
 
     localStorage.setItem(
-        "selected_branch_id",
-        this.value
+      "selected_branch_id",
+      branchName
     );
 
 
-    /* SHOW EXACT NAME */
+    /* SHOW BRANCH */
 
     branchInfo.textContent =
-        "📍 " + branchName;
+      "📍 " + branchName;
 
 
     loginMessage.textContent =
-        "✅ " +
-        branchName +
-        " filatameera.";
+      "✅ " +
+      branchName +
+      " filatameera.";
 
-});
+  }
+);
 
 
 /* =====================================================
@@ -227,27 +436,46 @@ function(){
 ===================================================== */
 
 window.addEventListener(
-"load",
-function(){
+  "load",
+  function(){
 
     const savedBranch =
-        localStorage.getItem(
-            "selected_branch_name"
-        );
+      localStorage.getItem(
+        "selected_branch_name"
+      );
 
 
     if(savedBranch){
 
+      /*
+        Check that branch still
+        exists in select.
+      */
+
+      const option =
+        Array.from(
+          branchSelect.options
+        ).find(
+          opt =>
+            opt.value === savedBranch
+        );
+
+
+      if(option){
+
         branchSelect.value =
-            savedBranch;
+          savedBranch;
 
 
         branchInfo.textContent =
-            "📍 " + savedBranch;
+          "📍 " + savedBranch;
+
+      }
 
     }
 
-});
+  }
+);
 
 
 /* =====================================================
@@ -256,102 +484,153 @@ function(){
 
 async function loginUser(){
 
-    const branchName =
-        localStorage.getItem(
-            "selected_branch_name"
-        );
-
-    const userId =
-        document.getElementById(
-            "loginUserId"
-        ).value.trim();
-
-    const password =
-        document.getElementById(
-            "loginPassword"
-        ).value;
+  const branchName =
+    branchSelect.value.trim();
 
 
-    /* CHECK BRANCH */
-
-    if(!branchName){
-
-        loginMessage.textContent =
-            "❌ Dura jalqaba Branch filadhu.";
-
-        return;
-    }
+  const userId =
+    document.getElementById(
+      "loginUserId"
+    ).value.trim();
 
 
-    /* CHECK USER */
-
-    if(!userId){
-
-        loginMessage.textContent =
-            "❌ User ID galchi.";
-
-        return;
-    }
+  const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
 
 
-    /* CHECK PASSWORD */
+  /* ===================================================
+     VALIDATE BRANCH
+  =================================================== */
 
-    if(!password){
-
-        loginMessage.textContent =
-            "❌ Password galchi.";
-
-        return;
-    }
-
-
-    /*
-      Branch selection is now working.
-
-      User database connection will be
-      connected after we confirm the
-      branch selection.
-    */
+  if(!branchName){
 
     loginMessage.textContent =
-        "⏳ " +
-        branchName +
-        " irratti login mirkaneessaa jira...";
+      "❌ Dura jalqaba Branch filadhu.";
+
+    return;
+
+  }
 
 
-    /*
-      Temporary login storage
-    */
+  /* ===================================================
+     VALIDATE USER ID
+  =================================================== */
 
-    localStorage.setItem(
-        "user_id",
-        userId
-    );
+  if(!userId){
 
-    localStorage.setItem(
-        "user_branch",
-        branchName
-    );
+    loginMessage.textContent =
+      "❌ User ID galchi.";
 
-    localStorage.setItem(
-        "is_logged_in",
-        "true"
-    );
+    return;
+
+  }
 
 
-    /*
-      Go to dashboard
-    */
+  /* ===================================================
+     VALIDATE PASSWORD
+  =================================================== */
 
-    setTimeout(
-        function(){
+  if(!password){
 
-            window.location.href =
-                "dashboard.html";
+    loginMessage.textContent =
+      "❌ Password galchi.";
 
-        },
-        500
-    );
+    return;
+
+  }
+
+
+  /* ===================================================
+     SAVE BRANCH
+  =================================================== */
+
+  localStorage.setItem(
+    "selected_branch_name",
+    branchName
+  );
+
+
+  localStorage.setItem(
+    "selected_branch_id",
+    branchName
+  );
+
+
+  /* ===================================================
+     REMOVE OLD / EXPIRED JWT
+  =================================================== */
+
+  localStorage.removeItem(
+    "access_token"
+  );
+
+
+  localStorage.removeItem(
+    "refresh_token"
+  );
+
+
+  /* ===================================================
+     SAVE USER INFORMATION
+  =================================================== */
+
+  localStorage.setItem(
+    "user_id",
+    userId
+  );
+
+
+  localStorage.setItem(
+    "user_branch",
+    branchName
+  );
+
+
+  localStorage.setItem(
+    "is_logged_in",
+    "true"
+  );
+
+
+  /* ===================================================
+     LOGIN MESSAGE
+  =================================================== */
+
+  loginButton.disabled =
+    true;
+
+
+  loginButton.textContent =
+    "⏳ Logging in...";
+
+
+  loginMessage.textContent =
+    "⏳ " +
+    branchName +
+    " irratti login qopheessaa jira...";
+
+
+  /*
+    Yeroo kana keessatti JWT
+    duraanii hin fayyadamnu.
+
+    User login information
+    localStorage keessatti
+    kaa'amee dashboarditti
+    ceena.
+  */
+
+  setTimeout(
+    function(){
+
+      window.location.href =
+        "dashboard.html";
+
+    },
+    500
+  );
 
 }
 
@@ -362,21 +641,62 @@ async function loginUser(){
 
 function changeBranch(){
 
-    localStorage.removeItem(
-        "selected_branch_name"
-    );
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
 
-    localStorage.removeItem(
-        "selected_branch_id"
-    );
 
-    branchSelect.value = "";
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
 
-    branchInfo.textContent =
-        "📍 Branch hin filatamne";
 
-    loginMessage.textContent = "";
+  branchSelect.value =
+    "";
+
+
+  branchInfo.textContent =
+    "📍 Branch hin filatamne";
+
+
+  loginMessage.textContent =
+    "";
+
+
+  document.getElementById(
+    "loginUserId"
+  ).value = "";
+
+
+  document.getElementById(
+    "loginPassword"
+  ).value = "";
 
 }
 
-</script></body></html>
+
+/* =====================================================
+   ENTER KEY LOGIN
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Enter"
+    ){
+
+      loginUser();
+
+    }
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>
