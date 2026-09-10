@@ -2,92 +2,87 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Login</title>
 
 <style>
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
 }
 
-.login-box {
-  width: 90%;
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 30px;
-  background: blue;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+.login-box{
+  width:90%;
+  max-width:420px;
+  margin:70px auto;
+  padding:30px;
+  background:#1e3a8a;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,.15);
 }
 
-h1,
-h2 {
-  text-align: center;
-  color: white;
+h1,h2{
+  text-align:center;
+  color:white;
 }
 
-select,
-input {
-  width: 100%;
-  padding: 13px;
-  margin: 8px 0;
-  border: 1px solid #cbd5e1;
-  border-radius: 7px;
-  font-size: 16px;
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  font-size:16px;
+  background:white;
 }
 
-select {
-  background: white;
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:none;
+  border-radius:7px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-input {
-  background: white;
+button:hover{
+  background:#172554;
 }
 
-button {
-  width: 100%;
-  padding: 13px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 7px;
-  background: #1e3a8a;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+.back-button{
+  background:#64748b;
 }
 
-button:hover {
-  background: #172554;
+#loginMessage{
+  text-align:center;
+  margin-top:15px;
+  color:white;
+  font-weight:bold;
 }
 
-.back-button {
-  background: #64748b;
-}
-
-#branchSection,
-#loginSection {
-  display: none;
-}
-
-#branchSection {
-  display: block;
-}
-
-#loginMessage,
-#branchMessage {
-  text-align: center;
-  margin-top: 15px;
-  color: white;
-  font-weight: bold;
+.branch-info{
+  background:white;
+  color:#1e3a8a;
+  padding:12px;
+  border-radius:8px;
+  text-align:center;
+  font-weight:bold;
+  margin-bottom:15px;
 }
 
 </style>
@@ -100,99 +95,51 @@ button:hover {
 
 <div class="login-box">
 
-  <h1>🏢 AAFDRMC</h1>
+<h1>🏢 AAFDRMC</h1>
+
+<h2>🔐 User Login</h2>
 
 
-  <!-- =================================
-       STEP 1: SELECT BRANCH
-  ================================== -->
+<div
+id="branchInfo"
+class="branch-info">
 
-  <div id="branchSection">
+Branch: Loading...
 
-    <h2>📍 Select Branch</h2>
-
-    <select id="branchSelect">
-
-      <option value="">
-        -- Select Branch --
-      </option>
-
-      <option value="Branch 1">Branch 1</option>
-      <option value="Branch 2">Branch 2</option>
-      <option value="Branch 3">Branch 3</option>
-      <option value="Branch 4">Branch 4</option>
-      <option value="Branch 5">Branch 5</option>
-      <option value="Branch 6">Branch 6</option>
-      <option value="Branch 7">Branch 7</option>
-      <option value="Branch 8">Branch 8</option>
-      <option value="Branch 9">Branch 9</option>
-      <option value="Branch 10">Branch 10</option>
-      <option value="Branch 11">Branch 11</option>
-      <option value="Branch 12">Branch 12</option>
-
-    </select>
+</div>
 
 
-    <button onclick="continueToLogin()">
-      Continue →
-    </button>
+<input
+id="loginUserId"
+type="text"
+placeholder="User ID"
+autocomplete="username">
 
 
-    <p id="branchMessage"></p>
-
-  </div>
-
-
-  <!-- =================================
-       STEP 2: LOGIN
-  ================================== -->
-
-  <div id="loginSection">
-
-    <h2>🔐 Login</h2>
-
-    <p
-      id="selectedBranch"
-      style="
-        text-align:center;
-        color:white;
-        font-weight:bold;
-      "
-    ></p>
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+autocomplete="current-password">
 
 
-    <input
-      id="loginEmail"
-      type="email"
-      placeholder="Email"
-      autocomplete="email"
-    >
+<button onclick="loginUser()">
+
+🔐 Login
+
+</button>
 
 
-    <input
-      id="loginPassword"
-      type="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
+<button
+class="back-button"
+onclick="changeBranch()">
+
+← Change Branch
+
+</button>
 
 
-    <button onclick="loginUser()">
-      🔐 Login
-    </button>
-
-
-    <button
-      class="back-button"
-      onclick="backToBranch()"
-    >
-      ← Change Branch
-    </button>
-
-
-    <p id="loginMessage"></p>
-
-  </div>
+<p id="loginMessage"></p>
 
 </div>
 
@@ -200,9 +147,9 @@ button:hover {
 <script>
 
 
-/* ==========================================
+/* =====================================================
    SUPABASE
-========================================== */
+===================================================== */
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -211,242 +158,342 @@ const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* ==========================================
-   STEP 1 → LOGIN
-========================================== */
+/* =====================================================
+   BRANCH LIST
+===================================================== */
 
-function continueToLogin() {
+const branches = {
 
-  const branch =
-    document.getElementById(
-      "branchSelect"
-    ).value;
+"main":
+"Main",
 
-  const message =
-    document.getElementById(
-      "branchMessage"
-    );
+"branch1":
+"Branch 1",
+
+"branch2":
+"Branch 2",
+
+"branch3":
+"Branch 3",
+
+"branch4":
+"Branch 4",
+
+"branch5":
+"Branch 5",
+
+"branch6":
+"Branch 6",
+
+"branch7":
+"Branch 7",
+
+"branch8":
+"Branch 8",
+
+"branch9":
+"Branch 9",
+
+"branch10":
+"Branch 10",
+
+"branch11":
+"Branch 11",
+
+"branch12":
+"Branch 12"
+
+};
 
 
-  if (!branch) {
+/* =====================================================
+   SHOW SELECTED BRANCH
+===================================================== */
 
-    message.textContent =
-      "Maaloo Branch kee filadhu.";
+function showBranch(){
 
-    return;
-  }
+const branchId =
+localStorage.getItem(
+"selected_branch_id"
+);
 
-
-  /* SAVE SELECTED BRANCH */
-
-  localStorage.setItem(
-    "selected_branch",
-    branch
-  );
-
-
-  /* SHOW LOGIN */
-
-  document.getElementById(
-    "branchSection"
-  ).style.display = "none";
+const branchName =
+localStorage.getItem(
+"selected_branch_name"
+);
 
 
-  document.getElementById(
-    "loginSection"
-  ).style.display = "block";
+if(branchId && branchName){
 
+document.getElementById(
+"branchInfo"
+).textContent =
+"📍 " + branchName;
 
-  document.getElementById(
-    "selectedBranch"
-  ).textContent =
-    "📍 " + branch;
+}else{
+
+document.getElementById(
+"branchInfo"
+).textContent =
+"📍 Branch hin filatamne";
+
+}
 
 }
 
 
-/* ==========================================
-   BACK TO BRANCH
-========================================== */
+/* =====================================================
+   LOGIN
+===================================================== */
 
-function backToBranch() {
+async function loginUser(){
 
-  document.getElementById(
-    "loginSection"
-  ).style.display = "none";
+const userId =
+document.getElementById(
+"loginUserId"
+).value.trim();
+
+const password =
+document.getElementById(
+"loginPassword"
+).value;
+
+const message =
+document.getElementById(
+"loginMessage"
+);
 
 
-  document.getElementById(
-    "branchSection"
-  ).style.display = "block";
+if(!userId){
 
+message.textContent =
+"❌ User ID galchi.";
 
-  document.getElementById(
-    "loginMessage"
-  ).textContent = "";
+return;
 
 }
 
 
-/* ==========================================
-   STEP 2 → SUPABASE LOGIN
-========================================== */
+if(!password){
 
-async function loginUser() {
+message.textContent =
+"❌ Password galchi.";
 
-
-  const branch =
-    localStorage.getItem(
-      "selected_branch"
-    );
-
-
-  const email =
-    document.getElementById(
-      "loginEmail"
-    ).value.trim();
-
-
-  const password =
-    document.getElementById(
-      "loginPassword"
-    ).value;
-
-
-  const message =
-    document.getElementById(
-      "loginMessage"
-    );
-
-
-  if (!branch) {
-
-    message.textContent =
-      "Branch filadhu.";
-
-    return;
-  }
-
-
-  if (!email || !password) {
-
-    message.textContent =
-      "Email fi Password guuti.";
-
-    return;
-  }
-
-
-  message.textContent =
-    "Login godhaa jira...";
-
-
-  try {
-
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/auth/v1/token?grant_type=password",
-
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-
-            "apikey":
-              SUPABASE_KEY
-          },
-
-          body: JSON.stringify({
-
-            email: email,
-
-            password: password
-
-          })
-
-        }
-
-      );
-
-
-    const data =
-      await response.json();
-
-
-    /* ==============================
-       SUCCESS
-    ============================== */
-
-    if (response.ok) {
-
-
-      localStorage.setItem(
-        "access_token",
-        data.access_token
-      );
-
-
-      localStorage.setItem(
-        "refresh_token",
-        data.refresh_token
-      );
-
-
-      localStorage.setItem(
-        "user_email",
-        email
-      );
-
-
-      localStorage.setItem(
-        "user_branch",
-        branch
-      );
-
-
-      message.textContent =
-        "Login milkaa'e. Dashboard banamaa jira...";
-
-
-      setTimeout(function() {
-
-        window.location.href =
-          "dashboard.html";
-
-      }, 700);
-
-
-    } else {
-
-      message.textContent =
-        "Email ykn Password sirrii miti.";
-
-      console.log(
-        "Login error:",
-        data
-      );
-
-    }
-
-
-  } catch (error) {
-
-    console.log(error);
-
-    message.textContent =
-      "Internet ykn Supabase connection rakkoo qaba.";
-
-  }
+return;
 
 }
+
+
+const selectedBranchId =
+localStorage.getItem(
+"selected_branch_id"
+);
+
+
+if(!selectedBranchId){
+
+message.textContent =
+"❌ Branch hin filatamne.";
+
+return;
+
+}
+
+
+message.textContent =
+"Login mirkaneessaa jira...";
+
+
+try{
+
+
+/*
+=====================================================
+  USER DATABASE
+
+  Supabase keessatti users table qabaachuu qaba:
+
+  id
+  user_id
+  password
+  branch_id
+  branch_name
+=====================================================
+*/
+
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/users?select=*&user_id=eq." +
+encodeURIComponent(userId) +
+"&branch_id=eq." +
+encodeURIComponent(selectedBranchId) +
+"&limit=1",
+
+{
+
+headers:{
+
+"apikey":
+SUPABASE_KEY,
+
+"Authorization":
+"Bearer " +
+SUPABASE_KEY
+
+}
+
+});
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+console.log(
+"User lookup error:",
+error
+);
+
+message.textContent =
+"❌ User database rakkoo qaba.";
+
+return;
+
+}
+
+
+const users =
+await response.json();
+
+
+if(users.length === 0){
+
+message.textContent =
+"❌ User ID ykn Branch sirrii miti.";
+
+return;
+
+}
+
+
+const user =
+users[0];
+
+
+/* =====================================================
+   PASSWORD CHECK
+===================================================== */
+
+if(String(user.password) !==
+String(password)){
+
+message.textContent =
+"❌ Password sirrii miti.";
+
+return;
+
+}
+
+
+/* =====================================================
+   SAVE LOGIN INFORMATION
+===================================================== */
+
+localStorage.setItem(
+"user_id",
+String(user.user_id)
+);
+
+
+localStorage.setItem(
+"user_db_id",
+String(user.id)
+);
+
+
+localStorage.setItem(
+"branch_id",
+String(user.branch_id)
+);
+
+
+localStorage.setItem(
+"user_branch",
+user.branch_name ||
+""
+);
+
+
+localStorage.setItem(
+"is_logged_in",
+"true"
+);
+
+
+/* =====================================================
+   SUCCESS
+===================================================== */
+
+message.textContent =
+"✅ Login milkaa'e. Dashboard banamaa jira...";
+
+
+setTimeout(function(){
+
+window.location.href =
+"dashboard.html";
+
+},700);
+
+
+}
+
+catch(error){
+
+console.log(
+"Login error:",
+error
+);
+
+message.textContent =
+"❌ Internet ykn Supabase connection rakkoo qaba.";
+
+}
+
+}
+
+
+/* =====================================================
+   CHANGE BRANCH
+===================================================== */
+
+function changeBranch(){
+
+localStorage.removeItem(
+"selected_branch_id"
+);
+
+localStorage.removeItem(
+"selected_branch_name"
+);
+
+window.location.href =
+"index.html";
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+showBranch();
 
 </script>
-
 
 </body>
 
