@@ -55,16 +55,6 @@ header h1{
   color:#1e3a8a;
 }
 
-.branch-box{
-  background:#eff6ff;
-  border:1px solid #bfdbfe;
-  padding:12px;
-  border-radius:8px;
-  margin-top:12px;
-  color:#1e3a8a;
-  font-weight:bold;
-}
-
 .buttons{
   display:flex;
   gap:8px;
@@ -195,7 +185,7 @@ header h1{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:1000px;
+  min-width:900px;
 }
 
 th{
@@ -238,37 +228,33 @@ tr:hover{
   line-height:1.5;
 }
 
-.empty,
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+}
+
+.branch-box{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  padding:12px;
+  border-radius:8px;
+  margin-top:12px;
+  color:#1e3a8a;
+  font-weight:bold;
+}
+
 .loading{
   text-align:center;
   padding:25px;
   color:#64748b;
 }
 
-.quantity-box{
-  font-weight:bold;
-  color:#1e3a8a;
-}
-
-@media(max-width:600px){
-
-  .container{
-    width:94%;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-}
-
 </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -278,13 +264,7 @@ AAFDRMC - ITEM MANAGEMENT
 
 </header>
 
-
 <div class="container">
-
-
-<!-- =====================================================
-     TOP BAR
-===================================================== -->
 
 <div class="top-bar">
 
@@ -323,10 +303,6 @@ onclick="goBack()">
 </div>
 
 
-<!-- =====================================================
-     MESSAGE
-===================================================== -->
-
 <div
 id="message"
 class="message">
@@ -341,7 +317,6 @@ class="message">
 id="itemForm"
 class="form-box">
 
-
 <div
 id="formTitle"
 class="form-title">
@@ -350,11 +325,8 @@ class="form-title">
 
 </div>
 
-
 <div class="form-grid">
 
-
-<!-- ITEM NAME -->
 
 <div class="form-group">
 
@@ -370,8 +342,6 @@ placeholder="Fakkeenya: Xaafii">
 </div>
 
 
-<!-- UNIT -->
-
 <div class="form-group">
 
 <label>
@@ -384,7 +354,9 @@ Unit / Safartuu
 -- Select Unit --
 </option>
 
-<option value="Kg">Kg</option>
+<option value="Kg">
+Kg
+</option>
 
 <option value="Quintal">
 Quintal
@@ -431,7 +403,7 @@ Other
 </div>
 
 
-<!-- CATEGORY -->
+<!-- CATEGORY 6 QOFA -->
 
 <div class="form-group">
 
@@ -485,79 +457,6 @@ Meeshaalee Ijaarsaa /
 
 </div>
 
-
-<!-- QUANTITY -->
-
-<div class="form-group">
-
-<label>
-Quantity / Baay'ina
-</label>
-
-<input
-type="number"
-id="itemQuantity"
-step="0.01"
-min="0"
-value="0"
-placeholder="0">
-
-</div>
-
-
-<!-- COST PRICE -->
-
-<div class="form-group">
-
-<label>
-Cost Price / Gatii Bittaa
-</label>
-
-<input
-type="number"
-id="costPrice"
-step="0.01"
-min="0"
-value="0"
-placeholder="0.00">
-
-</div>
-
-
-<!-- SELLING PRICE -->
-
-<div class="form-group">
-
-<label>
-Selling Price / Gatii Gurgurtaa
-</label>
-
-<input
-type="number"
-id="sellingPrice"
-step="0.01"
-min="0"
-value="0"
-placeholder="0.00">
-
-</div>
-
-
-<!-- EXPIRY DATE -->
-
-<div class="form-group">
-
-<label>
-Expiry Date / Guyyaa Xumuraa
-</label>
-
-<input
-type="date"
-id="expiryDate">
-
-</div>
-
-
 </div>
 
 
@@ -605,13 +504,7 @@ Cancel
 
 <th>Category</th>
 
-<th>Quantity</th>
-
-<th>Cost Price</th>
-
-<th>Selling Price</th>
-
-<th>Expiry Date</th>
+<th>Branch</th>
 
 <th>Action</th>
 
@@ -619,16 +512,15 @@ Cancel
 
 </thead>
 
-
 <tbody id="itemsTable">
 
 <tr>
 
 <td
-colspan="9"
+colspan="6"
 class="loading">
 
-⏳ Loading items...
+Loading items...
 
 </td>
 
@@ -639,7 +531,6 @@ class="loading">
 </table>
 
 </div>
-
 
 </div>
 
@@ -665,58 +556,22 @@ let allItems = [];
 
 let editItemId = null;
 
-let realBranchId = null;
+let currentBranchId = null;
+
+let currentBranchName =
+  localStorage.getItem(
+    "selected_branch_name"
+  ) || "Main";
 
 
 /* =====================================================
-   LOGIN CHECK
+   BRANCH NAME
 ===================================================== */
-
-const isLoggedIn =
-localStorage.getItem(
-  "is_logged_in"
-);
-
-if(isLoggedIn !== "true"){
-
-  window.location.href =
-    "index.html";
-
-}
-
-
-/* =====================================================
-   SELECTED BRANCH
-===================================================== */
-
-const selectedBranchName =
-localStorage.getItem(
-  "selected_branch_name"
-);
-
-const storedBranchId =
-localStorage.getItem(
-  "selected_branch_id"
-);
-
-
-if(!selectedBranchName){
-
-  alert(
-    "Branch hin filatamne."
-  );
-
-  window.location.href =
-    "index.html";
-
-}
-
 
 document.getElementById(
   "branchBox"
 ).textContent =
-"📍 Branch: " +
-selectedBranchName;
+"📍 Branch: " + currentBranchName;
 
 
 /* =====================================================
@@ -766,78 +621,28 @@ function escapeHTML(value){
 
 
 /* =====================================================
-   MESSAGE
+   GET REAL UUID OF BRANCH
 ===================================================== */
 
-function showMessage(
-  text,
-  type="info"
-){
-
-  const message =
-    document.getElementById(
-      "message"
-    );
-
-  message.textContent =
-    text;
-
-  message.className =
-    "message " + type;
-
-}
-
-
-/* =====================================================
-   FIND REAL BRANCH ID
-===================================================== */
-
-async function findBranchId(){
+async function getCurrentBranch(){
 
   try{
-
-    /*
-      Yoo storedBranchId dhugaa database ID
-      fakkaate, isa fayyadamna.
-    */
-
-    if(
-      storedBranchId &&
-      storedBranchId !== selectedBranchName
-    ){
-
-      realBranchId =
-        storedBranchId;
-
-      return true;
-
-    }
-
-
-    /*
-      Yoo index.html maqaa branch qofa
-      kaa'e, branches table irraa ID barbaada.
-    */
 
     const response =
       await fetch(
 
         SUPABASE_URL +
         "/rest/v1/branches" +
-        "?select=id,branch_name" +
+        "?select=id,branch_code,branch_name" +
         "&branch_name=eq." +
         encodeURIComponent(
-          selectedBranchName
+          currentBranchName
         ) +
         "&limit=1",
 
         {
-
           method:"GET",
-
-          headers:
-            getHeaders()
-
+          headers:getHeaders()
         }
 
       );
@@ -849,7 +654,7 @@ async function findBranchId(){
         await response.text();
 
       console.error(
-        "Branch ID error:",
+        "Branch UUID Error:",
         error
       );
 
@@ -859,7 +664,7 @@ async function findBranchId(){
         "error"
       );
 
-      return false;
+      return null;
 
     }
 
@@ -869,25 +674,38 @@ async function findBranchId(){
 
 
     if(
-      !branches.length
+      !branches ||
+      branches.length === 0
     ){
 
       showMessage(
         "❌ Branch '" +
-        selectedBranchName +
-        "' database keessatti hin argamne.",
+        currentBranchName +
+        "' Supabase keessatti hin argamne.",
         "error"
       );
 
-      return false;
+      return null;
 
     }
 
 
-    realBranchId =
+    currentBranchId =
       branches[0].id;
 
-    return true;
+
+    console.log(
+      "Branch Name:",
+      currentBranchName
+    );
+
+    console.log(
+      "Real Branch UUID:",
+      currentBranchId
+    );
+
+
+    return currentBranchId;
 
   }
 
@@ -899,11 +717,11 @@ async function findBranchId(){
     );
 
     showMessage(
-      "❌ Network error branch ID barbaaduu keessatti.",
+      "❌ Network error yeroo Branch barbaaddu.",
       "error"
     );
 
-    return false;
+    return null;
 
   }
 
@@ -925,54 +743,64 @@ async function loadItems(){
   table.innerHTML = `
 
     <tr>
-
       <td
-      colspan="9"
+      colspan="6"
       class="loading">
 
       ⏳ Items loading...
 
       </td>
-
     </tr>
 
   `;
 
 
-  if(!realBranchId){
-
-    table.innerHTML = `
-
-      <tr>
-
-        <td
-        colspan="9"
-        class="empty">
-
-        ❌ Branch ID hin jiru.
-
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
   try{
+
+    /*
+      Branch UUID arganna
+    */
+
+    const branchId =
+      await getCurrentBranch();
+
+
+    if(!branchId){
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td
+          colspan="6"
+          class="empty">
+
+          ❌ Branch ID hin argamne.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    /*
+      Items kan Branch kana qofa
+    */
 
     const response =
       await fetch(
 
         SUPABASE_URL +
         "/rest/v1/items" +
-        "?select=id,name,unit,category,quantity,cost_price,selling_price,expiry_date,branch_id" +
+        "?select=id,name,unit,category,branch_id" +
         "&branch_id=eq." +
         encodeURIComponent(
-          realBranchId
+          branchId
         ) +
         "&order=id.asc",
 
@@ -994,7 +822,7 @@ async function loadItems(){
         await response.text();
 
       console.error(
-        "Load Items Error:",
+        "Load Error:",
         error
       );
 
@@ -1017,10 +845,10 @@ async function loadItems(){
         <tr>
 
           <td
-          colspan="9"
+          colspan="6"
           class="empty">
 
-          ❌ Items load hin milkoofne.
+          Items load hin milkoofne.
 
           </td>
 
@@ -1051,27 +879,25 @@ async function loadItems(){
   catch(error){
 
     console.error(
-      "Load Items Error:",
+      "Load Error:",
       error
     );
-
 
     table.innerHTML = `
 
       <tr>
 
         <td
-        colspan="9"
+        colspan="6"
         class="empty">
 
-        ❌ Network error.
+        Network error.
 
         </td>
 
       </tr>
 
     `;
-
 
     showMessage(
       "❌ Network error.",
@@ -1107,13 +933,12 @@ function displayItems(){
       <tr>
 
         <td
-        colspan="9"
+        colspan="6"
         class="empty">
 
         📦 ${escapeHTML(
-          selectedBranchName
-        )}
-        keessatti Item hin jiru.
+          currentBranchName
+        )} keessatti Item hin jiru.
 
         </td>
 
@@ -1128,6 +953,10 @@ function displayItems(){
 
   allItems.forEach(
     (item,index)=>{
+
+      const category =
+        item.category || "—";
+
 
       const row =
         document.createElement(
@@ -1144,44 +973,29 @@ function displayItems(){
         <td>
           <strong>
             ${escapeHTML(
-              item.name
+              item.name || ""
             )}
           </strong>
         </td>
 
         <td>
           ${escapeHTML(
-            item.unit
+            item.unit || ""
           )}
         </td>
 
-        <td class="category-text">
+        <td
+        class="category-text">
+
           ${escapeHTML(
-            item.category || "—"
+            category
           )}
-        </td>
 
-        <td class="quantity-box">
-          ${Number(
-            item.quantity || 0
-          ).toLocaleString()}
-        </td>
-
-        <td>
-          ${Number(
-            item.cost_price || 0
-          ).toLocaleString()}
-        </td>
-
-        <td>
-          ${Number(
-            item.selling_price || 0
-          ).toLocaleString()}
         </td>
 
         <td>
           ${escapeHTML(
-            item.expiry_date || "—"
+            currentBranchName
           )}
         </td>
 
@@ -1208,9 +1022,7 @@ function displayItems(){
       `;
 
 
-      table.appendChild(
-        row
-      );
+      table.appendChild(row);
 
     }
 
@@ -1231,7 +1043,8 @@ function openAddForm(){
   document.getElementById(
     "formTitle"
   ).textContent =
-    "➕ Add New Item";
+    "➕ Add New Item - " +
+    currentBranchName;
 
 
   document.getElementById(
@@ -1252,26 +1065,6 @@ function openAddForm(){
 
   document.getElementById(
     "itemCategory"
-  ).value = "";
-
-
-  document.getElementById(
-    "itemQuantity"
-  ).value = "0";
-
-
-  document.getElementById(
-    "costPrice"
-  ).value = "0";
-
-
-  document.getElementById(
-    "sellingPrice"
-  ).value = "0";
-
-
-  document.getElementById(
-    "expiryDate"
   ).value = "";
 
 
@@ -1331,38 +1124,6 @@ async function saveItem(){
     ).value;
 
 
-  const quantity =
-    Number(
-      document.getElementById(
-        "itemQuantity"
-      ).value || 0
-    );
-
-
-  const costPrice =
-    Number(
-      document.getElementById(
-        "costPrice"
-      ).value || 0
-    );
-
-
-  const sellingPrice =
-    Number(
-      document.getElementById(
-        "sellingPrice"
-      ).value || 0
-    );
-
-
-  const expiryDate =
-    document.getElementById(
-      "expiryDate"
-    ).value || null;
-
-
-  /* VALIDATION */
-
   if(!name){
 
     showMessage(
@@ -1399,57 +1160,20 @@ async function saveItem(){
   }
 
 
-  if(quantity < 0){
+  /*
+    Branch UUID dhugaa arganna
+  */
 
-    showMessage(
-      "❌ Quantity sirrii galchi.",
-      "error"
-    );
-
-    return;
-
-  }
+  const branchId =
+    await getCurrentBranch();
 
 
-  if(costPrice < 0){
-
-    showMessage(
-      "❌ Cost Price sirrii galchi.",
-      "error"
-    );
+  if(!branchId){
 
     return;
 
   }
 
-
-  if(sellingPrice < 0){
-
-    showMessage(
-      "❌ Selling Price sirrii galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!realBranchId){
-
-    const found =
-      await findBranchId();
-
-    if(!found){
-
-      return;
-
-    }
-
-  }
-
-
-  /* DATA */
 
   const data = {
 
@@ -1459,15 +1183,7 @@ async function saveItem(){
 
     category:category,
 
-    quantity:quantity,
-
-    cost_price:costPrice,
-
-    selling_price:sellingPrice,
-
-    expiry_date:expiryDate,
-
-    branch_id:realBranchId
+    branch_id:branchId
 
   };
 
@@ -1478,8 +1194,7 @@ async function saveItem(){
     );
 
 
-  saveButton.disabled =
-    true;
+  saveButton.disabled = true;
 
   saveButton.textContent =
     "⏳ Saving...";
@@ -1529,7 +1244,6 @@ async function saveItem(){
         const error =
           await response.text();
 
-
         console.error(
           "Insert Error:",
           error
@@ -1562,14 +1276,13 @@ async function saveItem(){
 
       showMessage(
         "✅ Item haaraan " +
-        selectedBranchName +
+        currentBranchName +
         " keessatti galmaa'e.",
         "success"
       );
 
 
       closeForm();
-
 
       await loadItems();
 
@@ -1581,7 +1294,6 @@ async function saveItem(){
         "Save error:",
         error
       );
-
 
       showMessage(
         "❌ Network error.",
@@ -1599,7 +1311,6 @@ async function saveItem(){
         "💾 Save Item";
 
     }
-
 
     return;
 
@@ -1619,10 +1330,6 @@ async function saveItem(){
         "/rest/v1/items?id=eq." +
         encodeURIComponent(
           editItemId
-        ) +
-        "&branch_id=eq." +
-        encodeURIComponent(
-          realBranchId
         ),
 
         {
@@ -1692,7 +1399,6 @@ async function saveItem(){
 
     closeForm();
 
-
     await loadItems();
 
   }
@@ -1703,7 +1409,6 @@ async function saveItem(){
       "Update error:",
       error
     );
-
 
     showMessage(
       "❌ Network error.",
@@ -1753,8 +1458,7 @@ function editItem(id){
   }
 
 
-  editItemId =
-    id;
+  editItemId = id;
 
 
   document.getElementById(
@@ -1788,30 +1492,6 @@ function editItem(id){
 
 
   document.getElementById(
-    "itemQuantity"
-  ).value =
-    item.quantity || 0;
-
-
-  document.getElementById(
-    "costPrice"
-  ).value =
-    item.cost_price || 0;
-
-
-  document.getElementById(
-    "sellingPrice"
-  ).value =
-    item.selling_price || 0;
-
-
-  document.getElementById(
-    "expiryDate"
-  ).value =
-    item.expiry_date || "";
-
-
-  document.getElementById(
     "itemForm"
   ).classList.add(
     "show"
@@ -1819,11 +1499,8 @@ function editItem(id){
 
 
   window.scrollTo({
-
     top:0,
-
     behavior:"smooth"
-
   });
 
 }
@@ -1861,7 +1538,7 @@ async function deleteItem(id){
     confirm(
       "Item '" +
       item.name +
-      "' haquu barbaaddaa?"
+      "' haquu?"
     );
 
 
@@ -1879,26 +1556,13 @@ async function deleteItem(id){
 
         SUPABASE_URL +
         "/rest/v1/items?id=eq." +
-        encodeURIComponent(
-          id
-        ) +
-        "&branch_id=eq." +
-        encodeURIComponent(
-          realBranchId
-        ),
+        encodeURIComponent(id),
 
         {
 
           method:"DELETE",
 
-          headers:{
-
-            ...getHeaders(),
-
-            "Prefer":
-              "return=minimal"
-
-          }
+          headers:getHeaders()
 
         }
 
@@ -1958,13 +1622,37 @@ async function deleteItem(id){
       error
     );
 
-
     showMessage(
       "❌ Network error.",
       "error"
     );
 
   }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+  text,
+  type
+){
+
+  const message =
+    document.getElementById(
+      "message"
+    );
+
+
+  message.textContent =
+    text;
+
+
+  message.className =
+    "message " + type;
 
 }
 
@@ -1988,19 +1676,8 @@ function handleExpiredSession(){
   );
 
   showMessage(
-    "🔐 Session xumurameera. Irra deebi'ii login godhi.",
+    "🔐 Login session expired. Irra deebi'ii login godhi.",
     "error"
-  );
-
-
-  setTimeout(
-    function(){
-
-      window.location.href =
-        "index.html";
-
-    },
-    1500
   );
 
 }
@@ -2019,40 +1696,20 @@ function goBack(){
 
 
 /* =====================================================
-   ENTER KEY
-===================================================== */
-
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(
-      event.key === "Enter" &&
-      document.getElementById(
-        "itemForm"
-      ).classList.contains(
-        "show"
-      )
-    ){
-
-      saveItem();
-
-    }
-
-  }
-);
-
-
-/* =====================================================
    START
 ===================================================== */
 
 async function startPage(){
 
-  const found =
-    await findBranchId();
+  /*
+    Branch UUID jalqaba barbaada
+  */
 
-  if(found){
+  const branchId =
+    await getCurrentBranch();
+
+
+  if(branchId){
 
     await loadItems();
 
