@@ -2,15 +2,10 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>AAFDRMC - Branch Login</title>
+<title>AAFDRMC - Login</title>
 
 <style>
 
@@ -27,7 +22,7 @@ body {
 .login-box {
   width: 90%;
   max-width: 400px;
-  margin: 60px auto;
+  margin: 80px auto;
   padding: 30px;
   background: blue;
   border-radius: 15px;
@@ -52,7 +47,10 @@ input {
 
 select {
   background: white;
-  cursor: pointer;
+}
+
+input {
+  background: white;
 }
 
 button {
@@ -71,7 +69,21 @@ button:hover {
   background: #172554;
 }
 
-#loginMessage {
+.back-button {
+  background: #64748b;
+}
+
+#branchSection,
+#loginSection {
+  display: none;
+}
+
+#branchSection {
+  display: block;
+}
+
+#loginMessage,
+#branchMessage {
   text-align: center;
   margin-top: 15px;
   color: white;
@@ -90,106 +102,97 @@ button:hover {
 
   <h1>🏢 AAFDRMC</h1>
 
-  <h2>🔐 Branch Login</h2>
+
+  <!-- =================================
+       STEP 1: SELECT BRANCH
+  ================================== -->
+
+  <div id="branchSection">
+
+    <h2>📍 Select Branch</h2>
+
+    <select id="branchSelect">
+
+      <option value="">
+        -- Select Branch --
+      </option>
+
+      <option value="Branch 1">Branch 1</option>
+      <option value="Branch 2">Branch 2</option>
+      <option value="Branch 3">Branch 3</option>
+      <option value="Branch 4">Branch 4</option>
+      <option value="Branch 5">Branch 5</option>
+      <option value="Branch 6">Branch 6</option>
+      <option value="Branch 7">Branch 7</option>
+      <option value="Branch 8">Branch 8</option>
+      <option value="Branch 9">Branch 9</option>
+      <option value="Branch 10">Branch 10</option>
+      <option value="Branch 11">Branch 11</option>
+      <option value="Branch 12">Branch 12</option>
+
+    </select>
 
 
-  <!-- =========================
-       BRANCH SELECTION
-  ========================== -->
-
-  <select id="branchSelect">
-
-    <option value="">
-      -- Select Branch --
-    </option>
-
-    <option value="Branch 1">
-      Branch 1
-    </option>
-
-    <option value="Branch 2">
-      Branch 2
-    </option>
-
-    <option value="Branch 3">
-      Branch 3
-    </option>
-
-    <option value="Branch 4">
-      Branch 4
-    </option>
-
-    <option value="Branch 5">
-      Branch 5
-    </option>
-
-    <option value="Branch 6">
-      Branch 6
-    </option>
-
-    <option value="Branch 7">
-      Branch 7
-    </option>
-
-    <option value="Branch 8">
-      Branch 8
-    </option>
-
-    <option value="Branch 9">
-      Branch 9
-    </option>
-
-    <option value="Branch 10">
-      Branch 10
-    </option>
-
-    <option value="Branch 11">
-      Branch 11
-    </option>
-
-    <option value="Branch 12">
-      Branch 12
-    </option>
-
-  </select>
+    <button onclick="continueToLogin()">
+      Continue →
+    </button>
 
 
-  <!-- =========================
-       EMAIL
-  ========================== -->
+    <p id="branchMessage"></p>
 
-  <input
-    id="loginEmail"
-    type="email"
-    placeholder="Email"
-    autocomplete="email"
-    required
-  >
+  </div>
 
 
-  <!-- =========================
-       PASSWORD
-  ========================== -->
+  <!-- =================================
+       STEP 2: LOGIN
+  ================================== -->
 
-  <input
-    id="loginPassword"
-    type="password"
-    placeholder="Password"
-    autocomplete="current-password"
-    required
-  >
+  <div id="loginSection">
 
+    <h2>🔐 Login</h2>
 
-  <!-- =========================
-       LOGIN BUTTON
-  ========================== -->
-
-  <button onclick="loginUser()">
-    🔐 Login
-  </button>
+    <p
+      id="selectedBranch"
+      style="
+        text-align:center;
+        color:white;
+        font-weight:bold;
+      "
+    ></p>
 
 
-  <p id="loginMessage"></p>
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="Email"
+      autocomplete="email"
+    >
+
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+
+    <button onclick="loginUser()">
+      🔐 Login
+    </button>
+
+
+    <button
+      class="back-button"
+      onclick="backToBranch()"
+    >
+      ← Change Branch
+    </button>
+
+
+    <p id="loginMessage"></p>
+
+  </div>
 
 </div>
 
@@ -209,16 +212,93 @@ const SUPABASE_KEY =
 
 
 /* ==========================================
-   LOGIN FUNCTION
+   STEP 1 → LOGIN
+========================================== */
+
+function continueToLogin() {
+
+  const branch =
+    document.getElementById(
+      "branchSelect"
+    ).value;
+
+  const message =
+    document.getElementById(
+      "branchMessage"
+    );
+
+
+  if (!branch) {
+
+    message.textContent =
+      "Maaloo Branch kee filadhu.";
+
+    return;
+  }
+
+
+  /* SAVE SELECTED BRANCH */
+
+  localStorage.setItem(
+    "selected_branch",
+    branch
+  );
+
+
+  /* SHOW LOGIN */
+
+  document.getElementById(
+    "branchSection"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "loginSection"
+  ).style.display = "block";
+
+
+  document.getElementById(
+    "selectedBranch"
+  ).textContent =
+    "📍 " + branch;
+
+}
+
+
+/* ==========================================
+   BACK TO BRANCH
+========================================== */
+
+function backToBranch() {
+
+  document.getElementById(
+    "loginSection"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "branchSection"
+  ).style.display = "block";
+
+
+  document.getElementById(
+    "loginMessage"
+  ).textContent = "";
+
+}
+
+
+/* ==========================================
+   STEP 2 → SUPABASE LOGIN
 ========================================== */
 
 async function loginUser() {
 
 
   const branch =
-    document.getElementById(
-      "branchSelect"
-    ).value;
+    localStorage.getItem(
+      "selected_branch"
+    );
 
 
   const email =
@@ -239,40 +319,19 @@ async function loginUser() {
     );
 
 
-  /* ========================================
-     CHECK BRANCH
-  ======================================== */
-
   if (!branch) {
 
     message.textContent =
-      "Maaloo Branch kee filadhu.";
+      "Branch filadhu.";
 
     return;
   }
 
 
-  /* ========================================
-     CHECK EMAIL
-  ======================================== */
-
-  if (!email) {
+  if (!email || !password) {
 
     message.textContent =
-      "Email kee galchi.";
-
-    return;
-  }
-
-
-  /* ========================================
-     CHECK PASSWORD
-  ======================================== */
-
-  if (!password) {
-
-    message.textContent =
-      "Password kee galchi.";
+      "Email fi Password guuti.";
 
     return;
   }
@@ -281,10 +340,6 @@ async function loginUser() {
   message.textContent =
     "Login godhaa jira...";
 
-
-  /* ========================================
-     SUPABASE LOGIN
-  ======================================== */
 
   try {
 
@@ -296,17 +351,14 @@ async function loginUser() {
         "/auth/v1/token?grant_type=password",
 
         {
-
           method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json",
 
             "apikey":
               SUPABASE_KEY
-
           },
 
           body: JSON.stringify({
@@ -326,14 +378,12 @@ async function loginUser() {
       await response.json();
 
 
-    /* ======================================
-       LOGIN SUCCESS
-    ====================================== */
+    /* ==============================
+       SUCCESS
+    ============================== */
 
     if (response.ok) {
 
-
-      /* SAVE ACCESS TOKEN */
 
       localStorage.setItem(
         "access_token",
@@ -341,23 +391,17 @@ async function loginUser() {
       );
 
 
-      /* SAVE REFRESH TOKEN */
-
       localStorage.setItem(
         "refresh_token",
         data.refresh_token
       );
 
 
-      /* SAVE EMAIL */
-
       localStorage.setItem(
         "user_email",
         email
       );
 
-
-      /* SAVE BRANCH */
 
       localStorage.setItem(
         "user_branch",
@@ -366,12 +410,8 @@ async function loginUser() {
 
 
       message.textContent =
-        "Login milkaa'e. " +
-        branch +
-        " Dashboard banamaa jira...";
+        "Login milkaa'e. Dashboard banamaa jira...";
 
-
-      /* GO TO DASHBOARD */
 
       setTimeout(function() {
 
@@ -381,14 +421,7 @@ async function loginUser() {
       }, 700);
 
 
-    }
-
-
-    /* ======================================
-       LOGIN FAILED
-    ====================================== */
-
-    else {
+    } else {
 
       message.textContent =
         "Email ykn Password sirrii miti.";
@@ -401,19 +434,9 @@ async function loginUser() {
     }
 
 
-  }
+  } catch (error) {
 
-
-  /* ========================================
-     CONNECTION ERROR
-  ======================================== */
-
-  catch (error) {
-
-    console.log(
-      "Connection error:",
-      error
-    );
+    console.log(error);
 
     message.textContent =
       "Internet ykn Supabase connection rakkoo qaba.";
