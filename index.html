@@ -2,10 +2,15 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Login</title>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>AAFDRMC - Branch Login</title>
 
 <style>
 
@@ -22,7 +27,7 @@ body {
 .login-box {
   width: 90%;
   max-width: 400px;
-  margin: 80px auto;
+  margin: 60px auto;
   padding: 30px;
   background: blue;
   border-radius: 15px;
@@ -35,6 +40,7 @@ h2 {
   color: white;
 }
 
+select,
 input {
   width: 100%;
   padding: 13px;
@@ -42,6 +48,11 @@ input {
   border: 1px solid #cbd5e1;
   border-radius: 7px;
   font-size: 16px;
+}
+
+select {
+  background: white;
+  cursor: pointer;
 }
 
 button {
@@ -64,42 +75,131 @@ button:hover {
   text-align: center;
   margin-top: 15px;
   color: white;
+  font-weight: bold;
 }
 
 </style>
+
 </head>
 
+
 <body>
+
 
 <div class="login-box">
 
   <h1>🏢 AAFDRMC</h1>
 
-  <h2>🔐 Login</h2>
+  <h2>🔐 Branch Login</h2>
+
+
+  <!-- =========================
+       BRANCH SELECTION
+  ========================== -->
+
+  <select id="branchSelect">
+
+    <option value="">
+      -- Select Branch --
+    </option>
+
+    <option value="Branch 1">
+      Branch 1
+    </option>
+
+    <option value="Branch 2">
+      Branch 2
+    </option>
+
+    <option value="Branch 3">
+      Branch 3
+    </option>
+
+    <option value="Branch 4">
+      Branch 4
+    </option>
+
+    <option value="Branch 5">
+      Branch 5
+    </option>
+
+    <option value="Branch 6">
+      Branch 6
+    </option>
+
+    <option value="Branch 7">
+      Branch 7
+    </option>
+
+    <option value="Branch 8">
+      Branch 8
+    </option>
+
+    <option value="Branch 9">
+      Branch 9
+    </option>
+
+    <option value="Branch 10">
+      Branch 10
+    </option>
+
+    <option value="Branch 11">
+      Branch 11
+    </option>
+
+    <option value="Branch 12">
+      Branch 12
+    </option>
+
+  </select>
+
+
+  <!-- =========================
+       EMAIL
+  ========================== -->
 
   <input
     id="loginEmail"
     type="email"
     placeholder="Email"
+    autocomplete="email"
     required
   >
+
+
+  <!-- =========================
+       PASSWORD
+  ========================== -->
 
   <input
     id="loginPassword"
     type="password"
     placeholder="Password"
+    autocomplete="current-password"
     required
   >
+
+
+  <!-- =========================
+       LOGIN BUTTON
+  ========================== -->
 
   <button onclick="loginUser()">
     🔐 Login
   </button>
 
+
   <p id="loginMessage"></p>
 
 </div>
 
+
 <script>
+
+
+/* ==========================================
+   SUPABASE
+========================================== */
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -108,22 +208,71 @@ const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
+/* ==========================================
+   LOGIN FUNCTION
+========================================== */
+
 async function loginUser() {
 
+
+  const branch =
+    document.getElementById(
+      "branchSelect"
+    ).value;
+
+
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document.getElementById(
+      "loginEmail"
+    ).value.trim();
+
 
   const password =
-    document.getElementById("loginPassword").value;
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
 
   const message =
-    document.getElementById("loginMessage");
+    document.getElementById(
+      "loginMessage"
+    );
 
 
-  if (!email || !password) {
+  /* ========================================
+     CHECK BRANCH
+  ======================================== */
+
+  if (!branch) {
 
     message.textContent =
-      "Email fi password guuti.";
+      "Maaloo Branch kee filadhu.";
+
+    return;
+  }
+
+
+  /* ========================================
+     CHECK EMAIL
+  ======================================== */
+
+  if (!email) {
+
+    message.textContent =
+      "Email kee galchi.";
+
+    return;
+  }
+
+
+  /* ========================================
+     CHECK PASSWORD
+  ======================================== */
+
+  if (!password) {
+
+    message.textContent =
+      "Password kee galchi.";
 
     return;
   }
@@ -133,25 +282,43 @@ async function loginUser() {
     "Login godhaa jira...";
 
 
+  /* ========================================
+     SUPABASE LOGIN
+  ======================================== */
+
   try {
+
 
     const response =
       await fetch(
+
         SUPABASE_URL +
         "/auth/v1/token?grant_type=password",
+
         {
+
           method: "POST",
 
           headers: {
-            "Content-Type": "application/json",
-            "apikey": SUPABASE_KEY
+
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SUPABASE_KEY
+
           },
 
           body: JSON.stringify({
+
             email: email,
+
             password: password
+
           })
+
         }
+
       );
 
 
@@ -159,34 +326,97 @@ async function loginUser() {
       await response.json();
 
 
+    /* ======================================
+       LOGIN SUCCESS
+    ====================================== */
+
     if (response.ok) {
+
+
+      /* SAVE ACCESS TOKEN */
 
       localStorage.setItem(
         "access_token",
         data.access_token
       );
 
+
+      /* SAVE REFRESH TOKEN */
+
       localStorage.setItem(
         "refresh_token",
         data.refresh_token
       );
 
-      window.location.href =
-        "dashboard.html";
 
-    } else {
+      /* SAVE EMAIL */
+
+      localStorage.setItem(
+        "user_email",
+        email
+      );
+
+
+      /* SAVE BRANCH */
+
+      localStorage.setItem(
+        "user_branch",
+        branch
+      );
+
 
       message.textContent =
-        "Email ykn password sirrii miti.";
+        "Login milkaa'e. " +
+        branch +
+        " Dashboard banamaa jira...";
+
+
+      /* GO TO DASHBOARD */
+
+      setTimeout(function() {
+
+        window.location.href =
+          "dashboard.html";
+
+      }, 700);
+
 
     }
 
-  } catch (error) {
+
+    /* ======================================
+       LOGIN FAILED
+    ====================================== */
+
+    else {
+
+      message.textContent =
+        "Email ykn Password sirrii miti.";
+
+      console.log(
+        "Login error:",
+        data
+      );
+
+    }
+
+
+  }
+
+
+  /* ========================================
+     CONNECTION ERROR
+  ======================================== */
+
+  catch (error) {
+
+    console.log(
+      "Connection error:",
+      error
+    );
 
     message.textContent =
       "Internet ykn Supabase connection rakkoo qaba.";
-
-    console.log(error);
 
   }
 
@@ -194,5 +424,7 @@ async function loginUser() {
 
 </script>
 
+
 </body>
+
 </html>
