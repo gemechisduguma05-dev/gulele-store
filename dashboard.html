@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Dashboard</title>
+<title>AAFDRMC - Stock Management</title>
 
 <style>
 
@@ -23,12 +23,10 @@ body{
   color:#1e293b;
 }
 
-/* ================= HEADER ================= */
-
 header{
   background:#1e3a8a;
   color:white;
-  padding:20px 15px;
+  padding:22px 15px;
   text-align:center;
 }
 
@@ -43,15 +41,70 @@ header h1{
   font-weight:bold;
 }
 
-/* ================= CONTAINER ================= */
-
 .container{
-  width:95%;
-  max-width:1400px;
+  width:96%;
+  max-width:1500px;
   margin:20px auto;
 }
 
-/* ================= MESSAGE ================= */
+.top-bar,
+.form-box,
+.summary-card,
+.report-box,
+.details-box{
+  background:white;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.top-bar{
+  padding:18px;
+  margin-bottom:18px;
+}
+
+.title{
+  font-size:23px;
+  font-weight:bold;
+  color:#1e3a8a;
+}
+
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.btn{
+  border:0;
+  padding:11px 17px;
+  border-radius:8px;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn-in{
+  background:#15803d;
+}
+
+.btn-out{
+  background:#dc2626;
+}
+
+.btn-blue{
+  background:#1e3a8a;
+}
+
+.btn-gray{
+  background:#64748b;
+}
+
+.btn-orange{
+  background:#ea580c;
+}
 
 .message{
   display:none;
@@ -61,216 +114,276 @@ header h1{
   font-weight:bold;
 }
 
-.message.show{
+.message.success{
   display:block;
+  background:#dcfce7;
+  color:#166534;
 }
 
 .message.error{
+  display:block;
   background:#fee2e2;
   color:#991b1b;
 }
 
-/* ================= TOP BAR ================= */
-
-.top-bar{
-  background:white;
+.branch-error{
+  display:none;
+  background:#fee2e2;
+  color:#991b1b;
   padding:18px;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  margin-bottom:20px;
-}
-
-.top-title{
-  color:#1e3a8a;
-  font-size:22px;
+  border-radius:10px;
+  margin-bottom:18px;
   font-weight:bold;
-  margin-bottom:14px;
 }
 
-.top-buttons{
+.branch-error.show{
+  display:block;
+}
+
+.branch-error a{
+  display:inline-block;
+  margin-top:12px;
+  background:#1e3a8a;
+  color:white;
+  text-decoration:none;
+  padding:10px 16px;
+  border-radius:7px;
+}
+
+/* FORM */
+
+.form-box{
+  display:none;
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.form-box.show{
+  display:block;
+}
+
+.form-title{
+  font-size:21px;
+  font-weight:bold;
+  margin-bottom:17px;
+}
+
+.form-title.in{
+  color:#15803d;
+}
+
+.form-title.out{
+  color:#dc2626;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(210px,1fr));
+  gap:14px;
+}
+
+.form-group{
   display:flex;
-  flex-wrap:wrap;
-  gap:10px;
+  flex-direction:column;
 }
 
-/* ================= BUTTONS ================= */
+.form-group label{
+  font-weight:bold;
+  margin-bottom:7px;
+}
 
-.btn{
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:11px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  font-size:15px;
+}
+
+.readonly{
+  background:#f8fafc;
+}
+
+.submit-row{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+.save-btn{
   border:0;
-  padding:11px 17px;
-  border-radius:8px;
+  padding:12px 20px;
+  border-radius:7px;
   color:white;
   font-weight:bold;
-  text-decoration:none;
   cursor:pointer;
-  display:inline-block;
 }
 
-.btn-blue{
-  background:#1e3a8a;
-}
-
-.btn-green{
+.save-in{
   background:#15803d;
 }
 
-.btn-red{
+.save-out{
   background:#dc2626;
 }
 
-.btn-orange{
-  background:#ea580c;
-}
-
-.btn-gray{
+.cancel{
   background:#64748b;
 }
 
-.btn-purple{
-  background:#7c3aed;
-}
-
-/* ================= SUMMARY ================= */
+/* SUMMARY */
 
 .summary{
   display:grid;
   grid-template-columns:
-    repeat(auto-fit,minmax(210px,1fr));
-
-  gap:15px;
-  margin-bottom:22px;
+    repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  margin-bottom:18px;
 }
 
-.card{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+.summary-card{
+  padding:18px;
 }
 
-.card-title{
+.summary-card span{
+  display:block;
   color:#64748b;
   font-weight:bold;
-  font-size:15px;
 }
 
-.card-value{
+.summary-card strong{
+  display:block;
   margin-top:8px;
+  font-size:28px;
   color:#1e3a8a;
-  font-size:30px;
+}
+
+/* REPORT */
+
+.report-box{
+  overflow-x:auto;
+}
+
+.report-title{
+  padding:18px;
+  color:#1e3a8a;
+  font-size:21px;
   font-weight:bold;
 }
 
-/* ================= MENU ================= */
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
 
-.menu-title{
-  font-size:22px;
-  font-weight:bold;
+th{
+  background:#1e3a8a;
+  color:white;
+  padding:12px;
+  text-align:left;
+  white-space:nowrap;
+}
+
+td{
+  padding:11px;
+  border-bottom:1px solid #e2e8f0;
+  white-space:nowrap;
+}
+
+.item-row{
+  cursor:pointer;
+}
+
+.item-row:hover{
+  background:#eff6ff;
+}
+
+.balance{
   color:#1e3a8a;
+  font-weight:bold;
+}
+
+.click{
+  color:#2563eb;
+  font-weight:bold;
+}
+
+/* DETAILS */
+
+.details-box{
+  display:none;
+  margin-top:20px;
+  padding:18px;
+}
+
+.details-box.show{
+  display:block;
+}
+
+.details-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
   margin-bottom:15px;
 }
 
-.menu-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-
-  gap:15px;
-}
-
-.menu-card{
-  background:white;
-  border-radius:12px;
-  padding:22px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  text-decoration:none;
-  color:#1e293b;
-  transition:.2s;
-}
-
-.menu-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 5px 15px rgba(0,0,0,.12);
-}
-
-.menu-icon{
-  font-size:35px;
-  margin-bottom:10px;
-}
-
-.menu-card h3{
-  margin:0;
-  color:#1e3a8a;
-  font-size:20px;
-}
-
-.menu-card p{
-  margin:7px 0 0;
-  color:#64748b;
-  line-height:1.4;
-}
-
-/* ================= BRANCH BOX ================= */
-
-.branch-box{
-  background:white;
-  border-radius:12px;
-  padding:20px;
-  margin-top:20px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.branch-title{
+.details-title{
   color:#1e3a8a;
   font-size:20px;
   font-weight:bold;
 }
 
-.branch-info{
-  margin-top:10px;
-  font-size:16px;
+.close-btn{
+  border:0;
+  background:#64748b;
+  color:white;
+  padding:9px 14px;
+  border-radius:7px;
+  cursor:pointer;
 }
 
-.branch-info strong{
-  color:#15803d;
+.badge{
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
 }
 
-/* ================= FOOTER ================= */
-
-footer{
-  text-align:center;
-  padding:25px 10px;
-  color:#64748b;
-  font-size:14px;
+.badge-in{
+  background:#dcfce7;
+  color:#166534;
 }
 
-/* ================= MOBILE ================= */
+.badge-out{
+  background:#fee2e2;
+  color:#991b1b;
+}
 
 @media(max-width:600px){
 
   header h1{
-    font-size:21px;
+    font-size:22px;
   }
 
-  .branch-name{
-    font-size:15px;
-  }
-
-  .top-buttons{
+  .buttons{
     flex-direction:column;
   }
 
-  .top-buttons .btn{
+  .buttons .btn{
     width:100%;
     text-align:center;
   }
 
-  .summary{
-    grid-template-columns:1fr 1fr;
+  .submit-row{
+    flex-direction:column;
   }
 
-  .card-value{
-    font-size:25px;
+  .save-btn{
+    width:100%;
   }
 
 }
@@ -282,10 +395,6 @@ footer{
 
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header>
 
@@ -308,6 +417,93 @@ footer{
 
 
 <!-- =====================================================
+     TOP
+===================================================== -->
+
+<div class="top-bar">
+
+  <div class="title">
+    📦 Stock Management
+  </div>
+
+
+  <div class="buttons">
+
+    <button
+      class="btn btn-in"
+      onclick="openForm('IN')">
+
+      ➕ Stock IN
+
+    </button>
+
+
+    <button
+      class="btn btn-out"
+      onclick="openForm('OUT')">
+
+      ➖ Stock OUT
+
+    </button>
+
+
+    <button
+      class="btn btn-blue"
+      onclick="loadStock()">
+
+      🔄 Refresh
+
+    </button>
+
+
+    <a
+      href="reports.html"
+      class="btn btn-orange">
+
+      📋 Stock Report
+
+    </a>
+
+
+    <a
+      href="index.html"
+      class="btn btn-gray">
+
+      ⬅️ Back to Menu
+
+    </a>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     BRANCH ERROR
+===================================================== -->
+
+<div
+  id="branchError"
+  class="branch-error">
+
+  ❌ Branch hin filatamne.
+
+  <br><br>
+
+  Mee gara Main Menu deebi'ii Branch filadhu.
+
+  <br>
+
+  <a href="branch.html">
+
+    🏢 Branch Filadhu
+
+  </a>
+
+</div>
+
+
+<!-- =====================================================
      MESSAGE
 ===================================================== -->
 
@@ -318,91 +514,274 @@ footer{
 
 
 <!-- =====================================================
-     TOP BAR
+     STOCK IN
 ===================================================== -->
 
-<div class="top-bar">
+<div
+  id="stockInForm"
+  class="form-box">
 
-  <div class="top-title">
-    🏠 Main Dashboard
+  <div class="form-title in">
+
+    🟢 STOCK IN — Meeshaa Galchuu
+
   </div>
 
 
-  <div class="top-buttons">
-
-    <!-- BACK TO MENU -->
-
-    <a
-      href="index.html"
-      class="btn btn-blue">
-
-      ⬅️ Back to Menu
-
-    </a>
+  <div class="form-grid">
 
 
-    <!-- ITEMS -->
+    <div class="form-group">
 
-    <a
-      href="items.html"
-      class="btn btn-green">
+      <label>
+        Item
+      </label>
 
-      📦 Items
+      <select id="inItem">
 
-    </a>
+        <option value="">
+          -- Item filadhu --
+        </option>
 
+      </select>
 
-    <!-- STOCK -->
-
-    <a
-      href="stock.html"
-      class="btn btn-red">
-
-      📊 Stock
-
-    </a>
+    </div>
 
 
-    <!-- REPORTS -->
+    <div class="form-group">
 
-    <a
-      href="reports.html"
-      class="btn btn-orange">
+      <label>
+        Unit
+      </label>
 
-      📈 Reports
+      <input
+        id="inUnit"
+        class="readonly"
+        readonly>
 
-    </a>
-
-
-    <!-- CATEGORY -->
-
-    <a
-      href="category.html"
-      class="btn btn-purple">
-
-      🗂️ Category
-
-    </a>
+    </div>
 
 
-    <!-- SETTINGS -->
+    <div class="form-group">
 
-    <a
-      href="settings.html"
-      class="btn btn-gray">
+      <label>
+        Quantity
+      </label>
 
-      ⚙️ Settings
+      <input
+        id="inQuantity"
+        type="number"
+        min="0.01"
+        step="any"
+        placeholder="Quantity">
 
-    </a>
+    </div>
 
 
-    <!-- REFRESH -->
+    <div class="form-group">
+
+      <label>
+        Guyyaa itti gale
+      </label>
+
+      <input
+        id="inDate"
+        type="datetime-local">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Nama galche
+      </label>
+
+      <input
+        id="inEnteredBy"
+        type="text"
+        placeholder="Maqaa nama galche">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Expiry Date
+      </label>
+
+      <input
+        id="inExpiryDate"
+        type="date">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Mallattoo
+      </label>
+
+      <input
+        id="inSignature"
+        type="text"
+        placeholder="Mallattoo">
+
+    </div>
+
+  </div>
+
+
+  <div class="submit-row">
 
     <button
-      class="btn btn-blue"
-      onclick="loadDashboard()">
+      class="save-btn save-in"
+      onclick="saveStock('IN')">
 
-      🔄 Refresh
+      💾 Save Stock IN
+
+    </button>
+
+
+    <button
+      class="save-btn cancel"
+      onclick="closeForms()">
+
+      Cancel
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     STOCK OUT
+===================================================== -->
+
+<div
+  id="stockOutForm"
+  class="form-box">
+
+  <div class="form-title out">
+
+    🔴 STOCK OUT — Meeshaa Baasuu
+
+  </div>
+
+
+  <div class="form-grid">
+
+
+    <div class="form-group">
+
+      <label>
+        Item
+      </label>
+
+      <select id="outItem">
+
+        <option value="">
+          -- Item filadhu --
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Unit
+      </label>
+
+      <input
+        id="outUnit"
+        class="readonly"
+        readonly>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Quantity
+      </label>
+
+      <input
+        id="outQuantity"
+        type="number"
+        min="0.01"
+        step="any"
+        placeholder="Quantity">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Guyyaa itti bahe
+      </label>
+
+      <input
+        id="outDate"
+        type="datetime-local">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Nama baase
+      </label>
+
+      <input
+        id="outIssuedBy"
+        type="text"
+        placeholder="Maqaa nama baase">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Mallattoo
+      </label>
+
+      <input
+        id="outSignature"
+        type="text"
+        placeholder="Mallattoo">
+
+    </div>
+
+  </div>
+
+
+  <div class="submit-row">
+
+    <button
+      class="save-btn save-out"
+      onclick="saveStock('OUT')">
+
+      💾 Save Stock OUT
+
+    </button>
+
+
+    <button
+      class="save-btn cancel"
+      onclick="closeForms()">
+
+      Cancel
 
     </button>
 
@@ -418,244 +797,53 @@ footer{
 <div class="summary">
 
 
-  <div class="card">
+  <div class="summary-card">
 
-    <div class="card-title">
-      📦 Total Items
-    </div>
+    <span>
+      Total Items
+    </span>
 
-    <div
-      id="totalItems"
-      class="card-value">
-
+    <strong id="totalItems">
       0
-
-    </div>
+    </strong>
 
   </div>
 
 
-  <div class="card">
+  <div class="summary-card">
 
-    <div class="card-title">
-      🟢 Stock IN
-    </div>
+    <span>
+      Stock IN
+    </span>
 
-    <div
-      id="totalIn"
-      class="card-value">
-
+    <strong id="totalIn">
       0
-
-    </div>
+    </strong>
 
   </div>
 
 
-  <div class="card">
+  <div class="summary-card">
 
-    <div class="card-title">
-      🔴 Stock OUT
-    </div>
+    <span>
+      Stock OUT
+    </span>
 
-    <div
-      id="totalOut"
-      class="card-value">
-
+    <strong id="totalOut">
       0
-
-    </div>
+    </strong>
 
   </div>
 
 
-  <div class="card">
+  <div class="summary-card">
 
-    <div class="card-title">
-      📊 Current Balance
-    </div>
+    <span>
+      Current Balance
+    </span>
 
-    <div
-      id="totalBalance"
-      class="card-value">
-
+    <strong id="totalBalance">
       0
-
-    </div>
-
-  </div>
-
-
-</div>
-
-
-<!-- =====================================================
-     DASHBOARD MENU
-===================================================== -->
-
-<div class="menu-title">
-
-  📋 Management Menu
-
-</div>
-
-
-<div class="menu-grid">
-
-
-  <!-- ITEMS -->
-
-  <a
-    href="items.html"
-    class="menu-card">
-
-    <div class="menu-icon">
-      📦
-    </div>
-
-    <h3>
-      Items
-    </h3>
-
-    <p>
-      Meeshaalee haaraa galchi,
-      ilaali fi bulchi.
-    </p>
-
-  </a>
-
-
-  <!-- STOCK -->
-
-  <a
-    href="stock.html"
-    class="menu-card">
-
-    <div class="menu-icon">
-      📊
-    </div>
-
-    <h3>
-      Stock Management
-    </h3>
-
-    <p>
-      Stock IN, Stock OUT fi
-      current balance bulchi.
-    </p>
-
-  </a>
-
-
-  <!-- REPORT -->
-
-  <a
-    href="reports.html"
-    class="menu-card">
-
-    <div class="menu-icon">
-      📈
-    </div>
-
-    <h3>
-      Reports
-    </h3>
-
-    <p>
-      Gabaasa stock fi transaction
-      ilaali.
-    </p>
-
-  </a>
-
-
-  <!-- CATEGORY -->
-
-  <a
-    href="category.html"
-    class="menu-card">
-
-    <div class="menu-icon">
-      🗂️
-    </div>
-
-    <h3>
-      Category Management
-    </h3>
-
-    <p>
-      Categories fi items
-      to'achuu.
-    </p>
-
-  </a>
-
-
-  <!-- SETTINGS -->
-
-  <a
-    href="settings.html"
-    class="menu-card">
-
-    <div class="menu-icon">
-      ⚙️
-    </div>
-
-    <h3>
-      Settings
-    </h3>
-
-    <p>
-      Qindaa'ina application
-      ilaali fi jijjiiri.
-    </p>
-
-  </a>
-
-
-  <!-- BACK TO MENU -->
-
-  <a
-    href="index.html"
-    class="menu-card">
-
-    <div class="menu-icon">
-      🏠
-    </div>
-
-    <h3>
-      Back to Menu
-    </h3>
-
-    <p>
-      Gara main menu deebi'i.
-    </p>
-
-  </a>
-
-
-</div>
-
-
-<!-- =====================================================
-     BRANCH INFORMATION
-===================================================== -->
-
-<div class="branch-box">
-
-  <div class="branch-title">
-    🏢 Branch Information
-  </div>
-
-  <div class="branch-info">
-
-    Selected Branch:
-
-    <strong
-      id="branchInfo">
-
-      Loading...
-
     </strong>
 
   </div>
@@ -663,23 +851,139 @@ footer{
 </div>
 
 
+<!-- =====================================================
+     REPORT
+===================================================== -->
+
+<div class="report-box">
+
+  <div class="report-title">
+
+    📊 Stock Report —
+
+    <span id="reportBranch">
+      Branch
+    </span>
+
+  </div>
+
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>No</th>
+
+        <th>Item</th>
+
+        <th>Unit</th>
+
+        <th>Stock IN</th>
+
+        <th>Stock OUT</th>
+
+        <th>Balance</th>
+
+        <th>Details</th>
+
+      </tr>
+
+    </thead>
+
+
+    <tbody id="reportTable">
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="text-align:center;padding:25px">
+
+          Loading...
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
 </div>
 
 
 <!-- =====================================================
-     FOOTER
+     DETAILS
 ===================================================== -->
 
-<footer>
+<div
+  id="detailsBox"
+  class="details-box">
 
-  AAFDRMC Stock Management System
 
-  <br>
+  <div class="details-header">
 
-  Branch Inventory & Reporting
+    <div
+      id="detailsTitle"
+      class="details-title">
+    </div>
 
-</footer>
 
+    <button
+      class="close-btn"
+      onclick="closeDetails()">
+
+      ✖ Close
+
+    </button>
+
+  </div>
+
+
+  <div style="overflow-x:auto;">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>No</th>
+
+          <th>Transaction</th>
+
+          <th>Quantity</th>
+
+          <th>Unit</th>
+
+          <th>Guyyaa</th>
+
+          <th>Nama Galche</th>
+
+          <th>Nama Baase</th>
+
+          <th>Expiry Date</th>
+
+          <th>Mallattoo</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="detailsTable">
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+</div>
 
 
 <script>
@@ -696,18 +1000,90 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   BRANCH
+   BRANCH FIX
 ===================================================== */
 
-const CURRENT_BRANCH_ID =
-localStorage.getItem(
-  "selected_branch_id"
-);
+function getBranchId(){
 
-const CURRENT_BRANCH_NAME =
-localStorage.getItem(
-  "selected_branch_name"
-) || "Unknown Branch";
+  return (
+
+    localStorage.getItem(
+      "selected_branch_id"
+    )
+
+    ||
+
+    localStorage.getItem(
+      "branch_id"
+    )
+
+    ||
+
+    localStorage.getItem(
+      "current_branch_id"
+    )
+
+    ||
+
+    sessionStorage.getItem(
+      "selected_branch_id"
+    )
+
+    ||
+
+    ""
+
+  );
+
+}
+
+
+function getBranchName(){
+
+  return (
+
+    localStorage.getItem(
+      "selected_branch_name"
+    )
+
+    ||
+
+    localStorage.getItem(
+      "branch_name"
+    )
+
+    ||
+
+    localStorage.getItem(
+      "current_branch_name"
+    )
+
+    ||
+
+    sessionStorage.getItem(
+      "selected_branch_name"
+    )
+
+    ||
+
+    "Unknown Branch"
+
+  );
+
+}
+
+
+let CURRENT_BRANCH_ID =
+getBranchId();
+
+
+let CURRENT_BRANCH_NAME =
+getBranchName();
+
+
+let allItems = [];
+
+let allTransactions = [];
 
 
 /* =====================================================
@@ -720,6 +1096,7 @@ function getHeaders(){
     localStorage.getItem(
       "access_token"
     );
+
 
   return {
 
@@ -739,42 +1116,90 @@ function getHeaders(){
 
 
 /* =====================================================
-   SHOW BRANCH
+   ESCAPE HTML
 ===================================================== */
 
-function showBranch(){
+function escapeHTML(value){
 
-  document.getElementById(
-    "branchName"
-  ).textContent =
-    "🏢 Branch: " +
-    CURRENT_BRANCH_NAME;
+  return String(value ?? "")
 
+    .replace(/&/g,"&amp;")
 
-  document.getElementById(
-    "branchInfo"
-  ).textContent =
-    CURRENT_BRANCH_NAME;
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;");
 
 }
 
 
 /* =====================================================
-   MESSAGE
+   BRANCH CHECK
 ===================================================== */
 
-function showError(text){
+function checkBranch(){
 
-  const box =
+  CURRENT_BRANCH_ID =
+    getBranchId();
+
+
+  CURRENT_BRANCH_NAME =
+    getBranchName();
+
+
+  const branchName =
     document.getElementById(
-      "message"
+      "branchName"
     );
 
-  box.textContent =
-    text;
 
-  box.className =
-    "message show error";
+  const reportBranch =
+    document.getElementById(
+      "reportBranch"
+    );
+
+
+  const error =
+    document.getElementById(
+      "branchError"
+    );
+
+
+  if(!CURRENT_BRANCH_ID){
+
+    branchName.textContent =
+      "⚠️ Branch hin filatamne";
+
+    reportBranch.textContent =
+      "Branch hin jiru";
+
+    error.classList.add(
+      "show"
+    );
+
+    return false;
+
+  }
+
+
+  branchName.textContent =
+    "🏢 Branch: " +
+    CURRENT_BRANCH_NAME;
+
+
+  reportBranch.textContent =
+    CURRENT_BRANCH_NAME;
+
+
+  error.classList.remove(
+    "show"
+  );
+
+
+  return true;
 
 }
 
@@ -796,7 +1221,8 @@ async function loadItems(){
     "&branch_id=eq." +
     encodeURIComponent(
       CURRENT_BRANCH_ID
-    );
+    ) +
+    "&order=id.asc";
 
 
   try{
@@ -814,6 +1240,7 @@ async function loadItems(){
     if(!response.ok){
 
       console.error(
+        "Items Error:",
         await response.text()
       );
 
@@ -824,9 +1251,14 @@ async function loadItems(){
 
     return await response.json();
 
-  }catch(error){
+  }
 
-    console.error(error);
+  catch(error){
+
+    console.error(
+      "Items Error:",
+      error
+    );
 
     return [];
 
@@ -852,7 +1284,8 @@ async function loadTransactions(){
     "&branch_id=eq." +
     encodeURIComponent(
       CURRENT_BRANCH_ID
-    );
+    ) +
+    "&order=created_at.desc";
 
 
   try{
@@ -870,6 +1303,7 @@ async function loadTransactions(){
     if(!response.ok){
 
       console.error(
+        "Transaction Error:",
         await response.text()
       );
 
@@ -880,9 +1314,14 @@ async function loadTransactions(){
 
     return await response.json();
 
-  }catch(error){
+  }
 
-    console.error(error);
+  catch(error){
+
+    console.error(
+      "Transaction Error:",
+      error
+    );
 
     return [];
 
@@ -892,15 +1331,181 @@ async function loadTransactions(){
 
 
 /* =====================================================
-   LOAD DASHBOARD
+   FILL ITEM LIST
 ===================================================== */
 
-async function loadDashboard(){
+function fillItemLists(){
 
-  if(!CURRENT_BRANCH_ID){
+  const inItem =
+    document.getElementById(
+      "inItem"
+    );
 
-    showError(
-      "❌ Branch hin filatamne. Gara Login deebi'ii Branch filadhu."
+
+  const outItem =
+    document.getElementById(
+      "outItem"
+    );
+
+
+  inItem.innerHTML = `
+    <option value="">
+      -- Item filadhu --
+    </option>
+  `;
+
+
+  outItem.innerHTML = `
+    <option value="">
+      -- Item filadhu --
+    </option>
+  `;
+
+
+  allItems.forEach(
+    item => {
+
+      const option1 =
+        document.createElement(
+          "option"
+        );
+
+
+      option1.value =
+        item.id;
+
+
+      option1.textContent =
+        item.name;
+
+
+      option1.dataset.unit =
+        item.unit || "";
+
+
+      inItem.appendChild(
+        option1
+      );
+
+
+      const option2 =
+        option1.cloneNode(
+          true
+        );
+
+
+      outItem.appendChild(
+        option2
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   UNIT
+===================================================== */
+
+document.getElementById(
+  "inItem"
+).addEventListener(
+  "change",
+  function(){
+
+    const option =
+      this.options[
+        this.selectedIndex
+      ];
+
+
+    document.getElementById(
+      "inUnit"
+    ).value =
+      option?.dataset?.unit || "";
+
+  }
+);
+
+
+document.getElementById(
+  "outItem"
+).addEventListener(
+  "change",
+  function(){
+
+    const option =
+      this.options[
+        this.selectedIndex
+      ];
+
+
+    document.getElementById(
+      "outUnit"
+    ).value =
+      option?.dataset?.unit || "";
+
+  }
+);
+
+
+/* =====================================================
+   DEFAULT DATE
+===================================================== */
+
+function setDefaultDates(){
+
+  const now =
+    new Date();
+
+
+  const local =
+    new Date(
+      now.getTime()
+      -
+      now.getTimezoneOffset()
+      * 60000
+    )
+    .toISOString()
+    .slice(
+      0,
+      16
+    );
+
+
+  document.getElementById(
+    "inDate"
+  ).value =
+    local;
+
+
+  document.getElementById(
+    "outDate"
+  ).value =
+    local;
+
+}
+
+
+/* =====================================================
+   OPEN FORM
+===================================================== */
+
+function openForm(type){
+
+  closeForms();
+
+
+  if(!checkBranch())
+    return;
+
+
+  if(allItems.length === 0){
+
+    showMessage(
+      "❌ Item tokko illee branch kanaaf hin jiru.",
+      "error"
     );
 
     return;
@@ -908,84 +1513,896 @@ async function loadDashboard(){
   }
 
 
-  const items =
-    await loadItems();
+  if(type === "IN"){
+
+    document.getElementById(
+      "stockInForm"
+    ).classList.add(
+      "show"
+    );
+
+  }
 
 
-  const transactions =
-    await loadTransactions();
+  if(type === "OUT"){
+
+    document.getElementById(
+      "stockOutForm"
+    ).classList.add(
+      "show"
+    );
+
+  }
+
+}
 
 
-  /* TOTAL ITEMS */
+/* =====================================================
+   CLOSE FORMS
+===================================================== */
+
+function closeForms(){
 
   document.getElementById(
-    "totalItems"
-  ).textContent =
-    items.length;
+    "stockInForm"
+  ).classList.remove(
+    "show"
+  );
 
 
-  /* TOTAL IN */
+  document.getElementById(
+    "stockOutForm"
+  ).classList.remove(
+    "show"
+  );
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+  text,
+  type
+){
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+
+  box.textContent =
+    text;
+
+
+  box.className =
+    "message " +
+    type;
+
+
+  setTimeout(
+    function(){
+
+      box.className =
+        "message";
+
+    },
+    5000
+  );
+
+}
+
+
+/* =====================================================
+   SAVE STOCK
+===================================================== */
+
+async function saveStock(type){
+
+  if(!checkBranch())
+    return;
+
+
+  let itemId = "";
+
+  let quantity = 0;
+
+  let unit = "";
+
+  let enteredBy = "";
+
+  let issuedBy = "";
+
+  let expiryDate = null;
+
+  let transactionDate = "";
+
+  let signature = "";
+
+
+  /* ================= IN ================= */
+
+  if(type === "IN"){
+
+    itemId =
+      document.getElementById(
+        "inItem"
+      ).value;
+
+
+    quantity =
+      Number(
+        document.getElementById(
+          "inQuantity"
+        ).value
+      );
+
+
+    unit =
+      document.getElementById(
+        "inUnit"
+      ).value;
+
+
+    enteredBy =
+      document.getElementById(
+        "inEnteredBy"
+      ).value.trim();
+
+
+    expiryDate =
+      document.getElementById(
+        "inExpiryDate"
+      ).value
+      || null;
+
+
+    transactionDate =
+      document.getElementById(
+        "inDate"
+      ).value;
+
+
+    signature =
+      document.getElementById(
+        "inSignature"
+      ).value.trim();
+
+  }
+
+
+  /* ================= OUT ================= */
+
+  if(type === "OUT"){
+
+    itemId =
+      document.getElementById(
+        "outItem"
+      ).value;
+
+
+    quantity =
+      Number(
+        document.getElementById(
+          "outQuantity"
+        ).value
+      );
+
+
+    unit =
+      document.getElementById(
+        "outUnit"
+      ).value;
+
+
+    issuedBy =
+      document.getElementById(
+        "outIssuedBy"
+      ).value.trim();
+
+
+    transactionDate =
+      document.getElementById(
+        "outDate"
+      ).value;
+
+
+    signature =
+      document.getElementById(
+        "outSignature"
+      ).value.trim();
+
+  }
+
+
+  /* ================= VALIDATION ================= */
+
+  if(!itemId){
+
+    showMessage(
+      "❌ Item filadhu.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!quantity || quantity <= 0){
+
+    showMessage(
+      "❌ Quantity sirrii galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!transactionDate){
+
+    showMessage(
+      "❌ Guyyaa galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    type === "IN"
+    &&
+    !enteredBy
+  ){
+
+    showMessage(
+      "❌ Nama galche galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    type === "OUT"
+    &&
+    !issuedBy
+  ){
+
+    showMessage(
+      "❌ Nama baase galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const item =
+    allItems.find(
+      i =>
+        String(i.id) ===
+        String(itemId)
+    );
+
+
+  if(!item){
+
+    showMessage(
+      "❌ Item branch kana keessatti hin argamne.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* ================= CHECK BALANCE ================= */
+
+  if(type === "OUT"){
+
+    const balance =
+      getItemBalance(
+        itemId
+      );
+
+
+    if(quantity > balance){
+
+      showMessage(
+        "❌ Stock gahaa hin jiru. Balance: " +
+        balance +
+        " " +
+        unit,
+        "error"
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  /* ================= DATA ================= */
+
+  const data = {
+
+    branch_id:
+      CURRENT_BRANCH_ID,
+
+    item_id:
+      itemId,
+
+    quantity:
+      quantity,
+
+    unit:
+      unit,
+
+    transaction:
+      type,
+
+    transaction_type:
+      type,
+
+    entered_by:
+      enteredBy || null,
+
+    issued_by:
+      issuedBy || null,
+
+    expiry_date:
+      expiryDate,
+
+    signature:
+      signature || null,
+
+    created_at:
+      new Date(
+        transactionDate
+      ).toISOString()
+
+  };
+
+
+  try{
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/stock_transactions",
+
+        {
+
+          method:"POST",
+
+          headers:{
+            ...getHeaders(),
+
+            "Prefer":
+              "return=representation"
+
+          },
+
+          body:
+            JSON.stringify(
+              data
+            )
+
+        }
+
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+
+      console.error(
+        "Save Error:",
+        errorText
+      );
+
+
+      showMessage(
+        "❌ Save hin milkoofne: " +
+        errorText,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    showMessage(
+
+      type === "IN"
+
+      ?
+
+      "✅ Stock IN sirriitti galmaa'e."
+
+      :
+
+      "✅ Stock OUT sirriitti galmaa'e.",
+
+      "success"
+
+    );
+
+
+    clearForm(
+      type
+    );
+
+
+    closeForms();
+
+
+    await loadStock();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Save Error:",
+      error
+    );
+
+
+    showMessage(
+      "❌ Network error.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   ITEM BALANCE
+===================================================== */
+
+function getItemBalance(
+  itemId
+){
 
   let totalIn = 0;
 
   let totalOut = 0;
 
 
-  transactions.forEach(
-    transaction => {
+  allTransactions.forEach(
+    t => {
+
+      if(
+        String(t.item_id) !==
+        String(itemId)
+      )
+        return;
+
 
       const quantity =
         Number(
-          transaction.quantity || 0
+          t.quantity || 0
         );
 
 
       const type =
         String(
-          transaction.transaction_type ||
-          transaction.transaction ||
+          t.transaction_type ||
+          t.transaction ||
           ""
         ).toUpperCase();
 
 
-      if(type === "IN"){
-
+      if(type === "IN")
         totalIn += quantity;
 
-      }
 
-
-      if(type === "OUT"){
-
+      if(type === "OUT")
         totalOut += quantity;
 
-      }
-
     }
   );
 
 
-  /* CURRENT BALANCE */
+  const item =
+    allItems.find(
+      i =>
+        String(i.id) ===
+        String(itemId)
+    );
 
-  let openingStock = 0;
+
+  const opening =
+    Number(
+      item?.quantity || 0
+    );
 
 
-  items.forEach(
+  return (
+    opening +
+    totalIn -
+    totalOut
+  );
+
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm(type){
+
+  if(type === "IN"){
+
+    document.getElementById(
+      "inItem"
+    ).value = "";
+
+    document.getElementById(
+      "inUnit"
+    ).value = "";
+
+    document.getElementById(
+      "inQuantity"
+    ).value = "";
+
+    document.getElementById(
+      "inEnteredBy"
+    ).value = "";
+
+    document.getElementById(
+      "inExpiryDate"
+    ).value = "";
+
+    document.getElementById(
+      "inSignature"
+    ).value = "";
+
+  }
+
+
+  if(type === "OUT"){
+
+    document.getElementById(
+      "outItem"
+    ).value = "";
+
+    document.getElementById(
+      "outUnit"
+    ).value = "";
+
+    document.getElementById(
+      "outQuantity"
+    ).value = "";
+
+    document.getElementById(
+      "outIssuedBy"
+    ).value = "";
+
+    document.getElementById(
+      "outSignature"
+    ).value = "";
+
+  }
+
+
+  setDefaultDates();
+
+}
+
+
+/* =====================================================
+   LOAD STOCK
+===================================================== */
+
+async function loadStock(){
+
+  if(!checkBranch())
+    return;
+
+
+  allItems =
+    await loadItems();
+
+
+  allTransactions =
+    await loadTransactions();
+
+
+  fillItemLists();
+
+
+  showReport();
+
+
+  setDefaultDates();
+
+}
+
+
+/* =====================================================
+   BUILD REPORT
+===================================================== */
+
+function buildReport(){
+
+  const groups = {};
+
+
+  allItems.forEach(
     item => {
 
-      openingStock +=
-        Number(
-          item.quantity || 0
-        );
+      const key =
+        String(
+          item.name || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(!groups[key]){
+
+        groups[key] = {
+
+          name:
+            item.name || "",
+
+          unit:
+            item.unit || "",
+
+          itemIds:[],
+
+          in:0,
+
+          out:0
+
+        };
+
+      }
+
+
+      groups[key].itemIds.push(
+        item.id
+      );
 
     }
   );
 
 
-  const balance =
-    openingStock +
-    totalIn -
-    totalOut;
+  allTransactions.forEach(
+    t => {
+
+      const item =
+        allItems.find(
+          i =>
+            String(i.id) ===
+            String(t.item_id)
+        );
+
+
+      if(!item)
+        return;
+
+
+      const key =
+        String(
+          item.name || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(!groups[key]){
+
+        groups[key] = {
+
+          name:
+            item.name || "",
+
+          unit:
+            item.unit || "",
+
+          itemIds:[],
+
+          in:0,
+
+          out:0
+
+        };
+
+      }
+
+
+      const quantity =
+        Number(
+          t.quantity || 0
+        );
+
+
+      const type =
+        String(
+          t.transaction_type ||
+          t.transaction ||
+          ""
+        ).toUpperCase();
+
+
+      if(type === "IN")
+        groups[key].in += quantity;
+
+
+      if(type === "OUT")
+        groups[key].out += quantity;
+
+    }
+  );
+
+
+  return Object.values(
+    groups
+  );
+
+}
+
+
+/* =====================================================
+   SHOW REPORT
+===================================================== */
+
+function showReport(){
+
+  const table =
+    document.getElementById(
+      "reportTable"
+    );
+
+
+  const groups =
+    buildReport();
+
+
+  table.innerHTML = "";
+
+
+  let totalIn = 0;
+
+  let totalOut = 0;
+
+
+  if(groups.length === 0){
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="
+            text-align:center;
+            padding:25px">
+
+          📦 Item hin jiru.
+
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+
+  groups.forEach(
+    (group,index) => {
+
+      const balance =
+        group.in -
+        group.out;
+
+
+      totalIn +=
+        group.in;
+
+
+      totalOut +=
+        group.out;
+
+
+      const row =
+        document.createElement(
+          "tr"
+        );
+
+
+      row.className =
+        "item-row";
+
+
+      row.onclick =
+        function(){
+
+          showItemDetails(
+            group.name
+          );
+
+        };
+
+
+      row.innerHTML = `
+
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+          <strong>
+            ${escapeHTML(
+              group.name
+            )}
+          </strong>
+        </td>
+
+        <td>
+          ${escapeHTML(
+            group.unit
+          )}
+        </td>
+
+        <td>
+          ${group.in.toLocaleString()}
+        </td>
+
+        <td>
+          ${group.out.toLocaleString()}
+        </td>
+
+        <td class="balance">
+          ${group.balance ??
+            (group.in-group.out)
+              .toLocaleString()}
+        </td>
+
+        <td class="click">
+          👆 Click
+        </td>
+
+      `;
+
+
+      table.appendChild(
+        row
+      );
+
+    }
+  );
+
+
+  document.getElementById(
+    "totalItems"
+  ).textContent =
+    groups.length;
 
 
   document.getElementById(
@@ -1003,7 +2420,280 @@ async function loadDashboard(){
   document.getElementById(
     "totalBalance"
   ).textContent =
-    balance.toLocaleString();
+    (
+      totalIn -
+      totalOut
+    ).toLocaleString();
+
+}
+
+
+/* =====================================================
+   DETAILS
+===================================================== */
+
+function showItemDetails(
+  itemName
+){
+
+  const normalized =
+    String(
+      itemName
+    )
+    .trim()
+    .toLowerCase();
+
+
+  const items =
+    allItems.filter(
+      item =>
+        String(
+          item.name || ""
+        )
+        .trim()
+        .toLowerCase()
+        ===
+        normalized
+    );
+
+
+  const ids =
+    items.map(
+      item =>
+        String(item.id)
+    );
+
+
+  const transactions =
+    allTransactions.filter(
+      t =>
+        ids.includes(
+          String(t.item_id)
+        )
+    );
+
+
+  const detailsBox =
+    document.getElementById(
+      "detailsBox"
+    );
+
+
+  const detailsTitle =
+    document.getElementById(
+      "detailsTitle"
+    );
+
+
+  const detailsTable =
+    document.getElementById(
+      "detailsTable"
+    );
+
+
+  detailsTitle.textContent =
+    "📦 " +
+    itemName +
+    " — " +
+    CURRENT_BRANCH_NAME;
+
+
+  detailsTable.innerHTML =
+    "";
+
+
+  if(transactions.length === 0){
+
+    detailsTable.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="9"
+          style="
+            text-align:center;
+            padding:25px">
+
+          Transaction hin jiru.
+
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+
+  transactions.forEach(
+    (t,index) => {
+
+      const type =
+        String(
+          t.transaction_type ||
+          t.transaction ||
+          ""
+        ).toUpperCase();
+
+
+      const item =
+        allItems.find(
+          i =>
+            String(i.id) ===
+            String(t.item_id)
+        );
+
+
+      const row =
+        document.createElement(
+          "tr"
+        );
+
+
+      row.innerHTML = `
+
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+
+          <span class="badge ${
+            type === "OUT"
+            ? "badge-out"
+            : "badge-in"
+          }">
+
+            ${
+              type === "OUT"
+              ? "🔴 OUT"
+              : "🟢 IN"
+            }
+
+          </span>
+
+        </td>
+
+        <td>
+          ${Number(
+            t.quantity || 0
+          ).toLocaleString()}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.unit ||
+            item?.unit ||
+            ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            formatDate(
+              t.created_at
+            )
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.entered_by ||
+            "—"
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.issued_by ||
+            "—"
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.expiry_date ||
+            "—"
+          )}
+        </td>
+
+        <td>
+          ${
+            t.signature
+            ?
+            "✍️ " +
+            escapeHTML(
+              t.signature
+            )
+            :
+            "—"
+          }
+        </td>
+
+      `;
+
+
+      detailsTable.appendChild(
+        row
+      );
+
+    }
+  );
+
+
+  detailsBox.classList.add(
+    "show"
+  );
+
+
+  detailsBox.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+}
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(
+  value
+){
+
+  if(!value)
+    return "—";
+
+
+  const date =
+    new Date(value);
+
+
+  if(
+    isNaN(
+      date.getTime()
+    )
+  )
+    return value;
+
+
+  return date.toLocaleString();
+
+}
+
+
+/* =====================================================
+   CLOSE DETAILS
+===================================================== */
+
+function closeDetails(){
+
+  document.getElementById(
+    "detailsBox"
+  ).classList.remove(
+    "show"
+  );
 
 }
 
@@ -1012,12 +2702,16 @@ async function loadDashboard(){
    START
 ===================================================== */
 
-showBranch();
+checkBranch();
 
-loadDashboard();
+
+if(CURRENT_BRANCH_ID){
+
+  loadStock();
+
+}
 
 </script>
-
 
 </body>
 
