@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Login</title>
-
-<style>
+<title>AAFDRMC - Branch Login</title><style>
 
 *{
   box-sizing:border-box;
@@ -25,7 +16,7 @@ body{
 .login-box{
   width:90%;
   max-width:420px;
-  margin:70px auto;
+  margin:50px auto;
   padding:30px;
   background:#1e3a8a;
   border-radius:15px;
@@ -37,10 +28,19 @@ h1,h2{
   color:white;
 }
 
+label{
+  display:block;
+  color:white;
+  font-weight:bold;
+  margin-top:15px;
+  margin-bottom:6px;
+}
+
+select,
 input{
   width:100%;
   padding:13px;
-  margin:8px 0;
+  margin:5px 0;
   border:1px solid #cbd5e1;
   border-radius:7px;
   font-size:16px;
@@ -50,7 +50,7 @@ input{
 button{
   width:100%;
   padding:13px;
-  margin-top:10px;
+  margin-top:15px;
   border:none;
   border-radius:7px;
   background:#2563eb;
@@ -82,69 +82,77 @@ button:hover{
   border-radius:8px;
   text-align:center;
   font-weight:bold;
-  margin-bottom:15px;
+  margin-top:15px;
 }
 
-</style>
+</style></head><body><div class="login-box"><h1>🏢 AAFDRMC</h1><h2>🔐 User Login</h2><!-- =====================================================
+     BRANCH SELECTION
+===================================================== --><label for="branchSelect">
+📍 Select Branch
+</label><select id="branchSelect"
+onchange="selectBranch()">
 
-</head>
-
-
-<body>
-
-
-<div class="login-box">
-
-<h1>🏢 AAFDRMC</h1>
-
-<h2>🔐 User Login</h2>
-
-
-<div
+<option value="">
+-- Select Branch --
+</option><option value="branch1">
+Branch 1
+</option><option value="branch2">
+Branch 2
+</option><option value="branch3">
+Branch 3
+</option><option value="branch4">
+Branch 4
+</option><option value="branch5">
+Branch 5
+</option><option value="branch6">
+Branch 6
+</option><option value="branch7">
+Branch 7
+</option><option value="branch8">
+Branch 8
+</option><option value="branch9">
+Branch 9
+</option><option value="branch10">
+Branch 10
+</option><option value="branch11">
+Branch 11
+</option><option value="branch12">
+Branch 12
+</option></select><div
 id="branchInfo"
-class="branch-info">
+class="branch-info">📍 Branch hin filatamne
 
-Branch: Loading...
-
-</div>
-
-
-<input
+</div><!-- =====================================================
+     USER ID
+===================================================== --><label for="loginUserId">
+👤 User ID
+</label><input
 id="loginUserId"
 type="text"
 placeholder="User ID"
 autocomplete="username">
 
-
-<input
+<!-- =====================================================
+     PASSWORD
+===================================================== --><label for="loginPassword">
+🔑 Password
+</label><input
 id="loginPassword"
 type="password"
 placeholder="Password"
 autocomplete="current-password">
 
+<!-- =====================================================
+     LOGIN BUTTON
+===================================================== --><button onclick="loginUser()">🔐 Login
 
-<button onclick="loginUser()">
-
-🔐 Login
-
-</button>
-
-
-<button
+</button><button
 class="back-button"
 onclick="changeBranch()">
 
-← Change Branch
+↻ Change Branch
 
-</button>
-
-
-<p id="loginMessage"></p>
-
-</div>
-
-
-<script>
+</button><p id="loginMessage"></p></div><script>
 
 
 /* =====================================================
@@ -155,7 +163,7 @@ const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXK9Jq";
 
 
 /* =====================================================
@@ -164,50 +172,82 @@ const SUPABASE_KEY =
 
 const branches = {
 
-"main":
-"Main",
-
-"branch1":
-"Branch 1",
-
-"branch2":
-"Branch 2",
-
-"branch3":
-"Branch 3",
-
-"branch4":
-"Branch 4",
-
-"branch5":
-"Branch 5",
-
-"branch6":
-"Branch 6",
-
-"branch7":
-"Branch 7",
-
-"branch8":
-"Branch 8",
-
-"branch9":
-"Branch 9",
-
-"branch10":
-"Branch 10",
-
-"branch11":
-"Branch 11",
-
-"branch12":
-"Branch 12"
+branch1:"Branch 1",
+branch2:"Branch 2",
+branch3:"Branch 3",
+branch4:"Branch 4",
+branch5:"Branch 5",
+branch6:"Branch 6",
+branch7:"Branch 7",
+branch8:"Branch 8",
+branch9:"Branch 9",
+branch10:"Branch 10",
+branch11:"Branch 11",
+branch12:"Branch 12"
 
 };
 
 
 /* =====================================================
-   SHOW SELECTED BRANCH
+   SELECT BRANCH
+===================================================== */
+
+function selectBranch(){
+
+const select =
+document.getElementById(
+"branchSelect"
+);
+
+const branchId =
+select.value;
+
+
+if(!branchId){
+
+localStorage.removeItem(
+"selected_branch_id"
+);
+
+localStorage.removeItem(
+"selected_branch_name"
+);
+
+document.getElementById(
+"branchInfo"
+).textContent =
+"📍 Branch hin filatamne";
+
+return;
+
+}
+
+
+const branchName =
+branches[branchId];
+
+
+localStorage.setItem(
+"selected_branch_id",
+branchId
+);
+
+localStorage.setItem(
+"selected_branch_name",
+branchName
+);
+
+
+document.getElementById(
+"branchInfo"
+).textContent =
+"📍 " + branchName;
+
+}
+
+
+/* =====================================================
+   SHOW SAVED BRANCH
 ===================================================== */
 
 function showBranch(){
@@ -226,16 +266,14 @@ localStorage.getItem(
 if(branchId && branchName){
 
 document.getElementById(
-"branchInfo"
-).textContent =
-"📍 " + branchName;
-
-}else{
+"branchSelect"
+).value =
+branchId;
 
 document.getElementById(
 "branchInfo"
 ).textContent =
-"📍 Branch hin filatamne";
+"📍 " + branchName;
 
 }
 
@@ -264,6 +302,22 @@ document.getElementById(
 );
 
 
+const selectedBranchId =
+localStorage.getItem(
+"selected_branch_id"
+);
+
+
+if(!selectedBranchId){
+
+message.textContent =
+"❌ Dura jalqaba Branch filadhu.";
+
+return;
+
+}
+
+
 if(!userId){
 
 message.textContent =
@@ -284,42 +338,11 @@ return;
 }
 
 
-const selectedBranchId =
-localStorage.getItem(
-"selected_branch_id"
-);
-
-
-if(!selectedBranchId){
-
-message.textContent =
-"❌ Branch hin filatamne.";
-
-return;
-
-}
-
-
 message.textContent =
 "Login mirkaneessaa jira...";
 
 
 try{
-
-
-/*
-=====================================================
-  USER DATABASE
-
-  Supabase keessatti users table qabaachuu qaba:
-
-  id
-  user_id
-  password
-  branch_id
-  branch_name
-=====================================================
-*/
 
 
 const response =
@@ -400,7 +423,7 @@ return;
 
 
 /* =====================================================
-   SAVE LOGIN INFORMATION
+   SAVE LOGIN
 ===================================================== */
 
 localStorage.setItem(
@@ -408,25 +431,22 @@ localStorage.setItem(
 String(user.user_id)
 );
 
-
 localStorage.setItem(
 "user_db_id",
 String(user.id)
 );
-
 
 localStorage.setItem(
 "branch_id",
 String(user.branch_id)
 );
 
-
 localStorage.setItem(
 "user_branch",
 user.branch_name ||
+branches[selectedBranchId] ||
 ""
 );
-
 
 localStorage.setItem(
 "is_logged_in",
@@ -481,8 +501,20 @@ localStorage.removeItem(
 "selected_branch_name"
 );
 
-window.location.href =
-"index.html";
+document.getElementById(
+"branchSelect"
+).value =
+"";
+
+document.getElementById(
+"branchInfo"
+).textContent =
+"📍 Branch hin filatamne";
+
+document.getElementById(
+"loginMessage"
+).textContent =
+"";
 
 }
 
@@ -493,8 +525,4 @@ window.location.href =
 
 showBranch();
 
-</script>
-
-</body>
-
-</html>
+</script></body></html>
