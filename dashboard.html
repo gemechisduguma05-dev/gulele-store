@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Main Dashboard</title>
 
@@ -26,6 +30,7 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:15px;
 }
 
 header h1{
@@ -72,9 +77,32 @@ nav a.active{
 }
 
 .container{
-  max-width:1400px;
+  max-width:1500px;
   margin:auto;
   padding:20px;
+}
+
+.selected-branch{
+  background:white;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:20px;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  color:#1e3a8a;
+}
+
+.main-control{
+  background:#dbeafe;
+  border:2px solid #2563eb;
+  color:#1e3a8a;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  text-align:center;
+  font-weight:bold;
 }
 
 .branch-main{
@@ -99,17 +127,6 @@ nav a.active{
 .branch-main-header p{
   color:#64748b;
   margin:8px 0 0;
-}
-
-.selected-branch{
-  text-align:center;
-  margin:15px auto 0;
-  background:#eff6ff;
-  color:#1e3a8a;
-  padding:10px;
-  border-radius:8px;
-  font-weight:bold;
-  max-width:500px;
 }
 
 .branch-grid{
@@ -258,17 +275,38 @@ nav a.active{
   color:#1e3a8a;
 }
 
+.branch-open{
+  width:100%;
+  margin-top:12px;
+  border:0;
+  padding:10px;
+  border-radius:7px;
+  background:#2563eb;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.branch-open:hover{
+  opacity:.9;
+}
+
 .status{
   margin-top:20px;
   background:#ecfdf5;
   color:#166534;
   padding:12px;
   border-radius:8px;
+  font-weight:bold;
 }
 
 .error-status{
   background:#fef2f2;
   color:#991b1b;
+}
+
+.hidden{
+  display:none;
 }
 
 @media(max-width:900px){
@@ -288,7 +326,6 @@ nav a.active{
   header{
     flex-direction:column;
     align-items:flex-start;
-    gap:12px;
   }
 
   .branch-grid{
@@ -297,14 +334,6 @@ nav a.active{
 
   .summary-grid{
     grid-template-columns:1fr 1fr;
-  }
-
-  .branch-name{
-    font-size:14px;
-  }
-
-  .branch-icon{
-    font-size:28px;
   }
 
   nav a{
@@ -323,51 +352,83 @@ nav a.active{
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
 
-  <div>
-    <h1>AAFDRMC</h1>
-    <p>Stock Management System</p>
-  </div>
+<div>
 
-  <button
-    class="logout"
-    onclick="logoutUser()">
-    Logout
-  </button>
+<h1>
+AAFDRMC
+</h1>
+
+<p>
+Stock Management System
+</p>
+
+</div>
+
+
+<button
+class="logout"
+onclick="logoutUser()">
+
+Logout
+
+</button>
 
 </header>
 
 
 <nav>
 
-  <a href="dashboard.html" class="active">
-    🏠 Main
-  </a>
+<a
+href="dashboard.html"
+class="active">
 
-  <a href="branch.html">
-    🏪 Branches
-  </a>
+🏠 Main
 
-  <a href="items.html">
-    📦 Items
-  </a>
+</a>
 
-  <a href="stock.html">
-    📥📤 Stock In / Out
-  </a>
+<a
+href="branch.html">
 
-  <a href="reports.html">
-    📊 Reports
-  </a>
+🏪 Branches
 
-  <a href="settings.html">
-    ⚙️ Settings
-  </a>
+</a>
+
+<a
+href="items.html">
+
+📦 Items
+
+</a>
+
+<a
+href="stock.html">
+
+📥📤 Stock In / Out
+
+</a>
+
+<a
+href="reports.html">
+
+📊 Reports
+
+</a>
+
+<a
+href="settings.html">
+
+⚙️ Settings
+
+</a>
 
 </nav>
 
@@ -375,141 +436,259 @@ nav a.active{
 <div class="container">
 
 
+<!-- =====================================================
+     SELECTED BRANCH
+===================================================== -->
+
+<div
+class="selected-branch"
+id="selectedBranchBox">
+
+🏢 Loading Branch...
+
+</div>
+
+
+<!-- =====================================================
+     MAIN CONTROL MESSAGE
+===================================================== -->
+
+<div
+id="mainControl"
+class="main-control">
+
+</div>
+
+
+<!-- =====================================================
+     BRANCHES
+===================================================== -->
+
 <div class="branch-main">
 
-  <div class="branch-main-header">
 
-    <h2>
-      🏪 STORE BRANCHES
-    </h2>
+<div class="branch-main-header">
 
-    <p>
-      Branch kee filadhu
-    </p>
-
-    <div
-      class="selected-branch"
-      id="selectedBranchBox">
-      Selected Branch: Main
-    </div>
-
-  </div>
-
-
-  <div
-    class="branch-grid"
-    id="branchGrid">
-
-    <div class="branch-card">
-
-      <div class="branch-icon">
-        ⏳
-      </div>
-
-      <div class="branch-name">
-        Loading branches...
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<h2 class="section-title">
-  📊 Dashboard Summary
+<h2>
+🏪 STORE BRANCHES
 </h2>
 
-
-<div class="summary-grid">
-
-  <div class="card">
-    <h3>Total Items</h3>
-    <div class="number" id="totalItems">0</div>
-  </div>
-
-  <div class="card">
-    <h3>Total Stock In</h3>
-    <div class="number" id="totalStockIn">0</div>
-  </div>
-
-  <div class="card">
-    <h3>Total Stock Out</h3>
-    <div class="number" id="totalStockOut">0</div>
-  </div>
-
-  <div class="card">
-    <h3>Current Quantity</h3>
-    <div class="number" id="totalQuantity">0</div>
-  </div>
-
-  <div class="card">
-    <h3>Stock Value</h3>
-    <div class="number" id="stockValue">0</div>
-  </div>
-
-  <div class="card">
-    <h3>Expected Profit</h3>
-    <div class="number" id="expectedProfit">0</div>
-  </div>
-
-</div>
-
-
-<div class="unit-section">
-
-  <h2 class="section-title">
-    📦 Quantity by Unit
-  </h2>
-
-  <div
-    class="unit-grid"
-    id="unitGrid">
-
-    <div class="unit-card">
-
-      <h3>Loading...</h3>
-
-      <div class="unit-number">
-        0
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div class="unit-section">
-
-  <h2 class="section-title">
-    📊 Branch Report
-  </h2>
-
-  <div
-    class="branch-report-grid"
-    id="branchReport">
-
-    <div class="report-card">
-
-      <h3>
-        Loading...
-      </h3>
-
-    </div>
-
-  </div>
+<p>
+Main irraa Branch 12 hunda to'achuu
+</p>
 
 </div>
 
 
 <div
-  class="status"
-  id="statusMessage">
+class="branch-grid"
+id="branchGrid">
 
-  Dashboard loaded successfully.
+<div class="branch-card">
+
+<div class="branch-icon">
+⏳
+</div>
+
+<div class="branch-name">
+Loading branches...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     DASHBOARD SUMMARY
+===================================================== -->
+
+<h2 class="section-title">
+
+📊 Dashboard Summary
+
+</h2>
+
+
+<div class="summary-grid">
+
+
+<div class="card">
+
+<h3>
+Total Items
+</h3>
+
+<div
+class="number"
+id="totalItems">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Total Stock IN
+</h3>
+
+<div
+class="number"
+id="totalStockIn">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Total Stock OUT
+</h3>
+
+<div
+class="number"
+id="totalStockOut">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Current Quantity
+</h3>
+
+<div
+class="number"
+id="totalQuantity">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Stock Value
+</h3>
+
+<div
+class="number"
+id="stockValue">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Expected Profit
+</h3>
+
+<div
+class="number"
+id="expectedProfit">
+
+0
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     UNIT TOTAL
+===================================================== -->
+
+<div class="unit-section">
+
+<h2 class="section-title">
+
+📦 Quantity by Unit
+
+</h2>
+
+
+<div
+class="unit-grid"
+id="unitGrid">
+
+<div class="unit-card">
+
+<h3>
+Loading...
+</h3>
+
+<div class="unit-number">
+0
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     BRANCH REPORT
+===================================================== -->
+
+<div class="unit-section">
+
+<h2 class="section-title">
+
+📊 Branch Report
+
+</h2>
+
+
+<div
+class="branch-report-grid"
+id="branchReport">
+
+<div class="report-card">
+
+<h3>
+Loading...
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+class="status"
+id="statusMessage">
+
+Dashboard loading...
 
 </div>
 
@@ -519,6 +698,7 @@ nav a.active{
 
 <script>
 
+
 /* =====================================================
    SUPABASE
 ===================================================== */
@@ -526,39 +706,75 @@ nav a.active{
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
 /* =====================================================
    LOGIN CHECK
-   index.html keessatti is_logged_in kaa'ama
 ===================================================== */
 
 const isLoggedIn =
-localStorage.getItem("is_logged_in");
+localStorage.getItem(
+"is_logged_in"
+);
+
 
 if(isLoggedIn !== "true"){
 
-  window.location.href =
-    "index.html";
+window.location.href =
+"index.html";
 
 }
 
 
 /* =====================================================
-   SELECTED BRANCH
+   CURRENT BRANCH
 ===================================================== */
 
 const selectedBranchName =
-localStorage.getItem("selected_branch_name")
-|| "Main";
+localStorage.getItem(
+"selected_branch_name"
+) || "Main";
 
+
+/* =====================================================
+   SHOW CURRENT BRANCH
+===================================================== */
 
 document.getElementById(
-  "selectedBranchBox"
+"selectedBranchBox"
 ).textContent =
-  "Selected Branch: " + selectedBranchName;
+"🏢 Current Branch: " +
+selectedBranchName;
+
+
+/* =====================================================
+   MAIN CONTROL
+===================================================== */
+
+const mainControl =
+document.getElementById(
+"mainControl"
+);
+
+
+if(
+selectedBranchName === "Main"
+){
+
+mainControl.textContent =
+"👑 MAIN CONTROL — Branch 12 hunda to'achuu fi report waliigalaa ilaalu dandeessa.";
+
+}else{
+
+mainControl.textContent =
+"🏪 " +
+selectedBranchName +
+" — Branch kana qofa irratti hojii gaggeessita.";
+
+}
 
 
 /* =====================================================
@@ -567,669 +783,620 @@ document.getElementById(
 
 function getHeaders(){
 
-  return {
+return {
 
-    "apikey":
-      SUPABASE_KEY,
+"apikey":
+SUPABASE_KEY,
 
-    "Authorization":
-      "Bearer " + SUPABASE_KEY,
+"Authorization":
+"Bearer " + SUPABASE_KEY,
 
-    "Content-Type":
-      "application/json"
+"Content-Type":
+"application/json"
 
-  };
+};
 
 }
 
 
 /* =====================================================
-   CHECK SUPABASE RESPONSE
+   ESCAPE
 ===================================================== */
 
-async function handleSupabaseError(response){
+function escapeHtml(value){
 
-  if(
-    response.status === 401 ||
-    response.status === 403
-  ){
+return String(
+value ?? ""
+)
 
-    const text =
-      await response.text();
+.replace(
+/&/g,
+"&amp;"
+)
 
-    console.error(
-      "Supabase authorization error:",
-      text
-    );
+.replace(
+/</g,
+"&lt;"
+)
 
-    document.getElementById(
-      "statusMessage"
-    ).textContent =
-      "Supabase authorization error. Check RLS policies.";
+.replace(
+/>/g,
+"&gt;"
+)
 
-    document.getElementById(
-      "statusMessage"
-    ).classList.add(
-      "error-status"
-    );
+.replace(
+/"/g,
+"&quot;"
+)
 
-    return true;
-
-  }
-
-  return false;
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
 
 /* =====================================================
-   LOAD BRANCHES
+   BRANCHES
 ===================================================== */
 
 async function loadBranches(){
 
-  try{
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/branches" +
-        "?select=id,branch_code,branch_name" +
-        "&order=branch_code.asc",
-
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-
-      );
+const grid =
+document.getElementById(
+"branchGrid"
+);
 
 
-    if(!response.ok){
+try{
 
-      const errorText =
-        await response.text();
+const response =
+await fetch(
 
-      console.error(
-        "Branch loading error:",
-        errorText
-      );
+SUPABASE_URL +
+"/rest/v1/branches" +
+"?select=id,branch_code,branch_name" +
+"&order=branch_code.asc",
 
-      document.getElementById(
-        "branchGrid"
-      ).innerHTML = `
+{
 
-        <div class="report-card">
+method:"GET",
 
-          <h3>
-            Branch loading error
-          </h3>
+headers:
+getHeaders()
 
-          <p>
-            ${escapeHtml(errorText)}
-          </p>
+}
 
-        </div>
-
-      `;
-
-      return;
-
-    }
+);
 
 
-    const branches =
-      await response.json();
+if(!response.ok){
+
+const error =
+await response.text();
+
+grid.innerHTML = `
+
+<div class="report-card">
+
+<h3>
+Branch loading error
+</h3>
+
+<p>
+${escapeHtml(error)}
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
 
 
-    const grid =
-      document.getElementById(
-        "branchGrid"
-      );
+const branches =
+await response.json();
 
 
-    grid.innerHTML = "";
+grid.innerHTML = "";
 
 
-    branches.forEach(branch=>{
+/* =====================================================
+   MAIN MODE
+===================================================== */
 
-      grid.innerHTML += `
+if(
+selectedBranchName === "Main"
+){
 
-        <a
-          href="branch.html?branch_id=${encodeURIComponent(branch.id)}"
-          class="branch-card">
+branches.forEach(
+(branch,index)=>{
 
-          <div class="branch-icon">
-            🏪
-          </div>
+grid.innerHTML += `
 
-          <div class="branch-number">
-            ${escapeHtml(branch.branch_code || "")}
-          </div>
+<div class="branch-card">
 
-          <div class="branch-name">
-            ${escapeHtml(branch.branch_name || "")}
-          </div>
+<div class="branch-icon">
+🏪
+</div>
 
-        </a>
+<div class="branch-number">
+Branch ${index + 1}
+</div>
 
-      `;
+<div class="branch-name">
+${escapeHtml(
+branch.branch_name
+)}
+</div>
 
-    });
+<button
+class="branch-open"
+onclick="openBranch('${String(branch.id)}','${escapeHtml(branch.branch_name)}')">
 
+Open Branch
 
-    if(branches.length === 0){
+</button>
 
-      grid.innerHTML = `
+</div>
 
-        <div class="report-card">
+`;
 
-          <h3>
-            No branches found
-          </h3>
-
-        </div>
-
-      `;
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Branch error:",
-      error
-    );
-
-  }
+});
 
 }
 
 
 /* =====================================================
-   LOAD DASHBOARD
+   BRANCH MODE
+===================================================== */
+
+else{
+
+const current =
+branches.find(
+
+b =>
+String(
+b.branch_name
+).toLowerCase() ===
+String(
+selectedBranchName
+).toLowerCase()
+
+);
+
+
+if(current){
+
+grid.innerHTML = `
+
+<div class="branch-card">
+
+<div class="branch-icon">
+🏪
+</div>
+
+<div class="branch-number">
+${escapeHtml(
+current.branch_code || ""
+)}
+</div>
+
+<div class="branch-name">
+
+${escapeHtml(
+current.branch_name
+)}
+
+</div>
+
+<button
+class="branch-open"
+onclick="openBranch('${String(current.id)}','${escapeHtml(current.branch_name)}')">
+
+Open My Branch
+
+</button>
+
+</div>
+
+`;
+
+}else{
+
+grid.innerHTML = `
+
+<div class="report-card">
+
+<h3>
+Branch hin argamne.
+</h3>
+
+</div>
+
+`;
+
+}
+
+}
+
+}catch(error){
+
+console.error(
+error
+);
+
+grid.innerHTML = `
+
+<div class="report-card">
+
+<h3>
+Network Error
+</h3>
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =====================================================
+   OPEN BRANCH
+===================================================== */
+
+function openBranch(
+branchId,
+branchName
+){
+
+localStorage.setItem(
+"selected_branch_id",
+branchId
+);
+
+localStorage.setItem(
+"selected_branch_name",
+branchName
+);
+
+localStorage.setItem(
+"user_branch",
+branchName
+);
+
+
+/*
+   Branch sana keessatti
+   hojii itti fufu.
+*/
+
+window.location.href =
+"branch.html?branch_id=" +
+encodeURIComponent(
+branchId
+);
+
+}
+
+
+/* =====================================================
+   LOAD ITEMS
+===================================================== */
+
+async function loadItems(){
+
+let url =
+SUPABASE_URL +
+"/rest/v1/items?select=*";
+
+
+/*
+   Main = ALL
+   Branch = CURRENT ONLY
+*/
+
+if(
+selectedBranchName !== "Main"
+){
+
+const branchId =
+localStorage.getItem(
+"selected_branch_id"
+);
+
+
+if(branchId){
+
+url +=
+"&branch_id=eq." +
+encodeURIComponent(
+branchId
+);
+
+}
+
+}
+
+
+try{
+
+const response =
+await fetch(
+
+url,
+
+{
+
+headers:
+getHeaders()
+
+}
+
+);
+
+
+if(!response.ok){
+
+console.error(
+await response.text()
+);
+
+return [];
+
+}
+
+
+return await response.json();
+
+}catch(error){
+
+console.error(
+error
+);
+
+return [];
+
+}
+
+}
+
+
+/* =====================================================
+   LOAD TRANSACTIONS
+===================================================== */
+
+async function loadTransactions(){
+
+let url =
+SUPABASE_URL +
+"/rest/v1/stock_transactions?select=*";
+
+
+if(
+selectedBranchName !== "Main"
+){
+
+const branchId =
+localStorage.getItem(
+"selected_branch_id"
+);
+
+
+if(branchId){
+
+url +=
+"&branch_id=eq." +
+encodeURIComponent(
+branchId
+);
+
+}
+
+}
+
+
+try{
+
+const response =
+await fetch(
+
+url,
+
+{
+
+headers:
+getHeaders()
+
+}
+
+);
+
+
+if(!response.ok){
+
+console.error(
+await response.text()
+);
+
+return [];
+
+}
+
+
+return await response.json();
+
+}catch(error){
+
+console.error(
+error
+);
+
+return [];
+
+}
+
+}
+
+
+/* =====================================================
+   DASHBOARD
 ===================================================== */
 
 async function updateDashboard(){
 
-  try{
+const items =
+await loadItems();
 
-    const itemsResponse =
-      await fetch(
 
-        SUPABASE_URL +
-        "/rest/v1/items?select=*",
+const transactions =
+await loadTransactions();
 
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
 
-      );
+/* TOTAL ITEMS */
 
+document.getElementById(
+"totalItems"
+).textContent =
+items.length.toLocaleString();
 
-    let itemsData = [];
 
+/* STOCK IN */
 
-    if(itemsResponse.ok){
+let totalIn = 0;
 
-      itemsData =
-        await itemsResponse.json();
+let totalOut = 0;
 
-    }else{
 
-      console.error(
-        "Items loading error:",
-        await itemsResponse.text()
-      );
+transactions.forEach(
+t=>{
 
-    }
+const type =
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase();
 
 
-    const transactionResponse =
-      await fetch(
+const quantity =
+Number(
+t.quantity || 0
+);
 
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions" +
-        "?select=*",
 
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
+if(type === "IN"){
 
-      );
-
-
-    let transactionData = [];
-
-
-    if(transactionResponse.ok){
-
-      transactionData =
-        await transactionResponse.json();
-
-    }else{
-
-      console.error(
-        "Transaction loading error:",
-        await transactionResponse.text()
-      );
-
-    }
-
-
-    /* TOTAL ITEMS */
-
-    document.getElementById(
-      "totalItems"
-    ).textContent =
-      itemsData.length.toLocaleString();
-
-
-    /* STOCK IN */
-
-    const totalStockIn =
-      transactionData.reduce(
-
-        (sum,row)=>{
-
-          const type =
-            String(
-              row.transaction_type || ""
-            ).toUpperCase();
-
-          if(type === "IN"){
-
-            return sum +
-              Number(row.quantity || 0);
-
-          }
-
-          return sum;
-
-        },
-
-        0
-
-      );
-
-
-    document.getElementById(
-      "totalStockIn"
-    ).textContent =
-      totalStockIn.toLocaleString();
-
-
-    /* STOCK OUT */
-
-    const totalStockOut =
-      transactionData.reduce(
-
-        (sum,row)=>{
-
-          const type =
-            String(
-              row.transaction_type || ""
-            ).toUpperCase();
-
-          if(type === "OUT"){
-
-            return sum +
-              Number(row.quantity || 0);
-
-          }
-
-          return sum;
-
-        },
-
-        0
-
-      );
-
-
-    document.getElementById(
-      "totalStockOut"
-    ).textContent =
-      totalStockOut.toLocaleString();
-
-
-    /* CURRENT QUANTITY */
-
-    let totalQuantity = 0;
-
-
-    itemsData.forEach(item=>{
-
-      totalQuantity +=
-        Number(
-          item.quantity || 0
-        );
-
-    });
-
-
-    document.getElementById(
-      "totalQuantity"
-    ).textContent =
-      totalQuantity.toLocaleString();
-
-
-    /* STOCK VALUE */
-
-    let stockValue = 0;
-
-
-    itemsData.forEach(item=>{
-
-      const quantity =
-        Number(
-          item.quantity || 0
-        );
-
-      const cost =
-        Number(
-          item.cost_price || 0
-        );
-
-      stockValue +=
-        quantity * cost;
-
-    });
-
-
-    document.getElementById(
-      "stockValue"
-    ).textContent =
-      stockValue.toLocaleString();
-
-
-    /* EXPECTED PROFIT */
-
-    let expectedProfit = 0;
-
-
-    itemsData.forEach(item=>{
-
-      const quantity =
-        Number(
-          item.quantity || 0
-        );
-
-      const cost =
-        Number(
-          item.cost_price || 0
-        );
-
-      const selling =
-        Number(
-          item.selling_price || 0
-        );
-
-      expectedProfit +=
-        quantity *
-        (selling - cost);
-
-    });
-
-
-    document.getElementById(
-      "expectedProfit"
-    ).textContent =
-      expectedProfit.toLocaleString();
-
-
-    loadUnits(
-      itemsData
-    );
-
-
-    await loadBranchReport(
-      itemsData,
-      transactionData
-    );
-
-
-    document.getElementById(
-      "statusMessage"
-    ).textContent =
-      "Dashboard loaded successfully.";
-
-    document.getElementById(
-      "statusMessage"
-    ).classList.remove(
-      "error-status"
-    );
-
-  }catch(error){
-
-    console.error(
-      "Dashboard error:",
-      error
-    );
-
-    document.getElementById(
-      "statusMessage"
-    ).textContent =
-      "Dashboard data loading error.";
-
-    document.getElementById(
-      "statusMessage"
-    ).classList.add(
-      "error-status"
-    );
-
-  }
+totalIn += quantity;
 
 }
 
 
-/* =====================================================
-   BRANCH REPORT
-===================================================== */
+if(type === "OUT"){
 
-async function loadBranchReport(
-  items,
-  transactions
-){
+totalOut += quantity;
 
-  try{
+}
 
-    const response =
-      await fetch(
+});
 
-        SUPABASE_URL +
-        "/rest/v1/branches" +
-        "?select=id,branch_code,branch_name" +
-        "&order=branch_code.asc",
 
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
+document.getElementById(
+"totalStockIn"
+).textContent =
+totalIn.toLocaleString();
 
-      );
 
+document.getElementById(
+"totalStockOut"
+).textContent =
+totalOut.toLocaleString();
 
-    if(!response.ok){
 
-      return;
+/* CURRENT QUANTITY */
 
-    }
+const balance =
+totalIn -
+totalOut;
 
 
-    const branches =
-      await response.json();
+document.getElementById(
+"totalQuantity"
+).textContent =
+balance.toLocaleString();
 
 
-    const report =
-      document.getElementById(
-        "branchReport"
-      );
+/* STOCK VALUE */
 
+let stockValue = 0;
 
-    report.innerHTML = "";
+let expectedProfit = 0;
 
 
-    branches.forEach(branch=>{
+items.forEach(
+item=>{
 
-      const branchItems =
-        items.filter(
+const quantity =
+Number(
+item.quantity || 0
+);
 
-          item =>
-            String(item.branch_id) ===
-            String(branch.id)
+const cost =
+Number(
+item.cost_price || 0
+);
 
-        );
+const selling =
+Number(
+item.selling_price || 0
+);
 
 
-      const branchTransactions =
-        transactions.filter(
+stockValue +=
+quantity * cost;
 
-          transaction =>
-            String(transaction.branch_id) ===
-            String(branch.id)
 
-        );
+expectedProfit +=
+quantity *
+(selling - cost);
 
+});
 
-      let stockIn = 0;
 
-      let stockOut = 0;
+document.getElementById(
+"stockValue"
+).textContent =
+stockValue.toLocaleString();
 
 
-      branchTransactions.forEach(t=>{
+document.getElementById(
+"expectedProfit"
+).textContent =
+expectedProfit.toLocaleString();
 
-        const quantity =
-          Number(
-            t.quantity || 0
-          );
 
+loadUnits(items);
 
-        const type =
-          String(
-            t.transaction_type || ""
-          ).toUpperCase();
 
+document.getElementById(
+"statusMessage"
+).textContent =
 
-        if(type === "IN"){
-          stockIn += quantity;
-        }
+selectedBranchName === "Main"
 
+?
+"✅ Main Dashboard — Branch 12 hunda irraa data walitti qabame."
 
-        if(type === "OUT"){
-          stockOut += quantity;
-        }
-
-      });
-
-
-      const balance =
-        stockIn - stockOut;
-
-
-      report.innerHTML += `
-
-        <div class="report-card">
-
-          <h3>
-            ${escapeHtml(
-              branch.branch_code || ""
-            )}
-            -
-            ${escapeHtml(
-              branch.branch_name || ""
-            )}
-          </h3>
-
-          <div class="report-stats">
-
-            <div class="report-stat">
-
-              <span>
-                Items
-              </span>
-
-              <strong>
-                ${branchItems.length}
-              </strong>
-
-            </div>
-
-
-            <div class="report-stat">
-
-              <span>
-                Stock IN
-              </span>
-
-              <strong>
-                ${stockIn.toLocaleString()}
-              </strong>
-
-            </div>
-
-
-            <div class="report-stat">
-
-              <span>
-                Stock OUT
-              </span>
-
-              <strong>
-                ${stockOut.toLocaleString()}
-              </strong>
-
-            </div>
-
-
-            <div class="report-stat">
-
-              <span>
-                Balance
-              </span>
-
-              <strong>
-                ${balance.toLocaleString()}
-              </strong>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-    });
-
-
-    if(branches.length === 0){
-
-      report.innerHTML = `
-
-        <div class="report-card">
-
-          <h3>
-            No branch report available
-          </h3>
-
-        </div>
-
-      `;
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Branch report error:",
-      error
-    );
-
-  }
+:
+"✅ " +
+selectedBranchName +
+" Dashboard loaded successfully.";
 
 }
 
@@ -1238,104 +1405,420 @@ async function loadBranchReport(
    UNIT TOTAL
 ===================================================== */
 
-function loadUnits(items){
+function loadUnits(
+items
+){
 
-  const totals = {};
-
-
-  items.forEach(item=>{
-
-    const unit =
-      item.unit ||
-      "Unknown";
+const totals = {};
 
 
-    const quantity =
-      Number(
-        item.quantity || 0
-      );
+items.forEach(
+item=>{
+
+const unit =
+String(
+item.unit ||
+"Unknown"
+);
 
 
-    if(!totals[unit]){
-      totals[unit] = 0;
-    }
+const quantity =
+Number(
+item.quantity || 0
+);
 
 
-    totals[unit] +=
-      quantity;
+if(!totals[unit]){
 
-  });
+totals[unit] = 0;
 
-
-  const grid =
-    document.getElementById(
-      "unitGrid"
-    );
+}
 
 
-  grid.innerHTML = "";
+totals[unit] +=
+quantity;
+
+});
 
 
-  Object.keys(totals)
-    .forEach(unit=>{
-
-      grid.innerHTML += `
-
-        <div class="unit-card">
-
-          <h3>
-            ${escapeHtml(unit)}
-          </h3>
-
-          <div class="unit-number">
-            ${totals[unit].toLocaleString()}
-          </div>
-
-        </div>
-
-      `;
-
-    });
+const grid =
+document.getElementById(
+"unitGrid"
+);
 
 
-  if(
-    Object.keys(totals).length === 0
-  ){
+grid.innerHTML = "";
 
-    grid.innerHTML = `
 
-      <div class="unit-card">
+Object.keys(
+totals
+)
+.sort()
+.forEach(
+unit=>{
 
-        <h3>
-          No Unit
-        </h3>
+grid.innerHTML += `
 
-        <div class="unit-number">
-          0
-        </div>
+<div class="unit-card">
 
-      </div>
+<h3>
+${escapeHtml(unit)}
+</h3>
 
-    `;
+<div class="unit-number">
+${totals[unit].toLocaleString()}
+</div>
 
-  }
+</div>
+
+`;
+
+});
+
+
+if(
+Object.keys(totals).length === 0
+){
+
+grid.innerHTML = `
+
+<div class="unit-card">
+
+<h3>
+No Unit
+</h3>
+
+<div class="unit-number">
+0
+</div>
+
+</div>
+
+`;
+
+}
 
 }
 
 
 /* =====================================================
-   SECURITY
+   BRANCH REPORT
+   MAIN ONLY = ALL BRANCHES
 ===================================================== */
 
-function escapeHtml(value){
+async function loadBranchReport(){
 
-  return String(value)
+const report =
+document.getElementById(
+"branchReport"
+);
 
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+try{
+
+const branchResponse =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/branches" +
+"?select=id,branch_code,branch_name" +
+"&order=branch_code.asc",
+
+{
+
+headers:
+getHeaders()
+
+}
+
+);
+
+
+if(!branchResponse.ok){
+
+report.innerHTML =
+"<div class='report-card'><h3>Branch report error</h3></div>";
+
+return;
+
+}
+
+
+const branches =
+await branchResponse.json();
+
+
+const transactions =
+await loadAllTransactionsForReport();
+
+
+report.innerHTML = "";
+
+
+branches.forEach(
+(branch,index)=>{
+
+const branchTransactions =
+transactions.filter(
+
+t =>
+String(
+t.branch_id
+) ===
+String(
+branch.id
+)
+
+);
+
+
+let stockIn = 0;
+
+let stockOut = 0;
+
+
+branchTransactions.forEach(
+t=>{
+
+const quantity =
+Number(
+t.quantity || 0
+);
+
+const type =
+String(
+t.transaction_type ||
+t.transaction ||
+""
+).toUpperCase();
+
+
+if(type === "IN"){
+
+stockIn += quantity;
+
+}
+
+if(type === "OUT"){
+
+stockOut += quantity;
+
+}
+
+});
+
+
+const balance =
+stockIn -
+stockOut;
+
+
+report.innerHTML += `
+
+<div class="report-card">
+
+<h3>
+
+${escapeHtml(
+branch.branch_code || ""
+)}
+-
+${escapeHtml(
+branch.branch_name || ""
+)}
+
+</h3>
+
+
+<div class="report-stats">
+
+
+<div class="report-stat">
+
+<span>
+Stock IN
+</span>
+
+<strong>
+${stockIn.toLocaleString()}
+</strong>
+
+</div>
+
+
+<div class="report-stat">
+
+<span>
+Stock OUT
+</span>
+
+<strong>
+${stockOut.toLocaleString()}
+</strong>
+
+</div>
+
+
+<div class="report-stat">
+
+<span>
+Balance
+</span>
+
+<strong>
+${balance.toLocaleString()}
+</strong>
+
+</div>
+
+
+<div class="report-stat">
+
+<span>
+Status
+</span>
+
+<strong>
+Active
+</strong>
+
+</div>
+
+
+</div>
+
+
+<button
+class="branch-open"
+onclick="openBranchFromReport('${String(branch.id)}','${escapeHtml(branch.branch_name)}')">
+
+📊 View Branch
+
+</button>
+
+
+</div>
+
+`;
+
+});
+
+
+if(branches.length === 0){
+
+report.innerHTML = `
+
+<div class="report-card">
+
+<h3>
+No branches found.
+</h3>
+
+</div>
+
+`;
+
+}
+
+}catch(error){
+
+console.error(
+error
+);
+
+report.innerHTML = `
+
+<div class="report-card">
+
+<h3>
+Network Error
+</h3>
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =====================================================
+   LOAD ALL TRANSACTIONS
+===================================================== */
+
+async function loadAllTransactionsForReport(){
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/stock_transactions?select=*",
+
+{
+
+headers:
+getHeaders()
+
+}
+
+);
+
+
+if(!response.ok){
+
+return [];
+
+}
+
+
+return await response.json();
+
+}catch(error){
+
+console.error(
+error
+);
+
+return [];
+
+}
+
+}
+
+
+/* =====================================================
+   OPEN BRANCH FROM REPORT
+===================================================== */
+
+function openBranchFromReport(
+branchId,
+branchName
+){
+
+localStorage.setItem(
+"selected_branch_id",
+branchId
+);
+
+localStorage.setItem(
+"selected_branch_name",
+branchName
+);
+
+localStorage.setItem(
+"user_branch",
+branchName
+);
+
+
+window.location.href =
+"branch.html?branch_id=" +
+encodeURIComponent(
+branchId
+);
 
 }
 
@@ -1346,17 +1829,41 @@ function escapeHtml(value){
 
 function logoutUser(){
 
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-  localStorage.removeItem("user");
-  localStorage.removeItem("user_id");
-  localStorage.removeItem("user_branch");
-  localStorage.removeItem("is_logged_in");
-  localStorage.removeItem("selected_branch_name");
-  localStorage.removeItem("selected_branch_id");
+localStorage.removeItem(
+"access_token"
+);
 
-  window.location.href =
-    "index.html";
+localStorage.removeItem(
+"refresh_token"
+);
+
+localStorage.removeItem(
+"user"
+);
+
+localStorage.removeItem(
+"user_id"
+);
+
+localStorage.removeItem(
+"user_branch"
+);
+
+localStorage.removeItem(
+"is_logged_in"
+);
+
+localStorage.removeItem(
+"selected_branch_name"
+);
+
+localStorage.removeItem(
+"selected_branch_id"
+);
+
+
+window.location.href =
+"index.html";
 
 }
 
@@ -1369,7 +1876,11 @@ loadBranches();
 
 updateDashboard();
 
+loadBranchReport();
+
 </script>
 
+
 </body>
+
 </html>
