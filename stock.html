@@ -70,6 +70,11 @@ header h1 {
   color: white;
   font-weight: bold;
   text-decoration: none;
+  display: inline-block;
+}
+
+.btn-menu {
+  background: #0f766e;
 }
 
 .btn-in {
@@ -420,6 +425,20 @@ AAFDRMC - STOCK MANAGEMENT
 
 
 <div class="buttons">
+
+
+<!-- =================================================
+     BACK TO MENU - JALQABA
+================================================= -->
+
+<a
+href="index.html"
+class="btn btn-menu">
+
+⬅️ Back to Menu
+
+</a>
+
 
 <button
 class="btn btn-in"
@@ -1381,7 +1400,6 @@ return;
 
 /* ===============================================
    STOCK OUT BALANCE
-   Opening is ALWAYS 0
 ================================================ */
 
 if(type === "OUT") {
@@ -1453,9 +1471,6 @@ return;
 
 /* ===============================================
    SAVE DATA
-
-   NOTE:
-   Category is NOT selected here.
 ================================================ */
 
 const data = {
@@ -1664,7 +1679,7 @@ showReport();
 
 
 /* =====================================================
-   GROUP ITEMS BY NAME
+   GROUP ITEMS
 ===================================================== */
 
 function buildGroupedReport() {
@@ -1702,10 +1717,6 @@ itemIds: []
 
 }
 
-
-/* IMPORTANT:
-   Opening is ALWAYS 0.
-*/
 
 groups[key].opening = 0;
 
@@ -1823,10 +1834,6 @@ let totalOut = 0;
 groups.forEach(
 (group,index) => {
 
-
-/*
-   OPENING ALWAYS 0
-*/
 
 const opening = 0;
 
@@ -2061,12 +2068,6 @@ String(t.item_id)
 
 const row =
 document.createElement("tr");
-
-
-row.className =
-type === "OUT"
-? "out-row"
-: "in-row";
 
 
 row.innerHTML = `
