@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Dashboard</title>
+<title>AAFDRMC - Branch</title>
 
 <style>
 
@@ -23,201 +22,263 @@ body{
   color:#1e293b;
 }
 
+/* ================= HEADER ================= */
+
 header{
   background:#1e3a8a;
   color:white;
-  padding:20px;
-  text-align:center;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 header h1{
   margin:0;
+  font-size:24px;
 }
 
 header p{
   margin:5px 0 0;
+  font-size:14px;
 }
+
+.logout{
+  background:#dc2626;
+  color:white;
+  border:0;
+  padding:10px 16px;
+  border-radius:7px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* ================= NAV ================= */
 
 nav{
   background:white;
   padding:12px;
   display:flex;
-  justify-content:center;
-  gap:10px;
   flex-wrap:wrap;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  gap:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
 
 nav a{
   text-decoration:none;
-  padding:10px 15px;
-  border-radius:7px;
-  background:#e2e8f0;
-  color:#1e293b;
+  color:#1e3a8a;
   font-weight:bold;
+  padding:10px 13px;
+  border-radius:7px;
 }
 
 nav a:hover{
-  background:#cbd5e1;
+  background:#1e3a8a;
+  color:white;
 }
+
+/* ================= MAIN ================= */
 
 .container{
-  width:95%;
-  max-width:1200px;
-  margin:25px auto;
+  max-width:1400px;
+  margin:auto;
+  padding:20px;
 }
 
-.box{
+/* ================= BRANCH HEADER ================= */
+
+.branch-header{
   background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 3px 12px rgba(0,0,0,0.1);
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  text-align:center;
   margin-bottom:20px;
 }
 
-.box h2{
-  margin-top:0;
-  text-align:center;
+.branch-header h2{
+  margin:0;
+  color:#1e3a8a;
+  font-size:28px;
 }
 
-.dashboard{
+.branch-header p{
+  color:#64748b;
+  margin:8px 0 0;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary-grid{
   display:grid;
   grid-template-columns:
-  repeat(auto-fit,minmax(180px,1fr));
+  repeat(4,1fr);
   gap:15px;
+  margin-bottom:20px;
 }
 
 .card{
+  background:white;
   padding:20px;
-  background:#f8fafc;
-  border-radius:10px;
-  text-align:center;
-  font-weight:bold;
-  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  border-radius:12px;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
-.card strong{
-  display:block;
-  font-size:25px;
-  margin-top:10px;
-}
-
-
-/* =========================================
-   BRANCH CARDS
-========================================= */
-
-.branch-card{
-  text-decoration:none;
-  color:#1e293b;
-  cursor:pointer;
-  transition:0.2s;
-  min-height:110px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.branch-card:hover{
-  transform:translateY(-3px);
-  background:#e0f2fe;
-}
-
-.branch-number{
-  font-size:14px;
-  display:block;
-  margin-bottom:8px;
+.card h3{
+  margin:0 0 10px;
   color:#64748b;
+  font-size:15px;
 }
 
-.branch-name{
-  font-size:18px;
+.number{
+  color:#1e3a8a;
+  font-size:28px;
+  font-weight:bold;
+}
+
+/* ================= TABLE ================= */
+
+.table-section{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+  overflow-x:auto;
+}
+
+.section-title{
+  color:#1e3a8a;
+  margin-top:0;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
+
+th,
+td{
+  border:1px solid #e2e8f0;
+  padding:11px;
+  text-align:left;
+}
+
+th{
+  background:#eff6ff;
   color:#1e3a8a;
 }
 
-
-/* =========================================
-   UNIT TOTALS
-========================================= */
-
-.unit-total{
-  background:#eff6ff;
-  border-radius:10px;
-  padding:15px;
-  margin-bottom:10px;
-  font-size:17px;
-  font-weight:bold;
+tr:hover{
+  background:#f8fafc;
 }
 
+/* ================= STATUS ================= */
 
-/* =========================================
-   LOGOUT
-========================================= */
+.status{
+  margin-top:20px;
+  padding:12px;
+  border-radius:8px;
+  background:#ecfdf5;
+  color:#166534;
+}
 
-.logout{
-  background:#dc2626 !important;
-  color:white !important;
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  .summary-grid{
+    grid-template-columns:
+    repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:600px){
+
+  header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .summary-grid{
+    grid-template-columns:
+    repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:380px){
+
+  .summary-grid{
+    grid-template-columns:1fr;
+  }
+
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-
-<!-- =========================================
+<!-- =====================================================
      HEADER
-========================================= -->
+===================================================== -->
 
 <header>
 
-<h1>
-🏢 AAFDRMC
-</h1>
+  <div>
 
-<p>
-Stock Management System
-</p>
+    <h1>AAFDRMC</h1>
+
+    <p>
+      Stock Management System
+    </p>
+
+  </div>
+
+  <button
+    class="logout"
+    onclick="logoutUser()">
+
+    Logout
+
+  </button>
 
 </header>
 
 
-<!-- =========================================
+<!-- =====================================================
      NAVIGATION
-========================================= -->
+===================================================== -->
 
 <nav>
 
-<a href="dashboard.html">
-🏠 Dashboard
-</a>
+  <a href="dashboard.html">
+    🏠 Main
+  </a>
 
-<a href="items.html">
-📦 Items
-</a>
+  <a href="branch.html">
+    🏪 Branch
+  </a>
 
-<a href="stock.html">
-🔄 Stock In / Out
-</a>
+  <a href="items.html">
+    📦 Items
+  </a>
 
-<a href="reports.html">
-📊 Reports
-</a>
+  <a href="stock.html">
+    📥📤 Stock In / Out
+  </a>
 
-<a href="settings.html">
-⚙️ Settings
-</a>
+  <a href="reports.html">
+    📊 Reports
+  </a>
 
-<a
-href="#"
-class="logout"
-onclick="logoutUser()">
-
-🚪 Logout
-
-</a>
+  <a href="settings.html">
+    ⚙️ Settings
+  </a>
 
 </nav>
 
@@ -225,380 +286,181 @@ onclick="logoutUser()">
 <div class="container">
 
 
-<!-- =========================================
-     DASHBOARD SUMMARY
-========================================= -->
+<!-- =====================================================
+     CURRENT BRANCH
+===================================================== -->
 
-<div class="box">
+<div class="branch-header">
 
-<h2>
-📊 Dashboard
-</h2>
+  <h2 id="branchTitle">
+    Loading Branch...
+  </h2>
 
-
-<div class="dashboard">
-
-
-<div class="card">
-
-Total Items
-
-<strong id="totalItems">
-0
-</strong>
+  <p id="branchCode">
+    Please wait...
+  </p>
 
 </div>
 
 
-<div class="card">
+<!-- =====================================================
+     BRANCH SUMMARY
+===================================================== -->
 
-📥 Total Stock In
+<div class="summary-grid">
 
-<strong id="totalStockIn">
-0
-</strong>
+
+  <div class="card">
+
+    <h3>
+      Total Items
+    </h3>
+
+    <div
+      class="number"
+      id="totalItems">
+
+      0
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3>
+      Stock IN
+    </h3>
+
+    <div
+      class="number"
+      id="stockIn">
+
+      0
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3>
+      Stock OUT
+    </h3>
+
+    <div
+      class="number"
+      id="stockOut">
+
+      0
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3>
+      Balance
+    </h3>
+
+    <div
+      class="number"
+      id="balance">
+
+      0
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     BRANCH ITEMS
+===================================================== -->
+
+<div class="table-section">
+
+  <h2 class="section-title">
+
+    📦 Items in this Branch
+
+  </h2>
+
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>
+          Item Code
+        </th>
+
+        <th>
+          Item Name
+        </th>
+
+        <th>
+          Quantity
+        </th>
+
+        <th>
+          Cost Price
+        </th>
+
+        <th>
+          Selling Price
+        </th>
+
+        <th>
+          Expiry Date
+        </th>
+
+        <th>
+          Entered By
+        </th>
+
+        <th>
+          Date / Time
+        </th>
+
+      </tr>
+
+    </thead>
+
+
+    <tbody id="itemsTable">
+
+      <tr>
+
+        <td colspan="8"
+            style="text-align:center;">
+
+          Loading...
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
 
 </div>
 
 
-<div class="card">
-
-📤 Total Stock Out
-
-<strong id="totalStockOut">
-0
-</strong>
-
-</div>
-
-
-<div class="card">
-
-📦 Total Quantity
-
-<strong id="totalQuantity">
-0
-</strong>
-
-</div>
-
-
-<div class="card">
-
-💰 Stock Value
-
-<strong id="stockValue">
-0.00
-</strong>
-
-</div>
-
-
-<div class="card">
-
-📈 Expected Profit
-
-<strong id="expectedProfit">
-0.00
-</strong>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- =========================================
-     12 STORE BRANCHES
-========================================= -->
-
-<div class="box">
-
-<h2>
-🏪 Store Branches
-</h2>
-
-
-<div class="dashboard">
-
-
-<!-- 1 -->
-
-<a
-href="branch.html?branch=Gulele"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 1
-</span>
-
-<span class="branch-name">
-🏪 Gulele
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 2 -->
-
-<a
-href="branch.html?branch=Addis%20Katama"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 2
-</span>
-
-<span class="branch-name">
-🏪 Addis Katama
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 3 -->
-
-<a
-href="branch.html?branch=Kolfee"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 3
-</span>
-
-<span class="branch-name">
-🏪 Kolfee
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 4 -->
-
-<a
-href="branch.html?branch=Nifas%20Silk%20Laafto"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 4
-</span>
-
-<span class="branch-name">
-🏪 Nifas Silk Laafto
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 5 -->
-
-<a
-href="branch.html?branch=Qirqos"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 5
-</span>
-
-<span class="branch-name">
-🏪 Qirqos
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 6 -->
-
-<a
-href="branch.html?branch=Lammi%20Kura"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 6
-</span>
-
-<span class="branch-name">
-🏪 Lammi Kura
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 7 -->
-
-<a
-href="branch.html?branch=Arada"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 7
-</span>
-
-<span class="branch-name">
-🏪 Arada
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 8 -->
-
-<a
-href="branch.html?branch=Lideta"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 8
-</span>
-
-<span class="branch-name">
-🏪 Lideta
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 9 -->
-
-<a
-href="branch.html?branch=Boole"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 9
-</span>
-
-<span class="branch-name">
-🏪 Boole
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 10 -->
-
-<a
-href="branch.html?branch=Ekaa"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 10
-</span>
-
-<span class="branch-name">
-🏪 Ekaa
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 11 -->
-
-<a
-href="branch.html?branch=Aqaqii%20Qalittii"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 11
-</span>
-
-<span class="branch-name">
-🏪 Aqaqii Qalittii
-</span>
-
-</div>
-
-</a>
-
-
-<!-- 12 -->
-
-<a
-href="branch.html?branch=Center"
-class="card branch-card">
-
-<div>
-
-<span class="branch-number">
-BRANCH 12
-</span>
-
-<span class="branch-name">
-🏢 Center
-</span>
-
-</div>
-
-</a>
-
-
-</div>
-
-</div>
-
-
-<!-- =========================================
-     QUANTITY BY UNIT
-========================================= -->
-
-<div class="box">
-
-<h2>
-📏 Quantity by Unit
-</h2>
-
-
-<div id="unitTotals">
-
-<p style="text-align:center;">
-Loading...
-</p>
-
-</div>
+<div
+  class="status"
+  id="statusMessage">
+
+  Loading branch data...
 
 </div>
 
@@ -608,417 +470,519 @@ Loading...
 
 <script>
 
-
-/* =========================================
+/* =====================================================
    SUPABASE
-========================================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
-
 
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* =========================================
-   LOGIN CHECK
-========================================= */
+/* =====================================================
+   LOGIN
+===================================================== */
 
 const accessToken =
 localStorage.getItem("access_token");
 
-
 if(!accessToken){
 
-window.location.href =
-"index.html";
+  window.location.href =
+  "login.html";
 
 }
 
 
-/* =========================================
-   UPDATE DASHBOARD
-========================================= */
+/* =====================================================
+   HEADERS
+===================================================== */
 
-async function updateDashboard(){
+function getHeaders(){
 
+  const token =
+    localStorage.getItem("access_token")
+    || SUPABASE_KEY;
 
-const token =
-localStorage.getItem("access_token")
-|| SUPABASE_KEY;
+  return {
 
+    "apikey":
+      SUPABASE_KEY,
 
-/* =========================================
-   STOCK IN
-========================================= */
+    "Authorization":
+      "Bearer " + token,
 
-try{
+    "Content-Type":
+      "application/json"
 
-const stockInResponse =
-await fetch(
+  };
 
-SUPABASE_URL +
-"/rest/v1/stock_transactions?transaction_type=eq.IN&select=quantity",
-
-{
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + token
-}
 }
 
+
+/* =====================================================
+   GET BRANCH ID
+===================================================== */
+
+const params =
+new URLSearchParams(
+  window.location.search
 );
 
-
-let totalStockIn = 0;
-
-
-if(stockInResponse.ok){
-
-const stockInData =
-await stockInResponse.json();
+const branchId =
+params.get("branch_id");
 
 
-totalStockIn =
-stockInData.reduce(
+/* =====================================================
+   IF NO BRANCH ID
+===================================================== */
 
-(sum,row)=>
-sum +
-Number(row.quantity || 0),
+if(!branchId){
 
-0
+  document.getElementById(
+    "branchTitle"
+  ).textContent =
+    "No Branch Selected";
 
-);
-
-}
-
-
-document.getElementById(
-"totalStockIn"
-).textContent =
-totalStockIn;
-
-}
-
-catch(error){
-
-console.log(
-"Stock IN Error:",
-error
-);
+  document.getElementById(
+    "branchCode"
+  ).textContent =
+    "Please return to Main Dashboard.";
 
 }
 
 
-/* =========================================
-   STOCK OUT
-========================================= */
+/* =====================================================
+   LOAD BRANCH
+===================================================== */
 
-try{
+async function loadBranch(){
 
-const stockOutResponse =
-await fetch(
+  if(!branchId){
 
-SUPABASE_URL +
-"/rest/v1/stock_transactions?transaction_type=eq.OUT&select=quantity",
+    return;
 
-{
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + token
+  }
+
+
+  try{
+
+    /* ===============================
+       BRANCH INFORMATION
+    =============================== */
+
+    const branchResponse =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/branches" +
+        "?id=eq." +
+        encodeURIComponent(branchId) +
+        "&select=id,branch_code,branch_name",
+
+        {
+          headers:getHeaders()
+        }
+
+      );
+
+
+    if(!branchResponse.ok){
+
+      throw new Error(
+        await branchResponse.text()
+      );
+
+    }
+
+
+    const branchData =
+      await branchResponse.json();
+
+
+    if(branchData.length === 0){
+
+      throw new Error(
+        "Branch not found."
+      );
+
+    }
+
+
+    const branch =
+      branchData[0];
+
+
+    /* ===============================
+       SHOW BRANCH
+    =============================== */
+
+    document.getElementById(
+      "branchTitle"
+    ).textContent =
+      "🏪 " + branch.branch_name;
+
+
+    document.getElementById(
+      "branchCode"
+    ).textContent =
+      branch.branch_code;
+
+
+    /* ===============================
+       LOAD ONLY THIS BRANCH ITEMS
+    =============================== */
+
+    const itemsResponse =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/items" +
+        "?branch_id=eq." +
+        encodeURIComponent(branch.id) +
+        "&select=*"+
+        "&order=created_at.desc",
+
+        {
+          headers:getHeaders()
+        }
+
+      );
+
+
+    if(!itemsResponse.ok){
+
+      throw new Error(
+        await itemsResponse.text()
+      );
+
+    }
+
+
+    const items =
+      await itemsResponse.json();
+
+
+    /* ===============================
+       LOAD ONLY THIS BRANCH TRANSACTIONS
+    =============================== */
+
+    const transactionResponse =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/stock_transactions" +
+        "?branch_id=eq." +
+        encodeURIComponent(branch.id) +
+        "&select=*"+
+        "&order=created_at.desc",
+
+        {
+          headers:getHeaders()
+        }
+
+      );
+
+
+    let transactions = [];
+
+
+    if(transactionResponse.ok){
+
+      transactions =
+        await transactionResponse.json();
+
+    }
+
+
+    /* ===============================
+       STOCK IN / OUT
+    =============================== */
+
+    let stockIn = 0;
+
+    let stockOut = 0;
+
+
+    transactions.forEach(t=>{
+
+      const quantity =
+        Number(
+          t.quantity || 0
+        );
+
+
+      const type =
+        String(
+          t.transaction_type || ""
+        ).toUpperCase();
+
+
+      if(type === "IN"){
+
+        stockIn += quantity;
+
+      }
+
+
+      if(type === "OUT"){
+
+        stockOut += quantity;
+
+      }
+
+    });
+
+
+    /* ===============================
+       BALANCE
+    =============================== */
+
+    const balance =
+      stockIn - stockOut;
+
+
+    /* ===============================
+       SUMMARY
+    =============================== */
+
+    document.getElementById(
+      "totalItems"
+    ).textContent =
+      items.length.toLocaleString();
+
+
+    document.getElementById(
+      "stockIn"
+    ).textContent =
+      stockIn.toLocaleString();
+
+
+    document.getElementById(
+      "stockOut"
+    ).textContent =
+      stockOut.toLocaleString();
+
+
+    document.getElementById(
+      "balance"
+    ).textContent =
+      balance.toLocaleString();
+
+
+    /* ===============================
+       ITEMS TABLE
+    =============================== */
+
+    const table =
+      document.getElementById(
+        "itemsTable"
+      );
+
+
+    table.innerHTML = "";
+
+
+    if(items.length === 0){
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td
+            colspan="8"
+            style="text-align:center;">
+
+            No items in this branch.
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+
+
+    items.forEach(item=>{
+
+      table.innerHTML += `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(
+              item.item_code || "-"
+            )}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.name || "-"
+            )}
+          </td>
+
+          <td>
+            ${Number(
+              item.quantity || 0
+            ).toLocaleString()}
+          </td>
+
+          <td>
+            ${Number(
+              item.cost_price || 0
+            ).toLocaleString()}
+          </td>
+
+          <td>
+            ${Number(
+              item.selling_price || 0
+            ).toLocaleString()}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.expiry_date || "-"
+            )}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.entered_by || "-"
+            )}
+          </td>
+
+          <td>
+            ${formatDate(
+              item.created_at
+            )}
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+
+    document.getElementById(
+      "statusMessage"
+    ).textContent =
+
+      branch.branch_name +
+      " data loaded successfully.";
+
+
+  }catch(error){
+
+    console.error(
+      "Branch error:",
+      error
+    );
+
+
+    document.getElementById(
+      "statusMessage"
+    ).textContent =
+      "Error: " + error.message;
+
+  }
+
 }
-}
-
-);
 
 
-let totalStockOut = 0;
+/* =====================================================
+   DATE
+===================================================== */
 
+function formatDate(value){
 
-if(stockOutResponse.ok){
+  if(!value){
 
-const stockOutData =
-await stockOutResponse.json();
+    return "-";
 
+  }
 
-totalStockOut =
-stockOutData.reduce(
+  try{
 
-(sum,row)=>
-sum +
-Number(row.quantity || 0),
+    return new Date(
+      value
+    ).toLocaleString();
 
-0
+  }catch{
 
-);
+    return value;
 
-}
-
-
-document.getElementById(
-"totalStockOut"
-).textContent =
-totalStockOut;
-
-}
-
-catch(error){
-
-console.log(
-"Stock OUT Error:",
-error
-);
+  }
 
 }
 
 
-/* =========================================
-   ITEMS
-========================================= */
+/* =====================================================
+   SECURITY
+===================================================== */
 
-try{
+function escapeHtml(value){
 
-const response =
-await fetch(
+  return String(value)
 
-SUPABASE_URL +
-"/rest/v1/items?select=*",
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-{
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + token
-}
-}
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-);
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
+    .replace(
+      /"/g,
+      "&quot;"
+    )
 
-if(!response.ok){
-
-console.log(
-"Items Error:",
-await response.text()
-);
-
-return;
-
-}
-
-
-const data =
-await response.json();
-
-
-/* =========================================
-   TOTAL ITEMS
-========================================= */
-
-const totalItems =
-data.length;
-
-
-/* =========================================
-   TOTAL QUANTITY
-========================================= */
-
-const totalQuantity =
-data.reduce(
-
-(sum,item)=>
-sum +
-Number(item.quantity || 0),
-
-0
-
-);
-
-
-/* =========================================
-   STOCK VALUE
-========================================= */
-
-const stockValue =
-data.reduce(
-
-(sum,item)=>
-sum +
-Number(item.quantity || 0) *
-Number(item.cost_price || 0),
-
-0
-
-);
-
-
-/* =========================================
-   EXPECTED PROFIT
-========================================= */
-
-const expectedProfit =
-data.reduce(
-
-(sum,item)=>
-sum +
-Number(item.quantity || 0) *
-(
-Number(item.selling_price || 0) -
-Number(item.cost_price || 0)
-),
-
-0
-
-);
-
-
-/* =========================================
-   SHOW SUMMARY
-========================================= */
-
-document.getElementById(
-"totalItems"
-).textContent =
-totalItems;
-
-
-document.getElementById(
-"totalQuantity"
-).textContent =
-totalQuantity;
-
-
-document.getElementById(
-"stockValue"
-).textContent =
-stockValue.toFixed(2);
-
-
-document.getElementById(
-"expectedProfit"
-).textContent =
-expectedProfit.toFixed(2);
-
-
-/* =========================================
-   UNIT TOTALS
-========================================= */
-
-const unitTotals = {};
-
-
-data.forEach(item=>{
-
-const unit =
-(item.unit || "Unknown").trim();
-
-
-const quantity =
-Number(item.quantity || 0);
-
-
-if(!unitTotals[unit]){
-
-unitTotals[unit] = 0;
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
-unitTotals[unit] += quantity;
-
-});
-
-
-const unitContainer =
-document.getElementById(
-"unitTotals"
-);
-
-
-unitContainer.innerHTML = "";
-
-
-const units =
-Object.keys(unitTotals);
-
-
-if(units.length === 0){
-
-unitContainer.innerHTML =
-"<p style='text-align:center;'>No quantity available</p>";
-
-return;
-
-}
-
-
-units.sort();
-
-
-units.forEach(unit=>{
-
-const div =
-document.createElement("div");
-
-
-div.className =
-"unit-total";
-
-
-div.textContent =
-"📦 " +
-unit +
-" = " +
-unitTotals[unit];
-
-
-unitContainer.appendChild(div);
-
-});
-
-
-}
-
-catch(error){
-
-console.log(
-"Dashboard Error:",
-error
-);
-
-}
-
-}
-
-
-/* =========================================
+/* =====================================================
    LOGOUT
-========================================= */
+===================================================== */
 
 function logoutUser(){
 
-localStorage.removeItem(
-"access_token"
-);
+  localStorage.removeItem(
+    "access_token"
+  );
 
-localStorage.removeItem(
-"refresh_token"
-);
+  localStorage.removeItem(
+    "user"
+  );
 
-window.location.href =
-"index.html";
+  window.location.href =
+    "login.html";
 
 }
 
 
-/* =========================================
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
-updateDashboard();
+loadBranch();
 
 </script>
 
 </body>
-
 </html>
