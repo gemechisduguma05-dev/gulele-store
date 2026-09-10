@@ -32,7 +32,7 @@ header{
 
 header h1{
   margin:0;
-  font-size:22px;
+  font-size:23px;
 }
 
 .container{
@@ -44,31 +44,42 @@ header h1{
 .top-bar{
   background:white;
   padding:18px;
-  border-radius:10px;
+  border-radius:12px;
   margin-bottom:18px;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .title{
-  font-size:22px;
+  font-size:23px;
   font-weight:bold;
   color:#1e3a8a;
 }
 
+.branch-box{
+  margin-top:12px;
+  padding:13px;
+  border-radius:8px;
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  color:#1e3a8a;
+  font-weight:bold;
+}
+
 .buttons{
   display:flex;
-  gap:8px;
+  gap:10px;
   flex-wrap:wrap;
-  margin-top:12px;
+  margin-top:14px;
 }
 
 .btn{
-  border:none;
-  padding:10px 16px;
-  border-radius:7px;
+  border:0;
+  padding:11px 17px;
+  border-radius:8px;
   cursor:pointer;
   color:white;
   font-weight:bold;
+  font-size:15px;
 }
 
 .btn-add{
@@ -83,7 +94,7 @@ header h1{
   display:none;
   background:white;
   padding:20px;
-  border-radius:10px;
+  border-radius:12px;
   margin-bottom:18px;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
@@ -93,9 +104,9 @@ header h1{
 }
 
 .form-title{
+  color:#1e3a8a;
   font-size:20px;
   font-weight:bold;
-  color:#1e3a8a;
   margin-bottom:15px;
 }
 
@@ -113,29 +124,28 @@ header h1{
 
 .form-group label{
   font-weight:bold;
-  margin-bottom:6px;
+  margin-bottom:7px;
 }
 
 .form-group input,
 .form-group select{
-  width:100%;
-  padding:11px;
+  padding:12px;
   border:1px solid #cbd5e1;
-  border-radius:7px;
+  border-radius:8px;
   font-size:15px;
 }
 
 .form-buttons{
   display:flex;
   gap:10px;
-  margin-top:17px;
+  margin-top:18px;
 }
 
 .save-btn,
 .cancel-btn{
-  border:none;
+  border:0;
   padding:11px 20px;
-  border-radius:7px;
+  border-radius:8px;
   color:white;
   font-weight:bold;
   cursor:pointer;
@@ -151,8 +161,8 @@ header h1{
 
 .message{
   display:none;
-  padding:12px;
-  border-radius:7px;
+  padding:13px;
+  border-radius:8px;
   margin-bottom:15px;
   font-weight:bold;
 }
@@ -177,7 +187,7 @@ header h1{
 
 .table-box{
   background:white;
-  border-radius:10px;
+  border-radius:12px;
   overflow-x:auto;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
@@ -185,7 +195,7 @@ header h1{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:900px;
+  min-width:1000px;
 }
 
 th{
@@ -207,7 +217,7 @@ tr:hover{
 .edit-btn{
   background:#2563eb;
   color:white;
-  border:none;
+  border:0;
   padding:7px 11px;
   border-radius:6px;
   cursor:pointer;
@@ -217,7 +227,7 @@ tr:hover{
 .delete-btn{
   background:#dc2626;
   color:white;
-  border:none;
+  border:0;
   padding:7px 11px;
   border-radius:6px;
   cursor:pointer;
@@ -228,26 +238,42 @@ tr:hover{
   line-height:1.5;
 }
 
-.empty{
-  text-align:center;
-  padding:25px;
-  color:#64748b;
-}
-
-.branch-box{
-  background:#eff6ff;
-  border:1px solid #bfdbfe;
-  padding:12px;
-  border-radius:8px;
-  margin-top:12px;
-  color:#1e3a8a;
-  font-weight:bold;
-}
-
+.empty,
 .loading{
   text-align:center;
   padding:25px;
   color:#64748b;
+}
+
+.main-control{
+  background:#fef3c7;
+  border:1px solid #f59e0b;
+  color:#92400e;
+  padding:12px;
+  border-radius:8px;
+  margin-top:12px;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+
+  .buttons{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .form-buttons{
+    flex-direction:column;
+  }
+
+  .save-btn,
+  .cancel-btn{
+    width:100%;
+  }
+
 }
 
 </style>
@@ -264,13 +290,18 @@ AAFDRMC - ITEM MANAGEMENT
 
 </header>
 
+
 <div class="container">
+
+
+<!-- TOP BAR -->
 
 <div class="top-bar">
 
 <div class="title">
 📦 Item Management
 </div>
+
 
 <div
 id="branchBox"
@@ -279,6 +310,17 @@ class="branch-box">
 📍 Branch: Loading...
 
 </div>
+
+
+<div
+id="mainControl"
+class="main-control"
+style="display:none;">
+
+👑 MAIN CONTROL: Branch 12 hunda to'achuu dandeessa.
+
+</div>
+
 
 <div class="buttons">
 
@@ -289,6 +331,7 @@ onclick="openAddForm()">
 ➕ Add New Item
 
 </button>
+
 
 <button
 class="btn btn-back"
@@ -303,19 +346,20 @@ onclick="goBack()">
 </div>
 
 
+<!-- MESSAGE -->
+
 <div
 id="message"
 class="message">
 </div>
 
 
-<!-- =====================================================
-     ADD / EDIT FORM
-===================================================== -->
+<!-- FORM -->
 
 <div
 id="itemForm"
 class="form-box">
+
 
 <div
 id="formTitle"
@@ -325,8 +369,11 @@ class="form-title">
 
 </div>
 
+
 <div class="form-grid">
 
+
+<!-- ITEM NAME -->
 
 <div class="form-group">
 
@@ -342,6 +389,8 @@ placeholder="Fakkeenya: Xaafii">
 </div>
 
 
+<!-- UNIT -->
+
 <div class="form-group">
 
 <label>
@@ -354,56 +403,34 @@ Unit / Safartuu
 -- Select Unit --
 </option>
 
-<option value="Kg">
-Kg
-</option>
+<option value="Kg">Kg</option>
 
-<option value="Quintal">
-Quintal
-</option>
+<option value="Quintal">Quintal</option>
 
-<option value="Ton">
-Ton
-</option>
+<option value="Ton">Ton</option>
 
-<option value="Liter">
-Liter
-</option>
+<option value="Liter">Liter</option>
 
-<option value="Piece">
-Piece
-</option>
+<option value="Piece">Piece</option>
 
-<option value="Carton">
-Carton
-</option>
+<option value="Carton">Carton</option>
 
-<option value="Bag">
-Bag
-</option>
+<option value="Bag">Bag</option>
 
-<option value="Packet">
-Packet
-</option>
+<option value="Packet">Packet</option>
 
-<option value="Set">
-Set
-</option>
+<option value="Set">Set</option>
 
-<option value="Pair">
-Pair
-</option>
+<option value="Pair">Pair</option>
 
-<option value="Other">
-Other
-</option>
+<option value="Other">Other</option>
 
 </select>
 
 </div>
 
 
-<!-- CATEGORY 6 QOFA -->
+<!-- CATEGORY -->
 
 <div class="form-group">
 
@@ -417,11 +444,13 @@ Category / Ramaddii
 -- Select Category --
 </option>
 
+
 <option value="Strategic Food Items">
 🥫 Strategic Food Items /
 Meeshaalee Nyaataa Tarsiimawaa /
 ስትራቴጂክ ምግብ ነክ
 </option>
+
 
 <option value="Daily Food Items">
 🍚 Daily Food Items /
@@ -429,11 +458,13 @@ Meeshaalee Nyaataa Guyyaa Guyyaa /
 የዕለት ምግብ እቃዎች
 </option>
 
+
 <option value="Daily Non-Food Items">
 📦 Daily Non-Food Items /
 Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
 የዕለት ምግብ ነክ ያልሆኑ እቃዎች
 </option>
+
 
 <option value="Non-Food Kitchen Items">
 🍳 Non-Food Kitchen Items /
@@ -441,11 +472,13 @@ Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan /
 የምግብ ማዘጋጃ እቃዎች
 </option>
 
+
 <option value="Non-Food Hygiene Items">
 🧼 Non-Food Hygiene Items /
 Meeshaalee Qulqullinaa /
 የንጽሕና እቃዎች
 </option>
+
 
 <option value="Non-Food Construction Materials">
 🧱 Non-Food Construction Materials /
@@ -456,6 +489,29 @@ Meeshaalee Ijaarsaa /
 </select>
 
 </div>
+
+
+<!-- BRANCH FOR MAIN -->
+
+<div
+id="branchGroup"
+class="form-group"
+style="display:none;">
+
+<label>
+🏪 Branch / Damee
+</label>
+
+<select id="itemBranch">
+
+<option value="">
+-- Select Branch --
+</option>
+
+</select>
+
+</div>
+
 
 </div>
 
@@ -471,6 +527,7 @@ onclick="saveItem()">
 
 </button>
 
+
 <button
 class="cancel-btn"
 onclick="closeForm()">
@@ -484,9 +541,7 @@ Cancel
 </div>
 
 
-<!-- =====================================================
-     ITEMS TABLE
-===================================================== -->
+<!-- TABLE -->
 
 <div class="table-box">
 
@@ -512,6 +567,7 @@ Cancel
 
 </thead>
 
+
 <tbody id="itemsTable">
 
 <tr>
@@ -520,7 +576,7 @@ Cancel
 colspan="6"
 class="loading">
 
-Loading items...
+⏳ Loading items...
 
 </td>
 
@@ -531,6 +587,7 @@ Loading items...
 </table>
 
 </div>
+
 
 </div>
 
@@ -549,29 +606,84 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
+   BRANCH 12
+===================================================== */
+
+const BRANCHES = [
+
+"Gulele",
+"Addis Katama",
+"Kolfee",
+"Nifas Silk Lafto",
+"Kirkos",
+"Lami Kura",
+"Arada",
+"Lideta",
+"Bole",
+"Ekaa",
+"Akaki Kality",
+"Center"
+
+];
+
+
+/* =====================================================
    GLOBAL
 ===================================================== */
 
 let allItems = [];
 
+let allBranches = [];
+
 let editItemId = null;
-
-let currentBranchId = null;
-
-let currentBranchName =
-  localStorage.getItem(
-    "selected_branch_name"
-  ) || "Main";
 
 
 /* =====================================================
-   BRANCH NAME
+   CURRENT BRANCH
 ===================================================== */
 
+const selectedBranch =
+localStorage.getItem(
+  "selected_branch_name"
+) || "";
+
+
+const isMain =
+selectedBranch === "Main";
+
+
+/* =====================================================
+   SHOW BRANCH
+===================================================== */
+
+const branchBox =
 document.getElementById(
   "branchBox"
-).textContent =
-"📍 Branch: " + currentBranchName;
+);
+
+
+if(isMain){
+
+  branchBox.textContent =
+    "👑 Branch: MAIN - Head Office";
+
+  document.getElementById(
+    "mainControl"
+  ).style.display =
+    "block";
+
+}else if(selectedBranch){
+
+  branchBox.textContent =
+    "📍 Branch: " +
+    selectedBranch;
+
+}else{
+
+  branchBox.textContent =
+    "⚠️ Branch hin filatamne";
+
+}
 
 
 /* =====================================================
@@ -585,20 +697,52 @@ function getHeaders(){
       "access_token"
     );
 
-  return {
+
+  const headers = {
 
     "apikey":
       SUPABASE_KEY,
-
-    "Authorization":
-      accessToken
-        ? "Bearer " + accessToken
-        : "Bearer " + SUPABASE_KEY,
 
     "Content-Type":
       "application/json"
 
   };
+
+
+  /*
+   IMPORTANT:
+
+   Publishable key JWT miti.
+
+   Kanaaf akka:
+   Authorization:
+   Bearer sb_publishable...
+
+   hin erginu.
+
+   Yoo access_token JWT dhugaa jiraate
+   qofa fayyadamna.
+  */
+
+  if(accessToken){
+
+    const parts =
+      accessToken.split(".");
+
+    if(parts.length === 3){
+
+      headers[
+        "Authorization"
+      ] =
+        "Bearer " +
+        accessToken;
+
+    }
+
+  }
+
+
+  return headers;
 
 }
 
@@ -609,22 +753,69 @@ function getHeaders(){
 
 function escapeHTML(value){
 
-  return String(value ?? "")
+  return String(
+    value ?? ""
+  )
 
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+
+  .replace(
+    /</g,
+    "&lt;"
+  )
+
+  .replace(
+    />/g,
+    "&gt;"
+  )
+
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
 
 /* =====================================================
-   GET REAL UUID OF BRANCH
+   MESSAGE
 ===================================================== */
 
-async function getCurrentBranch(){
+function showMessage(
+  text,
+  type
+){
+
+  const message =
+    document.getElementById(
+      "message"
+    );
+
+
+  message.textContent =
+    text;
+
+
+  message.className =
+    "message " +
+    type;
+
+}
+
+
+/* =====================================================
+   LOAD BRANCHES
+===================================================== */
+
+async function loadBranches(){
 
   try{
 
@@ -634,15 +825,15 @@ async function getCurrentBranch(){
         SUPABASE_URL +
         "/rest/v1/branches" +
         "?select=id,branch_code,branch_name" +
-        "&branch_name=eq." +
-        encodeURIComponent(
-          currentBranchName
-        ) +
-        "&limit=1",
+        "&order=branch_code.asc",
 
         {
+
           method:"GET",
-          headers:getHeaders()
+
+          headers:
+            getHeaders()
+
         }
 
       );
@@ -650,80 +841,115 @@ async function getCurrentBranch(){
 
     if(!response.ok){
 
-      const error =
-        await response.text();
-
       console.error(
-        "Branch UUID Error:",
-        error
+        await response.text()
       );
 
-      showMessage(
-        "❌ Branch ID argachuu hin dandeenye: " +
-        error,
-        "error"
-      );
-
-      return null;
+      return;
 
     }
 
 
-    const branches =
+    allBranches =
       await response.json();
 
 
-    if(
-      !branches ||
-      branches.length === 0
-    ){
-
-      showMessage(
-        "❌ Branch '" +
-        currentBranchName +
-        "' Supabase keessatti hin argamne.",
-        "error"
+    const select =
+      document.getElementById(
+        "itemBranch"
       );
 
-      return null;
 
-    }
-
-
-    currentBranchId =
-      branches[0].id;
+    select.innerHTML =
+      '<option value="">-- Select Branch --</option>';
 
 
-    console.log(
-      "Branch Name:",
-      currentBranchName
+    /*
+      Main irraa branch filachuu danda'a.
+      Branch tokko yoo seene, branch isaa
+      ofumaan filatama.
+    */
+
+    allBranches.forEach(
+      branch => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          branch.id;
+
+
+        option.textContent =
+          (
+            branch.branch_code
+            ? branch.branch_code + " - "
+            : ""
+          ) +
+          (
+            branch.branch_name || ""
+          );
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+
     );
-
-    console.log(
-      "Real Branch UUID:",
-      currentBranchId
-    );
-
-
-    return currentBranchId;
 
   }
 
   catch(error){
 
     console.error(
-      "Branch lookup error:",
+      "Branch loading error:",
       error
     );
 
-    showMessage(
-      "❌ Network error yeroo Branch barbaaddu.",
-      "error"
+  }
+
+}
+
+
+/* =====================================================
+   FIND BRANCH ID
+===================================================== */
+
+function getSelectedBranchId(){
+
+  if(!selectedBranch){
+    return null;
+  }
+
+
+  const branch =
+    allBranches.find(
+
+      b =>
+        String(
+          b.branch_name
+        ).trim().toLowerCase()
+        ===
+        String(
+          selectedBranch
+        ).trim().toLowerCase()
+
     );
 
-    return null;
+
+  if(branch){
+
+    return branch.id;
 
   }
+
+
+  return null;
 
 }
 
@@ -743,6 +969,7 @@ async function loadItems(){
   table.innerHTML = `
 
     <tr>
+
       <td
       colspan="6"
       class="loading">
@@ -750,6 +977,7 @@ async function loadItems(){
       ⏳ Items loading...
 
       </td>
+
     </tr>
 
   `;
@@ -757,52 +985,66 @@ async function loadItems(){
 
   try{
 
+    let url =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?select=id,name,unit,category,branch_id" +
+      "&order=id.asc";
+
+
     /*
-      Branch UUID arganna
+      MAIN = Branch 12 hunda
+
+      Branch = kan ofii isaa qofa
     */
 
-    const branchId =
-      await getCurrentBranch();
+    if(!isMain){
+
+      const branchId =
+        getSelectedBranchId();
 
 
-    if(!branchId){
+      if(!branchId){
 
-      table.innerHTML = `
+        table.innerHTML = `
 
-        <tr>
+          <tr>
 
-          <td
-          colspan="6"
-          class="empty">
+            <td
+            colspan="6"
+            class="empty">
 
-          ❌ Branch ID hin argamne.
+            ❌ Branch ID argachuu hin dandeenye.
 
-          </td>
+            </td>
 
-        </tr>
+          </tr>
 
-      `;
+        `;
 
-      return;
+        showMessage(
+          "❌ Branch ID argachuu hin dandeenye. Supabase branches table ilaali.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      url +=
+        "&branch_id=eq." +
+        encodeURIComponent(
+          branchId
+        );
 
     }
 
 
-    /*
-      Items kan Branch kana qofa
-    */
-
     const response =
       await fetch(
 
-        SUPABASE_URL +
-        "/rest/v1/items" +
-        "?select=id,name,unit,category,branch_id" +
-        "&branch_id=eq." +
-        encodeURIComponent(
-          branchId
-        ) +
-        "&order=id.asc",
+        url,
 
         {
 
@@ -821,8 +1063,9 @@ async function loadItems(){
       const error =
         await response.text();
 
+
       console.error(
-        "Load Error:",
+        "Load Items Error:",
         error
       );
 
@@ -848,7 +1091,7 @@ async function loadItems(){
           colspan="6"
           class="empty">
 
-          Items load hin milkoofne.
+          ❌ Items load hin milkoofne.
 
           </td>
 
@@ -862,6 +1105,7 @@ async function loadItems(){
         error,
         "error"
       );
+
 
       return;
 
@@ -879,9 +1123,9 @@ async function loadItems(){
   catch(error){
 
     console.error(
-      "Load Error:",
       error
     );
+
 
     table.innerHTML = `
 
@@ -891,7 +1135,7 @@ async function loadItems(){
         colspan="6"
         class="empty">
 
-        Network error.
+        ❌ Network error.
 
         </td>
 
@@ -899,12 +1143,45 @@ async function loadItems(){
 
     `;
 
+
     showMessage(
       "❌ Network error.",
       "error"
     );
 
   }
+
+}
+
+
+/* =====================================================
+   GET BRANCH NAME
+===================================================== */
+
+function getBranchName(
+  branchId
+){
+
+  const branch =
+    allBranches.find(
+
+      b =>
+        String(b.id) ===
+        String(branchId)
+
+    );
+
+
+  if(branch){
+
+    return (
+      branch.branch_name || ""
+    );
+
+  }
+
+
+  return "Unknown";
 
 }
 
@@ -936,9 +1213,7 @@ function displayItems(){
         colspan="6"
         class="empty">
 
-        📦 ${escapeHTML(
-          currentBranchName
-        )} keessatti Item hin jiru.
+        📦 Item hin jiru.
 
         </td>
 
@@ -955,7 +1230,14 @@ function displayItems(){
     (item,index)=>{
 
       const category =
-        item.category || "—";
+        item.category ||
+        "—";
+
+
+      const branchName =
+        getBranchName(
+          item.branch_id
+        );
 
 
       const row =
@@ -970,19 +1252,28 @@ function displayItems(){
           ${index + 1}
         </td>
 
-        <td>
-          <strong>
-            ${escapeHTML(
-              item.name || ""
-            )}
-          </strong>
-        </td>
 
         <td>
-          ${escapeHTML(
-            item.unit || ""
-          )}
+
+          <strong>
+
+            ${escapeHTML(
+              item.name
+            )}
+
+          </strong>
+
         </td>
+
+
+        <td>
+
+          ${escapeHTML(
+            item.unit
+          )}
+
+        </td>
+
 
         <td
         class="category-text">
@@ -993,11 +1284,15 @@ function displayItems(){
 
         </td>
 
+
         <td>
+
           ${escapeHTML(
-            currentBranchName
+            branchName
           )}
+
         </td>
+
 
         <td>
 
@@ -1008,6 +1303,7 @@ function displayItems(){
           ✏️ Edit
 
           </button>
+
 
           <button
           class="delete-btn"
@@ -1022,7 +1318,9 @@ function displayItems(){
       `;
 
 
-      table.appendChild(row);
+      table.appendChild(
+        row
+      );
 
     }
 
@@ -1043,8 +1341,7 @@ function openAddForm(){
   document.getElementById(
     "formTitle"
   ).textContent =
-    "➕ Add New Item - " +
-    currentBranchName;
+    "➕ Add New Item";
 
 
   document.getElementById(
@@ -1068,6 +1365,34 @@ function openAddForm(){
   ).value = "";
 
 
+  const branchGroup =
+    document.getElementById(
+      "branchGroup"
+    );
+
+
+  const branchSelect =
+    document.getElementById(
+      "itemBranch"
+    );
+
+
+  if(isMain){
+
+    branchGroup.style.display =
+      "flex";
+
+    branchSelect.value =
+      "";
+
+  }else{
+
+    branchGroup.style.display =
+      "none";
+
+  }
+
+
   document.getElementById(
     "itemForm"
   ).classList.add(
@@ -1076,8 +1401,11 @@ function openAddForm(){
 
 
   window.scrollTo({
+
     top:0,
+
     behavior:"smooth"
+
   });
 
 }
@@ -1090,6 +1418,7 @@ function openAddForm(){
 function closeForm(){
 
   editItemId = null;
+
 
   document.getElementById(
     "itemForm"
@@ -1139,7 +1468,7 @@ async function saveItem(){
   if(!unit){
 
     showMessage(
-      "❌ Unit / Safartuu filadhu.",
+      "❌ Unit filadhu.",
       "error"
     );
 
@@ -1160,17 +1489,49 @@ async function saveItem(){
   }
 
 
-  /*
-    Branch UUID dhugaa arganna
-  */
+  /* ===================================================
+     BRANCH ID
+  =================================================== */
 
-  const branchId =
-    await getCurrentBranch();
+  let branchId =
+    null;
 
 
-  if(!branchId){
+  if(isMain){
 
-    return;
+    branchId =
+      document.getElementById(
+        "itemBranch"
+      ).value;
+
+
+    if(!branchId){
+
+      showMessage(
+        "❌ Main irraa item galchuuf Branch filadhu.",
+        "error"
+      );
+
+      return;
+
+    }
+
+  }else{
+
+    branchId =
+      getSelectedBranchId();
+
+
+    if(!branchId){
+
+      showMessage(
+        "❌ Branch ID hin argamne.",
+        "error"
+      );
+
+      return;
+
+    }
 
   }
 
@@ -1194,23 +1555,28 @@ async function saveItem(){
     );
 
 
-  saveButton.disabled = true;
+  saveButton.disabled =
+    true;
+
 
   saveButton.textContent =
     "⏳ Saving...";
 
 
-  /* =====================================================
-     ADD
-  ===================================================== */
+  try{
 
-  if(
-    editItemId === null
-  ){
+    let response;
 
-    try{
 
-      const response =
+    /* =================================================
+       ADD
+    ================================================= */
+
+    if(
+      editItemId === null
+    ){
+
+      response =
         await fetch(
 
           SUPABASE_URL +
@@ -1238,121 +1604,47 @@ async function saveItem(){
 
         );
 
+    }
 
-      if(!response.ok){
 
-        const error =
-          await response.text();
+    /* =================================================
+       EDIT
+    ================================================= */
 
-        console.error(
-          "Insert Error:",
-          error
+    else{
+
+      response =
+        await fetch(
+
+          SUPABASE_URL +
+          "/rest/v1/items?id=eq." +
+          encodeURIComponent(
+            editItemId
+          ),
+
+          {
+
+            method:"PATCH",
+
+            headers:{
+
+              ...getHeaders(),
+
+              "Prefer":
+                "return=representation"
+
+            },
+
+            body:
+              JSON.stringify(
+                data
+              )
+
+          }
+
         );
 
-
-        if(
-          error.includes(
-            "JWT expired"
-          )
-        ){
-
-          handleExpiredSession();
-
-          return;
-
-        }
-
-
-        showMessage(
-          "❌ Save hin milkoofne: " +
-          error,
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      showMessage(
-        "✅ Item haaraan " +
-        currentBranchName +
-        " keessatti galmaa'e.",
-        "success"
-      );
-
-
-      closeForm();
-
-      await loadItems();
-
     }
-
-    catch(error){
-
-      console.error(
-        "Save error:",
-        error
-      );
-
-      showMessage(
-        "❌ Network error.",
-        "error"
-      );
-
-    }
-
-    finally{
-
-      saveButton.disabled =
-        false;
-
-      saveButton.textContent =
-        "💾 Save Item";
-
-    }
-
-    return;
-
-  }
-
-
-  /* =====================================================
-     EDIT
-  ===================================================== */
-
-  try{
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/items?id=eq." +
-        encodeURIComponent(
-          editItemId
-        ),
-
-        {
-
-          method:"PATCH",
-
-          headers:{
-
-            ...getHeaders(),
-
-            "Prefer":
-              "return=representation"
-
-          },
-
-          body:
-            JSON.stringify(
-              data
-            )
-
-        }
-
-      );
 
 
     if(!response.ok){
@@ -1362,7 +1654,7 @@ async function saveItem(){
 
 
       console.error(
-        "Update Error:",
+        "Save Error:",
         error
       );
 
@@ -1381,7 +1673,7 @@ async function saveItem(){
 
 
       showMessage(
-        "❌ Edit hin milkoofne: " +
+        "❌ Save/Edit hin milkoofne: " +
         error,
         "error"
       );
@@ -1391,13 +1683,27 @@ async function saveItem(){
     }
 
 
-    showMessage(
-      "✅ Item sirreeffame.",
-      "success"
-    );
+    if(
+      editItemId === null
+    ){
+
+      showMessage(
+        "✅ Item haaraan galmaa'e.",
+        "success"
+      );
+
+    }else{
+
+      showMessage(
+        "✅ Item sirreeffame.",
+        "success"
+      );
+
+    }
 
 
     closeForm();
+
 
     await loadItems();
 
@@ -1406,9 +1712,9 @@ async function saveItem(){
   catch(error){
 
     console.error(
-      "Update error:",
       error
     );
+
 
     showMessage(
       "❌ Network error.",
@@ -1422,8 +1728,11 @@ async function saveItem(){
     saveButton.disabled =
       false;
 
+
     saveButton.textContent =
-      "💾 Update Item";
+      editItemId === null
+        ? "💾 Save Item"
+        : "💾 Update Item";
 
   }
 
@@ -1458,7 +1767,8 @@ function editItem(id){
   }
 
 
-  editItemId = id;
+  editItemId =
+    id;
 
 
   document.getElementById(
@@ -1491,6 +1801,31 @@ function editItem(id){
     item.category || "";
 
 
+  const branchGroup =
+    document.getElementById(
+      "branchGroup"
+    );
+
+
+  if(isMain){
+
+    branchGroup.style.display =
+      "flex";
+
+
+    document.getElementById(
+      "itemBranch"
+    ).value =
+      item.branch_id || "";
+
+  }else{
+
+    branchGroup.style.display =
+      "none";
+
+  }
+
+
   document.getElementById(
     "itemForm"
   ).classList.add(
@@ -1499,8 +1834,11 @@ function editItem(id){
 
 
   window.scrollTo({
+
     top:0,
+
     behavior:"smooth"
+
   });
 
 }
@@ -1534,15 +1872,16 @@ async function deleteItem(id){
   }
 
 
-  const confirmed =
+  const confirmDelete =
     confirm(
-      "Item '" +
-      item.name +
-      "' haquu?"
+
+      "Item kana haquu barbaaddaa?\n\n" +
+      item.name
+
     );
 
 
-  if(!confirmed){
+  if(!confirmDelete){
 
     return;
 
@@ -1556,13 +1895,16 @@ async function deleteItem(id){
 
         SUPABASE_URL +
         "/rest/v1/items?id=eq." +
-        encodeURIComponent(id),
+        encodeURIComponent(
+          id
+        ),
 
         {
 
           method:"DELETE",
 
-          headers:getHeaders()
+          headers:
+            getHeaders()
 
         }
 
@@ -1576,7 +1918,6 @@ async function deleteItem(id){
 
 
       console.error(
-        "Delete Error:",
         error
       );
 
@@ -1595,7 +1936,7 @@ async function deleteItem(id){
 
 
       showMessage(
-        "❌ Delete hin milkoofne: " +
+        "❌ Item haquun hin milkoofne: " +
         error,
         "error"
       );
@@ -1618,9 +1959,9 @@ async function deleteItem(id){
   catch(error){
 
     console.error(
-      "Delete error:",
       error
     );
+
 
     showMessage(
       "❌ Network error.",
@@ -1628,31 +1969,6 @@ async function deleteItem(id){
     );
 
   }
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-  text,
-  type
-){
-
-  const message =
-    document.getElementById(
-      "message"
-    );
-
-
-  message.textContent =
-    text;
-
-
-  message.className =
-    "message " + type;
 
 }
 
@@ -1680,6 +1996,17 @@ function handleExpiredSession(){
     "error"
   );
 
+
+  setTimeout(
+    function(){
+
+      window.location.href =
+        "index.html";
+
+    },
+    1500
+  );
+
 }
 
 
@@ -1699,26 +2026,34 @@ function goBack(){
    START
 ===================================================== */
 
-async function startPage(){
+async function start(){
 
   /*
-    Branch UUID jalqaba barbaada
+    Login check
   */
 
-  const branchId =
-    await getCurrentBranch();
+  if(
+    localStorage.getItem(
+      "is_logged_in"
+    ) !== "true"
+  ){
 
+    window.location.href =
+      "index.html";
 
-  if(branchId){
-
-    await loadItems();
+    return;
 
   }
+
+
+  await loadBranches();
+
+  await loadItems();
 
 }
 
 
-startPage();
+start();
 
 </script>
 
