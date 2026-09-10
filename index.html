@@ -1,8 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC - Branch Login</title><style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Branch Login</title><style>
 
 *{
   box-sizing:border-box;
@@ -15,9 +13,9 @@ body{
 }
 
 .login-box{
-  width:90%;
+  width:92%;
   max-width:430px;
-  margin:45px auto;
+  margin:40px auto;
   padding:30px;
   background:#1e3a8a;
   border-radius:16px;
@@ -27,14 +25,13 @@ body{
 h1{
   text-align:center;
   color:white;
-  margin-bottom:5px;
+  margin:0 0 5px;
 }
 
 h2{
   text-align:center;
   color:white;
-  margin-top:5px;
-  margin-bottom:25px;
+  margin:5px 0 25px;
 }
 
 label{
@@ -54,11 +51,6 @@ input{
   font-size:16px;
   background:white;
   outline:none;
-}
-
-select:focus,
-input:focus{
-  border:2px solid #60a5fa;
 }
 
 button{
@@ -82,18 +74,15 @@ button:hover{
   background:#64748b;
 }
 
-.change-button:hover{
-  background:#475569;
-}
-
 .branch-info{
   background:white;
   color:#1e3a8a;
-  padding:13px;
+  padding:14px;
   border-radius:8px;
   text-align:center;
   font-weight:bold;
   margin-top:15px;
+  font-size:17px;
 }
 
 #loginMessage{
@@ -109,50 +98,45 @@ button:hover{
   color:white;
   font-size:13px;
   margin-top:20px;
-  opacity:.9;
 }
 
-</style></head><body><div class="login-box"><h1>🏢 AAFDRMC</h1><h2>🔐 User Login</h2><!-- =====================================================
-     SELECT BRANCH
-===================================================== --><label for="branchSelect">
+</style></head><body><div class="login-box"><h1>🏢 AAFDRMC</h1><h2>🔐 User Login</h2><label for="branchSelect">
 📍 Select Branch
 </label><select id="branchSelect"
 onchange="selectBranch()">
 
 <option value="">
 -- Select Branch --
-</option><option value="branch1">
-Branch 1
-</option><option value="branch2">
-Branch 2
-</option><option value="branch3">
-Branch 3
-</option><option value="branch4">
-Branch 4
-</option><option value="branch5">
-Branch 5
-</option><option value="branch6">
-Branch 6
-</option><option value="branch7">
-Branch 7
-</option><option value="branch8">
-Branch 8
-</option><option value="branch9">
-Branch 9
-</option><option value="branch10">
-Branch 10
-</option><option value="branch11">
-Branch 11
-</option><option value="branch12">
-Branch 12
-</option></select><!-- =====================================================
-     SELECTED BRANCH DISPLAY
-===================================================== --><div id="branchInfo"
+</option><option value="main">
+Main
+</option><option value="gulele">
+Gulele
+</option><option value="addis_katama">
+Addis Katama
+</option><option value="kolfee">
+Kolfee
+</option><option value="nifas_silk_lafto">
+Nifas Silk Lafto
+</option><option value="kirkos">
+Kirkos
+</option><option value="lami_kura">
+Lami Kura
+</option><option value="arada">
+Arada
+</option><option value="lideta">
+Lideta
+</option><option value="bole">
+Bole
+</option><option value="ekaa">
+Ekaa
+</option><option value="akaki_kality">
+Akaki Kality
+</option><option value="center">
+Center
+</option></select><div id="branchInfo"
      class="branch-info">📍 Branch hin filatamne
 
-</div><!-- =====================================================
-     USER ID
-===================================================== --><label for="loginUserId">
+</div><label for="loginUserId">
 👤 User ID
 </label><input
 id="loginUserId"
@@ -160,9 +144,7 @@ type="text"
 placeholder="User ID"
 autocomplete="username">
 
-<!-- =====================================================
-     PASSWORD
-===================================================== --><label for="loginPassword">
+<label for="loginPassword">
 🔑 Password
 </label><input
 id="loginPassword"
@@ -170,13 +152,9 @@ type="password"
 placeholder="Password"
 autocomplete="current-password">
 
-<!-- =====================================================
-     LOGIN
-===================================================== --><button onclick="loginUser()">
+<button onclick="loginUser()">
 🔐 Login
-</button><!-- =====================================================
-     CHANGE BRANCH
-===================================================== --><button class="change-button"
+</button><button class="change-button"
 onclick="changeBranch()">
 
 🔄 Change Branch
@@ -193,38 +171,79 @@ const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXK9Jq";
 
 
 /* =====================================================
-   BRANCH INFORMATION
+   BRANCH DATA
 ===================================================== */
 
 const branches = {
 
-    branch1: "Branch 1",
+  main:{
+    id:"main",
+    name:"Main"
+  },
 
-    branch2: "Branch 2",
+  gulele:{
+    id:"gulele",
+    name:"Gulele"
+  },
 
-    branch3: "Branch 3",
+  addis_katama:{
+    id:"addis_katama",
+    name:"Addis Katama"
+  },
 
-    branch4: "Branch 4",
+  kolfee:{
+    id:"kolfee",
+    name:"Kolfee"
+  },
 
-    branch5: "Branch 5",
+  nifas_silk_lafto:{
+    id:"nifas_silk_lafto",
+    name:"Nifas Silk Lafto"
+  },
 
-    branch6: "Branch 6",
+  kirkos:{
+    id:"kirkos",
+    name:"Kirkos"
+  },
 
-    branch7: "Branch 7",
+  lami_kura:{
+    id:"lami_kura",
+    name:"Lami Kura"
+  },
 
-    branch8: "Branch 8",
+  arada:{
+    id:"arada",
+    name:"Arada"
+  },
 
-    branch9: "Branch 9",
+  lideta:{
+    id:"lideta",
+    name:"Lideta"
+  },
 
-    branch10: "Branch 10",
+  bole:{
+    id:"bole",
+    name:"Bole"
+  },
 
-    branch11: "Branch 11",
+  ekaa:{
+    id:"ekaa",
+    name:"Ekaa"
+  },
 
-    branch12: "Branch 12"
+  akaki_kality:{
+    id:"akaki_kality",
+    name:"Akaki Kality"
+  },
+
+  center:{
+    id:"center",
+    name:"Center"
+  }
 
 };
 
@@ -235,105 +254,112 @@ const branches = {
 
 function selectBranch(){
 
-    const select =
-        document.getElementById("branchSelect");
+  const select =
+    document.getElementById("branchSelect");
 
-    const branchId =
-        select.value;
+  const branchId =
+    select.value;
 
-    const branchInfo =
-        document.getElementById("branchInfo");
+  const branchInfo =
+    document.getElementById("branchInfo");
 
-    const message =
-        document.getElementById("loginMessage");
-
-
-    /* No branch selected */
-
-    if(branchId === ""){
-
-        localStorage.removeItem(
-            "selected_branch_id"
-        );
-
-        localStorage.removeItem(
-            "selected_branch_name"
-        );
-
-        branchInfo.textContent =
-            "📍 Branch hin filatamne";
-
-        return;
-    }
+  const message =
+    document.getElementById("loginMessage");
 
 
-    /* Get branch name */
+  if(!branchId){
 
-    const branchName =
-        branches[branchId];
-
-
-    /* Save branch */
-
-    localStorage.setItem(
-        "selected_branch_id",
-        branchId
+    localStorage.removeItem(
+      "selected_branch_id"
     );
 
-    localStorage.setItem(
-        "selected_branch_name",
-        branchName
+    localStorage.removeItem(
+      "selected_branch_name"
     );
-
-
-    /* Show branch */
 
     branchInfo.textContent =
-        "📍 " + branchName;
+      "📍 Branch hin filatamne";
+
+    message.textContent = "";
+
+    return;
+  }
 
 
-    message.textContent =
-        "✅ " + branchName +
-        " filatameera.";
+  const branch =
+    branches[branchId];
+
+
+  if(!branch){
+
+    branchInfo.textContent =
+      "❌ Branch hin argamne.";
+
+    return;
+  }
+
+
+  localStorage.setItem(
+    "selected_branch_id",
+    branch.id
+  );
+
+  localStorage.setItem(
+    "selected_branch_name",
+    branch.name
+  );
+
+
+  branchInfo.textContent =
+    "📍 " + branch.name;
+
+
+  message.textContent =
+    "✅ " +
+    branch.name +
+    " filatameera.";
 
 }
 
 
 /* =====================================================
-   LOAD SAVED BRANCH
+   SHOW SAVED BRANCH
 ===================================================== */
 
 function showBranch(){
 
-    const branchId =
-        localStorage.getItem(
-            "selected_branch_id"
-        );
+  const branchId =
+    localStorage.getItem(
+      "selected_branch_id"
+    );
 
-    const branchName =
-        localStorage.getItem(
-            "selected_branch_name"
-        );
-
-
-    if(
-        branchId &&
-        branches[branchId]
-    ){
-
-        document.getElementById(
-            "branchSelect"
-        ).value = branchId;
+  const branchName =
+    localStorage.getItem(
+      "selected_branch_name"
+    );
 
 
-        document.getElementById(
-            "branchInfo"
-        ).textContent =
-            "📍 " +
-            (branchName ||
-             branches[branchId]);
+  if(
+    branchId &&
+    branches[branchId]
+  ){
 
-    }
+    document.getElementById(
+      "branchSelect"
+    ).value =
+      branchId;
+
+
+    document.getElementById(
+      "branchInfo"
+    ).textContent =
+      "📍 " +
+      (
+        branchName ||
+        branches[branchId].name
+      );
+
+  }
 
 }
 
@@ -344,264 +370,210 @@ function showBranch(){
 
 async function loginUser(){
 
-    const userId =
-        document.getElementById(
-            "loginUserId"
-        ).value.trim();
+  const userId =
+    document.getElementById(
+      "loginUserId"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
+  const message =
+    document.getElementById(
+      "loginMessage"
+    );
+
+  const branchId =
+    localStorage.getItem(
+      "selected_branch_id"
+    );
+
+  const branchName =
+    localStorage.getItem(
+      "selected_branch_name"
+    );
 
 
-    const password =
-        document.getElementById(
-            "loginPassword"
-        ).value;
+  if(!branchId){
+
+    message.textContent =
+      "❌ Dura jalqaba Branch filadhu.";
+
+    return;
+  }
 
 
-    const message =
-        document.getElementById(
-            "loginMessage"
-        );
+  if(!userId){
+
+    message.textContent =
+      "❌ User ID galchi.";
+
+    return;
+  }
 
 
-    const selectedBranchId =
-        localStorage.getItem(
-            "selected_branch_id"
-        );
+  if(!password){
+
+    message.textContent =
+      "❌ Password galchi.";
+
+    return;
+  }
 
 
-    const selectedBranchName =
-        localStorage.getItem(
-            "selected_branch_name"
-        );
+  message.textContent =
+    "⏳ Login mirkaneessaa jira...";
 
 
-    /* =================================================
-       CHECK BRANCH
-    ================================================= */
+  try{
+
+    const query =
+      SUPABASE_URL +
+      "/rest/v1/users" +
+      "?select=*" +
+      "&user_id=eq." +
+      encodeURIComponent(userId) +
+      "&branch_id=eq." +
+      encodeURIComponent(branchId) +
+      "&limit=1";
+
+
+    const response =
+      await fetch(
+        query,
+        {
+          method:"GET",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json"
+          }
+        }
+      );
+
+
+    if(!response.ok){
+
+      const error =
+        await response.text();
+
+      console.log(
+        "USER DATABASE ERROR:",
+        error
+      );
+
+      message.textContent =
+        "❌ User Database rakkoo qaba.";
+
+      return;
+    }
+
+
+    const users =
+      await response.json();
+
 
     if(
-        !selectedBranchId ||
-        !selectedBranchName
+      !Array.isArray(users) ||
+      users.length === 0
     ){
 
-        message.textContent =
-            "❌ Dura jalqaba Branch filadhu.";
+      message.textContent =
+        "❌ User ID ykn Branch sirrii miti.";
 
-        return;
-
+      return;
     }
 
 
-    /* =================================================
-       CHECK USER ID
-    ================================================= */
+    const user =
+      users[0];
 
-    if(!userId){
 
-        message.textContent =
-            "❌ User ID galchi.";
+    if(
+      String(user.password) !==
+      String(password)
+    ){
 
-        return;
+      message.textContent =
+        "❌ Password sirrii miti.";
 
+      return;
     }
 
 
-    /* =================================================
-       CHECK PASSWORD
-    ================================================= */
+    /* SAVE LOGIN */
 
-    if(!password){
+    localStorage.setItem(
+      "user_id",
+      String(user.user_id)
+    );
 
-        message.textContent =
-            "❌ Password galchi.";
+    localStorage.setItem(
+      "user_db_id",
+      String(user.id)
+    );
 
-        return;
+    localStorage.setItem(
+      "branch_id",
+      String(user.branch_id)
+    );
 
-    }
+    localStorage.setItem(
+      "user_branch",
+      user.branch_name ||
+      branchName
+    );
+
+    localStorage.setItem(
+      "selected_branch_id",
+      branchId
+    );
+
+    localStorage.setItem(
+      "selected_branch_name",
+      branchName
+    );
+
+    localStorage.setItem(
+      "is_logged_in",
+      "true"
+    );
 
 
     message.textContent =
-        "⏳ Login mirkaneessaa jira...";
+      "✅ Login milkaa'e.";
 
 
-    try{
+    setTimeout(function(){
+
+      window.location.href =
+        "dashboard.html";
+
+    },700);
 
 
-        /* =============================================
-           USER DATABASE
-        ============================================= */
+  }
 
-        const url =
-            SUPABASE_URL +
-            "/rest/v1/users" +
-            "?select=*" +
-            "&user_id=eq." +
-            encodeURIComponent(userId) +
-            "&branch_id=eq." +
-            encodeURIComponent(selectedBranchId) +
-            "&limit=1";
+  catch(error){
 
+    console.log(
+      "LOGIN ERROR:",
+      error
+    );
 
-        const response =
-            await fetch(
-                url,
-                {
-                    method:"GET",
+    message.textContent =
+      "❌ Internet ykn Supabase connection rakkoo qaba.";
 
-                    headers:{
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            "Bearer " +
-                            SUPABASE_KEY,
-
-                        "Content-Type":
-                            "application/json"
-                    }
-                }
-            );
-
-
-        /* =============================================
-           DATABASE ERROR
-        ============================================= */
-
-        if(!response.ok){
-
-            const error =
-                await response.text();
-
-            console.log(
-                "User database error:",
-                error
-            );
-
-            message.textContent =
-                "❌ User database rakkoo qaba.";
-
-            return;
-
-        }
-
-
-        const users =
-            await response.json();
-
-
-        /* =============================================
-           USER NOT FOUND
-        ============================================= */
-
-        if(
-            !Array.isArray(users) ||
-            users.length === 0
-        ){
-
-            message.textContent =
-                "❌ User ID ykn Branch sirrii miti.";
-
-            return;
-
-        }
-
-
-        const user =
-            users[0];
-
-
-        /* =============================================
-           PASSWORD CHECK
-        ============================================= */
-
-        if(
-            String(user.password) !==
-            String(password)
-        ){
-
-            message.textContent =
-                "❌ Password sirrii miti.";
-
-            return;
-
-        }
-
-
-        /* =============================================
-           SAVE USER LOGIN
-        ============================================= */
-
-        localStorage.setItem(
-            "user_id",
-            String(user.user_id)
-        );
-
-
-        localStorage.setItem(
-            "user_db_id",
-            String(user.id)
-        );
-
-
-        localStorage.setItem(
-            "branch_id",
-            String(user.branch_id)
-        );
-
-
-        localStorage.setItem(
-            "user_branch",
-            user.branch_name ||
-            selectedBranchName
-        );
-
-
-        localStorage.setItem(
-            "selected_branch_id",
-            selectedBranchId
-        );
-
-
-        localStorage.setItem(
-            "selected_branch_name",
-            selectedBranchName
-        );
-
-
-        localStorage.setItem(
-            "is_logged_in",
-            "true"
-        );
-
-
-        /* =============================================
-           LOGIN SUCCESS
-        ============================================= */
-
-        message.textContent =
-            "✅ Login milkaa'e.";
-
-
-        setTimeout(function(){
-
-            window.location.href =
-                "dashboard.html";
-
-        },700);
-
-
-    }
-
-    catch(error){
-
-        console.log(
-            "Login error:",
-            error
-        );
-
-        message.textContent =
-            "❌ Internet ykn Supabase connection rakkoo qaba.";
-
-    }
+  }
 
 }
 
@@ -612,37 +584,38 @@ async function loginUser(){
 
 function changeBranch(){
 
-    localStorage.removeItem(
-        "selected_branch_id"
-    );
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
 
-    localStorage.removeItem(
-        "selected_branch_name"
-    );
-
-
-    document.getElementById(
-        "branchSelect"
-    ).value = "";
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
 
 
-    document.getElementById(
-        "branchInfo"
-    ).textContent =
-        "📍 Branch hin filatamne";
+  document.getElementById(
+    "branchSelect"
+  ).value = "";
 
 
-    document.getElementById(
-        "loginMessage"
-    ).textContent = "";
+  document.getElementById(
+    "branchInfo"
+  ).textContent =
+    "📍 Branch hin filatamne";
+
+
+  document.getElementById(
+    "loginMessage"
+  ).textContent = "";
 
 }
 
 
 /* =====================================================
-   START PAGE
+   START
 ===================================================== */
 
 showBranch();
 
-</script></body></html>
+</script></body>
+</html>
