@@ -5,9 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Dashboard</title>
 
@@ -29,9 +28,8 @@ body{
 header{
   background:#1e3a8a;
   color:white;
-  padding:20px;
+  padding:20px 15px;
   text-align:center;
-  box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
 
 header h1{
@@ -41,21 +39,40 @@ header h1{
 
 .branch-name{
   margin-top:8px;
-  font-size:16px;
+  font-size:17px;
   font-weight:bold;
 }
 
 /* ================= CONTAINER ================= */
 
 .container{
-  width:96%;
-  max-width:1500px;
+  width:95%;
+  max-width:1400px;
   margin:20px auto;
 }
 
-/* ================= TOP MENU ================= */
+/* ================= MESSAGE ================= */
 
-.menu-box{
+.message{
+  display:none;
+  padding:14px;
+  margin-bottom:15px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+/* ================= TOP BAR ================= */
+
+.top-bar{
   background:white;
   padding:18px;
   border-radius:12px;
@@ -63,96 +80,65 @@ header h1{
   margin-bottom:20px;
 }
 
-.menu-title{
-  font-size:21px;
-  font-weight:bold;
+.top-title{
   color:#1e3a8a;
+  font-size:22px;
+  font-weight:bold;
   margin-bottom:14px;
 }
 
-.menu{
+.top-buttons{
   display:flex;
-  gap:10px;
   flex-wrap:wrap;
+  gap:10px;
 }
 
-.menu a,
-.menu button{
+/* ================= BUTTONS ================= */
+
+.btn{
   border:0;
-  padding:11px 16px;
+  padding:11px 17px;
   border-radius:8px;
   color:white;
   font-weight:bold;
   text-decoration:none;
   cursor:pointer;
-  font-size:14px;
+  display:inline-block;
 }
 
-.dashboard{
+.btn-blue{
   background:#1e3a8a;
 }
 
-.items{
-  background:#2563eb;
-}
-
-.stock{
+.btn-green{
   background:#15803d;
 }
 
-.reports{
-  background:#7c3aed;
-}
-
-.branch{
-  background:#0891b2;
-}
-
-.category{
-  background:#d97706;
-}
-
-.settings{
-  background:#475569;
-}
-
-.back{
-  background:#64748b;
-}
-
-.logout{
+.btn-red{
   background:#dc2626;
 }
 
-/* ================= WELCOME ================= */
-
-.welcome{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  margin-bottom:20px;
+.btn-orange{
+  background:#ea580c;
 }
 
-.welcome h2{
-  margin:0;
-  color:#1e3a8a;
-  font-size:22px;
+.btn-gray{
+  background:#64748b;
 }
 
-.welcome p{
-  margin-bottom:0;
-  color:#64748b;
+.btn-purple{
+  background:#7c3aed;
 }
 
-/* ================= CARDS ================= */
+/* ================= SUMMARY ================= */
 
-.cards{
+.summary{
   display:grid;
   grid-template-columns:
-    repeat(auto-fit,minmax(200px,1fr));
+    repeat(auto-fit,minmax(210px,1fr));
+
   gap:15px;
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
 
 .card{
@@ -160,114 +146,102 @@ header h1{
   padding:20px;
   border-radius:12px;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
-  border-left:5px solid #1e3a8a;
-}
-
-.card-icon{
-  font-size:28px;
 }
 
 .card-title{
-  margin-top:8px;
   color:#64748b;
   font-weight:bold;
+  font-size:15px;
 }
 
-.card-number{
-  margin-top:7px;
-  font-size:28px;
+.card-value{
+  margin-top:8px;
+  color:#1e3a8a;
+  font-size:30px;
+  font-weight:bold;
+}
+
+/* ================= MENU ================= */
+
+.menu-title{
+  font-size:22px;
   font-weight:bold;
   color:#1e3a8a;
-}
-
-/* ================= QUICK ACCESS ================= */
-
-.quick-box{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  margin-bottom:20px;
-}
-
-.quick-title{
-  color:#1e3a8a;
-  font-size:20px;
-  font-weight:bold;
   margin-bottom:15px;
 }
 
-.quick-grid{
+.menu-grid{
   display:grid;
   grid-template-columns:
-    repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
+    repeat(auto-fit,minmax(220px,1fr));
+
+  gap:15px;
 }
 
-.quick{
-  padding:18px;
-  border-radius:10px;
+.menu-card{
+  background:white;
+  border-radius:12px;
+  padding:22px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
   text-decoration:none;
-  font-weight:bold;
-  text-align:center;
-  color:white;
+  color:#1e293b;
+  transition:.2s;
 }
 
-.quick-items{
-  background:#2563eb;
+.menu-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 5px 15px rgba(0,0,0,.12);
 }
 
-.quick-stock{
-  background:#15803d;
+.menu-icon{
+  font-size:35px;
+  margin-bottom:10px;
 }
 
-.quick-reports{
-  background:#7c3aed;
+.menu-card h3{
+  margin:0;
+  color:#1e3a8a;
+  font-size:20px;
 }
 
-.quick-branch{
-  background:#0891b2;
+.menu-card p{
+  margin:7px 0 0;
+  color:#64748b;
+  line-height:1.4;
 }
 
-.quick-category{
-  background:#d97706;
-}
-
-.quick-settings{
-  background:#475569;
-}
-
-/* ================= BRANCH INFO ================= */
+/* ================= BRANCH BOX ================= */
 
 .branch-box{
   background:white;
-  padding:20px;
   border-radius:12px;
+  padding:20px;
+  margin-top:20px;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
-  margin-bottom:20px;
 }
 
 .branch-title{
   color:#1e3a8a;
   font-size:20px;
   font-weight:bold;
-  margin-bottom:12px;
 }
 
 .branch-info{
-  padding:15px;
-  background:#eff6ff;
-  border-radius:8px;
-  font-weight:bold;
+  margin-top:10px;
+  font-size:16px;
+}
+
+.branch-info strong{
+  color:#15803d;
 }
 
 /* ================= FOOTER ================= */
 
 footer{
   text-align:center;
+  padding:25px 10px;
   color:#64748b;
-  padding:20px;
-  font-size:13px;
+  font-size:14px;
 }
 
 /* ================= MOBILE ================= */
@@ -278,14 +252,25 @@ footer{
     font-size:21px;
   }
 
-  .menu a,
-  .menu button{
+  .branch-name{
+    font-size:15px;
+  }
+
+  .top-buttons{
+    flex-direction:column;
+  }
+
+  .top-buttons .btn{
     width:100%;
     text-align:center;
   }
 
-  .card{
-    padding:17px;
+  .summary{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .card-value{
+    font-size:25px;
   }
 
 }
@@ -305,7 +290,7 @@ footer{
 <header>
 
   <h1>
-    AAFDRMC - STOCK MANAGEMENT SYSTEM
+    AAFDRMC - STOCK MANAGEMENT
   </h1>
 
   <div
@@ -319,31 +304,39 @@ footer{
 </header>
 
 
-
 <div class="container">
 
 
 <!-- =====================================================
-     MAIN MENU
+     MESSAGE
 ===================================================== -->
 
-<div class="menu-box">
+<div
+  id="message"
+  class="message">
+</div>
 
-  <div class="menu-title">
-    🏠 Main Menu
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
+<div class="top-bar">
+
+  <div class="top-title">
+    🏠 Main Dashboard
   </div>
 
 
-  <div class="menu">
+  <div class="top-buttons">
 
-
-    <!-- DASHBOARD -->
+    <!-- BACK TO MENU -->
 
     <a
-      href="dashboard.html"
-      class="dashboard">
+      href="index.html"
+      class="btn btn-blue">
 
-      🏠 Dashboard
+      ⬅️ Back to Menu
 
     </a>
 
@@ -352,7 +345,7 @@ footer{
 
     <a
       href="items.html"
-      class="items">
+      class="btn btn-green">
 
       📦 Items
 
@@ -363,9 +356,9 @@ footer{
 
     <a
       href="stock.html"
-      class="stock">
+      class="btn btn-red">
 
-      📥 Stock In / Out
+      📊 Stock
 
     </a>
 
@@ -374,20 +367,9 @@ footer{
 
     <a
       href="reports.html"
-      class="reports">
+      class="btn btn-orange">
 
-      📊 Reports
-
-    </a>
-
-
-    <!-- BRANCH -->
-
-    <a
-      href="branch.html"
-      class="branch">
-
-      🏢 Branch
+      📈 Reports
 
     </a>
 
@@ -396,7 +378,7 @@ footer{
 
     <a
       href="category.html"
-      class="category">
+      class="btn btn-purple">
 
       🗂️ Category
 
@@ -407,83 +389,44 @@ footer{
 
     <a
       href="settings.html"
-      class="settings">
+      class="btn btn-gray">
 
       ⚙️ Settings
 
     </a>
 
 
-    <!-- BACK TO MENU -->
-
-    <a
-      href="index.html"
-      class="back">
-
-      ⬅️ Back to Menu
-
-    </a>
-
-
-    <!-- LOGOUT -->
+    <!-- REFRESH -->
 
     <button
-      class="logout"
-      onclick="logoutUser()">
+      class="btn btn-blue"
+      onclick="loadDashboard()">
 
-      🚪 Logout
+      🔄 Refresh
 
     </button>
-
 
   </div>
 
 </div>
 
 
-
 <!-- =====================================================
-     WELCOME
+     SUMMARY
 ===================================================== -->
 
-<div class="welcome">
+<div class="summary">
 
-  <h2>
-    📊 Dashboard
-  </h2>
-
-  <p>
-    Baga nagaan dhuftan AAFDRMC Stock Management System.
-    Meeshaalee, Stock, Reports fi hojiiwwan Branch keessanii
-    as irraa to'achuu dandeessu.
-  </p>
-
-</div>
-
-
-
-<!-- =====================================================
-     SUMMARY CARDS
-===================================================== -->
-
-<div class="cards">
-
-
-  <!-- TOTAL ITEMS -->
 
   <div class="card">
 
-    <div class="card-icon">
-      📦
-    </div>
-
     <div class="card-title">
-      Total Items
+      📦 Total Items
     </div>
 
     <div
       id="totalItems"
-      class="card-number">
+      class="card-value">
 
       0
 
@@ -492,22 +435,15 @@ footer{
   </div>
 
 
-
-  <!-- STOCK IN -->
-
   <div class="card">
 
-    <div class="card-icon">
-      🟢
-    </div>
-
     <div class="card-title">
-      Stock IN
+      🟢 Stock IN
     </div>
 
     <div
       id="totalIn"
-      class="card-number">
+      class="card-value">
 
       0
 
@@ -516,22 +452,15 @@ footer{
   </div>
 
 
-
-  <!-- STOCK OUT -->
-
   <div class="card">
 
-    <div class="card-icon">
-      🔴
-    </div>
-
     <div class="card-title">
-      Stock OUT
+      🔴 Stock OUT
     </div>
 
     <div
       id="totalOut"
-      class="card-number">
+      class="card-value">
 
       0
 
@@ -539,23 +468,16 @@ footer{
 
   </div>
 
-
-
-  <!-- BALANCE -->
 
   <div class="card">
 
-    <div class="card-icon">
-      📊
-    </div>
-
     <div class="card-title">
-      Current Balance
+      📊 Current Balance
     </div>
 
     <div
-      id="currentBalance"
-      class="card-number">
+      id="totalBalance"
+      class="card-value">
 
       0
 
@@ -563,88 +485,156 @@ footer{
 
   </div>
 
-</div>
 
+</div>
 
 
 <!-- =====================================================
-     QUICK ACCESS
+     DASHBOARD MENU
 ===================================================== -->
 
-<div class="quick-box">
+<div class="menu-title">
 
-  <div class="quick-title">
-    ⚡ Quick Access
-  </div>
-
-
-  <div class="quick-grid">
-
-
-    <a
-      href="items.html"
-      class="quick quick-items">
-
-      📦<br>
-      Items
-
-    </a>
-
-
-    <a
-      href="stock.html"
-      class="quick quick-stock">
-
-      📥<br>
-      Stock In / Out
-
-    </a>
-
-
-    <a
-      href="reports.html"
-      class="quick quick-reports">
-
-      📊<br>
-      Reports
-
-    </a>
-
-
-    <a
-      href="branch.html"
-      class="quick quick-branch">
-
-      🏢<br>
-      Branch
-
-    </a>
-
-
-    <a
-      href="category.html"
-      class="quick quick-category">
-
-      🗂️<br>
-      Category
-
-    </a>
-
-
-    <a
-      href="settings.html"
-      class="quick quick-settings">
-
-      ⚙️<br>
-      Settings
-
-    </a>
-
-
-  </div>
+  📋 Management Menu
 
 </div>
 
+
+<div class="menu-grid">
+
+
+  <!-- ITEMS -->
+
+  <a
+    href="items.html"
+    class="menu-card">
+
+    <div class="menu-icon">
+      📦
+    </div>
+
+    <h3>
+      Items
+    </h3>
+
+    <p>
+      Meeshaalee haaraa galchi,
+      ilaali fi bulchi.
+    </p>
+
+  </a>
+
+
+  <!-- STOCK -->
+
+  <a
+    href="stock.html"
+    class="menu-card">
+
+    <div class="menu-icon">
+      📊
+    </div>
+
+    <h3>
+      Stock Management
+    </h3>
+
+    <p>
+      Stock IN, Stock OUT fi
+      current balance bulchi.
+    </p>
+
+  </a>
+
+
+  <!-- REPORT -->
+
+  <a
+    href="reports.html"
+    class="menu-card">
+
+    <div class="menu-icon">
+      📈
+    </div>
+
+    <h3>
+      Reports
+    </h3>
+
+    <p>
+      Gabaasa stock fi transaction
+      ilaali.
+    </p>
+
+  </a>
+
+
+  <!-- CATEGORY -->
+
+  <a
+    href="category.html"
+    class="menu-card">
+
+    <div class="menu-icon">
+      🗂️
+    </div>
+
+    <h3>
+      Category Management
+    </h3>
+
+    <p>
+      Categories fi items
+      to'achuu.
+    </p>
+
+  </a>
+
+
+  <!-- SETTINGS -->
+
+  <a
+    href="settings.html"
+    class="menu-card">
+
+    <div class="menu-icon">
+      ⚙️
+    </div>
+
+    <h3>
+      Settings
+    </h3>
+
+    <p>
+      Qindaa'ina application
+      ilaali fi jijjiiri.
+    </p>
+
+  </a>
+
+
+  <!-- BACK TO MENU -->
+
+  <a
+    href="index.html"
+    class="menu-card">
+
+    <div class="menu-icon">
+      🏠
+    </div>
+
+    <h3>
+      Back to Menu
+    </h3>
+
+    <p>
+      Gara main menu deebi'i.
+    </p>
+
+  </a>
+
+
+</div>
 
 
 <!-- =====================================================
@@ -654,20 +644,23 @@ footer{
 <div class="branch-box">
 
   <div class="branch-title">
-    🏢 Current Branch
+    🏢 Branch Information
   </div>
 
+  <div class="branch-info">
 
-  <div
-    id="branchInfo"
-    class="branch-info">
+    Selected Branch:
 
-    Loading Branch...
+    <strong
+      id="branchInfo">
+
+      Loading...
+
+    </strong>
 
   </div>
 
 </div>
-
 
 
 </div>
@@ -683,7 +676,7 @@ footer{
 
   <br>
 
-  Branch-based Inventory Management
+  Branch Inventory & Reporting
 
 </footer>
 
@@ -711,30 +704,10 @@ localStorage.getItem(
   "selected_branch_id"
 );
 
-
 const CURRENT_BRANCH_NAME =
 localStorage.getItem(
   "selected_branch_name"
 ) || "Unknown Branch";
-
-
-/* =====================================================
-   DISPLAY BRANCH
-===================================================== */
-
-document.getElementById(
-  "branchName"
-).textContent =
-"🏢 Branch: " +
-CURRENT_BRANCH_NAME;
-
-
-document.getElementById(
-  "branchInfo"
-).textContent =
-"🏢 " +
-CURRENT_BRANCH_NAME;
-
 
 
 /* =====================================================
@@ -748,7 +721,6 @@ function getHeaders(){
       "access_token"
     );
 
-
   return {
 
     "apikey":
@@ -756,10 +728,7 @@ function getHeaders(){
 
     "Authorization":
       "Bearer " +
-      (
-        token ||
-        SUPABASE_KEY
-      ),
+      (token || SUPABASE_KEY),
 
     "Content-Type":
       "application/json"
@@ -768,6 +737,46 @@ function getHeaders(){
 
 }
 
+
+/* =====================================================
+   SHOW BRANCH
+===================================================== */
+
+function showBranch(){
+
+  document.getElementById(
+    "branchName"
+  ).textContent =
+    "🏢 Branch: " +
+    CURRENT_BRANCH_NAME;
+
+
+  document.getElementById(
+    "branchInfo"
+  ).textContent =
+    CURRENT_BRANCH_NAME;
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showError(text){
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+  box.textContent =
+    text;
+
+  box.className =
+    "message show error";
+
+}
 
 
 /* =====================================================
@@ -805,7 +814,6 @@ async function loadItems(){
     if(!response.ok){
 
       console.error(
-        "Items error:",
         await response.text()
       );
 
@@ -818,17 +826,13 @@ async function loadItems(){
 
   }catch(error){
 
-    console.error(
-      "Items error:",
-      error
-    );
+    console.error(error);
 
     return [];
 
   }
 
 }
-
 
 
 /* =====================================================
@@ -848,8 +852,7 @@ async function loadTransactions(){
     "&branch_id=eq." +
     encodeURIComponent(
       CURRENT_BRANCH_ID
-    ) +
-    "&order=created_at.desc";
+    );
 
 
   try{
@@ -867,7 +870,6 @@ async function loadTransactions(){
     if(!response.ok){
 
       console.error(
-        "Transaction error:",
         await response.text()
       );
 
@@ -880,10 +882,7 @@ async function loadTransactions(){
 
   }catch(error){
 
-    console.error(
-      "Transaction error:",
-      error
-    );
+    console.error(error);
 
     return [];
 
@@ -892,24 +891,17 @@ async function loadTransactions(){
 }
 
 
-
 /* =====================================================
-   CALCULATE DASHBOARD
+   LOAD DASHBOARD
 ===================================================== */
 
 async function loadDashboard(){
 
   if(!CURRENT_BRANCH_ID){
 
-    document.getElementById(
-      "branchName"
-    ).textContent =
-      "⚠️ Branch hin filatamne";
-
-    document.getElementById(
-      "branchInfo"
-    ).textContent =
-      "Mee gara Menu deebi'ii Branch filadhu.";
+    showError(
+      "❌ Branch hin filatamne. Gara Login deebi'ii Branch filadhu."
+    );
 
     return;
 
@@ -923,6 +915,16 @@ async function loadDashboard(){
   const transactions =
     await loadTransactions();
 
+
+  /* TOTAL ITEMS */
+
+  document.getElementById(
+    "totalItems"
+  ).textContent =
+    items.length;
+
+
+  /* TOTAL IN */
 
   let totalIn = 0;
 
@@ -948,16 +950,14 @@ async function loadDashboard(){
 
       if(type === "IN"){
 
-        totalIn +=
-          quantity;
+        totalIn += quantity;
 
       }
 
 
       if(type === "OUT"){
 
-        totalOut +=
-          quantity;
+        totalOut += quantity;
 
       }
 
@@ -965,10 +965,7 @@ async function loadDashboard(){
   );
 
 
-  /*
-    Opening quantity
-    Items page irraa.
-  */
+  /* CURRENT BALANCE */
 
   let openingStock = 0;
 
@@ -992,12 +989,6 @@ async function loadDashboard(){
 
 
   document.getElementById(
-    "totalItems"
-  ).textContent =
-    items.length.toLocaleString();
-
-
-  document.getElementById(
     "totalIn"
   ).textContent =
     totalIn.toLocaleString();
@@ -1010,59 +1001,23 @@ async function loadDashboard(){
 
 
   document.getElementById(
-    "currentBalance"
+    "totalBalance"
   ).textContent =
     balance.toLocaleString();
 
 }
 
 
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logoutUser(){
-
-  const confirmLogout =
-    confirm(
-      "Logout gochuu barbaaddaa?"
-    );
-
-
-  if(!confirmLogout)
-    return;
-
-
-  localStorage.removeItem(
-    "access_token"
-  );
-
-
-  localStorage.removeItem(
-    "selected_branch_id"
-  );
-
-
-  localStorage.removeItem(
-    "selected_branch_name"
-  );
-
-
-  window.location.href =
-    "login.html";
-
-}
-
-
-
 /* =====================================================
    START
 ===================================================== */
 
+showBranch();
+
 loadDashboard();
 
 </script>
+
 
 </body>
 
