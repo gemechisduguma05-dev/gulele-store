@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Stock Management</title>
+<title>AAFDRMC - Items</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -28,28 +31,22 @@ header h1{
   font-size:22px;
 }
 
-.branch-name{
-  margin-top:7px;
-  font-size:16px;
-  font-weight:bold;
-}
-
 .container{
   width:96%;
-  max-width:1500px;
+  max-width:1400px;
   margin:20px auto;
 }
 
 .top-bar{
   background:white;
-  padding:16px;
+  padding:18px;
   border-radius:10px;
-  margin-bottom:15px;
+  margin-bottom:18px;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .title{
-  font-size:21px;
+  font-size:22px;
   font-weight:bold;
   color:#1e3a8a;
 }
@@ -68,37 +65,25 @@ header h1{
   cursor:pointer;
   color:white;
   font-weight:bold;
+  text-decoration:none;
 }
 
-.btn-in{background:#15803d}
-.btn-out{background:#dc2626}
-.btn-blue{background:#1e3a8a}
-.btn-gray{background:#64748b}
+.btn-add{
+  background:#15803d;
+}
 
-.main-control{
-  display:none;
+.btn-back{
+  background:#64748b;
+}
+
+.branch-box{
   background:#eff6ff;
   border:1px solid #bfdbfe;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:18px;
-}
-
-.main-control.show{display:block}
-
-.main-control label{
+  padding:12px;
+  border-radius:8px;
+  margin-top:12px;
+  color:#1e3a8a;
   font-weight:bold;
-  display:block;
-  margin-bottom:7px;
-}
-
-.main-control select{
-  width:100%;
-  max-width:500px;
-  padding:11px;
-  border:1px solid #93c5fd;
-  border-radius:7px;
-  font-size:15px;
 }
 
 .form-box{
@@ -110,21 +95,22 @@ header h1{
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.form-box.show{display:block}
+.form-box.show{
+  display:block;
+}
 
 .form-title{
   font-size:20px;
   font-weight:bold;
+  color:#1e3a8a;
   margin-bottom:15px;
 }
 
-.form-title.in{color:#15803d}
-.form-title.out{color:#dc2626}
-
 .form-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:13px;
+  grid-template-columns:
+  repeat(auto-fit,minmax(230px,1fr));
+  gap:14px;
 }
 
 .form-group{
@@ -140,21 +126,20 @@ header h1{
 .form-group input,
 .form-group select{
   width:100%;
-  padding:10px;
+  padding:11px;
   border:1px solid #cbd5e1;
   border-radius:7px;
   font-size:15px;
 }
 
-.readonly{background:#f8fafc}
-
-.submit-row{
+.form-buttons{
   display:flex;
   gap:10px;
   margin-top:17px;
 }
 
-.save-btn{
+.save-btn,
+.cancel-btn{
   border:none;
   padding:11px 20px;
   border-radius:7px;
@@ -163,9 +148,13 @@ header h1{
   cursor:pointer;
 }
 
-.save-in{background:#15803d}
-.save-out{background:#dc2626}
-.cancel{background:#64748b}
+.save-btn{
+  background:#15803d;
+}
+
+.cancel-btn{
+  background:#64748b;
+}
 
 .message{
   display:none;
@@ -187,46 +176,9 @@ header h1{
   color:#991b1b;
 }
 
-.message.info{
-  display:block;
-  background:#dbeafe;
-  color:#1e40af;
-}
-
-.summary{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  margin-bottom:18px;
-}
-
-.card{
-  background:white;
-  padding:16px;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.card strong{
-  display:block;
-  font-size:27px;
-  margin-top:7px;
-  color:#1e3a8a;
-}
-
-.section-title{
-  background:white;
-  padding:15px;
-  margin-bottom:2px;
-  border-radius:10px 10px 0 0;
-  font-size:20px;
-  font-weight:bold;
-  color:#1e3a8a;
-}
-
 .table-box{
   background:white;
-  border-radius:0 0 10px 10px;
+  border-radius:10px;
   overflow-x:auto;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
@@ -234,199 +186,90 @@ header h1{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:950px;
+  min-width:750px;
 }
 
 th{
   background:#1e3a8a;
   color:white;
-  padding:12px;
+  padding:13px;
   text-align:left;
-  white-space:nowrap;
 }
 
 td{
-  padding:11px;
+  padding:12px;
   border-bottom:1px solid #e2e8f0;
-  white-space:nowrap;
 }
 
-.item-row{cursor:pointer}
-.item-row:hover{background:#eff6ff}
-
-.balance{
-  font-weight:bold;
-  color:#1e3a8a;
+tr:hover{
+  background:#f8fafc;
 }
 
-.click-text{
-  color:#2563eb;
-  font-weight:bold;
-}
-
-.details-box{
-  display:none;
-  background:white;
-  margin-top:20px;
-  padding:18px;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.details-box.show{display:block}
-
-.details-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:15px;
-}
-
-.details-title{
-  font-size:21px;
-  font-weight:bold;
-  color:#1e3a8a;
-}
-
-.close-details{
-  background:#64748b;
+.edit-btn{
+  background:#2563eb;
   color:white;
   border:none;
-  padding:9px 14px;
+  padding:7px 11px;
+  border-radius:6px;
+  cursor:pointer;
+  margin-right:5px;
+}
+
+.delete-btn{
+  background:#dc2626;
+  color:white;
+  border:none;
+  padding:7px 11px;
   border-radius:6px;
   cursor:pointer;
 }
 
-.details-table{overflow-x:auto}
-
-.details-table table{min-width:1050px}
-
-.badge{
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
+.category-text{
+  font-size:13px;
+  line-height:1.5;
 }
 
-.badge-in{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.badge-out{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-#unitTotals{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-  margin-top:20px;
-}
-
-.total-card{
-  background:white;
-  padding:18px;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.total-card strong{
-  display:block;
-  font-size:28px;
-  margin:8px 0;
-  color:#1e3a8a;
-}
-
-.total-card small{
-  line-height:1.7;
-  color:#475569;
-}
-
-.branch-report{
-  display:none;
-  margin-bottom:18px;
-}
-
-.branch-report.show{display:block}
-
-.branch-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:12px;
-}
-
-.branch-card{
-  background:white;
-  padding:18px;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  border-left:5px solid #1e3a8a;
-}
-
-.branch-card h3{
-  margin:0 0 10px;
-  color:#1e3a8a;
-}
-
-.branch-card div{
-  margin:5px 0;
-}
-
+.empty,
 .loading{
   text-align:center;
   padding:25px;
   color:#64748b;
 }
 </style>
+
 </head>
 
 <body>
 
 <header>
-
-<h1>AAFDRMC - STOCK MANAGEMENT</h1>
-
-<div id="branchName" class="branch-name">
-Loading Branch...
-</div>
-
+<h1>AAFDRMC - ITEM MANAGEMENT</h1>
 </header>
 
 <div class="container">
 
+<!-- TOP BAR -->
+
 <div class="top-bar">
 
 <div class="title">
-📦 Stock Management
+📦 Item Management
+</div>
+
+<div id="branchBox" class="branch-box">
+📍 Branch: Loading...
 </div>
 
 <div class="buttons">
 
 <button
-class="btn btn-in"
-onclick="openStockForm('IN')">
-➕ Stock IN
-</button>
-
-<button
-class="btn btn-out"
-onclick="openStockForm('OUT')">
-➖ Stock OUT
-</button>
-
-<button
-class="btn btn-blue"
-onclick="showReport()">
-📋 Stock Report
+class="btn btn-add"
+onclick="openAddForm()">
+➕ Add New Item
 </button>
 
 <a
 href="index.html"
-class="btn btn-gray">
+class="btn btn-back">
 ⬅️ Back to Menu
 </a>
 
@@ -435,133 +278,167 @@ class="btn btn-gray">
 </div>
 
 
-<!-- MAIN BRANCH CONTROL -->
-
-<div
-id="mainControl"
-class="main-control">
-
-<label>
-👑 Main Control — Branch Report
-</label>
-
-<select
-id="branchSelector"
-onchange="changeReportBranch()">
-
-<option value="">
--- Select Branch --
-</option>
-
-</select>
-
-</div>
-
-
 <!-- MESSAGE -->
 
-<div
-id="message"
-class="message">
-</div>
+<div id="message" class="message"></div>
 
 
-<!-- STOCK IN -->
+<!-- ADD / EDIT FORM -->
 
-<div
-id="stockInForm"
-class="form-box">
+<div id="itemForm" class="form-box">
 
-<div class="form-title in">
-🟢 Stock IN — Meeshaa Galchuu
+<div id="formTitle" class="form-title">
+➕ Add New Item
 </div>
 
 <div class="form-grid">
 
+<!-- ITEM NAME -->
+
 <div class="form-group">
 
-<label>Item Name</label>
+<label>
+Item Name / Maqaa Item
+</label>
 
-<select id="inItem">
+<input
+type="text"
+id="itemName"
+placeholder="Fakkeenya: Xaafii">
+
+</div>
+
+
+<!-- UNIT -->
+
+<div class="form-group">
+
+<label>
+Unit / Safartuu
+</label>
+
+<select id="itemUnit">
 
 <option value="">
--- Select Item --
+-- Select Unit --
+</option>
+
+<option value="Kg">Kg</option>
+
+<option value="Quintal">
+Quintal
+</option>
+
+<option value="Ton">
+Ton
+</option>
+
+<option value="Liter">
+Liter
+</option>
+
+<option value="Piece">
+Piece
+</option>
+
+<option value="Carton">
+Carton
+</option>
+
+<option value="Bag">
+Bag
+</option>
+
+<option value="Packet">
+Packet
+</option>
+
+<option value="Set">
+Set
+</option>
+
+<option value="Pair">
+Pair
+</option>
+
+<option value="Other">
+Other
 </option>
 
 </select>
 
 </div>
 
-<div class="form-group">
 
-<label>Unit</label>
-
-<input
-type="text"
-id="inUnit"
-class="readonly"
-readonly>
-
-</div>
+<!-- CATEGORY -->
 
 <div class="form-group">
 
-<label>Quantity</label>
+<label>
+Category / Ramaddii
+</label>
 
-<input
-type="number"
-id="inQuantity"
-min="0.01"
-step="any"
-placeholder="Quantity">
+<select id="itemCategory">
+
+<option value="">
+-- Select Category --
+</option>
+
+<option value="Strategic Food Items">
+🥫 Strategic Food Items /
+Meeshaalee Nyaataa Tarsiimawaa /
+ስትራቴጂክ ምግብ ነክ
+</option>
+
+<option value="Daily Food Items">
+🍚 Daily Food Items /
+Meeshaalee Nyaataa Guyyaa Guyyaa /
+የዕለት ምግብ እቃዎች
+</option>
+
+<option value="Daily Non-Food Items">
+📦 Daily Non-Food Items /
+Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
+የዕለት ምግብ ነክ ያልሆኑ እቃዎች
+</option>
+
+<option value="Non-Food Kitchen Items">
+🍳 Non-Food Kitchen Items /
+Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan /
+የምግብ ማዘጋጃ እቃዎች
+</option>
+
+<option value="Non-Food Hygiene Items">
+🧼 Non-Food Hygiene Items /
+Meeshaalee Qulqullinaa /
+የንጽሕና እቃዎች
+</option>
+
+<option value="Non-Food Construction Materials">
+🧱 Non-Food Construction Materials /
+Meeshaalee Ijaarsaa /
+የግንባታ እቃዎች
+</option>
+
+</select>
 
 </div>
 
-<div class="form-group">
-
-<label>Expiry Date</label>
-
-<input
-type="date"
-id="inExpiryDate">
-
 </div>
 
-<div class="form-group">
 
-<label>Entered By</label>
-
-<input
-type="text"
-id="inEnteredBy"
-placeholder="Nama nama galche">
-
-</div>
-
-<div class="form-group">
-
-<label>Signature / Mallattoo</label>
-
-<input
-type="text"
-id="inSignature"
-placeholder="Mallattoo">
-
-</div>
-
-</div>
-
-<div class="submit-row">
+<div class="form-buttons">
 
 <button
-class="save-btn save-in"
-onclick="saveStock('IN')">
-💾 Save Stock IN
+id="saveButton"
+class="save-btn"
+onclick="saveItem()">
+💾 Save Item
 </button>
 
 <button
-class="save-btn cancel"
-onclick="closeForms()">
+class="cancel-btn"
+onclick="closeForm()">
 Cancel
 </button>
 
@@ -570,157 +447,7 @@ Cancel
 </div>
 
 
-<!-- STOCK OUT -->
-
-<div
-id="stockOutForm"
-class="form-box">
-
-<div class="form-title out">
-🔴 Stock OUT — Meeshaa Baasuu
-</div>
-
-<div class="form-grid">
-
-<div class="form-group">
-
-<label>Item Name</label>
-
-<select id="outItem">
-
-<option value="">
--- Select Item --
-</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>Unit</label>
-
-<input
-type="text"
-id="outUnit"
-class="readonly"
-readonly>
-
-</div>
-
-<div class="form-group">
-
-<label>Quantity</label>
-
-<input
-type="number"
-id="outQuantity"
-min="0.01"
-step="any"
-placeholder="Quantity">
-
-</div>
-
-<div class="form-group">
-
-<label>Issued By</label>
-
-<input
-type="text"
-id="outIssuedBy"
-placeholder="Nama nama baase">
-
-</div>
-
-<div class="form-group">
-
-<label>Signature / Mallattoo</label>
-
-<input
-type="text"
-id="outSignature"
-placeholder="Mallattoo">
-
-</div>
-
-</div>
-
-<div class="submit-row">
-
-<button
-class="save-btn save-out"
-onclick="saveStock('OUT')">
-💾 Save Stock OUT
-</button>
-
-<button
-class="save-btn cancel"
-onclick="closeForms()">
-Cancel
-</button>
-
-</div>
-
-</div>
-
-
-<!-- SUMMARY -->
-
-<div class="summary">
-
-<div class="card">
-Total Items
-<strong id="totalItems">0</strong>
-</div>
-
-<div class="card">
-Opening
-<strong id="totalOpening">0</strong>
-</div>
-
-<div class="card">
-Total Stock IN
-<strong id="totalIn">0</strong>
-</div>
-
-<div class="card">
-Total Stock OUT
-<strong id="totalOut">0</strong>
-</div>
-
-<div class="card">
-Current Balance
-<strong id="totalBalance">0</strong>
-</div>
-
-</div>
-
-
-<!-- MAIN ALL BRANCH REPORT -->
-
-<div
-id="branchReport"
-class="branch-report">
-
-<div class="section-title">
-👑 Main — All 12 Branches Summary
-</div>
-
-<div class="branch-grid" id="branchGrid"></div>
-
-</div>
-
-
-<!-- ITEM REPORT -->
-
-<div class="section-title">
-
-📊 Stock Report —
-<span id="reportBranch">
-Branch
-</span>
-
-</div>
+<!-- ITEMS TABLE -->
 
 <div class="table-box">
 
@@ -733,22 +460,25 @@ Branch
 <th>No</th>
 <th>Item Name</th>
 <th>Unit</th>
-<th>Opening</th>
-<th>Stock IN</th>
-<th>Stock OUT</th>
-<th>Balance</th>
-<th>Details</th>
+<th>Category</th>
+<th>Action</th>
 
 </tr>
 
 </thead>
 
-<tbody id="reportTable">
+<tbody id="itemsTable">
 
 <tr>
-<td colspan="8" class="loading">
-Loading...
+
+<td
+colspan="5"
+class="loading">
+
+⏳ Items loading...
+
 </td>
+
 </tr>
 
 </tbody>
@@ -756,63 +486,6 @@ Loading...
 </table>
 
 </div>
-
-
-<!-- DETAILS -->
-
-<div
-id="detailsBox"
-class="details-box">
-
-<div class="details-header">
-
-<div
-id="detailsTitle"
-class="details-title">
-</div>
-
-<button
-class="close-details"
-onclick="closeDetails()">
-✖ Close
-</button>
-
-</div>
-
-<div class="details-table">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>No</th>
-<th>Transaction</th>
-<th>Quantity</th>
-<th>Unit</th>
-<th>Entered By</th>
-<th>Issued By</th>
-<th>Expiry Date</th>
-<th>Date / Time</th>
-<th>Signature</th>
-
-</tr>
-
-</thead>
-
-<tbody id="detailsTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- UNIT TOTALS -->
-
-<div id="unitTotals"></div>
 
 </div>
 
@@ -827,65 +500,42 @@ const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXkSO9JqA_7JGSucXk";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
 /* =====================================================
-   BRANCHES — 12 + MAIN
+   GLOBAL
 ===================================================== */
 
-const BRANCHES = [
+let allItems = [];
 
-{ id:"main", name:"Main" },
-
-{ id:"1", name:"Gulele" },
-
-{ id:"2", name:"Addis Katama" },
-
-{ id:"3", name:"Kolfee" },
-
-{ id:"4", name:"Nifas Silk Lafto" },
-
-{ id:"5", name:"Kirkos" },
-
-{ id:"6", name:"Lami Kura" },
-
-{ id:"7", name:"Arada" },
-
-{ id:"8", name:"Lideta" },
-
-{ id:"9", name:"Bole" },
-
-{ id:"10", name:"Ekaa" },
-
-{ id:"11", name:"Akaki Kality" },
-
-{ id:"12", name:"Center" }
-
-];
+let editItemId = null;
 
 
 /* =====================================================
    CURRENT BRANCH
 ===================================================== */
 
-let CURRENT_BRANCH_ID =
-localStorage.getItem("branch_id") || "main";
+const CURRENT_BRANCH_ID =
+localStorage.getItem("branch_id");
 
-let CURRENT_BRANCH_NAME =
-localStorage.getItem("branch_name") || "Main";
-
-
-let REPORT_BRANCH_ID =
-CURRENT_BRANCH_ID;
+const CURRENT_BRANCH_NAME =
+localStorage.getItem("branch_name")
+||
+localStorage.getItem("selected_branch_name")
+||
+"Main";
 
 
 /* =====================================================
-   GLOBAL DATA
+   SHOW BRANCH
 ===================================================== */
 
-let allItems = [];
-let allTransactions = [];
+document.getElementById(
+"branchBox"
+).textContent =
+"📍 Branch: " +
+CURRENT_BRANCH_NAME;
 
 
 /* =====================================================
@@ -899,7 +549,8 @@ localStorage.getItem("access_token");
 
 return {
 
-"apikey":SUPABASE_KEY,
+"apikey":
+SUPABASE_KEY,
 
 "Authorization":
 accessToken
@@ -917,7 +568,7 @@ accessToken
 
 
 /* =====================================================
-   ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value){
@@ -934,423 +585,15 @@ return String(value ?? "")
 
 
 /* =====================================================
-   GET BRANCH NAME
-===================================================== */
-
-function getBranchName(id){
-
-const branch =
-BRANCHES.find(
-b => String(b.id) === String(id)
-);
-
-return branch
-?
-branch.name
-:
-"Unknown Branch";
-
-}
-
-
-/* =====================================================
-   CHECK MAIN
-===================================================== */
-
-function isMain(){
-
-return String(CURRENT_BRANCH_ID)
-.toLowerCase() === "main";
-
-}
-
-
-/* =====================================================
-   SET BRANCH UI
-===================================================== */
-
-function setupBranchUI(){
-
-document.getElementById(
-"branchName"
-).textContent =
-"🏢 Branch: " +
-CURRENT_BRANCH_NAME;
-
-
-document.getElementById(
-"reportBranch"
-).textContent =
-getBranchName(REPORT_BRANCH_ID);
-
-
-/* MAIN */
-
-if(isMain()){
-
-document.getElementById(
-"mainControl"
-).classList.add("show");
-
-document.getElementById(
-"branchReport"
-).classList.add("show");
-
-buildBranchSelector();
-
-}else{
-
-document.getElementById(
-"mainControl"
-).classList.remove("show");
-
-document.getElementById(
-"branchReport"
-).classList.remove("show");
-
-}
-
-}
-
-
-/* =====================================================
-   BRANCH SELECTOR
-===================================================== */
-
-function buildBranchSelector(){
-
-const select =
-document.getElementById(
-"branchSelector"
-);
-
-select.innerHTML = "";
-
-BRANCHES
-.filter(
-b => b.id !== "main"
-)
-.forEach(
-branch => {
-
-const option =
-document.createElement("option");
-
-option.value =
-branch.id;
-
-option.textContent =
-branch.name;
-
-select.appendChild(option);
-
-});
-
-select.value =
-REPORT_BRANCH_ID === "main"
-?
-"1"
-:
-REPORT_BRANCH_ID;
-
-}
-
-
-/* =====================================================
-   CHANGE REPORT BRANCH
-===================================================== */
-
-async function changeReportBranch(){
-
-if(!isMain())
-return;
-
-const selected =
-document.getElementById(
-"branchSelector"
-).value;
-
-REPORT_BRANCH_ID =
-selected;
-
-document.getElementById(
-"reportBranch"
-).textContent =
-getBranchName(
-REPORT_BRANCH_ID
-);
-
-await loadReportData();
-
-}
-
-
-/* =====================================================
-   LOAD ITEMS
-===================================================== */
-
-async function loadItems(branchId){
-
-const url =
-SUPABASE_URL +
-"/rest/v1/items" +
-"?select=*" +
-"&branch_id=eq." +
-encodeURIComponent(branchId) +
-"&order=id.asc";
-
-try{
-
-const response =
-await fetch(
-url,
-{
-headers:getHeaders()
-}
-);
-
-if(!response.ok){
-
-console.log(
-"Items Error:",
-await response.text()
-);
-
-return [];
-
-}
-
-return await response.json();
-
-}
-catch(error){
-
-console.log(
-"Items Error:",
-error
-);
-
-return [];
-
-}
-
-}
-
-
-/* =====================================================
-   LOAD TRANSACTIONS
-===================================================== */
-
-async function loadTransactions(branchId){
-
-const url =
-SUPABASE_URL +
-"/rest/v1/stock_transactions" +
-"?select=*" +
-"&branch_id=eq." +
-encodeURIComponent(branchId) +
-"&order=id.desc";
-
-try{
-
-const response =
-await fetch(
-url,
-{
-headers:getHeaders()
-}
-);
-
-if(!response.ok){
-
-console.log(
-"Transactions Error:",
-await response.text()
-);
-
-return [];
-
-}
-
-return await response.json();
-
-}
-catch(error){
-
-console.log(
-"Transactions Error:",
-error
-);
-
-return [];
-
-}
-
-}
-
-
-/* =====================================================
-   FILL ITEM LIST
-===================================================== */
-
-function fillItemLists(){
-
-const inSelect =
-document.getElementById("inItem");
-
-const outSelect =
-document.getElementById("outItem");
-
-
-inSelect.innerHTML =
-`
-<option value="">
--- Select Item --
-</option>
-`;
-
-outSelect.innerHTML =
-`
-<option value="">
--- Select Item --
-</option>
-`;
-
-
-allItems.forEach(
-item => {
-
-const option1 =
-document.createElement("option");
-
-option1.value =
-item.id;
-
-option1.textContent =
-item.name;
-
-option1.dataset.unit =
-item.unit || "";
-
-inSelect.appendChild(option1);
-
-
-const option2 =
-option1.cloneNode(true);
-
-outSelect.appendChild(option2);
-
-});
-
-}
-
-
-/* =====================================================
-   UNIT CHANGE
-===================================================== */
-
-document.getElementById(
-"inItem"
-).addEventListener(
-"change",
-function(){
-
-const option =
-this.options[
-this.selectedIndex
-];
-
-document.getElementById(
-"inUnit"
-).value =
-option?.dataset?.unit || "";
-
-});
-
-
-document.getElementById(
-"outItem"
-).addEventListener(
-"change",
-function(){
-
-const option =
-this.options[
-this.selectedIndex
-];
-
-document.getElementById(
-"outUnit"
-).value =
-option?.dataset?.unit || "";
-
-});
-
-
-/* =====================================================
-   OPEN FORM
-===================================================== */
-
-function openStockForm(type){
-
-closeForms();
-
-if(isMain()){
-
-showMessage(
-"👑 Main irraa Stock galchuu/basuu hin dandeessu. Branch tokko filadhu.",
-"info"
-);
-
-return;
-
-}
-
-
-if(type === "IN"){
-
-document.getElementById(
-"stockInForm"
-).classList.add("show");
-
-}
-
-if(type === "OUT"){
-
-document.getElementById(
-"stockOutForm"
-).classList.add("show");
-
-}
-
-}
-
-
-/* =====================================================
-   CLOSE FORMS
-===================================================== */
-
-function closeForms(){
-
-document.getElementById(
-"stockInForm"
-).classList.remove("show");
-
-document.getElementById(
-"stockOutForm"
-).classList.remove("show");
-
-}
-
-
-/* =====================================================
    MESSAGE
 ===================================================== */
 
 function showMessage(text,type){
 
 const box =
-document.getElementById("message");
+document.getElementById(
+"message"
+);
 
 box.textContent =
 text;
@@ -1358,26 +601,129 @@ text;
 box.className =
 "message " + type;
 
-setTimeout(
-()=>{
-box.className="message";
-},
-5000
-);
+setTimeout(()=>{
+
+box.className =
+"message";
+
+},5000);
 
 }
 
 
 /* =====================================================
-   SAVE STOCK
+   LOAD ITEMS
+   CURRENT BRANCH ONLY
 ===================================================== */
 
-async function saveStock(type){
+async function loadItems(){
 
-if(isMain()){
+const table =
+document.getElementById(
+"itemsTable"
+);
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="5" class="loading">
+
+⏳ Items loading...
+
+</td>
+
+</tr>
+
+`;
+
+
+try{
+
+let url =
+SUPABASE_URL +
+"/rest/v1/items" +
+"?select=id,name,unit,category";
+
+
+/*
+   Branch ID exists:
+   load only current branch
+*/
+
+if(CURRENT_BRANCH_ID){
+
+url +=
+"&branch_id=eq." +
+encodeURIComponent(
+CURRENT_BRANCH_ID
+);
+
+}
+
+
+url +=
+"&order=id.asc";
+
+
+const response =
+await fetch(
+
+url,
+
+{
+method:"GET",
+headers:getHeaders()
+}
+
+);
+
+
+if(!response.ok){
+
+const errorText =
+await response.text();
+
+console.error(
+"Load Items Error:",
+errorText
+);
+
+
+/* JWT EXPIRED */
+
+if(
+errorText.includes(
+"JWT expired"
+)
+){
+
+handleExpiredSession();
+
+return;
+
+}
+
+
+table.innerHTML = `
+
+<tr>
+
+<td
+colspan="5"
+class="empty">
+
+❌ Items load hin milkoofne.
+
+</td>
+
+</tr>
+
+`;
 
 showMessage(
-"❌ Main irraa transaction galchuu hin dandeessu.",
+"Items load hin milkoofne: " +
+errorText,
 "error"
 );
 
@@ -1386,123 +732,233 @@ return;
 }
 
 
-let itemId="";
-let quantity=0;
-let unit="";
-let enteredBy="";
-let issuedBy="";
-let expiryDate="";
-let signature="";
+allItems =
+await response.json();
 
+displayItems();
 
-if(type === "IN"){
+}
 
-itemId =
-document.getElementById(
-"inItem"
-).value;
+catch(error){
 
-quantity =
-Number(
-document.getElementById(
-"inQuantity"
-).value
+console.error(
+"Load Error:",
+error
 );
 
-unit =
-document.getElementById(
-"inUnit"
-).value;
+table.innerHTML = `
 
-enteredBy =
-document.getElementById(
-"inEnteredBy"
-).value.trim();
+<tr>
 
-expiryDate =
-document.getElementById(
-"inExpiryDate"
-).value;
+<td
+colspan="5"
+class="empty">
 
-signature =
-document.getElementById(
-"inSignature"
-).value.trim();
+❌ Network error.
+
+</td>
+
+</tr>
+
+`;
+
+showMessage(
+"❌ Network error.",
+"error"
+);
+
+}
 
 }
 
 
-if(type === "OUT"){
+/* =====================================================
+   DISPLAY ITEMS
+===================================================== */
 
-itemId =
-document.getElementById(
-"outItem"
-).value;
+function displayItems(){
 
-quantity =
-Number(
+const table =
 document.getElementById(
-"outQuantity"
-).value
+"itemsTable"
 );
 
-unit =
-document.getElementById(
-"outUnit"
-).value;
+table.innerHTML = "";
 
-issuedBy =
-document.getElementById(
-"outIssuedBy"
-).value.trim();
 
-signature =
-document.getElementById(
-"outSignature"
-).value.trim();
+if(
+allItems.length === 0
+){
+
+table.innerHTML = `
+
+<tr>
+
+<td
+colspan="5"
+class="empty">
+
+📦 Item hin jiru.
+
+</td>
+
+</tr>
+
+`;
+
+return;
 
 }
+
+
+allItems.forEach(
+(item,index)=>{
+
+const row =
+document.createElement(
+"tr"
+);
+
+
+row.innerHTML = `
+
+<td>
+${index + 1}
+</td>
+
+<td>
+<strong>
+${escapeHTML(item.name)}
+</strong>
+</td>
+
+<td>
+${escapeHTML(item.unit)}
+</td>
+
+<td class="category-text">
+${escapeHTML(item.category)}
+</td>
+
+<td>
+
+<button
+class="edit-btn"
+onclick="editItem('${String(item.id)}')">
+
+✏️ Edit
+
+</button>
+
+<button
+class="delete-btn"
+onclick="deleteItem('${String(item.id)}')">
+
+🗑️ Delete
+
+</button>
+
+</td>
+
+`;
+
+
+table.appendChild(row);
+
+});
+
+}
+
+
+/* =====================================================
+   OPEN ADD FORM
+===================================================== */
+
+function openAddForm(){
+
+editItemId = null;
+
+document.getElementById(
+"formTitle"
+).textContent =
+"➕ Add New Item";
+
+document.getElementById(
+"saveButton"
+).textContent =
+"💾 Save Item";
+
+document.getElementById(
+"itemName"
+).value = "";
+
+document.getElementById(
+"itemUnit"
+).value = "";
+
+document.getElementById(
+"itemCategory"
+).value = "";
+
+document.getElementById(
+"itemForm"
+).classList.add(
+"show"
+);
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =====================================================
+   CLOSE FORM
+===================================================== */
+
+function closeForm(){
+
+editItemId = null;
+
+document.getElementById(
+"itemForm"
+).classList.remove(
+"show"
+);
+
+}
+
+
+/* =====================================================
+   SAVE ITEM
+===================================================== */
+
+async function saveItem(){
+
+const name =
+document.getElementById(
+"itemName"
+).value.trim();
+
+const unit =
+document.getElementById(
+"itemUnit"
+).value;
+
+const category =
+document.getElementById(
+"itemCategory"
+).value;
 
 
 /* VALIDATION */
 
-if(!itemId){
+if(!name){
 
 showMessage(
-"❌ Item filadhu.",
-"error"
-);
-
-return;
-
-}
-
-if(!quantity || quantity <= 0){
-
-showMessage(
-"❌ Quantity sirrii galchi.",
-"error"
-);
-
-return;
-
-}
-
-if(type === "IN" && !enteredBy){
-
-showMessage(
-"❌ Nama galche galchi.",
-"error"
-);
-
-return;
-
-}
-
-if(type === "OUT" && !issuedBy){
-
-showMessage(
-"❌ Nama baase galchi.",
+"❌ Item maqaa galchi.",
 "error"
 );
 
@@ -1511,18 +967,10 @@ return;
 }
 
 
-const item =
-allItems.find(
-i =>
-String(i.id) ===
-String(itemId)
-);
-
-
-if(!item){
+if(!unit){
 
 showMessage(
-"❌ Item hin argamne.",
+"❌ Unit / Safartuu filadhu.",
 "error"
 );
 
@@ -1531,52 +979,10 @@ return;
 }
 
 
-/* =====================================================
-   OUT BALANCE CHECK
-===================================================== */
-
-if(type === "OUT"){
-
-let totalIn=0;
-let totalOut=0;
-
-
-allTransactions
-.filter(
-t =>
-String(t.item_id) ===
-String(itemId)
-)
-.forEach(
-t => {
-
-const q =
-Number(t.quantity || 0);
-
-const transactionType =
-String(
-t.transaction_type ||
-t.transaction ||
-""
-).toUpperCase();
-
-if(transactionType === "IN")
-totalIn += q;
-
-if(transactionType === "OUT")
-totalOut += q;
-
-});
-
-
-const balance =
-totalIn-totalOut;
-
-
-if(quantity > balance){
+if(!category){
 
 showMessage(
-`❌ Stock hin gahu. Balance: ${balance} ${unit}`,
+"❌ Category filadhu.",
 "error"
 );
 
@@ -1584,50 +990,68 @@ return;
 
 }
 
-}
 
+/*
+=======================================================
+   IMPORTANT
 
-/* =====================================================
-   DATA
-===================================================== */
+   Items page keessatti:
+
+   ❌ Quantity hin jiru
+   ❌ Stock IN hin jiru
+   ❌ Stock OUT hin jiru
+   ❌ Expiry Date hin jiru
+   ❌ Entered By hin jiru
+   ❌ Issued By hin jiru
+   ❌ Signature hin jiru
+
+   Isaan hundi Stock page keessatti qofa.
+=======================================================
+*/
+
 
 const data = {
 
-branch_id:
-CURRENT_BRANCH_ID,
+name:name,
 
-item_id:
-itemId,
+unit:unit,
 
-quantity:
-quantity,
-
-unit:
-unit,
-
-transaction:
-type,
-
-transaction_type:
-type,
-
-entered_by:
-enteredBy,
-
-issued_by:
-issuedBy,
-
-expiry_date:
-expiryDate || null,
-
-category:
-item.category || null,
-
-signature:
-signature
+category:category
 
 };
 
+
+/*
+   Branch ID yoo jirate
+*/
+
+if(CURRENT_BRANCH_ID){
+
+data.branch_id =
+CURRENT_BRANCH_ID;
+
+}
+
+
+const saveButton =
+document.getElementById(
+"saveButton"
+);
+
+saveButton.disabled =
+true;
+
+saveButton.textContent =
+"⏳ Saving...";
+
+
+/* =====================================================
+   ADD NEW ITEM
+===================================================== */
+
+if(
+editItemId === null
+){
 
 try{
 
@@ -1635,7 +1059,7 @@ const response =
 await fetch(
 
 SUPABASE_URL +
-"/rest/v1/stock_transactions",
+"/rest/v1/items",
 
 {
 
@@ -1663,8 +1087,29 @@ if(!response.ok){
 const errorText =
 await response.text();
 
+console.error(
+"Insert Error:",
+errorText
+);
+
+
+/* JWT */
+
+if(
+errorText.includes(
+"JWT expired"
+)
+){
+
+handleExpiredSession();
+
+return;
+
+}
+
+
 showMessage(
-"❌ Save hin milkoofne: " +
+"❌ Item save hin milkoofne: " +
 errorText,
 "error"
 );
@@ -1675,28 +1120,335 @@ return;
 
 
 showMessage(
-
-type === "IN"
-?
-"✅ Stock IN galmaa'e."
-:
-"✅ Stock OUT galmaa'e.",
-
+"✅ Item haaraan galmaa'e.",
 "success"
+);
+
+closeForm();
+
+await loadItems();
+
+}
+
+catch(error){
+
+console.error(
+"Save Error:",
+error
+);
+
+showMessage(
+"❌ Network error.",
+"error"
+);
+
+}
+
+finally{
+
+saveButton.disabled =
+false;
+
+saveButton.textContent =
+"💾 Save Item";
+
+}
+
+return;
+
+}
+
+
+/* =====================================================
+   EDIT ITEM
+===================================================== */
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items?id=eq." +
+encodeURIComponent(
+editItemId
+),
+
+{
+
+method:"PATCH",
+
+headers:{
+
+...getHeaders(),
+
+"Prefer":
+"return=representation"
+
+},
+
+body:
+JSON.stringify(data)
+
+}
 
 );
 
 
-clearForm(type);
+if(!response.ok){
 
-closeForms();
+const errorText =
+await response.text();
 
-await loadReportData();
+console.error(
+"Update Error:",
+errorText
+);
+
+
+if(
+errorText.includes(
+"JWT expired"
+)
+){
+
+handleExpiredSession();
+
+return;
 
 }
+
+
+showMessage(
+"❌ Item edit hin milkoofne: " +
+errorText,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item sirreeffame.",
+"success"
+);
+
+closeForm();
+
+await loadItems();
+
+}
+
 catch(error){
 
-console.log(error);
+console.error(
+"Update Error:",
+error
+);
+
+showMessage(
+"❌ Network error.",
+"error"
+);
+
+}
+
+finally{
+
+saveButton.disabled =
+false;
+
+saveButton.textContent =
+"💾 Update Item";
+
+}
+
+}
+
+
+/* =====================================================
+   EDIT ITEM
+===================================================== */
+
+function editItem(id){
+
+const item =
+allItems.find(
+
+i =>
+String(i.id) ===
+String(id)
+
+);
+
+
+if(!item){
+
+showMessage(
+"❌ Item hin argamne.",
+"error"
+);
+
+return;
+
+}
+
+
+editItemId =
+id;
+
+document.getElementById(
+"formTitle"
+).textContent =
+"✏️ Edit Item";
+
+document.getElementById(
+"saveButton"
+).textContent =
+"💾 Update Item";
+
+document.getElementById(
+"itemName"
+).value =
+item.name || "";
+
+document.getElementById(
+"itemUnit"
+).value =
+item.unit || "";
+
+document.getElementById(
+"itemCategory"
+).value =
+item.category || "";
+
+document.getElementById(
+"itemForm"
+).classList.add(
+"show"
+);
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =====================================================
+   DELETE ITEM
+===================================================== */
+
+async function deleteItem(id){
+
+const item =
+allItems.find(
+
+i =>
+String(i.id) ===
+String(id)
+
+);
+
+
+if(!item){
+
+showMessage(
+"❌ Item hin argamne.",
+"error"
+);
+
+return;
+
+}
+
+
+const confirmed =
+confirm(
+
+"Item kana haquu mirkaneeffattaa?\n\n" +
+item.name
+
+);
+
+
+if(!confirmed)
+return;
+
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+"/rest/v1/items?id=eq." +
+encodeURIComponent(id),
+
+{
+
+method:"DELETE",
+
+headers:getHeaders()
+
+}
+
+);
+
+
+if(!response.ok){
+
+const errorText =
+await response.text();
+
+console.error(
+"Delete Error:",
+errorText
+);
+
+
+if(
+errorText.includes(
+"JWT expired"
+)
+){
+
+handleExpiredSession();
+
+return;
+
+}
+
+
+showMessage(
+"❌ Item haquun hin milkoofne: " +
+errorText,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item haqame.",
+"success"
+);
+
+await loadItems();
+
+}
+
+catch(error){
+
+console.error(
+"Delete Error:",
+error
+);
 
 showMessage(
 "❌ Network error.",
@@ -1709,802 +1461,30 @@ showMessage(
 
 
 /* =====================================================
-   CLEAR FORM
+   JWT EXPIRED
 ===================================================== */
 
-function clearForm(type){
+function handleExpiredSession(){
 
-if(type === "IN"){
-
-document.getElementById(
-"inItem"
-).value="";
-
-document.getElementById(
-"inUnit"
-).value="";
-
-document.getElementById(
-"inQuantity"
-).value="";
-
-document.getElementById(
-"inExpiryDate"
-).value="";
-
-document.getElementById(
-"inEnteredBy"
-).value="";
-
-document.getElementById(
-"inSignature"
-).value="";
-
-}
-
-if(type === "OUT"){
-
-document.getElementById(
-"outItem"
-).value="";
-
-document.getElementById(
-"outUnit"
-).value="";
-
-document.getElementById(
-"outQuantity"
-).value="";
-
-document.getElementById(
-"outIssuedBy"
-).value="";
-
-document.getElementById(
-"outSignature"
-).value="";
-
-}
-
-}
-
-
-/* =====================================================
-   LOAD REPORT DATA
-===================================================== */
-
-async function loadReportData(){
-
-const branchId =
-REPORT_BRANCH_ID;
-
-
-allItems =
-await loadItems(branchId);
-
-allTransactions =
-await loadTransactions(branchId);
-
-
-if(!isMain()){
-
-fillItemLists();
-
-}
-
-
-showReport();
-
-}
-
-
-/* =====================================================
-   BUILD GROUP REPORT
-===================================================== */
-
-function buildGroupedReport(){
-
-const groups={};
-
-
-allItems.forEach(
-item => {
-
-const key =
-String(item.name || "")
-.trim()
-.toLowerCase();
-
-
-if(!groups[key]){
-
-groups[key]={
-
-name:item.name || "",
-
-unit:item.unit || "",
-
-opening:0,
-
-in:0,
-
-out:0,
-
-itemIds:[]
-
-};
-
-}
-
-groups[key].itemIds.push(
-item.id
+localStorage.removeItem(
+"access_token"
 );
 
-});
-
-
-allTransactions.forEach(
-t => {
-
-const item =
-allItems.find(
-i =>
-String(i.id) ===
-String(t.item_id)
+localStorage.removeItem(
+"is_logged_in"
 );
 
-if(!item)
-return;
-
-
-const key =
-String(item.name || "")
-.trim()
-.toLowerCase();
-
-
-if(!groups[key]){
-
-groups[key]={
-
-name:item.name || "",
-
-unit:item.unit || "",
-
-opening:0,
-
-in:0,
-
-out:0,
-
-itemIds:[]
-
-};
-
-}
-
-
-const q =
-Number(t.quantity || 0);
-
-const type =
-String(
-t.transaction_type ||
-t.transaction ||
-""
-).toUpperCase();
-
-
-if(type === "IN")
-groups[key].in += q;
-
-if(type === "OUT")
-groups[key].out += q;
-
-});
-
-
-return Object.values(groups);
-
-}
-
-
-/* =====================================================
-   SHOW REPORT
-===================================================== */
-
-function showReport(){
-
-const table =
-document.getElementById(
-"reportTable"
+showMessage(
+"🔐 Login session expired. Irra deebi'ii login godhi.",
+"error"
 );
 
-const groups =
-buildGroupedReport();
+setTimeout(()=>{
 
+window.location.href =
+"login.html";
 
-table.innerHTML="";
-
-
-let totalIn=0;
-let totalOut=0;
-
-
-if(groups.length===0){
-
-table.innerHTML=`
-
-<tr>
-<td colspan="8"
-style="text-align:center;padding:25px">
-📦 Item hin jiru.
-</td>
-</tr>
-
-`;
-
-}
-
-
-groups.forEach(
-(group,index)=>{
-
-const balance =
-group.in-group.out;
-
-totalIn += group.in;
-totalOut += group.out;
-
-
-const row =
-document.createElement("tr");
-
-row.className="item-row";
-
-row.onclick=()=>{
-showItemDetails(group.name);
-};
-
-
-row.innerHTML=`
-
-<td>${index+1}</td>
-
-<td>
-<strong>
-${escapeHTML(group.name)}
-</strong>
-</td>
-
-<td>
-${escapeHTML(group.unit)}
-</td>
-
-<td>0</td>
-
-<td>${group.in}</td>
-
-<td>${group.out}</td>
-
-<td class="balance">
-${balance}
-</td>
-
-<td class="click-text">
-👆 Click
-</td>
-
-`;
-
-table.appendChild(row);
-
-});
-
-
-document.getElementById(
-"totalItems"
-).textContent =
-groups.length;
-
-document.getElementById(
-"totalOpening"
-).textContent =
-0;
-
-document.getElementById(
-"totalIn"
-).textContent =
-totalIn;
-
-document.getElementById(
-"totalOut"
-).textContent =
-totalOut;
-
-document.getElementById(
-"totalBalance"
-).textContent =
-totalIn-totalOut;
-
-
-updateUnitTotals();
-
-
-if(isMain()){
-
-loadAllBranchesSummary();
-
-}
-
-}
-
-
-/* =====================================================
-   ITEM DETAILS
-===================================================== */
-
-function showItemDetails(itemName){
-
-const detailsBox =
-document.getElementById(
-"detailsBox"
-);
-
-const detailsTitle =
-document.getElementById(
-"detailsTitle"
-);
-
-const detailsTable =
-document.getElementById(
-"detailsTable"
-);
-
-
-const normalized =
-String(itemName)
-.trim()
-.toLowerCase();
-
-
-const matchingItems =
-allItems.filter(
-item =>
-String(item.name || "")
-.trim()
-.toLowerCase() ===
-normalized
-);
-
-
-const ids =
-matchingItems.map(
-item=>item.id
-);
-
-
-const transactions =
-allTransactions.filter(
-t =>
-ids.some(
-id =>
-String(id) ===
-String(t.item_id)
-)
-);
-
-
-detailsTitle.textContent =
-"📦 " +
-itemName +
-" — " +
-getBranchName(REPORT_BRANCH_ID) +
-" — Transaction Details";
-
-
-detailsTable.innerHTML="";
-
-
-if(transactions.length===0){
-
-detailsTable.innerHTML=`
-
-<tr>
-<td colspan="9"
-style="text-align:center;padding:25px">
-Transaction hin jiru.
-</td>
-</tr>
-
-`;
-
-}
-
-
-transactions.forEach(
-(t,index)=>{
-
-const type =
-String(
-t.transaction_type ||
-t.transaction ||
-""
-).toUpperCase();
-
-
-const item =
-allItems.find(
-i =>
-String(i.id) ===
-String(t.item_id)
-);
-
-
-const row =
-document.createElement("tr");
-
-
-row.innerHTML=`
-
-<td>${index+1}</td>
-
-<td>
-
-<span class="badge ${
-type==="OUT"
-?
-"badge-out"
-:
-"badge-in"
-}">
-
-${
-type==="OUT"
-?
-"🔴 OUT"
-:
-"🟢 IN"
-}
-
-</span>
-
-</td>
-
-<td>
-${Number(t.quantity || 0)}
-</td>
-
-<td>
-${escapeHTML(
-t.unit ||
-item?.unit ||
-""
-)}
-</td>
-
-<td>
-${escapeHTML(
-t.entered_by || "—"
-)}
-</td>
-
-<td>
-${escapeHTML(
-t.issued_by || "—"
-)}
-</td>
-
-<td>
-${escapeHTML(
-t.expiry_date || "—"
-)}
-</td>
-
-<td>
-${escapeHTML(
-formatDate(t.created_at)
-)}
-</td>
-
-<td>
-${
-t.signature
-?
-"✍️ "+escapeHTML(t.signature)
-:
-"—"
-}
-</td>
-
-`;
-
-detailsTable.appendChild(row);
-
-});
-
-
-detailsBox.classList.add("show");
-
-detailsBox.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-}
-
-
-/* =====================================================
-   CLOSE DETAILS
-===================================================== */
-
-function closeDetails(){
-
-document.getElementById(
-"detailsBox"
-).classList.remove("show");
-
-}
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function formatDate(value){
-
-if(!value)
-return "—";
-
-const date =
-new Date(value);
-
-if(isNaN(date.getTime()))
-return value;
-
-return date.toLocaleString();
-
-}
-
-
-/* =====================================================
-   UNIT TOTALS
-===================================================== */
-
-function updateUnitTotals(){
-
-const container =
-document.getElementById(
-"unitTotals"
-);
-
-container.innerHTML="";
-
-
-const totals={};
-
-
-allItems.forEach(
-item=>{
-
-const unit =
-String(
-item.unit || "Unknown"
-).trim();
-
-
-if(!totals[unit]){
-
-totals[unit]={
-in:0,
-out:0
-};
-
-}
-
-});
-
-
-allTransactions.forEach(
-t=>{
-
-const item =
-allItems.find(
-i =>
-String(i.id) ===
-String(t.item_id)
-);
-
-if(!item)
-return;
-
-
-const unit =
-String(
-t.unit ||
-item.unit ||
-"Unknown"
-).trim();
-
-
-if(!totals[unit]){
-
-totals[unit]={
-in:0,
-out:0
-};
-
-}
-
-
-const q =
-Number(t.quantity || 0);
-
-const type =
-String(
-t.transaction_type ||
-t.transaction ||
-""
-).toUpperCase();
-
-
-if(type==="IN")
-totals[unit].in += q;
-
-if(type==="OUT")
-totals[unit].out += q;
-
-});
-
-
-Object.keys(totals)
-.sort()
-.forEach(
-unit=>{
-
-const total =
-totals[unit];
-
-const balance =
-total.in-total.out;
-
-
-const card =
-document.createElement("div");
-
-card.className="total-card";
-
-card.innerHTML=`
-
-📏 ${escapeHTML(unit)}
-
-<strong>
-${balance}
-</strong>
-
-<small>
-
-Opening: 0<br>
-
-Stock IN: ${total.in}<br>
-
-Stock OUT: ${total.out}<br>
-
-Balance: ${balance}
-
-</small>
-
-`;
-
-container.appendChild(card);
-
-});
-
-}
-
-
-/* =====================================================
-   MAIN — ALL 12 BRANCHES SUMMARY
-===================================================== */
-
-async function loadAllBranchesSummary(){
-
-if(!isMain())
-return;
-
-
-const grid =
-document.getElementById(
-"branchGrid"
-);
-
-grid.innerHTML =
-"<div class='loading'>⏳ Branch reports loading...</div>";
-
-
-let html="";
-
-
-for(
-const branch of BRANCHES.filter(
-b=>b.id !== "main"
-)
-){
-
-const items =
-await loadItems(branch.id);
-
-const transactions =
-await loadTransactions(branch.id);
-
-
-let totalIn=0;
-let totalOut=0;
-
-
-transactions.forEach(
-t=>{
-
-const q =
-Number(t.quantity || 0);
-
-const type =
-String(
-t.transaction_type ||
-t.transaction ||
-""
-).toUpperCase();
-
-
-if(type==="IN")
-totalIn += q;
-
-if(type==="OUT")
-totalOut += q;
-
-});
-
-
-const balance =
-totalIn-totalOut;
-
-
-html += `
-
-<div class="branch-card">
-
-<h3>
-🏢 ${escapeHTML(branch.name)}
-</h3>
-
-<div>
-📦 Items:
-<strong>${items.length}</strong>
-</div>
-
-<div>
-🟢 IN:
-<strong>${totalIn}</strong>
-</div>
-
-<div>
-🔴 OUT:
-<strong>${totalOut}</strong>
-</div>
-
-<div>
-📊 Balance:
-<strong>${balance}</strong>
-</div>
-
-</div>
-
-`;
-
-}
-
-
-grid.innerHTML=html;
+},2000);
 
 }
 
@@ -2513,25 +1493,10 @@ grid.innerHTML=html;
    START
 ===================================================== */
 
-setupBranchUI();
-
-
-if(isMain()){
-
-REPORT_BRANCH_ID="1";
-
-loadReportData();
-
-}else{
-
-REPORT_BRANCH_ID =
-CURRENT_BRANCH_ID;
-
-loadReportData();
-
-}
+loadItems();
 
 </script>
 
 </body>
+
 </html>
