@@ -1,0 +1,494 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Login</title><style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+}
+
+.login-box{
+  width:92%;
+  max-width:430px;
+  margin:40px auto;
+  padding:30px;
+  background:#1e3a8a;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.18);
+}
+
+h1,
+h2{
+  text-align:center;
+  color:white;
+}
+
+h1{
+  margin-bottom:8px;
+}
+
+h2{
+  margin-top:0;
+}
+
+label{
+  display:block;
+  color:white;
+  font-weight:bold;
+  margin-top:15px;
+  margin-bottom:7px;
+}
+
+select,
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:16px;
+  background:white;
+  outline:none;
+}
+
+select:focus,
+input:focus{
+  border-color:#60a5fa;
+}
+
+button{
+  width:100%;
+  padding:13px;
+  margin-top:18px;
+  border:0;
+  border-radius:8px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.92;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.change-button{
+  background:#64748b;
+}
+
+.branch-info{
+  background:white;
+  color:#1e3a8a;
+  padding:14px;
+  margin-top:15px;
+  border-radius:8px;
+  text-align:center;
+  font-weight:bold;
+  font-size:18px;
+}
+
+#loginMessage{
+  color:white;
+  text-align:center;
+  font-weight:bold;
+  min-height:22px;
+  line-height:1.5;
+}
+
+.footer{
+  color:white;
+  text-align:center;
+  margin-top:20px;
+  font-size:13px;
+}
+
+</style></head><body><div class="login-box"><h1>
+🏢 AAFDRMC
+</h1><h2>
+🔐 User Login
+</h2><!-- ================= BRANCH ================= --><label>
+📍 Select Branch
+</label><select id="branchSelect"><option value="">
+-- Select Branch --
+</option><option value="Main">
+Main
+</option><option value="Gulele">
+Gulele
+</option><option value="Addis Katama">
+Addis Katama
+</option><option value="Kolfee">
+Kolfee
+</option><option value="Nifas Silk Lafto">
+Nifas Silk Lafto
+</option><option value="Kirkos">
+Kirkos
+</option><option value="Lami Kura">
+Lami Kura
+</option><option value="Arada">
+Arada
+</option><option value="Lideta">
+Lideta
+</option><option value="Bole">
+Bole
+</option><option value="Ekaa">
+Ekaa
+</option><option value="Akaki Kality">
+Akaki Kality
+</option><option value="Center">
+Center
+</option></select><!-- ================= BRANCH INFO ================= --><div
+id="branchInfo"
+class="branch-info">📍 Branch hin filatamne
+
+</div><!-- ================= USER ID ================= --><label>
+👤 User ID
+</label><input
+id="loginUserId"
+type="text"
+placeholder="User ID"
+autocomplete="username">
+
+<!-- ================= PASSWORD ================= --><label>
+🔑 Password
+</label><input
+id="loginPassword"
+type="password"
+placeholder="Password"
+autocomplete="current-password">
+
+<!-- ================= LOGIN ================= --><button
+id="loginButton"
+onclick="loginUser()">
+
+🔐 Login
+
+</button><!-- ================= CHANGE BRANCH ================= --><button
+class="change-button"
+onclick="changeBranch()">
+
+🔄 Change Branch
+
+</button><p id="loginMessage"></p><div class="footer">AAFDRMC Stock Management System
+
+</div></div><script>
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const branchSelect =
+document.getElementById("branchSelect");
+
+const branchInfo =
+document.getElementById("branchInfo");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+const loginButton =
+document.getElementById("loginButton");
+
+
+/* =====================================================
+   BRANCH SELECTION
+===================================================== */
+
+branchSelect.addEventListener(
+  "change",
+  function(){
+
+    const branchName =
+      this.value.trim();
+
+
+    if(!branchName){
+
+      localStorage.removeItem(
+        "selected_branch_name"
+      );
+
+      localStorage.removeItem(
+        "selected_branch_id"
+      );
+
+      branchInfo.textContent =
+        "📍 Branch hin filatamne";
+
+      loginMessage.textContent =
+        "";
+
+      return;
+    }
+
+
+    localStorage.setItem(
+      "selected_branch_name",
+      branchName
+    );
+
+
+    localStorage.setItem(
+      "selected_branch_id",
+      branchName
+    );
+
+
+    branchInfo.textContent =
+      "📍 " + branchName;
+
+
+    loginMessage.textContent =
+      "✅ " +
+      branchName +
+      " filatameera.";
+
+  }
+);
+
+
+/* =====================================================
+   LOAD SAVED BRANCH
+===================================================== */
+
+window.addEventListener(
+  "load",
+  function(){
+
+    const savedBranch =
+      localStorage.getItem(
+        "selected_branch_name"
+      );
+
+
+    if(savedBranch){
+
+      const option =
+        Array.from(
+          branchSelect.options
+        ).find(
+          opt =>
+            opt.value === savedBranch
+        );
+
+
+      if(option){
+
+        branchSelect.value =
+          savedBranch;
+
+        branchInfo.textContent =
+          "📍 " + savedBranch;
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function loginUser(){
+
+  const branchName =
+    branchSelect.value.trim();
+
+
+  const userId =
+    document.getElementById(
+      "loginUserId"
+    ).value.trim();
+
+
+  const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
+
+  /* CHECK BRANCH */
+
+  if(!branchName){
+
+    loginMessage.textContent =
+      "❌ Dura jalqaba Branch filadhu.";
+
+    return;
+  }
+
+
+  /* CHECK USER ID */
+
+  if(!userId){
+
+    loginMessage.textContent =
+      "❌ User ID galchi.";
+
+    return;
+  }
+
+
+  /* CHECK PASSWORD */
+
+  if(!password){
+
+    loginMessage.textContent =
+      "❌ Password galchi.";
+
+    return;
+  }
+
+
+  /* ===================================================
+     SAVE BRANCH
+  =================================================== */
+
+  localStorage.setItem(
+    "selected_branch_name",
+    branchName
+  );
+
+
+  localStorage.setItem(
+    "selected_branch_id",
+    branchName
+  );
+
+
+  /* ===================================================
+     SAVE USER
+  =================================================== */
+
+  localStorage.setItem(
+    "user_id",
+    userId
+  );
+
+
+  localStorage.setItem(
+    "user_branch",
+    branchName
+  );
+
+
+  /* ===================================================
+     LOGIN SESSION
+  =================================================== */
+
+  localStorage.setItem(
+    "access_token",
+    "AAFDRMC_LOCAL_LOGIN"
+  );
+
+
+  localStorage.setItem(
+    "is_logged_in",
+    "true"
+  );
+
+
+  /* ===================================================
+     LOGIN MESSAGE
+  =================================================== */
+
+  loginButton.disabled =
+    true;
+
+  loginButton.textContent =
+    "⏳ Logging in...";
+
+
+  loginMessage.textContent =
+    "⏳ " +
+    branchName +
+    " irratti login qopheessaa jira...";
+
+
+  /* ===================================================
+     DASHBOARD
+  =================================================== */
+
+  setTimeout(
+    function(){
+
+      window.location.href =
+        "dashboard.html";
+
+    },
+    500
+  );
+
+}
+
+
+/* =====================================================
+   CHANGE BRANCH
+===================================================== */
+
+function changeBranch(){
+
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
+
+
+  branchSelect.value =
+    "";
+
+
+  branchInfo.textContent =
+    "📍 Branch hin filatamne";
+
+
+  loginMessage.textContent =
+    "";
+
+
+  document.getElementById(
+    "loginUserId"
+  ).value = "";
+
+
+  document.getElementById(
+    "loginPassword"
+  ).value = "";
+
+}
+
+
+/* =====================================================
+   ENTER KEY LOGIN
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+
+      loginUser();
+
+    }
+
+  }
+);
+
+</script></body></html>
