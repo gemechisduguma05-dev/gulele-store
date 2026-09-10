@@ -170,6 +170,12 @@ header h1{
   color:#991b1b;
 }
 
+.message.info{
+  display:block;
+  background:#dbeafe;
+  color:#1e40af;
+}
+
 .table-box{
   background:white;
   border-radius:10px;
@@ -229,6 +235,22 @@ tr:hover{
   color:#64748b;
 }
 
+.branch-box{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  padding:12px;
+  border-radius:8px;
+  margin-top:12px;
+  color:#1e3a8a;
+  font-weight:bold;
+}
+
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+}
+
 </style>
 
 </head>
@@ -259,6 +281,14 @@ AAFDRMC - ITEM MANAGEMENT
 📦 Item Management
 </div>
 
+<div
+id="branchBox"
+class="branch-box">
+
+📍 Branch: Loading...
+
+</div>
+
 <div class="buttons">
 
 
@@ -285,7 +315,9 @@ onclick="goBack()">
 </div>
 
 
-<!-- MESSAGE -->
+<!-- =====================================================
+     MESSAGE
+===================================================== -->
 
 <div
 id="message"
@@ -466,6 +498,7 @@ Meeshaalee Ijaarsaa /
 
 </div>
 
+
 </div>
 
 
@@ -529,9 +562,9 @@ Cancel
 
 <td
 colspan="5"
-class="empty">
+class="loading">
 
-Loading...
+Loading items...
 
 </td>
 
@@ -563,32 +596,6 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   HEADERS
-===================================================== */
-
-function getHeaders(){
-
-const accessToken =
-localStorage.getItem("access_token")
-|| SUPABASE_KEY;
-
-return {
-
-"apikey":
-SUPABASE_KEY,
-
-"Authorization":
-"Bearer " + accessToken,
-
-"Content-Type":
-"application/json"
-
-};
-
-}
-
-
-/* =====================================================
    GLOBAL
 ===================================================== */
 
@@ -598,22 +605,82 @@ let editItemId = null;
 
 
 /* =====================================================
+   BRANCH
+===================================================== */
+
+const selectedBranch =
+localStorage.getItem(
+  "selected_branch_name"
+) || "Main";
+
+
+document.getElementById(
+  "branchBox"
+).textContent =
+"📍 Branch: " + selectedBranch;
+
+
+/* =====================================================
+   HEADERS
+===================================================== */
+
+function getHeaders(){
+
+  const accessToken =
+    localStorage.getItem(
+      "access_token"
+    );
+
+  return {
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Authorization":
+      accessToken
+        ? "Bearer " + accessToken
+        : "Bearer " + SUPABASE_KEY,
+
+    "Content-Type":
+      "application/json"
+
+  };
+
+}
+
+
+/* =====================================================
    ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value){
 
-return String(value ?? "")
+  return String(value ?? "")
 
-.replace(/&/g,"&amp;")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-.replace(/</g,"&lt;")
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-.replace(/>/g,"&gt;")
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
-.replace(/"/g,"&quot;")
+    .replace(
+      /"/g,
+      "&quot;"
+    )
 
-.replace(/'/g,"&#039;");
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
@@ -624,89 +691,154 @@ return String(value ?? "")
 
 async function loadItems(){
 
-const table =
-document.getElementById(
-"itemsTable"
-);
-
-try{
-
-const response =
-await fetch(
-
-SUPABASE_URL +
-"/rest/v1/items?select=id,name,unit,category&order=id.asc",
-
-{
-headers:
-getHeaders()
-}
-
-);
+  const table =
+    document.getElementById(
+      "itemsTable"
+    );
 
 
-if(!response.ok){
+  table.innerHTML = `
 
-const error =
-await response.text();
+    <tr>
 
-console.log(
-"Load Error:",
-error
-);
+      <td
+      colspan="5"
+      class="loading">
 
-table.innerHTML = `
+      ⏳ Items loading...
 
-<tr>
+      </td>
 
-<td
-colspan="5"
-class="empty">
+    </tr>
 
-Items load hin milkoofne.
-
-</td>
-
-</tr>
-
-`;
-
-return;
-
-}
+  `;
 
 
-allItems =
-await response.json();
+  try{
 
-displayItems();
+    const response =
+      await fetch(
 
-}
+        SUPABASE_URL +
+        "/rest/v1/items" +
+        "?select=id,name,unit,category" +
+        "&order=id.asc",
 
-catch(error){
+        {
 
-console.log(
-"Load Error:",
-error
-);
+          method:"GET",
 
-table.innerHTML = `
+          headers:
+            getHeaders()
 
-<tr>
+        }
 
-<td
-colspan="5"
-class="empty">
+      );
 
-Network error.
 
-</td>
+    if(!response.ok){
 
-</tr>
+      const error =
+        await response.text();
 
-`;
 
-}
+      console.error(
+        "Load Error:",
+        error
+      );
+
+
+      /* JWT EXPIRED */
+
+      if(
+        error.includes(
+          "JWT expired"
+        )
+      ){
+
+        showMessage(
+          "🔐 Login session expired. Irra deebi'ii login godhi.",
+          "error"
+        );
+
+        localStorage.removeItem(
+          "access_token"
+        );
+
+        localStorage.removeItem(
+          "is_logged_in"
+        );
+
+        return;
+
+      }
+
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td
+          colspan="5"
+          class="empty">
+
+          Items load hin milkoofne.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      showMessage(
+        "Items load hin milkoofne: " +
+        error,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    allItems =
+      await response.json();
+
+
+    displayItems();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Load Error:",
+      error
+    );
+
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td
+        colspan="5"
+        class="empty">
+
+        Network error.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    showMessage(
+      "Network error.",
+      "error"
+    );
+
+  }
 
 }
 
@@ -717,116 +849,124 @@ Network error.
 
 function displayItems(){
 
-const table =
-document.getElementById(
-"itemsTable"
-);
-
-table.innerHTML = "";
+  const table =
+    document.getElementById(
+      "itemsTable"
+    );
 
 
-if(allItems.length === 0){
-
-table.innerHTML = `
-
-<tr>
-
-<td
-colspan="5"
-class="empty">
-
-Item hin jiru.
-
-</td>
-
-</tr>
-
-`;
-
-return;
-
-}
+  table.innerHTML = "";
 
 
-allItems.forEach(
-(item,index)=>{
+  if(
+    allItems.length === 0
+  ){
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td
+        colspan="5"
+        class="empty">
+
+        📦 Item hin jiru.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
 
 
-const category =
-item.category || "—";
+  allItems.forEach(
+    (item,index)=>{
 
 
-const row =
-document.createElement("tr");
+      const category =
+        item.category || "—";
 
 
-row.innerHTML = `
-
-<td>
-${index + 1}
-</td>
-
-
-<td>
-
-<strong>
-
-${escapeHTML(
-item.name || ""
-)}
-
-</strong>
-
-</td>
+      const row =
+        document.createElement(
+          "tr"
+        );
 
 
-<td>
+      row.innerHTML = `
 
-${escapeHTML(
-item.unit || ""
-)}
-
-</td>
+        <td>
+          ${index + 1}
+        </td>
 
 
-<td class="category-text">
+        <td>
 
-${escapeHTML(
-category
-)}
+          <strong>
 
-</td>
+            ${escapeHTML(
+              item.name || ""
+            )}
 
+          </strong>
 
-<td>
-
-
-<button
-class="edit-btn"
-onclick="editItem('${String(item.id)}')">
-
-✏️ Edit
-
-</button>
+        </td>
 
 
-<button
-class="delete-btn"
-onclick="deleteItem('${String(item.id)}')">
+        <td>
 
-🗑️ Delete
+          ${escapeHTML(
+            item.unit || ""
+          )}
 
-</button>
-
-
-</td>
-
-`;
+        </td>
 
 
-table.appendChild(row);
+        <td
+        class="category-text">
 
-});
+          ${escapeHTML(
+            category
+          )}
+
+        </td>
+
+
+        <td>
+
+          <button
+          class="edit-btn"
+          onclick="editItem('${String(item.id)}')">
+
+          ✏️ Edit
+
+          </button>
+
+
+          <button
+          class="delete-btn"
+          onclick="deleteItem('${String(item.id)}')">
+
+          🗑️ Delete
+
+          </button>
+
+        </td>
+
+      `;
+
+
+      table.appendChild(
+        row
+      );
+
+    }
+
+  );
 
 }
 
@@ -837,48 +977,50 @@ table.appendChild(row);
 
 function openAddForm(){
 
-editItemId = null;
+  editItemId = null;
 
 
-document.getElementById(
-"formTitle"
-).textContent =
-"➕ Add New Item";
+  document.getElementById(
+    "formTitle"
+  ).textContent =
+    "➕ Add New Item";
 
 
-document.getElementById(
-"saveButton"
-).textContent =
-"💾 Save Item";
+  document.getElementById(
+    "saveButton"
+  ).textContent =
+    "💾 Save Item";
 
 
-document.getElementById(
-"itemName"
-).value = "";
+  document.getElementById(
+    "itemName"
+  ).value = "";
 
 
-document.getElementById(
-"itemUnit"
-).value = "";
+  document.getElementById(
+    "itemUnit"
+  ).value = "";
 
 
-document.getElementById(
-"itemCategory"
-).value = "";
+  document.getElementById(
+    "itemCategory"
+  ).value = "";
 
 
-document.getElementById(
-"itemForm"
-).classList.add("show");
+  document.getElementById(
+    "itemForm"
+  ).classList.add(
+    "show"
+  );
 
 
-window.scrollTo({
+  window.scrollTo({
 
-top:0,
+    top:0,
 
-behavior:"smooth"
+    behavior:"smooth"
 
-});
+  });
 
 }
 
@@ -889,12 +1031,14 @@ behavior:"smooth"
 
 function closeForm(){
 
-editItemId = null;
+  editItemId = null;
 
 
-document.getElementById(
-"itemForm"
-).classList.remove("show");
+  document.getElementById(
+    "itemForm"
+  ).classList.remove(
+    "show"
+  );
 
 }
 
@@ -905,245 +1049,317 @@ document.getElementById(
 
 async function saveItem(){
 
+  const name =
+    document.getElementById(
+      "itemName"
+    ).value.trim();
 
-const name =
-document.getElementById(
-"itemName"
-).value.trim();
 
+  const unit =
+    document.getElementById(
+      "itemUnit"
+    ).value;
 
-const unit =
-document.getElementById(
-"itemUnit"
-).value;
 
+  const category =
+    document.getElementById(
+      "itemCategory"
+    ).value;
 
-const category =
-document.getElementById(
-"itemCategory"
-).value;
 
+  /* VALIDATION */
 
-/* VALIDATION */
+  if(!name){
 
-if(!name){
+    showMessage(
+      "❌ Item maqaa galchi.",
+      "error"
+    );
 
-showMessage(
-"❌ Item maqaa galchi.",
-"error"
-);
+    return;
 
-return;
+  }
 
-}
 
+  if(!unit){
 
-if(!unit){
+    showMessage(
+      "❌ Unit / Safartuu filadhu.",
+      "error"
+    );
 
-showMessage(
-"❌ Unit / Safartuu filadhu.",
-"error"
-);
+    return;
 
-return;
+  }
 
-}
 
+  if(!category){
 
-if(!category){
+    showMessage(
+      "❌ Category filadhu.",
+      "error"
+    );
 
-showMessage(
-"❌ Category filadhu.",
-"error"
-);
+    return;
 
-return;
+  }
 
-}
 
+  /* DATA */
 
-/* =====================================================
-   IMPORTANT
+  const data = {
 
-   As keessatti quantity,
-   category_id,
-   stock information
-   hin erginu.
+    name:name,
 
-   Items page:
-   name + unit + category qofa.
-===================================================== */
+    unit:unit,
 
-const data = {
+    category:category
 
-name:name,
+  };
 
-unit:unit,
 
-category:category
+  const saveButton =
+    document.getElementById(
+      "saveButton"
+    );
 
-};
 
+  saveButton.disabled = true;
 
-/* =====================================================
-   ADD
-===================================================== */
+  saveButton.textContent =
+    "⏳ Saving...";
 
-if(editItemId === null){
 
-try{
+  /* =====================================================
+     ADD
+  ===================================================== */
 
-const response =
-await fetch(
+  if(
+    editItemId === null
+  ){
 
-SUPABASE_URL +
-"/rest/v1/items",
+    try{
 
-{
+      const response =
+        await fetch(
 
-method:"POST",
+          SUPABASE_URL +
+          "/rest/v1/items",
 
-headers:{
+          {
 
-...getHeaders(),
+            method:"POST",
 
-"Prefer":
-"return=representation"
+            headers:{
 
-},
+              ...getHeaders(),
 
-body:
-JSON.stringify(data)
+              "Prefer":
+                "return=representation"
 
-}
+            },
 
-);
+            body:
+              JSON.stringify(
+                data
+              )
 
+          }
 
-if(!response.ok){
+        );
 
-const error =
-await response.text();
 
-console.log(
-"Insert Error:",
-error
-);
+      if(!response.ok){
 
-showMessage(
-"Save hin milkoofne: " +
-error,
-"error"
-);
+        const error =
+          await response.text();
 
-return;
 
-}
+        console.error(
+          "Insert Error:",
+          error
+        );
 
 
-showMessage(
-"✅ Item haaraan galmaa'e.",
-"success"
-);
+        if(
+          error.includes(
+            "JWT expired"
+          )
+        ){
 
-closeForm();
+          handleExpiredSession();
 
-await loadItems();
+          return;
 
-}
+        }
 
-catch(error){
 
-console.log(error);
+        showMessage(
+          "❌ Save hin milkoofne: " +
+          error,
+          "error"
+        );
 
-showMessage(
-"Network error.",
-"error"
-);
+        return;
 
-}
+      }
 
-return;
 
-}
+      showMessage(
+        "✅ Item haaraan galmaa'e.",
+        "success"
+      );
 
 
-/* =====================================================
-   EDIT
-===================================================== */
+      closeForm();
 
-try{
 
-const response =
-await fetch(
+      await loadItems();
 
-SUPABASE_URL +
-"/rest/v1/items?id=eq." +
-encodeURIComponent(editItemId),
+    }
 
-{
+    catch(error){
 
-method:"PATCH",
+      console.error(
+        "Save error:",
+        error
+      );
 
-headers:{
 
-...getHeaders(),
+      showMessage(
+        "❌ Network error.",
+        "error"
+      );
 
-"Prefer":
-"return=representation"
+    }
 
-},
+    finally{
 
-body:
-JSON.stringify(data)
+      saveButton.disabled =
+        false;
 
-}
+      saveButton.textContent =
+        "💾 Save Item";
 
-);
+    }
 
 
-if(!response.ok){
+    return;
 
-const error =
-await response.text();
+  }
 
-console.log(
-"Update Error:",
-error
-);
 
-showMessage(
-"Edit hin milkoofne: " +
-error,
-"error"
-);
+  /* =====================================================
+     EDIT
+  ===================================================== */
 
-return;
+  try{
 
-}
+    const response =
+      await fetch(
 
+        SUPABASE_URL +
+        "/rest/v1/items?id=eq." +
+        encodeURIComponent(
+          editItemId
+        ),
 
-showMessage(
-"✅ Item sirreeffame.",
-"success"
-);
+        {
 
-closeForm();
+          method:"PATCH",
 
-await loadItems();
+          headers:{
 
-}
+            ...getHeaders(),
 
-catch(error){
+            "Prefer":
+              "return=representation"
 
-console.log(error);
+          },
 
-showMessage(
-"Network error.",
-"error"
-);
+          body:
+            JSON.stringify(
+              data
+            )
 
-}
+        }
+
+      );
+
+
+    if(!response.ok){
+
+      const error =
+        await response.text();
+
+
+      console.error(
+        "Update Error:",
+        error
+      );
+
+
+      if(
+        error.includes(
+          "JWT expired"
+        )
+      ){
+
+        handleExpiredSession();
+
+        return;
+
+      }
+
+
+      showMessage(
+        "❌ Edit hin milkoofne: " +
+        error,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    showMessage(
+      "✅ Item sirreeffame.",
+      "success"
+    );
+
+
+    closeForm();
+
+
+    await loadItems();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Update error:",
+      error
+    );
+
+
+    showMessage(
+      "❌ Network error.",
+      "error"
+    );
+
+  }
+
+  finally{
+
+    saveButton.disabled =
+      false;
+
+    saveButton.textContent =
+      "💾 Update Item";
+
+  }
 
 }
 
@@ -1154,73 +1370,75 @@ showMessage(
 
 function editItem(id){
 
-const item =
-allItems.find(
+  const item =
+    allItems.find(
 
-i =>
-String(i.id) ===
-String(id)
+      i =>
+        String(i.id) ===
+        String(id)
 
-);
-
-
-if(!item){
-
-showMessage(
-"Item hin argamne.",
-"error"
-);
-
-return;
-
-}
+    );
 
 
-editItemId = id;
+  if(!item){
+
+    showMessage(
+      "❌ Item hin argamne.",
+      "error"
+    );
+
+    return;
+
+  }
 
 
-document.getElementById(
-"formTitle"
-).textContent =
-"✏️ Edit Item";
+  editItemId = id;
 
 
-document.getElementById(
-"saveButton"
-).textContent =
-"💾 Update Item";
+  document.getElementById(
+    "formTitle"
+  ).textContent =
+    "✏️ Edit Item";
 
 
-document.getElementById(
-"itemName"
-).value =
-item.name || "";
+  document.getElementById(
+    "saveButton"
+  ).textContent =
+    "💾 Update Item";
 
 
-document.getElementById(
-"itemUnit"
-).value =
-item.unit || "";
+  document.getElementById(
+    "itemName"
+  ).value =
+    item.name || "";
 
 
-document.getElementById(
-"itemCategory"
-).value =
-item.category || "";
+  document.getElementById(
+    "itemUnit"
+  ).value =
+    item.unit || "";
 
 
-document.getElementById(
-"itemForm"
-).classList.add("show");
+  document.getElementById(
+    "itemCategory"
+  ).value =
+    item.category || "";
 
 
-window.scrollTo({
+  document.getElementById(
+    "itemForm"
+  ).classList.add(
+    "show"
+  );
 
-top:0,
 
-behavior:"smooth"
+  window.scrollTo({
 
-});
+    top:0,
+
+    behavior:"smooth"
+
+  });
 
 }
 
@@ -1231,158 +1449,7 @@ behavior:"smooth"
 
 async function deleteItem(id){
 
-const item =
-allItems.find(
+  const item =
+    allItems.find(
 
-i =>
-String(i.id) ===
-String(id)
-
-);
-
-
-if(!item)
-return;
-
-
-const confirmed =
-confirm(
-
-`"${item.name}" haqachuu mirkaneessitaa?`
-
-);
-
-
-if(!confirmed)
-return;
-
-
-try{
-
-const response =
-await fetch(
-
-SUPABASE_URL +
-"/rest/v1/items?id=eq." +
-encodeURIComponent(id),
-
-{
-
-method:"DELETE",
-
-headers:
-getHeaders()
-
-}
-
-);
-
-
-if(!response.ok){
-
-const error =
-await response.text();
-
-console.log(
-"Delete Error:",
-error
-);
-
-showMessage(
-"Delete hin milkoofne: " +
-error,
-"error"
-);
-
-return;
-
-}
-
-
-showMessage(
-"🗑️ Item haqame.",
-"success"
-);
-
-await loadItems();
-
-}
-
-catch(error){
-
-console.log(error);
-
-showMessage(
-"Network error.",
-"error"
-);
-
-}
-
-}
-
-
-/* =====================================================
-   BACK BUTTON
-===================================================== */
-
-function goBack(){
-
-if(
-document.referrer &&
-document.referrer !== window.location.href
-){
-
-history.back();
-
-}
-
-else{
-
-window.location.href =
-"index.html";
-
-}
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(text,type){
-
-const box =
-document.getElementById(
-"message"
-);
-
-box.textContent =
-text;
-
-box.className =
-"message " + type;
-
-
-setTimeout(()=>{
-
-box.className =
-"message";
-
-},5000);
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-loadItems();
-
-</script>
-
-</body>
-
-</html>
+      i
