@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Items</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -201,7 +203,7 @@ header p{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:1100px;
+  min-width:1000px;
 }
 
 th{
@@ -257,11 +259,14 @@ tr:hover{
 }
 
 @media(max-width:600px){
+
   header{
     flex-direction:column;
     align-items:flex-start;
   }
+
 }
+
 </style>
 </head>
 
@@ -284,7 +289,9 @@ tr:hover{
 <div class="container">
 
 
-<!-- BRANCH -->
+<!-- =====================================================
+     BRANCH
+===================================================== -->
 
 <div class="branch-box">
 
@@ -293,18 +300,22 @@ Loading Branch...
 </div>
 
 <div class="branch-sub">
-Items galmeessuu fi bulchuu
+📦 Item haaraa galmeessuu fi bulchuu
 </div>
 
 </div>
 
 
-<!-- MESSAGE -->
+<!-- =====================================================
+     MESSAGE
+===================================================== -->
 
 <div id="message" class="message"></div>
 
 
-<!-- ADD / EDIT FORM -->
+<!-- =====================================================
+     ADD ITEM
+===================================================== -->
 
 <div class="form-box">
 
@@ -316,10 +327,12 @@ Items galmeessuu fi bulchuu
 <div class="form-grid">
 
 
+<!-- ITEM NAME -->
+
 <div class="form-group">
 
 <label>
-Item Name
+📦 Item Name
 </label>
 
 <input
@@ -330,10 +343,12 @@ placeholder="Maqaa Item">
 </div>
 
 
+<!-- UNIT -->
+
 <div class="form-group">
 
 <label>
-Unit
+📏 Unit
 </label>
 
 <select id="itemUnit">
@@ -383,10 +398,12 @@ Other
 </div>
 
 
+<!-- CATEGORY -->
+
 <div class="form-group">
 
 <label>
-Category
+📂 Category
 </label>
 
 <select id="itemCategory">
@@ -424,10 +441,12 @@ Meeshaa Ijaarsa Manaaf Oolu / Non-Food Building/Construction Items
 </div>
 
 
+<!-- COST -->
+
 <div class="form-group">
 
 <label>
-Cost Price
+💰 Cost Price
 </label>
 
 <input
@@ -440,10 +459,12 @@ placeholder="0">
 </div>
 
 
+<!-- SELLING -->
+
 <div class="form-group">
 
 <label>
-Selling Price
+💵 Selling Price
 </label>
 
 <input
@@ -452,19 +473,6 @@ id="sellingPrice"
 min="0"
 step="0.01"
 placeholder="0">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Expiry Date
-</label>
-
-<input
-type="date"
-id="expiryDate">
 
 </div>
 
@@ -494,34 +502,60 @@ Cancel Edit
 </div>
 
 
-<!-- SUMMARY -->
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
 
 <div class="summary">
 
 <div class="card">
-<h3>Total Items</h3>
-<strong id="totalItems">0</strong>
+
+<h3>
+Total Items
+</h3>
+
+<strong id="totalItems">
+0
+</strong>
+
 </div>
+
 
 <div class="card">
-<h3>Total Quantity</h3>
-<strong id="totalQuantity">0</strong>
+
+<h3>
+Total Quantity
+</h3>
+
+<strong id="totalQuantity">
+0
+</strong>
+
 </div>
+
 
 <div class="card">
-<h3>Total Stock Value</h3>
-<strong id="totalValue">0</strong>
-</div>
+
+<h3>
+Total Stock Value
+</h3>
+
+<strong id="totalValue">
+0
+</strong>
 
 </div>
 
+</div>
 
-<!-- TABLE -->
+
+<!-- =====================================================
+     TABLE
+===================================================== -->
 
 <div class="table-title">
 
 📦 Item Register
-
 <span id="tableBranch"></span>
 
 </div>
@@ -543,7 +577,6 @@ Cancel Edit
 <th>Quantity</th>
 <th>Cost Price</th>
 <th>Selling Price</th>
-<th>Expiry Date</th>
 <th>Branch</th>
 <th>Created</th>
 <th>Action</th>
@@ -557,10 +590,11 @@ Cancel Edit
 
 <tr>
 
-<td colspan="12"
+<td
+colspan="11"
 style="text-align:center;padding:25px">
 
-Loading...
+⏳ Items loading...
 
 </td>
 
@@ -593,12 +627,22 @@ const SUPABASE_KEY =
    BRANCH
 ===================================================== */
 
-const branchId =
-localStorage.getItem("selected_branch_id");
-
 const branchName =
-localStorage.getItem("selected_branch_name") ||
-"Main";
+localStorage.getItem(
+"selected_branch_name"
+) || "Main";
+
+
+/*
+  Login page keenya keessatti
+  selected_branch_id yeroo ammaa
+  maqaa branch qaba.
+*/
+
+const branchId =
+localStorage.getItem(
+"selected_branch_id"
+);
 
 
 /* =====================================================
@@ -615,13 +659,19 @@ let editingId = null;
 ===================================================== */
 
 const branchTitle =
-document.getElementById("branchTitle");
+document.getElementById(
+"branchTitle"
+);
 
 const tableBranch =
-document.getElementById("tableBranch");
+document.getElementById(
+"tableBranch"
+);
 
 const itemsTable =
-document.getElementById("itemsTable");
+document.getElementById(
+"itemsTable"
+);
 
 
 /* =====================================================
@@ -669,16 +719,20 @@ SUPABASE_KEY,
 function showMessage(text,type){
 
 const box =
-document.getElementById("message");
+document.getElementById(
+"message"
+);
 
-box.textContent = text;
+box.textContent =
+text;
 
 box.className =
 "message " + type;
 
 setTimeout(()=>{
 
-box.className = "message";
+box.className =
+"message";
 
 },5000);
 
@@ -709,10 +763,15 @@ async function loadItems(){
 itemsTable.innerHTML = `
 
 <tr>
-<td colspan="12"
+
+<td
+colspan="11"
 style="text-align:center;padding:25px">
+
 ⏳ Items loading...
+
 </td>
+
 </tr>
 
 `;
@@ -720,41 +779,36 @@ style="text-align:center;padding:25px">
 
 try{
 
-let url =
+/*
+  IMPORTANT:
+
+  Branch filannoo keenya
+  maqaa branch dha.
+
+  Kanaaf branch_id irratti
+  UUID filter hin goonu.
+
+  Items hundaa dubbisnee
+  branch_name ykn branch_id
+  irratti browser keessatti
+  filter goona.
+*/
+
+const url =
 SUPABASE_URL +
 "/rest/v1/items?select=*";
 
 
-/*
-  Main:
-  branch 12 hundaa
-
-  Branch:
-  branch sana qofa
-*/
-
-if(
-branchId &&
-branchName !== "Main"
-){
-
-url +=
-"&branch_id=eq." +
-encodeURIComponent(branchId);
-
-}
-
-
-url += "&order=id.asc";
-
-
 const response =
 await fetch(
+
 url,
+
 {
 method:"GET",
 headers:getHeaders()
 }
+
 );
 
 
@@ -768,18 +822,21 @@ console.error(error);
 itemsTable.innerHTML = `
 
 <tr>
-<td colspan="12"
+
+<td
+colspan="11"
 style="text-align:center;padding:25px;color:#991b1b">
 
 ❌ Items loading error
 
 </td>
+
 </tr>
 
 `;
 
 showMessage(
-"Items dubbisuun hin milkoofne.",
+"❌ Items dubbisuun hin milkoofne.",
 "error"
 );
 
@@ -788,8 +845,49 @@ return;
 }
 
 
-allItems =
+const data =
 await response.json();
+
+
+/*
+  Main yoo ta'e
+  items hunda agarsiisa.
+
+  Branch biraa yoo ta'e
+  branch_name ykn branch_id
+  waliin madaala.
+*/
+
+if(branchName === "Main"){
+
+allItems = data;
+
+}else{
+
+allItems =
+data.filter(item=>{
+
+const itemBranchName =
+String(
+item.branch_name || ""
+).trim();
+
+const itemBranchId =
+String(
+item.branch_id || ""
+).trim();
+
+return (
+
+itemBranchName === branchName ||
+
+itemBranchId === branchName
+
+);
+
+});
+
+}
 
 
 renderItems();
@@ -828,7 +926,8 @@ itemsTable.innerHTML = `
 
 <tr>
 
-<td colspan="12"
+<td
+colspan="11"
 style="text-align:center;padding:30px">
 
 📦 Item haaraan hin galmoofne.
@@ -846,12 +945,23 @@ allItems.forEach(
 (item,index)=>{
 
 const quantity =
-Number(item.quantity || 0);
+Number(
+item.quantity || 0
+);
 
 const cost =
-Number(item.cost_price || 0);
+Number(
+item.cost_price || 0
+);
 
-totalQuantity += quantity;
+const selling =
+Number(
+item.selling_price || 0
+);
+
+
+totalQuantity +=
+quantity;
 
 totalValue +=
 quantity * cost;
@@ -868,56 +978,74 @@ ${index + 1}
 </td>
 
 <td>
+
 <span class="badge">
+
 ${escapeHTML(item.id)}
+
 </span>
+
 </td>
 
 <td>
+
 <strong>
+
 ${escapeHTML(item.name)}
+
 </strong>
+
 </td>
 
 <td>
-${escapeHTML(item.unit || "")}
-</td>
 
-<td>
-${escapeHTML(item.category || "")}
-</td>
-
-<td>
-${quantity}
-</td>
-
-<td>
-${cost.toLocaleString()}
-</td>
-
-<td>
-${Number(
-item.selling_price || 0
-).toLocaleString()}
-</td>
-
-<td>
 ${escapeHTML(
-item.expiry_date || "—"
+item.unit || ""
 )}
+
 </td>
 
 <td>
+
+${escapeHTML(
+item.category || ""
+)}
+
+</td>
+
+<td>
+
+${quantity.toLocaleString()}
+
+</td>
+
+<td>
+
+${cost.toLocaleString()}
+
+</td>
+
+<td>
+
+${selling.toLocaleString()}
+
+</td>
+
+<td>
+
 ${escapeHTML(
 item.branch_name ||
 branchName
 )}
+
 </td>
 
 <td>
+
 ${escapeHTML(
 formatDate(item.created_at)
 )}
+
 </td>
 
 <td>
@@ -941,6 +1069,7 @@ onclick="deleteItem('${escapeHTML(item.id)}')">
 </td>
 
 `;
+
 
 itemsTable.appendChild(row);
 
@@ -1007,12 +1136,6 @@ document.getElementById(
 );
 
 
-const expiryDate =
-document.getElementById(
-"expiryDate"
-).value;
-
-
 if(!name){
 
 showMessage(
@@ -1049,25 +1172,9 @@ return;
 }
 
 
-/*
-  Branch ID dirqama.
-*/
-
-if(!branchId){
-
-showMessage(
-"❌ Branch ID hin jiru. Gara Login deebi'ii Branch filadhu.",
-"error"
-);
-
-return;
-
-}
-
-
-/* ===================================================
-   NEW ITEM
-=================================================== */
+/* =====================================================
+   DATA
+===================================================== */
 
 const data = {
 
@@ -1081,17 +1188,26 @@ cost_price:costPrice,
 
 selling_price:sellingPrice,
 
-expiry_date:
-expiryDate || null,
+/*
+  Quantity jalqaba 0.
+  Stock IN yeroo galchinu
+  achitti dabala.
+*/
 
-branch_id:branchId
+quantity:0,
+
+/*
+  Branch name login irraa.
+*/
+
+branch_name:branchName
 
 };
 
 
-/* ===================================================
+/* =====================================================
    EDIT
-=================================================== */
+===================================================== */
 
 if(editingId){
 
@@ -1101,8 +1217,7 @@ const response =
 await fetch(
 
 SUPABASE_URL +
-"/rest/v1/items" +
-"?id=eq." +
+"/rest/v1/items?id=eq." +
 encodeURIComponent(editingId),
 
 {
@@ -1110,9 +1225,12 @@ encodeURIComponent(editingId),
 method:"PATCH",
 
 headers:{
+
 ...getHeaders(),
+
 "Prefer":
 "return=representation"
+
 },
 
 body:
@@ -1170,9 +1288,9 @@ return;
 }
 
 
-/* ===================================================
-   INSERT NEW ITEM
-=================================================== */
+/* =====================================================
+   NEW ITEM
+===================================================== */
 
 try{
 
@@ -1187,9 +1305,12 @@ SUPABASE_URL +
 method:"POST",
 
 headers:{
+
 ...getHeaders(),
+
 "Prefer":
 "return=representation"
+
 },
 
 body:
@@ -1251,7 +1372,9 @@ function editItem(id){
 
 const item =
 allItems.find(
-x => String(x.id) === String(id)
+x =>
+String(x.id) ===
+String(id)
 );
 
 
@@ -1308,12 +1431,6 @@ item.selling_price || 0;
 
 
 document.getElementById(
-"expiryDate"
-).value =
-item.expiry_date || "";
-
-
-document.getElementById(
 "saveButton"
 ).textContent =
 "💾 Save Changes";
@@ -1327,8 +1444,11 @@ document.getElementById(
 
 
 window.scrollTo({
+
 top:0,
+
 behavior:"smooth"
+
 });
 
 }
@@ -1375,32 +1495,32 @@ function clearForm(){
 
 document.getElementById(
 "itemName"
-).value = "";
+).value =
+"";
 
 
 document.getElementById(
 "itemUnit"
-).value = "";
+).value =
+"";
 
 
 document.getElementById(
 "itemCategory"
-).value = "";
+).value =
+"";
 
 
 document.getElementById(
 "costPrice"
-).value = "";
+).value =
+"";
 
 
 document.getElementById(
 "sellingPrice"
-).value = "";
-
-
-document.getElementById(
-"expiryDate"
-).value = "";
+).value =
+"";
 
 }
 
@@ -1413,7 +1533,9 @@ async function deleteItem(id){
 
 const item =
 allItems.find(
-x => String(x.id) === String(id)
+x =>
+String(x.id) ===
+String(id)
 );
 
 
@@ -1423,7 +1545,7 @@ return;
 
 const yes =
 confirm(
-"Item kana haquu? \n\n" +
+"Item kana haquu?\n\n" +
 item.name
 );
 
@@ -1438,8 +1560,7 @@ const response =
 await fetch(
 
 SUPABASE_URL +
-"/rest/v1/items" +
-"?id=eq." +
+"/rest/v1/items?id=eq." +
 encodeURIComponent(id),
 
 {
