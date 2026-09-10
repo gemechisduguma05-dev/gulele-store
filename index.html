@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Branch Login</title><style>
@@ -15,17 +16,25 @@ body{
 
 .login-box{
   width:90%;
-  max-width:420px;
-  margin:50px auto;
+  max-width:430px;
+  margin:45px auto;
   padding:30px;
   background:#1e3a8a;
-  border-radius:15px;
-  box-shadow:0 4px 15px rgba(0,0,0,.15);
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.18);
 }
 
-h1,h2{
+h1{
   text-align:center;
   color:white;
+  margin-bottom:5px;
+}
+
+h2{
+  text-align:center;
+  color:white;
+  margin-top:5px;
+  margin-bottom:25px;
 }
 
 label{
@@ -33,26 +42,31 @@ label{
   color:white;
   font-weight:bold;
   margin-top:15px;
-  margin-bottom:6px;
+  margin-bottom:7px;
 }
 
 select,
 input{
   width:100%;
   padding:13px;
-  margin:5px 0;
   border:1px solid #cbd5e1;
-  border-radius:7px;
+  border-radius:8px;
   font-size:16px;
   background:white;
+  outline:none;
+}
+
+select:focus,
+input:focus{
+  border:2px solid #60a5fa;
 }
 
 button{
   width:100%;
   padding:13px;
-  margin-top:15px;
+  margin-top:18px;
   border:none;
-  border-radius:7px;
+  border-radius:8px;
   background:#2563eb;
   color:white;
   font-size:16px;
@@ -64,8 +78,22 @@ button:hover{
   background:#172554;
 }
 
-.back-button{
+.change-button{
   background:#64748b;
+}
+
+.change-button:hover{
+  background:#475569;
+}
+
+.branch-info{
+  background:white;
+  color:#1e3a8a;
+  padding:13px;
+  border-radius:8px;
+  text-align:center;
+  font-weight:bold;
+  margin-top:15px;
 }
 
 #loginMessage{
@@ -73,20 +101,19 @@ button:hover{
   margin-top:15px;
   color:white;
   font-weight:bold;
+  min-height:22px;
 }
 
-.branch-info{
-  background:white;
-  color:#1e3a8a;
-  padding:12px;
-  border-radius:8px;
+.footer{
   text-align:center;
-  font-weight:bold;
-  margin-top:15px;
+  color:white;
+  font-size:13px;
+  margin-top:20px;
+  opacity:.9;
 }
 
 </style></head><body><div class="login-box"><h1>🏢 AAFDRMC</h1><h2>🔐 User Login</h2><!-- =====================================================
-     BRANCH SELECTION
+     SELECT BRANCH
 ===================================================== --><label for="branchSelect">
 📍 Select Branch
 </label><select id="branchSelect"
@@ -118,9 +145,10 @@ Branch 10
 Branch 11
 </option><option value="branch12">
 Branch 12
-</option></select><div
-id="branchInfo"
-class="branch-info">📍 Branch hin filatamne
+</option></select><!-- =====================================================
+     SELECTED BRANCH DISPLAY
+===================================================== --><div id="branchInfo"
+     class="branch-info">📍 Branch hin filatamne
 
 </div><!-- =====================================================
      USER ID
@@ -143,17 +171,19 @@ placeholder="Password"
 autocomplete="current-password">
 
 <!-- =====================================================
-     LOGIN BUTTON
-===================================================== --><button onclick="loginUser()">🔐 Login
-
-</button><button
-class="back-button"
+     LOGIN
+===================================================== --><button onclick="loginUser()">
+🔐 Login
+</button><!-- =====================================================
+     CHANGE BRANCH
+===================================================== --><button class="change-button"
 onclick="changeBranch()">
 
-↻ Change Branch
+🔄 Change Branch
 
-</button><p id="loginMessage"></p></div><script>
-
+</button><p id="loginMessage"></p><div class="footer">
+AAFDRMC Stock Management System
+</div></div><script>
 
 /* =====================================================
    SUPABASE
@@ -163,27 +193,38 @@ const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXK9Jq";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
 /* =====================================================
-   BRANCH LIST
+   BRANCH INFORMATION
 ===================================================== */
 
 const branches = {
 
-branch1:"Branch 1",
-branch2:"Branch 2",
-branch3:"Branch 3",
-branch4:"Branch 4",
-branch5:"Branch 5",
-branch6:"Branch 6",
-branch7:"Branch 7",
-branch8:"Branch 8",
-branch9:"Branch 9",
-branch10:"Branch 10",
-branch11:"Branch 11",
-branch12:"Branch 12"
+    branch1: "Branch 1",
+
+    branch2: "Branch 2",
+
+    branch3: "Branch 3",
+
+    branch4: "Branch 4",
+
+    branch5: "Branch 5",
+
+    branch6: "Branch 6",
+
+    branch7: "Branch 7",
+
+    branch8: "Branch 8",
+
+    branch9: "Branch 9",
+
+    branch10: "Branch 10",
+
+    branch11: "Branch 11",
+
+    branch12: "Branch 12"
 
 };
 
@@ -194,88 +235,105 @@ branch12:"Branch 12"
 
 function selectBranch(){
 
-const select =
-document.getElementById(
-"branchSelect"
-);
+    const select =
+        document.getElementById("branchSelect");
 
-const branchId =
-select.value;
+    const branchId =
+        select.value;
 
+    const branchInfo =
+        document.getElementById("branchInfo");
 
-if(!branchId){
-
-localStorage.removeItem(
-"selected_branch_id"
-);
-
-localStorage.removeItem(
-"selected_branch_name"
-);
-
-document.getElementById(
-"branchInfo"
-).textContent =
-"📍 Branch hin filatamne";
-
-return;
-
-}
+    const message =
+        document.getElementById("loginMessage");
 
 
-const branchName =
-branches[branchId];
+    /* No branch selected */
+
+    if(branchId === ""){
+
+        localStorage.removeItem(
+            "selected_branch_id"
+        );
+
+        localStorage.removeItem(
+            "selected_branch_name"
+        );
+
+        branchInfo.textContent =
+            "📍 Branch hin filatamne";
+
+        return;
+    }
 
 
-localStorage.setItem(
-"selected_branch_id",
-branchId
-);
+    /* Get branch name */
 
-localStorage.setItem(
-"selected_branch_name",
-branchName
-);
+    const branchName =
+        branches[branchId];
 
 
-document.getElementById(
-"branchInfo"
-).textContent =
-"📍 " + branchName;
+    /* Save branch */
+
+    localStorage.setItem(
+        "selected_branch_id",
+        branchId
+    );
+
+    localStorage.setItem(
+        "selected_branch_name",
+        branchName
+    );
+
+
+    /* Show branch */
+
+    branchInfo.textContent =
+        "📍 " + branchName;
+
+
+    message.textContent =
+        "✅ " + branchName +
+        " filatameera.";
 
 }
 
 
 /* =====================================================
-   SHOW SAVED BRANCH
+   LOAD SAVED BRANCH
 ===================================================== */
 
 function showBranch(){
 
-const branchId =
-localStorage.getItem(
-"selected_branch_id"
-);
+    const branchId =
+        localStorage.getItem(
+            "selected_branch_id"
+        );
 
-const branchName =
-localStorage.getItem(
-"selected_branch_name"
-);
+    const branchName =
+        localStorage.getItem(
+            "selected_branch_name"
+        );
 
 
-if(branchId && branchName){
+    if(
+        branchId &&
+        branches[branchId]
+    ){
 
-document.getElementById(
-"branchSelect"
-).value =
-branchId;
+        document.getElementById(
+            "branchSelect"
+        ).value = branchId;
 
-document.getElementById(
-"branchInfo"
-).textContent =
-"📍 " + branchName;
 
-}
+        document.getElementById(
+            "branchInfo"
+        ).textContent =
+            "📍 " +
+            (branchName ||
+             branches[branchId]);
+
+    }
 
 }
 
@@ -286,203 +344,264 @@ document.getElementById(
 
 async function loginUser(){
 
-const userId =
-document.getElementById(
-"loginUserId"
-).value.trim();
+    const userId =
+        document.getElementById(
+            "loginUserId"
+        ).value.trim();
 
-const password =
-document.getElementById(
-"loginPassword"
-).value;
 
-const message =
-document.getElementById(
-"loginMessage"
-);
+    const password =
+        document.getElementById(
+            "loginPassword"
+        ).value;
 
 
-const selectedBranchId =
-localStorage.getItem(
-"selected_branch_id"
-);
+    const message =
+        document.getElementById(
+            "loginMessage"
+        );
 
 
-if(!selectedBranchId){
+    const selectedBranchId =
+        localStorage.getItem(
+            "selected_branch_id"
+        );
 
-message.textContent =
-"❌ Dura jalqaba Branch filadhu.";
 
-return;
+    const selectedBranchName =
+        localStorage.getItem(
+            "selected_branch_name"
+        );
 
-}
 
+    /* =================================================
+       CHECK BRANCH
+    ================================================= */
 
-if(!userId){
+    if(
+        !selectedBranchId ||
+        !selectedBranchName
+    ){
 
-message.textContent =
-"❌ User ID galchi.";
+        message.textContent =
+            "❌ Dura jalqaba Branch filadhu.";
 
-return;
+        return;
 
-}
+    }
 
 
-if(!password){
+    /* =================================================
+       CHECK USER ID
+    ================================================= */
 
-message.textContent =
-"❌ Password galchi.";
+    if(!userId){
 
-return;
+        message.textContent =
+            "❌ User ID galchi.";
 
-}
+        return;
 
+    }
 
-message.textContent =
-"Login mirkaneessaa jira...";
 
+    /* =================================================
+       CHECK PASSWORD
+    ================================================= */
 
-try{
+    if(!password){
 
+        message.textContent =
+            "❌ Password galchi.";
 
-const response =
-await fetch(
+        return;
 
-SUPABASE_URL +
-"/rest/v1/users?select=*&user_id=eq." +
-encodeURIComponent(userId) +
-"&branch_id=eq." +
-encodeURIComponent(selectedBranchId) +
-"&limit=1",
+    }
 
-{
 
-headers:{
+    message.textContent =
+        "⏳ Login mirkaneessaa jira...";
 
-"apikey":
-SUPABASE_KEY,
 
-"Authorization":
-"Bearer " +
-SUPABASE_KEY
+    try{
 
-}
 
-});
+        /* =============================================
+           USER DATABASE
+        ============================================= */
 
+        const url =
+            SUPABASE_URL +
+            "/rest/v1/users" +
+            "?select=*" +
+            "&user_id=eq." +
+            encodeURIComponent(userId) +
+            "&branch_id=eq." +
+            encodeURIComponent(selectedBranchId) +
+            "&limit=1";
 
-if(!response.ok){
 
-const error =
-await response.text();
+        const response =
+            await fetch(
+                url,
+                {
+                    method:"GET",
 
-console.log(
-"User lookup error:",
-error
-);
+                    headers:{
+                        "apikey":
+                            SUPABASE_KEY,
 
-message.textContent =
-"❌ User database rakkoo qaba.";
+                        "Authorization":
+                            "Bearer " +
+                            SUPABASE_KEY,
 
-return;
+                        "Content-Type":
+                            "application/json"
+                    }
+                }
+            );
 
-}
 
+        /* =============================================
+           DATABASE ERROR
+        ============================================= */
 
-const users =
-await response.json();
+        if(!response.ok){
 
+            const error =
+                await response.text();
 
-if(users.length === 0){
+            console.log(
+                "User database error:",
+                error
+            );
 
-message.textContent =
-"❌ User ID ykn Branch sirrii miti.";
+            message.textContent =
+                "❌ User database rakkoo qaba.";
 
-return;
+            return;
 
-}
+        }
 
 
-const user =
-users[0];
+        const users =
+            await response.json();
 
 
-/* =====================================================
-   PASSWORD CHECK
-===================================================== */
+        /* =============================================
+           USER NOT FOUND
+        ============================================= */
 
-if(String(user.password) !==
-String(password)){
+        if(
+            !Array.isArray(users) ||
+            users.length === 0
+        ){
 
-message.textContent =
-"❌ Password sirrii miti.";
+            message.textContent =
+                "❌ User ID ykn Branch sirrii miti.";
 
-return;
+            return;
 
-}
+        }
 
 
-/* =====================================================
-   SAVE LOGIN
-===================================================== */
+        const user =
+            users[0];
 
-localStorage.setItem(
-"user_id",
-String(user.user_id)
-);
 
-localStorage.setItem(
-"user_db_id",
-String(user.id)
-);
+        /* =============================================
+           PASSWORD CHECK
+        ============================================= */
 
-localStorage.setItem(
-"branch_id",
-String(user.branch_id)
-);
+        if(
+            String(user.password) !==
+            String(password)
+        ){
 
-localStorage.setItem(
-"user_branch",
-user.branch_name ||
-branches[selectedBranchId] ||
-""
-);
+            message.textContent =
+                "❌ Password sirrii miti.";
 
-localStorage.setItem(
-"is_logged_in",
-"true"
-);
+            return;
 
+        }
 
-/* =====================================================
-   SUCCESS
-===================================================== */
 
-message.textContent =
-"✅ Login milkaa'e. Dashboard banamaa jira...";
+        /* =============================================
+           SAVE USER LOGIN
+        ============================================= */
 
+        localStorage.setItem(
+            "user_id",
+            String(user.user_id)
+        );
 
-setTimeout(function(){
 
-window.location.href =
-"dashboard.html";
+        localStorage.setItem(
+            "user_db_id",
+            String(user.id)
+        );
 
-},700);
 
+        localStorage.setItem(
+            "branch_id",
+            String(user.branch_id)
+        );
 
-}
 
-catch(error){
+        localStorage.setItem(
+            "user_branch",
+            user.branch_name ||
+            selectedBranchName
+        );
 
-console.log(
-"Login error:",
-error
-);
 
-message.textContent =
-"❌ Internet ykn Supabase connection rakkoo qaba.";
+        localStorage.setItem(
+            "selected_branch_id",
+            selectedBranchId
+        );
 
-}
+
+        localStorage.setItem(
+            "selected_branch_name",
+            selectedBranchName
+        );
+
+
+        localStorage.setItem(
+            "is_logged_in",
+            "true"
+        );
+
+
+        /* =============================================
+           LOGIN SUCCESS
+        ============================================= */
+
+        message.textContent =
+            "✅ Login milkaa'e.";
+
+
+        setTimeout(function(){
+
+            window.location.href =
+                "dashboard.html";
+
+        },700);
+
+
+    }
+
+    catch(error){
+
+        console.log(
+            "Login error:",
+            error
+        );
+
+        message.textContent =
+            "❌ Internet ykn Supabase connection rakkoo qaba.";
+
+    }
 
 }
 
@@ -493,34 +612,35 @@ message.textContent =
 
 function changeBranch(){
 
-localStorage.removeItem(
-"selected_branch_id"
-);
+    localStorage.removeItem(
+        "selected_branch_id"
+    );
 
-localStorage.removeItem(
-"selected_branch_name"
-);
+    localStorage.removeItem(
+        "selected_branch_name"
+    );
 
-document.getElementById(
-"branchSelect"
-).value =
-"";
 
-document.getElementById(
-"branchInfo"
-).textContent =
-"📍 Branch hin filatamne";
+    document.getElementById(
+        "branchSelect"
+    ).value = "";
 
-document.getElementById(
-"loginMessage"
-).textContent =
-"";
+
+    document.getElementById(
+        "branchInfo"
+    ).textContent =
+        "📍 Branch hin filatamne";
+
+
+    document.getElementById(
+        "loginMessage"
+    ).textContent = "";
 
 }
 
 
 /* =====================================================
-   START
+   START PAGE
 ===================================================== */
 
 showBranch();
