@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Item Management</title>
+<title>AAFDRMC - Items</title>
 
 <style>
 *{box-sizing:border-box}
@@ -19,13 +19,13 @@ body{
 header{
   background:#1e3a8a;
   color:white;
-  padding:28px 15px;
+  padding:25px 15px;
   text-align:center;
 }
 
 header h1{
   margin:0;
-  font-size:26px;
+  font-size:25px;
 }
 
 .branch{
@@ -50,7 +50,7 @@ header h1{
 
 .title{
   color:#1e3a8a;
-  font-size:24px;
+  font-size:23px;
   font-weight:bold;
   margin-bottom:20px;
 }
@@ -62,7 +62,6 @@ header h1{
   padding:15px;
   border-radius:10px;
   margin-bottom:20px;
-  font-weight:bold;
   line-height:1.6;
 }
 
@@ -73,7 +72,6 @@ header h1{
 label{
   display:block;
   font-weight:bold;
-  font-size:16px;
   margin-bottom:8px;
 }
 
@@ -86,12 +84,8 @@ input,select{
   background:white;
 }
 
-input:focus,select:focus{
-  outline:none;
-  border-color:#1e3a8a;
-}
-
-button,.back-btn{
+button,
+.back-btn{
   width:100%;
   border:0;
   border-radius:9px;
@@ -129,7 +123,6 @@ button,.back-btn{
   border-radius:10px;
   margin-bottom:20px;
   font-weight:bold;
-  line-height:1.5;
   white-space:pre-wrap;
   word-break:break-word;
 }
@@ -185,13 +178,7 @@ td{
   font-weight:bold;
 }
 
-.loading{
-  text-align:center;
-  padding:20px;
-  color:#64748b;
-  font-weight:bold;
-}
-
+.loading,
 .empty{
   text-align:center;
   padding:25px;
@@ -199,19 +186,9 @@ td{
   font-weight:bold;
 }
 
-.debug{
-  margin-top:15px;
-  padding:12px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:8px;
-  font-size:13px;
-  display:none;
-}
-
 @media(max-width:600px){
   header h1{
-    font-size:22px;
+    font-size:21px;
   }
 
   .branch{
@@ -233,9 +210,7 @@ td{
 
 <header>
 
-<h1>
-AAFDRMC - ITEM MANAGEMENT
-</h1>
+<h1>AAFDRMC - ITEM MANAGEMENT</h1>
 
 <div id="branchName" class="branch">
 ⏳ Loading Branch...
@@ -243,9 +218,11 @@ AAFDRMC - ITEM MANAGEMENT
 
 </header>
 
+
 <div class="container">
 
 <div id="message" class="message"></div>
+
 
 <div class="card">
 
@@ -269,26 +246,21 @@ keessatti galmaa'a.
 
 <br>
 
-<strong>1. Item Name</strong>
-
-<br>
-
-<strong>2. Category</strong>
-
+<strong>Item Name</strong> fi
+<strong>Category</strong>
 qofa galchi.
 
 <br><br>
 
 📥 Quantity, Unit, Nama galche,
 Expiry Date, Entry Time,
-Cost Price, Selling Price
-fi odeeffannoon biroo hundi
-
+Cost Price, Selling Price fi
+odeeffannoon biroo hundi
 <strong>STOCK IN</strong>
-
 keessatti galma'a.
 
 </div>
+
 
 <div class="form-group">
 
@@ -301,6 +273,7 @@ placeholder="Maqaa Item galchi"
 autocomplete="off">
 
 </div>
+
 
 <div class="form-group">
 
@@ -349,6 +322,7 @@ Non-Food Building/Construction Items
 
 </div>
 
+
 <button
 id="saveButton"
 class="save"
@@ -358,6 +332,7 @@ type="button">
 
 </button>
 
+
 <a
 href="dashboard.html"
 class="back-btn back">
@@ -365,8 +340,6 @@ class="back-btn back">
 ⬅️ Back to Dashboard
 
 </a>
-
-<div id="debugBox" class="debug"></div>
 
 </div>
 
@@ -393,11 +366,9 @@ class="back-btn back">
 <tbody id="itemsTable">
 
 <tr>
-
 <td colspan="4" class="loading">
 ⏳ Loading Items...
 </td>
-
 </tr>
 
 </tbody>
@@ -412,7 +383,7 @@ class="back-btn back">
 <script>
 
 /* =====================================================
-   SUPABASE CONFIGURATION
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -423,7 +394,7 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   BRANCH VARIABLES
+   BRANCH
 ===================================================== */
 
 let selectedBranchName =
@@ -432,7 +403,8 @@ localStorage.getItem("selected_branch_name") || "";
 let selectedBranchCode =
 localStorage.getItem("selected_branch_code") || "";
 
-let selectedBranchId = null;
+let selectedBranchId =
+localStorage.getItem("selected_branch_id") || "";
 
 
 /* =====================================================
@@ -441,20 +413,20 @@ let selectedBranchId = null;
 
 function getHeaders(){
 
-  return {
+return {
 
-    "apikey": SUPABASE_KEY,
+"apikey":SUPABASE_KEY,
 
-    "Authorization":
-      "Bearer " + SUPABASE_KEY,
+"Authorization":
+"Bearer " + SUPABASE_KEY,
 
-    "Content-Type":
-      "application/json",
+"Content-Type":
+"application/json",
 
-    "Accept":
-      "application/json"
+"Accept":
+"application/json"
 
-  };
+};
 
 }
 
@@ -465,45 +437,49 @@ function getHeaders(){
 
 function showMessage(text,type){
 
-  const box =
-    document.getElementById("message");
+const box =
+document.getElementById("message");
 
-  box.textContent = text;
+box.textContent =
+text;
 
-  box.className =
-    "message show " + type;
+box.className =
+"message show " + type;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
 
 /* =====================================================
-   UUID CHECK
+   UUID
 ===================================================== */
 
 function isUUID(value){
 
-  if(!value){
-    return false;
-  }
+if(!value) return false;
 
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    .test(String(value).trim());
+return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+.test(String(value).trim());
 
 }
 
 
 /* =====================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
@@ -514,18 +490,18 @@ function escapeHTML(value){
 
 function showBranch(){
 
-  const name =
-    selectedBranchName || "Branch hin filatamne";
+const name =
+selectedBranchName || "Branch hin filatamne";
 
-  document.getElementById(
-    "branchName"
-  ).textContent =
-    "🏢 Branch: " + name;
+document.getElementById(
+"branchName"
+).textContent =
+"🏢 Branch: " + name;
 
-  document.getElementById(
-    "infoBranch"
-  ).textContent =
-    name;
+document.getElementById(
+"infoBranch"
+).textContent =
+name;
 
 }
 
@@ -534,79 +510,80 @@ function showBranch(){
    FIND BRANCH
 ===================================================== */
 
-async function findBranchByName(){
+async function findBranch(){
 
-  if(!selectedBranchName){
+if(!selectedBranchName){
 
-    return null;
+return null;
 
-  }
+}
 
-  const url =
-    SUPABASE_URL +
-    "/rest/v1/branches" +
-    "?select=*" +
-    "&name=eq." +
-    encodeURIComponent(selectedBranchName) +
-    "&limit=1";
+const url =
+SUPABASE_URL +
+"/rest/v1/branches" +
+"?select=id,name,code" +
+"&name=eq." +
+encodeURIComponent(selectedBranchName) +
+"&limit=1";
 
-  try{
+try{
 
-    const response =
-      await fetch(
-        url,
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
+const response =
+await fetch(
+url,
+{
+method:"GET",
+headers:getHeaders()
+}
+);
 
-    const text =
-      await response.text();
+const text =
+await response.text();
 
-    console.log(
-      "BRANCH RESPONSE:",
-      response.status,
-      text
-    );
+console.log(
+"BRANCH:",
+response.status,
+text
+);
 
-    if(!response.ok){
+if(!response.ok){
 
-      showMessage(
-        "❌ Branch database irraa dubbisuun hin milkoofne.\n\n" +
-        text,
-        "error"
-      );
+showMessage(
+"❌ Branch database irraa dubbisuun hin milkoofne.\n\n"+
+text,
+"error"
+);
 
-      return null;
-    }
+return null;
 
-    const data =
-      JSON.parse(text);
+}
 
-    if(
-      Array.isArray(data) &&
-      data.length > 0
-    ){
+const data =
+JSON.parse(text);
 
-      return data[0];
+if(
+Array.isArray(data) &&
+data.length > 0
+){
 
-    }
+return data[0];
 
-    return null;
+}
 
-  }
-  catch(error){
+return null;
 
-    showMessage(
-      "❌ Network error yeroo Branch barbaadnu.\n\n" +
-      error.message,
-      "error"
-    );
+}
+catch(error){
 
-    return null;
+showMessage(
+"❌ Network error Branch barbaaduu irratti.\n\n"+
+error.message,
+"error"
+);
 
-  }
+return null;
+
+}
 
 }
 
@@ -617,359 +594,126 @@ async function findBranchByName(){
 
 async function prepareBranch(){
 
-  showBranch();
-
-  if(!selectedBranchName){
-
-    showMessage(
-      "❌ Branch hin filatamne.\n\n" +
-      "Mee Main Menu irraa Branch filadhu.",
-      "error"
-    );
-
-    return false;
-  }
+showBranch();
 
 
-  const branch =
-    await findBranchByName();
+if(!selectedBranchName){
 
+showMessage(
+"❌ Branch hin filatamne.\n\n"+
+"Login/Dashboard irraa Branch filadhu.",
+"error"
+);
 
-  if(!branch){
-
-    showMessage(
-      "❌ Branch '" +
-      selectedBranchName +
-      "' branches table keessatti hin argamne.",
-      "error"
-    );
-
-    return false;
-  }
-
-
-  if(!branch.id){
-
-    showMessage(
-      "❌ Branch ID hin argamne.",
-      "error"
-    );
-
-    return false;
-  }
-
-
-  const realUUID =
-    String(branch.id).trim();
-
-
-  if(!isUUID(realUUID)){
-
-    showMessage(
-      "❌ Branch ID UUID sirrii miti.\n\n" +
-      "Branch: " +
-      selectedBranchName +
-      "\n\nID: " +
-      realUUID,
-      "error"
-    );
-
-    return false;
-  }
-
-
-  selectedBranchId =
-    realUUID;
-
-
-  if(branch.name){
-
-    selectedBranchName =
-      String(branch.name);
-
-  }
-
-
-  if(branch.code){
-
-    selectedBranchCode =
-      String(branch.code);
-
-  }
-
-
-  localStorage.setItem(
-    "selected_branch_id",
-    selectedBranchId
-  );
-
-  localStorage.setItem(
-    "selected_branch_name",
-    selectedBranchName
-  );
-
-  if(selectedBranchCode){
-
-    localStorage.setItem(
-      "selected_branch_code",
-      selectedBranchCode
-    );
-
-  }
-
-
-  showBranch();
-
-  console.log(
-    "BRANCH NAME:",
-    selectedBranchName
-  );
-
-  console.log(
-    "BRANCH UUID:",
-    selectedBranchId
-  );
-
-  return true;
+return false;
 
 }
 
 
-/* =====================================================
-   SAVE ITEM
-===================================================== */
+/*
+Branch database irraa barbaadi
+*/
 
-async function saveItem(){
+const branch =
+await findBranch();
 
-  const button =
-    document.getElementById("saveButton");
 
-  const branchOK =
-    await prepareBranch();
+if(!branch){
 
-  if(!branchOK){
-    return;
-  }
+showMessage(
+"❌ Branch '" +
+selectedBranchName +
+"' database keessatti hin argamne.",
+"error"
+);
 
+return false;
 
-  const itemName =
-    document.getElementById(
-      "itemName"
-    ).value.trim();
+}
 
 
-  const category =
-    document.getElementById(
-      "category"
-    ).value;
+/*
+ID sirrii
+*/
 
+if(!branch.id){
 
-  if(!itemName){
+showMessage(
+"❌ Branch ID hin argamne.",
+"error"
+);
 
-    showMessage(
-      "❌ Item Name galchi.",
-      "error"
-    );
+return false;
 
-    return;
-  }
+}
 
 
-  if(!category){
+const realId =
+String(branch.id).trim();
 
-    showMessage(
-      "❌ Category filadhu.",
-      "error"
-    );
 
-    return;
-  }
+if(!isUUID(realId)){
 
+showMessage(
+"❌ Branch ID UUID miti.\n\n"+
+"Branch: " +
+selectedBranchName +
+"\n\nID: " +
+realId,
+"error"
+);
 
-  button.disabled = true;
-  button.textContent = "⏳ Saving...";
+return false;
 
+}
 
-  try{
 
-    /* DUPLICATE CHECK */
+selectedBranchId =
+realId;
 
-    const duplicateURL =
-      SUPABASE_URL +
-      "/rest/v1/items" +
-      "?select=id,name" +
-      "&branch_id=eq." +
-      encodeURIComponent(selectedBranchId) +
-      "&name=eq." +
-      encodeURIComponent(itemName) +
-      "&limit=1";
 
+if(branch.name){
 
-    const duplicateResponse =
-      await fetch(
-        duplicateURL,
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
+selectedBranchName =
+String(branch.name);
 
+}
 
-    const duplicateText =
-      await duplicateResponse.text();
+if(branch.code){
 
+selectedBranchCode =
+String(branch.code);
 
-    if(!duplicateResponse.ok){
+}
 
-      showMessage(
-        "❌ Items database dubbisuun hin milkoofne.\n\n" +
-        duplicateText,
-        "error"
-      );
 
-      return;
-    }
+/*
+LocalStorage update
+*/
 
+localStorage.setItem(
+"selected_branch_id",
+selectedBranchId
+);
 
-    const existing =
-      JSON.parse(duplicateText);
+localStorage.setItem(
+"selected_branch_name",
+selectedBranchName
+);
 
+if(selectedBranchCode){
 
-    if(
-      Array.isArray(existing) &&
-      existing.length > 0
-    ){
+localStorage.setItem(
+"selected_branch_code",
+selectedBranchCode
+);
 
-      showMessage(
-        "⚠️ Item '" +
-        itemName +
-        "' Branch " +
-        selectedBranchName +
-        " keessatti duraan jira.",
-        "warning"
-      );
+}
 
-      return;
-    }
 
+showBranch();
 
-    /* ITEM DATA */
-
-    const itemData = {
-
-      name:
-        itemName,
-
-      category:
-        category,
-
-      branch_id:
-        selectedBranchId,
-
-      branch_code:
-        selectedBranchCode || null
-
-    };
-
-
-    /* SAFETY */
-
-    if(
-      !isUUID(itemData.branch_id)
-    ){
-
-      showMessage(
-        "❌ branch_id UUID sirrii miti.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    /* INSERT */
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/items",
-        {
-          method:"POST",
-
-          headers:{
-            ...getHeaders(),
-            "Prefer":
-              "return=representation"
-          },
-
-          body:
-            JSON.stringify(itemData)
-        }
-      );
-
-
-    const result =
-      await response.text();
-
-
-    console.log(
-      "ITEM INSERT:",
-      response.status,
-      result
-    );
-
-
-    if(!response.ok){
-
-      showMessage(
-        "❌ Item save hin milkoofne.\n\n" +
-        result,
-        "error"
-      );
-
-      return;
-    }
-
-
-    showMessage(
-      "✅ Item '" +
-      itemName +
-      "' Branch " +
-      selectedBranchName +
-      " keessatti sirriitti galmaa'e.",
-      "success"
-    );
-
-
-    document.getElementById(
-      "itemName"
-    ).value = "";
-
-    document.getElementById(
-      "category"
-    ).value = "";
-
-
-    await loadItems();
-
-  }
-  catch(error){
-
-    showMessage(
-      "❌ Error:\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-  finally{
-
-    button.disabled = false;
-
-    button.textContent =
-      "💾 Save New Item";
-
-  }
+return true;
 
 }
 
@@ -980,163 +724,489 @@ async function saveItem(){
 
 async function loadItems(){
 
-  if(
-    !selectedBranchId ||
-    !isUUID(selectedBranchId)
-  ){
-
-    return;
-  }
+const table =
+document.getElementById("itemsTable");
 
 
-  const table =
-    document.getElementById(
-      "itemsTable"
-    );
+if(!isUUID(selectedBranchId)){
+
+table.innerHTML = `
+<tr>
+<td colspan="4" class="empty">
+❌ Branch UUID hin jiru.
+</td>
+</tr>
+`;
+
+return;
+
+}
 
 
-  table.innerHTML = `
-    <tr>
-      <td colspan="4" class="loading">
-        ⏳ Items loading...
-      </td>
-    </tr>
-  `;
+table.innerHTML = `
+<tr>
+<td colspan="4" class="loading">
+⏳ Items loading...
+</td>
+</tr>
+`;
 
 
-  try{
+try{
 
-    const url =
-      SUPABASE_URL +
-      "/rest/v1/items" +
-      "?select=id,name,category,branch_id,branch_code" +
-      "&branch_id=eq." +
-      encodeURIComponent(selectedBranchId) +
-      "&order=id.asc";
-
-
-    const response =
-      await fetch(
-        url,
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
+const url =
+SUPABASE_URL +
+"/rest/v1/items" +
+"?select=id,name,category,branch_id,branch_code" +
+"&branch_id=eq." +
+encodeURIComponent(selectedBranchId) +
+"&order=id.asc";
 
 
-    const result =
-      await response.text();
+const response =
+await fetch(
+url,
+{
+method:"GET",
+headers:getHeaders()
+}
+);
+
+const text =
+await response.text();
+
+console.log(
+"ITEMS:",
+response.status,
+text
+);
 
 
-    if(!response.ok){
+if(!response.ok){
 
-      table.innerHTML = `
-        <tr>
-          <td colspan="4" class="empty">
-            ❌ Items loading hin milkoofne.
-            <br><br>
-            ${escapeHTML(result)}
-          </td>
-        </tr>
-      `;
+table.innerHTML = `
+<tr>
+<td colspan="4" class="empty">
 
-      return;
-    }
+❌ Items loading hin milkoofne.
 
+<br><br>
 
-    const items =
-      JSON.parse(result);
+${escapeHTML(text)}
 
+</td>
+</tr>
+`;
 
-    if(
-      !Array.isArray(items) ||
-      items.length === 0
-    ){
+return;
 
-      table.innerHTML = `
-        <tr>
-          <td colspan="4" class="empty">
-            📦 Branch kana keessatti Item hin jiru.
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
+}
 
 
-    table.innerHTML = "";
+let items;
+
+try{
+
+items =
+JSON.parse(text);
+
+}
+catch(error){
+
+table.innerHTML = `
+<tr>
+<td colspan="4" class="empty">
+❌ Database response JSON miti.
+</td>
+</tr>
+`;
+
+return;
+
+}
 
 
-    items.forEach(
-      (item,index)=>{
+if(
+!Array.isArray(items) ||
+items.length === 0
+){
 
-        const row =
-          document.createElement("tr");
+table.innerHTML = `
+<tr>
+<td colspan="4" class="empty">
+📦 Branch kana keessatti Item hin jiru.
+</td>
+</tr>
+`;
 
+return;
 
-        row.innerHTML = `
-
-          <td>
-            ${index + 1}
-          </td>
-
-          <td>
-            <strong>
-              ${escapeHTML(item.name)}
-            </strong>
-          </td>
-
-          <td>
-            <span class="category-badge">
-              ${escapeHTML(
-                item.category || "—"
-              )}
-            </span>
-          </td>
-
-          <td>
-            ${escapeHTML(
-              selectedBranchName
-            )}
-          </td>
-
-        `;
+}
 
 
-        table.appendChild(row);
+table.innerHTML = "";
 
-      }
-    );
 
-  }
-  catch(error){
+items.forEach(
+(item,index)=>{
 
-    table.innerHTML = `
-      <tr>
-        <td colspan="4" class="empty">
-          ❌ Network error.
-          <br><br>
-          ${escapeHTML(error.message)}
-        </td>
-      </tr>
-    `;
+const row =
+document.createElement("tr");
 
-  }
+row.innerHTML = `
+
+<td>
+${index + 1}
+</td>
+
+<td>
+<strong>
+${escapeHTML(item.name)}
+</strong>
+</td>
+
+<td>
+
+<span class="category-badge">
+
+${escapeHTML(
+item.category || "—"
+)}
+
+</span>
+
+</td>
+
+<td>
+${escapeHTML(
+selectedBranchName
+)}
+</td>
+
+`;
+
+table.appendChild(row);
+
+});
+
+
+}
+catch(error){
+
+table.innerHTML = `
+<tr>
+<td colspan="4" class="empty">
+
+❌ Network error.
+
+<br><br>
+
+${escapeHTML(error.message)}
+
+</td>
+</tr>
+`;
+
+}
 
 }
 
 
 /* =====================================================
-   BUTTON
+   SAVE ITEM
+===================================================== */
+
+async function saveItem(){
+
+const button =
+document.getElementById("saveButton");
+
+const nameInput =
+document.getElementById("itemName");
+
+const categoryInput =
+document.getElementById("category");
+
+
+const itemName =
+nameInput.value.trim();
+
+const category =
+categoryInput.value;
+
+
+if(!itemName){
+
+showMessage(
+"❌ Item Name galchi.",
+"error"
+);
+
+nameInput.focus();
+
+return;
+
+}
+
+
+if(!category){
+
+showMessage(
+"❌ Category filadhu.",
+"error"
+);
+
+categoryInput.focus();
+
+return;
+
+}
+
+
+/*
+Branch ID mirkaneessi
+*/
+
+if(!isUUID(selectedBranchId)){
+
+const ok =
+await prepareBranch();
+
+if(!ok){
+
+return;
+
+}
+
+}
+
+
+/*
+Duplicate check
+*/
+
+button.disabled =
+true;
+
+button.textContent =
+"⏳ Saving...";
+
+
+try{
+
+const duplicateURL =
+SUPABASE_URL +
+"/rest/v1/items" +
+"?select=id,name" +
+"&branch_id=eq." +
+encodeURIComponent(selectedBranchId) +
+"&name=eq." +
+encodeURIComponent(itemName) +
+"&limit=1";
+
+
+const duplicateResponse =
+await fetch(
+duplicateURL,
+{
+method:"GET",
+headers:getHeaders()
+}
+);
+
+
+const duplicateText =
+await duplicateResponse.text();
+
+
+if(
+duplicateResponse.status === 401
+){
+
+showMessage(
+"❌ Supabase authentication rakkoo qaba.\n\n"+
+duplicateText,
+"error"
+);
+
+return;
+
+}
+
+
+if(
+duplicateResponse.status === 403
+){
+
+showMessage(
+"❌ Supabase RLS permission rakkoo qaba.\n\n"+
+duplicateText,
+"error"
+);
+
+return;
+
+}
+
+
+if(duplicateResponse.ok){
+
+let existing = [];
+
+try{
+
+existing =
+JSON.parse(duplicateText);
+
+}
+catch(error){
+
+existing = [];
+
+}
+
+if(
+Array.isArray(existing) &&
+existing.length > 0
+){
+
+showMessage(
+"⚠️ Item '" +
+itemName +
+"' Branch " +
+selectedBranchName +
+" keessatti duraan jira.",
+"warning"
+);
+
+return;
+
+}
+
+}
+
+
+/*
+ITEM DATA
+*/
+
+const itemData = {
+
+name:itemName,
+
+category:category,
+
+branch_id:selectedBranchId,
+
+branch_code:
+selectedBranchCode || null
+
+};
+
+
+console.log(
+"ITEM DATA:",
+itemData
+);
+
+
+/*
+INSERT
+*/
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/items",
+{
+method:"POST",
+
+headers:{
+...getHeaders(),
+"Prefer":
+"return=representation"
+},
+
+body:
+JSON.stringify(itemData)
+
+}
+);
+
+
+const result =
+await response.text();
+
+
+console.log(
+"INSERT:",
+response.status,
+result
+);
+
+
+if(!response.ok){
+
+showMessage(
+"❌ Item save hin milkoofne.\n\n"+
+result,
+"error"
+);
+
+return;
+
+}
+
+
+showMessage(
+"✅ Item '" +
+itemName +
+"' sirriitti galmaa'e.",
+"success"
+);
+
+
+nameInput.value =
+"";
+
+categoryInput.value =
+"";
+
+
+await loadItems();
+
+}
+catch(error){
+
+showMessage(
+"❌ Network error.\n\n"+
+error.message,
+"error"
+);
+
+}
+finally{
+
+button.disabled =
+false;
+
+button.textContent =
+"💾 Save New Item";
+
+}
+
+}
+
+
+/* =====================================================
+   SAVE BUTTON
 ===================================================== */
 
 document
 .getElementById("saveButton")
 .addEventListener(
-  "click",
-  saveItem
+"click",
+saveItem
 );
 
 
@@ -1145,41 +1215,23 @@ document
 ===================================================== */
 
 window.addEventListener(
-  "DOMContentLoaded",
-  async function(){
+"DOMContentLoaded",
+async function(){
 
-    /*
-    Branch maqaa Dashboard irraa
-    */
+showBranch();
 
-    selectedBranchName =
-      localStorage.getItem(
-        "selected_branch_name"
-      ) || "";
+const ok =
+await prepareBranch();
 
+if(!ok){
 
-    selectedBranchCode =
-      localStorage.getItem(
-        "selected_branch_code"
-      ) || "";
+return;
 
+}
 
-    showBranch();
+await loadItems();
 
-
-    const branchOK =
-      await prepareBranch();
-
-
-    if(!branchOK){
-
-      return;
-    }
-
-
-    await loadItems();
-
-  }
+}
 );
 
 </script>
