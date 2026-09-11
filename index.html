@@ -133,6 +133,10 @@ button,
   margin-top:12px;
 }
 
+.back:hover{
+  background:#475569;
+}
+
 .message{
   display:none;
   padding:16px;
@@ -231,7 +235,9 @@ td{
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -268,9 +274,11 @@ Loading Branch...
 <div class="info">
 
 🏢 Item kun Branch:
+
 <strong id="infoBranch">
 Loading...
 </strong>
+
 keessatti galmaa'a.
 
 <br><br>
@@ -290,10 +298,11 @@ qofa galchi.
 <br><br>
 
 📥 Quantity, Unit, Nama galche,
-Expiry Date, Entry Time fi odeeffannoon
-biroo hundi
+Expiry Date, Entry Time,
+Cost Price, Selling Price,
+fi odeeffannoon biroo hundi
 
-<strong>Stock IN</strong>
+<strong>STOCK IN</strong>
 
 keessatti galma'a.
 
@@ -331,11 +340,13 @@ Category
 -- Category filadhu --
 </option>
 
+
 <option value="Strategic Food Items">
 Meeshaalee Nyaataa Tarsiimawaa /
 Strategic Food Items /
 ስትራቴጂካ ምግብ ነክ
 </option>
+
 
 <option value="Daily Food Items">
 Meeshaalee Nyaataa Guyyaa Guyyaa /
@@ -343,15 +354,18 @@ Daily Food Items /
 ምግብ ነክ የእለት ደሪሽ
 </option>
 
+
 <option value="Daily Non-Food Items">
 Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
 Daily Non-Food Items
 </option>
 
+
 <option value="Non-Food Hygiene Items">
 Meeshaalee Qulqullinaa /
 Non-Food Hygiene Items
 </option>
+
 
 <option value="Non-Food Kitchen Items">
 Meeshaalee Nyaataa Hin Taane
@@ -359,10 +373,12 @@ Ittiin Nyaata Qopheessan /
 Non-Food Kitchen Items
 </option>
 
+
 <option value="Non-Food Building/Construction Items">
 Meeshaa Ijaarsa Manaaf Oolu /
 Non-Food Building/Construction Items
 </option>
+
 
 </select>
 
@@ -374,6 +390,7 @@ Non-Food Building/Construction Items
 <button
   id="saveButton"
   class="save"
+  type="button"
   onclick="saveItem()">
 
 💾 Save New Item
@@ -404,6 +421,7 @@ Non-Food Building/Construction Items
 📋 Items — Current Branch
 </div>
 
+
 <table>
 
 <thead>
@@ -411,13 +429,23 @@ Non-Food Building/Construction Items
 <tr>
 
 <th>No</th>
-<th>Item Name</th>
-<th>Category</th>
-<th>Branch</th>
+
+<th>
+Item Name
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Branch
+</th>
 
 </tr>
 
 </thead>
+
 
 <tbody id="itemsTable">
 
@@ -439,10 +467,12 @@ class="loading">
 
 </div>
 
+
 </div>
 
 
 <script>
+
 
 /* =====================================================
    SUPABASE
@@ -452,11 +482,11 @@ const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXk";
 
 
 /* =====================================================
-   LOCAL STORAGE
+   BRANCH INFORMATION
 ===================================================== */
 
 let selectedBranchId =
@@ -487,21 +517,12 @@ function getHeaders(){
       (token || SUPABASE_KEY),
 
     "Content-Type":
+      "application/json",
+
+    "Accept":
       "application/json"
 
   };
-
-}
-
-
-/* =====================================================
-   UUID CHECK
-===================================================== */
-
-function isValidUUID(value){
-
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    .test(String(value || "").trim());
 
 }
 
@@ -531,7 +552,8 @@ function showMessage(text,type){
   const box =
     document.getElementById("message");
 
-  box.textContent = text;
+  box.textContent =
+    text;
 
   box.className =
     "message show " + type;
@@ -550,47 +572,63 @@ function showMessage(text,type){
 
 function showBranch(){
 
+  const name =
+    selectedBranchName ||
+    "Unknown Branch";
+
   document.getElementById(
     "branchName"
   ).textContent =
-    "🏢 Branch: " +
-    (selectedBranchName || "Unknown");
+    "🏢 Branch: " + name;
+
 
   document.getElementById(
     "infoBranch"
   ).textContent =
-    selectedBranchName || "Unknown";
+    name;
 
 }
 
 
 /* =====================================================
-   FIND BRANCH UUID
+   GET BRANCH
 ===================================================== */
 
-async function resolveBranchUUID(){
+async function prepareBranch(){
+
+  showBranch();
+
 
   /*
-    Yoo localStorage keessatti
-    UUID sirrii qabaate:
-    isauma fayyadamna.
+     Branch ID yoo localStorage
+     keessatti jiraate itti fayyadami.
   */
 
-  if(isValidUUID(selectedBranchId)){
+  if(
+    selectedBranchId &&
+    selectedBranchId !== "null" &&
+    selectedBranchId !== "undefined"
+  ){
 
-    return selectedBranchId;
+    return true;
 
   }
 
 
   /*
-    Yoo selected_branch_id = Gulele
-    ta'e, maqaa irraa UUID barbaada.
+     Yoo ID hin jirre garuu
+     branch name jiraate,
+     branches table irraa barbaadi.
   */
 
   if(!selectedBranchName){
 
-    return null;
+    showMessage(
+      "❌ Branch hin filatamne. Gara Main Menu deebi'ii Branch filadhu.",
+      "error"
+    );
+
+    return false;
 
   }
 
@@ -600,9 +638,11 @@ async function resolveBranchUUID(){
     const url =
       SUPABASE_URL +
       "/rest/v1/branches" +
-      "?select=id,name" +
+      "?select=id,name,code" +
       "&name=eq." +
-      encodeURIComponent(selectedBranchName) +
+      encodeURIComponent(
+        selectedBranchName
+      ) +
       "&limit=1";
 
 
@@ -622,12 +662,13 @@ async function resolveBranchUUID(){
 
     if(!response.ok){
 
-      console.error(
-        "BRANCH LOOKUP ERROR:",
-        text
+      showMessage(
+        "❌ Branch barbaaduun hin milkoofne: " +
+        text,
+        "error"
       );
 
-      return null;
+      return false;
 
     }
 
@@ -637,115 +678,75 @@ async function resolveBranchUUID(){
 
 
     if(
-      Array.isArray(data) &&
-      data.length > 0 &&
-      isValidUUID(data[0].id)
+      !Array.isArray(data) ||
+      data.length === 0
     ){
 
-      /*
-        UUID sirrii argameera.
-        Amma localStorage keessattis
-        sirreessina.
-      */
-
-      selectedBranchId =
-        data[0].id;
-
-      localStorage.setItem(
-        "selected_branch_id",
-        data[0].id
+      showMessage(
+        "❌ Branch '" +
+        selectedBranchName +
+        "' database keessatti hin argamne.",
+        "error"
       );
 
-      localStorage.setItem(
-        "selected_branch_name",
-        data[0].name
-      );
-
-
-      return data[0].id;
+      return false;
 
     }
 
 
-    return null;
+    selectedBranchId =
+      String(data[0].id);
+
+
+    selectedBranchName =
+      data[0].name ||
+      selectedBranchName;
+
+
+    selectedBranchCode =
+      data[0].code ||
+      "";
+
+
+    localStorage.setItem(
+      "selected_branch_id",
+      selectedBranchId
+    );
+
+
+    localStorage.setItem(
+      "selected_branch_name",
+      selectedBranchName
+    );
+
+
+    localStorage.setItem(
+      "selected_branch_code",
+      selectedBranchCode
+    );
+
+
+    showBranch();
+
+
+    return true;
 
   }
   catch(error){
 
     console.error(
-      "BRANCH LOOKUP ERROR:",
+      "BRANCH ERROR:",
       error
     );
 
-    return null;
+    showMessage(
+      "❌ Network error. Internet kee ilaali.",
+      "error"
+    );
+
+    return false;
 
   }
-
-}
-
-
-/* =====================================================
-   CHECK BRANCH
-===================================================== */
-
-async function checkBranch(){
-
-  showBranch();
-
-
-  /*
-    UUID sirrii yoo jiraate
-  */
-
-  if(isValidUUID(selectedBranchId)){
-
-    return true;
-
-  }
-
-
-  /*
-    UUID hin taane.
-    Maqaa branch irraa barbaadi.
-  */
-
-  const uuid =
-    await resolveBranchUUID();
-
-
-  if(uuid){
-
-    return true;
-
-  }
-
-
-  /*
-    Yoo branches table irraa
-    UUID argachuu dadhabe.
-  */
-
-  document.getElementById(
-    "branchName"
-  ).textContent =
-    "⚠️ Branch ID dogoggora";
-
-
-  showMessage(
-
-    "❌ Branch UUID hin argamne. " +
-
-    "Selected Branch: " +
-    (selectedBranchName || selectedBranchId || "Unknown") +
-
-    ". Branch selection keessatti branch UUID sirrii jiraachuu qaba.",
-
-    "error"
-
-  );
-
-
-  return false;
 
 }
 
@@ -757,30 +758,42 @@ async function checkBranch(){
 async function saveItem(){
 
   const branchOK =
-    await checkBranch();
+    await prepareBranch();
+
 
   if(!branchOK)
     return;
 
 
   const nameInput =
-    document.getElementById("itemName");
+    document.getElementById(
+      "itemName"
+    );
+
 
   const categoryInput =
-    document.getElementById("category");
+    document.getElementById(
+      "category"
+    );
+
 
   const saveButton =
-    document.getElementById("saveButton");
+    document.getElementById(
+      "saveButton"
+    );
 
 
   const itemName =
     nameInput.value.trim();
 
+
   const category =
     categoryInput.value;
 
 
-  /* VALIDATION */
+  /* ===================================================
+     VALIDATION
+  =================================================== */
 
   if(!itemName){
 
@@ -810,7 +823,8 @@ async function saveItem(){
   }
 
 
-  saveButton.disabled = true;
+  saveButton.disabled =
+    true;
 
   saveButton.textContent =
     "⏳ Saving...";
@@ -818,23 +832,28 @@ async function saveItem(){
 
   try{
 
+
     /* =================================================
        DUPLICATE CHECK
     ================================================= */
 
-    const duplicateUrl =
+    const duplicateURL =
       SUPABASE_URL +
       "/rest/v1/items" +
-      "?select=id,name" +
+      "?select=id,name,category,branch_id" +
       "&branch_id=eq." +
-      encodeURIComponent(selectedBranchId) +
-      "&name=eq." +
-      encodeURIComponent(itemName);
+      encodeURIComponent(
+        selectedBranchId
+      ) +
+      "&name=ilike." +
+      encodeURIComponent(
+        itemName
+      );
 
 
     const duplicateResponse =
       await fetch(
-        duplicateUrl,
+        duplicateURL,
         {
           method:"GET",
           headers:getHeaders()
@@ -842,7 +861,9 @@ async function saveItem(){
       );
 
 
-    if(duplicateResponse.ok){
+    if(
+      duplicateResponse.ok
+    ){
 
       const existing =
         await duplicateResponse.json();
@@ -866,7 +887,8 @@ async function saveItem(){
         );
 
 
-        saveButton.disabled = false;
+        saveButton.disabled =
+          false;
 
         saveButton.textContent =
           "💾 Save New Item";
@@ -882,17 +904,27 @@ async function saveItem(){
        ITEM DATA
 
        IMPORTANT:
-       category = database column
-       
+
+       Items keessatti:
+       - name
+       - category
+       - branch_id
+       - branch_code
+
+       QOFA.
+
        Quantity hin jiru.
        Unit hin jiru.
        Expiry Date hin jiru.
+       Entry Time hin jiru.
        Nama galche hin jiru.
+       Cost Price hin jiru.
+       Selling Price hin jiru.
 
-       Isaan hundi STOCK IN keessatti.
+       Isaan hundi Stock IN keessatti galma'u.
     ================================================= */
 
-    const data = {
+    const itemData = {
 
       name:
         itemName,
@@ -910,13 +942,13 @@ async function saveItem(){
 
 
     console.log(
-      "FINAL ITEM DATA:",
-      data
+      "ITEM DATA:",
+      itemData
     );
 
 
     /* =================================================
-       INSERT ITEM
+       INSERT
     ================================================= */
 
     const response =
@@ -939,7 +971,9 @@ async function saveItem(){
           },
 
           body:
-            JSON.stringify(data)
+            JSON.stringify(
+              itemData
+            )
 
         }
 
@@ -949,6 +983,10 @@ async function saveItem(){
     const result =
       await response.text();
 
+
+    /* =================================================
+       ERROR
+    ================================================= */
 
     if(!response.ok){
 
@@ -960,7 +998,7 @@ async function saveItem(){
 
       showMessage(
 
-        "❌ Item save hin milkoofne: " +
+        "❌ Item save hin milkoofne:\n" +
         result,
 
         "error"
@@ -968,7 +1006,8 @@ async function saveItem(){
       );
 
 
-      saveButton.disabled = false;
+      saveButton.disabled =
+        false;
 
       saveButton.textContent =
         "💾 Save New Item";
@@ -997,9 +1036,11 @@ async function saveItem(){
 
     /* CLEAR */
 
-    nameInput.value = "";
+    nameInput.value =
+      "";
 
-    categoryInput.value = "";
+    categoryInput.value =
+      "";
 
 
     /* RELOAD */
@@ -1017,14 +1058,18 @@ async function saveItem(){
 
 
     showMessage(
+
       "❌ Network error. Internet kee ilaali.",
+
       "error"
+
     );
 
   }
 
 
-  saveButton.disabled = false;
+  saveButton.disabled =
+    false;
 
   saveButton.textContent =
     "💾 Save New Item";
@@ -1038,12 +1083,19 @@ async function saveItem(){
 
 async function loadItems(){
 
-  if(!isValidUUID(selectedBranchId))
+  if(
+    !selectedBranchId
+  ){
+
     return;
+
+  }
 
 
   const table =
-    document.getElementById("itemsTable");
+    document.getElementById(
+      "itemsTable"
+    );
 
 
   table.innerHTML = `
@@ -1065,17 +1117,15 @@ async function loadItems(){
 
   try{
 
-    /*
-      IMPORTANT:
-      category jechuun DB column dha.
-    */
 
     const url =
       SUPABASE_URL +
       "/rest/v1/items" +
       "?select=id,name,category,branch_id,branch_code" +
       "&branch_id=eq." +
-      encodeURIComponent(selectedBranchId) +
+      encodeURIComponent(
+        selectedBranchId
+      ) +
       "&order=id.asc";
 
 
@@ -1114,6 +1164,10 @@ async function loadItems(){
 
             ❌ Items loading hin milkoofne.
 
+            <br><br>
+
+            ${escapeHTML(result)}
+
           </td>
 
         </tr>
@@ -1125,11 +1179,45 @@ async function loadItems(){
     }
 
 
-    const items =
-      JSON.parse(result);
+    let items;
 
 
-    table.innerHTML = "";
+    try{
+
+      items =
+        JSON.parse(result);
+
+    }
+    catch(parseError){
+
+      console.error(
+        "JSON ERROR:",
+        parseError
+      );
+
+      table.innerHTML = `
+
+        <tr>
+
+          <td
+            colspan="4"
+            class="empty">
+
+            ❌ Database response sirrii miti.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    table.innerHTML =
+      "";
 
 
     if(
@@ -1145,7 +1233,8 @@ async function loadItems(){
             colspan="4"
             class="empty">
 
-            📦 Item ammaaf hin jiru.
+            📦 Branch kana keessatti
+            Item ammaaf hin jiru.
 
           </td>
 
@@ -1159,10 +1248,12 @@ async function loadItems(){
 
 
     items.forEach(
-      (item,index) => {
+      function(item,index){
 
         const row =
-          document.createElement("tr");
+          document.createElement(
+            "tr"
+          );
 
 
         row.innerHTML = `
@@ -1171,11 +1262,19 @@ async function loadItems(){
             ${index + 1}
           </td>
 
+
           <td>
+
             <strong>
-              ${escapeHTML(item.name)}
+
+              ${escapeHTML(
+                item.name
+              )}
+
             </strong>
+
           </td>
+
 
           <td>
 
@@ -1190,16 +1289,22 @@ async function loadItems(){
 
           </td>
 
+
           <td>
+
             ${escapeHTML(
-              selectedBranchName || "—"
+              selectedBranchName ||
+              "—"
             )}
+
           </td>
 
         `;
 
 
-        table.appendChild(row);
+        table.appendChild(
+          row
+        );
 
       }
     );
@@ -1240,14 +1345,13 @@ async function loadItems(){
 ===================================================== */
 
 window.addEventListener(
+
   "DOMContentLoaded",
+
   async function(){
 
-    showBranch();
-
-
     const branchOK =
-      await checkBranch();
+      await prepareBranch();
 
 
     if(!branchOK)
@@ -1257,9 +1361,11 @@ window.addEventListener(
     await loadItems();
 
   }
+
 );
 
 </script>
 
 </body>
+
 </html>
