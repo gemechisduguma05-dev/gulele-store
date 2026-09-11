@@ -7,7 +7,9 @@
 <title>AAFDRMC - Stock Management</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -19,18 +21,18 @@ body{
 header{
   background:#1e3a8a;
   color:white;
-  padding:18px;
+  padding:28px 15px;
   text-align:center;
 }
 
 header h1{
   margin:0;
-  font-size:24px;
+  font-size:25px;
 }
 
 .branch-name{
-  margin-top:8px;
-  font-size:17px;
+  margin-top:10px;
+  font-size:18px;
   font-weight:bold;
 }
 
@@ -40,53 +42,64 @@ header h1{
   margin:20px auto;
 }
 
-.card{
+.box{
   background:white;
-  border-radius:12px;
+  border-radius:14px;
   box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
-
-.top{
-  padding:18px;
-  margin-bottom:18px;
+  padding:20px;
+  margin-bottom:20px;
 }
 
 .title{
-  color:#1e3a8a;
-  font-size:22px;
+  font-size:23px;
   font-weight:bold;
+  color:#1e3a8a;
+  margin-bottom:18px;
 }
 
 .buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
-button,
 .btn{
   border:0;
-  padding:11px 17px;
-  border-radius:8px;
+  padding:14px;
+  border-radius:9px;
+  cursor:pointer;
   color:white;
   font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-  text-decoration:none;
+  font-size:16px;
 }
 
-.green{background:#15803d}
-.red{background:#dc2626}
-.blue{background:#1e3a8a}
-.gray{background:#64748b}
+.btn-in{
+  background:#15803d;
+}
+
+.btn-out{
+  background:#dc2626;
+}
+
+.btn-blue{
+  background:#1e3a8a;
+}
+
+.btn-orange{
+  background:#ea580c;
+}
+
+.btn-gray{
+  background:#64748b;
+}
 
 .message{
   display:none;
-  padding:14px;
+  padding:15px;
   margin-bottom:18px;
-  border-radius:8px;
+  border-radius:10px;
   font-weight:bold;
+  line-height:1.5;
 }
 
 .message.success{
@@ -101,23 +114,11 @@ button,
   color:#991b1b;
 }
 
-.branch-error{
+.form-box{
   display:none;
-  padding:16px;
-  background:#fee2e2;
-  color:#991b1b;
-  border-radius:8px;
-  margin-bottom:18px;
-  font-weight:bold;
 }
 
-.form{
-  display:none;
-  padding:20px;
-  margin-bottom:18px;
-}
-
-.form.show{
+.form-box.show{
   display:block;
 }
 
@@ -127,53 +128,84 @@ button,
   margin-bottom:18px;
 }
 
-.form-title.in{color:#15803d}
-.form-title.out{color:#dc2626}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:14px;
+.form-title.in{
+  color:#15803d;
 }
 
-.group{
+.form-title.out{
+  color:#dc2626;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.form-group{
   display:flex;
   flex-direction:column;
 }
 
-.group label{
+.form-group label{
   font-weight:bold;
-  margin-bottom:6px;
+  margin-bottom:7px;
 }
 
-.group input,
-.group select{
-  padding:11px;
-  border:1px solid #cbd5e1;
-  border-radius:7px;
-  font-size:15px;
+.form-group input,
+.form-group select{
   width:100%;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:15px;
+  background:white;
 }
 
 .readonly{
-  background:#f8fafc;
+  background:#f1f5f9 !important;
 }
 
-.actions{
+.submit-row{
   display:flex;
   gap:10px;
-  margin-top:18px;
+  margin-top:20px;
+}
+
+.save-btn{
+  border:0;
+  padding:12px 20px;
+  border-radius:8px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.save-in{
+  background:#15803d;
+}
+
+.save-out{
+  background:#dc2626;
+}
+
+.cancel{
+  background:#64748b;
 }
 
 .summary{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  grid-template-columns:repeat(4,1fr);
   gap:12px;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .summary-card{
+  background:white;
+  border-radius:12px;
   padding:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .summary-card span{
@@ -189,9 +221,11 @@ button,
   color:#1e3a8a;
 }
 
-.report{
+.report-box{
+  background:white;
+  border-radius:12px;
   overflow-x:auto;
-  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .report-title{
@@ -204,7 +238,7 @@ button,
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:850px;
+  min-width:900px;
 }
 
 th{
@@ -212,11 +246,13 @@ th{
   color:white;
   padding:12px;
   text-align:left;
+  white-space:nowrap;
 }
 
 td{
   padding:11px;
   border-bottom:1px solid #e2e8f0;
+  white-space:nowrap;
 }
 
 .item-row{
@@ -237,21 +273,23 @@ td{
   font-weight:bold;
 }
 
-.details{
+.details-box{
   display:none;
+  background:white;
+  border-radius:12px;
+  margin-top:20px;
   padding:18px;
-  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.details.show{
+.details-box.show{
   display:block;
 }
 
-.details-head{
+.details-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
   margin-bottom:15px;
 }
 
@@ -259,6 +297,15 @@ td{
   color:#1e3a8a;
   font-size:20px;
   font-weight:bold;
+}
+
+.close-btn{
+  border:0;
+  background:#64748b;
+  color:white;
+  padding:9px 14px;
+  border-radius:7px;
+  cursor:pointer;
 }
 
 .badge{
@@ -278,19 +325,26 @@ td{
   color:#991b1b;
 }
 
-@media(max-width:600px){
-  .actions{
+@media(max-width:700px){
+
+  header h1{
+    font-size:23px;
+  }
+
+  .buttons{
+    grid-template-columns:1fr;
+  }
+
+  .summary{
+    grid-template-columns:1fr;
+  }
+
+  .submit-row{
     flex-direction:column;
   }
 
-  .actions button{
+  .save-btn{
     width:100%;
-  }
-
-  .buttons .btn,
-  .buttons button{
-    width:100%;
-    text-align:center;
   }
 }
 </style>
@@ -299,406 +353,427 @@ td{
 <body>
 
 <header>
+
   <h1>AAFDRMC - STOCK MANAGEMENT</h1>
 
   <div id="branchName" class="branch-name">
     Loading Branch...
   </div>
+
 </header>
+
 
 <div class="container">
 
-  <!-- TOP -->
-  <div class="card top">
+<!-- =====================================================
+     MAIN MENU
+===================================================== -->
 
-    <div class="title">
-      📦 Stock Management
+<div class="box">
+
+  <div class="title">
+    📦 Stock Management
+  </div>
+
+  <div class="buttons">
+
+    <button
+      class="btn btn-in"
+      onclick="openForm('IN')">
+      ➕ Stock IN
+    </button>
+
+    <button
+      class="btn btn-out"
+      onclick="openForm('OUT')">
+      ➖ Stock OUT
+    </button>
+
+    <button
+      class="btn btn-blue"
+      onclick="loadStock()">
+      🔄 Refresh
+    </button>
+
+    <button
+      class="btn btn-orange"
+      onclick="goReports()">
+      📋 Stock Report
+    </button>
+
+    <button
+      class="btn btn-gray"
+      onclick="backToMenu()">
+      ⬅️ Back to Menu
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- MESSAGE -->
+
+<div id="message" class="message"></div>
+
+
+<!-- =====================================================
+     STOCK IN
+===================================================== -->
+
+<div id="stockInForm" class="box form-box">
+
+  <div class="form-title in">
+    🟢 STOCK IN — Meeshaa Galchuu
+  </div>
+
+  <div class="form-grid">
+
+    <div class="form-group">
+
+      <label>Item</label>
+
+      <select id="inItem">
+        <option value="">
+          -- Item filadhu --
+        </option>
+      </select>
+
     </div>
 
-    <div class="buttons">
 
-      <button
-        class="green"
-        onclick="openForm('IN')">
-        ➕ Stock IN
-      </button>
+    <div class="form-group">
 
-      <button
-        class="red"
-        onclick="openForm('OUT')">
-        ➖ Stock OUT
-      </button>
+      <label>Unit</label>
 
-      <button
-        class="blue"
-        onclick="loadStock()">
-        🔄 Refresh
-      </button>
+      <input
+        id="inUnit"
+        class="readonly"
+        readonly>
 
-      <a
-        href="dashboard.html"
-        class="btn gray">
-        ⬅️ Back to Menu
-      </a>
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Quantity</label>
+
+      <input
+        id="inQuantity"
+        type="number"
+        min="0.01"
+        step="any"
+        placeholder="Quantity">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Guyyaa itti gale</label>
+
+      <input
+        id="inDate"
+        type="datetime-local">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Nama galche</label>
+
+      <input
+        id="inEnteredBy"
+        type="text"
+        placeholder="Maqaa nama galche">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Expiry Date</label>
+
+      <input
+        id="inExpiryDate"
+        type="date">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Mallattoo</label>
+
+      <input
+        id="inSignature"
+        type="text"
+        placeholder="Mallattoo">
 
     </div>
 
   </div>
 
 
-  <!-- BRANCH ERROR -->
+  <div class="submit-row">
 
-  <div
-    id="branchError"
-    class="branch-error">
+    <button
+      class="save-btn save-in"
+      onclick="saveStock('IN')">
+      💾 Save Stock IN
+    </button>
 
-    ❌ Branch filatamuu hin jiru.
-
-    <br><br>
-
-    Mee gara Main Menu deebi'ii Branch filadhu.
-
-    <br><br>
-
-    <a
-      href="index.html"
-      class="btn blue">
-      🏠 Main Menu
-    </a>
+    <button
+      class="save-btn cancel"
+      onclick="closeForms()">
+      Cancel
+    </button>
 
   </div>
 
+</div>
 
-  <!-- MESSAGE -->
 
-  <div
-    id="message"
-    class="message">
+<!-- =====================================================
+     STOCK OUT
+===================================================== -->
+
+<div id="stockOutForm" class="box form-box">
+
+  <div class="form-title out">
+    🔴 STOCK OUT — Meeshaa Baasuu
   </div>
 
+  <div class="form-grid">
 
-  <!-- STOCK IN -->
+    <div class="form-group">
 
-  <div
-    id="stockInForm"
-    class="card form">
+      <label>Item</label>
 
-    <div class="form-title in">
-      🟢 STOCK IN — Meeshaa Galchuu
-    </div>
-
-    <div class="grid">
-
-      <div class="group">
-        <label>Item</label>
-
-        <select id="inItem">
-          <option value="">
-            -- Item filadhu --
-          </option>
-        </select>
-      </div>
-
-
-      <div class="group">
-        <label>Unit</label>
-
-        <input
-          id="inUnit"
-          class="readonly"
-          readonly>
-      </div>
-
-
-      <div class="group">
-        <label>Quantity</label>
-
-        <input
-          id="inQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity">
-      </div>
-
-
-      <div class="group">
-        <label>Guyyaa itti gale</label>
-
-        <input
-          id="inDate"
-          type="datetime-local">
-      </div>
-
-
-      <div class="group">
-        <label>Nama galche</label>
-
-        <input
-          id="inEnteredBy"
-          type="text"
-          placeholder="Maqaa nama galche">
-      </div>
-
-
-      <div class="group">
-        <label>Expiry Date</label>
-
-        <input
-          id="inExpiryDate"
-          type="date">
-      </div>
-
-
-      <div class="group">
-        <label>Mallattoo</label>
-
-        <input
-          id="inSignature"
-          type="text"
-          placeholder="Mallattoo">
-      </div>
+      <select id="outItem">
+        <option value="">
+          -- Item filadhu --
+        </option>
+      </select>
 
     </div>
 
 
-    <div class="actions">
+    <div class="form-group">
 
-      <button
-        class="green"
-        onclick="saveStock('IN')">
-        💾 Save Stock IN
-      </button>
+      <label>Unit</label>
 
-      <button
-        class="gray"
-        onclick="closeForms()">
-        Cancel
-      </button>
+      <input
+        id="outUnit"
+        class="readonly"
+        readonly>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Quantity</label>
+
+      <input
+        id="outQuantity"
+        type="number"
+        min="0.01"
+        step="any"
+        placeholder="Quantity">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Guyyaa itti bahe</label>
+
+      <input
+        id="outDate"
+        type="datetime-local">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Nama baase</label>
+
+      <input
+        id="outIssuedBy"
+        type="text"
+        placeholder="Maqaa nama baase">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Mallattoo</label>
+
+      <input
+        id="outSignature"
+        type="text"
+        placeholder="Mallattoo">
 
     </div>
 
   </div>
 
 
-  <!-- STOCK OUT -->
+  <div class="submit-row">
 
-  <div
-    id="stockOutForm"
-    class="card form">
+    <button
+      class="save-btn save-out"
+      onclick="saveStock('OUT')">
+      💾 Save Stock OUT
+    </button>
 
-    <div class="form-title out">
-      🔴 STOCK OUT — Meeshaa Baasuu
+    <button
+      class="save-btn cancel"
+      onclick="closeForms()">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
+
+<div class="summary">
+
+  <div class="summary-card">
+    <span>Total Items</span>
+    <strong id="totalItems">0</strong>
+  </div>
+
+  <div class="summary-card">
+    <span>Total Stock IN</span>
+    <strong id="totalIn">0</strong>
+  </div>
+
+  <div class="summary-card">
+    <span>Total Stock OUT</span>
+    <strong id="totalOut">0</strong>
+  </div>
+
+  <div class="summary-card">
+    <span>Current Balance</span>
+    <strong id="totalBalance">0</strong>
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     REPORT
+===================================================== -->
+
+<div class="report-box">
+
+  <div class="report-title">
+
+    📊 Stock Report —
+    <span id="reportBranch">
+      Branch
+    </span>
+
+  </div>
+
+  <table>
+
+    <thead>
+
+      <tr>
+        <th>No</th>
+        <th>Item</th>
+        <th>Unit</th>
+        <th>Stock IN</th>
+        <th>Stock OUT</th>
+        <th>Balance</th>
+        <th>Details</th>
+      </tr>
+
+    </thead>
+
+    <tbody id="reportTable">
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="text-align:center;padding:25px">
+
+          Loading...
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+
+<!-- =====================================================
+     DETAILS
+===================================================== -->
+
+<div id="detailsBox" class="details-box">
+
+  <div class="details-header">
+
+    <div
+      id="detailsTitle"
+      class="details-title">
     </div>
 
-    <div class="grid">
-
-      <div class="group">
-        <label>Item</label>
-
-        <select id="outItem">
-          <option value="">
-            -- Item filadhu --
-          </option>
-        </select>
-      </div>
-
-
-      <div class="group">
-        <label>Unit</label>
-
-        <input
-          id="outUnit"
-          class="readonly"
-          readonly>
-      </div>
-
-
-      <div class="group">
-        <label>Quantity</label>
-
-        <input
-          id="outQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity">
-      </div>
-
-
-      <div class="group">
-        <label>Guyyaa itti bahe</label>
-
-        <input
-          id="outDate"
-          type="datetime-local">
-      </div>
-
-
-      <div class="group">
-        <label>Nama baase</label>
-
-        <input
-          id="outIssuedBy"
-          type="text"
-          placeholder="Maqaa nama baase">
-      </div>
-
-
-      <div class="group">
-        <label>Mallattoo</label>
-
-        <input
-          id="outSignature"
-          type="text"
-          placeholder="Mallattoo">
-      </div>
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        class="red"
-        onclick="saveStock('OUT')">
-        💾 Save Stock OUT
-      </button>
-
-      <button
-        class="gray"
-        onclick="closeForms()">
-        Cancel
-      </button>
-
-    </div>
+    <button
+      class="close-btn"
+      onclick="closeDetails()">
+      ✖ Close
+    </button>
 
   </div>
 
 
-  <!-- SUMMARY -->
-
-  <div class="summary">
-
-    <div class="card summary-card">
-      <span>Total Items</span>
-      <strong id="totalItems">0</strong>
-    </div>
-
-    <div class="card summary-card">
-      <span>Total Stock IN</span>
-      <strong id="totalIn">0</strong>
-    </div>
-
-    <div class="card summary-card">
-      <span>Total Stock OUT</span>
-      <strong id="totalOut">0</strong>
-    </div>
-
-    <div class="card summary-card">
-      <span>Current Balance</span>
-      <strong id="totalBalance">0</strong>
-    </div>
-
-  </div>
-
-
-  <!-- REPORT -->
-
-  <div class="card report">
-
-    <div class="report-title">
-
-      📊 Stock Report —
-      <span id="reportBranch">
-        Branch
-      </span>
-
-    </div>
-
+  <div style="overflow-x:auto;">
 
     <table>
 
       <thead>
+
         <tr>
+
           <th>No</th>
-          <th>Item</th>
+          <th>Transaction</th>
+          <th>Quantity</th>
           <th>Unit</th>
-          <th>Opening</th>
-          <th>Stock IN</th>
-          <th>Stock OUT</th>
-          <th>Balance</th>
-          <th>Details</th>
+          <th>Guyyaa</th>
+          <th>Nama Galche</th>
+          <th>Nama Baase</th>
+          <th>Expiry Date</th>
+          <th>Mallattoo</th>
+
         </tr>
+
       </thead>
 
-      <tbody id="reportTable">
-
-        <tr>
-          <td
-            colspan="8"
-            style="text-align:center;padding:25px">
-            Loading...
-          </td>
-        </tr>
-
-      </tbody>
+      <tbody id="detailsTable"></tbody>
 
     </table>
 
   </div>
 
-
-  <!-- DETAILS -->
-
-  <div
-    id="detailsBox"
-    class="card details">
-
-    <div class="details-head">
-
-      <div
-        id="detailsTitle"
-        class="details-title">
-      </div>
-
-      <button
-        class="gray"
-        onclick="closeDetails()">
-        ✖ Close
-      </button>
-
-    </div>
-
-
-    <div style="overflow-x:auto">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>No</th>
-            <th>Transaction</th>
-            <th>Quantity</th>
-            <th>Unit</th>
-            <th>Guyyaa</th>
-            <th>Nama Galche</th>
-            <th>Nama Baase</th>
-            <th>Expiry</th>
-            <th>Mallattoo</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="detailsTable">
-        </tbody>
-
-      </table>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
@@ -717,12 +792,30 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   BRANCH VARIABLES
+   BRANCH
 ===================================================== */
 
-let CURRENT_BRANCH_ID = null;
+let CURRENT_BRANCH_ID =
+localStorage.getItem("selected_branch_id");
 
-let CURRENT_BRANCH_NAME = "Unknown Branch";
+let CURRENT_BRANCH_NAME =
+localStorage.getItem("selected_branch_name");
+
+
+/*
+   Yoo maqaan Branch qofa jiraate,
+   maqaa irraa Branch ID barbaaduuf
+   localStorage keessaa branch object
+   ilaalla.
+*/
+
+if(!CURRENT_BRANCH_NAME){
+
+  CURRENT_BRANCH_NAME =
+    localStorage.getItem("branch_name") ||
+    "Unknown Branch";
+
+}
 
 
 /* =====================================================
@@ -730,7 +823,6 @@ let CURRENT_BRANCH_NAME = "Unknown Branch";
 ===================================================== */
 
 let allItems = [];
-
 let allTransactions = [];
 
 
@@ -741,8 +833,7 @@ let allTransactions = [];
 function getHeaders(){
 
   const token =
-    localStorage.getItem("access_token") ||
-    sessionStorage.getItem("access_token");
+    localStorage.getItem("access_token");
 
   return {
 
@@ -761,7 +852,7 @@ function getHeaders(){
 
 
 /* =====================================================
-   ESCAPE
+   HTML ESCAPE
 ===================================================== */
 
 function escapeHTML(value){
@@ -777,109 +868,16 @@ function escapeHTML(value){
 
 
 /* =====================================================
-   BRANCH FINDER
-===================================================== */
-
-function getStoredValue(keys){
-
-  for(const key of keys){
-
-    let value =
-      localStorage.getItem(key);
-
-    if(value)
-      return value;
-
-    value =
-      sessionStorage.getItem(key);
-
-    if(value)
-      return value;
-
-  }
-
-  return null;
-
-}
-
-
-/* =====================================================
-   LOAD BRANCH
-===================================================== */
-
-function loadBranch(){
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-
-  /* URL */
-
-  const urlId =
-    params.get("branch_id");
-
-  const urlName =
-    params.get("branch_name");
-
-
-  /* STORAGE */
-
-  const storedId =
-    urlId ||
-
-    getStoredValue([
-      "selected_branch_id",
-      "current_branch_id",
-      "branch_id"
-    ]);
-
-
-  const storedName =
-    urlName ||
-
-    getStoredValue([
-      "selected_branch_name",
-      "current_branch_name",
-      "branch_name"
-    ]);
-
-
-  CURRENT_BRANCH_ID =
-    storedId || null;
-
-
-  CURRENT_BRANCH_NAME =
-    storedName ||
-    "Unknown Branch";
-
-
-  return !!CURRENT_BRANCH_ID;
-
-}
-
-
-/* =====================================================
-   CHECK BRANCH
+   BRANCH
 ===================================================== */
 
 function checkBranch(){
 
   const branchBox =
-    document.getElementById(
-      "branchName"
-    );
+    document.getElementById("branchName");
 
   const reportBranch =
-    document.getElementById(
-      "reportBranch"
-    );
-
-  const error =
-    document.getElementById(
-      "branchError"
-    );
+    document.getElementById("reportBranch");
 
 
   if(!CURRENT_BRANCH_ID){
@@ -889,9 +887,6 @@ function checkBranch(){
 
     reportBranch.textContent =
       "Branch hin jiru";
-
-    error.style.display =
-      "block";
 
     return false;
 
@@ -905,10 +900,6 @@ function checkBranch(){
 
   reportBranch.textContent =
     CURRENT_BRANCH_NAME;
-
-
-  error.style.display =
-    "none";
 
 
   return true;
@@ -926,14 +917,17 @@ async function loadItems(){
     return [];
 
 
+  /*
+     Tarkaanfii 1:
+     Items branch_id irratti barbaada.
+  */
+
   const url =
     SUPABASE_URL +
     "/rest/v1/items" +
     "?select=*" +
     "&branch_id=eq." +
-    encodeURIComponent(
-      CURRENT_BRANCH_ID
-    ) +
+    encodeURIComponent(CURRENT_BRANCH_ID) +
     "&order=id.asc";
 
 
@@ -948,11 +942,53 @@ async function loadItems(){
       );
 
 
-    if(!response.ok){
+    if(response.ok){
+
+      const data =
+        await response.json();
+
+      /*
+        Yoo item argame,
+        kallattiin deebisa.
+      */
+
+      if(Array.isArray(data) && data.length > 0){
+
+        return data;
+
+      }
+
+    }
+
+
+    /*
+      Yoo branch_id irratti item hin argamne,
+      items hunda fida.
+      Sana booda branch irratti
+      local filtering godha.
+    */
+
+    const allUrl =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?select=*" +
+      "&order=id.asc";
+
+
+    const allResponse =
+      await fetch(
+        allUrl,
+        {
+          headers:getHeaders()
+        }
+      );
+
+
+    if(!allResponse.ok){
 
       console.error(
-        "ITEM ERROR:",
-        await response.text()
+        "Items Error:",
+        await allResponse.text()
       );
 
       return [];
@@ -960,12 +996,47 @@ async function loadItems(){
     }
 
 
-    return await response.json();
+    const allData =
+      await allResponse.json();
+
+
+    /*
+      Yoo table keessatti branch_id jiraate
+      branch sirrii qofa filata.
+    */
+
+    if(
+      Array.isArray(allData) &&
+      allData.length > 0 &&
+      Object.prototype.hasOwnProperty.call(
+        allData[0],
+        "branch_id"
+      )
+    ){
+
+      return allData.filter(
+        item =>
+          String(item.branch_id) ===
+          String(CURRENT_BRANCH_ID)
+      );
+
+    }
+
+
+    /*
+      Yoo branch_id column hin jirre,
+      item hunda agarsiisa.
+      Kun Stock IN akka hojjetu taasisa.
+    */
+
+    return Array.isArray(allData)
+      ? allData
+      : [];
 
   }catch(error){
 
     console.error(
-      "ITEM ERROR:",
+      "Load Items Error:",
       error
     );
 
@@ -991,9 +1062,7 @@ async function loadTransactions(){
     "/rest/v1/stock_transactions" +
     "?select=*" +
     "&branch_id=eq." +
-    encodeURIComponent(
-      CURRENT_BRANCH_ID
-    ) +
+    encodeURIComponent(CURRENT_BRANCH_ID) +
     "&order=created_at.desc";
 
 
@@ -1011,7 +1080,7 @@ async function loadTransactions(){
     if(!response.ok){
 
       console.error(
-        "TRANSACTION ERROR:",
+        "Transaction Error:",
         await response.text()
       );
 
@@ -1020,12 +1089,18 @@ async function loadTransactions(){
     }
 
 
-    return await response.json();
+    const data =
+      await response.json();
+
+
+    return Array.isArray(data)
+      ? data
+      : [];
 
   }catch(error){
 
     console.error(
-      "TRANSACTION ERROR:",
+      "Transaction Error:",
       error
     );
 
@@ -1037,66 +1112,56 @@ async function loadTransactions(){
 
 
 /* =====================================================
-   ITEM LIST
+   FILL ITEM SELECT
 ===================================================== */
 
 function fillItemLists(){
 
   const inItem =
-    document.getElementById(
-      "inItem"
-    );
+    document.getElementById("inItem");
 
   const outItem =
-    document.getElementById(
-      "outItem"
-    );
+    document.getElementById("outItem");
 
 
-  inItem.innerHTML =
-  `<option value="">
-    -- Item filadhu --
-  </option>`;
+  inItem.innerHTML = `
+    <option value="">
+      -- Item filadhu --
+    </option>
+  `;
 
 
-  outItem.innerHTML =
-  `<option value="">
-    -- Item filadhu --
-  </option>`;
+  outItem.innerHTML = `
+    <option value="">
+      -- Item filadhu --
+    </option>
+  `;
 
 
   allItems.forEach(item => {
 
     const option1 =
-      document.createElement(
-        "option"
-      );
+      document.createElement("option");
 
 
     option1.value =
       item.id;
 
-
     option1.textContent =
       item.name || "Unnamed Item";
-
 
     option1.dataset.unit =
       item.unit || "";
 
 
-    inItem.appendChild(
-      option1
-    );
+    inItem.appendChild(option1);
 
 
     const option2 =
       option1.cloneNode(true);
 
 
-    outItem.appendChild(
-      option2
-    );
+    outItem.appendChild(option2);
 
   });
 
@@ -1104,12 +1169,12 @@ function fillItemLists(){
 
 
 /* =====================================================
-   UNIT
+   ITEM UNIT
 ===================================================== */
 
-document.getElementById(
-  "inItem"
-).addEventListener(
+document
+.getElementById("inItem")
+.addEventListener(
   "change",
   function(){
 
@@ -1118,18 +1183,16 @@ document.getElementById(
         this.selectedIndex
       ];
 
-    document.getElementById(
-      "inUnit"
-    ).value =
+    document.getElementById("inUnit").value =
       option?.dataset?.unit || "";
 
   }
 );
 
 
-document.getElementById(
-  "outItem"
-).addEventListener(
+document
+.getElementById("outItem")
+.addEventListener(
   "change",
   function(){
 
@@ -1138,9 +1201,7 @@ document.getElementById(
         this.selectedIndex
       ];
 
-    document.getElementById(
-      "outUnit"
-    ).value =
+    document.getElementById("outUnit").value =
       option?.dataset?.unit || "";
 
   }
@@ -1148,7 +1209,7 @@ document.getElementById(
 
 
 /* =====================================================
-   DEFAULT DATE
+   DATE
 ===================================================== */
 
 function setDefaultDates(){
@@ -1156,24 +1217,21 @@ function setDefaultDates(){
   const now =
     new Date();
 
-
   const local =
     new Date(
-      now.getTime() -
-      now.getTimezoneOffset()*60000
+      now.getTime()
+      -
+      now.getTimezoneOffset() * 60000
     )
     .toISOString()
     .slice(0,16);
 
 
-  document.getElementById(
-    "inDate"
-  ).value = local;
+  document.getElementById("inDate").value =
+    local;
 
-
-  document.getElementById(
-    "outDate"
-  ).value = local;
+  document.getElementById("outDate").value =
+    local;
 
 }
 
@@ -1187,17 +1245,19 @@ function openForm(type){
   closeForms();
 
 
-  loadBranch();
-
-
   if(!checkBranch())
     return;
 
 
+  /*
+     Amma Item yoo hin jirre,
+     user'aa ifatti ibsa.
+  */
+
   if(allItems.length === 0){
 
     showMessage(
-      "❌ Items page keessatti branch kanaaf Item hin jiru.",
+      "❌ Item hin jiru. Mee Items page irraa Item tokko dura galchi.",
       "error"
     );
 
@@ -1208,22 +1268,18 @@ function openForm(type){
 
   if(type === "IN"){
 
-    document.getElementById(
-      "stockInForm"
-    ).classList.add(
-      "show"
-    );
+    document
+      .getElementById("stockInForm")
+      .classList.add("show");
 
   }
 
 
   if(type === "OUT"){
 
-    document.getElementById(
-      "stockOutForm"
-    ).classList.add(
-      "show"
-    );
+    document
+      .getElementById("stockOutForm")
+      .classList.add("show");
 
   }
 
@@ -1231,23 +1287,18 @@ function openForm(type){
 
 
 /* =====================================================
-   CLOSE FORMS
+   CLOSE FORM
 ===================================================== */
 
 function closeForms(){
 
-  document.getElementById(
-    "stockInForm"
-  ).classList.remove(
-    "show"
-  );
+  document
+    .getElementById("stockInForm")
+    .classList.remove("show");
 
-
-  document.getElementById(
-    "stockOutForm"
-  ).classList.remove(
-    "show"
-  );
+  document
+    .getElementById("stockOutForm")
+    .classList.remove("show");
 
 }
 
@@ -1256,15 +1307,10 @@ function closeForms(){
    MESSAGE
 ===================================================== */
 
-function showMessage(
-  text,
-  type
-){
+function showMessage(text,type){
 
   const box =
-    document.getElementById(
-      "message"
-    );
+    document.getElementById("message");
 
 
   box.textContent =
@@ -1272,83 +1318,21 @@ function showMessage(
 
 
   box.className =
-    "message " +
-    type;
+    "message " + type;
 
 
-  setTimeout(
-    ()=>{
-      box.className =
-        "message";
-    },
-    5000
-  );
-
-}
-
-
-/* =====================================================
-   ITEM BALANCE
-===================================================== */
-
-function getItemBalance(itemId){
-
-  const item =
-    allItems.find(
-      i =>
-        String(i.id) ===
-        String(itemId)
-    );
-
-
-  const opening =
-    Number(
-      item?.quantity || 0
-    );
-
-
-  let totalIn = 0;
-
-  let totalOut = 0;
-
-
-  allTransactions.forEach(t => {
-
-    if(
-      String(t.item_id) !==
-      String(itemId)
-    )
-      return;
-
-
-    const q =
-      Number(
-        t.quantity || 0
-      );
-
-
-    const type =
-      String(
-        t.transaction_type ||
-        t.transaction ||
-        ""
-      ).toUpperCase();
-
-
-    if(type === "IN")
-      totalIn += q;
-
-
-    if(type === "OUT")
-      totalOut += q;
-
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
   });
 
 
-  return (
-    opening +
-    totalIn -
-    totalOut
+  setTimeout(
+    () => {
+      box.className =
+        "message";
+    },
+    6000
   );
 
 }
@@ -1360,27 +1344,17 @@ function getItemBalance(itemId){
 
 async function saveStock(type){
 
-  loadBranch();
-
-
   if(!checkBranch())
     return;
 
 
   let itemId = "";
-
   let quantity = 0;
-
   let unit = "";
-
   let enteredBy = "";
-
   let issuedBy = "";
-
   let expiryDate = null;
-
   let transactionDate = "";
-
   let signature = "";
 
 
@@ -1389,48 +1363,32 @@ async function saveStock(type){
   if(type === "IN"){
 
     itemId =
-      document.getElementById(
-        "inItem"
-      ).value;
-
+      document.getElementById("inItem").value;
 
     quantity =
       Number(
-        document.getElementById(
-          "inQuantity"
-        ).value
+        document.getElementById("inQuantity").value
       );
 
-
     unit =
-      document.getElementById(
-        "inUnit"
-      ).value;
-
-
-    transactionDate =
-      document.getElementById(
-        "inDate"
-      ).value;
-
+      document.getElementById("inUnit").value;
 
     enteredBy =
-      document.getElementById(
-        "inEnteredBy"
-      ).value.trim();
-
+      document.getElementById("inEnteredBy")
+      .value
+      .trim();
 
     expiryDate =
-      document.getElementById(
-        "inExpiryDate"
-      ).value ||
-      null;
+      document.getElementById("inExpiryDate")
+      .value || null;
 
+    transactionDate =
+      document.getElementById("inDate").value;
 
     signature =
-      document.getElementById(
-        "inSignature"
-      ).value.trim();
+      document.getElementById("inSignature")
+      .value
+      .trim();
 
   }
 
@@ -1440,41 +1398,28 @@ async function saveStock(type){
   if(type === "OUT"){
 
     itemId =
-      document.getElementById(
-        "outItem"
-      ).value;
-
+      document.getElementById("outItem").value;
 
     quantity =
       Number(
-        document.getElementById(
-          "outQuantity"
-        ).value
+        document.getElementById("outQuantity").value
       );
 
-
     unit =
-      document.getElementById(
-        "outUnit"
-      ).value;
-
-
-    transactionDate =
-      document.getElementById(
-        "outDate"
-      ).value;
-
+      document.getElementById("outUnit").value;
 
     issuedBy =
-      document.getElementById(
-        "outIssuedBy"
-      ).value.trim();
+      document.getElementById("outIssuedBy")
+      .value
+      .trim();
 
+    transactionDate =
+      document.getElementById("outDate").value;
 
     signature =
-      document.getElementById(
-        "outSignature"
-      ).value.trim();
+      document.getElementById("outSignature")
+      .value
+      .trim();
 
   }
 
@@ -1517,10 +1462,7 @@ async function saveStock(type){
   }
 
 
-  if(
-    type === "IN" &&
-    !enteredBy
-  ){
+  if(type === "IN" && !enteredBy){
 
     showMessage(
       "❌ Nama galche galchi.",
@@ -1532,10 +1474,7 @@ async function saveStock(type){
   }
 
 
-  if(
-    type === "OUT" &&
-    !issuedBy
-  ){
+  if(type === "OUT" && !issuedBy){
 
     showMessage(
       "❌ Nama baase galchi.",
@@ -1546,8 +1485,6 @@ async function saveStock(type){
 
   }
 
-
-  /* ITEM CHECK */
 
   const item =
     allItems.find(
@@ -1560,7 +1497,7 @@ async function saveStock(type){
   if(!item){
 
     showMessage(
-      "❌ Item branch kana keessatti hin argamne.",
+      "❌ Item hin argamne.",
       "error"
     );
 
@@ -1569,14 +1506,12 @@ async function saveStock(type){
   }
 
 
-  /* OUT BALANCE CHECK */
+  /* CHECK BALANCE */
 
   if(type === "OUT"){
 
     const balance =
-      getItemBalance(
-        itemId
-      );
+      getItemBalance(itemId);
 
 
     if(quantity > balance){
@@ -1610,7 +1545,7 @@ async function saveStock(type){
       quantity,
 
     unit:
-      unit || null,
+      unit,
 
     transaction:
       type,
@@ -1642,16 +1577,13 @@ async function saveStock(type){
 
     const response =
       await fetch(
-
         SUPABASE_URL +
         "/rest/v1/stock_transactions",
-
         {
           method:"POST",
 
           headers:{
             ...getHeaders(),
-
             "Prefer":
               "return=representation"
           },
@@ -1659,7 +1591,6 @@ async function saveStock(type){
           body:
             JSON.stringify(data)
         }
-
       );
 
 
@@ -1674,7 +1605,6 @@ async function saveStock(type){
         result
       );
 
-
       showMessage(
         "❌ Save hin milkoofne: " +
         result,
@@ -1687,19 +1617,10 @@ async function saveStock(type){
 
 
     showMessage(
-
       type === "IN"
-
-      ?
-
-      "✅ Stock IN sirriitti galmaa'e."
-
-      :
-
-      "✅ Stock OUT sirriitti galmaa'e.",
-
+        ? "✅ Stock IN sirriitti galmaa'e."
+        : "✅ Stock OUT sirriitti galmaa'e.",
       "success"
-
     );
 
 
@@ -1715,7 +1636,6 @@ async function saveStock(type){
       error
     );
 
-
     showMessage(
       "❌ Network error. Internet kee ilaali.",
       "error"
@@ -1727,66 +1647,152 @@ async function saveStock(type){
 
 
 /* =====================================================
-   CLEAR
+   BALANCE
+===================================================== */
+
+function getItemBalance(itemId){
+
+  let totalIn = 0;
+  let totalOut = 0;
+
+
+  allTransactions.forEach(t => {
+
+    if(
+      String(t.item_id) !==
+      String(itemId)
+    )
+      return;
+
+
+    const quantity =
+      Number(t.quantity || 0);
+
+
+    const type =
+      String(
+        t.transaction_type ||
+        t.transaction ||
+        ""
+      ).toUpperCase();
+
+
+    if(type === "IN")
+      totalIn += quantity;
+
+
+    if(type === "OUT")
+      totalOut += quantity;
+
+  });
+
+
+  const item =
+    allItems.find(
+      i =>
+        String(i.id) ===
+        String(itemId)
+    );
+
+
+  /*
+     Items page irraa opening quantity.
+  */
+
+  const opening =
+    Number(
+      item?.quantity || 0
+    );
+
+
+  return (
+    opening +
+    totalIn -
+    totalOut
+  );
+
+}
+
+
+/* =====================================================
+   CLEAR FORM
 ===================================================== */
 
 function clearForm(type){
 
   if(type === "IN"){
 
-    document.getElementById(
-      "inItem"
-    ).value = "";
-
-    document.getElementById(
-      "inUnit"
-    ).value = "";
-
-    document.getElementById(
-      "inQuantity"
-    ).value = "";
-
-    document.getElementById(
-      "inEnteredBy"
-    ).value = "";
-
-    document.getElementById(
-      "inExpiryDate"
-    ).value = "";
-
-    document.getElementById(
-      "inSignature"
-    ).value = "";
+    document.getElementById("inItem").value="";
+    document.getElementById("inUnit").value="";
+    document.getElementById("inQuantity").value="";
+    document.getElementById("inEnteredBy").value="";
+    document.getElementById("inExpiryDate").value="";
+    document.getElementById("inSignature").value="";
 
   }
 
 
   if(type === "OUT"){
 
-    document.getElementById(
-      "outItem"
-    ).value = "";
-
-    document.getElementById(
-      "outUnit"
-    ).value = "";
-
-    document.getElementById(
-      "outQuantity"
-    ).value = "";
-
-    document.getElementById(
-      "outIssuedBy"
-    ).value = "";
-
-    document.getElementById(
-      "outSignature"
-    ).value = "";
+    document.getElementById("outItem").value="";
+    document.getElementById("outUnit").value="";
+    document.getElementById("outQuantity").value="";
+    document.getElementById("outIssuedBy").value="";
+    document.getElementById("outSignature").value="";
 
   }
 
 
   setDefaultDates();
+
+}
+
+
+/* =====================================================
+   LOAD STOCK
+===================================================== */
+
+async function loadStock(){
+
+  if(!checkBranch())
+    return;
+
+
+  showMessage(
+    "🔄 Stock fi Items loading...",
+    "success"
+  );
+
+
+  allItems =
+    await loadItems();
+
+
+  allTransactions =
+    await loadTransactions();
+
+
+  fillItemLists();
+
+  showReport();
+
+  setDefaultDates();
+
+
+  /*
+     User'aa odeeffannoo ifa ta'e.
+  */
+
+  if(allItems.length === 0){
+
+    showMessage(
+      "⚠️ Branch " +
+      CURRENT_BRANCH_NAME +
+      " keessatti Item hin argamne. Mee Items page irraa Item galchi.",
+      "error"
+    );
+
+  }
 
 }
 
@@ -1822,11 +1828,14 @@ function buildReport(){
 
         itemIds:[],
 
-        opening:0,
-
         in:0,
 
-        out:0
+        out:0,
+
+        opening:
+          Number(
+            item.quantity || 0
+          )
 
       };
 
@@ -1836,12 +1845,6 @@ function buildReport(){
     groups[key].itemIds.push(
       item.id
     );
-
-
-    groups[key].opening +=
-      Number(
-        item.quantity || 0
-      );
 
   });
 
@@ -1868,14 +1871,30 @@ function buildReport(){
       .toLowerCase();
 
 
-    if(!groups[key])
-      return;
+    if(!groups[key]){
+
+      groups[key] = {
+
+        name:item.name || "",
+
+        unit:item.unit || "",
+
+        itemIds:[],
+
+        in:0,
+
+        out:0,
+
+        opening:
+          Number(item.quantity || 0)
+
+      };
+
+    }
 
 
-    const q =
-      Number(
-        t.quantity || 0
-      );
+    const quantity =
+      Number(t.quantity || 0);
 
 
     const type =
@@ -1887,18 +1906,16 @@ function buildReport(){
 
 
     if(type === "IN")
-      groups[key].in += q;
+      groups[key].in += quantity;
 
 
     if(type === "OUT")
-      groups[key].out += q;
+      groups[key].out += quantity;
 
   });
 
 
-  return Object.values(
-    groups
-  );
+  return Object.values(groups);
 
 }
 
@@ -1923,9 +1940,7 @@ function showReport(){
 
 
   let totalIn = 0;
-
   let totalOut = 0;
-
   let totalOpening = 0;
 
 
@@ -1936,8 +1951,8 @@ function showReport(){
       <tr>
 
         <td
-          colspan="8"
-          style="text-align:center;padding:25px">
+          colspan="7"
+          style="text-align:center;padding:30px">
 
           📦 Item hin jiru.
 
@@ -1962,19 +1977,15 @@ function showReport(){
       totalOpening +=
         group.opening;
 
-
       totalIn +=
         group.in;
-
 
       totalOut +=
         group.out;
 
 
       const row =
-        document.createElement(
-          "tr"
-        );
+        document.createElement("tr");
 
 
       row.className =
@@ -1996,20 +2007,12 @@ function showReport(){
 
         <td>
           <strong>
-            ${escapeHTML(
-              group.name
-            )}
+            ${escapeHTML(group.name)}
           </strong>
         </td>
 
         <td>
-          ${escapeHTML(
-            group.unit
-          )}
-        </td>
-
-        <td>
-          ${group.opening.toLocaleString()}
+          ${escapeHTML(group.unit)}
         </td>
 
         <td>
@@ -2031,9 +2034,7 @@ function showReport(){
       `;
 
 
-      table.appendChild(
-        row
-      );
+      table.appendChild(row);
 
     }
   );
@@ -2084,11 +2085,9 @@ function showItemDetails(itemName){
   const items =
     allItems.filter(
       item =>
-        String(
-          item.name || ""
-        )
-        .trim()
-        .toLowerCase()
+        String(item.name || "")
+          .trim()
+          .toLowerCase()
         === normalized
     );
 
@@ -2178,9 +2177,7 @@ function showItemDetails(itemName){
 
 
       const row =
-        document.createElement(
-          "tr"
-        );
+        document.createElement("tr");
 
 
       row.innerHTML = `
@@ -2223,30 +2220,25 @@ function showItemDetails(itemName){
 
         <td>
           ${escapeHTML(
-            formatDate(
-              t.created_at
-            )
+            formatDate(t.created_at)
           )}
         </td>
 
         <td>
           ${escapeHTML(
-            t.entered_by ||
-            "—"
+            t.entered_by || "—"
           )}
         </td>
 
         <td>
           ${escapeHTML(
-            t.issued_by ||
-            "—"
+            t.issued_by || "—"
           )}
         </td>
 
         <td>
           ${escapeHTML(
-            t.expiry_date ||
-            "—"
+            t.expiry_date || "—"
           )}
         </td>
 
@@ -2254,9 +2246,7 @@ function showItemDetails(itemName){
           ${
             t.signature
             ? "✍️ " +
-              escapeHTML(
-                t.signature
-              )
+              escapeHTML(t.signature)
             : "—"
           }
         </td>
@@ -2264,17 +2254,13 @@ function showItemDetails(itemName){
       `;
 
 
-      table.appendChild(
-        row
-      );
+      table.appendChild(row);
 
     }
   );
 
 
-  box.classList.add(
-    "show"
-  );
+  box.classList.add("show");
 
 
   box.scrollIntoView({
@@ -2286,7 +2272,7 @@ function showItemDetails(itemName){
 
 
 /* =====================================================
-   DATE
+   DATE FORMAT
 ===================================================== */
 
 function formatDate(value){
@@ -2318,64 +2304,33 @@ function formatDate(value){
 
 function closeDetails(){
 
-  document.getElementById(
-    "detailsBox"
-  ).classList.remove(
-    "show"
-  );
+  document
+    .getElementById("detailsBox")
+    .classList.remove("show");
 
 }
 
 
 /* =====================================================
-   LOAD STOCK
+   BACK TO MENU
 ===================================================== */
 
-async function loadStock(){
+function backToMenu(){
 
-  loadBranch();
+  window.location.href =
+    "dashboard.html";
 
-
-  if(!checkBranch())
-    return;
-
-
-  const table =
-    document.getElementById(
-      "reportTable"
-    );
+}
 
 
-  table.innerHTML = `
+/* =====================================================
+   REPORT
+===================================================== */
 
-    <tr>
+function goReports(){
 
-      <td
-        colspan="8"
-        style="text-align:center;padding:25px">
-
-        ⏳ Loading...
-
-      </td>
-
-    </tr>
-
-  `;
-
-
-  allItems =
-    await loadItems();
-
-
-  allTransactions =
-    await loadTransactions();
-
-
-  fillItemLists();
-
-  showReport();
-
-  setDefaultDates();
+  window.location.href =
+    "reports.html";
 
 }
 
@@ -2384,11 +2339,17 @@ async function loadStock(){
    START
 ===================================================== */
 
-loadBranch();
+window.addEventListener(
+  "DOMContentLoaded",
+  async function(){
 
-checkBranch();
+    if(!checkBranch())
+      return;
 
-loadStock();
+    await loadStock();
+
+  }
+);
 
 </script>
 
