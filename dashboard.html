@@ -7,10 +7,7 @@
 <title>AAFDRMC - Dashboard</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -77,37 +74,14 @@ header h1{
   display:block;
 }
 
-.items{
-  background:#15803d;
-}
-
-.stock{
-  background:#dc2626;
-}
-
-.report{
-  background:#ea580c;
-}
-
-.category{
-  background:#7c3aed;
-}
-
-.settings{
-  background:#475569;
-}
-
-.refresh{
-  background:#1e3a8a;
-}
-
-.menu{
-  background:#64748b;
-}
-
-.logout{
-  background:#991b1b;
-}
+.items{background:#15803d}
+.stock{background:#dc2626}
+.report{background:#ea580c}
+.category{background:#7c3aed}
+.settings{background:#475569}
+.refresh{background:#1e3a8a}
+.menu{background:#64748b}
+.logout{background:#991b1b}
 
 .summary{
   display:grid;
@@ -189,7 +163,6 @@ header h1{
   }
 
 }
-
 </style>
 </head>
 
@@ -197,89 +170,79 @@ header h1{
 
 <header>
 
-  <h1>
-    AAFDRMC - STOCK MANAGEMENT
-  </h1>
+<h1>
+AAFDRMC - STOCK MANAGEMENT
+</h1>
 
-  <div
-    id="branchName"
-    class="branch">
-    Loading Branch...
-  </div>
+<div id="branchName" class="branch">
+Loading Branch...
+</div>
 
 </header>
 
-
 <div class="container">
 
-
-<!-- MESSAGE -->
-
-<div
-  id="message"
-  class="message">
-</div>
-
+<div id="message" class="message"></div>
 
 <!-- MAIN MENU -->
 
 <div class="card">
 
-  <div class="title">
-    📊 Dashboard
-  </div>
+<div class="title">
+📊 Dashboard
+</div>
 
-  <div class="menu-grid">
+<div class="menu-grid">
 
-    <a
-      href="items.html"
-      class="btn items">
-      📦 Items
-    </a>
+<a
+href="items.html"
+class="btn items">
+📦 Items
+</a>
 
-    <a
-      href="stock.html"
-      class="btn stock">
-      📥 Stock IN / OUT
-    </a>
+<a
+href="stock.html"
+class="btn stock">
+📥 Stock IN / OUT
+</a>
 
-    <a
-      href="reports.html"
-      class="btn report">
-      📊 Stock Report
-    </a>
+<a
+href="reports.html"
+class="btn report">
+📊 Stock Report
+</a>
 
-    <a
-      href="category.html"
-      class="btn category">
-      🗂️ Categories
-    </a>
+<a
+href="category.html"
+class="btn category">
+🗂️ Categories
+</a>
 
-    <a
-      href="settings.html"
-      class="btn settings">
-      ⚙️ Settings
-    </a>
+<a
+href="settings.html"
+class="btn settings">
+⚙️ Settings
+</a>
 
-    <button
-      class="btn refresh"
-      onclick="loadDashboard()">
-      🔄 Refresh
-    </button>
+<button
+class="btn refresh"
+onclick="loadDashboard()">
+🔄 Refresh
+</button>
 
-    <a
-      href="index.html"
-      class="btn menu">
-      ⬅️ Main Menu
-    </a>
+<a
+href="index.html"
+class="btn menu">
+⬅️ Main Menu
+</a>
 
-    <button
-      class="btn logout"
-      onclick="logout()">
-      🚪 Logout
-    </button>
+<button
+class="btn logout"
+onclick="logout()">
+🚪 Logout
+</button>
 
-  </div>
+</div>
 
 </div>
 
@@ -288,59 +251,58 @@ header h1{
 
 <div class="summary">
 
-  <div class="summary-card">
+<div class="summary-card">
 
-    <span>
-      📦 Total Items
-    </span>
+<span>
+📦 Total Items
+</span>
 
-    <strong id="totalItems">
-      0
-    </strong>
-
-  </div>
-
-
-  <div class="summary-card">
-
-    <span>
-      🟢 Stock IN
-    </span>
-
-    <strong id="totalIn">
-      0
-    </strong>
-
-  </div>
-
-
-  <div class="summary-card">
-
-    <span>
-      🔴 Stock OUT
-    </span>
-
-    <strong id="totalOut">
-      0
-    </strong>
-
-  </div>
-
-
-  <div class="summary-card">
-
-    <span>
-      📊 Current Balance
-    </span>
-
-    <strong id="balance">
-      0
-    </strong>
-
-  </div>
+<strong id="totalItems">
+0
+</strong>
 
 </div>
 
+
+<div class="summary-card">
+
+<span>
+🟢 Stock IN
+</span>
+
+<strong id="totalIn">
+0
+</strong>
+
+</div>
+
+
+<div class="summary-card">
+
+<span>
+🔴 Stock OUT
+</span>
+
+<strong id="totalOut">
+0
+</strong>
+
+</div>
+
+
+<div class="summary-card">
+
+<span>
+📊 Current Balance
+</span>
+
+<strong id="balance">
+0
+</strong>
+
+</div>
+
+</div>
 
 </div>
 
@@ -364,12 +326,12 @@ const SUPABASE_KEY =
 
 const branchId =
 localStorage.getItem(
-  "selected_branch_id"
+"selected_branch_id"
 );
 
 const branchName =
 localStorage.getItem(
-  "selected_branch_name"
+"selected_branch_name"
 );
 
 
@@ -379,61 +341,58 @@ localStorage.getItem(
 
 function getHeaders(){
 
-  const token =
-    localStorage.getItem(
-      "access_token"
-    );
+const token =
+localStorage.getItem(
+"access_token"
+);
 
-  return {
+return {
 
-    "apikey":
-      SUPABASE_KEY,
+"apikey":
+SUPABASE_KEY,
 
-    "Authorization":
-      "Bearer " +
-      (token || SUPABASE_KEY),
+"Authorization":
+"Bearer " +
+(token || SUPABASE_KEY),
 
-    "Content-Type":
-      "application/json"
+"Content-Type":
+"application/json"
 
-  };
+};
 
 }
 
 
 /* =====================================================
-   BRANCH DISPLAY
+   BRANCH
 ===================================================== */
 
 function showBranch(){
 
-  const box =
-    document.getElementById(
-      "branchName"
-    );
+const box =
+document.getElementById(
+"branchName"
+);
 
-  if(
-    branchId &&
-    branchName
-  ){
+if(branchId && branchName){
 
-    box.textContent =
-      "🏢 Branch: " +
-      branchName;
+box.textContent =
+"🏢 Branch: " +
+branchName;
 
-    return true;
+return true;
 
-  }
+}
 
-  box.textContent =
-    "⚠️ Branch hin filatamne";
+box.textContent =
+"⚠️ Branch hin filatamne";
 
-  showMessage(
-    "❌ Mee gara Main Menu deebi'ii Branch filadhu.",
-    "error"
-  );
+showMessage(
+"❌ Mee gara Main Menu deebi'ii Branch filadhu.",
+"error"
+);
 
-  return false;
+return false;
 
 }
 
@@ -442,22 +401,19 @@ function showBranch(){
    MESSAGE
 ===================================================== */
 
-function showMessage(
-  text,
-  type
-){
+function showMessage(text,type){
 
-  const box =
-    document.getElementById(
-      "message"
-    );
+const box =
+document.getElementById(
+"message"
+);
 
-  box.textContent =
-    text;
+box.textContent =
+text;
 
-  box.className =
-    "message show " +
-    type;
+box.className =
+"message show " +
+type;
 
 }
 
@@ -468,46 +424,55 @@ function showMessage(
 
 async function loadItems(){
 
-  if(!branchId)
-    return [];
+if(!branchId)
+return [];
 
-  try{
+try{
 
-    const url =
-      SUPABASE_URL +
-      "/rest/v1/items" +
-      "?select=*" +
-      "&branch_id=eq." +
-      encodeURIComponent(branchId);
+const url =
+SUPABASE_URL +
+"/rest/v1/items" +
+"?select=*" +
+"&branch_id=eq." +
+encodeURIComponent(branchId) +
+"&order=id.asc";
 
-    const response =
-      await fetch(
-        url,
-        {
-          headers:
-            getHeaders()
-        }
-      );
+const response =
+await fetch(
+url,
+{
+headers:getHeaders()
+}
+);
 
-    if(!response.ok){
+if(!response.ok){
 
-      console.error(
-        await response.text()
-      );
+console.error(
+"Items Error:",
+await response.text()
+);
 
-      return [];
+return [];
 
-    }
+}
 
-    return await response.json();
+const data =
+await response.json();
 
-  }catch(error){
+return Array.isArray(data)
+? data
+: [];
 
-    console.error(error);
+}catch(error){
 
-    return [];
+console.error(
+"Items Error:",
+error
+);
 
-  }
+return [];
+
+}
 
 }
 
@@ -518,174 +483,169 @@ async function loadItems(){
 
 async function loadTransactions(){
 
-  if(!branchId)
-    return [];
+if(!branchId)
+return [];
 
-  try{
+try{
 
-    const url =
-      SUPABASE_URL +
-      "/rest/v1/stock_transactions" +
-      "?select=*" +
-      "&branch_id=eq." +
-      encodeURIComponent(branchId);
+const url =
+SUPABASE_URL +
+"/rest/v1/stock_transactions" +
+"?select=*" +
+"&branch_id=eq." +
+encodeURIComponent(branchId) +
+"&order=entered_at.desc";
 
-    const response =
-      await fetch(
-        url,
-        {
-          headers:
-            getHeaders()
-        }
-      );
+const response =
+await fetch(
+url,
+{
+headers:getHeaders()
+}
+);
 
-    if(!response.ok){
+if(!response.ok){
 
-      console.error(
-        await response.text()
-      );
+console.error(
+"Transaction Error:",
+await response.text()
+);
 
-      return [];
+return [];
 
-    }
+}
 
-    return await response.json();
+const data =
+await response.json();
 
-  }catch(error){
+return Array.isArray(data)
+? data
+: [];
 
-    console.error(error);
+}catch(error){
 
-    return [];
+console.error(
+"Transaction Error:",
+error
+);
 
-  }
+return [];
+
+}
 
 }
 
 
 /* =====================================================
-   DASHBOARD
+   LOAD DASHBOARD
 ===================================================== */
 
 async function loadDashboard(){
 
-  if(!showBranch())
-    return;
-
-  document.getElementById(
-    "totalItems"
-  ).textContent =
-    "...";
-
-  document.getElementById(
-    "totalIn"
-  ).textContent =
-    "...";
-
-  document.getElementById(
-    "totalOut"
-  ).textContent =
-    "...";
-
-  document.getElementById(
-    "balance"
-  ).textContent =
-    "...";
+if(!showBranch())
+return;
 
 
-  const items =
-    await loadItems();
+document.getElementById(
+"totalItems"
+).textContent="...";
 
-  const transactions =
-    await loadTransactions();
+document.getElementById(
+"totalIn"
+).textContent="...";
 
+document.getElementById(
+"totalOut"
+).textContent="...";
 
-  let totalIn = 0;
-
-  let totalOut = 0;
-
-
-  transactions.forEach(
-    t => {
-
-      const quantity =
-        Number(
-          t.quantity || 0
-        );
-
-      const type =
-        String(
-          t.transaction_type ||
-          t.transaction ||
-          ""
-        ).toUpperCase();
+document.getElementById(
+"balance"
+).textContent="...";
 
 
-      if(type === "IN"){
+const items =
+await loadItems();
 
-        totalIn += quantity;
-
-      }
-
-
-      if(type === "OUT"){
-
-        totalOut += quantity;
-
-      }
-
-    }
-  );
+const transactions =
+await loadTransactions();
 
 
-  /*
-    Items page irratti
-    opening quantity yoo jiraate
-    balance keessatti dabala.
-  */
-
-  let openingStock = 0;
+let totalIn=0;
+let totalOut=0;
 
 
-  items.forEach(
-    item => {
+transactions.forEach(t=>{
 
-      openingStock +=
-        Number(
-          item.quantity || 0
-        );
-
-    }
-  );
+const quantity =
+Number(t.quantity || 0);
 
 
-  const currentBalance =
-    openingStock +
-    totalIn -
-    totalOut;
+/*
+  DATABASE COLUMNS:
+  transction_type
+  trasctin
+*/
+
+const type =
+String(
+t.transction_type ||
+t.trasctin ||
+""
+).trim().toUpperCase();
 
 
-  document.getElementById(
-    "totalItems"
-  ).textContent =
-    items.length;
+if(type==="IN")
+totalIn += quantity;
 
 
-  document.getElementById(
-    "totalIn"
-  ).textContent =
-    totalIn.toLocaleString();
+if(type==="OUT")
+totalOut += quantity;
+
+});
 
 
-  document.getElementById(
-    "totalOut"
-  ).textContent =
-    totalOut.toLocaleString();
+/* OPENING STOCK */
+
+let openingStock=0;
+
+items.forEach(item=>{
+
+openingStock +=
+Number(
+item.quantity || 0
+);
+
+});
 
 
-  document.getElementById(
-    "balance"
-  ).textContent =
-    currentBalance.toLocaleString();
+const currentBalance =
+openingStock +
+totalIn -
+totalOut;
+
+
+document.getElementById(
+"totalItems"
+).textContent =
+items.length.toLocaleString();
+
+
+document.getElementById(
+"totalIn"
+).textContent =
+totalIn.toLocaleString();
+
+
+document.getElementById(
+"totalOut"
+).textContent =
+totalOut.toLocaleString();
+
+
+document.getElementById(
+"balance"
+).textContent =
+currentBalance.toLocaleString();
 
 }
 
@@ -696,20 +656,24 @@ async function loadDashboard(){
 
 function logout(){
 
-  localStorage.removeItem(
-    "access_token"
-  );
+localStorage.removeItem(
+"access_token"
+);
 
-  localStorage.removeItem(
-    "selected_branch_id"
-  );
+localStorage.removeItem(
+"selected_branch_id"
+);
 
-  localStorage.removeItem(
-    "selected_branch_name"
-  );
+localStorage.removeItem(
+"selected_branch_name"
+);
 
-  window.location.href =
-    "login.html";
+localStorage.removeItem(
+"selected_branch_code"
+);
+
+window.location.href =
+"index.html";
 
 }
 
@@ -718,7 +682,13 @@ function logout(){
    START
 ===================================================== */
 
+window.addEventListener(
+"DOMContentLoaded",
+function(){
+
 loadDashboard();
+
+});
 
 </script>
 
