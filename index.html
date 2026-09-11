@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Item Management</title>
 
@@ -213,16 +216,6 @@ tr:hover{
   color:#64748b;
 }
 
-.debug{
-  margin-top:15px;
-  padding:12px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:8px;
-  font-size:13px;
-  display:none;
-}
-
 @media(max-width:600px){
 
   header h1{
@@ -244,6 +237,7 @@ tr:hover{
 }
 
 </style>
+
 </head>
 
 
@@ -256,7 +250,8 @@ tr:hover{
 AAFDRMC - ITEM MANAGEMENT
 </h1>
 
-<div id="branchName" class="branch">
+<div id="branchName"
+     class="branch">
 Loading Branch...
 </div>
 
@@ -266,7 +261,9 @@ Loading Branch...
 <div class="container">
 
 
-<div id="message" class="message"></div>
+<div id="message"
+     class="message">
+</div>
 
 
 <!-- =====================================================
@@ -401,9 +398,6 @@ Non-Food Building/Construction Items
 
 </a>
 
-
-<div id="debugBox" class="debug"></div>
-
 </div>
 
 
@@ -423,10 +417,12 @@ Non-Food Building/Construction Items
 <thead>
 
 <tr>
+
 <th>No</th>
 <th>Item Name</th>
 <th>Category</th>
 <th>Branch</th>
+
 </tr>
 
 </thead>
@@ -437,8 +433,8 @@ Non-Food Building/Construction Items
 <tr>
 
 <td
-colspan="4"
-class="loading">
+  colspan="4"
+  class="loading">
 
 ⏳ Loading Items...
 
@@ -465,16 +461,6 @@ class="loading">
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
-
-/*
-=========================================================
-SUPABASE PUBLISHABLE KEY
-
-KEY KEE ASITTI GALCHI.
-Service Role Key HIN GALCHIN.
-=========================================================
-*/
-
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
@@ -483,42 +469,17 @@ const SUPABASE_KEY =
    BRANCH VARIABLES
 ===================================================== */
 
-/*
-IMPORTANT:
-
-selected_branch_id duraan localStorage keessatti
-"Gulele" ta'ee hafuu danda'a.
-
-Kanaaf ID irraa hin jalqabnu.
-
-Maqaa branch qofa fudhanna.
-UUID dhugaa database irraa barbaanna.
-*/
-
 let selectedBranchName =
-  localStorage.getItem("selected_branch_name") || "";
+localStorage.getItem("selected_branch_name") || "";
 
 let selectedBranchCode =
-  localStorage.getItem("selected_branch_code") || "";
-
-
-/*
-ID yeroo jalqabaatti NULL.
-Gulele akka UUIDtti hin ergamu.
-*/
+localStorage.getItem("selected_branch_code") || "";
 
 let selectedBranchId = null;
 
 
-/*
-OLD / WRONG ID DELETE
-*/
-
-localStorage.removeItem("selected_branch_id");
-
-
 /* =====================================================
-   HEADERS
+   SUPABASE HEADERS
 ===================================================== */
 
 function getHeaders(){
@@ -543,24 +504,16 @@ function getHeaders(){
 
 
 /* =====================================================
-   CHECK API KEY
+   API KEY CHECK
 ===================================================== */
 
 function checkAPIKey(){
 
-  if(
-    !SUPABASE_KEY ||
-    SUPABASE_KEY ===
-    "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
-  ){
+  if(!SUPABASE_KEY){
 
     showMessage(
-
-      "❌ Supabase Publishable Key hin galfamin.\n\n" +
-      "SUPABASE_KEY keessatti key kee galchi.",
-
+      "❌ Supabase Publishable Key hin jiru.",
       "error"
-
     );
 
     return false;
@@ -641,12 +594,10 @@ function showBranch(){
     selectedBranchName ||
     "Unknown Branch";
 
-
   document.getElementById(
     "branchName"
   ).textContent =
     "🏢 Branch: " + name;
-
 
   document.getElementById(
     "infoBranch"
@@ -680,12 +631,6 @@ async function findBranchByName(){
     "&limit=1";
 
 
-  console.log(
-    "BRANCH SEARCH:",
-    url
-  );
-
-
   try{
 
     const response =
@@ -712,12 +657,9 @@ async function findBranchByName(){
     if(!response.ok){
 
       showMessage(
-
         "❌ Branch database irraa barbaaduun hin milkoofne.\n\n" +
         text,
-
         "error"
-
       );
 
       return null;
@@ -732,8 +674,7 @@ async function findBranchByName(){
       data =
         JSON.parse(text);
 
-    }
-    catch(error){
+    }catch(error){
 
       showMessage(
         "❌ Branch response JSON sirrii miti.",
@@ -760,21 +701,11 @@ async function findBranchByName(){
   }
   catch(error){
 
-    console.error(
-      "BRANCH SEARCH ERROR:",
-      error
-    );
-
-
     showMessage(
-
       "❌ Network error yeroo Branch barbaadnu.\n\n" +
       error.message,
-
       "error"
-
     );
-
 
     return null;
 
@@ -802,29 +733,15 @@ async function prepareBranch(){
   if(!selectedBranchName){
 
     showMessage(
-
       "❌ Branch hin filatamne.\n\n" +
-      "Mee gara Dashboard/Login deebi'ii Branch filadhu.",
-
+      "Gara Login/Dashboard deebi'ii Branch filadhu.",
       "error"
-
     );
 
     return false;
 
   }
 
-
-  /*
-  =====================================================
-  IMPORTANT
-
-  LocalStorage ID hin fayyadamnu.
-
-  Database branches table irraa maqaa Branch
-  barbaanna.
-  =====================================================
-  */
 
   const branch =
     await findBranchByName();
@@ -839,13 +756,10 @@ async function prepareBranch(){
   if(!branch){
 
     showMessage(
-
       "❌ Branch '" +
       selectedBranchName +
       "' branches table keessatti hin argamne.",
-
       "error"
-
     );
 
     return false;
@@ -853,20 +767,11 @@ async function prepareBranch(){
   }
 
 
-  /*
-  =====================================================
-  GET REAL DATABASE UUID
-  =====================================================
-  */
-
   if(!branch.id){
 
     showMessage(
-
       "❌ Branch ID database irraa hin argamne.",
-
       "error"
-
     );
 
     return false;
@@ -877,37 +782,6 @@ async function prepareBranch(){
   const realUUID =
     String(branch.id).trim();
 
-
-  /*
-  =====================================================
-  NEVER ALLOW BRANCH NAME AS ID
-  =====================================================
-  */
-
-  if(
-    realUUID === selectedBranchName
-  ){
-
-    showMessage(
-
-      "❌ Dogoggora: Branch maqaan isaa UUID bakka bu'eera.\n\n" +
-      "Branch: " +
-      selectedBranchName,
-
-      "error"
-
-    );
-
-    return false;
-
-  }
-
-
-  /*
-  =====================================================
-  UUID VALIDATION
-  =====================================================
-  */
 
   if(!isUUID(realUUID)){
 
@@ -929,19 +803,9 @@ async function prepareBranch(){
   }
 
 
-  /*
-  =====================================================
-  SET REAL UUID
-  =====================================================
-  */
-
   selectedBranchId =
     realUUID;
 
-
-  /*
-  Branch code
-  */
 
   if(branch.code){
 
@@ -950,12 +814,6 @@ async function prepareBranch(){
 
   }
 
-
-  /*
-  =====================================================
-  SAVE REAL UUID
-  =====================================================
-  */
 
   localStorage.setItem(
     "selected_branch_id",
@@ -979,30 +837,6 @@ async function prepareBranch(){
   }
 
 
-  console.log(
-    "================================"
-  );
-
-  console.log(
-    "BRANCH NAME:",
-    selectedBranchName
-  );
-
-  console.log(
-    "BRANCH UUID:",
-    selectedBranchId
-  );
-
-  console.log(
-    "BRANCH CODE:",
-    selectedBranchCode
-  );
-
-  console.log(
-    "================================"
-  );
-
-
   return true;
 
 }
@@ -1014,17 +848,11 @@ async function prepareBranch(){
 
 async function saveItem(){
 
-  const saveButton =
+  const button =
     document.getElementById(
       "saveButton"
     );
 
-
-  /*
-  =====================================================
-  PREPARE REAL BRANCH UUID FIRST
-  =====================================================
-  */
 
   const branchOK =
     await prepareBranch();
@@ -1037,22 +865,14 @@ async function saveItem(){
   }
 
 
-  /*
-  EXTRA UUID SAFETY
-  */
-
   if(
     !selectedBranchId ||
     !isUUID(selectedBranchId)
   ){
 
     showMessage(
-
-      "❌ Branch UUID sirrii hin jiru.\n\n" +
-      "Item save gochuun hin danda'amu.",
-
+      "❌ Branch UUID sirrii hin jiru.",
       "error"
-
     );
 
     return;
@@ -1079,12 +899,6 @@ async function saveItem(){
   const category =
     categoryInput.value;
 
-
-  /*
-  =====================================================
-  VALIDATION
-  =====================================================
-  */
 
   if(!itemName){
 
@@ -1114,20 +928,18 @@ async function saveItem(){
   }
 
 
-  saveButton.disabled =
+  button.disabled =
     true;
 
-  saveButton.textContent =
+  button.textContent =
     "⏳ Saving...";
 
 
   try{
 
-    /*
-    =====================================================
-    DUPLICATE CHECK
-    =====================================================
-    */
+    /* =================================================
+       CHECK DUPLICATE
+    ================================================= */
 
     const duplicateURL =
       SUPABASE_URL +
@@ -1146,14 +958,11 @@ async function saveItem(){
 
     const duplicateResponse =
       await fetch(
-
         duplicateURL,
-
         {
           method:"GET",
           headers:getHeaders()
         }
-
       );
 
 
@@ -1168,61 +977,27 @@ async function saveItem(){
     );
 
 
-    if(
-      duplicateResponse.status ===
-      401
-    ){
-
-      showMessage(
-
-        "❌ Supabase authentication hin milkoofne.\n\n" +
-        duplicateText,
-
-        "error"
-
-      );
-
-      return;
-
-    }
-
-
-    if(
-      duplicateResponse.status ===
-      403
-    ){
-
-      showMessage(
-
-        "❌ Supabase RLS/Permission rakkoo qaba.\n\n" +
-        duplicateText,
-
-        "error"
-
-      );
-
-      return;
-
-    }
-
-
-    /*
-    Duplicate check error biraa yoo ta'e
-    */
-
     if(!duplicateResponse.ok){
 
-      console.warn(
-        "Duplicate check warning:",
-        duplicateText
-      );
+      if(
+        duplicateResponse.status === 401 ||
+        duplicateResponse.status === 403
+      ){
+
+        showMessage(
+          "❌ Supabase permission/RLS rakkoo qaba.\n\n" +
+          duplicateText,
+          "error"
+        );
+
+        return;
+
+      }
 
     }
 
 
-    if(
-      duplicateResponse.ok
-    ){
+    if(duplicateResponse.ok){
 
       let existing = [];
 
@@ -1233,8 +1008,7 @@ async function saveItem(){
             duplicateText
           );
 
-      }
-      catch(error){
+      }catch(error){
 
         existing = [];
 
@@ -1265,18 +1039,9 @@ async function saveItem(){
     }
 
 
-    /*
-    =====================================================
-    ITEM DATA
-    =====================================================
-
-    branch_id keessatti:
-
-    ❌ Gulele hin ergamu.
-
-    ✅ UUID qofa ergama.
-    =====================================================
-    */
+    /* =================================================
+       ITEM DATA
+    ================================================= */
 
     const itemData = {
 
@@ -1295,59 +1060,15 @@ async function saveItem(){
     };
 
 
-    /*
-    FINAL SECURITY CHECK
-    */
-
-    if(
-      itemData.branch_id ===
-      selectedBranchName
-    ){
-
-      showMessage(
-
-        "❌ STOP: Branch maqaa gara branch_idtti erguu yaale.\n\n" +
-        "Item hin ergamne.",
-
-        "error"
-
-      );
-
-      return;
-
-    }
-
-
-    if(
-      !isUUID(itemData.branch_id)
-    ){
-
-      showMessage(
-
-        "❌ STOP: branch_id UUID miti.\n\n" +
-        "branch_id = " +
-        itemData.branch_id,
-
-        "error"
-
-      );
-
-      return;
-
-    }
-
-
     console.log(
       "FINAL ITEM DATA:",
       itemData
     );
 
 
-    /*
-    =====================================================
-    INSERT ITEM
-    =====================================================
-    */
+    /* =================================================
+       INSERT
+    ================================================= */
 
     const response =
       await fetch(
@@ -1389,12 +1110,6 @@ async function saveItem(){
     );
 
 
-    /*
-    =====================================================
-    INSERT ERROR
-    =====================================================
-    */
-
     if(!response.ok){
 
       showMessage(
@@ -1410,12 +1125,6 @@ async function saveItem(){
 
     }
 
-
-    /*
-    =====================================================
-    SUCCESS
-    =====================================================
-    */
 
     showMessage(
 
@@ -1460,10 +1169,10 @@ async function saveItem(){
   }
   finally{
 
-    saveButton.disabled =
+    button.disabled =
       false;
 
-    saveButton.textContent =
+    button.textContent =
       "💾 Save New Item";
 
   }
@@ -1476,10 +1185,6 @@ async function saveItem(){
 ===================================================== */
 
 async function loadItems(){
-
-  /*
-  UUID malee hin load godhin
-  */
 
   if(
     !selectedBranchId ||
@@ -1529,14 +1234,11 @@ async function loadItems(){
 
     const response =
       await fetch(
-
         url,
-
         {
           method:"GET",
           headers:getHeaders()
         }
-
       );
 
 
@@ -1580,14 +1282,12 @@ async function loadItems(){
 
     let items = [];
 
-
     try{
 
       items =
         JSON.parse(result);
 
-    }
-    catch(error){
+    }catch(error){
 
       table.innerHTML = `
 
@@ -1678,9 +1378,11 @@ async function loadItems(){
           </td>
 
           <td>
+
             ${escapeHTML(
               selectedBranchName || "—"
             )}
+
           </td>
 
         `;
@@ -1692,7 +1394,6 @@ async function loadItems(){
 
       }
     );
-
 
   }
   catch(error){
@@ -1747,17 +1448,13 @@ document
 ===================================================== */
 
 window.addEventListener(
-
   "DOMContentLoaded",
-
   async function(){
 
     showBranch();
 
-
     const branchOK =
       await prepareBranch();
-
 
     if(!branchOK){
 
@@ -1765,11 +1462,9 @@ window.addEventListener(
 
     }
 
-
     await loadItems();
 
   }
-
 );
 
 </script>
