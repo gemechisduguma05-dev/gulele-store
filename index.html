@@ -711,26 +711,130 @@ async function prepareBranch(){
 
   showBranch();
 
-
   if(!checkAPIKey()){
+    return false;
+  }
+
+  // Branch name barbaachisa
+  if(!selectedBranchName){
+
+    showMessage(
+      "❌ Branch hin filatamne.\n\n" +
+      "Mee gara Branch/Login deebi'ii Branch filadhu.",
+      "error"
+    );
 
     return false;
+  }
+
+  /*
+  =====================================================
+  IMPORTANT:
+  selected_branch_id localStorage irraa hin amanamu.
+  Maqaa Branch irraa database keessatti barbaanna.
+  =====================================================
+  */
+
+  const branch = await findBranchByName();
+
+  if(!branch){
+
+    showMessage(
+
+      "❌ Branch '" +
+      selectedBranchName +
+      "' database keessatti hin argamne.",
+
+      "error"
+
+    );
+
+    return false;
+  }
+
+  /*
+  =====================================================
+  DATABASE ID = UUID
+  =====================================================
+  */
+
+  if(!branch.id){
+
+    showMessage(
+      "❌ Branch ID database irraa hin argamne.",
+      "error"
+    );
+
+    return false;
+  }
+
+  /*
+  UUID ta'uu isaa mirkaneessi.
+  */
+
+  const branchId = String(branch.id).trim();
+
+  const uuidPattern =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  if(!uuidPattern.test(branchId)){
+
+    showMessage(
+
+      "❌ Branch ID sirrii miti.\n\n" +
+      "Database ID: " +
+      branchId,
+
+      "error"
+
+    );
+
+    return false;
+  }
+
+  /*
+  =====================================================
+  UUID QOFA localStorage keessatti kaa'i
+  =====================================================
+  */
+
+  selectedBranchId = branchId;
+
+  if(branch.code){
+    selectedBranchCode = String(branch.code);
+  }
+
+  localStorage.setItem(
+    "selected_branch_id",
+    selectedBranchId
+  );
+
+  localStorage.setItem(
+    "selected_branch_name",
+    selectedBranchName
+  );
+
+  if(selectedBranchCode){
+
+    localStorage.setItem(
+      "selected_branch_code",
+      selectedBranchCode
+    );
 
   }
 
+  console.log(
+    "FINAL BRANCH:",
+    selectedBranchName
+  );
 
-  /*
-  Yoo selected_branch_id jiraate
-  isa fayyadami.
-  */
+  console.log(
+    "FINAL BRANCH UUID:",
+    selectedBranchId
+  );
 
-  if(
-    selectedBranchId &&
-    selectedBranchId !== "null" &&
-    selectedBranchId !== "undefined"
-  ){
-
-    return true;
+  return true;
+}
 
   }
 
