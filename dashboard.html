@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,10 @@
 <title>AAFDRMC - Dashboard</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -19,13 +23,13 @@ body{
 header{
   background:#1e3a8a;
   color:white;
-  padding:22px 15px;
+  padding:25px 15px;
   text-align:center;
 }
 
 header h1{
   margin:0;
-  font-size:25px;
+  font-size:26px;
 }
 
 .branch{
@@ -37,22 +41,22 @@ header h1{
 .container{
   width:94%;
   max-width:1200px;
-  margin:22px auto;
+  margin:25px auto;
 }
 
 .card{
   background:white;
-  border-radius:14px;
-  padding:20px;
+  border-radius:15px;
+  padding:22px;
   margin-bottom:20px;
   box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .title{
+  color:#1e3a8a;
   font-size:24px;
   font-weight:bold;
-  color:#1e3a8a;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .menu-grid{
@@ -62,6 +66,7 @@ header h1{
 }
 
 .btn{
+  width:100%;
   border:0;
   border-radius:10px;
   padding:17px 12px;
@@ -74,19 +79,42 @@ header h1{
   display:block;
 }
 
-.items{background:#15803d}
-.stock{background:#dc2626}
-.report{background:#ea580c}
-.category{background:#7c3aed}
-.settings{background:#475569}
-.refresh{background:#1e3a8a}
-.menu{background:#64748b}
-.logout{background:#991b1b}
+.items{
+  background:#15803d;
+}
+
+.stock{
+  background:#dc2626;
+}
+
+.report{
+  background:#ea580c;
+}
+
+.category{
+  background:#7c3aed;
+}
+
+.settings{
+  background:#475569;
+}
+
+.refresh{
+  background:#1e3a8a;
+}
+
+.menu{
+  background:#64748b;
+}
+
+.logout{
+  background:#991b1b;
+}
 
 .summary{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
+  gap:15px;
 }
 
 .summary-card{
@@ -100,7 +128,6 @@ header h1{
   display:block;
   color:#64748b;
   font-weight:bold;
-  font-size:16px;
 }
 
 .summary-card strong{
@@ -111,11 +138,13 @@ header h1{
 }
 
 .message{
-  padding:15px;
-  border-radius:9px;
-  margin-bottom:18px;
   display:none;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
   font-weight:bold;
+  line-height:1.5;
+  white-space:pre-wrap;
 }
 
 .message.show{
@@ -130,6 +159,16 @@ header h1{
 .success{
   background:#dcfce7;
   color:#166534;
+}
+
+.info{
+  background:#eff6ff;
+  color:#1e40af;
+  border:1px solid #bfdbfe;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  font-weight:bold;
 }
 
 @media(max-width:700px){
@@ -163,10 +202,13 @@ header h1{
   }
 
 }
+
 </style>
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -174,82 +216,152 @@ header h1{
 AAFDRMC - STOCK MANAGEMENT
 </h1>
 
-<div id="branchName" class="branch">
+<div
+id="branchName"
+class="branch">
+
 Loading Branch...
+
 </div>
 
 </header>
 
+
 <div class="container">
 
-<div id="message" class="message"></div>
 
-<!-- MAIN MENU -->
+<div
+id="message"
+class="message">
+</div>
+
+
+<!-- =====================================================
+     BRANCH INFORMATION
+===================================================== -->
+
+<div class="card">
+
+<div class="info">
+
+🏢 Current Branch:
+
+<strong id="currentBranch">
+Loading...
+</strong>
+
+<br><br>
+
+Branch Code:
+
+<strong id="currentCode">
+—
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN MENU
+===================================================== -->
 
 <div class="card">
 
 <div class="title">
-📊 Dashboard
+📊 Dashboard Menu
 </div>
 
+
 <div class="menu-grid">
+
 
 <a
 href="items.html"
 class="btn items">
+
 📦 Items
+
 </a>
+
 
 <a
 href="stock.html"
 class="btn stock">
+
 📥 Stock IN / OUT
+
 </a>
+
 
 <a
 href="reports.html"
 class="btn report">
+
 📊 Stock Report
+
 </a>
+
 
 <a
 href="category.html"
 class="btn category">
+
 🗂️ Categories
+
 </a>
+
 
 <a
 href="settings.html"
 class="btn settings">
+
 ⚙️ Settings
+
 </a>
 
+
 <button
+type="button"
 class="btn refresh"
 onclick="loadDashboard()">
+
 🔄 Refresh
+
 </button>
+
 
 <a
 href="index.html"
 class="btn menu">
+
 ⬅️ Main Menu
+
 </a>
 
+
 <button
+type="button"
 class="btn logout"
 onclick="logout()">
+
 🚪 Logout
+
 </button>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- SUMMARY -->
+
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
 
 <div class="summary">
+
 
 <div class="summary-card">
 
@@ -302,7 +414,9 @@ onclick="logout()">
 
 </div>
 
+
 </div>
+
 
 </div>
 
@@ -324,15 +438,28 @@ const SUPABASE_KEY =
    BRANCH
 ===================================================== */
 
-const branchId =
+let branchName =
 localStorage.getItem(
-"selected_branch_id"
-);
+  "selected_branch_name"
+) || "";
 
-const branchName =
+let branchCode =
 localStorage.getItem(
-"selected_branch_name"
-);
+  "selected_branch_code"
+) || "";
+
+
+/*
+IMPORTANT:
+
+Index.html haaraa irraa
+selected_branch_id hin kaa'amu.
+
+Kanaaf dashboard branch maqaa
+fi code irratti hundaa'a.
+
+branches.name hin barbaadu.
+*/
 
 
 /* =====================================================
@@ -341,58 +468,21 @@ localStorage.getItem(
 
 function getHeaders(){
 
-const token =
-localStorage.getItem(
-"access_token"
-);
+  return {
 
-return {
+    "apikey":
+      SUPABASE_KEY,
 
-"apikey":
-SUPABASE_KEY,
+    "Authorization":
+      "Bearer " + SUPABASE_KEY,
 
-"Authorization":
-"Bearer " +
-(token || SUPABASE_KEY),
+    "Content-Type":
+      "application/json",
 
-"Content-Type":
-"application/json"
+    "Accept":
+      "application/json"
 
-};
-
-}
-
-
-/* =====================================================
-   BRANCH
-===================================================== */
-
-function showBranch(){
-
-const box =
-document.getElementById(
-"branchName"
-);
-
-if(branchId && branchName){
-
-box.textContent =
-"🏢 Branch: " +
-branchName;
-
-return true;
-
-}
-
-box.textContent =
-"⚠️ Branch hin filatamne";
-
-showMessage(
-"❌ Mee gara Main Menu deebi'ii Branch filadhu.",
-"error"
-);
-
-return false;
+  };
 
 }
 
@@ -401,19 +491,86 @@ return false;
    MESSAGE
 ===================================================== */
 
-function showMessage(text,type){
+function showMessage(
+  text,
+  type
+){
 
-const box =
-document.getElementById(
-"message"
-);
+  const box =
+    document.getElementById(
+      "message"
+    );
 
-box.textContent =
-text;
+  box.textContent =
+    text;
 
-box.className =
-"message show " +
-type;
+  box.className =
+    "message show " +
+    type;
+
+}
+
+
+/* =====================================================
+   SHOW BRANCH
+===================================================== */
+
+function showBranch(){
+
+  if(!branchName){
+
+    document.getElementById(
+      "branchName"
+    ).textContent =
+      "⚠️ Branch hin filatamne";
+
+
+    document.getElementById(
+      "currentBranch"
+    ).textContent =
+      "Unknown";
+
+
+    document.getElementById(
+      "currentCode"
+    ).textContent =
+      "—";
+
+
+    showMessage(
+
+      "❌ Branch hin filatamne.\n\n" +
+      "Mee gara Main Menu deebi'ii Branch filadhu.",
+
+      "error"
+
+    );
+
+    return false;
+
+  }
+
+
+  document.getElementById(
+    "branchName"
+  ).textContent =
+    "🏢 Branch: " +
+    branchName;
+
+
+  document.getElementById(
+    "currentBranch"
+  ).textContent =
+    branchName;
+
+
+  document.getElementById(
+    "currentCode"
+  ).textContent =
+    branchCode || "—";
+
+
+  return true;
 
 }
 
@@ -424,55 +581,91 @@ type;
 
 async function loadItems(){
 
-if(!branchId)
-return [];
+  /*
+  Current index version branch_id
+  hin kaa'u.
 
-try{
+  Kanaaf summary yeroo ammaa
+  Items guutuu irraa load godha.
 
-const url =
-SUPABASE_URL +
-"/rest/v1/items" +
-"?select=*" +
-"&branch_id=eq." +
-encodeURIComponent(branchId) +
-"&order=id.asc";
+  Yoo database keessatti branch_code
+  jiraate, code irratti filter godha.
+  */
 
-const response =
-await fetch(
-url,
-{
-headers:getHeaders()
-}
-);
 
-if(!response.ok){
+  try{
 
-console.error(
-"Items Error:",
-await response.text()
-);
+    let url =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?select=*";
 
-return [];
 
-}
+    /*
+    Branch code yoo jiraate
+    filter godhuuf yaala.
+    */
 
-const data =
-await response.json();
+    if(branchCode){
 
-return Array.isArray(data)
-? data
-: [];
+      url +=
+        "&branch_code=eq." +
+        encodeURIComponent(
+          branchCode
+        );
 
-}catch(error){
+    }
 
-console.error(
-"Items Error:",
-error
-);
 
-return [];
+    url +=
+      "&order=id.asc";
 
-}
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
+
+
+    const text =
+      await response.text();
+
+
+    if(!response.ok){
+
+      console.warn(
+        "Items loading warning:",
+        text
+      );
+
+      return [];
+
+    }
+
+
+    const data =
+      JSON.parse(text);
+
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  }
+  catch(error){
+
+    console.warn(
+      "Items error:",
+      error
+    );
+
+    return [];
+
+  }
 
 }
 
@@ -483,55 +676,106 @@ return [];
 
 async function loadTransactions(){
 
-if(!branchId)
-return [];
+  try{
 
-try{
+    let url =
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions" +
+      "?select=*";
 
-const url =
-SUPABASE_URL +
-"/rest/v1/stock_transactions" +
-"?select=*" +
-"&branch_id=eq." +
-encodeURIComponent(branchId) +
-"&order=entered_at.desc";
 
-const response =
-await fetch(
-url,
-{
-headers:getHeaders()
+    /*
+    Branch code column yoo jiraate
+    itti fayyadama.
+
+    branches.name hin fayyadamu.
+    */
+
+    if(branchCode){
+
+      url +=
+        "&branch_code=eq." +
+        encodeURIComponent(
+          branchCode
+        );
+
+    }
+
+
+    url +=
+      "&order=id.desc";
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
+
+
+    const text =
+      await response.text();
+
+
+    if(!response.ok){
+
+      console.warn(
+        "Transactions loading warning:",
+        text
+      );
+
+      return [];
+
+    }
+
+
+    const data =
+      JSON.parse(text);
+
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  }
+  catch(error){
+
+    console.warn(
+      "Transaction error:",
+      error
+    );
+
+    return [];
+
+  }
+
 }
-);
 
-if(!response.ok){
 
-console.error(
-"Transaction Error:",
-await response.text()
-);
+/* =====================================================
+   TRANSACTION TYPE
+===================================================== */
 
-return [];
+function getTransactionType(t){
 
-}
+  /*
+  Database keessatti maqaan column
+  transaction_type dha.
 
-const data =
-await response.json();
+  Dogoggora spelling duraan ture:
+  transction_type / trasctin
+  hin fayyadamnu.
+  */
 
-return Array.isArray(data)
-? data
-: [];
 
-}catch(error){
-
-console.error(
-"Transaction Error:",
-error
-);
-
-return [];
-
-}
+  return String(
+    t.transaction_type || ""
+  )
+  .trim()
+  .toUpperCase();
 
 }
 
@@ -542,110 +786,123 @@ return [];
 
 async function loadDashboard(){
 
-if(!showBranch())
-return;
+  if(!showBranch()){
+
+    return;
+
+  }
 
 
-document.getElementById(
-"totalItems"
-).textContent="...";
-
-document.getElementById(
-"totalIn"
-).textContent="...";
-
-document.getElementById(
-"totalOut"
-).textContent="...";
-
-document.getElementById(
-"balance"
-).textContent="...";
+  document.getElementById(
+    "totalItems"
+  ).textContent =
+    "...";
 
 
-const items =
-await loadItems();
-
-const transactions =
-await loadTransactions();
-
-
-let totalIn=0;
-let totalOut=0;
+  document.getElementById(
+    "totalIn"
+  ).textContent =
+    "...";
 
 
-transactions.forEach(t=>{
-
-const quantity =
-Number(t.quantity || 0);
-
-
-/*
-  DATABASE COLUMNS:
-  transction_type
-  trasctin
-*/
-
-const type =
-String(
-t.transction_type ||
-t.trasctin ||
-""
-).trim().toUpperCase();
+  document.getElementById(
+    "totalOut"
+  ).textContent =
+    "...";
 
 
-if(type==="IN")
-totalIn += quantity;
+  document.getElementById(
+    "balance"
+  ).textContent =
+    "...";
 
 
-if(type==="OUT")
-totalOut += quantity;
-
-});
+  const items =
+    await loadItems();
 
 
-/* OPENING STOCK */
-
-let openingStock=0;
-
-items.forEach(item=>{
-
-openingStock +=
-Number(
-item.quantity || 0
-);
-
-});
+  const transactions =
+    await loadTransactions();
 
 
-const currentBalance =
-openingStock +
-totalIn -
-totalOut;
+  let totalIn =
+    0;
+
+  let totalOut =
+    0;
 
 
-document.getElementById(
-"totalItems"
-).textContent =
-items.length.toLocaleString();
+  transactions.forEach(
+    function(t){
+
+      const quantity =
+        Number(
+          t.quantity || 0
+        );
 
 
-document.getElementById(
-"totalIn"
-).textContent =
-totalIn.toLocaleString();
+      const type =
+        getTransactionType(t);
 
 
-document.getElementById(
-"totalOut"
-).textContent =
-totalOut.toLocaleString();
+      if(type === "IN"){
+
+        totalIn +=
+          quantity;
+
+      }
 
 
-document.getElementById(
-"balance"
-).textContent =
-currentBalance.toLocaleString();
+      if(type === "OUT"){
+
+        totalOut +=
+          quantity;
+
+      }
+
+    }
+  );
+
+
+  /*
+  Opening stock = 0
+
+  Items table keessatti quantity
+  hin lakkaa'amu.
+
+  Current Balance:
+
+  Stock IN - Stock OUT
+  */
+
+
+  const balance =
+    totalIn -
+    totalOut;
+
+
+  document.getElementById(
+    "totalItems"
+  ).textContent =
+    items.length.toLocaleString();
+
+
+  document.getElementById(
+    "totalIn"
+  ).textContent =
+    totalIn.toLocaleString();
+
+
+  document.getElementById(
+    "totalOut"
+  ).textContent =
+    totalOut.toLocaleString();
+
+
+  document.getElementById(
+    "balance"
+  ).textContent =
+    balance.toLocaleString();
 
 }
 
@@ -656,24 +913,25 @@ currentBalance.toLocaleString();
 
 function logout(){
 
-localStorage.removeItem(
-"access_token"
-);
+  localStorage.removeItem(
+    "access_token"
+  );
 
-localStorage.removeItem(
-"selected_branch_id"
-);
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
 
-localStorage.removeItem(
-"selected_branch_name"
-);
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
 
-localStorage.removeItem(
-"selected_branch_code"
-);
+  localStorage.removeItem(
+    "selected_branch_code"
+  );
 
-window.location.href =
-"index.html";
+
+  window.location.href =
+    "index.html";
 
 }
 
@@ -683,12 +941,15 @@ window.location.href =
 ===================================================== */
 
 window.addEventListener(
-"DOMContentLoaded",
-function(){
+  "DOMContentLoaded",
+  function(){
 
-loadDashboard();
+    showBranch();
 
-});
+    loadDashboard();
+
+  }
+);
 
 </script>
 
