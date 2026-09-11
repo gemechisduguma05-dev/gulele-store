@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Branch Selection</title>
+<title>AAFDRMC - Login</title>
 
 <style>
 
@@ -15,101 +15,122 @@
 
 body{
   margin:0;
+  min-height:100vh;
   font-family:Arial,sans-serif;
-  background:#f1f5f9;
-  color:#1e293b;
+  background:linear-gradient(135deg,#3b2417,#6f4e37,#c8a27a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  color:#3b2417;
 }
 
-.header{
-  background:#1e3a8a;
-  color:white;
+.login-wrapper{
+  width:100%;
+  max-width:460px;
+}
+
+.logo-box{
   text-align:center;
-  padding:35px 15px;
+  color:white;
+  margin-bottom:20px;
 }
 
-.header h1{
+.logo{
+  width:78px;
+  height:78px;
+  margin:auto;
+  border-radius:50%;
+  background:#f5e6d3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.logo-box h1{
+  margin:14px 0 5px;
+  font-size:27px;
+}
+
+.logo-box p{
   margin:0;
-  font-size:28px;
-}
-
-.header p{
-  margin:10px 0 0;
-  font-size:16px;
-}
-
-.container{
-  width:92%;
-  max-width:650px;
-  margin:30px auto;
+  font-size:14px;
+  opacity:.9;
 }
 
 .card{
-  background:white;
-  border-radius:16px;
-  padding:25px;
-  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  background:#fffaf5;
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 12px 35px rgba(0,0,0,.28);
 }
 
 .title{
   text-align:center;
-  color:#1e3a8a;
+  color:#5b3926;
   font-size:24px;
   font-weight:bold;
-  margin-bottom:25px;
+  margin-bottom:24px;
+}
+
+.form-group{
+  margin-bottom:18px;
 }
 
 label{
   display:block;
   font-weight:bold;
   margin-bottom:8px;
+  color:#4b2e1e;
 }
 
 select,
 input{
   width:100%;
-  padding:15px;
-  border:1px solid #cbd5e1;
-  border-radius:10px;
+  padding:14px 15px;
+  border:1px solid #d6c2ad;
+  border-radius:11px;
   font-size:16px;
   background:white;
+  color:#3b2417;
 }
 
 select:focus,
 input:focus{
   outline:none;
-  border-color:#1e3a8a;
+  border-color:#795548;
+  box-shadow:0 0 0 3px rgba(121,85,72,.12);
 }
 
-.group{
-  margin-bottom:20px;
-}
-
-button{
+.login-btn{
   width:100%;
-  padding:15px;
   border:0;
-  border-radius:10px;
-  background:#15803d;
+  border-radius:11px;
+  padding:15px;
+  background:#6f4e37;
   color:white;
   font-size:17px;
   font-weight:bold;
   cursor:pointer;
+  margin-top:5px;
 }
 
-button:hover{
-  background:#166534;
+.login-btn:hover{
+  background:#4e342e;
 }
 
-button:disabled{
+.login-btn:disabled{
   opacity:.6;
   cursor:not-allowed;
 }
 
 .message{
   display:none;
-  padding:15px;
+  padding:14px;
   border-radius:10px;
-  margin-bottom:20px;
+  margin-bottom:18px;
   font-weight:bold;
   line-height:1.5;
   white-space:pre-wrap;
@@ -130,50 +151,55 @@ button:disabled{
   color:#166534;
 }
 
-.info{
-  background:#eff6ff;
-  color:#1e40af;
-  border:1px solid #bfdbfe;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:20px;
-  line-height:1.6;
-}
-
 .branch-info{
   display:none;
-  margin-top:20px;
-  padding:15px;
-  background:#f8fafc;
+  background:#f3e8dc;
+  border:1px solid #d6c2ad;
   border-radius:10px;
-  border:1px solid #e2e8f0;
+  padding:13px;
+  margin-top:-5px;
+  margin-bottom:18px;
+  color:#5b3926;
+  font-weight:bold;
+  line-height:1.5;
 }
 
 .branch-info.show{
   display:block;
 }
 
-.branch-name{
-  color:#1e3a8a;
-  font-size:20px;
-  font-weight:bold;
-}
-
 .footer{
   text-align:center;
-  margin-top:25px;
-  color:#64748b;
+  margin-top:20px;
+  color:#eadbc9;
   font-size:13px;
+}
+
+.loading{
+  text-align:center;
+  color:#795548;
+  padding:10px;
 }
 
 @media(max-width:600px){
 
-  .header h1{
-    font-size:23px;
+  body{
+    padding:14px;
   }
 
   .card{
-    padding:18px;
+    padding:22px 18px;
+    border-radius:17px;
+  }
+
+  .logo{
+    width:68px;
+    height:68px;
+    font-size:32px;
+  }
+
+  .logo-box h1{
+    font-size:23px;
   }
 
   .title{
@@ -182,176 +208,157 @@ button:disabled{
 
 }
 
+@media(min-width:900px){
+
+  .login-wrapper{
+    max-width:480px;
+  }
+
+}
+
 </style>
+
 </head>
 
 
 <body>
 
 
-<div class="header">
-
-<h1>
-AAFDRMC
-</h1>
-
-<p>
-STORE MANAGEMENT SYSTEM
-</p>
-
-</div>
+<div class="login-wrapper">
 
 
-<div class="container">
+  <div class="logo-box">
+
+    <div class="logo">
+      ☕
+    </div>
+
+    <h1>
+      AAFDRMC
+    </h1>
+
+    <p>
+      STOCK MANAGEMENT SYSTEM
+    </p>
+
+  </div>
 
 
-<div class="card">
+  <div class="card">
 
 
-<div class="title">
-🏢 Select Branch
-</div>
+    <div class="title">
+      🔐 Login
+    </div>
 
 
-<div id="message" class="message"></div>
+    <div
+      id="message"
+      class="message">
+    </div>
 
 
-<div class="info">
+    <!-- BRANCH -->
 
-<strong>Branch kee filadhu.</strong>
+    <div class="form-group">
 
-<br>
+      <label>
+        🏢 Select Branch
+      </label>
 
-Branch filattee booda Dashboard keessatti
-Items, Stock In, Stock Out fi Reports fayyadamuu
-dandeessa.
+      <select id="branchSelect">
 
-</div>
+        <option value="">
+          ⏳ Loading Branches...
+        </option>
 
+      </select>
 
-<div class="group">
-
-<label>
-Branch
-</label>
-
-
-<select id="branchSelect">
-
-<option value="">
--- Select Branch --
-</option>
-
-<option value="Main" data-code="MAIN">
-Main
-</option>
-
-<option value="Gulele" data-code="GUL">
-Gulele
-</option>
-
-<option value="Addis Katama" data-code="AKT">
-Addis Katama
-</option>
-
-<option value="Kolfee" data-code="KOL">
-Kolfee
-</option>
-
-<option value="Nifas Silk Lafto" data-code="NSL">
-Nifas Silk Lafto
-</option>
-
-<option value="Kirkos" data-code="KIR">
-Kirkos
-</option>
-
-<option value="Lami Kura" data-code="LAM">
-Lami Kura
-</option>
-
-<option value="Arada" data-code="ARA">
-Arada
-</option>
-
-<option value="Lideta" data-code="LID">
-Lideta
-</option>
-
-<option value="Bole" data-code="BOL">
-Bole
-</option>
-
-<option value="Ekaa" data-code="EKA">
-Ekaa
-</option>
-
-<option value="Akaki Kality" data-code="AKA">
-Akaki Kality
-</option>
-
-<option value="Center" data-code="CTR">
-Center
-</option>
-
-</select>
-
-</div>
+    </div>
 
 
-<div id="branchInfo" class="branch-info">
-
-<div>
-Selected Branch:
-</div>
-
-<div id="selectedBranchName" class="branch-name">
-—
-</div>
-
-<div style="margin-top:8px;">
-Branch Code:
-<strong id="selectedBranchCode">
-—
-</strong>
-</div>
-
-</div>
+    <div
+      id="branchInfo"
+      class="branch-info">
+    </div>
 
 
-<div style="margin-top:20px;">
+    <!-- EMAIL / CODE -->
 
-<button
-  id="continueButton"
-  type="button">
+    <div class="form-group">
 
-➡️ Continue to Dashboard
+      <label>
+        👤 Email or Code
+      </label>
 
-</button>
+      <input
+        id="loginUser"
+        type="text"
+        placeholder="Email ykn Code galchi"
+        autocomplete="username">
 
-</div>
-
-
-<div class="footer">
-
-AAFDRMC Store Management System
-
-</div>
+    </div>
 
 
-</div>
+    <!-- PASSWORD -->
+
+    <div class="form-group">
+
+      <label>
+        🔑 Password
+      </label>
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Password galchi"
+        autocomplete="current-password">
+
+    </div>
+
+
+    <button
+      id="loginButton"
+      class="login-btn"
+      type="button"
+      onclick="login()">
+
+      🔐 Login
+
+    </button>
+
+
+  </div>
+
+
+  <div class="footer">
+
+    AAFDRMC © Stock Management System
+
+  </div>
+
 
 </div>
 
 
 <script>
 
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+"https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+
 
 /* =====================================================
    BRANCH LIST
 ===================================================== */
 
-const branches = [
+const BRANCHES = [
 
   {
     name:"Main",
@@ -370,7 +377,7 @@ const branches = [
 
   {
     name:"Kolfee",
-    code:"KOL"
+    code:"KLF"
   },
 
   {
@@ -422,26 +429,28 @@ const branches = [
 
 
 /* =====================================================
-   ELEMENTS
+   HEADERS
 ===================================================== */
 
-const branchSelect =
-  document.getElementById("branchSelect");
+function getHeaders(){
 
-const continueButton =
-  document.getElementById("continueButton");
+  return {
 
-const message =
-  document.getElementById("message");
+    "apikey":
+      SUPABASE_KEY,
 
-const branchInfo =
-  document.getElementById("branchInfo");
+    "Authorization":
+      "Bearer " + SUPABASE_KEY,
 
-const selectedBranchName =
-  document.getElementById("selectedBranchName");
+    "Content-Type":
+      "application/json",
 
-const selectedBranchCode =
-  document.getElementById("selectedBranchCode");
+    "Accept":
+      "application/json"
+
+  };
+
+}
 
 
 /* =====================================================
@@ -450,174 +459,107 @@ const selectedBranchCode =
 
 function showMessage(text,type){
 
-  message.textContent = text;
+  const box =
+    document.getElementById("message");
 
-  message.className =
+  box.textContent =
+    text;
+
+  box.className =
     "message show " + type;
 
 }
 
 
 /* =====================================================
-   LOAD SAVED BRANCH
+   LOAD BRANCHES
 ===================================================== */
 
-function loadSavedBranch(){
+function loadBranches(){
 
-  const savedName =
-    localStorage.getItem(
-      "selected_branch_name"
-    );
-
-  const savedCode =
-    localStorage.getItem(
-      "selected_branch_code"
-    );
+  const select =
+    document.getElementById("branchSelect");
 
 
-  if(!savedName){
-
-    return;
-
-  }
+  select.innerHTML =
+    '<option value="">-- Branch filadhu --</option>';
 
 
-  const option =
-    Array.from(
-      branchSelect.options
-    ).find(
-      option =>
-        option.value === savedName
-    );
+  BRANCHES.forEach(function(branch){
 
+    const option =
+      document.createElement("option");
 
-  if(option){
+    option.value =
+      branch.name;
 
-    branchSelect.value =
-      savedName;
+    option.textContent =
+      "🏢 " + branch.name;
 
-    selectedBranchName.textContent =
-      savedName;
+    option.dataset.code =
+      branch.code;
 
-    selectedBranchCode.textContent =
-      savedCode ||
-      option.dataset.code ||
-      "—";
+    select.appendChild(option);
 
-    branchInfo.classList.add(
-      "show"
-    );
-
-  }
+  });
 
 }
 
 
 /* =====================================================
-   BRANCH SELECT
+   BRANCH CHANGE
 ===================================================== */
 
-branchSelect.addEventListener(
+document
+.getElementById("branchSelect")
+.addEventListener(
   "change",
   function(){
 
+    const option =
+      this.options[this.selectedIndex];
+
     const name =
-      branchSelect.value;
+      this.value;
+
+    const code =
+      option.dataset.code || "";
+
+    const info =
+      document.getElementById("branchInfo");
 
 
     if(!name){
 
-      branchInfo.classList.remove(
-        "show"
-      );
+      info.className =
+        "branch-info";
+
+      info.textContent =
+        "";
 
       return;
 
     }
 
 
-    const option =
-      branchSelect.options[
-        branchSelect.selectedIndex
-      ];
+    info.className =
+      "branch-info show";
 
-
-    const code =
-      option.dataset.code ||
-      "";
-
-
-    selectedBranchName.textContent =
-      name;
-
-    selectedBranchCode.textContent =
+    info.textContent =
+      "🏢 Branch: " +
+      name +
+      "\n🔢 Code: " +
       code;
 
 
-    branchInfo.classList.add(
-      "show"
-    );
-
-
-    showMessage(
-      "✅ Branch " + name + " filatame.",
-      "success"
-    );
-
-  }
-);
-
-
-/* =====================================================
-   CONTINUE
-===================================================== */
-
-continueButton.addEventListener(
-  "click",
-  function(){
-
-    const name =
-      branchSelect.value;
-
-
-    if(!name){
-
-      showMessage(
-        "❌ Mee Branch filadhu.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    const option =
-      branchSelect.options[
-        branchSelect.selectedIndex
-      ];
-
-
-    const code =
-      option.dataset.code ||
-      "";
-
-
     /*
-    =====================================================
-    IMPORTANT
-
-    Branch maqaa fi code qofa asitti kuufna.
-
-    branches.name hin barbaadnu.
-    =====================================================
+    SAVE BRANCH
     */
 
     localStorage.setItem(
       "selected_branch_name",
       name
     );
-
 
     localStorage.setItem(
       "selected_branch_code",
@@ -626,47 +568,289 @@ continueButton.addEventListener(
 
 
     /*
-    OLD WRONG UUID CLEAR
+    Old ID haqi.
+    ID dhugaa database irraa
+    booda arganna.
     */
 
     localStorage.removeItem(
       "selected_branch_id"
     );
 
+  }
+);
 
-    /*
-    Dashboard keessatti branch maqaa
-    sirriitti mul'ata.
-    */
 
-    showMessage(
-      "✅ " +
-      name +
-      " filatameera.\n\n" +
-      "Dashboardtti ce'aa...",
-      "success"
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login(){
+
+  const branchSelect =
+    document.getElementById(
+      "branchSelect"
+    );
+
+  const username =
+    document.getElementById(
+      "loginUser"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "password"
+    ).value;
+
+  const button =
+    document.getElementById(
+      "loginButton"
     );
 
 
-    continueButton.disabled =
-      true;
-
-    continueButton.textContent =
-      "⏳ Opening Dashboard...";
+  const branchName =
+    branchSelect.value;
 
 
-    setTimeout(
-      function(){
+  const option =
+    branchSelect.options[
+      branchSelect.selectedIndex
+    ];
 
-        window.location.href =
-          "dashboard.html";
 
-      },
-      500
+  const branchCode =
+    option
+    ? (option.dataset.code || "")
+    : "";
+
+
+  /* ===================================================
+     VALIDATION
+  =================================================== */
+
+  if(!branchName){
+
+    showMessage(
+      "❌ Mee Branch filadhu.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!username){
+
+    showMessage(
+      "❌ Email ykn Code galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!password){
+
+    showMessage(
+      "❌ Password galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    "⏳ Login...";
+
+
+  /*
+  SAVE BRANCH
+  */
+
+  localStorage.setItem(
+    "selected_branch_name",
+    branchName
+  );
+
+  localStorage.setItem(
+    "selected_branch_code",
+    branchCode
+  );
+
+
+  try{
+
+    /* ===============================================
+       SUPABASE AUTH LOGIN
+    =============================================== */
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/auth/v1/token?grant_type=password",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              email:
+                username,
+
+              password:
+                password
+
+            })
+
+        }
+
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      showMessage(
+
+        "❌ Login hin milkoofne.\n\n" +
+        (
+          data.error_description ||
+          data.msg ||
+          "Email ykn password sirrii miti."
+        ),
+
+        "error"
+
+      );
+
+      return;
+
+    }
+
+
+    /* ===============================================
+       SAVE AUTH
+    =============================================== */
+
+    if(data.access_token){
+
+      localStorage.setItem(
+        "access_token",
+        data.access_token
+      );
+
+    }
+
+
+    if(data.refresh_token){
+
+      localStorage.setItem(
+        "refresh_token",
+        data.refresh_token
+      );
+
+    }
+
+
+    localStorage.setItem(
+      "is_logged_in",
+      "true"
+    );
+
+
+    localStorage.setItem(
+      "login_user",
+      username
+    );
+
+
+    localStorage.setItem(
+      "user_role",
+      branchName === "Main"
+        ? "main"
+        : "branch"
+    );
+
+
+    /* ===============================================
+       SUCCESS
+    =============================================== */
+
+    showMessage(
+
+      "✅ Login milkaa'e.\n\n" +
+      "🏢 Branch: " +
+      branchName +
+      "\n\n" +
+      "Dashboard banamaa jira...",
+
+      "success"
+
+    );
+
+
+    setTimeout(function(){
+
+      window.location.href =
+        "dashboard.html";
+
+    },700);
+
+
+  }
+  catch(error){
+
+    console.error(
+      "LOGIN ERROR:",
+      error
+    );
+
+
+    showMessage(
+
+      "❌ Network error.\n\n" +
+      error.message,
+
+      "error"
+
     );
 
   }
-);
+  finally{
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "🔐 Login";
+
+  }
+
+}
 
 
 /* =====================================================
@@ -677,7 +861,33 @@ window.addEventListener(
   "DOMContentLoaded",
   function(){
 
-    loadSavedBranch();
+    loadBranches();
+
+    /*
+    Previous branch yoo jiraate
+    deebisee filadhu.
+    */
+
+    const oldBranch =
+      localStorage.getItem(
+        "selected_branch_name"
+      );
+
+    if(oldBranch){
+
+      const select =
+        document.getElementById(
+          "branchSelect"
+        );
+
+      select.value =
+        oldBranch;
+
+      select.dispatchEvent(
+        new Event("change")
+      );
+
+    }
 
   }
 );
