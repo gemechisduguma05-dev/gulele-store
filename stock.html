@@ -7,9 +7,7 @@
 <title>AAFDRMC - Stock Management</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -73,25 +71,11 @@ header h1{
   font-size:16px;
 }
 
-.btn-in{
-  background:#15803d;
-}
-
-.btn-out{
-  background:#dc2626;
-}
-
-.btn-blue{
-  background:#1e3a8a;
-}
-
-.btn-orange{
-  background:#ea580c;
-}
-
-.btn-gray{
-  background:#64748b;
-}
+.btn-in{background:#15803d}
+.btn-out{background:#dc2626}
+.btn-blue{background:#1e3a8a}
+.btn-orange{background:#ea580c}
+.btn-gray{background:#64748b}
 
 .message{
   display:none;
@@ -114,13 +98,8 @@ header h1{
   color:#991b1b;
 }
 
-.form-box{
-  display:none;
-}
-
-.form-box.show{
-  display:block;
-}
+.form-box{display:none}
+.form-box.show{display:block}
 
 .form-title{
   font-size:21px;
@@ -128,13 +107,8 @@ header h1{
   margin-bottom:18px;
 }
 
-.form-title.in{
-  color:#15803d;
-}
-
-.form-title.out{
-  color:#dc2626;
-}
+.form-title.in{color:#15803d}
+.form-title.out{color:#dc2626}
 
 .form-grid{
   display:grid;
@@ -182,17 +156,9 @@ header h1{
   font-size:15px;
 }
 
-.save-in{
-  background:#15803d;
-}
-
-.save-out{
-  background:#dc2626;
-}
-
-.cancel{
-  background:#64748b;
-}
+.save-in{background:#15803d}
+.save-out{background:#dc2626}
+.cancel{background:#64748b}
 
 .summary{
   display:grid;
@@ -255,13 +221,8 @@ td{
   white-space:nowrap;
 }
 
-.item-row{
-  cursor:pointer;
-}
-
-.item-row:hover{
-  background:#eff6ff;
-}
+.item-row{cursor:pointer}
+.item-row:hover{background:#eff6ff}
 
 .balance{
   color:#1e3a8a;
@@ -282,9 +243,7 @@ td{
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.details-box.show{
-  display:block;
-}
+.details-box.show{display:block}
 
 .details-header{
   display:flex;
@@ -327,9 +286,7 @@ td{
 
 @media(max-width:700px){
 
-  header h1{
-    font-size:23px;
-  }
+  header h1{font-size:23px}
 
   .buttons{
     grid-template-columns:1fr;
@@ -362,12 +319,7 @@ td{
 
 </header>
 
-
 <div class="container">
-
-<!-- =====================================================
-     MAIN MENU
-===================================================== -->
 
 <div class="box">
 
@@ -377,32 +329,27 @@ td{
 
   <div class="buttons">
 
-    <button
-      class="btn btn-in"
+    <button class="btn btn-in"
       onclick="openForm('IN')">
       ➕ Stock IN
     </button>
 
-    <button
-      class="btn btn-out"
+    <button class="btn btn-out"
       onclick="openForm('OUT')">
       ➖ Stock OUT
     </button>
 
-    <button
-      class="btn btn-blue"
+    <button class="btn btn-blue"
       onclick="loadStock()">
       🔄 Refresh
     </button>
 
-    <button
-      class="btn btn-orange"
+    <button class="btn btn-orange"
       onclick="goReports()">
       📋 Stock Report
     </button>
 
-    <button
-      class="btn btn-gray"
+    <button class="btn btn-gray"
       onclick="backToMenu()">
       ⬅️ Back to Menu
     </button>
@@ -411,15 +358,10 @@ td{
 
 </div>
 
-
-<!-- MESSAGE -->
-
 <div id="message" class="message"></div>
 
 
-<!-- =====================================================
-     STOCK IN
-===================================================== -->
+<!-- STOCK IN -->
 
 <div id="stockInForm" class="box form-box">
 
@@ -430,102 +372,71 @@ td{
   <div class="form-grid">
 
     <div class="form-group">
-
       <label>Item</label>
 
       <select id="inItem">
-        <option value="">
-          -- Item filadhu --
-        </option>
+        <option value="">-- Item filadhu --</option>
       </select>
-
     </div>
 
-
     <div class="form-group">
-
       <label>Unit</label>
 
-      <input
-        id="inUnit"
+      <input id="inUnit"
         class="readonly"
         readonly>
-
     </div>
 
-
     <div class="form-group">
-
       <label>Quantity</label>
 
-      <input
-        id="inQuantity"
+      <input id="inQuantity"
         type="number"
         min="0.01"
         step="any"
         placeholder="Quantity">
-
     </div>
 
-
     <div class="form-group">
-
       <label>Guyyaa itti gale</label>
 
-      <input
-        id="inDate"
+      <input id="inDate"
         type="datetime-local">
-
     </div>
 
-
     <div class="form-group">
-
       <label>Nama galche</label>
 
-      <input
-        id="inEnteredBy"
+      <input id="inEnteredBy"
         type="text"
         placeholder="Maqaa nama galche">
-
     </div>
 
-
     <div class="form-group">
-
       <label>Expiry Date</label>
 
-      <input
-        id="inExpiryDate"
+      <input id="inExpiryDate"
         type="date">
-
     </div>
 
-
     <div class="form-group">
-
       <label>Mallattoo</label>
 
-      <input
-        id="inSignature"
+      <input id="inSignature"
         type="text"
         placeholder="Mallattoo">
-
     </div>
 
   </div>
 
-
   <div class="submit-row">
 
-    <button
-      class="save-btn save-in"
+    <button class="save-btn save-in"
       onclick="saveStock('IN')">
       💾 Save Stock IN
     </button>
 
-    <button
-      class="save-btn cancel"
+    <button class="save-btn cancel"
       onclick="closeForms()">
       Cancel
     </button>
@@ -535,9 +446,7 @@ td{
 </div>
 
 
-<!-- =====================================================
-     STOCK OUT
-===================================================== -->
+<!-- STOCK OUT -->
 
 <div id="stockOutForm" class="box form-box">
 
@@ -548,91 +457,64 @@ td{
   <div class="form-grid">
 
     <div class="form-group">
-
       <label>Item</label>
 
       <select id="outItem">
-        <option value="">
-          -- Item filadhu --
-        </option>
+        <option value="">-- Item filadhu --</option>
       </select>
-
     </div>
 
-
     <div class="form-group">
-
       <label>Unit</label>
 
-      <input
-        id="outUnit"
+      <input id="outUnit"
         class="readonly"
         readonly>
-
     </div>
 
-
     <div class="form-group">
-
       <label>Quantity</label>
 
-      <input
-        id="outQuantity"
+      <input id="outQuantity"
         type="number"
         min="0.01"
         step="any"
         placeholder="Quantity">
-
     </div>
 
-
     <div class="form-group">
-
       <label>Guyyaa itti bahe</label>
 
-      <input
-        id="outDate"
+      <input id="outDate"
         type="datetime-local">
-
     </div>
 
-
     <div class="form-group">
-
       <label>Nama baase</label>
 
-      <input
-        id="outIssuedBy"
+      <input id="outIssuedBy"
         type="text"
         placeholder="Maqaa nama baase">
-
     </div>
 
-
     <div class="form-group">
-
       <label>Mallattoo</label>
 
-      <input
-        id="outSignature"
+      <input id="outSignature"
         type="text"
         placeholder="Mallattoo">
-
     </div>
 
   </div>
 
-
   <div class="submit-row">
 
-    <button
-      class="save-btn save-out"
+    <button class="save-btn save-out"
       onclick="saveStock('OUT')">
       💾 Save Stock OUT
     </button>
 
-    <button
-      class="save-btn cancel"
+    <button class="save-btn cancel"
       onclick="closeForms()">
       Cancel
     </button>
@@ -642,9 +524,7 @@ td{
 </div>
 
 
-<!-- =====================================================
-     SUMMARY
-===================================================== -->
+<!-- SUMMARY -->
 
 <div class="summary">
 
@@ -671,25 +551,20 @@ td{
 </div>
 
 
-<!-- =====================================================
-     REPORT
-===================================================== -->
+<!-- REPORT -->
 
 <div class="report-box">
 
   <div class="report-title">
 
     📊 Stock Report —
-    <span id="reportBranch">
-      Branch
-    </span>
+    <span id="reportBranch">Branch</span>
 
   </div>
 
   <table>
 
     <thead>
-
       <tr>
         <th>No</th>
         <th>Item</th>
@@ -699,21 +574,15 @@ td{
         <th>Balance</th>
         <th>Details</th>
       </tr>
-
     </thead>
 
     <tbody id="reportTable">
 
       <tr>
-
-        <td
-          colspan="7"
+        <td colspan="7"
           style="text-align:center;padding:25px">
-
           Loading...
-
         </td>
-
       </tr>
 
     </tbody>
@@ -723,27 +592,22 @@ td{
 </div>
 
 
-<!-- =====================================================
-     DETAILS
-===================================================== -->
+<!-- DETAILS -->
 
 <div id="detailsBox" class="details-box">
 
   <div class="details-header">
 
-    <div
-      id="detailsTitle"
+    <div id="detailsTitle"
       class="details-title">
     </div>
 
-    <button
-      class="close-btn"
+    <button class="close-btn"
       onclick="closeDetails()">
       ✖ Close
     </button>
 
   </div>
-
 
   <div style="overflow-x:auto;">
 
@@ -752,7 +616,6 @@ td{
       <thead>
 
         <tr>
-
           <th>No</th>
           <th>Transaction</th>
           <th>Quantity</th>
@@ -762,7 +625,6 @@ td{
           <th>Nama Baase</th>
           <th>Expiry Date</th>
           <th>Mallattoo</th>
-
         </tr>
 
       </thead>
@@ -801,20 +663,17 @@ localStorage.getItem("selected_branch_id");
 let CURRENT_BRANCH_NAME =
 localStorage.getItem("selected_branch_name");
 
+let CURRENT_BRANCH_CODE =
+localStorage.getItem("selected_branch_code") ||
+localStorage.getItem("branch_code") ||
+"";
 
-/*
-   Yoo maqaan Branch qofa jiraate,
-   maqaa irraa Branch ID barbaaduuf
-   localStorage keessaa branch object
-   ilaalla.
-*/
 
 if(!CURRENT_BRANCH_NAME){
 
   CURRENT_BRANCH_NAME =
     localStorage.getItem("branch_name") ||
     "Unknown Branch";
-
 }
 
 
@@ -852,7 +711,7 @@ function getHeaders(){
 
 
 /* =====================================================
-   HTML ESCAPE
+   ESCAPE
 ===================================================== */
 
 function escapeHTML(value){
@@ -868,7 +727,7 @@ function escapeHTML(value){
 
 
 /* =====================================================
-   BRANCH
+   BRANCH CHECK
 ===================================================== */
 
 function checkBranch(){
@@ -917,78 +776,29 @@ async function loadItems(){
     return [];
 
 
-  /*
-     Tarkaanfii 1:
-     Items branch_id irratti barbaada.
-  */
-
-  const url =
-    SUPABASE_URL +
-    "/rest/v1/items" +
-    "?select=*" +
-    "&branch_id=eq." +
-    encodeURIComponent(CURRENT_BRANCH_ID) +
-    "&order=id.asc";
-
-
   try{
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(CURRENT_BRANCH_ID) +
+      "&order=id.asc";
+
 
     const response =
       await fetch(
         url,
-        {
-          headers:getHeaders()
-        }
+        {headers:getHeaders()}
       );
 
 
-    if(response.ok){
-
-      const data =
-        await response.json();
-
-      /*
-        Yoo item argame,
-        kallattiin deebisa.
-      */
-
-      if(Array.isArray(data) && data.length > 0){
-
-        return data;
-
-      }
-
-    }
-
-
-    /*
-      Yoo branch_id irratti item hin argamne,
-      items hunda fida.
-      Sana booda branch irratti
-      local filtering godha.
-    */
-
-    const allUrl =
-      SUPABASE_URL +
-      "/rest/v1/items" +
-      "?select=*" +
-      "&order=id.asc";
-
-
-    const allResponse =
-      await fetch(
-        allUrl,
-        {
-          headers:getHeaders()
-        }
-      );
-
-
-    if(!allResponse.ok){
+    if(!response.ok){
 
       console.error(
         "Items Error:",
-        await allResponse.text()
+        await response.text()
       );
 
       return [];
@@ -996,41 +806,12 @@ async function loadItems(){
     }
 
 
-    const allData =
-      await allResponse.json();
+    const data =
+      await response.json();
 
 
-    /*
-      Yoo table keessatti branch_id jiraate
-      branch sirrii qofa filata.
-    */
-
-    if(
-      Array.isArray(allData) &&
-      allData.length > 0 &&
-      Object.prototype.hasOwnProperty.call(
-        allData[0],
-        "branch_id"
-      )
-    ){
-
-      return allData.filter(
-        item =>
-          String(item.branch_id) ===
-          String(CURRENT_BRANCH_ID)
-      );
-
-    }
-
-
-    /*
-      Yoo branch_id column hin jirre,
-      item hunda agarsiisa.
-      Kun Stock IN akka hojjetu taasisa.
-    */
-
-    return Array.isArray(allData)
-      ? allData
+    return Array.isArray(data)
+      ? data
       : [];
 
   }catch(error){
@@ -1057,23 +838,21 @@ async function loadTransactions(){
     return [];
 
 
-  const url =
-    SUPABASE_URL +
-    "/rest/v1/stock_transactions" +
-    "?select=*" +
-    "&branch_id=eq." +
-    encodeURIComponent(CURRENT_BRANCH_ID) +
-    "&order=created_at.desc";
-
-
   try{
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions" +
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(CURRENT_BRANCH_ID) +
+      "&order=entered_at.desc";
+
 
     const response =
       await fetch(
         url,
-        {
-          headers:getHeaders()
-        }
+        {headers:getHeaders()}
       );
 
 
@@ -1112,7 +891,7 @@ async function loadTransactions(){
 
 
 /* =====================================================
-   FILL ITEM SELECT
+   FILL ITEM LISTS
 ===================================================== */
 
 function fillItemLists(){
@@ -1124,25 +903,17 @@ function fillItemLists(){
     document.getElementById("outItem");
 
 
-  inItem.innerHTML = `
-    <option value="">
-      -- Item filadhu --
-    </option>
-  `;
+  inItem.innerHTML =
+    `<option value="">-- Item filadhu --</option>`;
 
-
-  outItem.innerHTML = `
-    <option value="">
-      -- Item filadhu --
-    </option>
-  `;
+  outItem.innerHTML =
+    `<option value="">-- Item filadhu --</option>`;
 
 
   allItems.forEach(item => {
 
     const option1 =
       document.createElement("option");
-
 
     option1.value =
       item.id;
@@ -1160,7 +931,6 @@ function fillItemLists(){
     const option2 =
       option1.cloneNode(true);
 
-
     outItem.appendChild(option2);
 
   });
@@ -1169,43 +939,31 @@ function fillItemLists(){
 
 
 /* =====================================================
-   ITEM UNIT
+   UNIT
 ===================================================== */
 
-document
-.getElementById("inItem")
-.addEventListener(
-  "change",
-  function(){
+document.getElementById("inItem")
+.addEventListener("change",function(){
 
-    const option =
-      this.options[
-        this.selectedIndex
-      ];
+  const option =
+    this.options[this.selectedIndex];
 
-    document.getElementById("inUnit").value =
-      option?.dataset?.unit || "";
+  document.getElementById("inUnit").value =
+    option?.dataset?.unit || "";
 
-  }
-);
+});
 
 
-document
-.getElementById("outItem")
-.addEventListener(
-  "change",
-  function(){
+document.getElementById("outItem")
+.addEventListener("change",function(){
 
-    const option =
-      this.options[
-        this.selectedIndex
-      ];
+  const option =
+    this.options[this.selectedIndex];
 
-    document.getElementById("outUnit").value =
-      option?.dataset?.unit || "";
+  document.getElementById("outUnit").value =
+    option?.dataset?.unit || "";
 
-  }
-);
+});
 
 
 /* =====================================================
@@ -1244,20 +1002,14 @@ function openForm(type){
 
   closeForms();
 
-
   if(!checkBranch())
     return;
 
 
-  /*
-     Amma Item yoo hin jirre,
-     user'aa ifatti ibsa.
-  */
-
   if(allItems.length === 0){
 
     showMessage(
-      "❌ Item hin jiru. Mee Items page irraa Item tokko dura galchi.",
+      "❌ Item hin jiru. Mee Items page irraa Item galchi.",
       "error"
     );
 
@@ -1327,12 +1079,73 @@ function showMessage(text,type){
   });
 
 
-  setTimeout(
-    () => {
-      box.className =
-        "message";
-    },
-    6000
+  setTimeout(() => {
+
+    box.className =
+      "message";
+
+  },6000);
+
+}
+
+
+/* =====================================================
+   GET BALANCE
+===================================================== */
+
+function getItemBalance(itemId){
+
+  let totalIn = 0;
+  let totalOut = 0;
+
+
+  allTransactions.forEach(t => {
+
+    if(
+      String(t.item_id) !==
+      String(itemId)
+    )
+      return;
+
+
+    const quantity =
+      Number(t.quantity || 0);
+
+
+    const type =
+      String(
+        t.transction_type ||
+        t.trasctin ||
+        ""
+      ).toUpperCase();
+
+
+    if(type === "IN")
+      totalIn += quantity;
+
+
+    if(type === "OUT")
+      totalOut += quantity;
+
+  });
+
+
+  const item =
+    allItems.find(
+      i =>
+        String(i.id) ===
+        String(itemId)
+    );
+
+
+  const opening =
+    Number(item?.quantity || 0);
+
+
+  return (
+    opening +
+    totalIn -
+    totalOut
   );
 
 }
@@ -1353,12 +1166,10 @@ async function saveStock(type){
   let unit = "";
   let enteredBy = "";
   let issuedBy = "";
-  let expiryDate = null;
-  let transactionDate = "";
+  let exDate = null;
+  let enteredAt = "";
   let signature = "";
 
-
-  /* STOCK IN */
 
   if(type === "IN"){
 
@@ -1375,25 +1186,21 @@ async function saveStock(type){
 
     enteredBy =
       document.getElementById("inEnteredBy")
-      .value
-      .trim();
+      .value.trim();
 
-    expiryDate =
+    exDate =
       document.getElementById("inExpiryDate")
       .value || null;
 
-    transactionDate =
+    enteredAt =
       document.getElementById("inDate").value;
 
     signature =
       document.getElementById("inSignature")
-      .value
-      .trim();
+      .value.trim();
 
   }
 
-
-  /* STOCK OUT */
 
   if(type === "OUT"){
 
@@ -1410,21 +1217,17 @@ async function saveStock(type){
 
     issuedBy =
       document.getElementById("outIssuedBy")
-      .value
-      .trim();
+      .value.trim();
 
-    transactionDate =
+    enteredAt =
       document.getElementById("outDate").value;
 
     signature =
       document.getElementById("outSignature")
-      .value
-      .trim();
+      .value.trim();
 
   }
 
-
-  /* VALIDATION */
 
   if(!itemId){
 
@@ -1450,10 +1253,10 @@ async function saveStock(type){
   }
 
 
-  if(!transactionDate){
+  if(!enteredAt){
 
     showMessage(
-      "❌ Guyyaa galchi.",
+      "❌ Guyyaa fi sa'aatii galchi.",
       "error"
     );
 
@@ -1506,7 +1309,7 @@ async function saveStock(type){
   }
 
 
-  /* CHECK BALANCE */
+  /* STOCK OUT BALANCE */
 
   if(type === "OUT"){
 
@@ -1531,46 +1334,66 @@ async function saveStock(type){
   }
 
 
-  /* DATA */
+  /* CATEGORY */
+
+  const category =
+    item.catagoiry ||
+    item.category ||
+    "";
+
+
+  /*
+     DATABASE COLUMNS EXACTLY
+  */
 
   const data = {
 
-    branch_id:
-      CURRENT_BRANCH_ID,
-
     item_id:
-      itemId,
+      Number(itemId),
+
+    transction_type:
+      type,
 
     quantity:
       quantity,
 
-    unit:
-      unit,
-
-    transaction:
-      type,
-
-    transaction_type:
-      type,
-
     entered_by:
       enteredBy || null,
 
-    issued_by:
+    entered_at:
+      new Date(enteredAt).toISOString(),
+
+    ex_date:
+      exDate,
+
+    catagoiry:
+      category || null,
+
+    issed_by:
       issuedBy || null,
 
-    expiry_date:
-      expiryDate,
-
-    signature:
+    signiture:
       signature || null,
 
-    created_at:
-      new Date(
-        transactionDate
-      ).toISOString()
+    unit:
+      unit || null,
+
+    trasctin:
+      type,
+
+    branch_id:
+      CURRENT_BRANCH_ID,
+
+    branch_code:
+      CURRENT_BRANCH_CODE || null
 
   };
+
+
+  console.log(
+    "STOCK DATA:",
+    data
+  );
 
 
   try{
@@ -1633,6 +1456,7 @@ async function saveStock(type){
   }catch(error){
 
     console.error(
+      "NETWORK ERROR:",
       error
     );
 
@@ -1642,74 +1466,6 @@ async function saveStock(type){
     );
 
   }
-
-}
-
-
-/* =====================================================
-   BALANCE
-===================================================== */
-
-function getItemBalance(itemId){
-
-  let totalIn = 0;
-  let totalOut = 0;
-
-
-  allTransactions.forEach(t => {
-
-    if(
-      String(t.item_id) !==
-      String(itemId)
-    )
-      return;
-
-
-    const quantity =
-      Number(t.quantity || 0);
-
-
-    const type =
-      String(
-        t.transaction_type ||
-        t.transaction ||
-        ""
-      ).toUpperCase();
-
-
-    if(type === "IN")
-      totalIn += quantity;
-
-
-    if(type === "OUT")
-      totalOut += quantity;
-
-  });
-
-
-  const item =
-    allItems.find(
-      i =>
-        String(i.id) ===
-        String(itemId)
-    );
-
-
-  /*
-     Items page irraa opening quantity.
-  */
-
-  const opening =
-    Number(
-      item?.quantity || 0
-    );
-
-
-  return (
-    opening +
-    totalIn -
-    totalOut
-  );
 
 }
 
@@ -1758,15 +1514,8 @@ async function loadStock(){
     return;
 
 
-  showMessage(
-    "🔄 Stock fi Items loading...",
-    "success"
-  );
-
-
   allItems =
     await loadItems();
-
 
   allTransactions =
     await loadTransactions();
@@ -1778,10 +1527,6 @@ async function loadStock(){
 
   setDefaultDates();
 
-
-  /*
-     User'aa odeeffannoo ifa ta'e.
-  */
 
   if(allItems.length === 0){
 
@@ -1809,9 +1554,7 @@ function buildReport(){
   allItems.forEach(item => {
 
     const key =
-      String(
-        item.name || ""
-      )
+      String(item.name || "")
       .trim()
       .toLowerCase();
 
@@ -1832,19 +1575,17 @@ function buildReport(){
 
         out:0,
 
-        opening:
-          Number(
-            item.quantity || 0
-          )
+        opening:0
 
       };
 
     }
 
 
-    groups[key].itemIds.push(
-      item.id
-    );
+    groups[key].itemIds.push(item.id);
+
+    groups[key].opening +=
+      Number(item.quantity || 0);
 
   });
 
@@ -1864,9 +1605,7 @@ function buildReport(){
 
 
     const key =
-      String(
-        item.name || ""
-      )
+      String(item.name || "")
       .trim()
       .toLowerCase();
 
@@ -1885,8 +1624,7 @@ function buildReport(){
 
         out:0,
 
-        opening:
-          Number(item.quantity || 0)
+        opening:0
 
       };
 
@@ -1899,8 +1637,8 @@ function buildReport(){
 
     const type =
       String(
-        t.transaction_type ||
-        t.transaction ||
+        t.transction_type ||
+        t.trasctin ||
         ""
       ).toUpperCase();
 
@@ -1927,9 +1665,7 @@ function buildReport(){
 function showReport(){
 
   const table =
-    document.getElementById(
-      "reportTable"
-    );
+    document.getElementById("reportTable");
 
 
   const groups =
@@ -1947,120 +1683,100 @@ function showReport(){
   if(groups.length === 0){
 
     table.innerHTML = `
-
       <tr>
-
-        <td
-          colspan="7"
+        <td colspan="7"
           style="text-align:center;padding:30px">
-
           📦 Item hin jiru.
-
         </td>
-
       </tr>
-
     `;
 
   }
 
 
-  groups.forEach(
-    (group,index) => {
+  groups.forEach((group,index) => {
 
-      const balance =
-        group.opening +
-        group.in -
-        group.out;
-
-
-      totalOpening +=
-        group.opening;
-
-      totalIn +=
-        group.in;
-
-      totalOut +=
-        group.out;
+    const balance =
+      group.opening +
+      group.in -
+      group.out;
 
 
-      const row =
-        document.createElement("tr");
+    totalOpening +=
+      group.opening;
+
+    totalIn +=
+      group.in;
+
+    totalOut +=
+      group.out;
 
 
-      row.className =
-        "item-row";
+    const row =
+      document.createElement("tr");
 
 
-      row.onclick =
-        () =>
-          showItemDetails(
-            group.name
-          );
+    row.className =
+      "item-row";
 
 
-      row.innerHTML = `
-
-        <td>
-          ${index + 1}
-        </td>
-
-        <td>
-          <strong>
-            ${escapeHTML(group.name)}
-          </strong>
-        </td>
-
-        <td>
-          ${escapeHTML(group.unit)}
-        </td>
-
-        <td>
-          ${group.in.toLocaleString()}
-        </td>
-
-        <td>
-          ${group.out.toLocaleString()}
-        </td>
-
-        <td class="balance">
-          ${balance.toLocaleString()}
-        </td>
-
-        <td class="click">
-          👆 Click
-        </td>
-
-      `;
+    row.onclick =
+      () =>
+        showItemDetails(group.name);
 
 
-      table.appendChild(row);
+    row.innerHTML = `
 
-    }
-  );
+      <td>${index + 1}</td>
+
+      <td>
+        <strong>
+          ${escapeHTML(group.name)}
+        </strong>
+      </td>
+
+      <td>
+        ${escapeHTML(group.unit)}
+      </td>
+
+      <td>
+        ${group.in.toLocaleString()}
+      </td>
+
+      <td>
+        ${group.out.toLocaleString()}
+      </td>
+
+      <td class="balance">
+        ${balance.toLocaleString()}
+      </td>
+
+      <td class="click">
+        👆 Click
+      </td>
+
+    `;
 
 
-  document.getElementById(
-    "totalItems"
-  ).textContent =
+    table.appendChild(row);
+
+  });
+
+
+  document.getElementById("totalItems")
+    .textContent =
     groups.length;
 
-
-  document.getElementById(
-    "totalIn"
-  ).textContent =
+  document.getElementById("totalIn")
+    .textContent =
     totalIn.toLocaleString();
 
-
-  document.getElementById(
-    "totalOut"
-  ).textContent =
+  document.getElementById("totalOut")
+    .textContent =
     totalOut.toLocaleString();
 
-
-  document.getElementById(
-    "totalBalance"
-  ).textContent =
+  document.getElementById("totalBalance")
+    .textContent =
     (
       totalOpening +
       totalIn -
@@ -2078,16 +1794,16 @@ function showItemDetails(itemName){
 
   const normalized =
     String(itemName)
-      .trim()
-      .toLowerCase();
+    .trim()
+    .toLowerCase();
 
 
   const items =
     allItems.filter(
       item =>
         String(item.name || "")
-          .trim()
-          .toLowerCase()
+        .trim()
+        .toLowerCase()
         === normalized
     );
 
@@ -2109,21 +1825,15 @@ function showItemDetails(itemName){
 
 
   const box =
-    document.getElementById(
-      "detailsBox"
-    );
+    document.getElementById("detailsBox");
 
 
   const title =
-    document.getElementById(
-      "detailsTitle"
-    );
+    document.getElementById("detailsTitle");
 
 
   const table =
-    document.getElementById(
-      "detailsTable"
-    );
+    document.getElementById("detailsTable");
 
 
   title.textContent =
@@ -2139,125 +1849,114 @@ function showItemDetails(itemName){
   if(transactions.length === 0){
 
     table.innerHTML = `
-
       <tr>
-
-        <td
-          colspan="9"
+        <td colspan="9"
           style="text-align:center;padding:25px">
-
           Transaction hin jiru.
-
         </td>
-
       </tr>
-
     `;
 
   }
 
 
-  transactions.forEach(
-    (t,index) => {
+  transactions.forEach((t,index) => {
 
-      const type =
-        String(
-          t.transaction_type ||
-          t.transaction ||
-          ""
-        ).toUpperCase();
-
-
-      const item =
-        allItems.find(
-          i =>
-            String(i.id) ===
-            String(t.item_id)
-        );
+    const type =
+      String(
+        t.transction_type ||
+        t.trasctin ||
+        ""
+      ).toUpperCase();
 
 
-      const row =
-        document.createElement("tr");
+    const item =
+      allItems.find(
+        i =>
+          String(i.id) ===
+          String(t.item_id)
+      );
 
 
-      row.innerHTML = `
+    const row =
+      document.createElement("tr");
 
-        <td>
-          ${index + 1}
-        </td>
 
-        <td>
+    row.innerHTML = `
 
-          <span class="badge ${
-            type === "OUT"
-            ? "badge-out"
-            : "badge-in"
-          }">
+      <td>${index + 1}</td>
 
-            ${
-              type === "OUT"
-              ? "🔴 OUT"
-              : "🟢 IN"
-            }
+      <td>
 
-          </span>
+        <span class="badge ${
+          type === "OUT"
+          ? "badge-out"
+          : "badge-in"
+        }">
 
-        </td>
-
-        <td>
-          ${Number(
-            t.quantity || 0
-          ).toLocaleString()}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            t.unit ||
-            item?.unit ||
-            ""
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            formatDate(t.created_at)
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            t.entered_by || "—"
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            t.issued_by || "—"
-          )}
-        </td>
-
-        <td>
-          ${escapeHTML(
-            t.expiry_date || "—"
-          )}
-        </td>
-
-        <td>
           ${
-            t.signature
-            ? "✍️ " +
-              escapeHTML(t.signature)
-            : "—"
+            type === "OUT"
+            ? "🔴 OUT"
+            : "🟢 IN"
           }
-        </td>
 
-      `;
+        </span>
+
+      </td>
+
+      <td>
+        ${Number(
+          t.quantity || 0
+        ).toLocaleString()}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          t.unit ||
+          item?.unit ||
+          ""
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          formatDate(t.entered_at)
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          t.entered_by || "—"
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          t.issed_by || "—"
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          t.ex_date || "—"
+        )}
+      </td>
+
+      <td>
+        ${
+          t.signiture
+          ? "✍️ " +
+            escapeHTML(t.signiture)
+          : "—"
+        }
+      </td>
+
+    `;
 
 
-      table.appendChild(row);
+    table.appendChild(row);
 
-    }
-  );
+  });
 
 
   box.classList.add("show");
@@ -2285,11 +1984,7 @@ function formatDate(value){
     new Date(value);
 
 
-  if(
-    isNaN(
-      date.getTime()
-    )
-  )
+  if(isNaN(date.getTime()))
     return value;
 
 
@@ -2343,8 +2038,7 @@ window.addEventListener(
   "DOMContentLoaded",
   async function(){
 
-    if(!checkBranch())
-      return;
+    checkBranch();
 
     await loadStock();
 
