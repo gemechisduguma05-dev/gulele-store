@@ -501,6 +501,50 @@ nav a:hover{
 <script>
 
 /* =====================================================
+   AAFDRMC SETTINGS ACCESS CONTROL
+   MAIN / HQ ONLY
+===================================================== */
+
+(function(){
+
+  const isLoggedIn =
+    localStorage.getItem("is_logged_in") === "true";
+
+  const role =
+    (localStorage.getItem("user_role") || "")
+      .trim()
+      .toLowerCase();
+
+  const branchCode =
+    (localStorage.getItem("selected_branch_code") || "")
+      .trim()
+      .toUpperCase();
+
+
+  /*
+    SETTINGS CAN ONLY BE OPENED WHEN:
+
+    1. User is logged in
+    2. User role = main
+    3. Selected branch = MAIN
+  */
+
+  if(
+    !isLoggedIn ||
+    role !== "main" ||
+    branchCode !== "MAIN"
+  ){
+
+    window.location.replace("dashboard.html");
+
+    return;
+
+  }
+
+})();
+
+
+/* =====================================================
    SUPABASE
 ===================================================== */
 
@@ -527,12 +571,12 @@ const accessToken =
 
 
 if(
-  isLoggedIn !== "true" &&
-  !accessToken
+  isLoggedIn !== "true"
 ){
 
-  window.location.href =
-    "index.html";
+  window.location.replace(
+    "index.html"
+  );
 
 }
 
@@ -584,13 +628,13 @@ function loadSettings(){
   const branchName =
     selectedBranchName ||
     selectedBranchId ||
-    "Not Selected";
+    "MAIN / HQ";
 
 
   const branchCode =
     selectedBranchCode ||
     selectedBranchId ||
-    "—";
+    "MAIN";
 
 
   /* =========================
@@ -626,7 +670,7 @@ function loadSettings(){
     currentUser =
       localStorage.getItem(
         "user_email"
-      ) || "User";
+      ) || "Main / HQ";
 
   }
 
@@ -644,9 +688,7 @@ function loadSettings(){
   document.getElementById(
     "userRole"
   ).textContent =
-    isMain
-      ? "Main / HQ"
-      : "Branch User";
+    "Main / HQ";
 
 
   /* =========================
@@ -659,24 +701,11 @@ function loadSettings(){
     );
 
 
-  if(isMain){
+  access.textContent =
+    "👁️ View Only";
 
-    access.textContent =
-      "👁️ View Only";
-
-    access.className =
-      "value access-view";
-
-  }
-  else{
-
-    access.textContent =
-      "✏️ Full Access";
-
-    access.className =
-      "value access-full";
-
-  }
+  access.className =
+    "value access-view";
 
 
   /* =========================
@@ -689,35 +718,8 @@ function loadSettings(){
     );
 
 
-  if(isMain){
-
-    if(
-      branchCode.toUpperCase() ===
-      "MAIN"
-    ){
-
-      banner.textContent =
-        "🏢 MAIN / HQ — View Only";
-
-    }
-    else{
-
-      banner.textContent =
-        "👁️ MAIN / HQ → Viewing: " +
-        branchName +
-        " — View Only";
-
-    }
-
-  }
-  else{
-
-    banner.textContent =
-      "🏢 " +
-      branchName +
-      " — Full Access";
-
-  }
+  banner.textContent =
+    "🏢 MAIN / HQ — View Only";
 
 }
 
@@ -769,8 +771,9 @@ function logoutUser(){
   );
 
 
-  window.location.href =
-    "index.html";
+  window.location.replace(
+    "index.html"
+  );
 
 }
 
