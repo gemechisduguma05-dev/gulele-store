@@ -2,8 +2,12 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Dashboard</title>
 
@@ -16,15 +20,16 @@
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#f1f5f9;
-  color:#1e293b;
+  background:#f5f1ed;
+  color:#3e2723;
 }
 
 header{
-  background:#1e3a8a;
+  background:#5d4037;
   color:white;
-  padding:25px 15px;
+  padding:24px 15px;
   text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.15);
 }
 
 header h1{
@@ -53,7 +58,7 @@ header h1{
 }
 
 .title{
-  color:#1e3a8a;
+  color:#5d4037;
   font-size:24px;
   font-weight:bold;
   margin-bottom:20px;
@@ -79,28 +84,32 @@ header h1{
   display:block;
 }
 
+.btn:hover{
+  opacity:.9;
+}
+
 .items{
-  background:#15803d;
+  background:#388e3c;
 }
 
 .stock{
-  background:#dc2626;
+  background:#c62828;
 }
 
 .report{
-  background:#ea580c;
+  background:#ef6c00;
 }
 
 .settings{
-  background:#475569;
+  background:#6d4c41;
 }
 
 .refresh{
-  background:#1e3a8a;
+  background:#795548;
 }
 
 .menu{
-  background:#64748b;
+  background:#8d6e63;
 }
 
 .logout{
@@ -108,12 +117,11 @@ header h1{
 }
 
 .branch-btn{
-  background:#334155;
+  background:#6d4c41;
 }
 
-.branch-btn:hover,
-.btn:hover{
-  opacity:.9;
+.view-only-btn{
+  background:#8d6e63;
 }
 
 .summary{
@@ -131,14 +139,14 @@ header h1{
 
 .summary-card span{
   display:block;
-  color:#64748b;
+  color:#795548;
   font-weight:bold;
 }
 
 .summary-card strong{
   display:block;
   margin-top:8px;
-  color:#1e3a8a;
+  color:#5d4037;
   font-size:30px;
 }
 
@@ -149,23 +157,23 @@ header h1{
 }
 
 .category-card{
-  border:1px solid #e2e8f0;
+  border:1px solid #d7ccc8;
   border-radius:12px;
   padding:18px;
-  background:#f8fafc;
+  background:#faf7f5;
 }
 
 .category-name{
   font-weight:bold;
   font-size:16px;
-  color:#334155;
-  line-height:1.4;
+  color:#4e342e;
+  line-height:1.5;
 }
 
 .category-total{
   font-size:27px;
   font-weight:bold;
-  color:#1e3a8a;
+  color:#5d4037;
   margin-top:8px;
 }
 
@@ -176,22 +184,22 @@ header h1{
 }
 
 .branch-box{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
+  background:#faf7f5;
+  border:1px solid #d7ccc8;
   border-radius:12px;
   padding:16px;
 }
 
 .branch-box strong{
   display:block;
-  color:#1e3a8a;
+  color:#5d4037;
   font-size:17px;
   margin-bottom:5px;
 }
 
 .branch-box small{
   display:block;
-  color:#64748b;
+  color:#795548;
   margin-bottom:12px;
 }
 
@@ -220,9 +228,9 @@ header h1{
 }
 
 .info{
-  background:#eff6ff;
-  color:#1e40af;
-  border:1px solid #bfdbfe;
+  background:#efebe9;
+  color:#5d4037;
+  border:1px solid #d7ccc8;
   padding:15px;
   border-radius:10px;
   margin-bottom:20px;
@@ -231,9 +239,9 @@ header h1{
 }
 
 .main-note{
-  background:#fef3c7;
-  color:#92400e;
-  border:1px solid #fde68a;
+  background:#fff3e0;
+  color:#6d4c41;
+  border:1px solid #ffcc80;
   padding:15px;
   border-radius:10px;
   margin-bottom:20px;
@@ -243,6 +251,16 @@ header h1{
 
 .hidden{
   display:none !important;
+}
+
+.mode-badge{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:20px;
+  background:#efebe9;
+  color:#5d4037;
+  font-size:13px;
+  margin-top:10px;
 }
 
 @media(max-width:850px){
@@ -294,6 +312,7 @@ header h1{
 }
 
 </style>
+
 </head>
 
 
@@ -307,11 +326,14 @@ AAFDRMC - STOCK MANAGEMENT
 </h1>
 
 <div
-id="branchName"
-class="branch">
-
+  id="branchName"
+  class="branch">
 Loading Branch...
+</div>
 
+<div
+  id="modeBadge"
+  class="mode-badge">
 </div>
 
 </header>
@@ -321,13 +343,13 @@ Loading Branch...
 
 
 <div
-id="message"
-class="message">
+  id="message"
+  class="message">
 </div>
 
 
 <!-- =====================================================
-     BRANCH INFORMATION
+     CURRENT BRANCH
 ===================================================== -->
 
 <div class="card">
@@ -354,18 +376,31 @@ Branch Code:
 
 
 <!-- =====================================================
-     MAIN INFORMATION
+     MAIN NOTE
 ===================================================== -->
 
 <div
-id="mainNote"
-class="main-note hidden">
+  id="mainNote"
+  class="main-note hidden">
 
-🏢 <strong>Main / HQ</strong><br><br>
+🏢 <strong>Main / HQ - View Only</strong>
 
-Main irraa Stock IN fi Stock OUT hin galchamu.
-Main'n hojii branches 12 hunda ilaala,
-reportii fi category summary waliigalaa qofa qaba.
+<br><br>
+
+Main irraa branch tokko filattee
+Item, Stock fi Report ilaaluu dandeessa.
+
+<br><br>
+
+Garuu Main irraa:
+
+❌ Item Add  
+❌ Item Edit  
+❌ Item Delete  
+❌ Stock IN  
+❌ Stock OUT
+
+hin danda'amu.
 
 </div>
 
@@ -381,84 +416,74 @@ reportii fi category summary waliigalaa qofa qaba.
 </div>
 
 
+<!-- OPERATIONAL BRANCH MENU -->
+
 <div
-id="branchMenu"
-class="menu-grid">
+  id="branchMenu"
+  class="menu-grid">
 
-
-<!-- ITEMS: BRANCH ONLY -->
 
 <a
-href="items.html"
-class="btn items">
+  href="items.html"
+  class="btn items"
+  id="itemsButton">
 
 📦 Items
 
 </a>
 
 
-<!-- STOCK: BRANCH ONLY -->
-
 <a
-href="stock.html"
-class="btn stock">
+  href="stock.html"
+  class="btn stock"
+  id="stockButton">
 
 📥 Stock IN / OUT
 
 </a>
 
 
-<!-- REPORT: BOTH MAIN AND BRANCH -->
-
 <a
-href="reports.html"
-class="btn report">
+  href="reports.html"
+  class="btn report">
 
 📊 Stock Report
 
 </a>
 
 
-<!-- SETTINGS -->
-
 <a
-href="settings.html"
-class="btn settings">
+  href="settings.html"
+  class="btn settings">
 
 ⚙️ Settings
 
 </a>
 
 
-<!-- REFRESH -->
-
 <button
-type="button"
-class="btn refresh"
-onclick="loadDashboard()">
+  type="button"
+  class="btn refresh"
+  onclick="loadDashboard()">
 
 🔄 Refresh
 
 </button>
 
 
-<!-- MAIN MENU -->
-
 <a
-href="index.html"
-class="btn menu">
+  href="index.html"
+  class="btn menu">
 
 ⬅️ Main Menu
 
 </a>
 
 
-<!-- LOGOUT -->
-
 <button
-type="button"
-class="btn logout"
-onclick="logout()">
+  type="button"
+  class="btn logout"
+  onclick="logout()">
 
 🚪 Logout
 
@@ -468,16 +493,16 @@ onclick="logout()">
 </div>
 
 
-<!-- MAIN MENU -->
+<!-- MAIN HQ MENU -->
 
 <div
-id="mainMenu"
-class="menu-grid hidden">
+  id="mainMenu"
+  class="menu-grid hidden">
 
 
 <a
-href="reports.html"
-class="btn report">
+  href="reports.html"
+  class="btn report">
 
 📊 All Branches Report
 
@@ -485,8 +510,8 @@ class="btn report">
 
 
 <a
-href="settings.html"
-class="btn settings">
+  href="settings.html"
+  class="btn settings">
 
 ⚙️ Settings
 
@@ -494,9 +519,9 @@ class="btn settings">
 
 
 <button
-type="button"
-class="btn refresh"
-onclick="loadDashboard()">
+  type="button"
+  class="btn refresh"
+  onclick="loadDashboard()">
 
 🔄 Refresh
 
@@ -504,8 +529,8 @@ onclick="loadDashboard()">
 
 
 <a
-href="index.html"
-class="btn menu">
+  href="index.html"
+  class="btn menu">
 
 ⬅️ Main Menu
 
@@ -513,9 +538,9 @@ class="btn menu">
 
 
 <button
-type="button"
-class="btn logout"
-onclick="logout()">
+  type="button"
+  class="btn logout"
+  onclick="logout()">
 
 🚪 Logout
 
@@ -523,6 +548,7 @@ onclick="logout()">
 
 
 </div>
+
 
 </div>
 
@@ -600,8 +626,8 @@ onclick="logout()">
 </div>
 
 <div
-class="category-grid"
-id="categoryGrid">
+  class="category-grid"
+  id="categoryGrid">
 
 </div>
 
@@ -609,12 +635,12 @@ id="categoryGrid">
 
 
 <!-- =====================================================
-     MAIN ONLY - 12 BRANCHES
+     MAIN BRANCHES
 ===================================================== -->
 
 <div
-id="allBranchesCard"
-class="card hidden">
+  id="allBranchesCard"
+  class="card hidden">
 
 <div class="title">
 🏢 AAFDRMC Branches
@@ -623,14 +649,19 @@ class="card hidden">
 <div class="info">
 
 Main irraa branches 12 hunda ilaaluun ni danda'ama.
-Branch tokko filadhu; dashboard branch sanaa ni banama.
+
+<br><br>
+
+Branch tokko filadhu.
+Branch sana keessatti odeeffannoo isaa
+ilaaluu dandeessa.
 
 </div>
 
 
 <div
-class="branch-grid"
-id="branchGrid">
+  class="branch-grid"
+  id="branchGrid">
 
 </div>
 
@@ -649,8 +680,25 @@ id="branchGrid">
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXk";
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const isLoggedIn =
+localStorage.getItem("is_logged_in") === "true";
+
+
+if(!isLoggedIn){
+
+  window.location.href =
+    "index.html";
+
+}
 
 
 /* =====================================================
@@ -666,6 +714,72 @@ let branchCode =
 localStorage.getItem(
   "selected_branch_code"
 ) || "";
+
+
+/* =====================================================
+   USER ROLE
+===================================================== */
+
+const userRole =
+localStorage.getItem(
+  "user_role"
+) || "";
+
+
+/*
+  IMPORTANT:
+
+  Main role yeroo branch filatu hin jijjiiramu.
+
+  Kanaaf:
+
+  Main HQ
+  fi
+
+  Main → Gulele
+  Main → Bole
+
+  lamaan isaanii Main viewer dha.
+*/
+
+function isMainUser(){
+
+  return (
+    String(userRole)
+      .trim()
+      .toLowerCase()
+      === "main"
+  );
+
+}
+
+
+/* =====================================================
+   IS HQ MAIN
+===================================================== */
+
+function isMainHQ(){
+
+  return (
+    isMainUser() &&
+    String(branchCode)
+      .trim()
+      .toUpperCase()
+      === "MAIN"
+  );
+
+}
+
+
+/* =====================================================
+   OPERATIONAL BRANCH
+===================================================== */
+
+function isOperationalBranch(){
+
+  return !isMainUser();
+
+}
 
 
 /* =====================================================
@@ -745,36 +859,42 @@ const CATEGORIES = [
 
   {
     key:"Strategic Food",
+
     name:
       "Meeshaalee Nyaataa Tarsiimawaa"
   },
 
   {
     key:"Daily Food",
+
     name:
       "Meeshaalee Nyaataa Guyyaa Guyyaa"
   },
 
   {
     key:"Daily Non-Food",
+
     name:
       "Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa"
   },
 
   {
     key:"Non-Food Kitchen",
+
     name:
       "Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan"
   },
 
   {
     key:"Hygiene",
+
     name:
       "Meeshaalee Qulqullinaa"
   },
 
   {
     key:"Building",
+
     name:
       "Meeshaa Ijaarsa Manaaf Oolu"
   }
@@ -788,13 +908,10 @@ const CATEGORIES = [
 
 function getHeaders(){
 
-  return {
+  const headers = {
 
     "apikey":
       SUPABASE_KEY,
-
-    "Authorization":
-      "Bearer " + SUPABASE_KEY,
 
     "Content-Type":
       "application/json",
@@ -803,6 +920,34 @@ function getHeaders(){
       "application/json"
 
   };
+
+
+  const token =
+    localStorage.getItem(
+      "access_token"
+    );
+
+
+  /*
+    Yoo access token jiraate
+    Authorization keessatti fayyadamna.
+  */
+
+  if(token){
+
+    headers["Authorization"] =
+      "Bearer " + token;
+
+  }
+  else{
+
+    headers["Authorization"] =
+      "Bearer " + SUPABASE_KEY;
+
+  }
+
+
+  return headers;
 
 }
 
@@ -821,35 +966,14 @@ function showMessage(
       "message"
     );
 
+
   box.textContent =
     text;
+
 
   box.className =
     "message show " +
     type;
-
-}
-
-
-/* =====================================================
-   CHECK MAIN
-===================================================== */
-
-function isMain(){
-
-  return (
-
-    String(branchCode)
-      .trim()
-      .toUpperCase() === "MAIN"
-
-    ||
-
-    String(branchName)
-      .trim()
-      .toLowerCase() === "main"
-
-  );
 
 }
 
@@ -882,12 +1006,13 @@ function showBranch(){
 
     showMessage(
 
-      "❌ Branch hin filatamne.\n\n" +
+      "Branch hin filatamne.\n\n" +
       "Mee gara Main Menu deebi'ii Branch filadhu.",
 
       "error"
 
     );
+
 
     return false;
 
@@ -897,8 +1022,7 @@ function showBranch(){
   document.getElementById(
     "branchName"
   ).textContent =
-    "🏢 " +
-    branchName;
+    "🏢 " + branchName;
 
 
   document.getElementById(
@@ -913,19 +1037,42 @@ function showBranch(){
     branchCode || "—";
 
 
+  const badge =
+    document.getElementById(
+      "modeBadge"
+    );
+
+
+  if(isMainUser()){
+
+    badge.textContent =
+      "👁️ MAIN - VIEW ONLY";
+
+  }
+  else{
+
+    badge.textContent =
+      "✏️ BRANCH - FULL ACCESS";
+
+  }
+
+
   return true;
 
 }
 
 
 /* =====================================================
-   SET MAIN / BRANCH MENU
+   SET MENU
 ===================================================== */
 
 function setupMenu(){
 
-  const main =
-    isMain();
+  const mainUser =
+    isMainUser();
+
+  const mainHQ =
+    isMainHQ();
 
 
   const branchMenu =
@@ -949,14 +1096,13 @@ function setupMenu(){
     );
 
 
-  if(main){
+  /*
+    ================================================
+    MAIN HQ
+    ================================================
+  */
 
-    /*
-    MAIN:
-
-    Items hin qabu
-    Stock IN/OUT hin qabu
-    */
+  if(mainHQ){
 
     branchMenu.classList.add(
       "hidden"
@@ -974,16 +1120,30 @@ function setupMenu(){
       "hidden"
     );
 
+
+    return;
+
   }
-  else{
+
+
+  /*
+    ================================================
+    MAIN → SELECTED BRANCH
+    ================================================
+  */
+
+  if(mainUser && !mainHQ){
 
     /*
-    OPERATIONAL BRANCH:
+      Main selected Gulele/Bole/etc.
 
-    Items
-    Stock IN/OUT
-    Report
-    Settings
+      Main needs VIEW menu:
+
+      Items
+      Stock
+      Report
+
+      But pages themselves enforce View Only.
     */
 
     branchMenu.classList.remove(
@@ -994,15 +1154,311 @@ function setupMenu(){
       "hidden"
     );
 
-    mainNote.classList.add(
+    mainNote.classList.remove(
       "hidden"
     );
 
-    allBranchesCard.classList.add(
+    allBranchesCard.classList.remove(
       "hidden"
+    );
+
+
+    /*
+      Change button texts so Main
+      clearly sees View Only.
+    */
+
+    document.getElementById(
+      "itemsButton"
+    ).textContent =
+      "👁️ View Items";
+
+
+    document.getElementById(
+      "itemsButton"
+    ).className =
+      "btn view-only-btn";
+
+
+    document.getElementById(
+      "stockButton"
+    ).textContent =
+      "👁️ View Stock";
+
+
+    document.getElementById(
+      "stockButton"
+    ).className =
+      "btn view-only-btn";
+
+
+    return;
+
+  }
+
+
+  /*
+    ================================================
+    NORMAL OPERATIONAL BRANCH
+    ================================================
+  */
+
+  branchMenu.classList.remove(
+    "hidden"
+  );
+
+  mainMenu.classList.add(
+    "hidden"
+  );
+
+  mainNote.classList.add(
+    "hidden"
+  );
+
+  allBranchesCard.classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "itemsButton"
+  ).textContent =
+    "📦 Items";
+
+
+  document.getElementById(
+    "itemsButton"
+  ).className =
+    "btn items";
+
+
+  document.getElementById(
+    "stockButton"
+  ).textContent =
+    "📥 Stock IN / OUT";
+
+
+  document.getElementById(
+    "stockButton"
+  ).className =
+    "btn stock";
+
+}
+
+
+/* =====================================================
+   UUID CHECK
+===================================================== */
+
+function isUUID(value){
+
+  if(!value){
+
+    return false;
+
+  }
+
+
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    .test(
+      String(value).trim()
+    );
+
+}
+
+
+/* =====================================================
+   RESOLVE BRANCH UUID
+===================================================== */
+
+async function resolveBranchUUID(){
+
+  /*
+    Main HQ = no specific branch.
+  */
+
+  if(isMainHQ()){
+
+    return null;
+
+  }
+
+
+  const response =
+    await fetch(
+
+      SUPABASE_URL +
+      "/rest/v1/branches?select=*",
+
+      {
+        method:"GET",
+        headers:getHeaders()
+      }
+
+    );
+
+
+  if(!response.ok){
+
+    const errorText =
+      await response.text();
+
+    throw new Error(
+      "Branches loading failed: " +
+      errorText
     );
 
   }
+
+
+  const branches =
+    await response.json();
+
+
+  if(!Array.isArray(branches)){
+
+    throw new Error(
+      "Branches data sirrii miti."
+    );
+
+  }
+
+
+  const code =
+    String(branchCode || "")
+      .trim()
+      .toLowerCase();
+
+
+  const name =
+    String(branchName || "")
+      .trim()
+      .toLowerCase();
+
+
+  const codeFields = [
+
+    "code",
+    "branch_code",
+    "branchCode",
+    "branchcode",
+    "branch_id_code",
+    "short_code"
+
+  ];
+
+
+  const nameFields = [
+
+    "name",
+    "branch_name",
+    "branch",
+    "branchName",
+    "title",
+    "branch_title",
+    "office_name",
+    "office"
+
+  ];
+
+
+  let found = null;
+
+
+  /* CODE */
+
+  if(code){
+
+    found =
+      branches.find(
+        function(b){
+
+          return codeFields.some(
+            function(field){
+
+              if(
+                b[field] === undefined ||
+                b[field] === null
+              ){
+
+                return false;
+
+              }
+
+
+              return String(
+                b[field]
+              )
+              .trim()
+              .toLowerCase()
+              === code;
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* NAME */
+
+  if(!found && name){
+
+    found =
+      branches.find(
+        function(b){
+
+          return nameFields.some(
+            function(field){
+
+              if(
+                b[field] === undefined ||
+                b[field] === null
+              ){
+
+                return false;
+
+              }
+
+
+              return String(
+                b[field]
+              )
+              .trim()
+              .toLowerCase()
+              === name;
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  if(
+    !found ||
+    !isUUID(found.id)
+  ){
+
+    throw new Error(
+      "Branch UUID hin argamne.\n\n" +
+      "Branch: " +
+      branchName +
+      "\n" +
+      "Code: " +
+      branchCode
+    );
+
+  }
+
+
+  return String(
+    found.id
+  ).trim();
 
 }
 
@@ -1017,27 +1473,33 @@ async function loadItems(){
 
     let url =
       SUPABASE_URL +
-      "/rest/v1/items" +
-      "?select=*";
+      "/rest/v1/items?select=*";
 
 
     /*
-    Main = all branches
+      Main HQ:
+      All branches
 
-    Branch = current branch only
+      Main selected branch:
+      Selected branch only
 
+      Normal branch:
+      Current branch only
     */
 
-    if(
-      !isMain() &&
-      branchCode
-    ){
+    if(!isMainHQ()){
 
-      url +=
-        "&branch_code=eq." +
-        encodeURIComponent(
-          branchCode
-        );
+      const uuid =
+        await resolveBranchUUID();
+
+
+      if(uuid){
+
+        url +=
+          "&branch_id=eq." +
+          encodeURIComponent(uuid);
+
+      }
 
     }
 
@@ -1063,7 +1525,7 @@ async function loadItems(){
     if(!response.ok){
 
       console.warn(
-        "Items loading warning:",
+        "Items loading:",
         text
       );
 
@@ -1105,31 +1567,38 @@ async function loadTransactions(){
 
     let url =
       SUPABASE_URL +
-      "/rest/v1/stock_transactions" +
-      "?select=*";
+      "/rest/v1/stock_transactions?select=*";
 
 
     /*
-    Main:
+      Main HQ:
+      all transactions
 
-    Branch code filter hin godhu.
-    Kanaaf Main branches 12 hunda ilaala.
+      Main selected branch:
+      selected branch
 
-    Branch:
-
-    Current branch qofa ilaala.
+      Normal branch:
+      current branch
     */
 
-    if(
-      !isMain() &&
-      branchCode
-    ){
+    if(!isMainHQ()){
 
-      url +=
-        "&branch_code=eq." +
-        encodeURIComponent(
-          branchCode
-        );
+      const uuid =
+        await resolveBranchUUID();
+
+
+      if(uuid){
+
+        /*
+          stock_transactions keessatti
+          branch_id yoo jiraate fayyada.
+        */
+
+        url +=
+          "&branch_id=eq." +
+          encodeURIComponent(uuid);
+
+      }
 
     }
 
@@ -1155,7 +1624,7 @@ async function loadTransactions(){
     if(!response.ok){
 
       console.warn(
-        "Transactions loading warning:",
+        "Transactions loading:",
         text
       );
 
@@ -1228,16 +1697,10 @@ function findCategory(value){
 
 
   if(!v){
+
     return null;
+
   }
-
-
-  /*
-  Database keessatti Afaan Oromo,
-  English ykn Amharic yoo jiraate
-  category summary keessatti
-  walitti fiduuf.
-  */
 
 
   if(
@@ -1254,8 +1717,8 @@ function findCategory(value){
   if(
     v.includes("daily food") ||
     v.includes("guyyaa guyyaa") &&
-    !v.includes("non-food") &&
-    !v.includes("hin taane")
+    !v.includes("hin taane") &&
+    !v.includes("non-food")
   ){
 
     return "Daily Food";
@@ -1343,25 +1806,123 @@ function showCategorySummary(
 
 
   /*
-  Stock IN fi OUT category irratti
-  hundaa'ee current balance shallaga.
+    Item category mapping.
 
-  Category tokko keessatti
-  itemoonni hundi walitti qabamu.
-
+    Kun transactions keessatti
+    category hin jirre yoo ta'e
+    item table irraa category argachuuf.
   */
+
+  const itemCategoryMap = {};
+
+
+  items.forEach(
+    function(item){
+
+      const itemId =
+        String(
+          item.id ?? ""
+        );
+
+
+      const itemName =
+        String(
+          item.name ?? ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      const category =
+        item.category || "";
+
+
+      if(itemId){
+
+        itemCategoryMap[
+          "id:" + itemId
+        ] =
+          category;
+
+      }
+
+
+      if(itemName){
+
+        itemCategoryMap[
+          "name:" + itemName
+        ] =
+          category;
+
+      }
+
+    }
+  );
+
 
   transactions.forEach(
     function(t){
 
-      const category =
-        findCategory(
-          t.category
-        );
+      let category =
+        t.category || "";
 
+
+      /*
+        Yoo transaction category
+        hin qabne, item irraa barbaada.
+      */
 
       if(!category){
+
+        const itemId =
+          String(
+            t.item_id ||
+            t.itemId ||
+            ""
+          );
+
+
+        const itemName =
+          String(
+            t.item_name ||
+            t.itemName ||
+            t.transaction ||
+            ""
+          )
+          .trim()
+          .toLowerCase();
+
+
+        if(itemId){
+
+          category =
+            itemCategoryMap[
+              "id:" + itemId
+            ] || "";
+
+        }
+
+
+        if(!category && itemName){
+
+          category =
+            itemCategoryMap[
+              "name:" + itemName
+            ] || "";
+
+        }
+
+      }
+
+
+      const categoryKey =
+        findCategory(category);
+
+
+      if(!categoryKey){
+
         return;
+
       }
 
 
@@ -1377,7 +1938,7 @@ function showCategorySummary(
 
       if(type === "IN"){
 
-        totals[category] +=
+        totals[categoryKey] +=
           quantity;
 
       }
@@ -1385,7 +1946,7 @@ function showCategorySummary(
 
       if(type === "OUT"){
 
-        totals[category] -=
+        totals[categoryKey] -=
           quantity;
 
       }
@@ -1402,6 +1963,7 @@ function showCategorySummary(
           "div"
         );
 
+
       card.className =
         "category-card";
 
@@ -1411,8 +1973,10 @@ function showCategorySummary(
           "div"
         );
 
+
       name.className =
         "category-name";
+
 
       name.textContent =
         cat.name;
@@ -1423,20 +1987,34 @@ function showCategorySummary(
           "div"
         );
 
+
       total.className =
         "category-total";
 
-      total.textContent =
+
+      const value =
         Number(
           totals[cat.key] || 0
-        ).toLocaleString();
+        );
 
 
-      card.appendChild(name);
+      total.textContent =
+        value.toLocaleString();
 
-      card.appendChild(total);
 
-      grid.appendChild(card);
+      card.appendChild(
+        name
+      );
+
+
+      card.appendChild(
+        total
+      );
+
+
+      grid.appendChild(
+        card
+      );
 
     }
   );
@@ -1467,6 +2045,7 @@ function showAllBranches(){
           "div"
         );
 
+
       box.className =
         "branch-box";
 
@@ -1475,6 +2054,7 @@ function showAllBranches(){
         document.createElement(
           "strong"
         );
+
 
       name.textContent =
         "🏢 " +
@@ -1486,6 +2066,7 @@ function showAllBranches(){
           "small"
         );
 
+
       code.textContent =
         "Code: " +
         branch.code;
@@ -1496,14 +2077,17 @@ function showAllBranches(){
           "button"
         );
 
+
       button.type =
         "button";
+
 
       button.className =
         "btn branch-btn";
 
+
       button.textContent =
-        "Open Branch";
+        "👁️ Open Branch";
 
 
       button.onclick =
@@ -1516,13 +2100,24 @@ function showAllBranches(){
         };
 
 
-      box.appendChild(name);
+      box.appendChild(
+        name
+      );
 
-      box.appendChild(code);
 
-      box.appendChild(button);
+      box.appendChild(
+        code
+      );
 
-      grid.appendChild(box);
+
+      box.appendChild(
+        button
+      );
+
+
+      grid.appendChild(
+        box
+      );
 
     }
   );
@@ -1531,33 +2126,52 @@ function showAllBranches(){
 
 
 /* =====================================================
-   OPEN BRANCH FROM MAIN
+   OPEN BRANCH
 ===================================================== */
 
 function openBranch(branch){
 
   /*
-  Main irraa branch tokko filatame.
+    IMPORTANT:
 
-  Login hin barbaachisu;
-  current session keessatti branch
-  jijjiira.
+    user_role = main
+    hin jijjiiru.
 
+    Kanaaf Main yeroo Gulele filatu
+    Main ta'ee hafa.
+
+    Items / Stock pages keessatti
+    View Only ta'a.
   */
+
 
   localStorage.setItem(
     "selected_branch_id",
     branch.code
   );
 
+
   localStorage.setItem(
     "selected_branch_name",
     branch.name
   );
 
+
   localStorage.setItem(
     "selected_branch_code",
     branch.code
+  );
+
+
+  /*
+    Old UUID balleessi.
+
+    Items fi Stock pages
+    UUID haaraa barbaadu.
+  */
+
+  localStorage.removeItem(
+    "selected_branch_uuid"
   );
 
 
@@ -1583,7 +2197,7 @@ async function loadDashboard(){
   setupMenu();
 
 
-  if(isMain()){
+  if(isMainUser()){
 
     showAllBranches();
 
@@ -1625,6 +2239,7 @@ async function loadDashboard(){
   let totalIn =
     0;
 
+
   let totalOut =
     0;
 
@@ -1662,11 +2277,10 @@ async function loadDashboard(){
 
 
   /*
-  Opening Stock = 0
+    Opening Stock = 0
 
-  Current Balance:
-
-  IN - OUT
+    Balance =
+    Stock IN - Stock OUT
   */
 
   const balance =
@@ -1677,29 +2291,35 @@ async function loadDashboard(){
   document.getElementById(
     "totalItems"
   ).textContent =
-    items.length.toLocaleString();
+    items.length
+      .toLocaleString();
 
 
   document.getElementById(
     "totalIn"
   ).textContent =
-    totalIn.toLocaleString();
+    totalIn
+      .toLocaleString();
 
 
   document.getElementById(
     "totalOut"
   ).textContent =
-    totalOut.toLocaleString();
+    totalOut
+      .toLocaleString();
 
 
   document.getElementById(
     "balance"
   ).textContent =
-    balance.toLocaleString();
+    balance
+      .toLocaleString();
 
 
   /*
-  Category Summary
+    CATEGORY SUMMARY
+
+    Kun yeroo hunda mul'ata.
   */
 
   showCategorySummary(
@@ -1744,6 +2364,14 @@ function logout(){
     "selected_branch_uuid"
   );
 
+  localStorage.removeItem(
+    "user_role"
+  );
+
+  localStorage.removeItem(
+    "login_user"
+  );
+
 
   window.location.href =
     "index.html";
@@ -1759,7 +2387,15 @@ window.addEventListener(
   "DOMContentLoaded",
   function(){
 
-    showBranch();
+    if(!showBranch()){
+
+      return;
+
+    }
+
+
+    setupMenu();
+
 
     loadDashboard();
 
