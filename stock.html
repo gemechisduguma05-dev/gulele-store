@@ -1,736 +1,943 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>AAFDRMC - Stock Management</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#f5f1eb;
-  color:#3b2a20;
+  background:#f1f5f9;
+  color:#1e293b;
 }
+
+/* HEADER */
 
 header{
-  background:linear-gradient(135deg,#4b2e1f,#7b4b2a,#3b2418);
+  background:#0f766e;
   color:white;
-  padding:22px 15px;
-  text-align:center;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-.logo{
-  width:85px;
-  height:85px;
-  object-fit:contain;
-  border-radius:50%;
+header img{
+  width:55px;
+  height:55px;
+  object-fit:cover;
+  border-radius:8px;
   background:white;
-  padding:4px;
-  margin-bottom:10px;
 }
 
-header h1{
+.header-title{
+  flex:1;
+}
+
+.header-title h1{
   margin:0;
-  font-size:25px;
+  font-size:22px;
 }
 
-.branch-name{
-  margin-top:9px;
-  font-size:17px;
-  font-weight:bold;
+.header-title p{
+  margin:5px 0 0;
+  font-size:14px;
 }
+
+/* CONTAINER */
 
 .container{
-  width:96%;
-  max-width:1500px;
+  max-width:1250px;
   margin:20px auto;
+  padding:0 15px;
 }
 
-.box{
-  background:white;
-  border-radius:14px;
-  box-shadow:0 3px 12px rgba(59,42,32,.12);
-  padding:20px;
-  margin-bottom:20px;
-}
-
-.title{
-  font-size:23px;
-  font-weight:bold;
-  color:#5a351f;
-  margin-bottom:18px;
-}
-
-.buttons{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-
-.btn{
-  border:0;
-  padding:14px;
-  border-radius:9px;
-  cursor:pointer;
-  color:white;
-  font-weight:bold;
-  font-size:16px;
-}
-
-.btn-in{background:#287a3d}
-.btn-out{background:#b83232}
-.btn-blue{background:#5a351f}
-.btn-orange{background:#9a5b24}
-.btn-gray{background:#6b625c}
+/* MESSAGE */
 
 .message{
   display:none;
-  padding:15px;
-  margin-bottom:18px;
-  border-radius:10px;
+  padding:12px;
+  border-radius:7px;
+  margin-bottom:15px;
   font-weight:bold;
-  line-height:1.5;
-  word-break:break-word;
 }
 
-.message.success{
-  display:block;
+.success{
   background:#dcfce7;
   color:#166534;
 }
 
-.message.error{
-  display:block;
+.error{
   background:#fee2e2;
   color:#991b1b;
 }
 
-.form-box{display:none}
-.form-box.show{display:block}
-
-.form-title{
-  font-size:21px;
-  font-weight:bold;
-  margin-bottom:18px;
+.info{
+  background:#dbeafe;
+  color:#1e40af;
 }
 
-.form-title.in{color:#287a3d}
-.form-title.out{color:#b83232}
+/* MENU */
 
-.form-grid{
+.menu{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.menu button{
+  border:0;
+  padding:11px 16px;
+  border-radius:7px;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+  background:#334155;
+}
+
+.menu button:hover{
+  opacity:.9;
+}
+
+.menu .active{
+  background:#0f766e;
+}
+
+/* CARD */
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.card h2{
+  margin-top:0;
+  color:#0f766e;
+}
+
+/* FORM */
+
+.grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:
+  repeat(auto-fit,minmax(220px,1fr));
   gap:15px;
 }
 
-.form-group{
-  display:flex;
-  flex-direction:column;
-}
-
-.form-group label{
+label{
+  display:block;
   font-weight:bold;
-  margin-bottom:7px;
+  margin-bottom:6px;
 }
 
-.form-group input,
-.form-group select{
+input,
+select{
   width:100%;
-  padding:12px;
-  border:1px solid #d6c9bd;
-  border-radius:8px;
+  padding:11px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
   font-size:15px;
   background:white;
 }
 
-.readonly{
-  background:#f3eee8!important;
+input[readonly]{
+  background:#e2e8f0;
 }
 
-.small-note{
-  margin-top:6px;
-  font-size:12px;
-  color:#75685f;
-  line-height:1.4;
+input:disabled{
+  background:#e2e8f0;
 }
 
-.required{color:#b83232}
-
-.submit-row{
-  display:flex;
-  gap:10px;
-  margin-top:20px;
+.form-actions{
+  margin-top:18px;
 }
 
 .save-btn{
   border:0;
   padding:12px 20px;
-  border-radius:8px;
+  background:#0f766e;
   color:white;
+  border-radius:7px;
   font-weight:bold;
   cursor:pointer;
-  font-size:15px;
 }
 
-.save-in{background:#287a3d}
-.save-out{background:#b83232}
-.cancel{background:#6b625c}
-
-.save-btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+.out-btn{
+  background:#dc2626;
 }
+
+.required{
+  color:#dc2626;
+}
+
+.small-note{
+  font-size:12px;
+  color:#64748b;
+  margin-top:5px;
+}
+
+/* SUMMARY */
 
 .summary{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
+  grid-template-columns:
+  repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
   margin-bottom:20px;
 }
 
-.summary-card{
+.summary-box{
   background:white;
-  border-radius:12px;
   padding:18px;
-  box-shadow:0 2px 8px rgba(59,42,32,.10);
+  border-radius:10px;
+  box-shadow:0 2px 7px rgba(0,0,0,.08);
+  text-align:center;
 }
 
-.summary-card span{
-  display:block;
-  color:#75685f;
-  font-weight:bold;
+.summary-box h3{
+  margin:0 0 8px;
+  font-size:14px;
+  color:#64748b;
 }
 
-.summary-card strong{
-  display:block;
-  margin-top:8px;
-  font-size:28px;
-  color:#5a351f;
+.summary-box strong{
+  font-size:25px;
+  color:#0f766e;
 }
 
-.report-box{
-  background:white;
-  border-radius:12px;
+/* TABLE */
+
+.table-wrap{
   overflow-x:auto;
-  box-shadow:0 2px 8px rgba(59,42,32,.10);
-}
-
-.report-title{
-  padding:18px;
-  color:#5a351f;
-  font-size:21px;
-  font-weight:bold;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:900px;
+  min-width:850px;
+}
+
+th,
+td{
+  border:1px solid #cbd5e1;
+  padding:9px;
+  text-align:left;
 }
 
 th{
-  background:#5a351f;
-  color:white;
-  padding:12px;
-  text-align:left;
-  white-space:nowrap;
+  background:#e2e8f0;
 }
 
-td{
-  padding:11px;
-  border-bottom:1px solid #eee3da;
-  white-space:nowrap;
-}
-
-.item-row{cursor:pointer}
-.item-row:hover{background:#faf5ef}
-
-.balance{
-  color:#5a351f;
-  font-weight:bold;
-}
-
-.click{
-  color:#8b572a;
-  font-weight:bold;
-}
-
-.details-box{
-  display:none;
-  background:white;
-  border-radius:12px;
-  margin-top:20px;
-  padding:18px;
-  box-shadow:0 2px 8px rgba(59,42,32,.10);
-}
-
-.details-box.show{display:block}
-
-.details-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
-  gap:10px;
-}
-
-.details-title{
-  color:#5a351f;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.close-btn{
+.details-btn{
   border:0;
-  background:#6b625c;
+  background:#2563eb;
   color:white;
-  padding:9px 14px;
-  border-radius:7px;
+  padding:7px 10px;
+  border-radius:5px;
   cursor:pointer;
 }
 
-.badge{
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
+.hidden{
+  display:none;
 }
 
-.badge-in{
-  background:#dcfce7;
-  color:#166534;
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .header-title h1{
+    font-size:18px;
+  }
+
+  .container{
+    padding:0 10px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
 }
 
-.badge-out{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-@media(max-width:700px){
-  header h1{font-size:21px}
-  .logo{width:72px;height:72px}
-  .buttons{grid-template-columns:1fr}
-  .summary{grid-template-columns:1fr 1fr}
-  .submit-row{flex-direction:column}
-  .save-btn{width:100%}
-  .box{padding:15px}
-}
-
-@media(max-width:430px){
-  .summary{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-}
 </style>
+
 </head>
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
+
   <img
     src="./1788633150526.jpg"
-    class="logo"
     alt="AAFDRMC Logo"
-    onerror="this.style.display='none'"
   >
 
-  <h1>AAFDRMC - STOCK MANAGEMENT</h1>
+  <div class="header-title">
 
-  <div id="branchName" class="branch-name">
-    Loading Branch...
+    <h1>
+      AAFDRMC - Stock Management
+    </h1>
+
+    <p id="branchTitle">
+      Branch: Loading...
+    </p>
+
   </div>
+
 </header>
+
 
 <div class="container">
 
-  <div class="box">
-    <div class="title">📦 Stock Management</div>
 
-    <div class="buttons">
+<!-- MESSAGE -->
 
-      <button class="btn btn-in" onclick="openForm('IN')">
-        ➕ Stock IN
-      </button>
+<div
+  id="message"
+  class="message">
+</div>
 
-      <button class="btn btn-out" onclick="openForm('OUT')">
-        ➖ Stock OUT
-      </button>
 
-      <button class="btn btn-blue" onclick="loadStock()">
-        🔄 Refresh
-      </button>
+<!-- MENU -->
 
-      <button class="btn btn-orange" onclick="goReports()">
-        📋 Stock Report
-      </button>
+<div class="menu">
 
-      <button class="btn btn-gray" onclick="backToMenu()">
-        ⬅️ Back to Menu
-      </button>
+  <button
+    class="active"
+    onclick="showSection('stockInSection')">
+    Stock IN
+  </button>
 
-    </div>
-  </div>
+  <button
+    onclick="showSection('stockOutSection')">
+    Stock OUT
+  </button>
 
-  <div id="message" class="message"></div>
+  <button
+    onclick="loadStock()">
+    Refresh
+  </button>
 
-  <!-- STOCK IN -->
+  <button
+    onclick="goReports()">
+    Stock Report
+  </button>
 
-  <div id="stockInForm" class="box form-box">
+  <button
+    onclick="backToMenu()">
+    Back to Menu
+  </button>
 
-    <div class="form-title in">
-      🟢 STOCK IN — Meeshaa Galchuu
-    </div>
+</div>
 
-    <div class="form-grid">
 
-      <div class="form-group">
-        <label>Item</label>
+<!-- =========================
+     STOCK IN
+========================= -->
 
-        <select id="inItem">
-          <option value="">-- Item filadhu --</option>
-        </select>
+<div
+  id="stockInSection"
+  class="card">
 
-        <div class="small-note">
-          Items page irraa item galmaa'e qofa.
-        </div>
-      </div>
+  <h2>
+    Stock IN
+  </h2>
 
-      <div class="form-group">
-        <label>Unit</label>
+  <div class="grid">
 
-        <input
-          id="inUnit"
-          class="readonly"
-          readonly
-        >
-      </div>
 
-      <div class="form-group">
-        <label>Quantity</label>
+    <!-- ITEM -->
 
-        <input
-          id="inQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity"
-        >
-      </div>
+    <div>
 
-      <div class="form-group">
-        <label>Guyyaa fi Sa'aatii itti gale</label>
+      <label>
+        Item
+        <span class="required">*</span>
+      </label>
 
-        <input
-          id="inDate"
-          type="datetime-local"
-        >
-      </div>
+      <select
+        id="inItem"
+        onchange="setInUnit()">
 
-      <div class="form-group">
-        <label>Nama galche</label>
+        <option value="">
+          Select Item
+        </option>
 
-        <input
-          id="inEnteredBy"
-          type="text"
-          placeholder="Maqaa nama galche"
-        >
-      </div>
-
-      <div class="form-group">
-        <label>Expiry Date</label>
-
-        <input
-          id="inExpiryDate"
-          type="date"
-        >
-      </div>
-
-      <div class="form-group">
-
-        <label>
-          Model 19
-          <span class="required">(Optional)</span>
-        </label>
-
-        <select id="model19Type" onchange="changeModel19()">
-          <option value="number">Model 19 qaba</option>
-          <option value="verbal">Verbal</option>
-        </select>
-
-        <input
-          id="inModel19"
-          type="text"
-          placeholder="Fakkeenya: 33785"
-          style="margin-top:8px;"
-        >
-
-        <div class="small-note">
-          Yoo Model 19 hin jirre <b>Verbal</b> filadhu.
-        </div>
-
-      </div>
-
-      <div class="form-group">
-        <label>Mallattoo</label>
-
-        <input
-          id="inSignature"
-          type="text"
-          placeholder="Mallattoo"
-        >
-      </div>
+      </select>
 
     </div>
 
-    <div class="submit-row">
 
-      <button
-        id="saveInButton"
-        class="save-btn save-in"
-        onclick="saveStock('IN')"
-      >
-        💾 Save Stock IN
-      </button>
+    <!-- UNIT -->
 
-      <button
-        class="save-btn cancel"
-        onclick="closeForms()"
-      >
-        Cancel
-      </button>
+    <div>
+
+      <label>
+        Unit / Safartuu
+      </label>
+
+      <input
+        id="inUnit"
+        readonly>
 
     </div>
 
-  </div>
 
-  <!-- STOCK OUT -->
+    <!-- QUANTITY -->
 
-  <div id="stockOutForm" class="box form-box">
+    <div>
 
-    <div class="form-title out">
-      🔴 STOCK OUT — Meeshaa Baasuu
+      <label>
+        Quantity
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="inQuantity"
+        type="number"
+        min="0.01"
+        step="any">
+
     </div>
 
-    <div class="form-grid">
 
-      <div class="form-group">
-        <label>Item</label>
+    <!-- DATE -->
 
-        <select id="outItem">
-          <option value="">-- Item filadhu --</option>
-        </select>
+    <div>
 
-        <div class="small-note">
-          Items page irraa item galmaa'e qofa.
-        </div>
-      </div>
+      <label>
+        Guyyaa itti gale
+        <span class="required">*</span>
+      </label>
 
-      <div class="form-group">
-        <label>Unit</label>
+      <input
+        id="inDate"
+        type="datetime-local">
 
-        <input
-          id="outUnit"
-          class="readonly"
-          readonly
-        >
-      </div>
+    </div>
 
-      <div class="form-group">
-        <label>Quantity</label>
 
-        <input
-          id="outQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity"
-        >
-      </div>
+    <!-- ENTERED BY -->
 
-      <div class="form-group">
-        <label>Guyyaa fi Sa'aatii itti bahe</label>
+    <div>
 
-        <input
-          id="outDate"
-          type="datetime-local"
-        >
-      </div>
+      <label>
+        Nama galche
+      </label>
 
-      <div class="form-group">
-        <label>Nama baase</label>
+      <input
+        id="inEnteredBy"
+        type="text">
 
-        <input
-          id="outIssuedBy"
-          type="text"
-          placeholder="Maqaa nama baase"
-        >
-      </div>
+    </div>
 
-      <div class="form-group">
 
-        <label>
-          Model 22
-          <span class="required">*</span>
-        </label>
+    <!-- EXPIRY -->
 
-        <select id="model22Type" onchange="changeModel22()">
-          <option value="number">Model 22 qaba</option>
-          <option value="verbal">Verbal</option>
-        </select>
+    <div>
 
-        <input
-          id="outModel22"
-          type="text"
-          placeholder="Fakkeenya: *45782"
-          style="margin-top:8px;"
-        >
+      <label>
+        Expiry Date
+      </label>
 
-        <div class="small-note">
-          Model 22 dirqama. Yoo hin jirre <b>Verbal</b> filadhu.
-        </div>
+      <input
+        id="inExpiryDate"
+        type="date">
 
-      </div>
+    </div>
 
-      <div class="form-group">
-        <label>Mallattoo</label>
 
-        <input
-          id="outSignature"
-          type="text"
-          placeholder="Mallattoo"
-        >
+    <!-- MODEL 19 -->
+
+    <div>
+
+      <label>
+        Model 19
+      </label>
+
+      <select
+        id="model19Type"
+        onchange="changeModel19()">
+
+        <option value="none">
+          Hin jiru
+        </option>
+
+        <option value="number">
+          Model 19 qaba
+        </option>
+
+        <option value="verbal">
+          Verbal
+        </option>
+
+      </select>
+
+
+      <input
+        id="inModel19"
+        type="text"
+        placeholder="Model 19 number"
+        disabled
+        style="margin-top:7px;">
+
+      <div class="small-note">
+        Model 19 optional dha.
       </div>
 
     </div>
 
-    <div class="submit-row">
 
-      <button
-        id="saveOutButton"
-        class="save-btn save-out"
-        onclick="saveStock('OUT')"
-      >
-        💾 Save Stock OUT
-      </button>
+    <!-- SIGNATURE -->
 
-      <button
-        class="save-btn cancel"
-        onclick="closeForms()"
-      >
-        Cancel
-      </button>
+    <div>
+
+      <label>
+        Mallattoo
+      </label>
+
+      <input
+        id="inSignature"
+        type="text">
 
     </div>
 
   </div>
 
-  <!-- SUMMARY -->
 
-  <div class="summary">
+  <div class="form-actions">
 
-    <div class="summary-card">
-      <span>Total Items</span>
-      <strong id="totalItems">0</strong>
-    </div>
+    <button
+      class="save-btn"
+      onclick="saveStock('IN')">
 
-    <div class="summary-card">
-      <span>Total Stock IN</span>
-      <strong id="totalIn">0</strong>
-    </div>
+      Save Stock IN
 
-    <div class="summary-card">
-      <span>Total Stock OUT</span>
-      <strong id="totalOut">0</strong>
-    </div>
-
-    <div class="summary-card">
-      <span>Current Balance</span>
-      <strong id="totalBalance">0</strong>
-    </div>
-
-  </div>
-
-  <!-- REPORT -->
-
-  <div class="report-box">
-
-    <div class="report-title">
-      📊 Stock Report —
-      <span id="reportBranch">Branch</span>
-    </div>
-
-    <table>
-
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Item</th>
-          <th>Unit</th>
-          <th>Stock IN</th>
-          <th>Stock OUT</th>
-          <th>Balance</th>
-          <th>Details</th>
-        </tr>
-      </thead>
-
-      <tbody id="reportTable">
-        <tr>
-          <td colspan="7" style="text-align:center;padding:25px">
-            Loading...
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-  </div>
-
-  <!-- DETAILS -->
-
-  <div id="detailsBox" class="details-box">
-
-    <div class="details-header">
-
-      <div id="detailsTitle" class="details-title"></div>
-
-      <button class="close-btn" onclick="closeDetails()">
-        ✖ Close
-      </button>
-
-    </div>
-
-    <div style="overflow-x:auto;">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Transaction</th>
-            <th>Quantity</th>
-            <th>Unit</th>
-            <th>Guyyaa fi Sa'aatii</th>
-            <th>Nama Galche</th>
-            <th>Nama Baase</th>
-            <th>Model 19</th>
-            <th>Model 22</th>
-            <th>Expiry Date</th>
-            <th>Mallattoo</th>
-          </tr>
-        </thead>
-
-        <tbody id="detailsTable"></tbody>
-
-      </table>
-
-    </div>
+    </button>
 
   </div>
 
 </div>
 
+
+
+<!-- =========================
+     STOCK OUT
+========================= -->
+
+<div
+  id="stockOutSection"
+  class="card hidden">
+
+  <h2>
+    Stock OUT
+  </h2>
+
+  <div class="grid">
+
+
+    <!-- ITEM -->
+
+    <div>
+
+      <label>
+        Item
+        <span class="required">*</span>
+      </label>
+
+      <select
+        id="outItem"
+        onchange="setOutUnit()">
+
+        <option value="">
+          Select Item
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- UNIT -->
+
+    <div>
+
+      <label>
+        Unit / Safartuu
+      </label>
+
+      <input
+        id="outUnit"
+        readonly>
+
+    </div>
+
+
+    <!-- QUANTITY -->
+
+    <div>
+
+      <label>
+        Quantity
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="outQuantity"
+        type="number"
+        min="0.01"
+        step="any">
+
+    </div>
+
+
+    <!-- DATE -->
+
+    <div>
+
+      <label>
+        Guyyaa itti bahe
+        <span class="required">*</span>
+      </label>
+
+      <input
+        id="outDate"
+        type="datetime-local">
+
+    </div>
+
+
+    <!-- ISSUED BY -->
+
+    <div>
+
+      <label>
+        Nama baase
+      </label>
+
+      <input
+        id="outIssuedBy"
+        type="text">
+
+    </div>
+
+
+    <!-- MODEL 22 -->
+
+    <div>
+
+      <label>
+        Model 22
+        <span class="required">*</span>
+      </label>
+
+      <select
+        id="model22Type"
+        onchange="changeModel22()">
+
+        <option value="none">
+          -- Filadhu --
+        </option>
+
+        <option value="number">
+          Model 22 qaba
+        </option>
+
+        <option value="verbal">
+          Verbal
+        </option>
+
+      </select>
+
+
+      <input
+        id="outModel22"
+        type="text"
+        placeholder="Model 22 number"
+        disabled
+        style="margin-top:7px;">
+
+      <div class="small-note">
+        Model 22 dirqama dha.
+      </div>
+
+    </div>
+
+
+    <!-- SIGNATURE -->
+
+    <div>
+
+      <label>
+        Mallattoo
+      </label>
+
+      <input
+        id="outSignature"
+        type="text">
+
+    </div>
+
+  </div>
+
+
+  <div class="form-actions">
+
+    <button
+      class="save-btn out-btn"
+      onclick="saveStock('OUT')">
+
+      Save Stock OUT
+
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
+     SUMMARY
+========================= -->
+
+<div class="summary">
+
+
+  <div class="summary-box">
+
+    <h3>
+      Total Items
+    </h3>
+
+    <strong id="totalItems">
+      0
+    </strong>
+
+  </div>
+
+
+  <div class="summary-box">
+
+    <h3>
+      Total Stock IN
+    </h3>
+
+    <strong id="totalIn">
+      0
+    </strong>
+
+  </div>
+
+
+  <div class="summary-box">
+
+    <h3>
+      Total Stock OUT
+    </h3>
+
+    <strong id="totalOut">
+      0
+    </strong>
+
+  </div>
+
+
+  <div class="summary-box">
+
+    <h3>
+      Current Balance
+    </h3>
+
+    <strong id="currentBalance">
+      0
+    </strong>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
+     STOCK REPORT
+========================= -->
+
+<div class="card">
+
+  <h2>
+    Stock Report
+  </h2>
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>
+            No
+          </th>
+
+          <th>
+            Item
+          </th>
+
+          <th>
+            Unit
+          </th>
+
+          <th>
+            Stock IN
+          </th>
+
+          <th>
+            Stock OUT
+          </th>
+
+          <th>
+            Balance
+          </th>
+
+          <th>
+            Details
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="reportBody">
+
+        <tr>
+
+          <td colspan="7">
+            Loading...
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
+     DETAILS
+========================= -->
+
+<div
+  id="detailsSection"
+  class="card hidden">
+
+  <h2 id="detailsTitle">
+    Transaction Details
+  </h2>
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>
+            No
+          </th>
+
+          <th>
+            Transaction
+          </th>
+
+          <th>
+            Quantity
+          </th>
+
+          <th>
+            Unit
+          </th>
+
+          <th>
+            Guyyaa fi Sa'aatii
+          </th>
+
+          <th>
+            Nama Galche
+          </th>
+
+          <th>
+            Nama Baase
+          </th>
+
+          <th>
+            Model 19
+          </th>
+
+          <th>
+            Model 22
+          </th>
+
+          <th>
+            Expiry Date
+          </th>
+
+          <th>
+            Mallattoo
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="detailsBody">
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+</div>
+
+
+
 <script>
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -739,208 +946,254 @@ const SUPABASE_KEY =
 "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* ===============================
+/* =========================
    BRANCH
-================================ */
+========================= */
 
 let CURRENT_BRANCH_CODE =
-localStorage.getItem("selected_branch_code") ||
-localStorage.getItem("branch_code") ||
-localStorage.getItem("selected_branch_id") ||
-"";
+localStorage.getItem(
+  "selected_branch_code"
+) || "";
 
 let CURRENT_BRANCH_NAME =
-localStorage.getItem("selected_branch_name") ||
-localStorage.getItem("branch_name") ||
-"Unknown Branch";
+localStorage.getItem(
+  "selected_branch_name"
+) || "";
 
-let CURRENT_BRANCH_UUID = null;
+let CURRENT_BRANCH_UUID =
+localStorage.getItem(
+  "selected_branch_uuid"
+) || "";
+
 
 let allItems = [];
+
 let allTransactions = [];
 
 
-/* ===============================
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(
+  text,
+  type="info"
+){
+
+  const box =
+  document.getElementById(
+    "message"
+  );
+
+  box.textContent =
+  text;
+
+  box.className =
+  "message " + type;
+
+  box.style.display =
+  "block";
+
+  setTimeout(
+    function(){
+
+      box.style.display =
+      "none";
+
+    },
+    5000
+  );
+}
+
+
+/* =========================
    HEADERS
-================================ */
+========================= */
 
 function getHeaders(){
 
   const token =
-    localStorage.getItem("access_token");
+  localStorage.getItem(
+    "access_token"
+  );
 
   return {
-    "apikey":SUPABASE_KEY,
-    "Authorization":"Bearer " + (token || SUPABASE_KEY),
-    "Content-Type":"application/json",
-    "Accept":"application/json"
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Authorization":
+      "Bearer " +
+      (token || SUPABASE_KEY),
+
+    "Content-Type":
+      "application/json"
+
   };
 
 }
 
 
-/* ===============================
-   UUID
-================================ */
+/* =========================
+   LOGIN
+========================= */
 
-function isUUID(value){
+function checkLogin(){
 
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    .test(String(value || ""));
+  const logged =
+  localStorage.getItem(
+    "is_logged_in"
+  );
 
+  if(logged !== "true"){
+
+    window.location.href =
+    "index.html";
+
+    return false;
+  }
+
+  return true;
 }
 
 
-/* ===============================
-   BRANCH CODE
-================================ */
+/* =========================
+   CHECK BRANCH
+========================= */
 
-function getBranchCode(branch){
+function checkBranch(){
 
-  const values = [
-    branch.code,
-    branch.branch_code,
-    branch.branchCode,
-    branch.branchcode,
-    branch.branch_id_code,
-    branch.short_code
-  ];
+  if(
+    !CURRENT_BRANCH_CODE &&
+    !CURRENT_BRANCH_NAME
+  ){
 
-  for(const value of values){
+    showMessage(
+      "Branch hin filatamne.",
+      "error"
+    );
 
-    if(
-      value !== undefined &&
-      value !== null &&
-      String(value).trim() !== ""
-    ){
+    setTimeout(
+      function(){
 
-      return String(value).trim();
+        window.location.href =
+        "index.html";
 
-    }
+      },
+      1200
+    );
+
+    return false;
+  }
+
+
+  document.getElementById(
+    "branchTitle"
+  ).textContent =
+  "Branch: " +
+  (
+    CURRENT_BRANCH_NAME ||
+    CURRENT_BRANCH_CODE
+  );
+
+
+  return true;
+}
+
+
+/* =========================
+   RESOLVE BRANCH UUID
+========================= */
+
+async function resolveBranchUUID(){
+
+  if(
+    CURRENT_BRANCH_UUID &&
+    CURRENT_BRANCH_UUID !== "null" &&
+    CURRENT_BRANCH_UUID !== "undefined"
+  ){
+
+    return CURRENT_BRANCH_UUID;
 
   }
 
-  return "";
-
-}
-
-
-/* ===============================
-   RESOLVE BRANCH
-   IMPORTANT:
-   Always check database again.
-================================ */
-
-async function resolveBranchUUID(){
 
   try{
 
     const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/branches?select=*",
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
+    await fetch(
 
-    const text =
-      await response.text();
+      SUPABASE_URL +
+      "/rest/v1/branches?select=*",
+
+      {
+        headers:
+        getHeaders()
+      }
+
+    );
+
 
     if(!response.ok){
 
-      throw new Error(text);
+      throw new Error(
+        await response.text()
+      );
 
     }
+
 
     const branches =
-      JSON.parse(text);
+    await response.json();
 
-    if(!Array.isArray(branches)){
 
-      throw new Error(
-        "Branches data sirrii miti."
+    let found =
+    null;
+
+
+    /* BY CODE */
+
+    if(CURRENT_BRANCH_CODE){
+
+      found =
+      branches.find(
+        function(b){
+
+          return String(
+            b.branch_code || ""
+          ).toLowerCase()
+          ===
+          String(
+            CURRENT_BRANCH_CODE
+          ).toLowerCase();
+
+        }
       );
 
     }
 
 
-    const wantedCode =
-      String(CURRENT_BRANCH_CODE)
-      .trim()
-      .toLowerCase();
+    /* BY NAME */
 
-    const wantedName =
-      String(CURRENT_BRANCH_NAME)
-      .trim()
-      .toLowerCase();
-
-
-    let found = null;
-
-
-    /* FIRST: CODE */
-
-    if(wantedCode){
+    if(
+      !found &&
+      CURRENT_BRANCH_NAME
+    ){
 
       found =
-        branches.find(b =>
-          getBranchCode(b)
-          .toLowerCase()
-          === wantedCode
-        );
+      branches.find(
+        function(b){
 
-    }
+          return String(
+            b.branch_name || ""
+          ).toLowerCase()
+          ===
+          String(
+            CURRENT_BRANCH_NAME
+          ).toLowerCase();
 
-
-    /* SECOND: NAME */
-
-    if(!found && wantedName){
-
-      const nameFields = [
-        "name",
-        "branch_name",
-        "branch",
-        "branchName",
-        "title",
-        "branch_title",
-        "office_name",
-        "office"
-      ];
-
-      found =
-        branches.find(b =>
-          nameFields.some(field =>
-            String(b[field] || "")
-            .trim()
-            .toLowerCase()
-            === wantedName
-          )
-        );
-
-    }
-
-
-    /* THIRD: SAVED UUID */
-
-    if(!found){
-
-      const saved =
-        localStorage.getItem(
-          "selected_branch_uuid"
-        );
-
-      if(isUUID(saved)){
-
-        found =
-          branches.find(
-            b =>
-              String(b.id) ===
-              String(saved)
-          );
-
-      }
+        }
+      );
 
     }
 
@@ -948,30 +1201,32 @@ async function resolveBranchUUID(){
     if(!found){
 
       throw new Error(
-        "Branch hin argamne: " +
-        CURRENT_BRANCH_NAME +
-        " (" +
-        CURRENT_BRANCH_CODE +
-        ")"
+        "Branch hin argamne."
       );
 
     }
 
 
-    if(!isUUID(found.id)){
+    const possibleUUID =
+    found.id ||
+    found.uuid ||
+    found.branch_id;
+
+
+    if(!possibleUUID){
 
       throw new Error(
-        "branches.id UUID sirrii miti."
+        "Branch UUID hin argamne."
       );
 
     }
 
 
     CURRENT_BRANCH_UUID =
-      String(found.id);
+    String(
+      possibleUUID
+    );
 
-
-    /* Save the CURRENT correct UUID */
 
     localStorage.setItem(
       "selected_branch_uuid",
@@ -979,36 +1234,23 @@ async function resolveBranchUUID(){
     );
 
 
-    /* Also keep the exact database code/name */
-
-    const dbCode =
-      getBranchCode(found);
-
-    if(dbCode){
+    if(!CURRENT_BRANCH_CODE){
 
       CURRENT_BRANCH_CODE =
-        dbCode;
+      found.branch_code || "";
 
       localStorage.setItem(
         "selected_branch_code",
-        dbCode
+        CURRENT_BRANCH_CODE
       );
 
     }
 
 
-    const dbName =
-      found.name ||
-      found.branch_name ||
-      found.branch ||
-      found.branchName ||
-      found.title ||
-      "";
-
-    if(dbName){
+    if(!CURRENT_BRANCH_NAME){
 
       CURRENT_BRANCH_NAME =
-        String(dbName);
+      found.branch_name || "";
 
       localStorage.setItem(
         "selected_branch_name",
@@ -1019,32 +1261,24 @@ async function resolveBranchUUID(){
 
 
     document.getElementById(
-      "branchName"
+      "branchTitle"
     ).textContent =
-      "🏢 Branch: " +
-      CURRENT_BRANCH_NAME +
-      " (" +
-      CURRENT_BRANCH_CODE +
-      ")";
-
-    document.getElementById(
-      "reportBranch"
-    ).textContent =
-      CURRENT_BRANCH_NAME;
+    "Branch: " +
+    (
+      CURRENT_BRANCH_NAME ||
+      CURRENT_BRANCH_CODE
+    );
 
 
     return CURRENT_BRANCH_UUID;
 
-  }
-  catch(error){
 
-    console.error(
-      "BRANCH RESOLVE ERROR:",
-      error
-    );
+  }catch(error){
+
+    console.error(error);
 
     showMessage(
-      "❌ Branch UUID argachuu hin dandeenye: " +
+      "Branch argachuu hin dandeenye: " +
       error.message,
       "error"
     );
@@ -1056,957 +1290,595 @@ async function resolveBranchUUID(){
 }
 
 
-/* ===============================
-   LOGIN
-================================ */
-
-function checkLogin(){
-
-  if(
-    localStorage.getItem(
-      "is_logged_in"
-    ) !== "true"
-  ){
-
-    window.location.href =
-      "index.html";
-
-    return false;
-
-  }
-
-  return true;
-
-}
-
-
-/* ===============================
-   BRANCH DISPLAY
-================================ */
-
-function checkBranch(){
-
-  if(!CURRENT_BRANCH_CODE){
-
-    document.getElementById(
-      "branchName"
-    ).textContent =
-      "⚠️ Branch hin filatamne";
-
-    return false;
-
-  }
-
-  document.getElementById(
-    "branchName"
-  ).textContent =
-    "🏢 Branch: " +
-    CURRENT_BRANCH_NAME +
-    " (" +
-    CURRENT_BRANCH_CODE +
-    ")";
-
-  document.getElementById(
-    "reportBranch"
-  ).textContent =
-    CURRENT_BRANCH_NAME;
-
-  return true;
-
-}
-
-
-/* ===============================
+/* =========================
    LOAD ITEMS
-   SAME branch_id AS ITEMS.HTML
-================================ */
+========================= */
 
 async function loadItems(){
 
   if(!CURRENT_BRANCH_UUID){
 
-    return [];
+    await resolveBranchUUID();
 
   }
+
+
+  if(!CURRENT_BRANCH_UUID)
+    return;
+
 
   try{
 
     const url =
-      SUPABASE_URL +
-      "/rest/v1/items" +
-      "?select=id,name,category,unit,branch_id,branch_code" +
-      "&branch_id=eq." +
-      encodeURIComponent(
-        CURRENT_BRANCH_UUID
-      ) +
-      "&order=id.asc";
-
-
-    console.log(
-      "ITEMS URL:",
-      url
-    );
+    SUPABASE_URL +
+    "/rest/v1/items" +
+    "?select=*" +
+    "&branch_id=eq." +
+    encodeURIComponent(
+      CURRENT_BRANCH_UUID
+    ) +
+    "&order=id.asc";
 
 
     const response =
-      await fetch(
-        url,
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
-
-
-    const text =
-      await response.text();
-
-
-    console.log(
-      "ITEMS RESPONSE:",
-      text
+    await fetch(
+      url,
+      {
+        headers:
+        getHeaders()
+      }
     );
 
 
     if(!response.ok){
 
-      throw new Error(text);
+      throw new Error(
+        await response.text()
+      );
 
     }
 
 
-    const data =
-      JSON.parse(text);
+    allItems =
+    await response.json();
 
 
-    if(!Array.isArray(data)){
-
-      return [];
-
-    }
+    fillItemLists();
 
 
-    return data;
+    document.getElementById(
+      "totalItems"
+    ).textContent =
+    allItems.length;
 
-  }
-  catch(error){
 
-    console.error(
-      "LOAD ITEMS ERROR:",
-      error
-    );
+  }catch(error){
+
+    console.error(error);
 
     showMessage(
-      "❌ Items dubbisuu hin dandeenye: " +
+      "Items fe'uu dide: " +
       error.message,
       "error"
     );
-
-    return [];
 
   }
 
 }
 
 
-/* ===============================
-   LOAD TRANSACTIONS
-================================ */
-
-async function loadTransactions(){
-
-  if(!CURRENT_BRANCH_UUID){
-
-    return [];
-
-  }
-
-  try{
-
-    const url =
-      SUPABASE_URL +
-      "/rest/v1/stock_transactions" +
-      "?select=*" +
-      "&branch_id=eq." +
-      encodeURIComponent(
-        CURRENT_BRANCH_UUID
-      ) +
-      "&order=id.desc";
-
-
-    const response =
-      await fetch(
-        url,
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
-
-
-    const text =
-      await response.text();
-
-
-    if(!response.ok){
-
-      throw new Error(text);
-
-    }
-
-
-    const data =
-      JSON.parse(text);
-
-
-    return Array.isArray(data)
-      ? data
-      : [];
-
-  }
-  catch(error){
-
-    console.error(
-      "LOAD TRANSACTIONS:",
-      error
-    );
-
-    showMessage(
-      "❌ Stock transactions dubbisuu hin dandeenye: " +
-      error.message,
-      "error"
-    );
-
-    return [];
-
-  }
-
-}
-
-
-/* ===============================
-   FILL ITEMS
-================================ */
+/* =========================
+   ITEM LISTS
+========================= */
 
 function fillItemLists(){
 
-  const inItem =
-    document.getElementById("inItem");
+  const inSelect =
+  document.getElementById(
+    "inItem"
+  );
 
-  const outItem =
-    document.getElementById("outItem");
-
-
-  inItem.innerHTML =
-    '<option value="">-- Item filadhu --</option>';
-
-  outItem.innerHTML =
-    '<option value="">-- Item filadhu --</option>';
+  const outSelect =
+  document.getElementById(
+    "outItem"
+  );
 
 
-  allItems.forEach(item => {
+  inSelect.innerHTML =
+  '<option value="">Select Item</option>';
 
-    const option1 =
-      document.createElement("option");
+  outSelect.innerHTML =
+  '<option value="">Select Item</option>';
 
-    option1.value =
+
+  allItems.forEach(
+    function(item){
+
+      const itemName =
+      item.name ||
+      item.item_name ||
+      item.item ||
+      "";
+
+
+      const optionIn =
+      document.createElement(
+        "option"
+      );
+
+      optionIn.value =
       item.id;
 
-    option1.textContent =
-      item.name || "Unnamed Item";
+      optionIn.textContent =
+      itemName;
 
-    option1.dataset.unit =
-      item.unit || "";
+      inSelect.appendChild(
+        optionIn
+      );
 
-    inItem.appendChild(
-      option1
-    );
 
+      const optionOut =
+      document.createElement(
+        "option"
+      );
 
-    const option2 =
-      option1.cloneNode(true);
+      optionOut.value =
+      item.id;
 
-    outItem.appendChild(
-      option2
-    );
+      optionOut.textContent =
+      itemName;
 
-  });
+      outSelect.appendChild(
+        optionOut
+      );
 
-}
-
-
-/* ===============================
-   ITEM SELECT
-================================ */
-
-document
-.getElementById("inItem")
-.addEventListener(
-  "change",
-  function(){
-
-    const option =
-      this.options[this.selectedIndex];
-
-    document.getElementById(
-      "inUnit"
-    ).value =
-      option?.dataset?.unit || "";
-
-  }
-);
-
-
-document
-.getElementById("outItem")
-.addEventListener(
-  "change",
-  function(){
-
-    const option =
-      this.options[this.selectedIndex];
-
-    document.getElementById(
-      "outUnit"
-    ).value =
-      option?.dataset?.unit || "";
-
-  }
-);
-
-
-/* ===============================
-   MODEL 19
-================================ */
-
-function changeModel19(){
-
-  const type =
-    document.getElementById(
-      "model19Type"
-    ).value;
-
-  const input =
-    document.getElementById(
-      "inModel19"
-    );
-
-  if(type === "verbal"){
-
-    input.value =
-      "Verbal";
-
-    input.readOnly =
-      true;
-
-  }else{
-
-    input.value =
-      "";
-
-    input.readOnly =
-      false;
-
-    input.placeholder =
-      "Fakkeenya: 33785";
-
-  }
-
-}
-
-
-/* ===============================
-   MODEL 22
-================================ */
-
-function changeModel22(){
-
-  const type =
-    document.getElementById(
-      "model22Type"
-    ).value;
-
-  const input =
-    document.getElementById(
-      "outModel22"
-    );
-
-  if(type === "verbal"){
-
-    input.value =
-      "Verbal";
-
-    input.readOnly =
-      true;
-
-  }else{
-
-    input.value =
-      "";
-
-    input.readOnly =
-      false;
-
-    input.placeholder =
-      "Fakkeenya: *45782";
-
-  }
-
-}
-
-
-/* ===============================
-   DATE
-================================ */
-
-function setDefaultDates(){
-
-  const now =
-    new Date();
-
-  const local =
-    new Date(
-      now.getTime() -
-      now.getTimezoneOffset() * 60000
-    )
-    .toISOString()
-    .slice(0,16);
-
-  document.getElementById(
-    "inDate"
-  ).value = local;
-
-  document.getElementById(
-    "outDate"
-  ).value = local;
-
-}
-
-
-function datetimeToISO(value){
-
-  if(!value){
-
-    return null;
-
-  }
-
-  const date =
-    new Date(value);
-
-  if(
-    Number.isNaN(
-      date.getTime()
-    )
-  ){
-
-    return null;
-
-  }
-
-  return date.toISOString();
-
-}
-
-
-function formatDateTime(value){
-
-  if(!value){
-
-    return "—";
-
-  }
-
-  const date =
-    new Date(value);
-
-  if(
-    Number.isNaN(
-      date.getTime()
-    )
-  ){
-
-    return String(value);
-
-  }
-
-  return date.toLocaleString(
-    "en-GB",
-    {
-      year:"numeric",
-      month:"2-digit",
-      day:"2-digit",
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit"
     }
   );
 
 }
 
 
-/* ===============================
-   OPEN FORM
-================================ */
+/* =========================
+   FIND ITEM
+========================= */
 
-async function openForm(type){
+function findItem(id){
 
-  closeForms();
+  return allItems.find(
+    function(item){
+
+      return String(item.id)
+      ===
+      String(id);
+
+    }
+  );
+
+}
 
 
-  if(!checkBranch()){
+/* =========================
+   IN UNIT
+========================= */
 
-    return;
+function setInUnit(){
+
+  const id =
+  document.getElementById(
+    "inItem"
+  ).value;
+
+
+  const item =
+  findItem(id);
+
+
+  document.getElementById(
+    "inUnit"
+  ).value =
+  item
+  ?
+  (
+    item.unit ||
+    item.measurement ||
+    item.safartuu ||
+    ""
+  )
+  :
+  "";
+
+}
+
+
+/* =========================
+   OUT UNIT
+========================= */
+
+function setOutUnit(){
+
+  const id =
+  document.getElementById(
+    "outItem"
+  ).value;
+
+
+  const item =
+  findItem(id);
+
+
+  document.getElementById(
+    "outUnit"
+  ).value =
+  item
+  ?
+  (
+    item.unit ||
+    item.measurement ||
+    item.safartuu ||
+    ""
+  )
+  :
+  "";
+
+}
+
+
+/* =========================
+   MODEL 19
+========================= */
+
+function changeModel19(){
+
+  const type =
+  document.getElementById(
+    "model19Type"
+  ).value;
+
+
+  const input =
+  document.getElementById(
+    "inModel19"
+  );
+
+
+  if(type === "number"){
+
+    input.disabled =
+    false;
+
+    input.readOnly =
+    false;
+
+    input.value =
+    "";
+
+    input.placeholder =
+    "Model 19 number";
 
   }
 
+  else if(type === "verbal"){
 
-  /*
-    IMPORTANT:
-    Always resolve branch again
-    before loading Items.
-  */
+    input.disabled =
+    false;
 
-  await resolveBranchUUID();
+    input.readOnly =
+    true;
 
+    input.value =
+    "Verbal";
+
+    input.placeholder =
+    "";
+
+  }
+
+  else{
+
+    input.disabled =
+    true;
+
+    input.readOnly =
+    false;
+
+    input.value =
+    "";
+
+    input.placeholder =
+    "Model 19 hin jiru";
+
+  }
+
+}
+
+
+/* =========================
+   MODEL 22
+========================= */
+
+function changeModel22(){
+
+  const type =
+  document.getElementById(
+    "model22Type"
+  ).value;
+
+
+  const input =
+  document.getElementById(
+    "outModel22"
+  );
+
+
+  if(type === "number"){
+
+    input.disabled =
+    false;
+
+    input.readOnly =
+    false;
+
+    input.value =
+    "";
+
+    input.placeholder =
+    "Model 22 number";
+
+  }
+
+  else if(type === "verbal"){
+
+    input.disabled =
+    false;
+
+    input.readOnly =
+    true;
+
+    input.value =
+    "Verbal";
+
+    input.placeholder =
+    "";
+
+  }
+
+  else{
+
+    input.disabled =
+    true;
+
+    input.readOnly =
+    false;
+
+    input.value =
+    "";
+
+    input.placeholder =
+    "Model 22 dirqama dha";
+
+  }
+
+}
+
+
+/* =========================
+   DEFAULT DATE
+========================= */
+
+function setDefaultDates(){
+
+  const now =
+  new Date();
+
+
+  const local =
+  new Date(
+    now.getTime()
+    -
+    now.getTimezoneOffset()
+    * 60000
+  )
+  .toISOString()
+  .slice(0,16);
+
+
+  document.getElementById(
+    "inDate"
+  ).value =
+  local;
+
+
+  document.getElementById(
+    "outDate"
+  ).value =
+  local;
+
+}
+
+
+/* =========================
+   LOAD TRANSACTIONS
+========================= */
+
+async function loadTransactions(){
 
   if(!CURRENT_BRANCH_UUID){
 
+    await resolveBranchUUID();
+
+  }
+
+
+  if(!CURRENT_BRANCH_UUID)
+    return;
+
+
+  try{
+
+    const url =
+    SUPABASE_URL +
+    "/rest/v1/stock_transactions" +
+    "?select=*" +
+    "&branch_id=eq." +
+    encodeURIComponent(
+      CURRENT_BRANCH_UUID
+    ) +
+    "&order=id.desc";
+
+
+    const response =
+    await fetch(
+      url,
+      {
+        headers:
+        getHeaders()
+      }
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    allTransactions =
+    await response.json();
+
+
+    buildReport();
+
+
+  }catch(error){
+
+    console.error(error);
+
     showMessage(
-      "❌ Branch UUID hin argamne.",
+      "Stock transaction fe'uu dide: " +
+      error.message,
       "error"
     );
 
-    return;
-
-  }
-
-
-  /*
-    Always reload items when opening
-    Stock IN/OUT.
-  */
-
-  allItems =
-    await loadItems();
-
-
-  fillItemLists();
-
-
-  if(allItems.length === 0){
-
-    showMessage(
-      "❌ Item hin jiru. Items page keessatti Branch kanaaf Item galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(type === "IN"){
-
-    document
-    .getElementById("stockInForm")
-    .classList.add("show");
-
-  }
-
-
-  if(type === "OUT"){
-
-    document
-    .getElementById("stockOutForm")
-    .classList.add("show");
-
   }
 
 }
 
 
-/* ===============================
-   CLOSE
-================================ */
+/* =========================
+   ITEM BALANCE
+========================= */
 
-function closeForms(){
+function getItemBalance(
+  itemId,
+  itemName
+){
 
-  document
-  .getElementById("stockInForm")
-  .classList.remove("show");
-
-  document
-  .getElementById("stockOutForm")
-  .classList.remove("show");
-
-}
+  let balance =
+  0;
 
 
-/* ===============================
-   MESSAGE
-================================ */
+  allTransactions.forEach(
+    function(t){
 
-function showMessage(text,type){
-
-  const box =
-    document.getElementById("message");
-
-  box.textContent =
-    text;
-
-  box.className =
-    "message " +
-    type;
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-  setTimeout(() => {
-
-    box.className =
-      "message";
-
-  },8000);
-
-}
+      const transactionItemId =
+      t.item_id;
 
 
-/* ===============================
-   BALANCE
-================================ */
-
-function getItemBalance(itemId,itemName){
-
-  let totalIn = 0;
-  let totalOut = 0;
+      const transactionName =
+      t.transaction ||
+      t.item_name ||
+      "";
 
 
-  allTransactions.forEach(t => {
-
-    const sameId =
-      t.item_id !== undefined &&
-      t.item_id !== null &&
-      String(t.item_id) ===
+      const sameId =
+      transactionItemId !== null &&
+      transactionItemId !== undefined &&
+      String(transactionItemId)
+      ===
       String(itemId);
 
 
-    if(sameId){
-
-      const quantity =
-        Number(t.quantity || 0);
-
-      const type =
-        String(
-          t.transaction_type || ""
-        )
-        .trim()
-        .toUpperCase();
-
-      if(type === "IN")
-        totalIn += quantity;
-
-      if(type === "OUT")
-        totalOut += quantity;
-
-    }
-
-  });
-
-
-  /*
-    Old transactions fallback:
-    item name.
-  */
-
-  if(
-    totalIn === 0 &&
-    totalOut === 0
-  ){
-
-    const normalized =
-      String(itemName || "")
-      .trim()
+      const sameName =
+      String(transactionName)
+      .toLowerCase()
+      ===
+      String(itemName)
       .toLowerCase();
 
-    allTransactions.forEach(t => {
-
-      const transactionName =
-        String(
-          t.transaction || ""
-        )
-        .trim()
-        .toLowerCase();
 
       if(
-        transactionName !== normalized
+        sameId ||
+        sameName
       ){
 
-        return;
+        const qty =
+        Number(t.quantity) || 0;
+
+
+        const type =
+        String(
+          t.transaction_type || ""
+        ).toUpperCase();
+
+
+        if(type === "IN"){
+
+          balance +=
+          qty;
+
+        }
+
+        else if(type === "OUT"){
+
+          balance -=
+          qty;
+
+        }
 
       }
 
-      const quantity =
-        Number(t.quantity || 0);
-
-      const type =
-        String(
-          t.transaction_type || ""
-        )
-        .trim()
-        .toUpperCase();
-
-      if(type === "IN")
-        totalIn += quantity;
-
-      if(type === "OUT")
-        totalOut += quantity;
-
-    });
-
-  }
+    }
+  );
 
 
-  return totalIn - totalOut;
+  return balance;
 
 }
 
 
-/* ===============================
+/* =========================
    SAVE STOCK
-================================ */
+========================= */
 
-async function saveStock(type){
+async function saveStock(
+  type
+){
 
-  if(!checkBranch()){
-
-    return;
-
-  }
-
-
-  await resolveBranchUUID();
+  const isIN =
+  type === "IN";
 
 
-  if(!CURRENT_BRANCH_UUID){
-
-    showMessage(
-      "❌ Branch UUID hin argamne.",
-      "error"
-    );
-
-    return;
-
-  }
+  const itemSelect =
+  document.getElementById(
+    isIN
+    ?
+    "inItem"
+    :
+    "outItem"
+  );
 
 
-  let itemId = "";
-  let quantity = 0;
-  let unit = "";
-  let enteredBy = "";
-  let issuedBy = "";
-  let expiryDate = null;
-  let enteredAt = "";
-  let signature = "";
-  let model19 = null;
-  let model22 = null;
+  const itemId =
+  itemSelect.value;
 
-
-  /* STOCK IN */
-
-  if(type === "IN"){
-
-    itemId =
-      document.getElementById(
-        "inItem"
-      ).value;
-
-    quantity =
-      Number(
-        document.getElementById(
-          "inQuantity"
-        ).value
-      );
-
-    unit =
-      document.getElementById(
-        "inUnit"
-      ).value;
-
-    enteredBy =
-      document.getElementById(
-        "inEnteredBy"
-      ).value.trim();
-
-    expiryDate =
-      document.getElementById(
-        "inExpiryDate"
-      ).value || null;
-
-    enteredAt =
-      document.getElementById(
-        "inDate"
-      ).value;
-
-    signature =
-      document.getElementById(
-        "inSignature"
-      ).value.trim();
-
-    model19 =
-      document.getElementById(
-        "inModel19"
-      ).value.trim();
-
-    /*
-      Model 19 is OPTIONAL.
-      If nothing entered, save NULL.
-    */
-
-    if(!model19){
-
-      model19 = null;
-
-    }
-
-  }
-
-
-  /* STOCK OUT */
-
-  if(type === "OUT"){
-
-    itemId =
-      document.getElementById(
-        "outItem"
-      ).value;
-
-    quantity =
-      Number(
-        document.getElementById(
-          "outQuantity"
-        ).value
-      );
-
-    unit =
-      document.getElementById(
-        "outUnit"
-      ).value;
-
-    issuedBy =
-      document.getElementById(
-        "outIssuedBy"
-      ).value.trim();
-
-    enteredAt =
-      document.getElementById(
-        "outDate"
-      ).value;
-
-    signature =
-      document.getElementById(
-        "outSignature"
-      ).value.trim();
-
-    model22 =
-      document.getElementById(
-        "outModel22"
-      ).value.trim();
-
-    if(!model22){
-
-      showMessage(
-        "❌ Model 22 dirqama. Model 22 galchi ykn Verbal filadhu.",
-        "error"
-      );
-
-      return;
-
-    }
-
-  }
-
-
-  /* VALIDATION */
 
   if(!itemId){
 
     showMessage(
-      "❌ Item filadhu.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!quantity || quantity <= 0){
-
-    showMessage(
-      "❌ Quantity sirrii galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!enteredAt){
-
-    showMessage(
-      "❌ Guyyaa fi sa'aatii galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    type === "IN" &&
-    !enteredBy
-  ){
-
-    showMessage(
-      "❌ Nama galche galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    type === "OUT" &&
-    !issuedBy
-  ){
-
-    showMessage(
-      "❌ Nama baase galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const timestamp =
-    datetimeToISO(
-      enteredAt
-    );
-
-
-  if(!timestamp){
-
-    showMessage(
-      "❌ Guyyaa fi sa'aatiin sirrii miti.",
+      "Item filadhu.",
       "error"
     );
 
@@ -2016,26 +1888,13 @@ async function saveStock(type){
 
 
   const item =
-    allItems.find(
-      i =>
-        String(i.id) ===
-        String(itemId)
-    );
+  findItem(itemId);
 
 
   if(!item){
 
-    /*
-      If item disappeared, reload once.
-    */
-
-    allItems =
-      await loadItems();
-
-    fillItemLists();
-
     showMessage(
-      "❌ Item database keessatti branch kanaaf hin argamne. Items page irraa mirkaneessi.",
+      "Item hin argamne.",
       "error"
     );
 
@@ -2044,32 +1903,78 @@ async function saveStock(type){
   }
 
 
-  /* OUT BALANCE */
+  const quantity =
+  Number(
+    document.getElementById(
+      isIN
+      ?
+      "inQuantity"
+      :
+      "outQuantity"
+    ).value
+  );
 
-  if(type === "OUT"){
 
-    /*
-      Refresh transactions before balance check.
-    */
+  if(
+    !quantity ||
+    quantity <= 0
+  ){
 
-    allTransactions =
-      await loadTransactions();
+    showMessage(
+      "Quantity sirrii galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const dateValue =
+  document.getElementById(
+    isIN
+    ?
+    "inDate"
+    :
+    "outDate"
+  ).value;
+
+
+  if(!dateValue){
+
+    showMessage(
+      "Guyyaa fi sa'aatii galchi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* STOCK OUT BALANCE */
+
+  if(!isIN){
+
+    const itemName =
+    item.name ||
+    item.item_name ||
+    item.item ||
+    "";
 
 
     const balance =
-      getItemBalance(
-        item.id,
-        item.name
-      );
+    getItemBalance(
+      item.id,
+      itemName
+    );
 
 
     if(quantity > balance){
 
       showMessage(
-        "❌ Stock gahaa hin jiru. Balance: " +
-        balance +
-        " " +
-        unit,
+        "Stock gahaa hin jiru. Current Balance: " +
+        balance,
         "error"
       );
 
@@ -2080,7 +1985,193 @@ async function saveStock(type){
   }
 
 
-  /* FINAL DATA */
+  /* MODEL 19 */
+
+  let model19 =
+  null;
+
+
+  if(isIN){
+
+    const model19Type =
+    document.getElementById(
+      "model19Type"
+    ).value;
+
+
+    if(
+      model19Type ===
+      "verbal"
+    ){
+
+      model19 =
+      "Verbal";
+
+    }
+
+    else if(
+      model19Type ===
+      "number"
+    ){
+
+      model19 =
+      document.getElementById(
+        "inModel19"
+      ).value.trim();
+
+
+      if(!model19){
+
+        showMessage(
+          "Model 19 number galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+    }
+
+  }
+
+
+  /* MODEL 22 */
+
+  let model22 =
+  null;
+
+
+  if(!isIN){
+
+    const model22Type =
+    document.getElementById(
+      "model22Type"
+    ).value;
+
+
+    if(
+      model22Type ===
+      "verbal"
+    ){
+
+      model22 =
+      "Verbal";
+
+    }
+
+    else if(
+      model22Type ===
+      "number"
+    ){
+
+      model22 =
+      document.getElementById(
+        "outModel22"
+      ).value.trim();
+
+
+      if(!model22){
+
+        showMessage(
+          "Model 22 number galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+    }
+
+    else{
+
+      showMessage(
+        "Model 22 dirqama dha. Number yookaan Verbal filadhu.",
+        "error"
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  /* ITEM DATA */
+
+  const itemName =
+  item.name ||
+  item.item_name ||
+  item.item ||
+  "";
+
+
+  const unit =
+  item.unit ||
+  item.measurement ||
+  item.safartuu ||
+  "";
+
+
+  const category =
+  item.category ||
+  item.category_name ||
+  null;
+
+
+  /* PEOPLE */
+
+  const enteredBy =
+  isIN
+  ?
+  document.getElementById(
+    "inEnteredBy"
+  ).value.trim()
+  :
+  null;
+
+
+  const issuedBy =
+  !isIN
+  ?
+  document.getElementById(
+    "outIssuedBy"
+  ).value.trim()
+  :
+  null;
+
+
+  /* EXPIRY */
+
+  const expiryDate =
+  isIN
+  ?
+  (
+    document.getElementById(
+      "inExpiryDate"
+    ).value ||
+    null
+  )
+  :
+  null;
+
+
+  /* SIGNATURE */
+
+  const signature =
+  document.getElementById(
+    isIN
+    ?
+    "inSignature"
+    :
+    "outSignature"
+  ).value.trim()
+  ||
+  null;
+
+
+  /* DATA */
 
   const data = {
 
@@ -2088,7 +2179,8 @@ async function saveStock(type){
       CURRENT_BRANCH_UUID,
 
     branch_code:
-      CURRENT_BRANCH_CODE,
+      CURRENT_BRANCH_CODE ||
+      null,
 
     item_id:
       Number(item.id),
@@ -2100,759 +2192,746 @@ async function saveStock(type){
       quantity,
 
     entered_by:
-      type === "IN"
-        ? enteredBy
-        : null,
+      enteredBy,
 
     entered_at:
-      timestamp,
+      new Date(
+        dateValue
+      ).toISOString(),
 
     expiry_date:
       expiryDate,
 
     category:
-      item.category || null,
+      category,
 
     issued_by:
-      type === "OUT"
-        ? issuedBy
-        : null,
+      issuedBy,
 
     signature:
-      signature || null,
+      signature,
 
     unit:
-      unit || item.unit || null,
+      unit ||
+      null,
 
     transaction:
-      item.name || "",
+      itemName,
 
     model_19:
-      type === "IN"
-        ? model19
-        : null,
+      model19,
 
     model_22:
-      type === "OUT"
-        ? model22
-        : null
+      model22
 
   };
-
-
-  console.log(
-    "FINAL STOCK DATA:",
-    data
-  );
-
-
-  const button =
-    document.getElementById(
-      type === "IN"
-        ? "saveInButton"
-        : "saveOutButton"
-    );
-
-
-  if(button){
-
-    button.disabled = true;
-
-    button.textContent =
-      "⏳ Saving...";
-
-  }
 
 
   try{
 
     const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions",
-        {
-          method:"POST",
-          headers:{
-            ...getHeaders(),
-            "Prefer":
-              "return=representation"
-          },
-          body:
-            JSON.stringify(data)
-        }
-      );
+    await fetch(
 
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions",
 
-    const resultText =
-      await response.text();
+      {
 
+        method:"POST",
 
-    console.log(
-      "SUPABASE RESPONSE:",
-      resultText
+        headers:{
+
+          ...getHeaders(),
+
+          "Prefer":
+            "return=representation"
+
+        },
+
+        body:
+          JSON.stringify(data)
+
+      }
+
     );
 
 
     if(!response.ok){
 
+      const errorText =
+      await response.text();
+
+
+      console.error(
+        "SUPABASE ERROR:",
+        errorText
+      );
+
+
       throw new Error(
-        resultText
+        errorText
       );
 
     }
 
 
     showMessage(
+
       type === "IN"
-        ? "✅ Stock IN sirriitti galmaa'e."
-        : "✅ Stock OUT sirriitti galmaa'e.",
+      ?
+      "Stock IN milkaa'eera."
+      :
+      "Stock OUT milkaa'eera.",
+
       "success"
+
     );
 
 
     clearForm(type);
 
-    closeForms();
 
-    await loadStock();
+    await loadTransactions();
 
-  }
-  catch(error){
 
-    console.error(
-      "SAVE STOCK ERROR:",
-      error
-    );
+  }catch(error){
+
+    console.error(error);
 
     showMessage(
-      "❌ Save hin milkoofne: " +
+      "Stock save gochuu dide: " +
       error.message,
       "error"
     );
 
   }
-  finally{
-
-    if(button){
-
-      button.disabled = false;
-
-      button.textContent =
-        type === "IN"
-          ? "💾 Save Stock IN"
-          : "💾 Save Stock OUT";
-
-    }
-
-  }
 
 }
 
 
-/* ===============================
-   CLEAR
-================================ */
+/* =========================
+   CLEAR FORM
+========================= */
 
-function clearForm(type){
+function clearForm(
+  type
+){
 
   if(type === "IN"){
 
-    document.getElementById("inItem").value="";
-    document.getElementById("inUnit").value="";
-    document.getElementById("inQuantity").value="";
-    document.getElementById("inEnteredBy").value="";
-    document.getElementById("inExpiryDate").value="";
-    document.getElementById("inSignature").value="";
-
-    document.getElementById("model19Type").value="number";
-    document.getElementById("inModel19").value="";
-    document.getElementById("inModel19").readOnly=false;
-
-  }
-
-
-  if(type === "OUT"){
-
-    document.getElementById("outItem").value="";
-    document.getElementById("outUnit").value="";
-    document.getElementById("outQuantity").value="";
-    document.getElementById("outIssuedBy").value="";
-    document.getElementById("outSignature").value="";
-
-    document.getElementById("model22Type").value="number";
-    document.getElementById("outModel22").value="";
-    document.getElementById("outModel22").readOnly=false;
-
-  }
-
-
-  setDefaultDates();
-
-}
-
-
-/* ===============================
-   LOAD STOCK
-================================ */
-
-async function loadStock(){
-
-  if(!checkLogin()){
-
-    return;
-
-  }
-
-
-  if(!checkBranch()){
-
-    return;
-
-  }
-
-
-  /*
-    IMPORTANT:
-    Resolve branch EVERY refresh.
-  */
-
-  await resolveBranchUUID();
-
-
-  if(!CURRENT_BRANCH_UUID){
+    document.getElementById(
+      "inQuantity"
+    ).value =
+    "";
 
     document.getElementById(
-      "reportTable"
-    ).innerHTML =
-      `
-        <tr>
-          <td colspan="7"
-              style="text-align:center;padding:30px">
-            ❌ Branch UUID hin argamne.
-          </td>
-        </tr>
-      `;
+      "inEnteredBy"
+    ).value =
+    "";
 
-    return;
+    document.getElementById(
+      "inExpiryDate"
+    ).value =
+    "";
+
+    document.getElementById(
+      "inModel19"
+    ).value =
+    "";
+
+    document.getElementById(
+      "inSignature"
+    ).value =
+    "";
+
+    document.getElementById(
+      "model19Type"
+    ).value =
+    "none";
+
+
+    changeModel19();
 
   }
 
+  else{
 
-  allItems =
-    await loadItems();
+    document.getElementById(
+      "outQuantity"
+    ).value =
+    "";
 
-  allTransactions =
-    await loadTransactions();
+    document.getElementById(
+      "outIssuedBy"
+    ).value =
+    "";
+
+    document.getElementById(
+      "outModel22"
+    ).value =
+    "";
+
+    document.getElementById(
+      "outSignature"
+    ).value =
+    "";
+
+    document.getElementById(
+      "model22Type"
+    ).value =
+    "none";
 
 
-  fillItemLists();
+    changeModel22();
 
-  showReport();
+  }
+
 
   setDefaultDates();
-
-
-  if(allItems.length === 0){
-
-    showMessage(
-      "⚠️ Branch " +
-      CURRENT_BRANCH_NAME +
-      " keessatti Item hin argamne. Items page irraa Item galchi.",
-      "error"
-    );
-
-  }
 
 }
 
 
-/* ===============================
-   BUILD REPORT
-================================ */
+/* =========================
+   REPORT
+========================= */
 
 function buildReport(){
 
-  const groups = {};
+  const grouped =
+  {};
 
 
-  allItems.forEach(item => {
+  allTransactions.forEach(
+    function(t){
 
-    const key =
-      String(
-        item.name || ""
-      )
-      .trim()
+      const name =
+      t.transaction ||
+      t.item_name ||
+      "Unknown Item";
+
+
+      const unit =
+      t.unit ||
+      "";
+
+
+      const key =
+      String(name)
       .toLowerCase();
 
 
-    if(!key){
+      if(!grouped[key]){
 
-      return;
+        grouped[key] = {
 
-    }
+          name:
+            name,
 
+          unit:
+            unit,
 
-    if(!groups[key]){
+          stockIn:
+            0,
 
-      groups[key] = {
+          stockOut:
+            0
 
-        itemId:item.id,
-        name:item.name || "",
-        unit:item.unit || "",
-        category:item.category || "",
-        in:0,
-        out:0
+        };
 
-      };
-
-    }
-
-  });
+      }
 
 
-  allTransactions.forEach(t => {
-
-    const itemName =
-      String(
-        t.transaction || ""
-      )
-      .trim()
-      .toLowerCase();
+      const quantity =
+      Number(t.quantity) || 0;
 
 
-    if(!itemName){
-
-      return;
-
-    }
-
-
-    if(!groups[itemName]){
-
-      groups[itemName] = {
-
-        itemId:t.item_id || null,
-        name:t.transaction || "",
-        unit:t.unit || "",
-        category:t.category || "",
-        in:0,
-        out:0
-
-      };
-
-    }
-
-
-    const quantity =
-      Number(
-        t.quantity || 0
-      );
-
-
-    const type =
+      const transactionType =
       String(
         t.transaction_type || ""
-      )
-      .trim()
-      .toUpperCase();
+      ).toUpperCase();
 
 
-    if(type === "IN")
-      groups[itemName].in += quantity;
+      if(
+        transactionType ===
+        "IN"
+      ){
 
-    if(type === "OUT")
-      groups[itemName].out += quantity;
+        grouped[key].stockIn +=
+        quantity;
 
-  });
+      }
 
+      else if(
+        transactionType ===
+        "OUT"
+      ){
 
-  return Object.values(groups);
+        grouped[key].stockOut +=
+        quantity;
 
-}
-
-
-/* ===============================
-   REPORT
-================================ */
-
-function showReport(){
-
-  const table =
-    document.getElementById(
-      "reportTable"
-    );
-
-
-  const groups =
-    buildReport();
-
-
-  table.innerHTML = "";
-
-
-  let totalIn = 0;
-  let totalOut = 0;
-
-
-  if(groups.length === 0){
-
-    table.innerHTML =
-      `
-        <tr>
-          <td colspan="7"
-              style="text-align:center;padding:30px">
-            📦 Item hin jiru.
-          </td>
-        </tr>
-      `;
-
-  }
-
-
-  groups.forEach(
-    (group,index) => {
-
-      const balance =
-        group.in -
-        group.out;
-
-
-      totalIn += group.in;
-      totalOut += group.out;
-
-
-      const row =
-        document.createElement("tr");
-
-      row.className =
-        "item-row";
-
-      row.onclick =
-        () =>
-          showItemDetails(
-            group.name
-          );
-
-
-      row.innerHTML =
-        `
-          <td>${index+1}</td>
-
-          <td>
-            <strong>
-              ${escapeHTML(group.name)}
-            </strong>
-          </td>
-
-          <td>
-            ${escapeHTML(group.unit)}
-          </td>
-
-          <td>
-            ${group.in.toLocaleString()}
-          </td>
-
-          <td>
-            ${group.out.toLocaleString()}
-          </td>
-
-          <td class="balance">
-            ${balance.toLocaleString()}
-          </td>
-
-          <td class="click">
-            👆 Click
-          </td>
-        `;
-
-
-      table.appendChild(row);
+      }
 
     }
   );
 
 
+  const reportBody =
   document.getElementById(
-    "totalItems"
-  ).textContent =
-    groups.length;
+    "reportBody"
+  );
+
+
+  reportBody.innerHTML =
+  "";
+
+
+  const rows =
+  Object.values(
+    grouped
+  );
+
+
+  let totalIn =
+  0;
+
+  let totalOut =
+  0;
+
+
+  if(rows.length === 0){
+
+    reportBody.innerHTML =
+    `
+    <tr>
+      <td colspan="7">
+        Stock data hin jiru.
+      </td>
+    </tr>
+    `;
+
+  }
+
+  else{
+
+    rows.forEach(
+      function(row,index){
+
+        const balance =
+        row.stockIn -
+        row.stockOut;
+
+
+        totalIn +=
+        row.stockIn;
+
+        totalOut +=
+        row.stockOut;
+
+
+        const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+        tr.innerHTML =
+        `
+
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            row.name
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            row.unit
+          )}
+        </td>
+
+        <td>
+          ${row.stockIn}
+        </td>
+
+        <td>
+          ${row.stockOut}
+        </td>
+
+        <td>
+          ${balance}
+        </td>
+
+        <td>
+
+          <button
+            class="details-btn"
+            onclick='showItemDetails(${JSON.stringify(row.name)})'>
+
+            Details
+
+          </button>
+
+        </td>
+
+        `;
+
+
+        reportBody.appendChild(
+          tr
+        );
+
+      }
+    );
+
+  }
 
 
   document.getElementById(
     "totalIn"
   ).textContent =
-    totalIn.toLocaleString();
+  totalIn;
 
 
   document.getElementById(
     "totalOut"
   ).textContent =
-    totalOut.toLocaleString();
+  totalOut;
 
 
   document.getElementById(
-    "totalBalance"
+    "currentBalance"
   ).textContent =
-    (
-      totalIn -
-      totalOut
-    ).toLocaleString();
+  totalIn -
+  totalOut;
 
 }
 
 
-/* ===============================
+/* =========================
    DETAILS
-================================ */
+========================= */
 
-function showItemDetails(itemName){
+function showItemDetails(
+  itemName
+){
 
-  const normalized =
-    String(itemName)
-    .trim()
-    .toLowerCase();
+  const section =
+  document.getElementById(
+    "detailsSection"
+  );
 
-
-  const transactions =
-    allTransactions.filter(
-      t =>
-        String(
-          t.transaction || ""
-        )
-        .trim()
-        .toLowerCase()
-        === normalized
-    );
-
-
-  const box =
-    document.getElementById(
-      "detailsBox"
-    );
 
   const title =
-    document.getElementById(
-      "detailsTitle"
-    );
+  document.getElementById(
+    "detailsTitle"
+  );
 
-  const table =
-    document.getElementById(
-      "detailsTable"
-    );
+
+  const body =
+  document.getElementById(
+    "detailsBody"
+  );
 
 
   title.textContent =
-    "📦 " +
-    itemName +
-    " — " +
-    CURRENT_BRANCH_NAME;
+  "Transaction Details - " +
+  itemName;
 
 
-  table.innerHTML = "";
+  body.innerHTML =
+  "";
 
 
-  if(transactions.length === 0){
+  const rows =
+  allTransactions.filter(
+    function(t){
 
-    table.innerHTML =
-      `
-        <tr>
-          <td colspan="11"
-              style="text-align:center;padding:25px">
-            Transaction hin jiru.
-          </td>
-        </tr>
-      `;
-
-  }
+      const name =
+      t.transaction ||
+      t.item_name ||
+      "";
 
 
-  transactions.forEach(
-    (t,index) => {
-
-      const type =
-        String(
-          t.transaction_type || ""
-        )
-        .trim()
-        .toUpperCase();
-
-
-      const row =
-        document.createElement("tr");
-
-
-      row.innerHTML =
-        `
-          <td>${index+1}</td>
-
-          <td>
-            <span class="badge ${
-              type === "OUT"
-                ? "badge-out"
-                : "badge-in"
-            }">
-              ${
-                type === "OUT"
-                  ? "🔴 OUT"
-                  : "🟢 IN"
-              }
-            </span>
-          </td>
-
-          <td>
-            ${Number(
-              t.quantity || 0
-            ).toLocaleString()}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              t.unit || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              formatDateTime(
-                t.entered_at
-              )
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              t.entered_by || "—"
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              t.issued_by || "—"
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              t.model_19 || "—"
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              t.model_22 || "—"
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              t.expiry_date || "—"
-            )}
-          </td>
-
-          <td>
-            ${
-              t.signature
-                ? "✍️ " +
-                  escapeHTML(t.signature)
-                : "—"
-            }
-          </td>
-        `;
-
-
-      table.appendChild(row);
+      return String(name)
+      .toLowerCase()
+      ===
+      String(itemName)
+      .toLowerCase();
 
     }
   );
 
 
-  box.classList.add("show");
+  if(rows.length === 0){
 
-  box.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
+    body.innerHTML =
+    `
+    <tr>
+      <td colspan="11">
+        Detail hin jiru.
+      </td>
+    </tr>
+    `;
+
+  }
+
+  else{
+
+    rows.forEach(
+      function(t,index){
+
+        const date =
+        t.entered_at
+        ?
+        new Date(
+          t.entered_at
+        ).toLocaleString()
+        :
+        "";
+
+
+        const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+        tr.innerHTML =
+        `
+
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.transaction_type || ""
+          )}
+        </td>
+
+        <td>
+          ${t.quantity ?? ""}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.unit || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            date
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.entered_by || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.issued_by || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.model_19 || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.model_22 || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.expiry_date || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            t.signature || ""
+          )}
+        </td>
+
+        `;
+
+
+        body.appendChild(
+          tr
+        );
+
+      }
+    );
+
+  }
+
+
+  section.classList.remove(
+    "hidden"
+  );
+
+
+  section.scrollIntoView({
+    behavior:"smooth"
   });
 
 }
 
 
-/* ===============================
-   ESCAPE
-================================ */
+/* =========================
+   ESCAPE HTML
+========================= */
 
-function escapeHTML(value){
+function escapeHTML(
+  value
+){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
 
-/* ===============================
-   CLOSE DETAILS
-================================ */
+/* =========================
+   SHOW SECTION
+========================= */
 
-function closeDetails(){
+function showSection(
+  sectionId
+){
 
-  document
-  .getElementById("detailsBox")
-  .classList.remove("show");
+  document.getElementById(
+    "stockInSection"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "stockOutSection"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    sectionId
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
-/* ===============================
-   NAVIGATION
-================================ */
+/* =========================
+   LOAD STOCK
+========================= */
+
+async function loadStock(){
+
+  await loadItems();
+
+  await loadTransactions();
+
+}
+
+
+/* =========================
+   BACK TO MENU
+========================= */
 
 function backToMenu(){
 
   window.location.href =
-    "dashboard.html";
+  "dashboard.html";
 
 }
 
+
+/* =========================
+   REPORTS
+========================= */
 
 function goReports(){
 
   window.location.href =
-    "reports.html";
+  "reports.html";
 
 }
 
 
-/* ===============================
+/* =========================
    START
-================================ */
+========================= */
 
-window.addEventListener(
+document.addEventListener(
   "DOMContentLoaded",
   async function(){
 
-    if(!checkLogin()){
-
+    if(!checkLogin())
       return;
 
-    }
 
-    checkBranch();
+    if(!checkBranch())
+      return;
+
 
     setDefaultDates();
 
+
     changeModel19();
+
 
     changeModel22();
 
-    /*
-      First resolve the real database branch UUID,
-      then load items.
-    */
 
+    const uuid =
     await resolveBranchUUID();
+
+
+    if(!uuid)
+      return;
+
 
     await loadStock();
 
@@ -2862,4 +2941,5 @@ window.addEventListener(
 </script>
 
 </body>
+
 </html>
