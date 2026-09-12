@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Items</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Item Management</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -18,10 +23,12 @@ body{
     color:#3e2723;
 }
 
+/* ================= HEADER ================= */
+
 .header{
     background:#5d4037;
     color:white;
-    padding:16px 20px;
+    padding:14px 20px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -36,13 +43,26 @@ body{
     gap:12px;
 }
 
-.logo{
-    width:52px;
-    height:52px;
+/* PROFILE / LOGO */
+
+.logo-box{
+    width:58px;
+    height:58px;
     border-radius:50%;
-    object-fit:cover;
+    overflow:hidden;
     background:white;
     border:3px solid #d7ccc8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.logo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
 .title{
@@ -52,9 +72,11 @@ body{
 
 .branch-name{
     font-size:13px;
+    margin-top:5px;
     opacity:.9;
-    margin-top:4px;
 }
+
+/* ================= HEADER BUTTONS ================= */
 
 .header-buttons{
     display:flex;
@@ -71,6 +93,11 @@ button{
     cursor:pointer;
 }
 
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
 .btn-menu{
     background:#efebe9;
     color:#4e342e;
@@ -81,11 +108,15 @@ button{
     color:white;
 }
 
+/* ================= CONTAINER ================= */
+
 .container{
     max-width:1100px;
     margin:25px auto;
     padding:0 15px;
 }
+
+/* ================= CARD ================= */
 
 .card{
     background:white;
@@ -99,6 +130,19 @@ button{
     margin-top:0;
     color:#5d4037;
 }
+
+/* ================= INFO ================= */
+
+.info{
+    background:#fff8e1;
+    border-left:4px solid #8d6e63;
+    padding:12px;
+    margin-bottom:18px;
+    border-radius:6px;
+    font-size:14px;
+}
+
+/* ================= FORM ================= */
 
 .form-grid{
     display:grid;
@@ -117,19 +161,24 @@ button{
     font-size:14px;
 }
 
-input,select{
+input,
+select{
     width:100%;
     padding:12px;
     border:1px solid #d7ccc8;
     border-radius:8px;
     font-size:15px;
     outline:none;
+    background:white;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
     border-color:#795548;
     box-shadow:0 0 0 2px rgba(121,85,72,.12);
 }
+
+/* ================= FORM BUTTONS ================= */
 
 .form-buttons{
     margin-top:18px;
@@ -148,12 +197,15 @@ input:focus,select:focus{
     color:#3e2723;
 }
 
+/* ================= MESSAGE ================= */
+
 .message{
     margin-top:15px;
     padding:12px;
     border-radius:8px;
     display:none;
     font-weight:bold;
+    word-break:break-word;
 }
 
 .message.success{
@@ -167,6 +219,8 @@ input:focus,select:focus{
     background:#ffebee;
     color:#c62828;
 }
+
+/* ================= TABLE ================= */
 
 .table-wrap{
     width:100%;
@@ -197,13 +251,15 @@ tr:hover{
 
 .badge{
     display:inline-block;
-    padding:5px 9px;
+    padding:6px 9px;
     border-radius:15px;
     background:#efebe9;
     color:#5d4037;
     font-size:12px;
     font-weight:bold;
 }
+
+/* ================= ACTION BUTTONS ================= */
 
 .action-btn{
     padding:7px 10px;
@@ -221,11 +277,7 @@ tr:hover{
     color:#b71c1c;
 }
 
-.empty{
-    text-align:center;
-    padding:25px;
-    color:#795548;
-}
+/* ================= STATUS ================= */
 
 .loading{
     text-align:center;
@@ -233,16 +285,16 @@ tr:hover{
     color:#795548;
 }
 
-.info{
-    background:#fff8e1;
-    border-left:4px solid #8d6e63;
-    padding:12px;
-    margin-bottom:18px;
-    border-radius:6px;
-    font-size:14px;
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#795548;
 }
 
+/* ================= MOBILE ================= */
+
 @media(max-width:700px){
+
     .header{
         align-items:flex-start;
     }
@@ -251,9 +303,9 @@ tr:hover{
         font-size:17px;
     }
 
-    .logo{
-        width:45px;
-        height:45px;
+    .logo-box{
+        width:48px;
+        height:48px;
     }
 
     .form-grid{
@@ -268,178 +320,294 @@ tr:hover{
         padding:15px;
     }
 
-    button{
-        width:100%;
-    }
-
     .header-buttons{
         width:100%;
     }
 
     .header-buttons button{
-        width:auto;
         flex:1;
     }
+
 }
+
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- ================= HEADER ================= -->
 
 <header class="header">
 
     <div class="header-left">
 
-        <!-- Logo -->
-        <img
-            src="AAFDRMC-logo.jpg"
-            class="logo"
-            alt="AAFDRMC Logo"
-            onerror="this.style.display='none';"
-        >
+        <div class="logo-box">
+
+            <!-- SUURAA KEE KAN JALQABA IRRA JIRU -->
+
+            <img
+                src="./1788633150526.jpg"
+                class="logo"
+                alt="AAFDRMC Profile"
+            >
+
+        </div>
+
 
         <div>
-            <div class="title">AAFDRMC - Item Management</div>
-            <div class="branch-name" id="branchDisplay">
+
+            <div class="title">
+                AAFDRMC - Item Management
+            </div>
+
+            <div
+                class="branch-name"
+                id="branchDisplay">
                 Branch: Loading...
             </div>
+
         </div>
 
     </div>
 
+
     <div class="header-buttons">
-        <button class="btn-menu" onclick="goDashboard()">
+
+        <button
+            class="btn-menu"
+            onclick="goDashboard()">
             ← Dashboard
         </button>
 
-        <button class="btn-logout" onclick="logout()">
+
+        <button
+            class="btn-logout"
+            onclick="logout()">
             Logout
         </button>
+
     </div>
 
 </header>
 
 
+
+<!-- ================= MAIN ================= -->
+
 <main class="container">
 
-    <!-- ADD / EDIT ITEM -->
+
+    <!-- ================= ADD ITEM ================= -->
+
     <section class="card">
 
-        <h2 id="formTitle">Add New Item</h2>
+        <h2 id="formTitle">
+            Add New Item
+        </h2>
+
 
         <div class="info">
-            Item ID database'n ofumaan uuma. As keessatti ID harkaan hin galchinu.
+
+            <strong>Item ID:</strong>
+
+            ID harkaan hin galchinu.
+            Database'n ofumaan ID uuma.
+
         </div>
+
 
         <div class="form-grid">
 
+
+            <!-- ITEM NAME -->
+
             <div class="field">
-                <label>Item Name / Maqaa Meeshaa</label>
+
+                <label>
+                    Item Name / Maqaa Meeshaa
+                </label>
+
                 <input
                     type="text"
                     id="itemName"
-                    placeholder="Fakkeenya: Xaafii"
-                >
+                    placeholder="Fakkeenya: Xaafii">
+
             </div>
 
+
+            <!-- CATEGORY -->
+
             <div class="field">
-                <label>Category / Ramaddii</label>
+
+                <label>
+                    Category / Ramaddii / ምድብ
+                </label>
+
 
                 <select id="category">
 
-    <option value="">
-        -- Category / Ramaddii / ምድብ ይምረጡ --
-    </option>
+                    <option value="">
+                        -- Category / Ramaddii / ምድብ ይምረጡ --
+                    </option>
 
-    <option value="Meeshaalee Nyaataa Tarsiimawaa">
-        Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ
-    </option>
 
-    <option value="Meeshaalee Nyaataa Guyyaa Guyyaa">
-        Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / የዕለት ምግብ ነክ
-    </option>
+                    <option value="Meeshaalee Nyaataa Tarsiimawaa">
+                        Meeshaalee Nyaataa Tarsiimawaa /
+                        Strategic Food Items /
+                        ስትራቴጂክ ምግብ ነክ
+                    </option>
 
-    <option value="Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa">
-        Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / የዕለት ምግብ ነክ ያልሆኑ
-    </option>
 
-    <option value="Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan">
-        Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / የምግብ ዝግጅት የማይሆኑ እቃዎች
-    </option>
+                    <option value="Meeshaalee Nyaataa Guyyaa Guyyaa">
+                        Meeshaalee Nyaataa Guyyaa Guyyaa /
+                        Daily Food Items /
+                        የዕለት ምግብ ነክ
+                    </option>
 
-    <option value="Meeshaalee Qulqullinaa">
-        Meeshaalee Qulqullinaa / Non-Food Hygiene Items / የንጽህና እቃዎች
-    </option>
 
-    <option value="Meeshaa Ijaarsa Manaaf Oolu">
-        Meeshaa Ijaarsa Manaaf Oolu / Building & Construction Items / የግንባታ እቃዎች
-    </option>
+                    <option value="Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa">
+                        Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
+                        Daily Non-Food Items /
+                        የዕለት ምግብ ነክ ያልሆኑ
+                    </option>
 
-</select>
+
+                    <option value="Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan">
+                        Meeshaalee Nyaataa Hin Taane
+                        Ittiin Nyaata Qopheessan /
+                        Non-Food Kitchen Items /
+                        የምግብ ዝግጅት የማይሆኑ እቃዎች
+                    </option>
+
+
+                    <option value="Meeshaalee Qulqullinaa">
+                        Meeshaalee Qulqullinaa /
+                        Non-Food Hygiene Items /
+                        የንጽህና እቃዎች
+                    </option>
+
+
+                    <option value="Meeshaa Ijaarsa Manaaf Oolu">
+                        Meeshaa Ijaarsa Manaaf Oolu /
+                        Building & Construction Items /
+                        የግንባታ እቃዎች
+                    </option>
+
+                </select>
 
             </div>
 
         </div>
+
+
+        <!-- BUTTONS -->
 
         <div class="form-buttons">
 
             <button
                 class="btn-save"
                 id="saveButton"
-                onclick="saveItem()"
-            >
+                onclick="saveItem()">
+
                 + Save Item
+
             </button>
+
 
             <button
                 class="btn-clear"
-                onclick="clearForm()"
-            >
+                onclick="clearForm()">
+
                 Clear
+
             </button>
 
         </div>
 
-        <div id="message" class="message"></div>
+
+        <div
+            id="message"
+            class="message">
+        </div>
 
     </section>
 
 
-    <!-- ITEMS LIST -->
+
+    <!-- ================= ITEMS LIST ================= -->
+
     <section class="card">
 
-        <h2>Items</h2>
+        <h2>
+            Items
+        </h2>
 
-        <div id="loading" class="loading">
+
+        <div
+            id="loading"
+            class="loading">
+
             Loading items...
+
         </div>
+
 
         <div class="table-wrap">
 
-            <table id="itemsTable" style="display:none;">
+            <table
+                id="itemsTable"
+                style="display:none;">
 
                 <thead>
+
                     <tr>
-                        <th>ID</th>
-                        <th>Item Name</th>
-                        <th>Category</th>
-                        <th>Actions</th>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Item Name
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
                     </tr>
+
                 </thead>
 
-                <tbody id="itemsBody"></tbody>
+
+                <tbody
+                    id="itemsBody">
+                </tbody>
 
             </table>
 
         </div>
 
-        <div id="empty" class="empty" style="display:none;">
+
+        <div
+            id="empty"
+            class="empty"
+            style="display:none;">
+
             No items found for this branch.
+
         </div>
 
     </section>
 
 </main>
+
 
 
 <script>
@@ -456,7 +624,7 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   LOCAL STORAGE
+   BRANCH DATA
 ===================================================== */
 
 let branchId =
@@ -468,32 +636,51 @@ let branchName =
 let branchCode =
     localStorage.getItem("selected_branch_code");
 
+
+/* =====================================================
+   EDITING
+===================================================== */
+
 let editingId = null;
 
 
 /* =====================================================
-   START
+   PAGE START
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-    /*
-       Login booda qofaan page kana seena.
-       selected_branch_id yoo hin jirre,
-       maqaa/code irraa branch ID barbaaduu yaalla.
-    */
+        /* Login check */
 
-    if(localStorage.getItem("is_logged_in") !== "true"){
-        window.location.href = "index.html";
-        return;
+        if(
+            localStorage.getItem("is_logged_in")
+            !== "true"
+        ){
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+
+        /* Show branch */
+
+        document
+            .getElementById("branchDisplay")
+            .textContent =
+                "Branch: " +
+                (branchName || "Main");
+
+
+        /* Load items */
+
+        loadItems();
+
     }
-
-    document.getElementById("branchDisplay").textContent =
-        "Branch: " + (branchName || "Main");
-
-    loadItems();
-
-});
+);
 
 
 /* =====================================================
@@ -503,25 +690,37 @@ document.addEventListener("DOMContentLoaded", function(){
 function headers(extra = {}){
 
     return {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Content-Type": "application/json",
+
+        "apikey":
+            SUPABASE_KEY,
+
+        "Authorization":
+            "Bearer " + SUPABASE_KEY,
+
+        "Content-Type":
+            "application/json",
+
         ...extra
+
     };
 
 }
 
 
 /* =====================================================
-   SHOW MESSAGE
+   MESSAGE
 ===================================================== */
 
-function showMessage(text, type){
+function showMessage(
+    text,
+    type
+){
 
     const box =
         document.getElementById("message");
 
-    box.textContent = text;
+    box.textContent =
+        text;
 
     box.className =
         "message " + type;
@@ -538,22 +737,27 @@ function clearMessage(){
     const box =
         document.getElementById("message");
 
-    box.textContent = "";
+    box.textContent =
+        "";
 
-    box.className = "message";
+    box.className =
+        "message";
 
 }
 
 
 /* =====================================================
-   FIND BRANCH ID
+   FIND BRANCH
 ===================================================== */
 
 async function findBranchId(){
 
     if(branchId){
+
         return branchId;
+
     }
+
 
     try{
 
@@ -562,44 +766,56 @@ async function findBranchId(){
                 SUPABASE_URL +
                 "/rest/v1/branches?select=*",
                 {
+                    method:"GET",
                     headers:headers()
                 }
             );
 
+
         if(!response.ok){
 
             console.log(
-                "Branch fetch error:",
                 await response.text()
             );
 
             return null;
+
         }
+
 
         const branches =
             await response.json();
 
+
         if(!Array.isArray(branches)){
+
             return null;
+
         }
 
 
-        /* Search by possible branch name columns */
-
         const wantedName =
-            String(branchName || "")
+            String(
+                branchName || ""
+            )
             .trim()
             .toLowerCase();
+
 
         const wantedCode =
-            String(branchCode || "")
+            String(
+                branchCode || ""
+            )
             .trim()
             .toLowerCase();
 
 
-        for(const b of branches){
+        for(
+            const b of branches
+        ){
 
-            const possibleNames = [
+            const names = [
+
                 b.name,
                 b.branch_name,
                 b.branch,
@@ -608,56 +824,80 @@ async function findBranchId(){
                 b.branch_title,
                 b.office_name,
                 b.office
+
             ];
 
-            const possibleCodes = [
+
+            const codes = [
+
                 b.code,
                 b.branch_code,
                 b.branchCode
+
             ];
 
 
             const foundName =
-                possibleNames.some(v =>
-                    v !== undefined &&
-                    v !== null &&
-                    String(v).trim().toLowerCase()
+                names.some(
+                    value =>
+
+                    value !== undefined &&
+                    value !== null &&
+                    String(value)
+                        .trim()
+                        .toLowerCase()
                     === wantedName
                 );
 
 
             const foundCode =
-                possibleCodes.some(v =>
-                    v !== undefined &&
-                    v !== null &&
-                    String(v).trim().toLowerCase()
+                codes.some(
+                    value =>
+
+                    value !== undefined &&
+                    value !== null &&
+                    String(value)
+                        .trim()
+                        .toLowerCase()
                     === wantedCode
                 );
 
 
-            if(foundName || foundCode){
+            if(
+                foundName ||
+                foundCode
+            ){
 
-                if(b.id !== undefined){
+                if(
+                    b.id !== undefined &&
+                    b.id !== null
+                ){
 
                     branchId =
                         String(b.id);
+
 
                     localStorage.setItem(
                         "selected_branch_id",
                         branchId
                     );
 
+
                     return branchId;
+
                 }
+
             }
 
         }
 
-    }catch(error){
+    }
+    catch(error){
 
         console.error(error);
 
     }
+
 
     return null;
 
@@ -679,9 +919,15 @@ async function loadItems(){
     const empty =
         document.getElementById("empty");
 
-    loading.style.display = "block";
-    table.style.display = "none";
-    empty.style.display = "none";
+
+    loading.style.display =
+        "block";
+
+    table.style.display =
+        "none";
+
+    empty.style.display =
+        "none";
 
 
     try{
@@ -690,15 +936,14 @@ async function loadItems(){
             await findBranchId();
 
 
-        /*
-           Branch ID hin argamne yoo ta'e,
-           branch_code waliin yaalla.
-        */
-
         let url =
             SUPABASE_URL +
             "/rest/v1/items?select=*";
 
+
+        /*
+           Branch ID yoo jiraate
+        */
 
         if(id){
 
@@ -706,25 +951,40 @@ async function loadItems(){
                 "&branch_id=eq." +
                 encodeURIComponent(id);
 
-        }else if(branchCode){
+        }
+
+        /*
+           Yoo branch ID hin jirre
+           branch code fayyadami
+        */
+
+        else if(branchCode){
 
             url +=
                 "&branch_code=eq." +
-                encodeURIComponent(branchCode);
+                encodeURIComponent(
+                    branchCode
+                );
 
-        }else{
+        }
+
+        else{
 
             showMessage(
                 "Branch hin beekamne. Mee Login irra deebi'i.",
                 "error"
             );
 
-            loading.style.display = "none";
+            loading.style.display =
+                "none";
+
             return;
+
         }
 
 
-        url += "&order=id.asc";
+        url +=
+            "&order=id.asc";
 
 
         const response =
@@ -746,12 +1006,16 @@ async function loadItems(){
             console.error(text);
 
             showMessage(
-                "Items loading hin milkoofne: " + text,
+                "Items loading hin milkoofne: " +
+                text,
                 "error"
             );
 
-            loading.style.display = "none";
+            loading.style.display =
+                "none";
+
             return;
+
         }
 
 
@@ -761,24 +1025,27 @@ async function loadItems(){
 
         renderItems(items);
 
-
-    }catch(error){
+    }
+    catch(error){
 
         console.error(error);
 
         showMessage(
-            "Rakkoo connection: " + error.message,
+            "Rakkoo connection: " +
+            error.message,
             "error"
         );
 
-        loading.style.display = "none";
+        loading.style.display =
+            "none";
+
     }
 
 }
 
 
 /* =====================================================
-   RENDER ITEMS
+   DISPLAY ITEMS
 ===================================================== */
 
 function renderItems(items){
@@ -796,83 +1063,114 @@ function renderItems(items){
         document.getElementById("itemsBody");
 
 
-    loading.style.display = "none";
+    loading.style.display =
+        "none";
 
-    body.innerHTML = "";
+
+    body.innerHTML =
+        "";
 
 
-    if(!items || items.length === 0){
+    if(
+        !items ||
+        items.length === 0
+    ){
 
-        table.style.display = "none";
-        empty.style.display = "block";
+        table.style.display =
+            "none";
+
+        empty.style.display =
+            "block";
 
         return;
+
     }
 
 
-    table.style.display = "table";
-    empty.style.display = "none";
+    table.style.display =
+        "table";
+
+    empty.style.display =
+        "none";
 
 
-    items.forEach(item => {
+    items.forEach(
+        item => {
 
-        const row =
-            document.createElement("tr");
-
-
-        const id =
-            item.id ?? "";
+            const row =
+                document.createElement("tr");
 
 
-        const name =
-            item.name ?? "";
+            const id =
+                item.id ?? "";
 
 
-        const category =
-            item.category ?? "";
+            const name =
+                item.name ?? "";
 
 
-        row.innerHTML = `
+            const category =
+                item.category ?? "";
 
-            <td>
-                ${escapeHtml(String(id))}
-            </td>
 
-            <td>
-                <strong>
-                    ${escapeHtml(String(name))}
-                </strong>
-            </td>
+            row.innerHTML = `
 
-            <td>
-                <span class="badge">
-                    ${escapeHtml(String(category))}
-                </span>
-            </td>
+                <td>
+                    ${escapeHtml(
+                        String(id)
+                    )}
+                </td>
 
-            <td>
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            String(name)
+                        )}
+                    </strong>
+                </td>
 
-                <button
-                    class="action-btn edit"
-                    onclick='editItem(${JSON.stringify(item)})'
-                >
-                    Edit
-                </button>
+                <td>
+                    <span class="badge">
+                        ${escapeHtml(
+                            String(category)
+                        )}
+                    </span>
+                </td>
 
-                <button
-                    class="action-btn delete"
-                    onclick="deleteItem('${escapeJs(String(id))}')"
-                >
-                    Delete
-                </button>
+                <td>
 
-            </td>
+                    <button
+                        class="action-btn edit"
+                        onclick='editItem(
+                            ${JSON.stringify(item)}
+                        )'>
 
-        `;
+                        Edit
 
-        body.appendChild(row);
+                    </button>
 
-    });
+
+                    <button
+                        class="action-btn delete"
+                        onclick="deleteItem(
+                            '${escapeJs(
+                                String(id)
+                            )}'
+                        )">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            body.appendChild(row);
+
+        }
+    );
 
 }
 
@@ -908,6 +1206,7 @@ async function saveItem(){
         );
 
         return;
+
     }
 
 
@@ -919,6 +1218,7 @@ async function saveItem(){
         );
 
         return;
+
     }
 
 
@@ -926,7 +1226,10 @@ async function saveItem(){
         await findBranchId();
 
 
-    if(!id && !branchCode){
+    if(
+        !id &&
+        !branchCode
+    ){
 
         showMessage(
             "Branch ID ykn Branch Code hin argamne. Login irra deebi'i.",
@@ -934,42 +1237,70 @@ async function saveItem(){
         );
 
         return;
+
     }
 
 
     const saveButton =
-        document.getElementById("saveButton");
+        document.getElementById(
+            "saveButton"
+        );
 
-    saveButton.disabled = true;
-    saveButton.textContent = "Saving...";
+
+    saveButton.disabled =
+        true;
+
+
+    saveButton.textContent =
+        editingId !== null
+        ? "Updating..."
+        : "Saving...";
 
 
     try{
 
-        /* =========================================
+        /* =================================================
            EDIT
-        ========================================= */
+        ================================================= */
 
-        if(editingId !== null){
+        if(
+            editingId !== null
+        ){
 
             const data = {
+
                 name:name,
+
                 category:category
+
             };
 
 
             const response =
                 await fetch(
+
                     SUPABASE_URL +
                     "/rest/v1/items?id=eq." +
-                    encodeURIComponent(editingId),
+                    encodeURIComponent(
+                        editingId
+                    ),
+
                     {
                         method:"PATCH",
+
                         headers:headers({
-                            "Prefer":"return=representation"
+
+                            "Prefer":
+                                "return=representation"
+
                         }),
-                        body:JSON.stringify(data)
+
+                        body:
+                            JSON.stringify(
+                                data
+                            )
                     }
+
                 );
 
 
@@ -980,6 +1311,7 @@ async function saveItem(){
             if(!response.ok){
 
                 throw new Error(text);
+
             }
 
 
@@ -994,40 +1326,57 @@ async function saveItem(){
             await loadItems();
 
             return;
+
         }
 
 
-        /* =========================================
+        /* =================================================
            NEW ITEM
-        ========================================= */
+        ================================================= */
+
 
         /*
            ID hin erginu.
-           Database'n ofumaan ID uuma.
+           Database'n ofumaan uuma.
         */
 
         const data = {
+
             name:name,
+
             category:category,
-            branch_id:id || null,
-            branch_code:branchCode || null
+
+            branch_id:
+                id || null,
+
+            branch_code:
+                branchCode || null
+
         };
 
 
         const response =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/items",
+
                 {
                     method:"POST",
 
                     headers:headers({
+
                         "Prefer":
-                        "return=representation"
+                            "return=representation"
+
                     }),
 
-                    body:JSON.stringify(data)
+                    body:
+                        JSON.stringify(
+                            data
+                        )
                 }
+
             );
 
 
@@ -1038,6 +1387,7 @@ async function saveItem(){
         if(!response.ok){
 
             throw new Error(text);
+
         }
 
 
@@ -1051,8 +1401,8 @@ async function saveItem(){
 
         await loadItems();
 
-
-    }catch(error){
+    }
+    catch(error){
 
         console.error(error);
 
@@ -1062,14 +1412,18 @@ async function saveItem(){
             "error"
         );
 
-    }finally{
+    }
+    finally{
 
-        saveButton.disabled = false;
+        saveButton.disabled =
+            false;
+
 
         saveButton.textContent =
             editingId !== null
             ? "Update Item"
             : "+ Save Item";
+
     }
 
 }
@@ -1086,32 +1440,35 @@ function editItem(item){
 
 
     document
-    .getElementById("itemName")
-    .value =
-        item.name || "";
+        .getElementById("itemName")
+        .value =
+            item.name || "";
 
 
     document
-    .getElementById("category")
-    .value =
-        item.category || "";
+        .getElementById("category")
+        .value =
+            item.category || "";
 
 
     document
-    .getElementById("formTitle")
-    .textContent =
-        "Edit Item";
+        .getElementById("formTitle")
+        .textContent =
+            "Edit Item";
 
 
     document
-    .getElementById("saveButton")
-    .textContent =
-        "Update Item";
+        .getElementById("saveButton")
+        .textContent =
+            "Update Item";
 
 
     window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
     });
 
 }
@@ -1124,7 +1481,9 @@ function editItem(item){
 async function deleteItem(id){
 
     if(!id){
+
         return;
+
     }
 
 
@@ -1135,7 +1494,9 @@ async function deleteItem(id){
 
 
     if(!ok){
+
         return;
+
     }
 
 
@@ -1143,15 +1504,22 @@ async function deleteItem(id){
 
         const response =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/items?id=eq." +
                 encodeURIComponent(id),
+
                 {
                     method:"DELETE",
+
                     headers:headers({
-                        "Prefer":"return=minimal"
+
+                        "Prefer":
+                            "return=minimal"
+
                     })
                 }
+
             );
 
 
@@ -1162,6 +1530,7 @@ async function deleteItem(id){
         if(!response.ok){
 
             throw new Error(text);
+
         }
 
 
@@ -1173,8 +1542,8 @@ async function deleteItem(id){
 
         await loadItems();
 
-
-    }catch(error){
+    }
+    catch(error){
 
         console.error(error);
 
@@ -1195,29 +1564,32 @@ async function deleteItem(id){
 
 function clearForm(){
 
-    editingId = null;
+    editingId =
+        null;
 
 
     document
-    .getElementById("itemName")
-    .value = "";
+        .getElementById("itemName")
+        .value =
+            "";
 
 
     document
-    .getElementById("category")
-    .value = "";
+        .getElementById("category")
+        .value =
+            "";
 
 
     document
-    .getElementById("formTitle")
-    .textContent =
-        "Add New Item";
+        .getElementById("formTitle")
+        .textContent =
+            "Add New Item";
 
 
     document
-    .getElementById("saveButton")
-    .textContent =
-        "+ Save Item";
+        .getElementById("saveButton")
+        .textContent =
+            "+ Save Item";
 
 
     clearMessage();
@@ -1243,11 +1615,26 @@ function goDashboard(){
 
 function logout(){
 
-    localStorage.removeItem("is_logged_in");
-    localStorage.removeItem("user_role");
-    localStorage.removeItem("login_user");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem(
+        "is_logged_in"
+    );
+
+    localStorage.removeItem(
+        "user_role"
+    );
+
+    localStorage.removeItem(
+        "login_user"
+    );
+
+    localStorage.removeItem(
+        "access_token"
+    );
+
+    localStorage.removeItem(
+        "refresh_token"
+    );
+
 
     window.location.href =
         "index.html";
@@ -1256,17 +1643,37 @@ function logout(){
 
 
 /* =====================================================
-   HTML SECURITY
+   SECURITY
 ===================================================== */
 
 function escapeHtml(value){
 
     return value
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -1274,8 +1681,15 @@ function escapeHtml(value){
 function escapeJs(value){
 
     return value
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        );
+
 }
 
 
@@ -1289,7 +1703,8 @@ document.addEventListener(
 
         if(
             event.key === "Enter" &&
-            document.activeElement.tagName !== "BUTTON"
+            document.activeElement.tagName
+            !== "BUTTON"
         ){
 
             saveItem();
@@ -1302,4 +1717,5 @@ document.addEventListener(
 </script>
 
 </body>
+
 </html>
