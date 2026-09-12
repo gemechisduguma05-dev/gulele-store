@@ -43,8 +43,6 @@ body{
     gap:12px;
 }
 
-/* PROFILE / LOGO */
-
 .logo-box{
     width:58px;
     height:58px;
@@ -75,8 +73,6 @@ body{
     margin-top:5px;
     opacity:.9;
 }
-
-/* ================= HEADER BUTTONS ================= */
 
 .header-buttons{
     display:flex;
@@ -334,7 +330,6 @@ tr:hover{
 
 </head>
 
-
 <body>
 
 
@@ -346,8 +341,6 @@ tr:hover{
 
         <div class="logo-box">
 
-            <!-- SUURAA KEE KAN JALQABA IRRA JIRU -->
-
             <img
                 src="./1788633150526.jpg"
                 class="logo"
@@ -355,7 +348,6 @@ tr:hover{
             >
 
         </div>
-
 
         <div>
 
@@ -379,14 +371,18 @@ tr:hover{
         <button
             class="btn-menu"
             onclick="goDashboard()">
+
             ← Dashboard
+
         </button>
 
 
         <button
             class="btn-logout"
             onclick="logout()">
+
             Logout
+
         </button>
 
     </div>
@@ -394,13 +390,12 @@ tr:hover{
 </header>
 
 
-
 <!-- ================= MAIN ================= -->
 
 <main class="container">
 
 
-    <!-- ================= ADD ITEM ================= -->
+    <!-- ================= ADD / EDIT ITEM ================= -->
 
     <section class="card">
 
@@ -445,7 +440,6 @@ tr:hover{
                 <label>
                     Category / Ramaddii / ምድብ
                 </label>
-
 
                 <select id="category">
 
@@ -565,30 +559,20 @@ tr:hover{
 
                     <tr>
 
-                        <th>
-                            ID
-                        </th>
+                        <th>ID</th>
 
-                        <th>
-                            Item Name
-                        </th>
+                        <th>Item Name</th>
 
-                        <th>
-                            Category
-                        </th>
+                        <th>Category</th>
 
-                        <th>
-                            Actions
-                        </th>
+                        <th>Actions</th>
 
                     </tr>
 
                 </thead>
 
 
-                <tbody
-                    id="itemsBody">
-                </tbody>
+                <tbody id="itemsBody"></tbody>
 
             </table>
 
@@ -609,7 +593,6 @@ tr:hover{
 </main>
 
 
-
 <script>
 
 /* =====================================================
@@ -624,17 +607,61 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   BRANCH DATA
+   BRANCH INFORMATION
 ===================================================== */
 
-let branchId =
-    localStorage.getItem("selected_branch_id");
+/*
+   IMPORTANT:
 
-let branchName =
-    localStorage.getItem("selected_branch_name");
+   selected_branch_id = GUL
+
+   GUL is NOT UUID.
+
+   Kanaaf GUL akka UUIDtti
+   hin fayyadamnu.
+
+   UUID dhugaa branches table
+   keessaa barbaanna.
+*/
 
 let branchCode =
-    localStorage.getItem("selected_branch_code");
+    localStorage.getItem(
+        "selected_branch_code"
+    );
+
+let branchName =
+    localStorage.getItem(
+        "selected_branch_name"
+    );
+
+
+/*
+   Yoo branch code hin jirre,
+   selected_branch_id irraa
+   fallback godha.
+
+   Fakkeenya:
+   selected_branch_id = GUL
+*/
+
+if(!branchCode){
+
+    branchCode =
+        localStorage.getItem(
+            "selected_branch_id"
+        );
+
+}
+
+
+/*
+   UUID DHUGAA QOFA
+*/
+
+let branchUUID =
+    localStorage.getItem(
+        "selected_branch_uuid"
+    );
 
 
 /* =====================================================
@@ -650,34 +677,42 @@ let editingId = null;
 
 document.addEventListener(
     "DOMContentLoaded",
-    function(){
+    async function(){
 
-        /* Login check */
+        /* ================= LOGIN CHECK ================= */
 
         if(
-            localStorage.getItem("is_logged_in")
-            !== "true"
+            localStorage.getItem(
+                "is_logged_in"
+            ) !== "true"
         ){
 
             window.location.href =
                 "index.html";
 
             return;
+
         }
 
 
-        /* Show branch */
+        /* ================= SHOW BRANCH ================= */
 
         document
-            .getElementById("branchDisplay")
+            .getElementById(
+                "branchDisplay"
+            )
             .textContent =
                 "Branch: " +
-                (branchName || "Main");
+                (
+                    branchName ||
+                    branchCode ||
+                    "Unknown"
+                );
 
 
-        /* Load items */
+        /* ================= LOAD ================= */
 
-        loadItems();
+        await loadItems();
 
     }
 );
@@ -717,7 +752,9 @@ function showMessage(
 ){
 
     const box =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
     box.textContent =
         text;
@@ -735,7 +772,9 @@ function showMessage(
 function clearMessage(){
 
     const box =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
     box.textContent =
         "";
@@ -747,17 +786,30 @@ function clearMessage(){
 
 
 /* =====================================================
-   FIND BRANCH
+   RESOLVE REAL BRANCH UUID
 ===================================================== */
 
-async function findBranchId(){
+async function resolveBranchUUID(){
 
-    if(branchId){
+    /*
+       Yoo UUID duraan dursee argame,
+       isa fayyadamna.
+    */
 
-        return branchId;
+    if(
+        branchUUID &&
+        isUUID(branchUUID)
+    ){
+
+        return branchUUID;
 
     }
 
+
+    /*
+       Branch code/name irraa
+       UUID barbaanna.
+    */
 
     try{
 
@@ -772,34 +824,32 @@ async function findBranchId(){
             );
 
 
+        const text =
+            await response.text();
+
+
         if(!response.ok){
 
-            console.log(
-                await response.text()
+            throw new Error(
+                text
             );
-
-            return null;
 
         }
 
 
         const branches =
-            await response.json();
+            JSON.parse(text);
 
 
-        if(!Array.isArray(branches)){
+        if(
+            !Array.isArray(branches)
+        ){
 
-            return null;
+            throw new Error(
+                "Branches data sirrii miti."
+            );
 
         }
-
-
-        const wantedName =
-            String(
-                branchName || ""
-            )
-            .trim()
-            .toLowerCase();
 
 
         const wantedCode =
@@ -810,96 +860,238 @@ async function findBranchId(){
             .toLowerCase();
 
 
+        const wantedName =
+            String(
+                branchName || ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        /*
+           Columns adda addaa
+           branches table keessatti
+           jiraachuu danda'u.
+        */
+
+        const codeColumns = [
+
+            "code",
+            "branch_code",
+            "branchCode",
+            "branchcode",
+            "branch_id_code",
+            "short_code"
+
+        ];
+
+
+        const nameColumns = [
+
+            "name",
+            "branch_name",
+            "branch",
+            "branchName",
+            "title",
+            "branch_title",
+            "office_name",
+            "office"
+
+        ];
+
+
+        /*
+           1. CODE irratti barbaadi
+        */
+
         for(
             const b of branches
         ){
 
-            const names = [
-
-                b.name,
-                b.branch_name,
-                b.branch,
-                b.branchName,
-                b.title,
-                b.branch_title,
-                b.office_name,
-                b.office
-
-            ];
+            let codeMatch =
+                false;
 
 
-            const codes = [
-
-                b.code,
-                b.branch_code,
-                b.branchCode
-
-            ];
-
-
-            const foundName =
-                names.some(
-                    value =>
-
-                    value !== undefined &&
-                    value !== null &&
-                    String(value)
-                        .trim()
-                        .toLowerCase()
-                    === wantedName
-                );
-
-
-            const foundCode =
-                codes.some(
-                    value =>
-
-                    value !== undefined &&
-                    value !== null &&
-                    String(value)
-                        .trim()
-                        .toLowerCase()
-                    === wantedCode
-                );
-
-
-            if(
-                foundName ||
-                foundCode
+            for(
+                const col of codeColumns
             ){
 
                 if(
-                    b.id !== undefined &&
-                    b.id !== null
+                    b[col] !== undefined &&
+                    b[col] !== null
                 ){
 
-                    branchId =
-                        String(b.id);
+                    const value =
+                        String(
+                            b[col]
+                        )
+                        .trim()
+                        .toLowerCase();
 
 
-                    localStorage.setItem(
-                        "selected_branch_id",
-                        branchId
-                    );
+                    if(
+                        value === wantedCode
+                    ){
 
+                        codeMatch =
+                            true;
 
-                    return branchId;
+                        break;
+
+                    }
 
                 }
 
             }
 
+
+            if(
+                codeMatch &&
+                b.id &&
+                isUUID(
+                    String(b.id)
+                )
+            ){
+
+                branchUUID =
+                    String(b.id);
+
+
+                /*
+                   UUID addatti kaa'a.
+
+                   selected_branch_id
+                   hin tuqnu.
+                */
+
+                localStorage.setItem(
+                    "selected_branch_uuid",
+                    branchUUID
+                );
+
+
+                return branchUUID;
+
+            }
+
         }
+
+
+        /*
+           2. NAME irratti barbaadi
+        */
+
+        for(
+            const b of branches
+        ){
+
+            let nameMatch =
+                false;
+
+
+            for(
+                const col of nameColumns
+            ){
+
+                if(
+                    b[col] !== undefined &&
+                    b[col] !== null
+                ){
+
+                    const value =
+                        String(
+                            b[col]
+                        )
+                        .trim()
+                        .toLowerCase();
+
+
+                    if(
+                        value === wantedName
+                    ){
+
+                        nameMatch =
+                            true;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+
+            if(
+                nameMatch &&
+                b.id &&
+                isUUID(
+                    String(b.id)
+                )
+            ){
+
+                branchUUID =
+                    String(b.id);
+
+
+                localStorage.setItem(
+                    "selected_branch_uuid",
+                    branchUUID
+                );
+
+
+                return branchUUID;
+
+            }
+
+        }
+
+
+        /*
+           Yoo code/name hin argamne
+        */
+
+        throw new Error(
+            "Branch '" +
+            (
+                branchName ||
+                branchCode
+            ) +
+            "' branches table keessatti hin argamne."
+        );
 
     }
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Branch UUID error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   UUID CHECK
+===================================================== */
+
+function isUUID(value){
+
+    if(!value){
+
+        return false;
 
     }
 
 
-    return null;
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+        .test(
+            String(value)
+        );
 
 }
 
@@ -911,13 +1103,19 @@ async function findBranchId(){
 async function loadItems(){
 
     const loading =
-        document.getElementById("loading");
+        document.getElementById(
+            "loading"
+        );
 
     const table =
-        document.getElementById("itemsTable");
+        document.getElementById(
+            "itemsTable"
+        );
 
     const empty =
-        document.getElementById("empty");
+        document.getElementById(
+            "empty"
+        );
 
 
     loading.style.display =
@@ -930,61 +1128,52 @@ async function loadItems(){
         "none";
 
 
+    clearMessage();
+
+
     try{
 
-        const id =
-            await findBranchId();
-
-
-        let url =
-            SUPABASE_URL +
-            "/rest/v1/items?select=*";
-
-
         /*
-           Branch ID yoo jiraate
+           REAL UUID barbaadi
         */
 
-        if(id){
+        const uuid =
+            await resolveBranchUUID();
 
-            url +=
-                "&branch_id=eq." +
-                encodeURIComponent(id);
 
-        }
+        if(
+            !uuid
+        ){
 
-        /*
-           Yoo branch ID hin jirre
-           branch code fayyadami
-        */
-
-        else if(branchCode){
-
-            url +=
-                "&branch_code=eq." +
-                encodeURIComponent(
-                    branchCode
-                );
-
-        }
-
-        else{
-
-            showMessage(
-                "Branch hin beekamne. Mee Login irra deebi'i.",
-                "error"
+            throw new Error(
+                "Branch UUID hin argamne. Branch filannoo/login kee mirkaneessi."
             );
 
-            loading.style.display =
-                "none";
-
-            return;
-
         }
 
 
-        url +=
+        /*
+           IMPORTANT:
+
+           Asitti GUL hin erginu.
+
+           UUID dhugaa qofa:
+           branch_id=eq.UUID
+        */
+
+        const url =
+            SUPABASE_URL +
+            "/rest/v1/items" +
+            "?select=*" +
+            "&branch_id=eq." +
+            encodeURIComponent(uuid) +
             "&order=id.asc";
+
+
+        console.log(
+            "Items URL:",
+            url
+        );
 
 
         const response =
@@ -1003,18 +1192,9 @@ async function loadItems(){
 
         if(!response.ok){
 
-            console.error(text);
-
-            showMessage(
-                "Items loading hin milkoofne: " +
-                text,
-                "error"
+            throw new Error(
+                text
             );
-
-            loading.style.display =
-                "none";
-
-            return;
 
         }
 
@@ -1023,21 +1203,25 @@ async function loadItems(){
             JSON.parse(text);
 
 
-        renderItems(items);
+        renderItems(
+            items
+        );
 
     }
     catch(error){
 
         console.error(error);
 
-        showMessage(
-            "Rakkoo connection: " +
-            error.message,
-            "error"
-        );
 
         loading.style.display =
             "none";
+
+
+        showMessage(
+            "Items loading hin milkoofne: " +
+            error.message,
+            "error"
+        );
 
     }
 
@@ -1051,16 +1235,24 @@ async function loadItems(){
 function renderItems(items){
 
     const loading =
-        document.getElementById("loading");
+        document.getElementById(
+            "loading"
+        );
 
     const table =
-        document.getElementById("itemsTable");
+        document.getElementById(
+            "itemsTable"
+        );
 
     const empty =
-        document.getElementById("empty");
+        document.getElementById(
+            "empty"
+        );
 
     const body =
-        document.getElementById("itemsBody");
+        document.getElementById(
+            "itemsBody"
+        );
 
 
     loading.style.display =
@@ -1098,7 +1290,9 @@ function renderItems(items){
         item => {
 
             const row =
-                document.createElement("tr");
+                document.createElement(
+                    "tr"
+                );
 
 
             const id =
@@ -1167,7 +1361,9 @@ function renderItems(items){
             `;
 
 
-            body.appendChild(row);
+            body.appendChild(
+                row
+            );
 
         }
     );
@@ -1186,14 +1382,18 @@ async function saveItem(){
 
     const name =
         document
-        .getElementById("itemName")
+        .getElementById(
+            "itemName"
+        )
         .value
         .trim();
 
 
     const category =
         document
-        .getElementById("category")
+        .getElementById(
+            "category"
+        )
         .value
         .trim();
 
@@ -1222,21 +1422,36 @@ async function saveItem(){
     }
 
 
-    const id =
-        await findBranchId();
+    /*
+       Edit yoo ta'e branch UUID
+       barbaachisaa miti.
+
+       New item yoo ta'e UUID
+       barbaachisa.
+    */
+
+    let uuid =
+        branchUUID;
 
 
     if(
-        !id &&
-        !branchCode
+        editingId === null
     ){
 
-        showMessage(
-            "Branch ID ykn Branch Code hin argamne. Login irra deebi'i.",
-            "error"
-        );
+        uuid =
+            await resolveBranchUUID();
 
-        return;
+
+        if(!uuid){
+
+            showMessage(
+                "Branch UUID hin argamne. Mee Logout godhiitii Login irra deebi'i.",
+                "error"
+            );
+
+            return;
+
+        }
 
     }
 
@@ -1269,9 +1484,11 @@ async function saveItem(){
 
             const data = {
 
-                name:name,
+                name:
+                    name,
 
-                category:category
+                category:
+                    category
 
             };
 
@@ -1299,6 +1516,7 @@ async function saveItem(){
                             JSON.stringify(
                                 data
                             )
+
                     }
 
                 );
@@ -1310,7 +1528,9 @@ async function saveItem(){
 
             if(!response.ok){
 
-                throw new Error(text);
+                throw new Error(
+                    text
+                );
 
             }
 
@@ -1323,7 +1543,9 @@ async function saveItem(){
 
             clearForm();
 
+
             await loadItems();
+
 
             return;
 
@@ -1334,25 +1556,36 @@ async function saveItem(){
            NEW ITEM
         ================================================= */
 
-
         /*
            ID hin erginu.
-           Database'n ofumaan uuma.
+
+           Database'n ofumaan ID uuma.
+
+           branch_id keessatti
+           UUID DHUGAA qofa ergina.
         */
 
         const data = {
 
-            name:name,
+            name:
+                name,
 
-            category:category,
+            category:
+                category,
 
             branch_id:
-                id || null,
+                uuid,
 
             branch_code:
                 branchCode || null
 
         };
+
+
+        console.log(
+            "Saving item:",
+            data
+        );
 
 
         const response =
@@ -1375,6 +1608,7 @@ async function saveItem(){
                         JSON.stringify(
                             data
                         )
+
                 }
 
             );
@@ -1386,7 +1620,9 @@ async function saveItem(){
 
         if(!response.ok){
 
-            throw new Error(text);
+            throw new Error(
+                text
+            );
 
         }
 
@@ -1399,12 +1635,14 @@ async function saveItem(){
 
         clearForm();
 
+
         await loadItems();
 
     }
     catch(error){
 
         console.error(error);
+
 
         showMessage(
             "Save hin milkoofne: " +
@@ -1440,25 +1678,33 @@ function editItem(item){
 
 
     document
-        .getElementById("itemName")
+        .getElementById(
+            "itemName"
+        )
         .value =
             item.name || "";
 
 
     document
-        .getElementById("category")
+        .getElementById(
+            "category"
+        )
         .value =
             item.category || "";
 
 
     document
-        .getElementById("formTitle")
+        .getElementById(
+            "formTitle"
+        )
         .textContent =
             "Edit Item";
 
 
     document
-        .getElementById("saveButton")
+        .getElementById(
+            "saveButton"
+        )
         .textContent =
             "Update Item";
 
@@ -1507,7 +1753,9 @@ async function deleteItem(id){
 
                 SUPABASE_URL +
                 "/rest/v1/items?id=eq." +
-                encodeURIComponent(id),
+                encodeURIComponent(
+                    id
+                ),
 
                 {
                     method:"DELETE",
@@ -1518,6 +1766,7 @@ async function deleteItem(id){
                             "return=minimal"
 
                     })
+
                 }
 
             );
@@ -1529,7 +1778,9 @@ async function deleteItem(id){
 
         if(!response.ok){
 
-            throw new Error(text);
+            throw new Error(
+                text
+            );
 
         }
 
@@ -1546,6 +1797,7 @@ async function deleteItem(id){
     catch(error){
 
         console.error(error);
+
 
         showMessage(
             "Delete hin milkoofne: " +
@@ -1569,25 +1821,33 @@ function clearForm(){
 
 
     document
-        .getElementById("itemName")
+        .getElementById(
+            "itemName"
+        )
         .value =
             "";
 
 
     document
-        .getElementById("category")
+        .getElementById(
+            "category"
+        )
         .value =
             "";
 
 
     document
-        .getElementById("formTitle")
+        .getElementById(
+            "formTitle"
+        )
         .textContent =
             "Add New Item";
 
 
     document
-        .getElementById("saveButton")
+        .getElementById(
+            "saveButton"
+        )
         .textContent =
             "+ Save Item";
 
@@ -1635,6 +1895,27 @@ function logout(){
         "refresh_token"
     );
 
+    /*
+       Branch filannoo fi UUID
+       illee qulqulleessina.
+    */
+
+    localStorage.removeItem(
+        "selected_branch_id"
+    );
+
+    localStorage.removeItem(
+        "selected_branch_name"
+    );
+
+    localStorage.removeItem(
+        "selected_branch_code"
+    );
+
+    localStorage.removeItem(
+        "selected_branch_uuid"
+    );
+
 
     window.location.href =
         "index.html";
@@ -1648,7 +1929,7 @@ function logout(){
 
 function escapeHtml(value){
 
-    return value
+    return String(value)
 
         .replace(
             /&/g,
@@ -1680,11 +1961,13 @@ function escapeHtml(value){
 
 function escapeJs(value){
 
-    return value
+    return String(value)
+
         .replace(
             /\\/g,
             "\\\\"
         )
+
         .replace(
             /'/g,
             "\\'"
@@ -1706,6 +1989,8 @@ document.addEventListener(
             document.activeElement.tagName
             !== "BUTTON"
         ){
+
+            event.preventDefault();
 
             saveItem();
 
