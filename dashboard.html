@@ -94,6 +94,10 @@ header h1{
 .branch-btn{background:#6d4c41;}
 .view-only-btn{background:#8d6e63;}
 
+.hidden{
+  display:none !important;
+}
+
 .summary{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -121,9 +125,7 @@ header h1{
   font-size:30px;
 }
 
-/* ===============================
-   CATEGORY SELECTOR
-================================ */
+/* CATEGORY */
 
 .category-selector{
   margin-bottom:20px;
@@ -163,9 +165,7 @@ header h1{
   font-weight:bold;
 }
 
-/* ===============================
-   CATEGORY TABLE
-================================ */
+/* CATEGORY TABLE */
 
 .category-table-wrap{
   width:100%;
@@ -234,9 +234,7 @@ header h1{
   border-radius:10px;
 }
 
-/* ===============================
-   BRANCHES
-================================ */
+/* BRANCHES */
 
 .branch-grid{
   display:grid;
@@ -308,10 +306,6 @@ header h1{
   margin-bottom:20px;
   font-weight:bold;
   line-height:1.5;
-}
-
-.hidden{
-  display:none !important;
 }
 
 .mode-badge{
@@ -460,6 +454,8 @@ hin danda'amu.
 📊 Dashboard Menu
 </div>
 
+<!-- BRANCH / MAIN SELECTED BRANCH MENU -->
+
 <div id="branchMenu" class="menu-grid">
 
 <a href="items.html"
@@ -479,8 +475,11 @@ hin danda'amu.
 📊 Stock Report
 </a>
 
+<!-- SETTINGS: MAIN ONLY -->
+
 <a href="settings.html"
-   class="btn settings">
+   class="btn settings"
+   id="settingsButton">
 ⚙️ Settings
 </a>
 
@@ -505,12 +504,17 @@ hin danda'amu.
 
 </div>
 
+
+<!-- MAIN HQ MENU -->
+
 <div id="mainMenu" class="menu-grid hidden">
 
 <a href="reports.html"
    class="btn report">
 📊 All Branches Report
 </a>
+
+<!-- SETTINGS IS ONLY HERE FOR MAIN HQ -->
 
 <a href="settings.html"
    class="btn settings">
@@ -597,8 +601,7 @@ Select Category
   class="selected-category hidden">
 </div>
 
-<div
-  id="categoryResult">
+<div id="categoryResult">
 
 <div class="no-transaction">
 Please select a category.
@@ -804,12 +807,6 @@ function getHeaders(){
   const token =
     localStorage.getItem("access_token");
 
-  /*
-    sb_publishable key JWT miti.
-    Kanaaf Authorization keessatti
-    publishable key hin erginu.
-  */
-
   if(
     token &&
     token !== SUPABASE_KEY
@@ -923,6 +920,15 @@ function setupMenu(){
   const allBranchesCard =
     document.getElementById("allBranchesCard");
 
+  const settingsButton =
+    document.getElementById("settingsButton");
+
+
+  /* =================================================
+     MAIN HQ
+     Settings = SHOW
+  ================================================= */
+
   if(isMainHQ()){
 
     branchMenu.classList.add("hidden");
@@ -938,6 +944,11 @@ function setupMenu(){
   }
 
 
+  /* =================================================
+     MAIN USER VIEWING A BRANCH
+     Settings = HIDE
+  ================================================= */
+
   if(isMainUser()){
 
     branchMenu.classList.remove("hidden");
@@ -947,6 +958,19 @@ function setupMenu(){
     mainNote.classList.remove("hidden");
 
     allBranchesCard.classList.remove("hidden");
+
+
+    /*
+      Main selected a branch.
+      Settings must NOT appear.
+    */
+
+    if(settingsButton){
+
+      settingsButton.classList.add("hidden");
+
+    }
+
 
     const itemsButton =
       document.getElementById("itemsButton");
@@ -972,6 +996,11 @@ function setupMenu(){
   }
 
 
+  /* =================================================
+     OPERATIONAL BRANCH
+     Settings = HIDE
+  ================================================= */
+
   branchMenu.classList.remove("hidden");
 
   mainMenu.classList.add("hidden");
@@ -980,6 +1009,14 @@ function setupMenu(){
 
   allBranchesCard.classList.add("hidden");
 
+
+  if(settingsButton){
+
+    settingsButton.classList.add("hidden");
+
+  }
+
+
   document.getElementById("itemsButton")
     .textContent =
     "📦 Items";
@@ -987,6 +1024,7 @@ function setupMenu(){
   document.getElementById("itemsButton")
     .className =
     "btn items";
+
 
   document.getElementById("stockButton")
     .textContent =
@@ -1079,6 +1117,7 @@ async function resolveBranchUUID(){
       }
     );
 
+
   if(!response.ok){
 
     const errorText =
@@ -1091,18 +1130,22 @@ async function resolveBranchUUID(){
 
   }
 
+
   const branches =
     await response.json();
+
 
   const code =
     String(branchCode || "")
       .trim()
       .toLowerCase();
 
+
   const name =
     String(branchName || "")
       .trim()
       .toLowerCase();
+
 
   const codeFields = [
     "code",
@@ -1112,6 +1155,7 @@ async function resolveBranchUUID(){
     "branch_id_code",
     "short_code"
   ];
+
 
   const nameFields = [
     "name",
@@ -1123,6 +1167,7 @@ async function resolveBranchUUID(){
     "office_name",
     "office"
   ];
+
 
   let found = null;
 
@@ -1198,6 +1243,7 @@ async function resolveBranchUUID(){
 
   }
 
+
   return String(found.id).trim();
 
 }
@@ -1259,6 +1305,7 @@ async function loadItems(){
 
     const data =
       await response.json();
+
 
     return Array.isArray(data)
       ? data
@@ -1336,6 +1383,7 @@ async function loadTransactions(){
     const data =
       await response.json();
 
+
     return Array.isArray(data)
       ? data
       : [];
@@ -1397,11 +1445,6 @@ function findCategory(value){
     return null;
   }
 
-
-  /*
-    IMPORTANT:
-    Daily Non-Food dura.
-  */
 
   if(
     v.includes("daily non-food") ||
@@ -1507,6 +1550,7 @@ function getItemName(t){
       String(
         possibleNames[i] || ""
       ).trim();
+
 
     if(value){
       return value;
@@ -1641,13 +1685,16 @@ function renderSelectedCategory(){
       "categorySelect"
     );
 
+
   const selected =
     select.value;
+
 
   const result =
     document.getElementById(
       "categoryResult"
     );
+
 
   const titleBox =
     document.getElementById(
@@ -1658,6 +1705,7 @@ function renderSelectedCategory(){
   if(!selected){
 
     titleBox.classList.add("hidden");
+
 
     result.innerHTML = `
 
@@ -1700,6 +1748,7 @@ function renderSelectedCategory(){
 
 
   titleBox.classList.remove("hidden");
+
 
   titleBox.textContent =
     "🗂️ " + category.name;
@@ -1746,11 +1795,8 @@ function renderSelectedCategory(){
           <tr>
 
             <th>Item</th>
-
             <th>IN</th>
-
             <th>OUT</th>
-
             <th>Balance</th>
 
           </tr>
@@ -1885,6 +1931,7 @@ function showAllBranches(){
   const grid =
     document.getElementById("branchGrid");
 
+
   grid.innerHTML = "";
 
 
@@ -1894,12 +1941,14 @@ function showAllBranches(){
       const box =
         document.createElement("div");
 
+
       box.className =
         "branch-box";
 
 
       const name =
         document.createElement("strong");
+
 
       name.textContent =
         "🏢 " + branch.name;
@@ -1908,6 +1957,7 @@ function showAllBranches(){
       const code =
         document.createElement("small");
 
+
       code.textContent =
         "Code: " + branch.code;
 
@@ -1915,10 +1965,13 @@ function showAllBranches(){
       const button =
         document.createElement("button");
 
+
       button.type = "button";
+
 
       button.className =
         "btn branch-btn";
+
 
       button.textContent =
         "👁️ Open Branch";
@@ -1953,9 +2006,8 @@ function showAllBranches(){
 function openBranch(branch){
 
   /*
-    IMPORTANT:
     Main role hin jijjiiramne.
-    Kanaaf Main yeroo branch filatu
+    Main yeroo branch filatu
     VIEW ONLY ta'ee hafa.
   */
 
@@ -1964,10 +2016,12 @@ function openBranch(branch){
     branch.code
   );
 
+
   localStorage.setItem(
     "selected_branch_name",
     branch.name
   );
+
 
   localStorage.setItem(
     "selected_branch_code",
@@ -2012,11 +2066,14 @@ async function loadDashboard(){
   document.getElementById("totalItems")
     .textContent = "...";
 
+
   document.getElementById("totalIn")
     .textContent = "...";
 
+
   document.getElementById("totalOut")
     .textContent = "...";
+
 
   document.getElementById("balance")
     .textContent = "...";
@@ -2040,6 +2097,7 @@ async function loadDashboard(){
 
       const quantity =
         Number(t.quantity || 0);
+
 
       const type =
         getTransactionType(t);
@@ -2086,23 +2144,15 @@ async function loadDashboard(){
     formatNumber(balance);
 
 
-  /*
-    Category data qopheessi.
-  */
-
   prepareCategoryData(
     transactions
   );
 
 
-  /*
-    Default:
-    Category hin filatamne.
-  */
-
   document.getElementById(
     "categorySelect"
   ).value = "";
+
 
   renderSelectedCategory();
 
@@ -2142,6 +2192,7 @@ window.addEventListener(
     if(!showBranch()){
       return;
     }
+
 
     setupMenu();
 
