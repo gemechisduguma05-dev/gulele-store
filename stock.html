@@ -179,6 +179,17 @@ header h1{
   background:#f3eee8 !important;
 }
 
+.small-note{
+  margin-top:6px;
+  font-size:12px;
+  color:#75685f;
+  line-height:1.4;
+}
+
+.required{
+  color:#b83232;
+}
+
 .submit-row{
   display:flex;
   gap:10px;
@@ -466,7 +477,9 @@ td{
   <div id="message" class="message"></div>
 
 
-  <!-- STOCK IN -->
+  <!-- ================================
+       STOCK IN
+  ================================= -->
 
   <div id="stockInForm" class="box form-box">
 
@@ -549,6 +562,43 @@ td{
       </div>
 
 
+      <!-- MODEL 19 -->
+
+      <div class="form-group">
+
+        <label>
+          Model 19
+          <span class="required">(Optional)</span>
+        </label>
+
+        <select
+          id="model19Type"
+          onchange="changeModel19()">
+
+          <option value="number">
+            Model 19 qaba
+          </option>
+
+          <option value="verbal">
+            Verbal
+          </option>
+
+        </select>
+
+        <input
+          id="inModel19"
+          type="text"
+          placeholder="Fakkeenya: 33785"
+          style="margin-top:8px;">
+
+        <div class="small-note">
+          Model 19 yoo hin jirre
+          <b>Verbal</b> filadhu.
+        </div>
+
+      </div>
+
+
       <div class="form-group">
 
         <label>Mallattoo</label>
@@ -583,7 +633,9 @@ td{
   </div>
 
 
-  <!-- STOCK OUT -->
+  <!-- ================================
+       STOCK OUT
+  ================================= -->
 
   <div id="stockOutForm" class="box form-box">
 
@@ -653,6 +705,43 @@ td{
           id="outIssuedBy"
           type="text"
           placeholder="Maqaa nama baase">
+
+      </div>
+
+
+      <!-- MODEL 22 -->
+
+      <div class="form-group">
+
+        <label>
+          Model 22
+          <span class="required">*</span>
+        </label>
+
+        <select
+          id="model22Type"
+          onchange="changeModel22()">
+
+          <option value="number">
+            Model 22 qaba
+          </option>
+
+          <option value="verbal">
+            Verbal
+          </option>
+
+        </select>
+
+        <input
+          id="outModel22"
+          type="text"
+          placeholder="Fakkeenya: *45782"
+          style="margin-top:8px;">
+
+        <div class="small-note">
+          Model 22 dirqama.
+          Yoo hin jirre <b>Verbal</b> filadhu.
+        </div>
 
       </div>
 
@@ -796,6 +885,8 @@ td{
             <th>Guyyaa fi Sa'aatii</th>
             <th>Nama Galche</th>
             <th>Nama Baase</th>
+            <th>Model 19</th>
+            <th>Model 22</th>
             <th>Expiry Date</th>
             <th>Mallattoo</th>
           </tr>
@@ -841,20 +932,6 @@ localStorage.getItem("selected_branch_name") ||
 localStorage.getItem("branch_name") ||
 "Unknown Branch";
 
-
-/*
-   IMPORTANT:
-
-   CURRENT_BRANCH_CODE = GUL
-
-   GUL UUID miti.
-
-   Kanaaf branch_id keessatti GUL
-   hin erginu.
-
-   UUID dhugaa branches table keessaa
-   barbaanna.
-*/
 
 let CURRENT_BRANCH_UUID =
 localStorage.getItem(
@@ -977,11 +1054,6 @@ function getBranchCodeFromRow(branch){
 
 async function resolveBranchUUID(){
 
-  /*
-     Yoo duraan UUID qabnu,
-     dura isa mirkaneeffanna.
-  */
-
   if(
     CURRENT_BRANCH_UUID &&
     isUUID(
@@ -993,10 +1065,6 @@ async function resolveBranchUUID(){
 
   }
 
-
-  /*
-     Main stock branch miti.
-  */
 
   if(
     String(
@@ -1074,14 +1142,6 @@ async function resolveBranchUUID(){
 
 
     let foundBranch =
-      null;
-
-
-    /*
-       1. Branch CODE irratti barbaadi
-    */
-
-    foundBranch =
       branches.find(
         b => {
 
@@ -1095,11 +1155,6 @@ async function resolveBranchUUID(){
         }
       );
 
-
-    /*
-       2. Yoo code hin argamne,
-          branch NAME irratti barbaadi.
-    */
 
     if(!foundBranch){
 
@@ -1145,16 +1200,6 @@ async function resolveBranchUUID(){
 
     if(!foundBranch){
 
-      console.error(
-        "Branch hin argamne:",
-        {
-          code:CURRENT_BRANCH_CODE,
-          name:CURRENT_BRANCH_NAME,
-          branches:branches
-        }
-      );
-
-
       throw new Error(
         "Branch '" +
         CURRENT_BRANCH_NAME +
@@ -1186,31 +1231,8 @@ async function resolveBranchUUID(){
       );
 
 
-    /*
-       UUID addatti kaa'a.
-
-       selected_branch_id
-       hin jijjiiru.
-    */
-
     localStorage.setItem(
       "selected_branch_uuid",
-      CURRENT_BRANCH_UUID
-    );
-
-
-    console.log(
-      "Branch Code:",
-      CURRENT_BRANCH_CODE
-    );
-
-    console.log(
-      "Branch Name:",
-      CURRENT_BRANCH_NAME
-    );
-
-    console.log(
-      "REAL UUID:",
       CURRENT_BRANCH_UUID
     );
 
@@ -1600,6 +1622,90 @@ document
 
 
 /* =====================================================
+   MODEL 19
+===================================================== */
+
+function changeModel19(){
+
+  const type =
+    document.getElementById(
+      "model19Type"
+    ).value;
+
+
+  const input =
+    document.getElementById(
+      "inModel19"
+    );
+
+
+  if(type === "verbal"){
+
+    input.value =
+      "Verbal";
+
+    input.readOnly =
+      true;
+
+  }else{
+
+    input.value =
+      "";
+
+    input.readOnly =
+      false;
+
+    input.placeholder =
+      "Fakkeenya: 33785";
+
+  }
+
+}
+
+
+/* =====================================================
+   MODEL 22
+===================================================== */
+
+function changeModel22(){
+
+  const type =
+    document.getElementById(
+      "model22Type"
+    ).value;
+
+
+  const input =
+    document.getElementById(
+      "outModel22"
+    );
+
+
+  if(type === "verbal"){
+
+    input.value =
+      "Verbal";
+
+    input.readOnly =
+      true;
+
+  }else{
+
+    input.value =
+      "";
+
+    input.readOnly =
+      false;
+
+    input.placeholder =
+      "Fakkeenya: *45782";
+
+  }
+
+}
+
+
+/* =====================================================
    DEFAULT DATE
 ===================================================== */
 
@@ -1638,7 +1744,7 @@ function setDefaultDates(){
 
 
 /* =====================================================
-   DATETIME LOCAL -> ISO TIMESTAMP
+   DATETIME -> ISO
 ===================================================== */
 
 function datetimeToISO(value){
@@ -1649,22 +1755,6 @@ function datetimeToISO(value){
 
   }
 
-
-  /*
-     IMPORTANT:
-
-     datetime-local:
-     2026-09-12T09:35
-
-     Date object keessatti
-     local time ta'ee fudhatama.
-
-     toISOString():
-     2026-09-12T06:35:00.000Z
-
-     Supabase timestamptz
-     kana sirriitti fudhata.
-  */
 
   const date =
     new Date(
@@ -1689,7 +1779,7 @@ function datetimeToISO(value){
 
 
 /* =====================================================
-   FORMAT TIMESTAMP
+   FORMAT DATE
 ===================================================== */
 
 function formatDateTime(value){
@@ -1903,6 +1993,7 @@ function showMessage(
 ===================================================== */
 
 function getItemBalance(
+  itemId,
   itemName
 ){
 
@@ -1911,65 +2002,129 @@ function getItemBalance(
   let totalOut = 0;
 
 
-  const normalized =
-    String(
-      itemName || ""
-    )
-    .trim()
-    .toLowerCase();
-
-
   allTransactions.forEach(
     t => {
 
-      const tItem =
-        String(
-          t.transaction || ""
-        )
-        .trim()
-        .toLowerCase();
-
+      /*
+         Dura item_id irratti
+         match goona.
+      */
 
       if(
-        tItem !== normalized
+        t.item_id !== undefined &&
+        t.item_id !== null &&
+        String(t.item_id)
+        ===
+        String(itemId)
       ){
 
-        return;
-
-      }
-
-
-      const quantity =
-        Number(
-          t.quantity || 0
-        );
+        const quantity =
+          Number(
+            t.quantity || 0
+          );
 
 
-      const type =
-        String(
-          t.transaction_type || ""
-        )
-        .trim()
-        .toUpperCase();
+        const type =
+          String(
+            t.transaction_type || ""
+          )
+          .trim()
+          .toUpperCase();
 
 
-      if(type === "IN"){
+        if(type === "IN"){
 
-        totalIn +=
-          quantity;
+          totalIn +=
+            quantity;
 
-      }
+        }
 
 
-      if(type === "OUT"){
+        if(type === "OUT"){
 
-        totalOut +=
-          quantity;
+          totalOut +=
+            quantity;
+
+        }
 
       }
 
     }
   );
+
+
+  /*
+     Yoo item_id transaction
+     keessa hin jirre,
+     maqaa irratti fallback.
+  */
+
+  if(
+    totalIn === 0 &&
+    totalOut === 0
+  ){
+
+    const normalized =
+      String(
+        itemName || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    allTransactions.forEach(
+      t => {
+
+        const tItem =
+          String(
+            t.transaction || ""
+          )
+          .trim()
+          .toLowerCase();
+
+
+        if(
+          tItem !== normalized
+        ){
+
+          return;
+
+        }
+
+
+        const quantity =
+          Number(
+            t.quantity || 0
+          );
+
+
+        const type =
+          String(
+            t.transaction_type || ""
+          )
+          .trim()
+          .toUpperCase();
+
+
+        if(type === "IN"){
+
+          totalIn +=
+            quantity;
+
+        }
+
+
+        if(type === "OUT"){
+
+          totalOut +=
+            quantity;
+
+        }
+
+      }
+    );
+
+  }
 
 
   return (
@@ -1992,10 +2147,6 @@ async function saveStock(type){
 
   }
 
-
-  /*
-     UUID mirkaneessi.
-  */
 
   if(
     !CURRENT_BRANCH_UUID
@@ -2036,9 +2187,13 @@ async function saveStock(type){
 
   let signature = "";
 
+  let model19 = null;
+
+  let model22 = null;
+
 
   /* =================================================
-     IN
+     STOCK IN
   ================================================= */
 
   if(type === "IN"){
@@ -2087,11 +2242,35 @@ async function saveStock(type){
         "inSignature"
       ).value.trim();
 
+
+    /*
+       Model 19 OPTIONAL.
+
+       Verbal yoo filatame:
+       "Verbal"
+
+       Yoo lakkoofsa galfame:
+       lakkoofsa/text
+    */
+
+    model19 =
+      document.getElementById(
+        "inModel19"
+      ).value.trim();
+
+
+    if(!model19){
+
+      model19 =
+        "Verbal";
+
+    }
+
   }
 
 
   /* =================================================
-     OUT
+     STOCK OUT
   ================================================= */
 
   if(type === "OUT"){
@@ -2132,6 +2311,28 @@ async function saveStock(type){
       document.getElementById(
         "outSignature"
       ).value.trim();
+
+
+    /*
+       Model 22 MANDATORY.
+    */
+
+    model22 =
+      document.getElementById(
+        "outModel22"
+      ).value.trim();
+
+
+    if(!model22){
+
+      showMessage(
+        "❌ Model 22 dirqama. Model 22 galchi ykn Verbal filadhu.",
+        "error"
+      );
+
+      return;
+
+    }
 
   }
 
@@ -2256,6 +2457,7 @@ async function saveStock(type){
 
     const balance =
       getItemBalance(
+        item.id,
         item.name
       );
 
@@ -2289,74 +2491,74 @@ async function saveStock(type){
 
 
   /* =================================================
-     FINAL DATABASE DATA
+     FINAL DATA
   ================================================= */
 
   const data = {
 
-    /*
-       UUID DHUGAA QOFA
-    */
-
     branch_id:
       CURRENT_BRANCH_UUID,
 
+    branch_code:
+      CURRENT_BRANCH_CODE,
+
+    item_id:
+      itemId,
 
     transaction_type:
       type,
 
-
     quantity:
       quantity,
-
 
     entered_by:
       type === "IN"
         ? enteredBy
         : null,
 
-
-    /*
-       IMPORTANT:
-       entered_at = TIMESTAMPTZ
-
-       Kanaaf datetimeToISO()
-       fayyadamna.
-
-       09:35:00 qofa hin erginu.
-    */
-
     entered_at:
       timestamp,
-
 
     expiry_date:
       expiryDate,
 
-
     category:
       category,
-
 
     issued_by:
       type === "OUT"
         ? issuedBy
         : null,
 
-
     signature:
       signature ||
       null,
-
 
     unit:
       unit ||
       null,
 
-
     transaction:
       item.name ||
-      ""
+      "",
+
+    /*
+       MODEL 19
+    */
+
+    model_19:
+      type === "IN"
+        ? model19
+        : null,
+
+    /*
+       MODEL 22
+    */
+
+    model_22:
+      type === "OUT"
+        ? model22
+        : null
 
   };
 
@@ -2535,6 +2737,24 @@ function clearForm(type){
       "inSignature"
     ).value = "";
 
+
+    document.getElementById(
+      "model19Type"
+    ).value =
+      "number";
+
+
+    document.getElementById(
+      "inModel19"
+    ).value =
+      "";
+
+
+    document.getElementById(
+      "inModel19"
+    ).readOnly =
+      false;
+
   }
 
 
@@ -2564,6 +2784,24 @@ function clearForm(type){
       "outSignature"
     ).value = "";
 
+
+    document.getElementById(
+      "model22Type"
+    ).value =
+      "number";
+
+
+    document.getElementById(
+      "outModel22"
+    ).value =
+      "";
+
+
+    document.getElementById(
+      "outModel22"
+    ).readOnly =
+      false;
+
   }
 
 
@@ -2591,10 +2829,6 @@ async function loadStock(){
 
   }
 
-
-  /*
-     Branch UUID barbaadi.
-  */
 
   if(
     !CURRENT_BRANCH_UUID
@@ -2631,17 +2865,9 @@ async function loadStock(){
   }
 
 
-  /*
-     Items current branch qofa.
-  */
-
   allItems =
     await loadItems();
 
-
-  /*
-     Transactions current branch qofa.
-  */
 
   allTransactions =
     await loadTransactions();
@@ -2681,10 +2907,6 @@ function buildReport(){
   const groups = {};
 
 
-  /* =================================================
-     ITEMS
-  ================================================= */
-
   allItems.forEach(
     item => {
 
@@ -2707,6 +2929,9 @@ function buildReport(){
 
         groups[key] = {
 
+          itemId:
+            item.id,
+
           name:
             item.name || "",
 
@@ -2727,10 +2952,6 @@ function buildReport(){
     }
   );
 
-
-  /* =================================================
-     TRANSACTIONS
-  ================================================= */
 
   allTransactions.forEach(
     t => {
@@ -2753,6 +2974,9 @@ function buildReport(){
       if(!groups[itemName]){
 
         groups[itemName] = {
+
+          itemId:
+            t.item_id || null,
 
           name:
             t.transaction,
@@ -3036,7 +3260,7 @@ function showItemDetails(
         <tr>
 
           <td
-            colspan="9"
+            colspan="11"
             style="text-align:center;padding:25px">
 
             Transaction hin jiru.
@@ -3121,6 +3345,20 @@ function showItemDetails(
           <td>
             ${escapeHTML(
               t.issued_by ||
+              "—"
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              t.model_19 ||
+              "—"
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              t.model_22 ||
               "—"
             )}
           </td>
@@ -3227,6 +3465,11 @@ window.addEventListener(
 
 
     setDefaultDates();
+
+
+    changeModel19();
+
+    changeModel22();
 
 
     await loadStock();
