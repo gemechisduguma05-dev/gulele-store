@@ -1,282 +1,486 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Reports</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-* {
-  box-sizing: border-box;
+<title>AAFDRMC - Reports</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
 }
 
-header {
-  background: #1e3a8a;
-  color: white;
-  padding: 20px;
-  text-align: center;
+header{
+  background:#5b341f;
+  color:white;
+  padding:20px;
+  text-align:center;
 }
 
-header h1 {
-  margin: 0;
+header h1{
+  margin:0;
 }
 
-header p {
-  margin: 5px 0 0;
+header p{
+  margin:6px 0 0;
 }
 
-nav {
-  background: white;
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+nav{
+  background:white;
+  padding:12px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.10);
 }
 
-nav a {
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 7px;
-  background: #e2e8f0;
-  color: #1e293b;
-  font-weight: bold;
+nav a{
+  text-decoration:none;
+  padding:10px 15px;
+  border-radius:7px;
+  background:#eadfd6;
+  color:#3f2415;
+  font-weight:bold;
 }
 
-nav a:hover {
-  background: #cbd5e1;
+nav a:hover{
+  background:#d8c7ba;
 }
 
-.container {
-  width: 95%;
-  max-width: 1400px;
-  margin: 25px auto;
+.container{
+  width:95%;
+  max-width:1500px;
+  margin:25px auto;
 }
 
-.box {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+.box{
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.10);
 }
 
-.box h2 {
-  text-align: center;
-  margin-top: 0;
+.box h2{
+  text-align:center;
+  margin-top:0;
 }
 
-.filters {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
+.branch-info{
+  text-align:center;
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#7c2d12;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:20px;
+  font-weight:bold;
+}
+
+.filters{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
 }
 
 input,
-select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 7px;
-  font-size: 15px;
+select{
+  width:100%;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  font-size:15px;
 }
 
-button {
-  padding: 12px;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  font-size: 15px;
+button{
+  padding:12px;
+  border:none;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
 }
 
-.filter-btn {
-  background: #1e3a8a;
-  color: white;
+.filter-btn{
+  background:#5b341f;
+  color:white;
 }
 
-.clear-btn {
-  background: #64748b;
-  color: white;
+.clear-btn{
+  background:#64748b;
+  color:white;
 }
 
-.table-container {
-  width: 100%;
-  overflow-x: auto;
+.summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  margin-bottom:20px;
 }
 
-table {
-  width: 100%;
-  min-width: 900px;
-  border-collapse: collapse;
+.card{
+  background:white;
+  padding:18px;
+  border-radius:10px;
+  text-align:center;
+  font-weight:bold;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-th {
-  background: #1e3a8a;
-  color: white;
-  padding: 11px;
+.card strong{
+  display:block;
+  font-size:24px;
+  margin-top:8px;
 }
 
-td {
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
+.table-container{
+  width:100%;
+  overflow-x:auto;
 }
 
-.in-row {
-  background: #dcfce7 !important;
+table{
+  width:100%;
+  min-width:1250px;
+  border-collapse:collapse;
 }
 
-.out-row {
-  background: #fee2e2 !important;
+th{
+  background:#5b341f;
+  color:white;
+  padding:12px 10px;
+  white-space:nowrap;
 }
 
-.summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
-  margin-bottom: 20px;
+td{
+  padding:10px;
+  text-align:center;
+  border-bottom:1px solid #ddd;
+  white-space:nowrap;
 }
 
-.card {
-  background: #f8fafc;
-  padding: 18px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: bold;
+.in-row{
+  background:#dcfce7 !important;
 }
 
-.card strong {
-  display: block;
-  font-size: 24px;
-  margin-top: 8px;
+.out-row{
+  background:#fee2e2 !important;
 }
 
-.logout {
-  background: #dc2626 !important;
-  color: white !important;
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
 }
 
-</style></head><body><header>  <h1>🏢 AAFDRMC</h1>  <p>Stock Management System</p></header><nav>  <a href="dashboard.html">
+.loading{
+  text-align:center;
+  padding:25px;
+  font-weight:bold;
+}
+
+.logout{
+  background:#dc2626 !important;
+  color:white !important;
+}
+
+.main-view{
+  background:#dbeafe;
+  color:#1e40af;
+  padding:10px;
+  border-radius:8px;
+  text-align:center;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+
+  header{
+    padding:15px;
+  }
+
+  header h1{
+    font-size:22px;
+  }
+
+  .container{
+    width:97%;
+    margin:15px auto;
+  }
+
+  .box{
+    padding:14px;
+  }
+
+  nav a{
+    padding:9px 11px;
+    font-size:13px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>🏢 AAFDRMC</h1>
+
+  <p>Stock Management System</p>
+
+</header>
+
+
+<nav>
+
+  <a href="dashboard.html">
     🏠 Dashboard
-  </a>  <a href="items.html">
+  </a>
+
+  <a href="items.html">
     📦 Items
-  </a>  <a href="stock.html">
+  </a>
+
+  <a href="stock.html">
     🔄 Stock In / Out
-  </a>  <a href="reports.html">
+  </a>
+
+  <a href="reports.html">
     📊 Reports
-  </a>  <a href="settings.html">
+  </a>
+
+  <a href="settings.html">
     ⚙️ Settings
-  </a>  <a href="#" class="logout" onclick="logoutUser()">
+  </a>
+
+  <a href="#" class="logout" onclick="logoutUser()">
     🚪 Logout
-  </a></nav><div class="container"><!-- FILTER --><div class="box">  <h2>🔎 Report Filter</h2>  <div class="filters"><input
-  id="dateFilter"
-  type="date"
->
+  </a>
 
-<input
-  id="enteredByFilter"
-  placeholder="Entered By"
->
+</nav>
 
-<select id="typeFilter">
 
-  <option value="">
-    All Transactions
-  </option>
+<div class="container">
 
-  <option value="IN">
-    📥 Stock In
-  </option>
 
-  <option value="OUT">
-    📤 Stock Out
-  </option>
+  <div id="branchInfo" class="branch-info">
+    Loading branch...
+  </div>
 
-</select>
 
-<button
-  class="filter-btn"
-  onclick="loadReport()"
->
-  🔎 Filter
-</button>
+  <div id="mainViewMessage" class="main-view" style="display:none;">
+    👁️ Main / HQ View Mode — Report is view-only.
+  </div>
 
-<button
-  class="clear-btn"
-  onclick="clearFilters()"
->
-  🔄 Clear
-</button>
 
-  </div></div><!-- SUMMARY --><div class="summary">  <div class="card">📥 Total IN
+  <!-- FILTER -->
 
-<strong id="reportIn">
-  0
-</strong>
+  <div class="box">
 
-  </div>  <div class="card">📤 Total OUT
+    <h2>🔎 Report Filter</h2>
 
-<strong id="reportOut">
-  0
-</strong>
+    <div class="filters">
 
-  </div>  <div class="card">📊 Transactions
+      <input
+        id="dateFilter"
+        type="date"
+      >
 
-<strong id="reportTransactions">
-  0
-</strong>
+      <input
+        id="enteredByFilter"
+        placeholder="Entered By"
+      >
 
-  </div></div><!-- REPORT TABLE --><div class="box">  <h2>📋 Stock Report</h2>  <div class="table-container"><table>
+      <select id="typeFilter">
 
-  <thead>
+        <option value="">
+          All Transactions
+        </option>
 
-    <tr>
+        <option value="IN">
+          📥 Stock In
+        </option>
 
-      <th>Item</th>
+        <option value="OUT">
+          📤 Stock Out
+        </option>
 
-      <th>Type</th>
+      </select>
 
-      <th>Quantity</th>
 
-      <th>EX Date</th>
+      <button
+        class="filter-btn"
+        onclick="loadReport()"
+      >
+        🔎 Filter
+      </button>
 
-      <th>Entered By</th>
 
-      <th>Date Entered</th>
+      <button
+        class="clear-btn"
+        onclick="clearFilters()"
+      >
+        🔄 Clear
+      </button>
 
-    </tr>
+    </div>
 
-  </thead>
+  </div>
 
-  <tbody id="reportList"></tbody>
 
-</table>
+  <!-- SUMMARY -->
 
-  </div></div></div><script>
+  <div class="summary">
 
-/* =========================
+    <div class="card">
+
+      📥 Total IN
+
+      <strong id="reportIn">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="card">
+
+      📤 Total OUT
+
+      <strong id="reportOut">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="card">
+
+      📊 Transactions
+
+      <strong id="reportTransactions">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="card">
+
+      ⚖️ Balance
+
+      <strong id="reportBalance">
+        0
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- REPORT TABLE -->
+
+  <div class="box">
+
+    <h2>📋 Stock Report</h2>
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Item Name</th>
+
+            <th>Category</th>
+
+            <th>Transaction</th>
+
+            <th>Quantity</th>
+
+            <th>Unit</th>
+
+            <th>Date</th>
+
+            <th>Entered By</th>
+
+            <th>Issued By</th>
+
+            <th>EX Date</th>
+
+            <th>Signature</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="reportList">
+
+          <tr>
+
+            <td colspan="10" class="loading">
+              Loading report...
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
-"https://sslabegtsxlkafuygmar.supabase.co";
+  "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+  "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* =========================
-   CHECK LOGIN
-========================= */
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const isLoggedIn =
+  localStorage.getItem("is_logged_in");
 
 const accessToken =
   localStorage.getItem("access_token");
 
-if (!accessToken) {
+
+if(
+  isLoggedIn !== "true" &&
+  !accessToken
+){
 
   window.location.href =
     "index.html";
@@ -284,135 +488,422 @@ if (!accessToken) {
 }
 
 
-/* =========================
-   LOAD REPORT
-========================= */
+/* =====================================================
+   CURRENT BRANCH
+===================================================== */
 
-async function loadReport() {
+const selectedBranchId =
+  localStorage.getItem("selected_branch_id") || "";
+
+const selectedBranchName =
+  localStorage.getItem("selected_branch_name") || "";
+
+const selectedBranchCode =
+  localStorage.getItem("selected_branch_code") || "";
+
+const userRole =
+  localStorage.getItem("user_role") || "";
+
+
+/* =====================================================
+   MAIN CHECK
+===================================================== */
+
+const isMain =
+  userRole.toLowerCase() === "main";
+
+
+const isMainHQ =
+  isMain &&
+  (
+    selectedBranchCode.toUpperCase() === "MAIN" ||
+    selectedBranchId.toUpperCase() === "MAIN"
+  );
+
+
+/* =====================================================
+   HEADERS
+===================================================== */
+
+function getHeaders(){
+
+  const headers = {
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Content-Type":
+      "application/json"
+
+  };
+
 
   const token =
-    localStorage.getItem(
-      "access_token"
-    ) || SUPABASE_KEY;
+    localStorage.getItem("access_token");
 
 
-  const date =
-    document.getElementById(
-      "dateFilter"
-    ).value;
+  if(
+    token &&
+    !token.startsWith("sb_publishable_")
+  ){
+
+    headers["Authorization"] =
+      "Bearer " + token;
+
+  }
 
 
-  const enteredBy =
-    document.getElementById(
-      "enteredByFilter"
-    ).value
-    .trim()
-    .toLowerCase();
+  return headers;
+
+}
 
 
-  const type =
-    document.getElementById(
-      "typeFilter"
-    ).value;
+/* =====================================================
+   UUID CHECK
+===================================================== */
+
+function isUUID(value){
+
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    .test(String(value || ""));
+
+}
+
+
+/* =====================================================
+   BRANCH UUID
+===================================================== */
+
+async function findBranchUUID(){
+
+  const savedUUID =
+    localStorage.getItem("selected_branch_uuid");
+
+  if(
+    savedUUID &&
+    isUUID(savedUUID)
+  ){
+
+    return savedUUID;
+
+  }
+
+
+  if(isMainHQ){
+
+    return null;
+
+  }
 
 
   const response =
     await fetch(
       SUPABASE_URL +
-      "/rest/v1/stock_transactions?select=*&order=id.desc",
+      "/rest/v1/branches?select=*",
       {
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization":
-            "Bearer " + token
-        }
+        headers:getHeaders()
       }
     );
 
 
-  if (!response.ok) {
+  if(!response.ok){
 
-    alert(
-      "Report Error: " +
+    throw new Error(
+      "Branches Error: " +
       await response.text()
     );
+
+  }
+
+
+  const branches =
+    await response.json();
+
+
+  const wantedCode =
+    String(
+      selectedBranchCode ||
+      selectedBranchId ||
+      ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  const wantedName =
+    String(
+      selectedBranchName ||
+      ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  const codeFields = [
+    "code",
+    "branch_code",
+    "branchCode",
+    "branchcode",
+    "branch_id_code",
+    "short_code"
+  ];
+
+
+  const nameFields = [
+    "name",
+    "branch_name",
+    "branch",
+    "branchName",
+    "title",
+    "branch_title",
+    "office_name",
+    "office"
+  ];
+
+
+  let found = null;
+
+
+  for(
+    const branch of branches
+  ){
+
+    if(
+      !branch.id ||
+      !isUUID(branch.id)
+    ){
+
+      continue;
+
+    }
+
+
+    let codeMatch = false;
+    let nameMatch = false;
+
+
+    for(
+      const field of codeFields
+    ){
+
+      const value =
+        String(
+          branch[field] || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(
+        value &&
+        wantedCode &&
+        value === wantedCode
+      ){
+
+        codeMatch = true;
+
+      }
+
+    }
+
+
+    for(
+      const field of nameFields
+    ){
+
+      const value =
+        String(
+          branch[field] || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(
+        value &&
+        wantedName &&
+        value === wantedName
+      ){
+
+        nameMatch = true;
+
+      }
+
+    }
+
+
+    if(
+      codeMatch ||
+      nameMatch
+    ){
+
+      found = branch;
+
+      break;
+
+    }
+
+  }
+
+
+  if(!found){
+
+    throw new Error(
+      "Branch UUID hin argamne: " +
+      (selectedBranchName || selectedBranchCode)
+    );
+
+  }
+
+
+  localStorage.setItem(
+    "selected_branch_uuid",
+    found.id
+  );
+
+
+  return found.id;
+
+}
+
+
+/* =====================================================
+   BRANCH DISPLAY
+===================================================== */
+
+function showBranchInfo(){
+
+  const box =
+    document.getElementById(
+      "branchInfo"
+    );
+
+
+  if(isMainHQ){
+
+    box.textContent =
+      "🏢 MAIN / HQ — All Branches Report";
+
+    document.getElementById(
+      "mainViewMessage"
+    ).style.display = "block";
 
     return;
 
   }
 
 
-  const data =
-    await response.json();
+  box.textContent =
+    "🏢 Branch: " +
+    (
+      selectedBranchName ||
+      selectedBranchCode ||
+      "Selected Branch"
+    );
 
 
-  const filtered =
-    data.filter(transaction => {
+  if(isMain){
+
+    document.getElementById(
+      "mainViewMessage"
+    ).style.display = "block";
+
+  }
+
+}
 
 
-      /* DATE FILTER */
+/* =====================================================
+   HTML SAFE
+===================================================== */
 
-      if (date) {
+function escapeHTML(value){
 
-        const transactionDate =
-          transaction.created_at
-            ? transaction.created_at.substring(
-                0,
-                10
-              )
-            : "";
+  return String(
+    value ?? ""
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
-        if (
-          transactionDate !== date
-        ) {
-
-          return false;
-
-        }
-
-      }
+}
 
 
-      /* ENTERED BY FILTER */
+/* =====================================================
+   FORMAT DATE
+===================================================== */
 
-      if (enteredBy) {
+function formatDate(value){
 
-        const name =
-          String(
-            transaction.entered_by || ""
-          )
-          .toLowerCase();
+  if(!value){
 
+    return "—";
 
-        if (
-          !name.includes(
-            enteredBy
-          )
-        ) {
-
-          return false;
-
-        }
-
-      }
+  }
 
 
-      /* TYPE FILTER */
-
-      if (
-        type &&
-        transaction.transaction_type !== type
-      ) {
-
-        return false;
-
-      }
+  const d =
+    new Date(value);
 
 
-      return true;
+  if(
+    isNaN(
+      d.getTime()
+    )
+  ){
 
-    });
+    return String(value);
 
+  }
+
+
+  return d.toLocaleString();
+
+}
+
+
+/* =====================================================
+   GET ITEM NAME
+   IMPORTANT:
+   NO item_id
+===================================================== */
+
+function getItemName(transaction){
+
+  return (
+    transaction.transaction ||
+    transaction.item_name ||
+    transaction.itemName ||
+    transaction.name ||
+    "—"
+  );
+
+}
+
+
+/* =====================================================
+   GET TRANSACTION TYPE
+===================================================== */
+
+function getType(transaction){
+
+  return String(
+    transaction.transaction_type ||
+    ""
+  )
+  .trim()
+  .toUpperCase();
+
+}
+
+
+/* =====================================================
+   LOAD REPORT
+===================================================== */
+
+async function loadReport(){
 
   const list =
     document.getElementById(
@@ -420,117 +911,447 @@ async function loadReport() {
     );
 
 
-  list.innerHTML = "";
+  list.innerHTML = `
+    <tr>
+      <td colspan="10" class="loading">
+        ⏳ Loading report...
+      </td>
+    </tr>
+  `;
 
 
-  let totalIn = 0;
+  try{
 
-  let totalOut = 0;
+    /* ============================
+       GET BRANCH UUID
+    ============================ */
+
+    const branchUUID =
+      await findBranchUUID();
 
 
-  for (
-    const transaction of filtered
-  ) {
+    /* ============================
+       BUILD URL
+    ============================ */
+
+    let url =
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions?select=*&order=id.desc";
 
 
-    if (
-      transaction.transaction_type === "IN"
-    ) {
+    /*
+      MAIN HQ:
+      sees all branches.
 
-      totalIn +=
-        Number(
-          transaction.quantity || 0
+      MAIN selecting a branch:
+      sees only selected branch.
+
+      OPERATIONAL BRANCH:
+      sees only own branch.
+    */
+
+    if(!isMainHQ){
+
+      if(!branchUUID){
+
+        throw new Error(
+          "Branch UUID hin jiru."
         );
 
-    }
+      }
 
 
-    if (
-      transaction.transaction_type === "OUT"
-    ) {
-
-      totalOut +=
-        Number(
-          transaction.quantity || 0
-        );
-
-    }
-
-
-    let itemName = "";
-
-
-    const itemResponse =
-      await fetch(
+      url =
         SUPABASE_URL +
-        "/rest/v1/items?id=eq." +
-        transaction.item_id +
-        "&select=name",
-        {
-          headers: {
-            "apikey":
-              SUPABASE_KEY,
+        "/rest/v1/stock_transactions" +
+        "?select=*" +
+        "&branch_id=eq." +
+        encodeURIComponent(branchUUID) +
+        "&order=id.desc";
 
-            "Authorization":
-              "Bearer " + token
-          }
+    }
+
+
+    /* ============================
+       FETCH TRANSACTIONS
+    ============================ */
+
+    const response =
+      await fetch(
+        url,
+        {
+          headers:getHeaders()
         }
       );
 
 
-    if (itemResponse.ok) {
+    if(!response.ok){
 
-      const itemData =
-        await itemResponse.json();
-
-      itemName =
-        itemData[0]?.name || "";
+      throw new Error(
+        await response.text()
+      );
 
     }
 
 
-    const rowClass =
-      transaction.transaction_type === "IN"
-        ? "in-row"
-        : "out-row";
+    let data =
+      await response.json();
 
 
-    list.innerHTML += `
+    /* ============================
+       FILTER VALUES
+    ============================ */
 
-      <tr class="${rowClass}">
+    const date =
+      document.getElementById(
+        "dateFilter"
+      ).value;
 
-        <td>
-          ${itemName}
-        </td>
 
-        <td>
-          ${
-            transaction.transaction_type === "IN"
-              ? "📥 IN"
-              : "📤 OUT"
+    const enteredBy =
+      document.getElementById(
+        "enteredByFilter"
+      ).value
+      .trim()
+      .toLowerCase();
+
+
+    const type =
+      document.getElementById(
+        "typeFilter"
+      ).value;
+
+
+    /* ============================
+       FILTER DATA
+    ============================ */
+
+    data =
+      data.filter(
+        transaction => {
+
+          /* DATE */
+
+          if(date){
+
+            const rawDate =
+              transaction.entered_at ||
+              transaction.created_at ||
+              "";
+
+
+            const transactionDate =
+              rawDate
+                ? String(rawDate)
+                    .substring(0,10)
+                : "";
+
+
+            if(
+              transactionDate !== date
+            ){
+
+              return false;
+
+            }
+
           }
-        </td>
 
-        <td>
-          ${transaction.quantity || 0}
-        </td>
 
-        <td>
-          ${transaction.expiry_date || ""}
-        </td>
+          /* ENTERED BY */
 
-        <td>
-          ${transaction.entered_by || ""}
-        </td>
+          if(enteredBy){
 
-        <td>
-          ${
-            transaction.created_at
-              ? new Date(
-                  transaction.created_at
-                ).toLocaleDateString()
-              : ""
+            const name =
+              String(
+                transaction.entered_by ||
+                ""
+              )
+              .toLowerCase();
+
+
+            if(
+              !name.includes(
+                enteredBy
+              )
+            ){
+
+              return false;
+
+            }
+
           }
+
+
+          /* TYPE */
+
+          const transactionType =
+            getType(transaction);
+
+
+          if(
+            type &&
+            transactionType !== type
+          ){
+
+            return false;
+
+          }
+
+
+          return true;
+
+        }
+      );
+
+
+    /* ============================
+       SUMMARY
+    ============================ */
+
+    let totalIn = 0;
+    let totalOut = 0;
+
+
+    for(
+      const transaction of data
+    ){
+
+      const quantity =
+        Number(
+          transaction.quantity || 0
+        );
+
+
+      const transactionType =
+        getType(transaction);
+
+
+      if(
+        transactionType === "IN"
+      ){
+
+        totalIn += quantity;
+
+      }
+
+
+      if(
+        transactionType === "OUT"
+      ){
+
+        totalOut += quantity;
+
+      }
+
+    }
+
+
+    const balance =
+      totalIn - totalOut;
+
+
+    document.getElementById(
+      "reportIn"
+    ).textContent =
+      totalIn;
+
+
+    document.getElementById(
+      "reportOut"
+    ).textContent =
+      totalOut;
+
+
+    document.getElementById(
+      "reportTransactions"
+    ).textContent =
+      data.length;
+
+
+    document.getElementById(
+      "reportBalance"
+    ).textContent =
+      balance;
+
+
+    /* ============================
+       EMPTY
+    ============================ */
+
+    if(data.length === 0){
+
+      list.innerHTML = `
+        <tr>
+          <td colspan="10" class="empty">
+            📭 No stock transactions found.
+          </td>
+        </tr>
+      `;
+
+      return;
+
+    }
+
+
+    /* ============================
+       TABLE
+    ============================ */
+
+    list.innerHTML = "";
+
+
+    for(
+      const transaction of data
+    ){
+
+      const transactionType =
+        getType(transaction);
+
+
+      const itemName =
+        getItemName(transaction);
+
+
+      const category =
+        transaction.category ||
+        "—";
+
+
+      const quantity =
+        transaction.quantity ?? 0;
+
+
+      const unit =
+        transaction.unit ||
+        "—";
+
+
+      const enteredBy =
+        transaction.entered_by ||
+        "—";
+
+
+      const issuedBy =
+        transaction.issued_by ||
+        "—";
+
+
+      const expiryDate =
+        transaction.expiry_date ||
+        "—";
+
+
+      const signature =
+        transaction.signature ||
+        "—";
+
+
+      const dateValue =
+        transaction.entered_at ||
+        transaction.created_at ||
+        transaction.date ||
+        "";
+
+
+      const rowClass =
+        transactionType === "IN"
+          ? "in-row"
+          : transactionType === "OUT"
+            ? "out-row"
+            : "";
+
+
+      const transactionLabel =
+        transactionType === "IN"
+          ? "📥 IN"
+          : transactionType === "OUT"
+            ? "📤 OUT"
+            : escapeHTML(
+                transactionType || "—"
+              );
+
+
+      list.innerHTML += `
+
+        <tr class="${rowClass}">
+
+          <td>
+            <strong>
+              ${escapeHTML(itemName)}
+            </strong>
+          </td>
+
+          <td>
+            ${escapeHTML(category)}
+          </td>
+
+          <td>
+            ${transactionLabel}
+          </td>
+
+          <td>
+            ${escapeHTML(quantity)}
+          </td>
+
+          <td>
+            ${escapeHTML(unit)}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              formatDate(dateValue)
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(enteredBy)}
+          </td>
+
+          <td>
+            ${escapeHTML(issuedBy)}
+          </td>
+
+          <td>
+            ${escapeHTML(expiryDate)}
+          </td>
+
+          <td>
+            ${escapeHTML(signature)}
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+
+  }
+  catch(error){
+
+    console.error(
+      "REPORT ERROR:",
+      error
+    );
+
+
+    list.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="10"
+          class="empty"
+        >
+
+          ❌ Report Error:
+
+          <br><br>
+
+          ${escapeHTML(
+            error.message
+          )}
+
         </td>
 
       </tr>
@@ -539,32 +1360,14 @@ async function loadReport() {
 
   }
 
-
-  document.getElementById(
-    "reportIn"
-  ).textContent =
-    totalIn;
-
-
-  document.getElementById(
-    "reportOut"
-  ).textContent =
-    totalOut;
-
-
-  document.getElementById(
-    "reportTransactions"
-  ).textContent =
-    filtered.length;
-
 }
 
 
-/* =========================
+/* =====================================================
    CLEAR FILTERS
-========================= */
+===================================================== */
 
-function clearFilters() {
+function clearFilters(){
 
   document.getElementById(
     "dateFilter"
@@ -586,11 +1389,11 @@ function clearFilters() {
 }
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
-function logoutUser() {
+function logoutUser(){
 
   localStorage.removeItem(
     "access_token"
@@ -600,17 +1403,50 @@ function logoutUser() {
     "refresh_token"
   );
 
+  localStorage.removeItem(
+    "is_logged_in"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_code"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_uuid"
+  );
+
+  localStorage.removeItem(
+    "user_role"
+  );
+
+  localStorage.removeItem(
+    "login_user"
+  );
+
+
   window.location.href =
     "index.html";
 
 }
 
 
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
+
+showBranchInfo();
 
 loadReport();
 
-</script></body>
+</script>
+
+</body>
 </html>
