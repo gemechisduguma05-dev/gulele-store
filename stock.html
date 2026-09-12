@@ -23,12 +23,12 @@ body{
 .topbar{
   background:#0f172a;
   color:white;
-  padding:15px;
+  padding:15px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
   flex-wrap:wrap;
+  gap:10px;
 }
 
 .topbar h2{
@@ -40,7 +40,7 @@ body{
   background:#2563eb;
   padding:8px 14px;
   border-radius:8px;
-  font-size:14px;
+  font-weight:bold;
 }
 
 .container{
@@ -58,8 +58,8 @@ body{
 
 button{
   border:0;
-  border-radius:7px;
   padding:11px 16px;
+  border-radius:7px;
   cursor:pointer;
   font-weight:bold;
 }
@@ -86,8 +86,8 @@ button{
 
 .card{
   background:white;
-  border-radius:12px;
   padding:20px;
+  border-radius:12px;
   margin-bottom:20px;
   box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
@@ -121,15 +121,51 @@ input[readonly]{
   background:#e2e8f0;
 }
 
+.item-info{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  background:#f8fafc;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:10px;
+}
+
+.info-box{
+  padding:10px;
+  background:white;
+  border-radius:6px;
+  border:1px solid #e2e8f0;
+}
+
+.info-box small{
+  display:block;
+  color:#64748b;
+  margin-bottom:4px;
+}
+
+.info-box strong{
+  color:#0f172a;
+}
+
+.model-box{
+  margin-top:20px;
+  padding:15px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  background:#f8fafc;
+}
+
 .form-actions{
   margin-top:18px;
 }
 
 .message{
-  padding:12px;
-  border-radius:7px;
-  margin-bottom:15px;
   display:none;
+  padding:12px;
+  margin-bottom:15px;
+  border-radius:7px;
 }
 
 .success{
@@ -142,6 +178,10 @@ input[readonly]{
   color:#991b1b;
 }
 
+.hidden{
+  display:none;
+}
+
 .stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -149,22 +189,25 @@ input[readonly]{
 }
 
 .stat{
-  background:#f8fafc;
-  border-radius:10px;
   padding:18px;
   border:1px solid #e2e8f0;
+  border-radius:10px;
+  background:#f8fafc;
 }
 
 .stat strong{
   display:block;
-  font-size:26px;
-  margin-top:5px;
+  font-size:25px;
+  margin-top:6px;
+}
+
+.table-wrap{
+  overflow-x:auto;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  margin-top:15px;
 }
 
 th,
@@ -172,47 +215,27 @@ td{
   padding:10px;
   border-bottom:1px solid #e2e8f0;
   text-align:left;
+  white-space:nowrap;
 }
 
 th{
   background:#f8fafc;
 }
 
-.table-wrap{
-  overflow-x:auto;
-}
-
-.model-box{
-  margin-top:18px;
-  padding:15px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  background:#f8fafc;
-}
-
-.hidden{
-  display:none;
-}
-
 @media(max-width:600px){
-  .topbar{
-    align-items:flex-start;
-  }
-
-  .topbar h2{
-    font-size:17px;
-  }
-
-  button{
-    width:100%;
-  }
 
   .menu{
     flex-direction:column;
   }
+
+  .menu button{
+    width:100%;
+  }
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -227,124 +250,177 @@ th{
 
 </div>
 
+
 <div class="container">
 
   <!-- MENU -->
 
   <div class="menu">
 
-    <button class="btn-green" onclick="showStockIn()">
+    <button class="btn-green"
+            onclick="showStockIn()">
       Stock IN
     </button>
 
-    <button class="btn-red" onclick="showStockOut()">
+    <button class="btn-red"
+            onclick="showStockOut()">
       Stock OUT
     </button>
 
-    <button class="btn-blue" onclick="loadItems();loadTransactions();">
+    <button class="btn-blue"
+            onclick="refreshAll()">
       Refresh
     </button>
 
-    <button class="btn-gray" onclick="location.href='reports.html'">
+    <button class="btn-gray"
+            onclick="location.href='reports.html'">
       Stock Report
     </button>
 
-    <button class="btn-gray" onclick="location.href='dashboard.html'">
+    <button class="btn-gray"
+            onclick="location.href='dashboard.html'">
       Dashboard
     </button>
 
-    <button class="btn-gray" onclick="location.href='dashboard.html'">
+    <button class="btn-gray"
+            onclick="location.href='dashboard.html'">
       Back to Menu
     </button>
 
   </div>
 
 
-  <div id="message" class="message"></div>
+  <div id="message"
+       class="message">
+  </div>
 
 
-  <!-- STOCK IN -->
+  <!-- =========================
+       STOCK IN
+  ========================== -->
 
-  <div class="card" id="stockInCard">
+  <div class="card"
+       id="stockInCard">
 
     <h3>Stock IN</h3>
 
     <div class="form-grid">
 
       <div>
+
         <label>Item</label>
 
-        <select id="inItem" onchange="setInUnit()">
-          <option value="">Select Item</option>
+        <select id="inItem"
+                onchange="setInItemInfo()">
+
+          <option value="">
+            Select Item
+          </option>
+
         </select>
 
       </div>
 
+
       <div>
+
         <label>Unit</label>
 
-        <input
-          type="text"
-          id="inUnit"
-          readonly
-          placeholder="Auto"
-        >
+        <input id="inUnit"
+               type="text"
+               readonly
+               placeholder="Auto">
 
       </div>
 
+
       <div>
+
         <label>Quantity</label>
 
-        <input
-          type="number"
-          id="inQuantity"
-          min="0"
-          step="any"
-          placeholder="Quantity"
-        >
+        <input id="inQuantity"
+               type="number"
+               min="0"
+               step="any"
+               placeholder="Quantity">
 
       </div>
 
+
       <div>
+
         <label>Guyyaa itti gale</label>
 
-        <input
-          type="datetime-local"
-          id="inDate"
-        >
+        <input id="inDate"
+               type="datetime-local">
 
       </div>
 
+
       <div>
+
         <label>Nama galche</label>
 
-        <input
-          type="text"
-          id="inEnteredBy"
-          placeholder="Entered by"
-        >
+        <input id="inEnteredBy"
+               type="text"
+               placeholder="Entered by">
 
       </div>
 
+
       <div>
+
         <label>Expiry Date</label>
 
-        <input
-          type="date"
-          id="inExpiry"
-        >
+        <input id="inExpiry"
+               type="date">
 
       </div>
 
+
       <div>
+
         <label>Signature / Mallattoo</label>
 
-        <input
-          type="text"
-          id="inSignature"
-          placeholder="Signature"
-        >
+        <input id="inSignature"
+               type="text"
+               placeholder="Signature">
 
+      </div>
+
+    </div>
+
+
+    <!-- ITEM DETAILS -->
+
+    <div class="item-info">
+
+      <div class="info-box">
+        <small>Item ID</small>
+        <strong id="inItemId">
+          -
+        </strong>
+      </div>
+
+      <div class="info-box">
+        <small>Item Name</small>
+        <strong id="inItemName">
+          -
+        </strong>
+      </div>
+
+      <div class="info-box">
+        <small>Category</small>
+        <strong id="inCategory">
+          -
+        </strong>
+      </div>
+
+      <div class="info-box">
+        <small>Unit</small>
+        <strong id="inInfoUnit">
+          -
+        </strong>
       </div>
 
     </div>
@@ -363,22 +439,33 @@ th{
           <label>Model 19</label>
 
           <select id="model19Type">
-            <option value="none">Hin jiru</option>
-            <option value="number">Model 19 qaba</option>
-            <option value="verbal">Verbal</option>
+
+            <option value="none">
+              Hin jiru
+            </option>
+
+            <option value="number">
+              Model 19 qaba
+            </option>
+
+            <option value="verbal">
+              Verbal
+            </option>
+
           </select>
 
         </div>
 
+
         <div>
 
-          <label>Model 19 Number / Detail</label>
+          <label>
+            Model 19 Number / Detail
+          </label>
 
-          <input
-            type="text"
-            id="inModel19"
-            placeholder="Model 19"
-          >
+          <input id="inModel19"
+                 type="text"
+                 placeholder="Model 19">
 
         </div>
 
@@ -389,9 +476,8 @@ th{
 
     <div class="form-actions">
 
-      <button
-        class="btn-green"
-        onclick="saveStock('IN')">
+      <button class="btn-green"
+              onclick="saveStock('IN')">
         Save Stock IN
       </button>
 
@@ -400,9 +486,12 @@ th{
   </div>
 
 
-  <!-- STOCK OUT -->
+  <!-- =========================
+       STOCK OUT
+  ========================== -->
 
-  <div class="card hidden" id="stockOutCard">
+  <div class="card hidden"
+       id="stockOutCard">
 
     <h3>Stock OUT</h3>
 
@@ -412,72 +501,107 @@ th{
 
         <label>Item</label>
 
-        <select id="outItem" onchange="setOutUnit()">
-          <option value="">Select Item</option>
+        <select id="outItem"
+                onchange="setOutItemInfo()">
+
+          <option value="">
+            Select Item
+          </option>
+
         </select>
 
       </div>
+
 
       <div>
 
         <label>Unit</label>
 
-        <input
-          type="text"
-          id="outUnit"
-          readonly
-          placeholder="Auto"
-        >
+        <input id="outUnit"
+               type="text"
+               readonly
+               placeholder="Auto">
 
       </div>
+
 
       <div>
 
         <label>Quantity</label>
 
-        <input
-          type="number"
-          id="outQuantity"
-          min="0"
-          step="any"
-          placeholder="Quantity"
-        >
+        <input id="outQuantity"
+               type="number"
+               min="0"
+               step="any"
+               placeholder="Quantity">
 
       </div>
+
 
       <div>
 
         <label>Guyyaa itti bahe</label>
 
-        <input
-          type="datetime-local"
-          id="outDate"
-        >
+        <input id="outDate"
+               type="datetime-local">
 
       </div>
+
 
       <div>
 
         <label>Nama baase</label>
 
-        <input
-          type="text"
-          id="outIssuedBy"
-          placeholder="Issued by"
-        >
+        <input id="outIssuedBy"
+               type="text"
+               placeholder="Issued by">
 
       </div>
+
 
       <div>
 
         <label>Signature / Mallattoo</label>
 
-        <input
-          type="text"
-          id="outSignature"
-          placeholder="Signature"
-        >
+        <input id="outSignature"
+               type="text"
+               placeholder="Signature">
 
+      </div>
+
+    </div>
+
+
+    <!-- ITEM DETAILS -->
+
+    <div class="item-info">
+
+      <div class="info-box">
+        <small>Item ID</small>
+        <strong id="outItemId">
+          -
+        </strong>
+      </div>
+
+      <div class="info-box">
+        <small>Item Name</small>
+        <strong id="outItemName">
+          -
+        </strong>
+      </div>
+
+      <div class="info-box">
+        <small>Category</small>
+        <strong id="outCategory">
+          -
+        </strong>
+      </div>
+
+      <div class="info-box">
+        <small>Unit</small>
+        <strong id="outInfoUnit">
+          -
+        </strong>
       </div>
 
     </div>
@@ -496,22 +620,33 @@ th{
           <label>Model 22</label>
 
           <select id="model22Type">
-            <option value="none">Hin jiru</option>
-            <option value="number">Model 22 qaba</option>
-            <option value="verbal">Verbal</option>
+
+            <option value="none">
+              Hin jiru
+            </option>
+
+            <option value="number">
+              Model 22 qaba
+            </option>
+
+            <option value="verbal">
+              Verbal
+            </option>
+
           </select>
 
         </div>
 
+
         <div>
 
-          <label>Model 22 Number / Detail</label>
+          <label>
+            Model 22 Number / Detail
+          </label>
 
-          <input
-            type="text"
-            id="outModel22"
-            placeholder="Model 22"
-          >
+          <input id="outModel22"
+                 type="text"
+                 placeholder="Model 22">
 
         </div>
 
@@ -522,9 +657,8 @@ th{
 
     <div class="form-actions">
 
-      <button
-        class="btn-red"
-        onclick="saveStock('OUT')">
+      <button class="btn-red"
+              onclick="saveStock('OUT')">
         Save Stock OUT
       </button>
 
@@ -533,7 +667,9 @@ th{
   </div>
 
 
-  <!-- STATISTICS -->
+  <!-- =========================
+       SUMMARY
+  ========================== -->
 
   <div class="card">
 
@@ -566,7 +702,9 @@ th{
   </div>
 
 
-  <!-- TRANSACTIONS -->
+  <!-- =========================
+       TRANSACTIONS
+  ========================== -->
 
   <div class="card">
 
@@ -579,7 +717,10 @@ th{
         <thead>
 
           <tr>
+
+            <th>ID</th>
             <th>Item</th>
+            <th>Category</th>
             <th>Type</th>
             <th>Quantity</th>
             <th>Unit</th>
@@ -589,6 +730,7 @@ th{
             <th>Expiry</th>
             <th>Model 19</th>
             <th>Model 22</th>
+
           </tr>
 
         </thead>
@@ -596,7 +738,7 @@ th{
         <tbody id="transactionBody">
 
           <tr>
-            <td colspan="10">
+            <td colspan="12">
               Loading...
             </td>
           </tr>
@@ -614,9 +756,9 @@ th{
 
 <script>
 
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
   "https://sslabegtsxlkafuygmar.supabase.co";
@@ -625,9 +767,9 @@ const SUPABASE_KEY =
   "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* =========================================================
-   LOGIN / BRANCH
-========================================================= */
+/* =====================================================
+   CURRENT USER / BRANCH
+===================================================== */
 
 let CURRENT_BRANCH_CODE =
   localStorage.getItem("selected_branch_code") || "";
@@ -645,9 +787,9 @@ let allItems = [];
 let allTransactions = [];
 
 
-/* =========================================================
+/* =====================================================
    HEADERS
-========================================================= */
+===================================================== */
 
 function getHeaders(){
 
@@ -656,40 +798,24 @@ function getHeaders(){
     SUPABASE_KEY;
 
   return {
-    "apikey": SUPABASE_KEY,
-    "Authorization": "Bearer " + token,
-    "Content-Type": "application/json"
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Authorization":
+      "Bearer " + token,
+
+    "Content-Type":
+      "application/json"
+
   };
 
 }
 
 
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showMessage(text,type="success"){
-
-  const box =
-    document.getElementById("message");
-
-  box.textContent = text;
-
-  box.className =
-    "message " + type;
-
-  box.style.display = "block";
-
-  setTimeout(()=>{
-    box.style.display = "none";
-  },5000);
-
-}
-
-
-/* =========================================================
-   LOGIN CHECK
-========================================================= */
+/* =====================================================
+   LOGIN
+===================================================== */
 
 function checkLogin(){
 
@@ -698,7 +824,9 @@ function checkLogin(){
     !== "true"
   ){
 
-    location.href = "index.html";
+    location.href =
+      "index.html";
+
     return false;
 
   }
@@ -708,72 +836,103 @@ function checkLogin(){
 }
 
 
-/* =========================================================
+/* =====================================================
    MAIN USER
-========================================================= */
+===================================================== */
 
 function isMainUser(){
 
-  return USER_ROLE.toLowerCase() === "main";
+  return USER_ROLE
+    .toLowerCase()
+    === "main";
 
 }
 
 
-/* =========================================================
-   BRANCH UUID RESOLVER
-   IMPORTANT:
-   Uses the SAME branch matching logic as items.html.
-========================================================= */
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+  text,
+  type="success"
+){
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+  box.textContent =
+    text;
+
+  box.className =
+    "message " + type;
+
+  box.style.display =
+    "block";
+
+  setTimeout(()=>{
+
+    box.style.display =
+      "none";
+
+  },5000);
+
+}
+
+
+/* =====================================================
+   RESOLVE BRANCH UUID
+===================================================== */
 
 async function resolveBranchUUID(){
 
   try{
 
-    /*
-      Always verify the branch from branches table.
-      This prevents stale/wrong selected_branch_uuid
-      from making the Item dropdown empty.
-    */
-
     const url =
       SUPABASE_URL +
       "/rest/v1/branches?select=*";
 
+
     const response =
-      await fetch(url,{
-        method:"GET",
-        headers:getHeaders()
-      });
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
+
 
     if(!response.ok){
 
-      const txt =
-        await response.text();
-
       console.error(
-        "Branch loading error:",
-        txt
+        "Branches error:",
+        await response.text()
       );
 
       return CURRENT_BRANCH_UUID;
 
     }
 
+
     const branches =
       await response.json();
 
 
-    let found = null;
+    let found =
+      null;
 
 
-    /* ---------- MATCH BY CODE ---------- */
+    /* MATCH CODE */
 
     if(CURRENT_BRANCH_CODE){
 
       found =
-        branches.find(b => {
+        branches.find(b=>{
 
-          const possibleCodes = [
+          const codes = [
 
             b.code,
             b.branch_code,
@@ -784,7 +943,8 @@ async function resolveBranchUUID(){
 
           ];
 
-          return possibleCodes.some(x =>
+          return codes.some(x=>
+
             String(x || "")
               .trim()
               .toLowerCase()
@@ -792,6 +952,7 @@ async function resolveBranchUUID(){
             String(CURRENT_BRANCH_CODE)
               .trim()
               .toLowerCase()
+
           );
 
         });
@@ -799,14 +960,17 @@ async function resolveBranchUUID(){
     }
 
 
-    /* ---------- MATCH BY NAME ---------- */
+    /* MATCH NAME */
 
-    if(!found && CURRENT_BRANCH_NAME){
+    if(
+      !found &&
+      CURRENT_BRANCH_NAME
+    ){
 
       found =
-        branches.find(b => {
+        branches.find(b=>{
 
-          const possibleNames = [
+          const names = [
 
             b.name,
             b.branch_name,
@@ -819,7 +983,8 @@ async function resolveBranchUUID(){
 
           ];
 
-          return possibleNames.some(x =>
+          return names.some(x=>
+
             String(x || "")
               .trim()
               .toLowerCase()
@@ -827,6 +992,7 @@ async function resolveBranchUUID(){
             String(CURRENT_BRANCH_NAME)
               .trim()
               .toLowerCase()
+
           );
 
         });
@@ -841,20 +1007,24 @@ async function resolveBranchUUID(){
         found.uuid ||
         found.branch_id;
 
+
       if(uuid){
 
         CURRENT_BRANCH_UUID =
           String(uuid);
+
 
         localStorage.setItem(
           "selected_branch_uuid",
           CURRENT_BRANCH_UUID
         );
 
+
         console.log(
-          "Correct Branch UUID:",
+          "Branch UUID:",
           CURRENT_BRANCH_UUID
         );
+
 
         return CURRENT_BRANCH_UUID;
 
@@ -863,31 +1033,13 @@ async function resolveBranchUUID(){
     }
 
 
-    /*
-      Main user does not need branch UUID.
-    */
+    return CURRENT_BRANCH_UUID;
 
-    if(isMainUser()){
-
-      return "";
-
-    }
-
+  }
+  catch(error){
 
     console.error(
-      "Branch UUID not found.",
-      {
-        code:CURRENT_BRANCH_CODE,
-        name:CURRENT_BRANCH_NAME
-      }
-    );
-
-    return "";
-
-  }catch(error){
-
-    console.error(
-      "resolveBranchUUID error:",
+      "Branch resolver:",
       error
     );
 
@@ -898,65 +1050,40 @@ async function resolveBranchUUID(){
 }
 
 
-/* =========================================================
+/* =====================================================
    LOAD ITEMS
-   THIS IS THE IMPORTANT DROPDOWN FIX.
-========================================================= */
+===================================================== */
 
 async function loadItems(){
 
   try{
 
     /*
-      For operational branches:
-      find the real UUID from branches table.
+      Always find current branch UUID.
     */
 
     if(!isMainUser()){
 
-      CURRENT_BRANCH_UUID =
-        await resolveBranchUUID();
+      await resolveBranchUUID();
 
     }
 
-
-    if(
-      !CURRENT_BRANCH_UUID &&
-      !isMainUser()
-    ){
-
-      console.error(
-        "Cannot load items: branch UUID missing."
-      );
-
-      fillItemLists([]);
-
-      showMessage(
-        "Branch UUID hin argamne. Item hin fe'amu.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    /*
-      Exact same fields used by items.html.
-    */
 
     let url =
       SUPABASE_URL +
       "/rest/v1/items" +
-      "?select=id,name,category,unit,branch_id";
+      "?select=id,name,category,unit,branch_id" +
+      "&order=name.asc";
 
 
     /*
-      Main can see all items.
-      Branch sees only its own items.
+      Branch isolation.
     */
 
-    if(!isMainUser()){
+    if(
+      !isMainUser() &&
+      CURRENT_BRANCH_UUID
+    ){
 
       url +=
         "&branch_id=eq." +
@@ -967,20 +1094,20 @@ async function loadItems(){
     }
 
 
-    url += "&order=name.asc";
-
-
     console.log(
-      "Loading Items URL:",
+      "ITEM QUERY:",
       url
     );
 
 
     const response =
-      await fetch(url,{
-        method:"GET",
-        headers:getHeaders()
-      });
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
 
 
     if(!response.ok){
@@ -989,14 +1116,15 @@ async function loadItems(){
         await response.text();
 
       console.error(
-        "Items loading error:",
+        "Items error:",
         errorText
       );
 
       fillItemLists([]);
 
       showMessage(
-        "Items fe'uun hin danda'amne.",
+        "Items loading error: " +
+        errorText,
         "error"
       );
 
@@ -1016,19 +1144,14 @@ async function loadItems(){
 
 
     console.log(
-      "Items loaded:",
-      allItems.length,
+      "ITEMS:",
       allItems
     );
 
 
-    /*
-      Fill BOTH:
-      Stock IN Item
-      Stock OUT Item
-    */
-
-    fillItemLists(allItems);
+    fillItemLists(
+      allItems
+    );
 
 
     document.getElementById(
@@ -1037,17 +1160,27 @@ async function loadItems(){
       allItems.length;
 
 
-  }catch(error){
+    if(allItems.length === 0){
+
+      showMessage(
+        "Items hin argamne.",
+        "error"
+      );
+
+    }
+
+  }
+  catch(error){
 
     console.error(
-      "loadItems error:",
+      "loadItems:",
       error
     );
 
     fillItemLists([]);
 
     showMessage(
-      "Rakkoo Item loading: " +
+      "Item loading error: " +
       error.message,
       "error"
     );
@@ -1057,29 +1190,25 @@ async function loadItems(){
 }
 
 
-/* =========================================================
+/* =====================================================
    FILL ITEM DROPDOWNS
-========================================================= */
+   ITEM + ID + CATEGORY + UNIT
+===================================================== */
 
-function fillItemLists(items = allItems){
+function fillItemLists(
+  items
+){
 
   const inSelect =
-    document.getElementById("inItem");
+    document.getElementById(
+      "inItem"
+    );
 
   const outSelect =
-    document.getElementById("outItem");
+    document.getElementById(
+      "outItem"
+    );
 
-
-  if(!inSelect || !outSelect){
-
-    return;
-
-  }
-
-
-  /*
-    Clear old options.
-  */
 
   inSelect.innerHTML =
     '<option value="">Select Item</option>';
@@ -1088,26 +1217,35 @@ function fillItemLists(items = allItems){
     '<option value="">Select Item</option>';
 
 
-  /*
-    Add every item to BOTH dropdowns.
-  */
+  items.forEach(item=>{
 
-  items.forEach(item => {
-
-    const itemId =
+    const id =
       item.id;
 
-    const itemName =
+
+    const name =
       item.name ||
       item.item_name ||
       item.item ||
       "";
 
 
+    const category =
+      item.category ||
+      "";
+
+
+    const unit =
+      item.unit ||
+      item.measurement ||
+      item.safartuu ||
+      "";
+
+
     if(
-      itemId === undefined ||
-      itemId === null ||
-      !itemName
+      id === null ||
+      id === undefined ||
+      !name
     ){
 
       return;
@@ -1115,28 +1253,51 @@ function fillItemLists(items = allItems){
     }
 
 
+    /*
+      Dropdown text:
+      ITEM NAME | ID | CATEGORY | UNIT
+    */
+
+    const text =
+      name +
+      " | ID: " +
+      id +
+      " | " +
+      category +
+      " | " +
+      unit;
+
+
+    /* IN */
+
     const optionIn =
-      document.createElement("option");
+      document.createElement(
+        "option"
+      );
 
     optionIn.value =
-      itemId;
+      String(id);
 
     optionIn.textContent =
-      itemName;
+      text;
 
     inSelect.appendChild(
       optionIn
     );
 
 
+    /* OUT */
+
     const optionOut =
-      document.createElement("option");
+      document.createElement(
+        "option"
+      );
 
     optionOut.value =
-      itemId;
+      String(id);
 
     optionOut.textContent =
-      itemName;
+      text;
 
     outSelect.appendChild(
       optionOut
@@ -1146,174 +1307,269 @@ function fillItemLists(items = allItems){
 
 
   console.log(
-    "IN dropdown:",
-    inSelect.options.length - 1,
-    "items"
+    "IN ITEMS:",
+    inSelect.options.length - 1
   );
 
   console.log(
-    "OUT dropdown:",
-    outSelect.options.length - 1,
-    "items"
+    "OUT ITEMS:",
+    outSelect.options.length - 1
   );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    FIND ITEM
-========================================================= */
+===================================================== */
 
 function findItem(id){
 
-  return allItems.find(item =>
-    String(item.id) === String(id)
+  return allItems.find(item=>
+
+    String(item.id)
+    ===
+    String(id)
+
   );
 
 }
 
 
-/* =========================================================
-   IN UNIT
-========================================================= */
+/* =====================================================
+   STOCK IN ITEM INFO
+===================================================== */
 
-function setInUnit(){
+function setInItemInfo(){
 
   const id =
     document.getElementById(
       "inItem"
     ).value;
 
+
   const item =
     findItem(id);
+
+
+  if(!item){
+
+    document.getElementById(
+      "inUnit"
+    ).value = "";
+
+    document.getElementById(
+      "inItemId"
+    ).textContent = "-";
+
+    document.getElementById(
+      "inItemName"
+    ).textContent = "-";
+
+    document.getElementById(
+      "inCategory"
+    ).textContent = "-";
+
+    document.getElementById(
+      "inInfoUnit"
+    ).textContent = "-";
+
+    return;
+
+  }
+
+
+  const unit =
+    item.unit ||
+    item.measurement ||
+    item.safartuu ||
+    "";
 
 
   document.getElementById(
     "inUnit"
   ).value =
-    item
-      ? (
-          item.unit ||
-          item.measurement ||
-          item.safartuu ||
-          ""
-        )
-      : "";
+    unit;
+
+
+  document.getElementById(
+    "inItemId"
+  ).textContent =
+    item.id;
+
+
+  document.getElementById(
+    "inItemName"
+  ).textContent =
+    item.name || "";
+
+
+  document.getElementById(
+    "inCategory"
+  ).textContent =
+    item.category || "";
+
+
+  document.getElementById(
+    "inInfoUnit"
+  ).textContent =
+    unit;
 
 }
 
 
-/* =========================================================
-   OUT UNIT
-========================================================= */
+/* =====================================================
+   STOCK OUT ITEM INFO
+===================================================== */
 
-function setOutUnit(){
+function setOutItemInfo(){
 
   const id =
     document.getElementById(
       "outItem"
     ).value;
 
+
   const item =
     findItem(id);
+
+
+  if(!item){
+
+    document.getElementById(
+      "outUnit"
+    ).value = "";
+
+    document.getElementById(
+      "outItemId"
+    ).textContent = "-";
+
+    document.getElementById(
+      "outItemName"
+    ).textContent = "-";
+
+    document.getElementById(
+      "outCategory"
+    ).textContent = "-";
+
+    document.getElementById(
+      "outInfoUnit"
+    ).textContent = "-";
+
+    return;
+
+  }
+
+
+  const unit =
+    item.unit ||
+    item.measurement ||
+    item.safartuu ||
+    "";
 
 
   document.getElementById(
     "outUnit"
   ).value =
-    item
-      ? (
-          item.unit ||
-          item.measurement ||
-          item.safartuu ||
-          ""
-        )
-      : "";
+    unit;
+
+
+  document.getElementById(
+    "outItemId"
+  ).textContent =
+    item.id;
+
+
+  document.getElementById(
+    "outItemName"
+  ).textContent =
+    item.name || "";
+
+
+  document.getElementById(
+    "outCategory"
+  ).textContent =
+    item.category || "";
+
+
+  document.getElementById(
+    "outInfoUnit"
+  ).textContent =
+    unit;
 
 }
 
 
-/* =========================================================
-   SHOW STOCK IN
-========================================================= */
+/* =====================================================
+   SHOW IN
+===================================================== */
 
 function showStockIn(){
 
   document.getElementById(
     "stockInCard"
-  ).classList.remove("hidden");
+  ).classList.remove(
+    "hidden"
+  );
 
   document.getElementById(
     "stockOutCard"
-  ).classList.add("hidden");
+  ).classList.add(
+    "hidden"
+  );
 
 }
 
 
-/* =========================================================
-   SHOW STOCK OUT
-========================================================= */
+/* =====================================================
+   SHOW OUT
+===================================================== */
 
 function showStockOut(){
 
   document.getElementById(
     "stockOutCard"
-  ).classList.remove("hidden");
+  ).classList.remove(
+    "hidden"
+  );
 
   document.getElementById(
     "stockInCard"
-  ).classList.add("hidden");
+  ).classList.add(
+    "hidden"
+  );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    SAVE STOCK
-   MODEL 19 / MODEL 22 PRESERVED.
-========================================================= */
+   MODEL 19 AND MODEL 22 PRESERVED
+===================================================== */
 
 async function saveStock(type){
 
   try{
 
-    if(!isMainUser() &&
-       !CURRENT_BRANCH_UUID){
+    if(!isMainUser()){
 
       await resolveBranchUUID();
 
     }
 
 
-    if(
-      !isMainUser() &&
-      !CURRENT_BRANCH_UUID
-    ){
-
-      showMessage(
-        "Branch hin argamne.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    let itemId;
-    let quantity;
-    let date;
+    let itemId = "";
+    let quantity = "";
+    let date = "";
     let enteredBy = "";
     let issuedBy = "";
     let expiryDate = null;
     let signature = "";
-    let unit = "";
     let model19 = null;
     let model22 = null;
 
 
-    /* =====================================================
-       STOCK IN
-    ===================================================== */
+    /* STOCK IN */
 
     if(type === "IN"){
 
@@ -1348,45 +1604,40 @@ async function saveStock(type){
         ).value.trim();
 
 
-      /* ---------- MODEL 19 ---------- */
-
-      const model19Type =
+      const modelType =
         document.getElementById(
           "model19Type"
         ).value;
 
-      const model19Value =
+
+      const modelValue =
         document.getElementById(
           "inModel19"
         ).value.trim();
 
 
-      if(model19Type === "number"){
+      if(
+        modelType === "number"
+      ){
 
         model19 =
-          model19Value || null;
+          modelValue || null;
 
       }
-      else if(model19Type === "verbal"){
+      else if(
+        modelType === "verbal"
+      ){
 
         model19 =
-          model19Value ||
+          modelValue ||
           "Verbal";
 
       }
-      else{
-
-        model19 = null;
-
-      }
-
 
     }
 
 
-    /* =====================================================
-       STOCK OUT
-    ===================================================== */
+    /* STOCK OUT */
 
     if(type === "OUT"){
 
@@ -1416,44 +1667,38 @@ async function saveStock(type){
         ).value.trim();
 
 
-      /* ---------- MODEL 22 ---------- */
-
-      const model22Type =
+      const modelType =
         document.getElementById(
           "model22Type"
         ).value;
 
-      const model22Value =
+
+      const modelValue =
         document.getElementById(
           "outModel22"
         ).value.trim();
 
 
-      if(model22Type === "number"){
+      if(
+        modelType === "number"
+      ){
 
         model22 =
-          model22Value || null;
+          modelValue || null;
 
       }
-      else if(model22Type === "verbal"){
+      else if(
+        modelType === "verbal"
+      ){
 
         model22 =
-          model22Value ||
+          modelValue ||
           "Verbal";
-
-      }
-      else{
-
-        model22 = null;
 
       }
 
     }
 
-
-    /* =====================================================
-       VALIDATION
-    ===================================================== */
 
     if(!itemId){
 
@@ -1468,7 +1713,7 @@ async function saveStock(type){
 
 
     if(
-      quantity === "" ||
+      !quantity ||
       Number(quantity) <= 0
     ){
 
@@ -1498,7 +1743,7 @@ async function saveStock(type){
     }
 
 
-    unit =
+    const unit =
       item.unit ||
       item.measurement ||
       item.safartuu ||
@@ -1507,14 +1752,8 @@ async function saveStock(type){
 
     const itemName =
       item.name ||
-      item.item_name ||
-      item.item ||
       "";
 
-
-    /* =====================================================
-       PAYLOAD
-    ===================================================== */
 
     const payload = {
 
@@ -1537,9 +1776,7 @@ async function saveStock(type){
         enteredBy || null,
 
       entered_at:
-        date
-          ? date
-          : null,
+        date || null,
 
       expiry_date:
         expiryDate,
@@ -1569,14 +1806,10 @@ async function saveStock(type){
 
 
     console.log(
-      "Saving transaction:",
+      "SAVE PAYLOAD:",
       payload
     );
 
-
-    /* =====================================================
-       INSERT
-    ===================================================== */
 
     const response =
       await fetch(
@@ -1587,28 +1820,30 @@ async function saveStock(type){
 
           headers:{
             ...getHeaders(),
-            "Prefer":"return=representation"
+            "Prefer":
+              "return=representation"
           },
 
           body:
-            JSON.stringify(payload)
+            JSON.stringify(
+              payload
+            )
         }
       );
 
 
     if(!response.ok){
 
-      const errorText =
+      const error =
         await response.text();
 
       console.error(
-        "Save error:",
-        errorText
+        error
       );
 
       showMessage(
-        "Save hin milko: " +
-        errorText,
+        "Save error: " +
+        error,
         "error"
       );
 
@@ -1625,96 +1860,19 @@ async function saveStock(type){
     );
 
 
-    /* =====================================================
-       RESET
-    ===================================================== */
-
-    if(type === "IN"){
-
-      document.getElementById(
-        "inQuantity"
-      ).value = "";
-
-      document.getElementById(
-        "inDate"
-      ).value = "";
-
-      document.getElementById(
-        "inEnteredBy"
-      ).value = "";
-
-      document.getElementById(
-        "inExpiry"
-      ).value = "";
-
-      document.getElementById(
-        "inSignature"
-      ).value = "";
-
-      document.getElementById(
-        "inModel19"
-      ).value = "";
-
-      document.getElementById(
-        "model19Type"
-      ).value = "none";
-
-      document.getElementById(
-        "inItem"
-      ).value = "";
-
-      setInUnit();
-
-    }
-
-
-    if(type === "OUT"){
-
-      document.getElementById(
-        "outQuantity"
-      ).value = "";
-
-      document.getElementById(
-        "outDate"
-      ).value = "";
-
-      document.getElementById(
-        "outIssuedBy"
-      ).value = "";
-
-      document.getElementById(
-        "outSignature"
-      ).value = "";
-
-      document.getElementById(
-        "outModel22"
-      ).value = "";
-
-      document.getElementById(
-        "model22Type"
-      ).value = "none";
-
-      document.getElementById(
-        "outItem"
-      ).value = "";
-
-      setOutUnit();
-
-    }
-
+    resetForm(type);
 
     await loadTransactions();
 
-
-  }catch(error){
+  }
+  catch(error){
 
     console.error(
-      "saveStock error:",
       error
     );
 
     showMessage(
-      "Rakkoo save: " +
+      "Save error: " +
       error.message,
       "error"
     );
@@ -1724,27 +1882,110 @@ async function saveStock(type){
 }
 
 
-/* =========================================================
+/* =====================================================
+   RESET FORM
+===================================================== */
+
+function resetForm(type){
+
+  if(type === "IN"){
+
+    document.getElementById(
+      "inItem"
+    ).value = "";
+
+    document.getElementById(
+      "inUnit"
+    ).value = "";
+
+    document.getElementById(
+      "inQuantity"
+    ).value = "";
+
+    document.getElementById(
+      "inDate"
+    ).value = "";
+
+    document.getElementById(
+      "inEnteredBy"
+    ).value = "";
+
+    document.getElementById(
+      "inExpiry"
+    ).value = "";
+
+    document.getElementById(
+      "inSignature"
+    ).value = "";
+
+    document.getElementById(
+      "inModel19"
+    ).value = "";
+
+    document.getElementById(
+      "model19Type"
+    ).value = "none";
+
+    setInItemInfo();
+
+  }
+
+
+  if(type === "OUT"){
+
+    document.getElementById(
+      "outItem"
+    ).value = "";
+
+    document.getElementById(
+      "outUnit"
+    ).value = "";
+
+    document.getElementById(
+      "outQuantity"
+    ).value = "";
+
+    document.getElementById(
+      "outDate"
+    ).value = "";
+
+    document.getElementById(
+      "outIssuedBy"
+    ).value = "";
+
+    document.getElementById(
+      "outSignature"
+    ).value = "";
+
+    document.getElementById(
+      "outModel22"
+    ).value = "";
+
+    document.getElementById(
+      "model22Type"
+    ).value = "none";
+
+    setOutItemInfo();
+
+  }
+
+}
+
+
+/* =====================================================
    LOAD TRANSACTIONS
-========================================================= */
+===================================================== */
 
 async function loadTransactions(){
 
   try{
 
-    if(!isMainUser()){
+    if(
+      !isMainUser() &&
+      !CURRENT_BRANCH_UUID
+    ){
 
-      if(!CURRENT_BRANCH_UUID){
-
-        await resolveBranchUUID();
-
-      }
-
-      if(!CURRENT_BRANCH_UUID){
-
-        return;
-
-      }
+      await resolveBranchUUID();
 
     }
 
@@ -1771,20 +2012,19 @@ async function loadTransactions(){
 
 
     const response =
-      await fetch(url,{
-        method:"GET",
-        headers:getHeaders()
-      });
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
 
 
     if(!response.ok){
 
-      const text =
-        await response.text();
-
       console.error(
-        "Transaction loading error:",
-        text
+        await response.text()
       );
 
       return;
@@ -1800,11 +2040,10 @@ async function loadTransactions(){
       allTransactions
     );
 
-
-  }catch(error){
+  }
+  catch(error){
 
     console.error(
-      "loadTransactions error:",
       error
     );
 
@@ -1813,9 +2052,9 @@ async function loadTransactions(){
 }
 
 
-/* =========================================================
+/* =====================================================
    RENDER TRANSACTIONS
-========================================================= */
+===================================================== */
 
 function renderTransactions(data){
 
@@ -1831,7 +2070,11 @@ function renderTransactions(data){
   if(!data.length){
 
     body.innerHTML =
-      '<tr><td colspan="10">No transactions found.</td></tr>';
+      `<tr>
+        <td colspan="12">
+          No transactions found.
+        </td>
+      </tr>`;
 
     updateSummary([]);
 
@@ -1840,69 +2083,91 @@ function renderTransactions(data){
   }
 
 
-  data.slice(0,50).forEach(row => {
+  data.slice(0,50)
+    .forEach(row=>{
 
-    const tr =
-      document.createElement("tr");
-
-
-    const item =
-      findItem(row.item_id);
-
-
-    const itemName =
-      item?.name ||
-      row.transaction ||
-      row.item_name ||
-      "";
+      const item =
+        findItem(
+          row.item_id
+        );
 
 
-    tr.innerHTML = `
-
-      <td>${escapeHtml(itemName)}</td>
-
-      <td>${escapeHtml(
-        row.transaction_type || ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.quantity ?? ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.unit || ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.entered_at || ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.entered_by || ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.issued_by || ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.expiry_date || ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.model_19 || ""
-      )}</td>
-
-      <td>${escapeHtml(
-        row.model_22 || ""
-      )}</td>
-
-    `;
+      const itemName =
+        item?.name ||
+        row.transaction ||
+        "";
 
 
-    body.appendChild(tr);
+      const category =
+        item?.category ||
+        row.category ||
+        "";
 
-  });
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+      tr.innerHTML = `
+
+        <td>${escapeHtml(
+          row.item_id || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          itemName
+        )}</td>
+
+        <td>${escapeHtml(
+          category
+        )}</td>
+
+        <td>${escapeHtml(
+          row.transaction_type || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.quantity ?? ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.unit || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.entered_at || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.entered_by || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.issued_by || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.expiry_date || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.model_19 || ""
+        )}</td>
+
+        <td>${escapeHtml(
+          row.model_22 || ""
+        )}</td>
+
+      `;
+
+
+      body.appendChild(
+        tr
+      );
+
+    });
 
 
   updateSummary(data);
@@ -1910,9 +2175,9 @@ function renderTransactions(data){
 }
 
 
-/* =========================================================
+/* =====================================================
    SUMMARY
-========================================================= */
+===================================================== */
 
 function updateSummary(data){
 
@@ -1920,15 +2185,18 @@ function updateSummary(data){
   let totalOut = 0;
 
 
-  data.forEach(row => {
+  data.forEach(row=>{
 
     const qty =
-      Number(row.quantity) || 0;
+      Number(
+        row.quantity
+      ) || 0;
 
 
     if(
       String(
-        row.transaction_type || ""
+        row.transaction_type
+        || ""
       ).toUpperCase()
       === "IN"
     ){
@@ -1940,7 +2208,8 @@ function updateSummary(data){
 
     if(
       String(
-        row.transaction_type || ""
+        row.transaction_type
+        || ""
       ).toUpperCase()
       === "OUT"
     ){
@@ -1972,25 +2241,40 @@ function updateSummary(data){
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* =====================================================
+   ESCAPE
+===================================================== */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(
+    value ?? ""
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* =====================================================
+   REFRESH ALL
+===================================================== */
+
+async function refreshAll(){
+
+  await loadItems();
+
+  await loadTransactions();
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -2008,10 +2292,12 @@ document.addEventListener(
         "selected_branch_code"
       ) || "";
 
+
     CURRENT_BRANCH_NAME =
       localStorage.getItem(
         "selected_branch_name"
       ) || "";
+
 
     USER_ROLE =
       localStorage.getItem(
@@ -2027,25 +2313,10 @@ document.addEventListener(
       "Main";
 
 
-    /*
-      Default view = Stock IN
-    */
-
     showStockIn();
 
 
-    /*
-      IMPORTANT:
-      First resolve branch,
-      then load items.
-    */
-
-    if(!isMainUser()){
-
-      await resolveBranchUUID();
-
-    }
-
+    await resolveBranchUUID();
 
     await loadItems();
 
