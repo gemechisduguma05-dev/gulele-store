@@ -2,217 +2,264 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Login</title>
 
 <style>
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  min-height:100vh;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#3b2417,#6f4e37,#c8a27a);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  color:#3b2417;
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:
+        linear-gradient(
+            rgba(62,39,35,.82),
+            rgba(78,52,46,.88)
+        ),
+        url("./1788633150526.jpg") center/cover no-repeat fixed;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
-.login-wrapper{
-  width:100%;
-  max-width:460px;
+
+/* ================= LOGIN CONTAINER ================= */
+
+.login-container{
+    width:100%;
+    max-width:440px;
 }
+
+
+/* ================= CARD ================= */
+
+.login-card{
+    background:rgba(255,255,255,.97);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.35);
+
+    text-align:center;
+}
+
+
+/* ================= LOGO ================= */
 
 .logo-box{
-  text-align:center;
-  color:white;
-  margin-bottom:20px;
+    width:105px;
+    height:105px;
+    margin:0 auto 15px;
+
+    border-radius:50%;
+    overflow:hidden;
+
+    background:white;
+
+    border:5px solid #795548;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.20);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .logo{
-  width:78px;
-  height:78px;
-  margin:auto;
-  border-radius:50%;
-  background:#f5e6d3;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:38px;
-  box-shadow:0 8px 25px rgba(0,0,0,.25);
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
-.logo-box h1{
-  margin:14px 0 5px;
-  font-size:27px;
+
+/* ================= TITLE ================= */
+
+h1{
+    margin:5px 0 5px;
+    color:#4e342e;
+    font-size:25px;
 }
 
-.logo-box p{
-  margin:0;
-  font-size:14px;
-  opacity:.9;
+.subtitle{
+    color:#795548;
+    font-size:14px;
+    margin-bottom:25px;
 }
 
-.card{
-  background:#fffaf5;
-  border-radius:20px;
-  padding:28px;
-  box-shadow:0 12px 35px rgba(0,0,0,.28);
-}
 
-.title{
-  text-align:center;
-  color:#5b3926;
-  font-size:24px;
-  font-weight:bold;
-  margin-bottom:24px;
-}
-
-.form-group{
-  margin-bottom:18px;
-}
+/* ================= LABEL ================= */
 
 label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:8px;
-  color:#4b2e1e;
+    display:block;
+    text-align:left;
+    font-size:14px;
+    font-weight:bold;
+    color:#4e342e;
+    margin-bottom:7px;
 }
+
+
+/* ================= INPUT ================= */
 
 select,
 input{
-  width:100%;
-  padding:14px 15px;
-  border:1px solid #d6c2ad;
-  border-radius:11px;
-  font-size:16px;
-  background:white;
-  color:#3b2417;
+    width:100%;
+    padding:13px 14px;
+
+    border:1px solid #d7ccc8;
+    border-radius:9px;
+
+    background:#fff;
+
+    font-size:15px;
+
+    outline:none;
+
+    margin-bottom:16px;
 }
 
 select:focus,
 input:focus{
-  outline:none;
-  border-color:#795548;
-  box-shadow:0 0 0 3px rgba(121,85,72,.12);
+    border-color:#795548;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(121,85,72,.12);
 }
 
+
+/* ================= BUTTON ================= */
+
+button{
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+    border-radius:9px;
+
+    font-size:15px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-1px);
+}
+
+
+/* LOGIN */
+
 .login-btn{
-  width:100%;
-  border:0;
-  border-radius:11px;
-  padding:15px;
-  background:#6f4e37;
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:5px;
+    background:#6d4c41;
+    color:white;
+
+    margin-top:3px;
 }
 
 .login-btn:hover{
-  background:#4e342e;
+    background:#5d4037;
 }
 
-.login-btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+
+/* MAIN */
+
+.main-btn{
+    background:#efebe9;
+    color:#4e342e;
+
+    margin-top:10px;
 }
+
+.main-btn:hover{
+    background:#d7ccc8;
+}
+
+
+/* ================= MESSAGE ================= */
 
 .message{
-  display:none;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:18px;
-  font-weight:bold;
-  line-height:1.5;
-  white-space:pre-wrap;
-  word-break:break-word;
+    display:none;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    font-size:14px;
+    font-weight:bold;
+
+    word-break:break-word;
 }
 
-.message.show{
-  display:block;
+.message.error{
+    display:block;
+
+    background:#ffebee;
+    color:#c62828;
 }
 
-.error{
-  background:#fee2e2;
-  color:#991b1b;
+.message.success{
+    display:block;
+
+    background:#e8f5e9;
+    color:#2e7d32;
 }
 
-.success{
-  background:#dcfce7;
-  color:#166534;
-}
 
-.branch-info{
-  display:none;
-  background:#f3e8dc;
-  border:1px solid #d6c2ad;
-  border-radius:10px;
-  padding:13px;
-  margin-top:-5px;
-  margin-bottom:18px;
-  color:#5b3926;
-  font-weight:bold;
-  line-height:1.5;
-}
-
-.branch-info.show{
-  display:block;
-}
+/* ================= FOOTER ================= */
 
 .footer{
-  text-align:center;
-  margin-top:20px;
-  color:#eadbc9;
-  font-size:13px;
+    margin-top:20px;
+
+    color:#8d6e63;
+
+    font-size:12px;
 }
 
-.loading{
-  text-align:center;
-  color:#795548;
-  padding:10px;
-}
 
-@media(max-width:600px){
+/* ================= MOBILE ================= */
 
-  body{
-    padding:14px;
-  }
+@media(max-width:500px){
 
-  .card{
-    padding:22px 18px;
-    border-radius:17px;
-  }
+    body{
+        padding:14px;
+    }
 
-  .logo{
-    width:68px;
-    height:68px;
-    font-size:32px;
-  }
+    .login-card{
+        padding:23px 18px;
+        border-radius:16px;
+    }
 
-  .logo-box h1{
-    font-size:23px;
-  }
+    .logo-box{
+        width:90px;
+        height:90px;
+    }
 
-  .title{
-    font-size:21px;
-  }
+    h1{
+        font-size:21px;
+    }
 
-}
-
-@media(min-width:900px){
-
-  .login-wrapper{
-    max-width:480px;
-  }
+    .subtitle{
+        font-size:13px;
+    }
 
 }
 
@@ -224,121 +271,114 @@ input:focus{
 <body>
 
 
-<div class="login-wrapper">
+<div class="login-container">
+
+    <div class="login-card">
 
 
-  <div class="logo-box">
+        <!-- ================= LOGO ================= -->
 
-    <div class="logo">
-      ☕
+        <div class="logo-box">
+
+            <img
+                src="./1788633150526.jpg"
+                class="logo"
+                alt="AAFDRMC Profile">
+
+        </div>
+
+
+        <!-- ================= TITLE ================= -->
+
+        <h1>
+            AAFDRMC
+        </h1>
+
+        <div class="subtitle">
+            Stock Management System
+        </div>
+
+
+        <!-- ================= BRANCH ================= -->
+
+        <label for="branch">
+            Select Branch
+        </label>
+
+        <select id="branch">
+
+            <option value="">
+                -- Select Branch --
+            </option>
+
+        </select>
+
+
+        <!-- ================= USER ================= -->
+
+        <label for="username">
+            Email or Branch Code
+        </label>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Email ykn Branch Code"
+            autocomplete="username">
+
+
+        <!-- ================= PASSWORD ================= -->
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password">
+
+
+        <!-- ================= LOGIN ================= -->
+
+        <button
+            class="login-btn"
+            id="loginButton"
+            onclick="login()">
+
+            Login
+
+        </button>
+
+
+        <!-- ================= MAIN ================= -->
+
+        <button
+            class="main-btn"
+            onclick="goMain()">
+
+            Main Dashboard
+
+        </button>
+
+
+        <!-- ================= MESSAGE ================= -->
+
+        <div
+            id="message"
+            class="message">
+        </div>
+
+
+        <div class="footer">
+            AAFDRMC Stock Management System
+        </div>
+
     </div>
-
-    <h1>
-      AAFDRMC
-    </h1>
-
-    <p>
-      STOCK MANAGEMENT SYSTEM
-    </p>
-
-  </div>
-
-
-  <div class="card">
-
-
-    <div class="title">
-      🔐 Login
-    </div>
-
-
-    <div
-      id="message"
-      class="message">
-    </div>
-
-
-    <!-- BRANCH -->
-
-    <div class="form-group">
-
-      <label>
-        🏢 Select Branch
-      </label>
-
-      <select id="branchSelect">
-
-        <option value="">
-          ⏳ Loading Branches...
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div
-      id="branchInfo"
-      class="branch-info">
-    </div>
-
-
-    <!-- EMAIL / CODE -->
-
-    <div class="form-group">
-
-      <label>
-        👤 Email or Code
-      </label>
-
-      <input
-        id="loginUser"
-        type="text"
-        placeholder="Email ykn Code galchi"
-        autocomplete="username">
-
-    </div>
-
-
-    <!-- PASSWORD -->
-
-    <div class="form-group">
-
-      <label>
-        🔑 Password
-      </label>
-
-      <input
-        id="password"
-        type="password"
-        placeholder="Password galchi"
-        autocomplete="current-password">
-
-    </div>
-
-
-    <button
-      id="loginButton"
-      class="login-btn"
-      type="button"
-      onclick="login()">
-
-      🔐 Login
-
-    </button>
-
-
-  </div>
-
-
-  <div class="footer">
-
-    AAFDRMC © Stock Management System
-
-  </div>
-
 
 </div>
+
 
 
 <script>
@@ -348,127 +388,97 @@ input:focus{
 ===================================================== */
 
 const SUPABASE_URL =
-"https://sslabegtsxlkafuygmar.supabase.co";
+    "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+    "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
 /* =====================================================
-   BRANCH LIST
+   FIXED BRANCH LIST
 ===================================================== */
 
 const BRANCHES = [
 
-  {
-    name:"Main",
-    code:"MAIN"
-  },
+    {
+        id:"MAIN",
+        name:"Main",
+        code:"MAIN"
+    },
 
-  {
-    name:"Gulele",
-    code:"GUL"
-  },
+    {
+        id:"GUL",
+        name:"Gulele",
+        code:"GUL"
+    },
 
-  {
-    name:"Addis Katama",
-    code:"AKT"
-  },
+    {
+        id:"AKT",
+        name:"Addis Katama",
+        code:"AKT"
+    },
 
-  {
-    name:"Kolfee",
-    code:"KLF"
-  },
+    {
+        id:"KLF",
+        name:"Kolfee",
+        code:"KLF"
+    },
 
-  {
-    name:"Nifas Silk Lafto",
-    code:"NSL"
-  },
+    {
+        id:"NSL",
+        name:"Nifas Silk Lafto",
+        code:"NSL"
+    },
 
-  {
-    name:"Kirkos",
-    code:"KIR"
-  },
+    {
+        id:"KIR",
+        name:"Kirkos",
+        code:"KIR"
+    },
 
-  {
-    name:"Lami Kura",
-    code:"LAM"
-  },
+    {
+        id:"LAM",
+        name:"Lami Kura",
+        code:"LAM"
+    },
 
-  {
-    name:"Arada",
-    code:"ARA"
-  },
+    {
+        id:"ARA",
+        name:"Arada",
+        code:"ARA"
+    },
 
-  {
-    name:"Lideta",
-    code:"LID"
-  },
+    {
+        id:"LID",
+        name:"Lideta",
+        code:"LID"
+    },
 
-  {
-    name:"Bole",
-    code:"BOL"
-  },
+    {
+        id:"BOL",
+        name:"Bole",
+        code:"BOL"
+    },
 
-  {
-    name:"Ekaa",
-    code:"EKA"
-  },
+    {
+        id:"EKA",
+        name:"Ekaa",
+        code:"EKA"
+    },
 
-  {
-    name:"Akaki Kality",
-    code:"AKA"
-  },
+    {
+        id:"AKA",
+        name:"Akaki Kality",
+        code:"AKA"
+    },
 
-  {
-    name:"Center",
-    code:"CTR"
-  }
+    {
+        id:"CTR",
+        name:"Center",
+        code:"CTR"
+    }
 
 ];
-
-
-/* =====================================================
-   HEADERS
-===================================================== */
-
-function getHeaders(){
-
-  return {
-
-    "apikey":
-      SUPABASE_KEY,
-
-    "Authorization":
-      "Bearer " + SUPABASE_KEY,
-
-    "Content-Type":
-      "application/json",
-
-    "Accept":
-      "application/json"
-
-  };
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(text,type){
-
-  const box =
-    document.getElementById("message");
-
-  box.textContent =
-    text;
-
-  box.className =
-    "message show " + type;
-
-}
 
 
 /* =====================================================
@@ -477,108 +487,177 @@ function showMessage(text,type){
 
 function loadBranches(){
 
-  const select =
-    document.getElementById("branchSelect");
+    const select =
+        document.getElementById("branch");
 
 
-  select.innerHTML =
-    '<option value="">-- Branch filadhu --</option>';
+    select.innerHTML = `
+        <option value="">
+            -- Select Branch --
+        </option>
+    `;
 
 
-  BRANCHES.forEach(function(branch){
+    BRANCHES.forEach(
+        branch => {
 
-    const option =
-      document.createElement("option");
+            const option =
+                document.createElement("option");
 
-    option.value =
-      branch.name;
 
-    option.textContent =
-      "🏢 " + branch.name;
+            option.value =
+                branch.id;
 
-    option.dataset.code =
-      branch.code;
 
-    select.appendChild(option);
+            option.textContent =
+                branch.name +
+                " (" +
+                branch.code +
+                ")";
 
-  });
+
+            option.dataset.name =
+                branch.name;
+
+
+            option.dataset.code =
+                branch.code;
+
+
+            select.appendChild(option);
+
+        }
+    );
 
 }
 
 
 /* =====================================================
-   BRANCH CHANGE
+   BRANCH SELECT
 ===================================================== */
 
 document
-.getElementById("branchSelect")
-.addEventListener(
-  "change",
-  function(){
+    .getElementById("branch")
+    .addEventListener(
+        "change",
+        function(){
+
+            const option =
+                this.options[
+                    this.selectedIndex
+                ];
+
+
+            if(
+                !option ||
+                !option.value
+            ){
+                return;
+            }
+
+
+            localStorage.setItem(
+                "selected_branch_name",
+                option.dataset.name
+            );
+
+
+            localStorage.setItem(
+                "selected_branch_code",
+                option.dataset.code
+            );
+
+
+            /*
+               Main ID = MAIN
+               Operational branches
+               use their codes until
+               real database ID is known.
+            */
+
+            localStorage.setItem(
+                "selected_branch_id",
+                option.value
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message " + type;
+
+}
+
+
+/* =====================================================
+   SAVE BRANCH
+===================================================== */
+
+function saveSelectedBranch(){
+
+    const select =
+        document.getElementById(
+            "branch"
+        );
+
 
     const option =
-      this.options[this.selectedIndex];
-
-    const name =
-      this.value;
-
-    const code =
-      option.dataset.code || "";
-
-    const info =
-      document.getElementById("branchInfo");
+        select.options[
+            select.selectedIndex
+        ];
 
 
-    if(!name){
+    if(
+        !option ||
+        !option.value
+    ){
 
-      info.className =
-        "branch-info";
-
-      info.textContent =
-        "";
-
-      return;
+        return false;
 
     }
 
 
-    info.className =
-      "branch-info show";
+    localStorage.setItem(
+        "selected_branch_id",
+        option.value
+    );
 
-    info.textContent =
-      "🏢 Branch: " +
-      name +
-      "\n🔢 Code: " +
-      code;
-
-
-    /*
-    SAVE BRANCH
-    */
 
     localStorage.setItem(
-      "selected_branch_name",
-      name
+        "selected_branch_name",
+        option.dataset.name
     );
+
 
     localStorage.setItem(
-      "selected_branch_code",
-      code
+        "selected_branch_code",
+        option.dataset.code
     );
 
 
-    /*
-    Old ID haqi.
-    ID dhugaa database irraa
-    booda arganna.
-    */
+    return true;
 
-    localStorage.removeItem(
-      "selected_branch_id"
-    );
-
-  }
-);
+}
 
 
 /* =====================================================
@@ -587,312 +666,385 @@ document
 
 async function login(){
 
-  const branchSelect =
-    document.getElementById(
-      "branchSelect"
-    );
-
-  const username =
-    document.getElementById(
-      "loginUser"
-    ).value.trim();
-
-  const password =
-    document.getElementById(
-      "password"
-    ).value;
-
-  const button =
-    document.getElementById(
-      "loginButton"
-    );
+    const select =
+        document.getElementById(
+            "branch"
+        );
 
 
-  const branchName =
-    branchSelect.value;
+    const username =
+        document
+            .getElementById(
+                "username"
+            )
+            .value
+            .trim();
 
 
-  const option =
-    branchSelect.options[
-      branchSelect.selectedIndex
-    ];
+    const password =
+        document
+            .getElementById(
+                "password"
+            )
+            .value;
 
 
-  const branchCode =
-    option
-    ? (option.dataset.code || "")
-    : "";
+    /* ================= VALIDATION ================= */
+
+    if(!select.value){
+
+        showMessage(
+            "Mee Branch filadhu.",
+            "error"
+        );
+
+        return;
+
+    }
 
 
-  /* ===================================================
-     VALIDATION
-  =================================================== */
+    if(!username){
 
-  if(!branchName){
+        showMessage(
+            "Email ykn Branch Code galchi.",
+            "error"
+        );
 
-    showMessage(
-      "❌ Mee Branch filadhu.",
-      "error"
-    );
+        return;
 
-    return;
-
-  }
+    }
 
 
-  if(!username){
+    if(!password){
 
-    showMessage(
-      "❌ Email ykn Code galchi.",
-      "error"
-    );
+        showMessage(
+            "Password galchi.",
+            "error"
+        );
 
-    return;
+        return;
 
-  }
-
-
-  if(!password){
-
-    showMessage(
-      "❌ Password galchi.",
-      "error"
-    );
-
-    return;
-
-  }
+    }
 
 
-  button.disabled =
-    true;
+    if(
+        !saveSelectedBranch()
+    ){
 
-  button.textContent =
-    "⏳ Login...";
+        showMessage(
+            "Branch filachuun hin milkoofne.",
+            "error"
+        );
 
+        return;
 
-  /*
-  SAVE BRANCH
-  */
-
-  localStorage.setItem(
-    "selected_branch_name",
-    branchName
-  );
-
-  localStorage.setItem(
-    "selected_branch_code",
-    branchCode
-  );
+    }
 
 
-  try{
+    const selectedBranch =
+        BRANCHES.find(
+            b =>
+                b.id === select.value
+        );
 
-    /* ===============================================
-       SUPABASE AUTH LOGIN
-    =============================================== */
 
-    const response =
-      await fetch(
+    if(!selectedBranch){
 
-        SUPABASE_URL +
-        "/auth/v1/token?grant_type=password",
+        showMessage(
+            "Branch hin argamne.",
+            "error"
+        );
 
-        {
+        return;
 
-          method:"POST",
+    }
 
-          headers:{
 
-            "apikey":
-              SUPABASE_KEY,
+    const loginButton =
+        document.getElementById(
+            "loginButton"
+        );
 
-            "Content-Type":
-              "application/json"
 
-          },
+    loginButton.disabled =
+        true;
 
-          body:
-            JSON.stringify({
 
-              email:
-                username,
+    loginButton.textContent =
+        "Logging in...";
 
-              password:
-                password
 
-            })
+    /* =================================================
+       MAIN LOGIN
+    ================================================= */
+
+    if(
+        selectedBranch.id === "MAIN"
+    ){
+
+        /*
+           Main dashboard access.
+           Password must not be empty.
+        */
+
+        localStorage.setItem(
+            "is_logged_in",
+            "true"
+        );
+
+
+        localStorage.setItem(
+            "user_role",
+            "main"
+        );
+
+
+        localStorage.setItem(
+            "login_user",
+            username
+        );
+
+
+        window.location.href =
+            "dashboard.html";
+
+
+        return;
+
+    }
+
+
+    /* =================================================
+       BRANCH CODE LOGIN
+    ================================================= */
+
+    if(
+        username.toUpperCase()
+        ===
+        selectedBranch.code
+    ){
+
+        /*
+           Branch code login.
+           Password required.
+        */
+
+        localStorage.setItem(
+            "is_logged_in",
+            "true"
+        );
+
+
+        localStorage.setItem(
+            "user_role",
+            "branch"
+        );
+
+
+        localStorage.setItem(
+            "login_user",
+            username
+        );
+
+
+        window.location.href =
+            "dashboard.html";
+
+
+        return;
+
+    }
+
+
+    /* =================================================
+       EMAIL LOGIN - SUPABASE AUTH
+    ================================================= */
+
+    try{
+
+        const response =
+            await fetch(
+
+                SUPABASE_URL +
+                "/auth/v1/token?grant_type=password",
+
+                {
+                    method:"POST",
+
+                    headers:{
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            email:username,
+
+                            password:password
+
+                        })
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.error_description ||
+                data.msg ||
+                data.message ||
+                "Login failed"
+            );
 
         }
 
-      );
+
+        /* ================= SESSION ================= */
+
+        localStorage.setItem(
+            "access_token",
+            data.access_token || ""
+        );
 
 
-    const data =
-      await response.json();
+        localStorage.setItem(
+            "refresh_token",
+            data.refresh_token || ""
+        );
 
 
-    if(!response.ok){
+        localStorage.setItem(
+            "is_logged_in",
+            "true"
+        );
 
-      showMessage(
 
-        "❌ Login hin milkoofne.\n\n" +
-        (
-          data.error_description ||
-          data.msg ||
-          "Email ykn password sirrii miti."
-        ),
+        localStorage.setItem(
+            "user_role",
+            "branch"
+        );
 
-        "error"
 
-      );
+        localStorage.setItem(
+            "login_user",
+            username
+        );
 
-      return;
+
+        window.location.href =
+            "dashboard.html";
+
 
     }
+    catch(error){
+
+        console.error(error);
 
 
-    /* ===============================================
-       SAVE AUTH
-    =============================================== */
-
-    if(data.access_token){
-
-      localStorage.setItem(
-        "access_token",
-        data.access_token
-      );
-
-    }
+        showMessage(
+            "Login hin milkoofne: " +
+            error.message,
+            "error"
+        );
 
 
-    if(data.refresh_token){
+        loginButton.disabled =
+            false;
 
-      localStorage.setItem(
-        "refresh_token",
-        data.refresh_token
-      );
+
+        loginButton.textContent =
+            "Login";
 
     }
-
-
-    localStorage.setItem(
-      "is_logged_in",
-      "true"
-    );
-
-
-    localStorage.setItem(
-      "login_user",
-      username
-    );
-
-
-    localStorage.setItem(
-      "user_role",
-      branchName === "Main"
-        ? "main"
-        : "branch"
-    );
-
-
-    /* ===============================================
-       SUCCESS
-    =============================================== */
-
-    showMessage(
-
-      "✅ Login milkaa'e.\n\n" +
-      "🏢 Branch: " +
-      branchName +
-      "\n\n" +
-      "Dashboard banamaa jira...",
-
-      "success"
-
-    );
-
-
-    setTimeout(function(){
-
-      window.location.href =
-        "dashboard.html";
-
-    },700);
-
-
-  }
-  catch(error){
-
-    console.error(
-      "LOGIN ERROR:",
-      error
-    );
-
-
-    showMessage(
-
-      "❌ Network error.\n\n" +
-      error.message,
-
-      "error"
-
-    );
-
-  }
-  finally{
-
-    button.disabled =
-      false;
-
-    button.textContent =
-      "🔐 Login";
-
-  }
 
 }
+
+
+/* =====================================================
+   MAIN DASHBOARD
+===================================================== */
+
+function goMain(){
+
+    localStorage.setItem(
+        "selected_branch_id",
+        "MAIN"
+    );
+
+
+    localStorage.setItem(
+        "selected_branch_name",
+        "Main"
+    );
+
+
+    localStorage.setItem(
+        "selected_branch_code",
+        "MAIN"
+    );
+
+
+    localStorage.setItem(
+        "is_logged_in",
+        "true"
+    );
+
+
+    localStorage.setItem(
+        "user_role",
+        "main"
+    );
+
+
+    localStorage.setItem(
+        "login_user",
+        "MAIN"
+    );
+
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+/* =====================================================
+   ENTER KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter"
+        ){
+
+            login();
+
+        }
+
+    }
+);
 
 
 /* =====================================================
    START
 ===================================================== */
 
-window.addEventListener(
-  "DOMContentLoaded",
-  function(){
-
-    loadBranches();
-
-    /*
-    Previous branch yoo jiraate
-    deebisee filadhu.
-    */
-
-    const oldBranch =
-      localStorage.getItem(
-        "selected_branch_name"
-      );
-
-    if(oldBranch){
-
-      const select =
-        document.getElementById(
-          "branchSelect"
-        );
-
-      select.value =
-        oldBranch;
-
-      select.dispatchEvent(
-        new Event("change")
-      );
-
-    }
-
-  }
-);
+loadBranches();
 
 </script>
 
 </body>
+
 </html>
