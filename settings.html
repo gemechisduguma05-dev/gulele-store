@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC - Settings</title>
-
-<style>
-*{box-sizing:border-box}
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Settings</title><style>
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -23,8 +20,13 @@ header{
   text-align:center;
 }
 
-header h1{margin:0}
-header p{margin:6px 0 0}
+header h1{
+  margin:0;
+}
+
+header p{
+  margin:6px 0 0;
+}
 
 nav{
   background:white;
@@ -45,7 +47,9 @@ nav a{
   font-weight:bold;
 }
 
-nav a:hover{background:#d8c7ba}
+nav a:hover{
+  background:#d8c7ba;
+}
 
 .container{
   width:95%;
@@ -92,15 +96,12 @@ nav a:hover{background:#d8c7ba}
   color:#5b341f;
 }
 
-.value{font-size:16px}
+.value{
+  font-size:16px;
+}
 
 .access-full{
   color:#166534;
-  font-weight:bold;
-}
-
-.access-view{
-  color:#1d4ed8;
   font-weight:bold;
 }
 
@@ -226,244 +227,401 @@ button{
   margin-bottom:18px;
 }
 
-@media(max-width:600px){
-  header{padding:15px}
-  header h1{font-size:22px}
-  nav a{padding:9px 11px;font-size:13px}
-  .container{width:97%;margin:15px auto}
-  .box{padding:15px}
+.back-button{
+  display:inline-block;
+  background:#475569;
+  color:white;
+  text-decoration:none;
+  padding:11px 18px;
+  border-radius:7px;
+  font-weight:bold;
 }
-</style>
-</head>
 
-<body>
+@media(max-width:600px){
 
-<header>
+  header{
+    padding:15px;
+  }
+
+  header h1{
+    font-size:22px;
+  }
+
+  nav a{
+    padding:9px 11px;
+    font-size:13px;
+  }
+
+  .container{
+    width:97%;
+    margin:15px auto;
+  }
+
+  .box{
+    padding:15px;
+  }
+}
+</style></head><body><header>
   <h1>🏢 AAFDRMC</h1>
   <p>Stock Management System</p>
-</header>
-
-<nav>
-  <a href="dashboard.html">🏠 Dashboard</a>
-  <a href="items.html">📦 Items</a>
-  <a href="stock.html">🔄 Stock In / Out</a>
-  <a href="reports.html">📊 Reports</a>
-  <a href="settings.html">⚙️ Settings</a>
-  <a href="#" class="logout" onclick="logoutUser()">🚪 Logout</a>
-</nav>
-
-<div class="container">
-
-  <div class="branch-banner" id="branchBanner">
+</header><nav>  <a href="dashboard.html">
+    🏠 Dashboard
+  </a>  <a href="items.html">
+    📦 Items
+  </a>  <a href="stock.html">
+    🔄 Stock In / Out
+  </a>  <a href="reports.html">
+    📊 Reports
+  </a>  <a href="settings.html">
+    ⚙️ Settings
+  </a>  <a href="#" class="logout" onclick="logoutUser()">
+    🚪 Logout
+  </a></nav><div class="container">  <!-- BRANCH -->  <div
+    class="branch-banner"
+    id="branchBanner"
+  >
     ⏳ Loading...
+  </div>  <!-- ACCOUNT -->  <div class="box"><h2>
+  👤 Account Information
+</h2>
+
+<div class="setting-item">
+
+  <strong>
+    🏢 Branch
+  </strong>
+
+  <div
+    class="value"
+    id="branchName"
+  >
+    Loading...
   </div>
 
-  <!-- ACCOUNT -->
-  <div class="box">
+</div>
 
-    <h2>👤 Account Information</h2>
 
-    <div class="setting-item">
-      <strong>🏢 Branch</strong>
-      <div class="value" id="branchName">Loading...</div>
-    </div>
+<div class="setting-item">
 
-    <div class="setting-item">
-      <strong>🔢 Branch Code</strong>
-      <div class="value" id="branchCode">Loading...</div>
-    </div>
+  <strong>
+    🔢 Branch Code
+  </strong>
 
-    <div class="setting-item">
-      <strong>👤 Current User</strong>
-      <div class="value" id="currentUser">Loading...</div>
-    </div>
-
-    <div class="setting-item">
-      <strong>🔐 User Role</strong>
-      <div class="value" id="userRole">Loading...</div>
-    </div>
-
-    <div class="setting-item">
-      <strong>🛡️ Access Level</strong>
-      <div class="value" id="accessLevel">Loading...</div>
-    </div>
-
+  <div
+    class="value"
+    id="branchCode"
+  >
+    Loading...
   </div>
 
-  <!-- MAIN USER MANAGEMENT -->
-  <div class="box" id="userManagement">
+</div>
 
-    <h2>👥 Branch User Management</h2>
 
-    <div class="note">
-      <strong>🏢 Main / HQ Administrator</strong><br>
-      Main can create a user for each operational branch
-      and reset a branch user's password.
-    </div>
+<div class="setting-item">
 
-    <div class="user-form">
+  <strong>
+    👤 Current User
+  </strong>
 
-      <label>
-        Select Branch
-        <select id="manageBranch">
-          <option value="">-- Select Branch --</option>
-          <option value="GUL">Gulele</option>
-          <option value="AKT">Addis Katama</option>
-          <option value="KLF">Kolfee</option>
-          <option value="NSL">Nifas Silk Lafto</option>
-          <option value="KIR">Kirkos</option>
-          <option value="LAM">Lami Kura</option>
-          <option value="ARA">Arada</option>
-          <option value="LID">Lideta</option>
-          <option value="BOL">Bole</option>
-          <option value="EKA">Ekaa</option>
-          <option value="AKA">Akaki Kality</option>
-          <option value="CTR">Center</option>
-        </select>
-      </label>
-
-      <label>
-        User Email
-        <input
-          type="email"
-          id="manageEmail"
-          placeholder="branch@example.com"
-        >
-      </label>
-
-      <label>
-        Password
-        <input
-          type="password"
-          id="managePassword"
-          placeholder="Enter password"
-        >
-      </label>
-
-      <button
-        class="create-button"
-        onclick="createBranchUser()"
-      >
-        👤 Create Branch User
-      </button>
-
-      <button
-        class="reset-button"
-        onclick="resetBranchPassword()"
-      >
-        🔑 Reset Branch Password
-      </button>
-
-      <div id="manageMessage" class="message"></div>
-
-    </div>
-
+  <div
+    class="value"
+    id="currentUser"
+  >
+    Loading...
   </div>
 
-  <!-- SYSTEM -->
-  <div class="box">
+</div>
 
-    <h2>📊 System Information</h2>
 
-    <div class="grid">
+<div class="setting-item">
 
-      <div class="info-card">
-        🏢 Operational Branches
-        <strong>12</strong>
-      </div>
+  <strong>
+    🔐 User Role
+  </strong>
 
-      <div class="info-card">
-        📂 Categories
-        <strong>6</strong>
-      </div>
-
-      <div class="info-card">
-        📦 System
-        <strong style="font-size:18px;">
-          Stock Management
-        </strong>
-      </div>
-
-    </div>
-
+  <div
+    class="value"
+    id="userRole"
+  >
+    Loading...
   </div>
 
-  <!-- ACCESS -->
-  <div class="box">
+</div>
 
-    <h2>🔐 Access Information</h2>
 
-    <div class="setting-item">
+<div class="setting-item">
 
-      <strong>Main / HQ</strong>
+  <strong>
+    🛡️ Access Level
+  </strong>
 
-      Main / HQ can manage branch users,
-      view branch information, stock reports
-      and balances.
-
-      <br><br>
-
-      <span class="access-full">
-        🛡️ ADMIN ACCESS
-      </span>
-
-    </div>
-
-    <div class="setting-item">
-
-      <strong>Operational Branch</strong>
-
-      Branch users can manage their own
-      items and stock.
-
-      <br><br>
-
-      <span class="access-full">
-        ✏️ BRANCH ACCESS
-      </span>
-
-    </div>
-
+  <div
+    class="value"
+    id="accessLevel"
+  >
+    Loading...
   </div>
 
-  <!-- SECURITY -->
-  <div class="box">
+</div>
 
-    <h2>🔒 Security</h2>
+  </div>  <!-- BRANCH USER MANAGEMENT -->  <div
+    class="box"
+    id="userManagement"
+  ><h2>
+  👥 Branch User Management
+</h2>
 
-    <div class="setting-item danger">
+<div class="note">
 
-      <strong>🚪 Logout</strong>
+  <strong>
+    🏢 Main / HQ Administrator
+  </strong>
 
-      Logout from this device.
+  <br><br>
 
-      <br><br>
+  Main / HQ can create and manage
+  users for the 12 operational branches.
 
-      <button
-        class="logout-button"
-        onclick="logoutUser()"
-      >
-        🚪 Logout
-      </button>
+</div>
 
-    </div>
 
-  </div>
+<div class="user-form">
 
-  <div style="text-align:center;margin-top:15px">
+  <label>
 
-    <button
-      class="refresh-button"
-      onclick="loadSettings()"
+    Select Branch
+
+    <select id="manageBranch">
+
+      <option value="">
+        -- Select Branch --
+      </option>
+
+      <option value="GUL">
+        Gulele
+      </option>
+
+      <option value="AKT">
+        Addis Katama
+      </option>
+
+      <option value="KLF">
+        Kolfee
+      </option>
+
+      <option value="NSL">
+        Nifas Silk Lafto
+      </option>
+
+      <option value="KIR">
+        Kirkos
+      </option>
+
+      <option value="LAM">
+        Lami Kura
+      </option>
+
+      <option value="ARA">
+        Arada
+      </option>
+
+      <option value="LID">
+        Lideta
+      </option>
+
+      <option value="BOL">
+        Bole
+      </option>
+
+      <option value="EKA">
+        Ekaa
+      </option>
+
+      <option value="AKA">
+        Akaki Kality
+      </option>
+
+      <option value="CTR">
+        Center
+      </option>
+
+    </select>
+
+  </label>
+
+
+  <label>
+
+    User Email
+
+    <input
+      type="email"
+      id="manageEmail"
+      placeholder="branch@example.com"
     >
-      🔄 Refresh Settings
-    </button>
+
+  </label>
+
+
+  <label>
+
+    Password
+
+    <input
+      type="password"
+      id="managePassword"
+      placeholder="Enter password"
+    >
+
+  </label>
+
+
+  <button
+    class="create-button"
+    onclick="createBranchUser()"
+  >
+    👤 Create Branch User
+  </button>
+
+
+  <button
+    class="reset-button"
+    onclick="resetBranchPassword()"
+  >
+    🔑 Reset Branch Password
+  </button>
+
+
+  <div
+    id="manageMessage"
+    class="message"
+  ></div>
+
+</div>
+
+  </div>  <!-- SYSTEM INFORMATION -->  <div class="box"><h2>
+  📊 System Information
+</h2>
+
+<div class="grid">
+
+  <div class="info-card">
+
+    🏢 Operational Branches
+
+    <strong>
+      12
+    </strong>
+
+  </div>
+
+
+  <div class="info-card">
+
+    📂 Categories
+
+    <strong>
+      6
+    </strong>
+
+  </div>
+
+
+  <div class="info-card">
+
+    📦 System
+
+    <strong style="font-size:18px;">
+      Stock Management
+    </strong>
 
   </div>
 
 </div>
 
-<script>
+  </div>  <!-- ACCESS -->  <div class="box"><h2>
+  🔐 Access Information
+</h2>
+
+
+<div class="setting-item">
+
+  <strong>
+    Main / HQ
+  </strong>
+
+  Main / HQ can manage branch users,
+  view branch information,
+  stock reports and balances.
+
+  <br><br>
+
+  <span class="access-full">
+    🛡️ ADMIN ACCESS
+  </span>
+
+</div>
+
+
+<div class="setting-item">
+
+  <strong>
+    Operational Branch
+  </strong>
+
+  Branch users can manage their own
+  items and stock.
+
+  <br><br>
+
+  <span class="access-full">
+    ✏️ BRANCH ACCESS
+  </span>
+
+</div>
+
+  </div>  <!-- SECURITY -->  <div class="box"><h2>
+  🔒 Security
+</h2>
+
+<div class="setting-item danger">
+
+  <strong>
+    🚪 Logout
+  </strong>
+
+  Logout from this device.
+
+  <br><br>
+
+  <button
+    class="logout-button"
+    onclick="logoutUser()"
+  >
+    🚪 Logout
+  </button>
+
+</div>
+
+  </div>  <!-- BUTTONS -->  <div
+    style="text-align:center;margin-top:15px"
+  ><button
+  class="refresh-button"
+  onclick="loadSettings()"
+>
+  🔄 Refresh Settings
+</button>
+
+<br><br>
+
+<a
+  href="dashboard.html"
+  class="back-button"
+>
+  ← Back to Dashboard
+</a>
+
+  </div></div><script>
 
 /* =====================================================
    SUPABASE
@@ -481,45 +639,78 @@ const SUPABASE_KEY =
 ===================================================== */
 
 const isLoggedIn =
-  localStorage.getItem("is_logged_in") === "true";
+  localStorage.getItem(
+    "is_logged_in"
+  ) === "true";
 
 const accessToken =
-  localStorage.getItem("access_token") || "";
+  localStorage.getItem(
+    "access_token"
+  ) || "";
 
 const userRole =
-  (localStorage.getItem("user_role") || "")
-    .trim()
-    .toLowerCase();
+  (
+    localStorage.getItem(
+      "user_role"
+    ) || ""
+  )
+  .trim()
+  .toLowerCase();
 
 const selectedBranchCode =
-  (localStorage.getItem("selected_branch_code") || "")
-    .trim()
-    .toUpperCase();
+  (
+    localStorage.getItem(
+      "selected_branch_code"
+    ) || ""
+  )
+  .trim()
+  .toUpperCase();
+
+const selectedBranchName =
+  localStorage.getItem(
+    "selected_branch_name"
+  ) || "";
+
+const loginUser =
+  localStorage.getItem(
+    "login_user"
+  ) ||
+  localStorage.getItem(
+    "user_email"
+  ) ||
+  "";
 
 
 /* =====================================================
-   MAIN ONLY
+   LOGIN CHECK
 ===================================================== */
 
-if(
-  !isLoggedIn ||
-  !accessToken
-){
-  window.location.replace("index.html");
+if(!isLoggedIn){
+
+  window.location.replace(
+    "index.html"
+  );
+
 }
 
 
 /* =====================================================
-   LOCAL DATA
+   MAIN CHECK
 ===================================================== */
 
-const selectedBranchName =
-  localStorage.getItem("selected_branch_name") || "";
+function isMainUser(){
 
-const loginUser =
-  localStorage.getItem("login_user") ||
-  localStorage.getItem("user_email") ||
-  "";
+  return (
+
+    userRole === "main" ||
+
+    userRole === "admin" ||
+
+    selectedBranchCode === "MAIN"
+
+  );
+
+}
 
 
 /* =====================================================
@@ -528,30 +719,60 @@ const loginUser =
 
 function loadSettings(){
 
-  document.getElementById("branchName").textContent =
-    selectedBranchName || "MAIN / HQ";
+  const branchName =
+    document.getElementById(
+      "branchName"
+    );
 
-  document.getElementById("branchCode").textContent =
-    selectedBranchCode || "MAIN";
+  const branchCode =
+    document.getElementById(
+      "branchCode"
+    );
 
-  document.getElementById("currentUser").textContent =
-    loginUser || "Main / HQ";
+  const currentUser =
+    document.getElementById(
+      "currentUser"
+    );
 
-  document.getElementById("userRole").textContent =
-    userRole === "main"
-      ? "Main / HQ Administrator"
-      : userRole || "User";
+  const role =
+    document.getElementById(
+      "userRole"
+    );
 
   const access =
-    document.getElementById("accessLevel");
+    document.getElementById(
+      "accessLevel"
+    );
 
   const banner =
-    document.getElementById("branchBanner");
+    document.getElementById(
+      "branchBanner"
+    );
 
-  if(
-    userRole === "main" &&
-    selectedBranchCode === "MAIN"
-  ){
+  const management =
+    document.getElementById(
+      "userManagement"
+    );
+
+
+  /* =================================================
+     MAIN / HQ
+  ================================================= */
+
+  if(isMainUser()){
+
+    branchName.textContent =
+      "MAIN / HQ";
+
+    branchCode.textContent =
+      "MAIN";
+
+    currentUser.textContent =
+      loginUser ||
+      "Main / HQ";
+
+    role.textContent =
+      "Main / HQ Administrator";
 
     access.textContent =
       "🛡️ Administrator Access";
@@ -562,22 +783,49 @@ function loadSettings(){
     banner.textContent =
       "🏢 MAIN / HQ — Administrator";
 
-  }else{
+    management.style.display =
+      "block";
 
-    access.textContent =
-      "✏️ Branch Access";
+    return;
 
-    access.className =
-      "value access-full";
-
-    banner.textContent =
-      "🏢 " +
-      (selectedBranchName || "Branch");
-
-    document.getElementById(
-      "userManagement"
-    ).style.display = "none";
   }
+
+
+  /* =================================================
+     OPERATIONAL BRANCH
+  ================================================= */
+
+  branchName.textContent =
+    selectedBranchName ||
+    "Operational Branch";
+
+  branchCode.textContent =
+    selectedBranchCode ||
+    "Branch";
+
+  currentUser.textContent =
+    loginUser ||
+    "Branch User";
+
+  role.textContent =
+    "Branch User";
+
+  access.textContent =
+    "✏️ Branch Access";
+
+  access.className =
+    "value access-full";
+
+  banner.textContent =
+    "🏢 " +
+    (
+      selectedBranchName ||
+      "Operational Branch"
+    );
+
+  management.style.display =
+    "none";
+
 }
 
 
@@ -594,18 +842,23 @@ const FUNCTION_URL =
    MESSAGE
 ===================================================== */
 
-function showMessage(text, success){
+function showMessage(
+  text,
+  success
+){
 
   const box =
     document.getElementById(
       "manageMessage"
     );
 
-  box.textContent = text;
+  box.textContent =
+    text;
 
   box.className =
-    "message " +
-    (success ? "success" : "error");
+    success
+      ? "message success"
+      : "message error";
 
 }
 
@@ -616,6 +869,18 @@ function showMessage(text, success){
 
 async function createBranchUser(){
 
+  if(!isMainUser()){
+
+    showMessage(
+      "❌ Only Main / HQ can create branch users.",
+      false
+    );
+
+    return;
+
+  }
+
+
   const branch =
     document.getElementById(
       "manageBranch"
@@ -624,41 +889,56 @@ async function createBranchUser(){
   const email =
     document.getElementById(
       "manageEmail"
-    ).value.trim();
+    ).value
+    .trim();
 
   const password =
     document.getElementById(
       "managePassword"
     ).value;
 
+
   if(!branch){
+
     showMessage(
       "⚠️ Please select a branch.",
       false
     );
+
     return;
+
   }
 
+
   if(!email){
+
     showMessage(
       "⚠️ Please enter user email.",
       false
     );
+
     return;
+
   }
 
+
   if(password.length < 6){
+
     showMessage(
       "⚠️ Password must be at least 6 characters.",
       false
     );
+
     return;
+
   }
+
 
   showMessage(
     "⏳ Creating branch user...",
     true
   );
+
 
   try{
 
@@ -666,52 +946,74 @@ async function createBranchUser(){
       await fetch(
         FUNCTION_URL,
         {
+
           method:"POST",
 
           headers:{
+
             "Content-Type":
               "application/json",
 
             "Authorization":
-              "Bearer " + accessToken,
+              "Bearer " +
+              accessToken,
 
             "apikey":
               SUPABASE_KEY
+
           },
 
           body:JSON.stringify({
+
             action:"create",
-            branch_code:branch,
-            email:email,
-            password:password
+
+            branch_code:
+              branch,
+
+            email:
+              email,
+
+            password:
+              password
+
           })
+
         }
       );
 
+
     const result =
       await response.json();
+
 
     if(!response.ok){
 
       showMessage(
         "❌ " +
-        (result.error ||
-        "User creation failed."),
+        (
+          result.error ||
+          result.message ||
+          "User creation failed."
+        ),
         false
       );
 
       return;
+
     }
+
 
     showMessage(
       "✅ User created successfully for " +
-      (result.branch || branch),
+      branch,
       true
     );
+
 
     document.getElementById(
       "managePassword"
     ).value = "";
+
 
   }catch(error){
 
@@ -720,7 +1022,9 @@ async function createBranchUser(){
       error.message,
       false
     );
+
   }
+
 }
 
 
@@ -730,6 +1034,18 @@ async function createBranchUser(){
 
 async function resetBranchPassword(){
 
+  if(!isMainUser()){
+
+    showMessage(
+      "❌ Only Main / HQ can reset branch passwords.",
+      false
+    );
+
+    return;
+
+  }
+
+
   const branch =
     document.getElementById(
       "manageBranch"
@@ -738,41 +1054,56 @@ async function resetBranchPassword(){
   const email =
     document.getElementById(
       "manageEmail"
-    ).value.trim();
+    ).value
+    .trim();
 
   const password =
     document.getElementById(
       "managePassword"
     ).value;
 
+
   if(!branch){
+
     showMessage(
       "⚠️ Please select a branch.",
       false
     );
+
     return;
+
   }
 
+
   if(!email){
+
     showMessage(
       "⚠️ Please enter the user's email.",
       false
     );
+
     return;
+
   }
 
+
   if(password.length < 6){
+
     showMessage(
       "⚠️ New password must be at least 6 characters.",
       false
     );
+
     return;
+
   }
+
 
   showMessage(
     "⏳ Resetting password...",
     true
   );
+
 
   try{
 
@@ -780,51 +1111,73 @@ async function resetBranchPassword(){
       await fetch(
         FUNCTION_URL,
         {
+
           method:"POST",
 
           headers:{
+
             "Content-Type":
               "application/json",
 
             "Authorization":
-              "Bearer " + accessToken,
+              "Bearer " +
+              accessToken,
 
             "apikey":
               SUPABASE_KEY
+
           },
 
           body:JSON.stringify({
+
             action:"reset",
-            branch_code:branch,
-            email:email,
-            password:password
+
+            branch_code:
+              branch,
+
+            email:
+              email,
+
+            password:
+              password
+
           })
+
         }
       );
 
+
     const result =
       await response.json();
+
 
     if(!response.ok){
 
       showMessage(
         "❌ " +
-        (result.error ||
-        "Password reset failed."),
+        (
+          result.error ||
+          result.message ||
+          "Password reset failed."
+        ),
         false
       );
 
       return;
+
     }
+
 
     showMessage(
       "✅ Password reset successfully.",
       true
     );
 
+
     document.getElementById(
       "managePassword"
     ).value = "";
+
 
   }catch(error){
 
@@ -833,7 +1186,9 @@ async function resetBranchPassword(){
       error.message,
       false
     );
+
   }
+
 }
 
 
@@ -843,22 +1198,50 @@ async function resetBranchPassword(){
 
 function logoutUser(){
 
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-  localStorage.removeItem("is_logged_in");
+  localStorage.removeItem(
+    "access_token"
+  );
 
-  localStorage.removeItem("selected_branch_id");
-  localStorage.removeItem("selected_branch_name");
-  localStorage.removeItem("selected_branch_code");
-  localStorage.removeItem("selected_branch_uuid");
+  localStorage.removeItem(
+    "refresh_token"
+  );
 
-  localStorage.removeItem("user_role");
-  localStorage.removeItem("login_user");
-  localStorage.removeItem("user_email");
+  localStorage.removeItem(
+    "is_logged_in"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_code"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_uuid"
+  );
+
+  localStorage.removeItem(
+    "user_role"
+  );
+
+  localStorage.removeItem(
+    "login_user"
+  );
+
+  localStorage.removeItem(
+    "user_email"
+  );
 
   window.location.replace(
     "index.html"
   );
+
 }
 
 
@@ -869,6 +1252,5 @@ function logoutUser(){
 loadSettings();
 
 </script>
-
 </body>
 </html>
