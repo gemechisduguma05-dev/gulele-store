@@ -1,171 +1,524 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Settings</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-* {
-  box-sizing: border-box;
+<title>AAFDRMC - Settings</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
 }
 
-header {
-  background: #1e3a8a;
-  color: white;
-  padding: 20px;
-  text-align: center;
+header{
+  background:#5b341f;
+  color:white;
+  padding:20px;
+  text-align:center;
 }
 
-header h1 {
-  margin: 0;
+header h1{
+  margin:0;
 }
 
-header p {
-  margin: 5px 0 0;
+header p{
+  margin:6px 0 0;
 }
 
-nav {
-  background: white;
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+nav{
+  background:white;
+  padding:12px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.10);
 }
 
-nav a {
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 7px;
-  background: #e2e8f0;
-  color: #1e293b;
-  font-weight: bold;
+nav a{
+  text-decoration:none;
+  padding:10px 15px;
+  border-radius:7px;
+  background:#eadfd6;
+  color:#3f2415;
+  font-weight:bold;
 }
 
-nav a:hover {
-  background: #cbd5e1;
+nav a:hover{
+  background:#d8c7ba;
 }
 
-.container {
-  width: 95%;
-  max-width: 900px;
-  margin: 25px auto;
+.container{
+  width:95%;
+  max-width:950px;
+  margin:25px auto;
 }
 
-.box {
-  background: white;
-  padding: 25px;
-  margin-bottom: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+.box{
+  background:white;
+  padding:25px;
+  margin-bottom:20px;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.10);
 }
 
-.box h2 {
-  margin-top: 0;
-  text-align: center;
+.box h2{
+  margin-top:0;
+  text-align:center;
+  color:#5b341f;
 }
 
-.setting-item {
-  padding: 15px;
-  margin-bottom: 12px;
-  background: #f8fafc;
-  border-radius: 8px;
+.branch-banner{
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#7c2d12;
+  padding:16px;
+  border-radius:10px;
+  text-align:center;
+  margin-bottom:20px;
+  font-weight:bold;
 }
 
-.setting-item strong {
-  display: block;
-  margin-bottom: 5px;
+.setting-item{
+  padding:16px;
+  margin-bottom:12px;
+  background:#f8fafc;
+  border-radius:9px;
+  border-left:5px solid #8b5e3c;
 }
 
-.logout {
-  background: #dc2626 !important;
-  color: white !important;
+.setting-item strong{
+  display:block;
+  margin-bottom:7px;
+  color:#5b341f;
 }
 
-.danger {
-  background: #fee2e2;
-  border-left: 5px solid #dc2626;
+.value{
+  font-size:16px;
 }
 
-button {
-  padding: 11px 18px;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  font-size: 15px;
+.access-full{
+  color:#166534;
+  font-weight:bold;
 }
 
-.logout-button {
-  background: #dc2626;
-  color: white;
+.access-view{
+  color:#1d4ed8;
+  font-weight:bold;
 }
 
-</style></head><body><header>  <h1>🏢 AAFDRMC</h1>  <p>Stock Management System</p></header><nav>  <a href="dashboard.html">
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+
+.info-card{
+  background:#f8fafc;
+  padding:18px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.info-card strong{
+  display:block;
+  font-size:26px;
+  margin-top:8px;
+  color:#5b341f;
+}
+
+.danger{
+  background:#fee2e2;
+  border-left:5px solid #dc2626;
+}
+
+.logout{
+  background:#dc2626 !important;
+  color:white !important;
+}
+
+.logout-button{
+  background:#dc2626;
+  color:white;
+  padding:12px 20px;
+  border:none;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.logout-button:hover{
+  background:#b91c1c;
+}
+
+.refresh-button{
+  background:#5b341f;
+  color:white;
+  padding:11px 18px;
+  border:none;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.refresh-area{
+  text-align:center;
+  margin-top:15px;
+}
+
+@media(max-width:600px){
+
+  header{
+    padding:15px;
+  }
+
+  header h1{
+    font-size:22px;
+  }
+
+  nav a{
+    padding:9px 11px;
+    font-size:13px;
+  }
+
+  .container{
+    width:97%;
+    margin:15px auto;
+  }
+
+  .box{
+    padding:15px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <h1>🏢 AAFDRMC</h1>
+
+  <p>Stock Management System</p>
+
+</header>
+
+
+<nav>
+
+  <a href="dashboard.html">
     🏠 Dashboard
-  </a>  <a href="items.html">
+  </a>
+
+  <a href="items.html">
     📦 Items
-  </a>  <a href="stock.html">
+  </a>
+
+  <a href="stock.html">
     🔄 Stock In / Out
-  </a>  <a href="reports.html">
+  </a>
+
+  <a href="reports.html">
     📊 Reports
-  </a>  <a href="settings.html">
+  </a>
+
+  <a href="settings.html">
     ⚙️ Settings
-  </a>  <a href="#" class="logout" onclick="logoutUser()">
+  </a>
+
+  <a
+    href="#"
+    class="logout"
+    onclick="logoutUser()"
+  >
     🚪 Logout
-  </a></nav><div class="container"><!-- SETTINGS --><div class="box">  <h2>⚙️ Settings</h2>  <div class="setting-item"><strong>🏢 Organization</strong>
+  </a>
 
-AAFDRMC
+</nav>
 
-  </div>  <div class="setting-item"><strong>📦 System</strong>
 
-Stock Management System
+<div class="container">
 
-  </div>  <div class="setting-item"><strong>🔐 Login Status</strong>
 
-<span id="loginStatus">
-  Checking...
-</span>
+  <!-- CURRENT BRANCH -->
 
-  </div>  <div class="setting-item"><strong>👤 Current User</strong>
+  <div
+    class="branch-banner"
+    id="branchBanner"
+  >
+    ⏳ Loading branch...
+  </div>
 
-<span id="currentUser">
-  Loading...
-</span>
 
-  </div></div><!-- SECURITY --><div class="box">  <h2>🔐 Security</h2>  <div class="setting-item danger"><strong>🚪 Logout</strong>
+  <!-- ACCOUNT -->
 
-Logout from this device.
+  <div class="box">
 
-<br><br>
+    <h2>👤 Account Information</h2>
 
-<button
-  class="logout-button"
-  onclick="logoutUser()"
->
-  🚪 Logout
-</button>
 
-  </div></div></div><script>
+    <div class="setting-item">
 
-/* =========================
+      <strong>
+        🏢 Branch
+      </strong>
+
+      <div
+        class="value"
+        id="branchName"
+      >
+        Loading...
+      </div>
+
+    </div>
+
+
+    <div class="setting-item">
+
+      <strong>
+        🔢 Branch Code
+      </strong>
+
+      <div
+        class="value"
+        id="branchCode"
+      >
+        Loading...
+      </div>
+
+    </div>
+
+
+    <div class="setting-item">
+
+      <strong>
+        👤 Current User
+      </strong>
+
+      <div
+        class="value"
+        id="currentUser"
+      >
+        Loading...
+      </div>
+
+    </div>
+
+
+    <div class="setting-item">
+
+      <strong>
+        🔐 User Role
+      </strong>
+
+      <div
+        class="value"
+        id="userRole"
+      >
+        Loading...
+      </div>
+
+    </div>
+
+
+    <div class="setting-item">
+
+      <strong>
+        🛡️ Access Level
+      </strong>
+
+      <div
+        class="value"
+        id="accessLevel"
+      >
+        Loading...
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SYSTEM -->
+
+  <div class="box">
+
+    <h2>📊 System Information</h2>
+
+
+    <div class="grid">
+
+
+      <div class="info-card">
+
+        🏢 Operational Branches
+
+        <strong>
+          12
+        </strong>
+
+      </div>
+
+
+      <div class="info-card">
+
+        📂 Categories
+
+        <strong>
+          6
+        </strong>
+
+      </div>
+
+
+      <div class="info-card">
+
+        📦 System
+
+        <strong
+          style="font-size:18px;"
+        >
+          Stock Management
+        </strong>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+  <!-- ACCESS INFORMATION -->
+
+  <div class="box">
+
+    <h2>🔐 Access Information</h2>
+
+
+    <div class="setting-item">
+
+      <strong>
+        Main / HQ
+      </strong>
+
+      Main / HQ can view branch information,
+      stock reports and balances.
+
+      <br><br>
+
+      <span class="access-view">
+        👁️ VIEW ONLY
+      </span>
+
+    </div>
+
+
+    <div class="setting-item">
+
+      <strong>
+        Operational Branch
+      </strong>
+
+      Branch users can manage their own
+      items and stock.
+
+      <br><br>
+
+      <span class="access-full">
+        ✏️ FULL ACCESS
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- SECURITY -->
+
+  <div class="box">
+
+    <h2>🔒 Security</h2>
+
+
+    <div class="setting-item danger">
+
+      <strong>
+        🚪 Logout
+      </strong>
+
+      Logout from this device.
+
+      <br><br>
+
+      <button
+        class="logout-button"
+        onclick="logoutUser()"
+      >
+        🚪 Logout
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- REFRESH -->
+
+  <div class="refresh-area">
+
+    <button
+      class="refresh-button"
+      onclick="loadSettings()"
+    >
+      🔄 Refresh Settings
+    </button>
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
-"https://sslabegtsxlkafuygmar.supabase.co";
+  "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+  "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* =========================
-   CHECK LOGIN
-========================= */
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
+
+const isLoggedIn =
+  localStorage.getItem(
+    "is_logged_in"
+  );
 
 const accessToken =
   localStorage.getItem(
@@ -173,7 +526,10 @@ const accessToken =
   );
 
 
-if (!accessToken) {
+if(
+  isLoggedIn !== "true" &&
+  !accessToken
+){
 
   window.location.href =
     "index.html";
@@ -181,78 +537,196 @@ if (!accessToken) {
 }
 
 
-/* =========================
-   LOAD USER
-========================= */
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
 
-async function loadUser() {
+const selectedBranchId =
+  localStorage.getItem(
+    "selected_branch_id"
+  ) || "";
 
-  const token =
-    localStorage.getItem(
-      "access_token"
-    );
+const selectedBranchName =
+  localStorage.getItem(
+    "selected_branch_name"
+  ) || "";
 
+const selectedBranchCode =
+  localStorage.getItem(
+    "selected_branch_code"
+  ) || "";
 
-  if (!token) {
-    return;
-  }
+const userRole =
+  localStorage.getItem(
+    "user_role"
+  ) || "";
 
-
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/auth/v1/user",
-      {
-
-        headers: {
-
-          "apikey":
-            SUPABASE_KEY,
-
-          "Authorization":
-            "Bearer " + token
-
-        }
-
-      }
-    );
+const loginUser =
+  localStorage.getItem(
+    "login_user"
+  ) || "";
 
 
-  if (!response.ok) {
+/* =====================================================
+   ROLE
+===================================================== */
 
-    document.getElementById(
-      "loginStatus"
-    ).textContent =
-      "Not verified";
-
-    return;
-
-  }
+const isMain =
+  userRole.toLowerCase() === "main";
 
 
-  const user =
-    await response.json();
+/* =====================================================
+   SHOW SETTINGS
+===================================================== */
 
+function loadSettings(){
+
+  const branchName =
+    selectedBranchName ||
+    selectedBranchId ||
+    "Not Selected";
+
+
+  const branchCode =
+    selectedBranchCode ||
+    selectedBranchId ||
+    "—";
+
+
+  /* =========================
+     BRANCH NAME
+  ========================= */
 
   document.getElementById(
-    "loginStatus"
+    "branchName"
   ).textContent =
-    "✅ Logged in";
+    branchName;
+
+
+  /* =========================
+     BRANCH CODE
+  ========================= */
+
+  document.getElementById(
+    "branchCode"
+  ).textContent =
+    branchCode;
+
+
+  /* =========================
+     USER
+  ========================= */
+
+  let currentUser =
+    loginUser;
+
+
+  if(!currentUser){
+
+    currentUser =
+      localStorage.getItem(
+        "user_email"
+      ) || "User";
+
+  }
 
 
   document.getElementById(
     "currentUser"
   ).textContent =
-    user.email || "User";
+    currentUser;
+
+
+  /* =========================
+     ROLE
+  ========================= */
+
+  document.getElementById(
+    "userRole"
+  ).textContent =
+    isMain
+      ? "Main / HQ"
+      : "Branch User";
+
+
+  /* =========================
+     ACCESS
+  ========================= */
+
+  const access =
+    document.getElementById(
+      "accessLevel"
+    );
+
+
+  if(isMain){
+
+    access.textContent =
+      "👁️ View Only";
+
+    access.className =
+      "value access-view";
+
+  }
+  else{
+
+    access.textContent =
+      "✏️ Full Access";
+
+    access.className =
+      "value access-full";
+
+  }
+
+
+  /* =========================
+     BANNER
+  ========================= */
+
+  const banner =
+    document.getElementById(
+      "branchBanner"
+    );
+
+
+  if(isMain){
+
+    if(
+      branchCode.toUpperCase() ===
+      "MAIN"
+    ){
+
+      banner.textContent =
+        "🏢 MAIN / HQ — View Only";
+
+    }
+    else{
+
+      banner.textContent =
+        "👁️ MAIN / HQ → Viewing: " +
+        branchName +
+        " — View Only";
+
+    }
+
+  }
+  else{
+
+    banner.textContent =
+      "🏢 " +
+      branchName +
+      " — Full Access";
+
+  }
 
 }
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
-function logoutUser() {
+function logoutUser(){
 
   localStorage.removeItem(
     "access_token"
@@ -262,17 +736,54 @@ function logoutUser() {
     "refresh_token"
   );
 
+  localStorage.removeItem(
+    "is_logged_in"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_code"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_uuid"
+  );
+
+  localStorage.removeItem(
+    "user_role"
+  );
+
+  localStorage.removeItem(
+    "login_user"
+  );
+
+  localStorage.removeItem(
+    "user_email"
+  );
+
+
   window.location.href =
     "index.html";
 
 }
 
 
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
 
-loadUser();
+loadSettings();
 
-</script></body>
+</script>
+
+
+</body>
+
 </html>
