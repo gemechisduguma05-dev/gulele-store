@@ -98,6 +98,7 @@ header h1{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:15px;
+  margin-bottom:20px;
 }
 
 .summary-card{
@@ -121,44 +122,71 @@ header h1{
 }
 
 /* ===============================
-   CATEGORY
+   CATEGORY SELECTOR
 ================================ */
 
-.category-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+.category-selector{
+  margin-bottom:20px;
 }
 
-.category-card{
-  border:1px solid #d7ccc8;
-  border-radius:14px;
-  padding:18px;
-  background:#faf7f5;
-}
-
-.category-name{
+.category-selector label{
+  display:block;
+  margin-bottom:8px;
+  color:#5d4037;
   font-weight:bold;
-  font-size:17px;
+  font-size:16px;
+}
+
+.category-selector select{
+  width:100%;
+  padding:14px;
+  border:1px solid #bcaaa4;
+  border-radius:10px;
+  background:white;
+  color:#3e2723;
+  font-size:16px;
+  outline:none;
+}
+
+.category-selector select:focus{
+  border-color:#795548;
+  box-shadow:0 0 0 2px rgba(121,85,72,.12);
+}
+
+.selected-category{
+  background:#efebe9;
+  border-left:5px solid #795548;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
   color:#4e342e;
-  line-height:1.5;
-  margin-bottom:14px;
+  font-weight:bold;
+}
+
+/* ===============================
+   CATEGORY TABLE
+================================ */
+
+.category-table-wrap{
+  width:100%;
+  overflow-x:auto;
 }
 
 .category-table{
   width:100%;
   border-collapse:collapse;
   background:white;
-  border-radius:8px;
+  border-radius:10px;
   overflow:hidden;
+  min-width:500px;
 }
 
 .category-table th,
 .category-table td{
-  padding:10px 7px;
+  padding:12px 10px;
   border-bottom:1px solid #eee;
   text-align:center;
-  font-size:14px;
+  font-size:15px;
 }
 
 .category-table th{
@@ -179,7 +207,7 @@ header h1{
 
 .category-total-row td{
   color:#4e342e;
-  font-size:15px;
+  font-size:16px;
 }
 
 .in-number{
@@ -198,11 +226,12 @@ header h1{
 }
 
 .no-transaction{
-  padding:12px;
+  padding:18px;
   text-align:center;
   color:#795548;
-  background:#fff;
-  border-radius:8px;
+  background:#faf7f5;
+  border:1px solid #d7ccc8;
+  border-radius:10px;
 }
 
 /* ===============================
@@ -295,6 +324,13 @@ header h1{
   margin-top:10px;
 }
 
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#795548;
+  font-weight:bold;
+}
+
 @media(max-width:850px){
 
   .summary{
@@ -309,15 +345,14 @@ header h1{
 
 @media(max-width:700px){
 
-  .menu-grid,
-  .category-grid{
+  .menu-grid{
     grid-template-columns:1fr;
   }
 
   .category-table th,
   .category-table td{
-    font-size:12px;
-    padding:8px 4px;
+    font-size:13px;
+    padding:9px 6px;
   }
 
 }
@@ -339,6 +374,10 @@ header h1{
 
   .btn{
     font-size:16px;
+  }
+
+  .title{
+    font-size:20px;
   }
 
 }
@@ -527,7 +566,7 @@ hin danda'amu.
 
 </div>
 
-<!-- CATEGORY SUMMARY -->
+<!-- CATEGORY -->
 
 <div class="card">
 
@@ -535,9 +574,36 @@ hin danda'amu.
 🗂️ Item Transaction Total by Category
 </div>
 
+<div class="category-selector">
+
+<label for="categorySelect">
+Select Category
+</label>
+
+<select
+  id="categorySelect"
+  onchange="renderSelectedCategory()">
+
+<option value="">
+-- Select Category --
+</option>
+
+</select>
+
+</div>
+
 <div
-  class="category-grid"
-  id="categoryGrid">
+  id="selectedCategoryBox"
+  class="selected-category hidden">
+</div>
+
+<div
+  id="categoryResult">
+
+<div class="no-transaction">
+Please select a category.
+</div>
+
 </div>
 
 </div>
@@ -581,7 +647,7 @@ const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXk";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
 /* =====================================================
@@ -708,6 +774,13 @@ const CATEGORIES = [
 
 
 /* =====================================================
+   GLOBAL CATEGORY DATA
+===================================================== */
+
+let dashboardCategoryData = {};
+
+
+/* =====================================================
    HEADERS
 ===================================================== */
 
@@ -721,17 +794,31 @@ function getHeaders(){
       "application/json",
 
     "Accept":
-      "application/json"
+      "application/json",
+
+    "Prefer":
+      "return=representation"
 
   };
 
   const token =
     localStorage.getItem("access_token");
 
-  headers["Authorization"] =
-    token
-      ? "Bearer " + token
-      : "Bearer " + SUPABASE_KEY;
+  /*
+    sb_publishable key JWT miti.
+    Kanaaf Authorization keessatti
+    publishable key hin erginu.
+  */
+
+  if(
+    token &&
+    token !== SUPABASE_KEY
+  ){
+
+    headers["Authorization"] =
+      "Bearer " + token;
+
+  }
 
   return headers;
 
@@ -913,6 +1000,48 @@ function setupMenu(){
 
 
 /* =====================================================
+   CATEGORY DROPDOWN
+===================================================== */
+
+function buildCategoryDropdown(){
+
+  const select =
+    document.getElementById("categorySelect");
+
+  select.innerHTML = "";
+
+  const firstOption =
+    document.createElement("option");
+
+  firstOption.value = "";
+
+  firstOption.textContent =
+    "-- Select Category --";
+
+  select.appendChild(firstOption);
+
+
+  CATEGORIES.forEach(
+    function(cat){
+
+      const option =
+        document.createElement("option");
+
+      option.value =
+        cat.key;
+
+      option.textContent =
+        cat.name;
+
+      select.appendChild(option);
+
+    }
+  );
+
+}
+
+
+/* =====================================================
    UUID CHECK
 ===================================================== */
 
@@ -1010,7 +1139,9 @@ async function resolveBranchUUID(){
               b[field] === undefined ||
               b[field] === null
             ){
+
               return false;
+
             }
 
             return String(b[field])
@@ -1037,7 +1168,9 @@ async function resolveBranchUUID(){
               b[field] === undefined ||
               b[field] === null
             ){
+
               return false;
+
             }
 
             return String(b[field])
@@ -1265,6 +1398,36 @@ function findCategory(value){
   }
 
 
+  /*
+    IMPORTANT:
+    Daily Non-Food dura.
+  */
+
+  if(
+    v.includes("daily non-food") ||
+    v.includes("daily non food") ||
+    v.includes("hin taane guyyaa") ||
+    v.includes("daily nonfood")
+  ){
+
+    return "Daily Non-Food";
+
+  }
+
+
+  if(
+    v.includes("non-food kitchen") ||
+    v.includes("non food kitchen") ||
+    v.includes("kitchen") ||
+    v.includes("qopheessan") ||
+    v.includes("ምግብ ዝግጅት")
+  ){
+
+    return "Non-Food Kitchen";
+
+  }
+
+
   if(
     v.includes("strategic") ||
     v.includes("tarsiimawaa") ||
@@ -1277,38 +1440,15 @@ function findCategory(value){
 
 
   if(
-    v.includes("daily non-food") ||
-    v.includes("daily non food") ||
-    v.includes("hin taane guyyaa") ||
-    v.includes("ያልሆነ")
-  ){
-
-    return "Daily Non-Food";
-
-  }
-
-
-  if(
     v.includes("daily food") ||
     (
       v.includes("guyyaa guyyaa") &&
       !v.includes("hin taane")
     ) ||
-    v.includes("የዕለት")
+    v.includes("የዕለት ምግብ")
   ){
 
     return "Daily Food";
-
-  }
-
-
-  if(
-    v.includes("kitchen") ||
-    v.includes("qopheessan") ||
-    v.includes("ምግብ ዝግጅት")
-  ){
-
-    return "Non-Food Kitchen";
 
   }
 
@@ -1342,18 +1482,10 @@ function findCategory(value){
 
 
 /* =====================================================
-   ITEM NAME FROM TRANSACTION
+   ITEM NAME
 ===================================================== */
 
 function getItemName(t){
-
-  /*
-    item_id hin fayyadamnu.
-
-    transaction field keessatti
-    maqaan itemii kuufame yoo jiraate
-    isa fayyadamna.
-  */
 
   const possibleNames = [
 
@@ -1389,37 +1521,24 @@ function getItemName(t){
 
 
 /* =====================================================
-   CATEGORY SUMMARY
+   PREPARE CATEGORY DATA
 ===================================================== */
 
-function showCategorySummary(transactions){
+function prepareCategoryData(transactions){
 
-  const grid =
-    document.getElementById("categoryGrid");
-
-  grid.innerHTML = "";
-
-
-  /*
-    Category fi Item
-    walitti qabna.
-  */
-
-  const categoryData = {};
+  const data = {};
 
 
   CATEGORIES.forEach(
     function(cat){
 
-      categoryData[cat.key] = {
+      data[cat.key] = {
 
         items:{},
 
         totalIn:0,
 
-        totalOut:0,
-
-        balance:0
+        totalOut:0
 
       };
 
@@ -1430,11 +1549,10 @@ function showCategorySummary(transactions){
   transactions.forEach(
     function(t){
 
-      const rawCategory =
-        t.category || "";
-
       const categoryKey =
-        findCategory(rawCategory);
+        findCategory(
+          t.category
+        );
 
 
       if(!categoryKey){
@@ -1446,8 +1564,12 @@ function showCategorySummary(transactions){
         Number(t.quantity || 0);
 
 
-      if(!Number.isFinite(quantity)){
+      if(
+        !Number.isFinite(quantity)
+      ){
+
         return;
+
       }
 
 
@@ -1460,11 +1582,11 @@ function showCategorySummary(transactions){
 
 
       if(
-        !categoryData[categoryKey]
+        !data[categoryKey]
           .items[itemName]
       ){
 
-        categoryData[categoryKey]
+        data[categoryKey]
           .items[itemName] = {
 
             in:0,
@@ -1477,24 +1599,24 @@ function showCategorySummary(transactions){
 
       if(type === "IN"){
 
-        categoryData[categoryKey]
-          .totalIn += quantity;
+        data[categoryKey].totalIn +=
+          quantity;
 
-        categoryData[categoryKey]
-          .items[itemName]
-          .in += quantity;
+        data[categoryKey]
+          .items[itemName].in +=
+          quantity;
 
       }
 
 
       if(type === "OUT"){
 
-        categoryData[categoryKey]
-          .totalOut += quantity;
+        data[categoryKey].totalOut +=
+          quantity;
 
-        categoryData[categoryKey]
-          .items[itemName]
-          .out += quantity;
+        data[categoryKey]
+          .items[itemName].out +=
+          quantity;
 
       }
 
@@ -1502,75 +1624,122 @@ function showCategorySummary(transactions){
   );
 
 
-  /* ================================================
-     SHOW ALL 6 CATEGORIES
-  ================================================ */
+  dashboardCategoryData =
+    data;
 
-  CATEGORIES.forEach(
-    function(cat){
-
-      const data =
-        categoryData[cat.key];
+}
 
 
-      data.balance =
-        data.totalIn -
-        data.totalOut;
+/* =====================================================
+   RENDER SELECTED CATEGORY
+===================================================== */
+
+function renderSelectedCategory(){
+
+  const select =
+    document.getElementById(
+      "categorySelect"
+    );
+
+  const selected =
+    select.value;
+
+  const result =
+    document.getElementById(
+      "categoryResult"
+    );
+
+  const titleBox =
+    document.getElementById(
+      "selectedCategoryBox"
+    );
 
 
-      const card =
-        document.createElement("div");
+  if(!selected){
 
-      card.className =
-        "category-card";
+    titleBox.classList.add("hidden");
 
+    result.innerHTML = `
 
-      const title =
-        document.createElement("div");
+      <div class="no-transaction">
+        Please select a category.
+      </div>
 
-      title.className =
-        "category-name";
+    `;
 
-      title.textContent =
-        "🗂️ " + cat.name;
+    return;
 
-
-      card.appendChild(title);
+  }
 
 
-      const itemNames =
-        Object.keys(data.items)
-          .sort();
-
-
-      if(itemNames.length === 0){
-
-        const empty =
-          document.createElement("div");
-
-        empty.className =
-          "no-transaction";
-
-        empty.textContent =
-          "No transaction — IN: 0 | OUT: 0 | Balance: 0";
-
-        card.appendChild(empty);
-
-        grid.appendChild(card);
-
-        return;
-
+  const category =
+    CATEGORIES.find(
+      function(cat){
+        return cat.key === selected;
       }
+    );
 
 
-      const table =
-        document.createElement("table");
-
-      table.className =
-        "category-table";
+  const data =
+    dashboardCategoryData[selected];
 
 
-      table.innerHTML = `
+  if(!category || !data){
+
+    result.innerHTML = `
+
+      <div class="no-transaction">
+        No data available.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  titleBox.classList.remove("hidden");
+
+  titleBox.textContent =
+    "🗂️ " + category.name;
+
+
+  const itemNames =
+    Object.keys(data.items)
+      .sort();
+
+
+  if(itemNames.length === 0){
+
+    result.innerHTML = `
+
+      <div class="no-transaction">
+
+        No transaction for this category.
+
+        <br><br>
+
+        🟢 IN: 0
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        🔴 OUT: 0
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        📊 Balance: 0
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html = `
+
+    <div class="category-table-wrap">
+
+      <table class="category-table">
 
         <thead>
 
@@ -1588,96 +1757,87 @@ function showCategorySummary(transactions){
 
         </thead>
 
-        <tbody></tbody>
+        <tbody>
+
+  `;
+
+
+  itemNames.forEach(
+    function(itemName){
+
+      const item =
+        data.items[itemName];
+
+
+      const itemBalance =
+        item.in - item.out;
+
+
+      html += `
+
+        <tr>
+
+          <td>
+            ${escapeHTML(itemName)}
+          </td>
+
+          <td class="in-number">
+            ${formatNumber(item.in)}
+          </td>
+
+          <td class="out-number">
+            ${formatNumber(item.out)}
+          </td>
+
+          <td class="balance-number">
+            ${formatNumber(itemBalance)}
+          </td>
+
+        </tr>
 
       `;
-
-
-      const tbody =
-        table.querySelector("tbody");
-
-
-      itemNames.forEach(
-        function(itemName){
-
-          const item =
-            data.items[itemName];
-
-
-          const itemBalance =
-            item.in - item.out;
-
-
-          const row =
-            document.createElement("tr");
-
-
-          row.innerHTML = `
-
-            <td>
-              ${escapeHTML(itemName)}
-            </td>
-
-            <td class="in-number">
-              ${formatNumber(item.in)}
-            </td>
-
-            <td class="out-number">
-              ${formatNumber(item.out)}
-            </td>
-
-            <td class="balance-number">
-              ${formatNumber(itemBalance)}
-            </td>
-
-          `;
-
-
-          tbody.appendChild(row);
-
-        }
-      );
-
-
-      /* TOTAL CATEGORY */
-
-      const totalRow =
-        document.createElement("tr");
-
-      totalRow.className =
-        "category-total-row";
-
-
-      totalRow.innerHTML = `
-
-        <td>
-          TOTAL
-        </td>
-
-        <td class="in-number">
-          ${formatNumber(data.totalIn)}
-        </td>
-
-        <td class="out-number">
-          ${formatNumber(data.totalOut)}
-        </td>
-
-        <td class="balance-number">
-          ${formatNumber(data.balance)}
-        </td>
-
-      `;
-
-
-      tbody.appendChild(totalRow);
-
-
-      card.appendChild(table);
-
-      grid.appendChild(card);
 
     }
   );
+
+
+  const totalBalance =
+    data.totalIn -
+    data.totalOut;
+
+
+  html += `
+
+        <tr class="category-total-row">
+
+          <td>
+            TOTAL
+          </td>
+
+          <td class="in-number">
+            ${formatNumber(data.totalIn)}
+          </td>
+
+          <td class="out-number">
+            ${formatNumber(data.totalOut)}
+          </td>
+
+          <td class="balance-number">
+            ${formatNumber(totalBalance)}
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  `;
+
+
+  result.innerHTML = html;
 
 }
 
@@ -1792,6 +1952,13 @@ function showAllBranches(){
 
 function openBranch(branch){
 
+  /*
+    IMPORTANT:
+    Main role hin jijjiiramne.
+    Kanaaf Main yeroo branch filatu
+    VIEW ONLY ta'ee hafa.
+  */
+
   localStorage.setItem(
     "selected_branch_id",
     branch.code
@@ -1807,10 +1974,6 @@ function openBranch(branch){
     branch.code
   );
 
-
-  /*
-    UUID duraanii balleessi.
-  */
 
   localStorage.removeItem(
     "selected_branch_uuid"
@@ -1836,9 +1999,13 @@ async function loadDashboard(){
 
   setupMenu();
 
+  buildCategoryDropdown();
+
 
   if(isMainUser()){
+
     showAllBranches();
+
   }
 
 
@@ -1879,12 +2046,16 @@ async function loadDashboard(){
 
 
       if(type === "IN"){
+
         totalIn += quantity;
+
       }
 
 
       if(type === "OUT"){
+
         totalOut += quantity;
+
       }
 
     }
@@ -1916,17 +2087,24 @@ async function loadDashboard(){
 
 
   /*
-    CATEGORY:
-
-    Item tokkoon tokkoon
-    IN / OUT / Balance
-
-    fi Category Total
+    Category data qopheessi.
   */
 
-  showCategorySummary(
+  prepareCategoryData(
     transactions
   );
+
+
+  /*
+    Default:
+    Category hin filatamne.
+  */
+
+  document.getElementById(
+    "categorySelect"
+  ).value = "";
+
+  renderSelectedCategory();
 
 }
 
@@ -1966,6 +2144,8 @@ window.addEventListener(
     }
 
     setupMenu();
+
+    buildCategoryDropdown();
 
     loadDashboard();
 
