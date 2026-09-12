@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Item Management</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -18,91 +20,177 @@ body{
   color:#1e293b;
 }
 
-.topbar{
-  background:#5b351b;
+/* ================= HEADER ================= */
+
+.header{
+  background:#5b341c;
   color:white;
-  padding:12px 18px;
+  padding:14px 18px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:15px;
   flex-wrap:wrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
 
-.brand{
+.header-left{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
 }
 
-.brand img{
-  width:45px;
-  height:45px;
+.logo{
+  width:52px;
+  height:52px;
+  border-radius:50%;
   object-fit:cover;
-  border-radius:8px;
   background:white;
+  border:2px solid #fff;
 }
 
-.brand h2{
-  margin:0;
+.title{
   font-size:20px;
+  font-weight:bold;
 }
 
-.branch-name{
-  font-size:14px;
-  opacity:.95;
+.subtitle{
+  font-size:13px;
+  opacity:.9;
+  margin-top:3px;
 }
 
-.top-actions{
+.header-right{
   display:flex;
+  align-items:center;
   gap:8px;
   flex-wrap:wrap;
 }
 
-button,
-.btn{
+.branch-badge{
+  background:#fff;
+  color:#5b341c;
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+/* ================= BUTTONS ================= */
+
+button{
   border:none;
-  padding:10px 14px;
   border-radius:7px;
+  padding:10px 14px;
   cursor:pointer;
   font-weight:bold;
-  text-decoration:none;
-  display:inline-block;
+  font-size:14px;
 }
 
 .btn-menu{
-  background:#fff;
-  color:#5b351b;
+  background:#8b5e34;
+  color:white;
 }
 
 .btn-refresh{
-  background:#d6a15d;
-  color:#fff;
+  background:#2563eb;
+  color:white;
 }
 
-.btn-logout{
-  background:#b91c1c;
-  color:#fff;
+.btn-save{
+  background:#166534;
+  color:white;
+  width:100%;
 }
+
+.btn-edit{
+  background:#d97706;
+  color:white;
+  padding:7px 10px;
+}
+
+.btn-delete{
+  background:#dc2626;
+  color:white;
+  padding:7px 10px;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+/* ================= MAIN ================= */
 
 .container{
-  max-width:1100px;
-  margin:25px auto;
+  max-width:1200px;
+  margin:20px auto;
   padding:0 15px;
 }
+
+/* ================= MESSAGE ================= */
+
+.message{
+  display:none;
+  padding:12px 15px;
+  border-radius:8px;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+.message.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+  border:1px solid #86efac;
+}
+
+.message.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+  border:1px solid #fca5a5;
+}
+
+.message.info{
+  display:block;
+  background:#dbeafe;
+  color:#1e40af;
+  border:1px solid #93c5fd;
+}
+
+/* ================= VIEW ONLY ================= */
+
+.view-only{
+  background:#fff7ed;
+  color:#9a3412;
+  border:1px solid #fdba74;
+  padding:12px 15px;
+  border-radius:8px;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+/* ================= CARD ================= */
 
 .card{
   background:white;
   border-radius:12px;
   padding:20px;
   margin-bottom:20px;
-  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-.card h3{
+.card h2{
   margin-top:0;
-  color:#5b351b;
+  color:#5b341c;
+  font-size:20px;
 }
+
+/* ================= FORM ================= */
 
 .form-grid{
   display:grid;
@@ -110,44 +198,42 @@ button,
   gap:15px;
 }
 
-.field{
+.form-group{
   display:flex;
   flex-direction:column;
-  gap:7px;
 }
 
-.field label{
+.form-group label{
   font-weight:bold;
+  margin-bottom:6px;
   font-size:14px;
 }
 
-.field input,
-.field select{
+.form-group input,
+.form-group select{
   width:100%;
-  padding:12px;
+  padding:11px;
   border:1px solid #cbd5e1;
   border-radius:7px;
-  font-size:15px;
+  font-size:14px;
   background:white;
 }
 
-.field input:focus,
-.field select:focus{
+.form-group input:focus,
+.form-group select:focus{
   outline:none;
   border-color:#8b5e34;
   box-shadow:0 0 0 2px rgba(139,94,52,.12);
 }
 
-.form-actions{
-  margin-top:18px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+.full{
+  grid-column:1/-1;
 }
 
-.btn-save{
-  background:#5b351b;
-  color:white;
+.form-actions{
+  margin-top:15px;
+  display:flex;
+  gap:10px;
 }
 
 .btn-cancel{
@@ -155,294 +241,385 @@ button,
   color:white;
 }
 
-.info{
-  background:#fff7ed;
-  border-left:4px solid #8b5e34;
+/* ================= SEARCH ================= */
+
+.search-box{
+  margin-bottom:15px;
+}
+
+.search-box input{
+  width:100%;
   padding:12px;
-  border-radius:6px;
-  margin-bottom:15px;
-  font-size:14px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:15px;
 }
 
-.status{
-  padding:10px;
-  border-radius:7px;
-  margin-bottom:15px;
-  display:none;
-}
-
-.status.success{
-  display:block;
-  background:#dcfce7;
-  color:#166534;
-}
-
-.status.error{
-  display:block;
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.status.loading{
-  display:block;
-  background:#e0f2fe;
-  color:#075985;
-}
+/* ================= TABLE ================= */
 
 .table-wrap{
+  width:100%;
   overflow-x:auto;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:700px;
-}
-
-th,
-td{
-  padding:12px 10px;
-  border-bottom:1px solid #e2e8f0;
-  text-align:left;
+  min-width:750px;
 }
 
 th{
-  background:#f8fafc;
-  color:#5b351b;
+  background:#5b341c;
+  color:white;
+  padding:12px 10px;
+  text-align:left;
+  font-size:14px;
+}
+
+td{
+  padding:11px 10px;
+  border-bottom:1px solid #e2e8f0;
+  font-size:14px;
 }
 
 tr:hover td{
-  background:#fafafa;
+  background:#faf7f4;
 }
 
-.action-btn{
-  padding:7px 10px;
-  margin:2px;
-  font-size:13px;
+.actions{
+  display:flex;
+  gap:6px;
 }
 
-.edit-btn{
-  background:#d6a15d;
-  color:white;
-}
+/* ================= LOADING ================= */
 
-.delete-btn{
-  background:#dc2626;
-  color:white;
-}
-
-.view-only{
-  background:#fef3c7;
-  color:#92400e;
-  padding:10px;
-  border-radius:7px;
-  margin-bottom:15px;
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#64748b;
   font-weight:bold;
 }
 
-.empty{
-  text-align:center;
-  padding:25px;
-  color:#64748b;
-}
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:800px){
+
+  .form-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .header{
+    align-items:flex-start;
+  }
+
+  .header-right{
+    width:100%;
+  }
+
+  .header-right button{
+    flex:1;
+  }
+
   .form-grid{
     grid-template-columns:1fr;
   }
 
-  .topbar{
-    align-items:flex-start;
+  .container{
+    padding:0 10px;
+    margin-top:12px;
   }
 
-  .top-actions{
-    width:100%;
+  .card{
+    padding:15px;
   }
 
-  .top-actions button,
-  .top-actions .btn{
-    flex:1;
-    text-align:center;
+  .title{
+    font-size:17px;
   }
+
+  .subtitle{
+    font-size:12px;
+  }
+
+  .logo{
+    width:45px;
+    height:45px;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
+<!-- ================= HEADER ================= -->
 
-  <div class="brand">
-    <img src="./1788633150526.jpg" alt="AAFDRMC Logo">
+<header class="header">
+
+  <div class="header-left">
+
+    <img
+      src="./1788633150526.jpg"
+      class="logo"
+      alt="AAFDRMC Logo"
+      onerror="this.style.display='none'"
+    >
+
     <div>
-      <h2>AAFDRMC</h2>
-      <div class="branch-name" id="branchDisplay">
-        Branch
-      </div>
+      <div class="title">AAFDRMC - Item Management</div>
+      <div class="subtitle">Item / Category / Unit Management</div>
     </div>
+
   </div>
 
-  <div class="top-actions">
-    <a href="dashboard.html" class="btn btn-menu">
-      Dashboard
-    </a>
+  <div class="header-right">
 
-    <button class="btn btn-refresh" onclick="loadItems()">
+    <div class="branch-badge" id="branchBadge">
+      Loading...
+    </div>
+
+    <button
+      class="btn-menu"
+      onclick="goDashboard()">
+      Dashboard
+    </button>
+
+    <button
+      class="btn-refresh"
+      onclick="loadItems()">
       Refresh
     </button>
 
-    <button class="btn btn-logout" onclick="logout()">
-      Logout
-    </button>
   </div>
 
 </header>
 
 
+<!-- ================= MAIN ================= -->
+
 <main class="container">
 
-  <div id="status" class="status"></div>
+  <div id="message" class="message"></div>
 
 
-  <!-- ================= ITEM FORM ================= -->
-
-  <section class="card" id="itemFormCard">
-
-    <h3 id="formTitle">
-      Add New Item
-    </h3>
-
-    <div class="info">
-      <b>Hubachiisa:</b>
-      Item ID ati harkaan hin galchitu.
-      Database mataan isaa ID ni uuma.
-      As keessatti <b>Maqaa Item, Category fi Safartuu</b>
-      qofa galchi.
-    </div>
-
-    <div class="form-grid">
-
-      <!-- ITEM NAME -->
-      <div class="field">
-
-        <label for="itemName">
-          Item Name / Maqaa Item
-        </label>
-
-        <input
-          type="text"
-          id="itemName"
-          placeholder="Fakkeenya: Xaafii"
-          autocomplete="off"
-        >
-
-      </div>
-
-
-      <!-- CATEGORY -->
-      <div class="field">
-
-        <label for="category">
-          Category / Ramaddii
-        </label>
-
-        <select id="category">
-
-          <option value="">
-            -- Select Category --
-          </option>
-
-          <option value="Meeshaalee Nyaataa Tarsiimawaa">
-            Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ
-          </option>
-
-          <option value="Meeshaalee Nyaataa Guyyaa Guyyaa">
-            Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / የዕለት ምግብ ነክ
-          </option>
-
-          <option value="Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa">
-            Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / የዕለት ምግብ ነክ ያልሆኑ
-          </option>
-
-          <option value="Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan">
-            Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / የምግብ ዝግጅት እቃዎች
-          </option>
-
-          <option value="Meeshaalee Qulqullinaa">
-            Meeshaalee Qulqullinaa / Non-Food Hygiene Items / የንጽህና እቃዎች
-          </option>
-
-          <option value="Meeshaa Ijaarsa Manaaf Oolu">
-            Meeshaa Ijaarsa Manaaf Oolu / Building & Construction Items / የግንባታ እቃዎች
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- UNIT -->
-      <div class="field">
-
-        <label for="unit">
-          Safartuu / Unit
-        </label>
-
-        <input
-          type="text"
-          id="unit"
-          placeholder="Fakkeenya: kg, quintal, litre, piece"
-          autocomplete="off"
-        >
-
-      </div>
-
-    </div>
-
-
-    <div class="form-actions">
-
-      <button
-        class="btn btn-save"
-        id="saveButton"
-        onclick="saveItem()"
-      >
-        Save Item
-      </button>
-
-      <button
-        class="btn btn-cancel"
-        id="cancelButton"
-        onclick="cancelEdit()"
-        style="display:none;"
-      >
-        Cancel Edit
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= VIEW ONLY ================= -->
+  <!-- MAIN VIEW ONLY MESSAGE -->
 
   <div
     id="viewOnlyMessage"
     class="view-only"
-    style="display:none;"
-  >
-    Main / HQ: Branch kana keessatti odeeffannoo item qofa
-    ilaaluu dandeessa. Add, Edit fi Delete hin hayyamamu.
+    style="display:none;">
+    Main / HQ is VIEW ONLY. Items ilaaluu qofa dandeessa; Add, Edit fi Delete hin dandeessu.
   </div>
 
 
-  <!-- ================= ITEMS TABLE ================= -->
+  <!-- ================= ADD / EDIT CARD ================= -->
+
+  <section
+    class="card"
+    id="itemFormCard">
+
+    <h2 id="formTitle">
+      Add New Item
+    </h2>
+
+    <form id="itemForm">
+
+      <div class="form-grid">
+
+        <!-- ITEM NAME -->
+
+        <div class="form-group">
+
+          <label for="itemName">
+            Item Name / Maqaa Meeshaa
+          </label>
+
+          <input
+            type="text"
+            id="itemName"
+            placeholder="Enter item name"
+            required>
+
+        </div>
+
+
+        <!-- CATEGORY -->
+
+        <div class="form-group">
+
+          <label for="category">
+            Category / Ramaddii
+          </label>
+
+          <select
+            id="category"
+            required>
+
+            <option value="">
+              Select Category
+            </option>
+
+            <option value="Meeshaalee Nyaataa Tarsiimawaa">
+              Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items / ስትራቴጂክ ምግብ ነክ
+            </option>
+
+            <option value="Meeshaalee Nyaataa Guyyaa Guyyaa">
+              Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items / የዕለት ምግብ ነክ
+            </option>
+
+            <option value="Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa">
+              Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items / የዕለት ምግብ ነክ ያልሆኑ
+            </option>
+
+            <option value="Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan">
+              Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items / የምግብ ዝግጅት የማይሆኑ እቃዎች
+            </option>
+
+            <option value="Meeshaalee Qulqullinaa">
+              Meeshaalee Qulqullinaa / Non-Food Hygiene Items / የንጽህና እቃዎች
+            </option>
+
+            <option value="Meeshaa Ijaarsa Manaaf Oolu">
+              Meeshaa Ijaarsa Manaaf Oolu / Building & Construction Items / የግንባታ እቃዎች
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- UNIT -->
+
+        <div class="form-group">
+
+          <label for="unit">
+            Unit / Safartuu
+          </label>
+
+          <select
+            id="unit"
+            required>
+
+            <option value="">
+              Select Unit
+            </option>
+
+            <option value="Kg">
+              Kg
+            </option>
+
+            <option value="Quintal">
+              Quintal
+            </option>
+
+            <option value="Litre">
+              Litre
+            </option>
+
+            <option value="Piece">
+              Piece
+            </option>
+
+            <option value="Box">
+              Box
+            </option>
+
+            <option value="Bag">
+              Bag
+            </option>
+
+            <option value="Carton">
+              Carton
+            </option>
+
+            <option value="Packet">
+              Packet
+            </option>
+
+            <option value="Bottle">
+              Bottle
+            </option>
+
+            <option value="Set">
+              Set
+            </option>
+
+            <option value="Meter">
+              Meter
+            </option>
+
+            <option value="Roll">
+              Roll
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- SAVE BUTTON -->
+
+        <div class="form-actions full">
+
+          <button
+            type="submit"
+            class="btn-save"
+            id="saveButton">
+            Save Item
+          </button>
+
+          <button
+            type="button"
+            class="btn-cancel"
+            id="cancelButton"
+            onclick="cancelEdit()"
+            style="display:none;">
+            Cancel
+          </button>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- ================= ITEMS LIST ================= -->
 
   <section class="card">
 
-    <h3>
-      Items
-    </h3>
+    <h2>
+      Items List
+    </h2>
+
+    <div class="search-box">
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search item name, category or unit..."
+        oninput="filterItems()">
+
+    </div>
+
+
+    <div
+      id="loading"
+      class="loading">
+      Loading items...
+    </div>
+
 
     <div class="table-wrap">
 
@@ -451,24 +628,16 @@ tr:hover td{
         <thead>
 
           <tr>
-            <th>ID</th>
+            <th>Item ID</th>
             <th>Item Name</th>
             <th>Category</th>
-            <th>Safartuu / Unit</th>
-            <th>Actions</th>
+            <th>Unit</th>
+            <th id="actionHeader">Actions</th>
           </tr>
 
         </thead>
 
-        <tbody id="itemsTableBody">
-
-          <tr>
-            <td colspan="5" class="empty">
-              Loading...
-            </td>
-          </tr>
-
-        </tbody>
+        <tbody id="itemsBody"></tbody>
 
       </table>
 
@@ -481,48 +650,101 @@ tr:hover td{
 
 <script>
 
-/* =====================================================
+/* =========================================================
    SUPABASE
-===================================================== */
+========================================================= */
 
 const SUPABASE_URL =
   "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXk";
+  "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
 
 
-/* =====================================================
-   LOCAL STORAGE
-===================================================== */
-
-const selectedBranchId =
-  localStorage.getItem("selected_branch_id") || "";
-
-const selectedBranchName =
-  localStorage.getItem("selected_branch_name") || "";
-
-const selectedBranchCode =
-  localStorage.getItem("selected_branch_code") || "";
-
-const userRole =
-  localStorage.getItem("user_role") || "";
-
-
-/* =====================================================
-   CURRENT STATE
-===================================================== */
-
-let branchUUID = "";
-
-let editingItemId = null;
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
 
 let allItems = [];
 
+let editingId = null;
 
-/* =====================================================
-   MAIN USER
-===================================================== */
+let branchUUID = null;
+
+let branchCode =
+  localStorage.getItem("selected_branch_code") || "";
+
+let branchName =
+  localStorage.getItem("selected_branch_name") || "";
+
+let userRole =
+  localStorage.getItem("user_role") || "";
+
+let loggedIn =
+  localStorage.getItem("is_logged_in") === "true";
+
+
+/* =========================================================
+   PAGE START
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", async function(){
+
+  if(!loggedIn){
+
+    window.location.href = "index.html";
+
+    return;
+  }
+
+
+  if(!branchName){
+
+    branchName =
+      localStorage.getItem("selected_branch_name") || "Unknown Branch";
+
+  }
+
+
+  if(!branchCode){
+
+    branchCode =
+      localStorage.getItem("selected_branch_id") || "";
+
+  }
+
+
+  document.getElementById("branchBadge").textContent =
+    branchName || "Branch";
+
+
+  setupAccess();
+
+
+  try{
+
+    branchUUID = await findBranchUUID();
+
+    await loadItems();
+
+  }catch(error){
+
+    showMessage(
+      "Branch information loading failed: " +
+      error.message,
+      "error"
+    );
+
+    document.getElementById("loading").style.display =
+      "none";
+  }
+
+});
+
+
+/* =========================================================
+   ACCESS CONTROL
+========================================================= */
 
 function isMainUser(){
 
@@ -533,41 +755,27 @@ function isMainUser(){
 }
 
 
-/* =====================================================
-   OPERATIONAL BRANCH CHECK
-===================================================== */
+function setupAccess(){
 
-function isMainHQ(){
+  if(isMainUser()){
 
-  return (
-    isMainUser() &&
-    String(selectedBranchCode).toUpperCase() === "MAIN"
-  );
+    document.getElementById("viewOnlyMessage")
+      .style.display = "block";
 
-}
+    document.getElementById("itemFormCard")
+      .style.display = "none";
 
+    document.getElementById("actionHeader")
+      .style.display = "none";
 
-/* =====================================================
-   STATUS MESSAGE
-===================================================== */
-
-function showStatus(message, type){
-
-  const box =
-    document.getElementById("status");
-
-  box.className =
-    "status " + type;
-
-  box.textContent =
-    message;
+  }
 
 }
 
 
-/* =====================================================
-   HEADERS
-===================================================== */
+/* =========================================================
+   SUPABASE HEADERS
+========================================================= */
 
 function getHeaders(){
 
@@ -597,36 +805,42 @@ function getHeaders(){
 }
 
 
-/* =====================================================
+/* =========================================================
    UUID CHECK
-===================================================== */
+========================================================= */
 
 function isUUID(value){
 
+  if(!value) return false;
+
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    .test(String(value || ""));
+    .test(String(value));
 
 }
 
 
-/* =====================================================
-   RESOLVE REAL BRANCH UUID
-===================================================== */
+/* =========================================================
+   BRANCH UUID RESOLVER
+========================================================= */
 
-async function resolveBranchUUID(){
+async function findBranchUUID(){
 
-  const storedUUID =
-    localStorage.getItem("selected_branch_uuid");
+  /*
+    selected_branch_id is usually GUL / AKT / etc.
+    It is NOT the database UUID.
 
-  if(isUUID(storedUUID)){
-    return storedUUID;
-  }
+    Therefore we first read branches table
+    and find the real UUID.
+  */
 
+
+  const url =
+    SUPABASE_URL +
+    "/rest/v1/branches?select=*";
 
   const response =
     await fetch(
-      SUPABASE_URL +
-      "/rest/v1/branches?select=*",
+      url,
       {
         method:"GET",
         headers:getHeaders()
@@ -634,29 +848,79 @@ async function resolveBranchUUID(){
     );
 
 
+  const text =
+    await response.text();
+
+
   if(!response.ok){
 
-    const text =
-      await response.text();
+    throw new Error(text);
+
+  }
+
+
+  let rows = [];
+
+  try{
+
+    rows = JSON.parse(text);
+
+  }catch(e){
 
     throw new Error(
-      "Branches loading failed: " + text
+      "Branches response is not valid JSON."
     );
 
   }
 
 
-  const branches =
-    await response.json();
+  if(!Array.isArray(rows)){
+
+    throw new Error(
+      "Branches data not found."
+    );
+
+  }
+
+
+  /* Possible code columns */
+
+  const codeFields = [
+
+    "code",
+    "branch_code",
+    "branchCode",
+    "branchcode",
+    "branch_id_code",
+    "short_code"
+
+  ];
+
+
+  /* Possible name columns */
+
+  const nameFields = [
+
+    "name",
+    "branch_name",
+    "branch",
+    "branchName",
+    "title",
+    "branch_title",
+    "office_name",
+    "office"
+
+  ];
 
 
   const wantedCode =
-    String(selectedBranchCode || "")
+    String(branchCode || "")
       .trim()
       .toLowerCase();
 
+
   const wantedName =
-    String(selectedBranchName || "")
+    String(branchName || "")
       .trim()
       .toLowerCase();
 
@@ -664,59 +928,63 @@ async function resolveBranchUUID(){
   let found = null;
 
 
-  for(const b of branches){
+  /* First: match by branch code */
 
-    if(!isUUID(b.id)){
-      continue;
-    }
+  if(wantedCode){
 
+    found =
+      rows.find(function(row){
 
-    const codeValues = [
+        return codeFields.some(function(field){
 
-      b.code,
-      b.branch_code,
-      b.branchCode,
-      b.branchcode,
-      b.branch_id_code,
-      b.short_code
+          return String(row[field] || "")
+            .trim()
+            .toLowerCase() === wantedCode;
 
-    ];
+        });
 
+      });
 
-    const nameValues = [
-
-      b.name,
-      b.branch_name,
-      b.branch,
-      b.branchName,
-      b.title,
-      b.branch_title,
-      b.office_name,
-      b.office
-
-    ];
+  }
 
 
-    const codeMatch =
-      codeValues.some(v =>
-        String(v || "")
-          .trim()
-          .toLowerCase() === wantedCode
+  /* Second: match by branch name */
+
+  if(!found && wantedName){
+
+    found =
+      rows.find(function(row){
+
+        return nameFields.some(function(field){
+
+          return String(row[field] || "")
+            .trim()
+            .toLowerCase() === wantedName;
+
+        });
+
+      });
+
+  }
+
+
+  /* If selected_branch_id itself is UUID */
+
+  if(!found){
+
+    const possible =
+      localStorage.getItem(
+        "selected_branch_uuid"
       );
 
+    if(isUUID(possible)){
 
-    const nameMatch =
-      nameValues.some(v =>
-        String(v || "")
-          .trim()
-          .toLowerCase() === wantedName
-      );
+      found =
+        rows.find(function(row){
 
+          return String(row.id) === String(possible);
 
-    if(codeMatch || nameMatch){
-
-      found = b;
-      break;
+        });
 
     }
 
@@ -725,111 +993,100 @@ async function resolveBranchUUID(){
 
   if(!found){
 
+    /*
+      Main HQ itself does not need branch UUID.
+      But this page can only show all branches if a
+      branch has been selected.
+    */
+
+    if(isMainUser() &&
+       String(branchCode).toUpperCase() === "MAIN"){
+
+      return null;
+
+    }
+
+
     throw new Error(
-      "Branch UUID hin argamne. Branch: " +
-      selectedBranchName +
-      " (" +
-      selectedBranchCode +
-      ")"
+      "Branch UUID hin argamne. Branch code/name: " +
+      branchCode +
+      " / " +
+      branchName
     );
 
   }
 
 
-  branchUUID =
-    String(found.id);
+  if(!isUUID(found.id)){
+
+    throw new Error(
+      "branches.id UUID miti."
+    );
+
+  }
 
 
   localStorage.setItem(
     "selected_branch_uuid",
-    branchUUID
+    found.id
   );
 
 
-  return branchUUID;
+  return found.id;
 
 }
 
 
-/* =====================================================
-   DISPLAY BRANCH
-===================================================== */
-
-function displayBranch(){
-
-  const el =
-    document.getElementById("branchDisplay");
-
-
-  if(isMainHQ()){
-
-    el.textContent =
-      "Main / Headquarters";
-
-    return;
-
-  }
-
-
-  el.textContent =
-    selectedBranchName
-      ? selectedBranchName +
-        (
-          selectedBranchCode
-            ? " (" + selectedBranchCode + ")"
-            : ""
-        )
-      : "Branch";
-
-}
-
-
-/* =====================================================
+/* =========================================================
    LOAD ITEMS
-===================================================== */
+========================================================= */
 
 async function loadItems(){
 
+  document.getElementById("loading")
+    .style.display = "block";
+
+
   try{
 
-    showStatus(
-      "Items loading...",
-      "loading"
-    );
+    if(
+      !isMainUser() &&
+      !branchUUID
+    ){
 
+      branchUUID =
+        await findBranchUUID();
 
-    /*
-      Main HQ:
-      all branches can be viewed.
-    */
+    }
+
 
     let url =
       SUPABASE_URL +
-      "/rest/v1/items?select=*&order=id.desc";
+      "/rest/v1/items?select=id,name,category,unit,branch_id";
 
 
     /*
-      Main selecting one operational branch
-      OR normal branch user:
-      only selected branch.
+      Main HQ with no branch selected:
+      show all items.
+
+      Main after selecting a branch:
+      show only selected branch items.
+      
+      Operational branch:
+      show only own branch items.
     */
 
-    if(!isMainHQ()){
+    if(branchUUID){
 
-      const uuid =
-        await resolveBranchUUID();
-
-      branchUUID = uuid;
-
-      url =
-        SUPABASE_URL +
-        "/rest/v1/items" +
-        "?select=*" +
+      url +=
         "&branch_id=eq." +
-        encodeURIComponent(uuid) +
-        "&order=id.desc";
+        encodeURIComponent(branchUUID);
 
     }
+
+
+    url +=
+      "&order=name.asc";
 
 
     const response =
@@ -842,197 +1099,528 @@ async function loadItems(){
       );
 
 
-    if(!response.ok){
+    const text =
+      await response.text();
 
-      const text =
-        await response.text();
+
+    if(!response.ok){
 
       throw new Error(text);
 
     }
 
 
-    allItems =
-      await response.json();
+    let data = [];
+
+    try{
+
+      data = JSON.parse(text);
+
+    }catch(e){
+
+      throw new Error(
+        "Items response is not valid JSON."
+      );
+
+    }
 
 
-    renderItems();
+    if(!Array.isArray(data)){
+
+      data = [];
+
+    }
 
 
-    showStatus(
-      "Items loaded successfully.",
-      "success"
-    );
+    allItems = data;
 
 
-    setTimeout(() => {
-
-      document.getElementById("status")
-        .className = "status";
-
-    },2000);
+    renderItems(allItems);
 
 
   }catch(error){
 
     console.error(error);
 
-    showStatus(
+    showMessage(
       "Items loading failed: " +
       error.message,
       "error"
     );
 
+    allItems = [];
 
-    document.getElementById(
-      "itemsTableBody"
-    ).innerHTML = `
+    renderItems([]);
 
-      <tr>
-        <td colspan="5" class="empty">
-          Items loading failed.
-        </td>
-      </tr>
+  }finally{
 
-    `;
+    document.getElementById("loading")
+      .style.display = "none";
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    RENDER ITEMS
-===================================================== */
+========================================================= */
 
-function renderItems(){
+function renderItems(items){
 
-  const tbody =
-    document.getElementById(
-      "itemsTableBody"
-    );
+  const body =
+    document.getElementById("itemsBody");
+
+  body.innerHTML = "";
 
 
-  if(!allItems.length){
+  if(!items.length){
 
-    tbody.innerHTML = `
+    const row =
+      document.createElement("tr");
 
-      <tr>
-        <td colspan="5" class="empty">
-          No items found.
-        </td>
-      </tr>
+    const cell =
+      document.createElement("td");
 
-    `;
+    cell.colSpan =
+      isMainUser() ? 4 : 5;
+
+    cell.textContent =
+      "No items found.";
+
+    cell.style.textAlign =
+      "center";
+
+    cell.style.padding =
+      "25px";
+
+    row.appendChild(cell);
+
+    body.appendChild(row);
 
     return;
 
   }
 
 
-  tbody.innerHTML =
-    allItems.map(item => {
+  items.forEach(function(item){
 
-      const id =
-        item.id ?? "—";
+    const row =
+      document.createElement("tr");
+
+
+    /* ID */
+
+    const idCell =
+      document.createElement("td");
+
+    idCell.textContent =
+      item.id ?? "—";
+
+
+    /* Name */
+
+    const nameCell =
+      document.createElement("td");
+
+    nameCell.textContent =
+      item.name || "—";
+
+
+    /* Category */
+
+    const categoryCell =
+      document.createElement("td");
+
+    categoryCell.textContent =
+      item.category || "—";
+
+
+    /* Unit */
+
+    const unitCell =
+      document.createElement("td");
+
+    unitCell.textContent =
+      item.unit || "—";
+
+
+    row.appendChild(idCell);
+    row.appendChild(nameCell);
+    row.appendChild(categoryCell);
+    row.appendChild(unitCell);
+
+
+    /* Actions */
+
+    if(!isMainUser()){
+
+      const actionCell =
+        document.createElement("td");
+
+      actionCell.className =
+        "actions";
+
+
+      const editButton =
+        document.createElement("button");
+
+      editButton.className =
+        "btn-edit";
+
+      editButton.textContent =
+        "Edit";
+
+      editButton.onclick =
+        function(){
+
+          startEdit(item);
+
+        };
+
+
+      const deleteButton =
+        document.createElement("button");
+
+      deleteButton.className =
+        "btn-delete";
+
+      deleteButton.textContent =
+        "Delete";
+
+      deleteButton.onclick =
+        function(){
+
+          deleteItem(item);
+
+        };
+
+
+      actionCell.appendChild(
+        editButton
+      );
+
+      actionCell.appendChild(
+        deleteButton
+      );
+
+
+      row.appendChild(actionCell);
+
+    }
+
+
+    body.appendChild(row);
+
+  });
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function filterItems(){
+
+  const search =
+    document.getElementById("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if(!search){
+
+    renderItems(allItems);
+
+    return;
+
+  }
+
+
+  const filtered =
+    allItems.filter(function(item){
 
       const name =
-        item.name ?? "—";
+        String(item.name || "")
+          .toLowerCase();
 
       const category =
-        item.category ?? "—";
+        String(item.category || "")
+          .toLowerCase();
 
       const unit =
-        item.unit ?? "—";
+        String(item.unit || "")
+          .toLowerCase();
+
+      const id =
+        String(item.id || "")
+          .toLowerCase();
 
 
-      let actions = "View Only";
+      return (
+        name.includes(search) ||
+        category.includes(search) ||
+        unit.includes(search) ||
+        id.includes(search)
+      );
+
+    });
 
 
-      if(!isMainUser()){
+  renderItems(filtered);
 
-        actions = `
+}
 
-          <button
-            class="action-btn edit-btn"
-            onclick="editItem(${JSON.stringify(item.id)})"
-          >
-            Edit
-          </button>
 
-          <button
-            class="action-btn delete-btn"
-            onclick="deleteItem(${JSON.stringify(item.id)})"
-          >
-            Delete
-          </button>
+/* =========================================================
+   SAVE ITEM
+========================================================= */
 
-        `;
+document.getElementById("itemForm")
+  .addEventListener(
+    "submit",
+    async function(event){
+
+      event.preventDefault();
+
+
+      if(isMainUser()){
+
+        showMessage(
+          "Main / HQ irraa Item Add gochuun hin danda'amu. Ilaaluu qofa.",
+          "error"
+        );
+
+        return;
 
       }
 
 
-      return `
+      if(!branchUUID){
 
-        <tr>
+        showMessage(
+          "Branch UUID hin argamne.",
+          "error"
+        );
 
-          <td>${escapeHTML(id)}</td>
+        return;
 
-          <td>
-            ${escapeHTML(name)}
-          </td>
-
-          <td>
-            ${escapeHTML(category)}
-          </td>
-
-          <td>
-            ${escapeHTML(unit)}
-          </td>
-
-          <td>
-            ${actions}
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join("");
-
-}
+      }
 
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
+      const name =
+        document.getElementById("itemName")
+          .value
+          .trim();
 
 
-/* =====================================================
-   SAVE ITEM
-===================================================== */
+      const category =
+        document.getElementById("category")
+          .value
+          .trim();
 
-async function saveItem(){
 
-  /*
-    MAIN = VIEW ONLY
-  */
+      const unit =
+        document.getElementById("unit")
+          .value
+          .trim();
+
+
+      if(!name){
+
+        showMessage(
+          "Maqaa item galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if(!category){
+
+        showMessage(
+          "Category filadhu.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if(!unit){
+
+        showMessage(
+          "Safartuu / Unit filadhu.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const saveButton =
+        document.getElementById("saveButton");
+
+
+      saveButton.disabled =
+        true;
+
+      saveButton.textContent =
+        editingId
+          ? "Updating..."
+          : "Saving...";
+
+
+      try{
+
+        let response;
+
+
+        /* ================= EDIT ================= */
+
+        if(editingId){
+
+          const url =
+            SUPABASE_URL +
+            "/rest/v1/items" +
+            "?id=eq." +
+            encodeURIComponent(editingId) +
+            "&branch_id=eq." +
+            encodeURIComponent(branchUUID);
+
+
+          const payload = {
+
+            name: name,
+            category: category,
+            unit: unit
+
+          };
+
+
+          response =
+            await fetch(
+              url,
+              {
+                method:"PATCH",
+                headers:getHeaders(),
+                body:JSON.stringify(payload)
+              }
+            );
+
+        }
+
+
+        /* ================= NEW ITEM ================= */
+
+        else{
+
+          const url =
+            SUPABASE_URL +
+            "/rest/v1/items";
+
+
+          /*
+            IMPORTANT:
+            id hin erginu.
+            Database mataa ID ofumaan uuma.
+          */
+
+          const payload = {
+
+            name: name,
+
+            category: category,
+
+            unit: unit,
+
+            branch_id: branchUUID,
+
+            branch_code:
+              branchCode || null
+
+          };
+
+
+          response =
+            await fetch(
+              url,
+              {
+                method:"POST",
+                headers:getHeaders(),
+                body:JSON.stringify(payload)
+              }
+            );
+
+        }
+
+
+        const text =
+          await response.text();
+
+
+        if(!response.ok){
+
+          throw new Error(text);
+
+        }
+
+
+        showMessage(
+          editingId
+            ? "Item sirriitti haaromfame."
+            : "Item haaraan sirriitti galmaa'e.",
+          "success"
+        );
+
+
+        cancelEdit();
+
+
+        await loadItems();
+
+
+      }catch(error){
+
+        console.error(error);
+
+        showMessage(
+          "Save hin milkoofne: " +
+          error.message,
+          "error"
+        );
+
+      }finally{
+
+        saveButton.disabled =
+          false;
+
+        saveButton.textContent =
+          editingId
+            ? "Update Item"
+            : "Save Item";
+
+      }
+
+  });
+
+
+/* =========================================================
+   START EDIT
+========================================================= */
+
+function startEdit(item){
 
   if(isMainUser()){
 
-    showStatus(
-      "Main / HQ: Add, Edit fi Delete hin hayyamamu.",
+    showMessage(
+      "Main / HQ Edit gochuu hin danda'u.",
       "error"
     );
 
@@ -1041,274 +1629,38 @@ async function saveItem(){
   }
 
 
-  const name =
-    document.getElementById(
-      "itemName"
-    ).value.trim();
-
-
-  const category =
-    document.getElementById(
-      "category"
-    ).value.trim();
-
-
-  const unit =
-    document.getElementById(
-      "unit"
-    ).value.trim();
-
-
-  /* VALIDATION */
-
-  if(!name){
-
-    showStatus(
-      "Maqaa Item galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!category){
-
-    showStatus(
-      "Category filadhu.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!unit){
-
-    showStatus(
-      "Safartuu / Unit galchi.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    showStatus(
-      "Saving...",
-      "loading"
-    );
-
-
-    const uuid =
-      await resolveBranchUUID();
-
-
-    branchUUID = uuid;
-
-
-    /*
-      IMPORTANT:
-      id hin erginu.
-      Database mataan isaa ID uuma.
-    */
-
-    const payload = {
-
-      name: name,
-
-      category: category,
-
-      unit: unit,
-
-      branch_id: uuid,
-
-      branch_code:
-        selectedBranchCode || null
-
-    };
-
-
-    let response;
-
-
-    /* =========================
-       EDIT
-    ========================= */
-
-    if(editingItemId !== null){
-
-      let url =
-        SUPABASE_URL +
-        "/rest/v1/items" +
-        "?id=eq." +
-        encodeURIComponent(editingItemId) +
-        "&branch_id=eq." +
-        encodeURIComponent(uuid);
-
-
-      response =
-        await fetch(
-          url,
-          {
-            method:"PATCH",
-            headers:getHeaders(),
-            body:JSON.stringify({
-
-              name:name,
-
-              category:category,
-
-              unit:unit
-
-            })
-          }
-        );
-
-    }
-
-
-    /* =========================
-       NEW ITEM
-    ========================= */
-
-    else{
-
-      const url =
-        SUPABASE_URL +
-        "/rest/v1/items";
-
-
-      response =
-        await fetch(
-          url,
-          {
-            method:"POST",
-            headers:getHeaders(),
-            body:JSON.stringify(payload)
-          }
-        );
-
-    }
-
-
-    if(!response.ok){
-
-      const text =
-        await response.text();
-
-      throw new Error(text);
-
-    }
-
-
-    showStatus(
-      editingItemId !== null
-        ? "Item updated successfully."
-        : "Item saved successfully.",
-      "success"
-    );
-
-
-    clearForm();
-
-    await loadItems();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "Save failed: " +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   EDIT ITEM
-===================================================== */
-
-function editItem(id){
-
-  if(isMainUser()){
-
-    showStatus(
-      "Main / HQ: Edit gochuun hin hayyamamu.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const item =
-    allItems.find(
-      x => String(x.id) === String(id)
-    );
-
-
-  if(!item){
-
-    showStatus(
-      "Item hin argamne.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  editingItemId =
+  editingId =
     item.id;
 
 
-  document.getElementById(
-    "itemName"
-  ).value =
+  document.getElementById("itemName")
+    .value =
     item.name || "";
 
 
-  document.getElementById(
-    "category"
-  ).value =
+  document.getElementById("category")
+    .value =
     item.category || "";
 
 
-  document.getElementById(
-    "unit"
-  ).value =
+  document.getElementById("unit")
+    .value =
     item.unit || "";
 
 
-  document.getElementById(
-    "formTitle"
-  ).textContent =
+  document.getElementById("formTitle")
+    .textContent =
     "Edit Item";
 
 
-  document.getElementById(
-    "saveButton"
-  ).textContent =
+  document.getElementById("saveButton")
+    .textContent =
     "Update Item";
 
 
-  document.getElementById(
-    "cancelButton"
-  ).style.display =
-    "inline-block";
+  document.getElementById("cancelButton")
+    .style.display =
+    "block";
 
 
   window.scrollTo({
@@ -1319,16 +1671,46 @@ function editItem(id){
 }
 
 
-/* =====================================================
-   DELETE ITEM
-===================================================== */
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
 
-async function deleteItem(id){
+function cancelEdit(){
+
+  editingId = null;
+
+
+  document.getElementById("itemForm")
+    .reset();
+
+
+  document.getElementById("formTitle")
+    .textContent =
+    "Add New Item";
+
+
+  document.getElementById("saveButton")
+    .textContent =
+    "Save Item";
+
+
+  document.getElementById("cancelButton")
+    .style.display =
+    "none";
+
+}
+
+
+/* =========================================================
+   DELETE ITEM
+========================================================= */
+
+async function deleteItem(item){
 
   if(isMainUser()){
 
-    showStatus(
-      "Main / HQ: Delete gochuun hin hayyamamu.",
+    showMessage(
+      "Main / HQ Delete gochuu hin danda'u.",
       "error"
     );
 
@@ -1337,49 +1719,46 @@ async function deleteItem(id){
   }
 
 
-  const item =
-    allItems.find(
-      x => String(x.id) === String(id)
+  if(!branchUUID){
+
+    showMessage(
+      "Branch UUID hin argamne.",
+      "error"
     );
 
-
-  if(!item){
     return;
+
   }
+
+
+  const itemName =
+    item.name || "this item";
 
 
   const confirmed =
     confirm(
-      "Item '" +
-      item.name +
-      "' haqhuu?"
+      "Item kana haquu barbaaddaa?\n\n" +
+      itemName +
+      "\n\nDelete booda deebisanii argachuun hin danda'amu."
     );
 
 
   if(!confirmed){
+
     return;
+
   }
 
 
   try{
 
-    showStatus(
-      "Deleting...",
-      "loading"
-    );
-
-
-    const uuid =
-      await resolveBranchUUID();
-
-
     const url =
       SUPABASE_URL +
       "/rest/v1/items" +
       "?id=eq." +
-      encodeURIComponent(id) +
+      encodeURIComponent(item.id) +
       "&branch_id=eq." +
-      encodeURIComponent(uuid);
+      encodeURIComponent(branchUUID);
 
 
     const response =
@@ -1392,18 +1771,19 @@ async function deleteItem(id){
       );
 
 
-    if(!response.ok){
+    const text =
+      await response.text();
 
-      const text =
-        await response.text();
+
+    if(!response.ok){
 
       throw new Error(text);
 
     }
 
 
-    showStatus(
-      "Item deleted successfully.",
+    showMessage(
+      "Item sirriitti haqame.",
       "success"
     );
 
@@ -1415,8 +1795,8 @@ async function deleteItem(id){
 
     console.error(error);
 
-    showStatus(
-      "Delete failed: " +
+    showMessage(
+      "Delete hin milkoofne: " +
       error.message,
       "error"
     );
@@ -1426,186 +1806,49 @@ async function deleteItem(id){
 }
 
 
-/* =====================================================
-   CANCEL EDIT
-===================================================== */
+/* =========================================================
+   MESSAGE
+========================================================= */
 
-function cancelEdit(){
+function showMessage(text,type){
 
-  clearForm();
-
-}
-
-
-/* =====================================================
-   CLEAR FORM
-===================================================== */
-
-function clearForm(){
-
-  editingItemId = null;
+  const box =
+    document.getElementById("message");
 
 
-  document.getElementById(
-    "itemName"
-  ).value = "";
+  box.className =
+    "message " +
+    (type || "info");
 
 
-  document.getElementById(
-    "category"
-  ).value = "";
+  box.textContent =
+    text;
 
 
-  document.getElementById(
-    "unit"
-  ).value = "";
+  box.style.display =
+    "block";
 
 
-  document.getElementById(
-    "formTitle"
-  ).textContent =
-    "Add New Item";
+  setTimeout(function(){
 
-
-  document.getElementById(
-    "saveButton"
-  ).textContent =
-    "Save Item";
-
-
-  document.getElementById(
-    "cancelButton"
-  ).style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logout(){
-
-  localStorage.removeItem(
-    "is_logged_in"
-  );
-
-  localStorage.removeItem(
-    "access_token"
-  );
-
-  localStorage.removeItem(
-    "refresh_token"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_uuid"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_id"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_name"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_code"
-  );
-
-  localStorage.removeItem(
-    "user_role"
-  );
-
-  localStorage.removeItem(
-    "login_user"
-  );
-
-
-  window.location.href =
-    "index.html";
-
-}
-
-
-/* =====================================================
-   PAGE ACCESS
-===================================================== */
-
-function checkLogin(){
-
-  const loggedIn =
-    localStorage.getItem(
-      "is_logged_in"
-    );
-
-
-  if(loggedIn !== "true"){
-
-    window.location.href =
-      "index.html";
-
-    return false;
-
-  }
-
-
-  return true;
-
-}
-
-
-/* =====================================================
-   MAIN VIEW-ONLY UI
-===================================================== */
-
-function applyPermissions(){
-
-  if(isMainUser()){
-
-    document.getElementById(
-      "itemFormCard"
-    ).style.display =
+    box.style.display =
       "none";
 
-
-    document.getElementById(
-      "viewOnlyMessage"
-    ).style.display =
-      "block";
-
-  }
+  },5000);
 
 }
 
 
-/* =====================================================
-   START
-===================================================== */
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
-async function init(){
+function goDashboard(){
 
-  if(!checkLogin()){
-    return;
-  }
-
-
-  displayBranch();
-
-  applyPermissions();
-
-  await loadItems();
+  window.location.href =
+    "dashboard.html";
 
 }
-
-
-/* =====================================================
-   RUN
-===================================================== */
-
-init();
 
 </script>
 
