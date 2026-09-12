@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Settings</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -28,13 +23,8 @@ header{
   text-align:center;
 }
 
-header h1{
-  margin:0;
-}
-
-header p{
-  margin:6px 0 0;
-}
+header h1{margin:0}
+header p{margin:6px 0 0}
 
 nav{
   background:white;
@@ -55,9 +45,7 @@ nav a{
   font-weight:bold;
 }
 
-nav a:hover{
-  background:#d8c7ba;
-}
+nav a:hover{background:#d8c7ba}
 
 .container{
   width:95%;
@@ -104,9 +92,7 @@ nav a:hover{
   color:#5b341f;
 }
 
-.value{
-  font-size:16px;
-}
+.value{font-size:16px}
 
 .access-full{
   color:#166534;
@@ -148,19 +134,18 @@ nav a:hover{
   color:white !important;
 }
 
+button{
+  cursor:pointer;
+}
+
 .logout-button{
   background:#dc2626;
   color:white;
   padding:12px 20px;
   border:none;
   border-radius:7px;
-  cursor:pointer;
   font-size:15px;
   font-weight:bold;
-}
-
-.logout-button:hover{
-  background:#b91c1c;
 }
 
 .refresh-button{
@@ -169,274 +154,264 @@ nav a:hover{
   padding:11px 18px;
   border:none;
   border-radius:7px;
-  cursor:pointer;
   font-size:15px;
   font-weight:bold;
 }
 
-.refresh-area{
-  text-align:center;
+.user-form{
+  display:grid;
+  gap:14px;
+}
+
+.user-form label{
+  font-weight:bold;
+  color:#5b341f;
+}
+
+.user-form input,
+.user-form select{
+  width:100%;
+  padding:13px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  font-size:15px;
+  margin-top:6px;
+}
+
+.create-button{
+  background:#166534;
+  color:white;
+  border:none;
+  padding:13px;
+  border-radius:7px;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.reset-button{
+  background:#b45309;
+  color:white;
+  border:none;
+  padding:13px;
+  border-radius:7px;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.message{
+  display:none;
   margin-top:15px;
+  padding:13px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.note{
+  background:#eff6ff;
+  border-left:5px solid #2563eb;
+  padding:14px;
+  border-radius:8px;
+  margin-bottom:18px;
 }
 
 @media(max-width:600px){
-
-  header{
-    padding:15px;
-  }
-
-  header h1{
-    font-size:22px;
-  }
-
-  nav a{
-    padding:9px 11px;
-    font-size:13px;
-  }
-
-  .container{
-    width:97%;
-    margin:15px auto;
-  }
-
-  .box{
-    padding:15px;
-  }
-
+  header{padding:15px}
+  header h1{font-size:22px}
+  nav a{padding:9px 11px;font-size:13px}
+  .container{width:97%;margin:15px auto}
+  .box{padding:15px}
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <header>
-
   <h1>🏢 AAFDRMC</h1>
-
   <p>Stock Management System</p>
-
 </header>
 
-
 <nav>
-
-  <a href="dashboard.html">
-    🏠 Dashboard
-  </a>
-
-  <a href="items.html">
-    📦 Items
-  </a>
-
-  <a href="stock.html">
-    🔄 Stock In / Out
-  </a>
-
-  <a href="reports.html">
-    📊 Reports
-  </a>
-
-  <a href="settings.html">
-    ⚙️ Settings
-  </a>
-
-  <a
-    href="#"
-    class="logout"
-    onclick="logoutUser()"
-  >
-    🚪 Logout
-  </a>
-
+  <a href="dashboard.html">🏠 Dashboard</a>
+  <a href="items.html">📦 Items</a>
+  <a href="stock.html">🔄 Stock In / Out</a>
+  <a href="reports.html">📊 Reports</a>
+  <a href="settings.html">⚙️ Settings</a>
+  <a href="#" class="logout" onclick="logoutUser()">🚪 Logout</a>
 </nav>
-
 
 <div class="container">
 
-
-  <!-- CURRENT BRANCH -->
-
-  <div
-    class="branch-banner"
-    id="branchBanner"
-  >
-    ⏳ Loading branch...
+  <div class="branch-banner" id="branchBanner">
+    ⏳ Loading...
   </div>
 
-
   <!-- ACCOUNT -->
-
   <div class="box">
 
     <h2>👤 Account Information</h2>
 
-
     <div class="setting-item">
-
-      <strong>
-        🏢 Branch
-      </strong>
-
-      <div
-        class="value"
-        id="branchName"
-      >
-        Loading...
-      </div>
-
+      <strong>🏢 Branch</strong>
+      <div class="value" id="branchName">Loading...</div>
     </div>
 
-
     <div class="setting-item">
-
-      <strong>
-        🔢 Branch Code
-      </strong>
-
-      <div
-        class="value"
-        id="branchCode"
-      >
-        Loading...
-      </div>
-
+      <strong>🔢 Branch Code</strong>
+      <div class="value" id="branchCode">Loading...</div>
     </div>
 
-
     <div class="setting-item">
-
-      <strong>
-        👤 Current User
-      </strong>
-
-      <div
-        class="value"
-        id="currentUser"
-      >
-        Loading...
-      </div>
-
+      <strong>👤 Current User</strong>
+      <div class="value" id="currentUser">Loading...</div>
     </div>
 
-
     <div class="setting-item">
-
-      <strong>
-        🔐 User Role
-      </strong>
-
-      <div
-        class="value"
-        id="userRole"
-      >
-        Loading...
-      </div>
-
+      <strong>🔐 User Role</strong>
+      <div class="value" id="userRole">Loading...</div>
     </div>
 
-
     <div class="setting-item">
+      <strong>🛡️ Access Level</strong>
+      <div class="value" id="accessLevel">Loading...</div>
+    </div>
 
-      <strong>
-        🛡️ Access Level
-      </strong>
+  </div>
 
-      <div
-        class="value"
-        id="accessLevel"
+  <!-- MAIN USER MANAGEMENT -->
+  <div class="box" id="userManagement">
+
+    <h2>👥 Branch User Management</h2>
+
+    <div class="note">
+      <strong>🏢 Main / HQ Administrator</strong><br>
+      Main can create a user for each operational branch
+      and reset a branch user's password.
+    </div>
+
+    <div class="user-form">
+
+      <label>
+        Select Branch
+        <select id="manageBranch">
+          <option value="">-- Select Branch --</option>
+          <option value="GUL">Gulele</option>
+          <option value="AKT">Addis Katama</option>
+          <option value="KLF">Kolfee</option>
+          <option value="NSL">Nifas Silk Lafto</option>
+          <option value="KIR">Kirkos</option>
+          <option value="LAM">Lami Kura</option>
+          <option value="ARA">Arada</option>
+          <option value="LID">Lideta</option>
+          <option value="BOL">Bole</option>
+          <option value="EKA">Ekaa</option>
+          <option value="AKA">Akaki Kality</option>
+          <option value="CTR">Center</option>
+        </select>
+      </label>
+
+      <label>
+        User Email
+        <input
+          type="email"
+          id="manageEmail"
+          placeholder="branch@example.com"
+        >
+      </label>
+
+      <label>
+        Password
+        <input
+          type="password"
+          id="managePassword"
+          placeholder="Enter password"
+        >
+      </label>
+
+      <button
+        class="create-button"
+        onclick="createBranchUser()"
       >
-        Loading...
-      </div>
+        👤 Create Branch User
+      </button>
+
+      <button
+        class="reset-button"
+        onclick="resetBranchPassword()"
+      >
+        🔑 Reset Branch Password
+      </button>
+
+      <div id="manageMessage" class="message"></div>
 
     </div>
 
   </div>
 
-
   <!-- SYSTEM -->
-
   <div class="box">
 
     <h2>📊 System Information</h2>
 
-
     <div class="grid">
 
-
       <div class="info-card">
-
         🏢 Operational Branches
-
-        <strong>
-          12
-        </strong>
-
+        <strong>12</strong>
       </div>
 
-
       <div class="info-card">
-
         📂 Categories
-
-        <strong>
-          6
-        </strong>
-
+        <strong>6</strong>
       </div>
 
-
       <div class="info-card">
-
         📦 System
-
-        <strong
-          style="font-size:18px;"
-        >
+        <strong style="font-size:18px;">
           Stock Management
         </strong>
-
       </div>
-
 
     </div>
 
   </div>
 
-
-  <!-- ACCESS INFORMATION -->
-
+  <!-- ACCESS -->
   <div class="box">
 
     <h2>🔐 Access Information</h2>
 
-
     <div class="setting-item">
 
-      <strong>
-        Main / HQ
-      </strong>
+      <strong>Main / HQ</strong>
 
-      Main / HQ can view branch information,
-      stock reports and balances.
+      Main / HQ can manage branch users,
+      view branch information, stock reports
+      and balances.
 
       <br><br>
 
-      <span class="access-view">
-        👁️ VIEW ONLY
+      <span class="access-full">
+        🛡️ ADMIN ACCESS
       </span>
 
     </div>
 
-
     <div class="setting-item">
 
-      <strong>
-        Operational Branch
-      </strong>
+      <strong>Operational Branch</strong>
 
       Branch users can manage their own
       items and stock.
@@ -444,26 +419,21 @@ nav a:hover{
       <br><br>
 
       <span class="access-full">
-        ✏️ FULL ACCESS
+        ✏️ BRANCH ACCESS
       </span>
 
     </div>
 
   </div>
 
-
   <!-- SECURITY -->
-
   <div class="box">
 
     <h2>🔒 Security</h2>
 
-
     <div class="setting-item danger">
 
-      <strong>
-        🚪 Logout
-      </strong>
+      <strong>🚪 Logout</strong>
 
       Logout from this device.
 
@@ -480,10 +450,7 @@ nav a:hover{
 
   </div>
 
-
-  <!-- REFRESH -->
-
-  <div class="refresh-area">
+  <div style="text-align:center;margin-top:15px">
 
     <button
       class="refresh-button"
@@ -494,55 +461,9 @@ nav a:hover{
 
   </div>
 
-
 </div>
 
-
 <script>
-
-/* =====================================================
-   AAFDRMC SETTINGS ACCESS CONTROL
-   MAIN / HQ ONLY
-===================================================== */
-
-(function(){
-
-  const isLoggedIn =
-    localStorage.getItem("is_logged_in") === "true";
-
-  const role =
-    (localStorage.getItem("user_role") || "")
-      .trim()
-      .toLowerCase();
-
-  const branchCode =
-    (localStorage.getItem("selected_branch_code") || "")
-      .trim()
-      .toUpperCase();
-
-
-  /*
-    SETTINGS CAN ONLY BE OPENED WHEN:
-
-    1. User is logged in
-    2. User role = main
-    3. Selected branch = MAIN
-  */
-
-  if(
-    !isLoggedIn ||
-    role !== "main" ||
-    branchCode !== "MAIN"
-  ){
-
-    window.location.replace("dashboard.html");
-
-    return;
-
-  }
-
-})();
-
 
 /* =====================================================
    SUPABASE
@@ -556,171 +477,363 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   LOGIN CHECK
+   LOGIN
 ===================================================== */
 
 const isLoggedIn =
-  localStorage.getItem(
-    "is_logged_in"
-  );
+  localStorage.getItem("is_logged_in") === "true";
 
 const accessToken =
-  localStorage.getItem(
-    "access_token"
-  );
+  localStorage.getItem("access_token") || "";
 
+const userRole =
+  (localStorage.getItem("user_role") || "")
+    .trim()
+    .toLowerCase();
+
+const selectedBranchCode =
+  (localStorage.getItem("selected_branch_code") || "")
+    .trim()
+    .toUpperCase();
+
+
+/* =====================================================
+   MAIN ONLY
+===================================================== */
 
 if(
-  isLoggedIn !== "true"
+  !isLoggedIn ||
+  !accessToken
 ){
+  window.location.replace("index.html");
+}
 
-  window.location.replace(
-    "index.html"
-  );
+
+/* =====================================================
+   LOCAL DATA
+===================================================== */
+
+const selectedBranchName =
+  localStorage.getItem("selected_branch_name") || "";
+
+const loginUser =
+  localStorage.getItem("login_user") ||
+  localStorage.getItem("user_email") ||
+  "";
+
+
+/* =====================================================
+   LOAD SETTINGS
+===================================================== */
+
+function loadSettings(){
+
+  document.getElementById("branchName").textContent =
+    selectedBranchName || "MAIN / HQ";
+
+  document.getElementById("branchCode").textContent =
+    selectedBranchCode || "MAIN";
+
+  document.getElementById("currentUser").textContent =
+    loginUser || "Main / HQ";
+
+  document.getElementById("userRole").textContent =
+    userRole === "main"
+      ? "Main / HQ Administrator"
+      : userRole || "User";
+
+  const access =
+    document.getElementById("accessLevel");
+
+  const banner =
+    document.getElementById("branchBanner");
+
+  if(
+    userRole === "main" &&
+    selectedBranchCode === "MAIN"
+  ){
+
+    access.textContent =
+      "🛡️ Administrator Access";
+
+    access.className =
+      "value access-full";
+
+    banner.textContent =
+      "🏢 MAIN / HQ — Administrator";
+
+  }else{
+
+    access.textContent =
+      "✏️ Branch Access";
+
+    access.className =
+      "value access-full";
+
+    banner.textContent =
+      "🏢 " +
+      (selectedBranchName || "Branch");
+
+    document.getElementById(
+      "userManagement"
+    ).style.display = "none";
+  }
+}
+
+
+/* =====================================================
+   EDGE FUNCTION
+===================================================== */
+
+const FUNCTION_URL =
+  SUPABASE_URL +
+  "/functions/v1/manage-branch-user";
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(text, success){
+
+  const box =
+    document.getElementById(
+      "manageMessage"
+    );
+
+  box.textContent = text;
+
+  box.className =
+    "message " +
+    (success ? "success" : "error");
 
 }
 
 
 /* =====================================================
-   LOCAL STORAGE
+   CREATE BRANCH USER
 ===================================================== */
 
-const selectedBranchId =
-  localStorage.getItem(
-    "selected_branch_id"
-  ) || "";
+async function createBranchUser(){
 
-const selectedBranchName =
-  localStorage.getItem(
-    "selected_branch_name"
-  ) || "";
+  const branch =
+    document.getElementById(
+      "manageBranch"
+    ).value;
 
-const selectedBranchCode =
-  localStorage.getItem(
-    "selected_branch_code"
-  ) || "";
+  const email =
+    document.getElementById(
+      "manageEmail"
+    ).value.trim();
 
-const userRole =
-  localStorage.getItem(
-    "user_role"
-  ) || "";
+  const password =
+    document.getElementById(
+      "managePassword"
+    ).value;
 
-const loginUser =
-  localStorage.getItem(
-    "login_user"
-  ) || "";
-
-
-/* =====================================================
-   ROLE
-===================================================== */
-
-const isMain =
-  userRole.toLowerCase() === "main";
-
-
-/* =====================================================
-   SHOW SETTINGS
-===================================================== */
-
-function loadSettings(){
-
-  const branchName =
-    selectedBranchName ||
-    selectedBranchId ||
-    "MAIN / HQ";
-
-
-  const branchCode =
-    selectedBranchCode ||
-    selectedBranchId ||
-    "MAIN";
-
-
-  /* =========================
-     BRANCH NAME
-  ========================= */
-
-  document.getElementById(
-    "branchName"
-  ).textContent =
-    branchName;
-
-
-  /* =========================
-     BRANCH CODE
-  ========================= */
-
-  document.getElementById(
-    "branchCode"
-  ).textContent =
-    branchCode;
-
-
-  /* =========================
-     USER
-  ========================= */
-
-  let currentUser =
-    loginUser;
-
-
-  if(!currentUser){
-
-    currentUser =
-      localStorage.getItem(
-        "user_email"
-      ) || "Main / HQ";
-
+  if(!branch){
+    showMessage(
+      "⚠️ Please select a branch.",
+      false
+    );
+    return;
   }
 
+  if(!email){
+    showMessage(
+      "⚠️ Please enter user email.",
+      false
+    );
+    return;
+  }
 
-  document.getElementById(
-    "currentUser"
-  ).textContent =
-    currentUser;
+  if(password.length < 6){
+    showMessage(
+      "⚠️ Password must be at least 6 characters.",
+      false
+    );
+    return;
+  }
 
+  showMessage(
+    "⏳ Creating branch user...",
+    true
+  );
 
-  /* =========================
-     ROLE
-  ========================= */
+  try{
 
-  document.getElementById(
-    "userRole"
-  ).textContent =
-    "Main / HQ";
+    const response =
+      await fetch(
+        FUNCTION_URL,
+        {
+          method:"POST",
 
+          headers:{
+            "Content-Type":
+              "application/json",
 
-  /* =========================
-     ACCESS
-  ========================= */
+            "Authorization":
+              "Bearer " + accessToken,
 
-  const access =
-    document.getElementById(
-      "accessLevel"
+            "apikey":
+              SUPABASE_KEY
+          },
+
+          body:JSON.stringify({
+            action:"create",
+            branch_code:branch,
+            email:email,
+            password:password
+          })
+        }
+      );
+
+    const result =
+      await response.json();
+
+    if(!response.ok){
+
+      showMessage(
+        "❌ " +
+        (result.error ||
+        "User creation failed."),
+        false
+      );
+
+      return;
+    }
+
+    showMessage(
+      "✅ User created successfully for " +
+      (result.branch || branch),
+      true
     );
 
-
-  access.textContent =
-    "👁️ View Only";
-
-  access.className =
-    "value access-view";
-
-
-  /* =========================
-     BANNER
-  ========================= */
-
-  const banner =
     document.getElementById(
-      "branchBanner"
+      "managePassword"
+    ).value = "";
+
+  }catch(error){
+
+    showMessage(
+      "❌ Connection error: " +
+      error.message,
+      false
+    );
+  }
+}
+
+
+/* =====================================================
+   RESET PASSWORD
+===================================================== */
+
+async function resetBranchPassword(){
+
+  const branch =
+    document.getElementById(
+      "manageBranch"
+    ).value;
+
+  const email =
+    document.getElementById(
+      "manageEmail"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "managePassword"
+    ).value;
+
+  if(!branch){
+    showMessage(
+      "⚠️ Please select a branch.",
+      false
+    );
+    return;
+  }
+
+  if(!email){
+    showMessage(
+      "⚠️ Please enter the user's email.",
+      false
+    );
+    return;
+  }
+
+  if(password.length < 6){
+    showMessage(
+      "⚠️ New password must be at least 6 characters.",
+      false
+    );
+    return;
+  }
+
+  showMessage(
+    "⏳ Resetting password...",
+    true
+  );
+
+  try{
+
+    const response =
+      await fetch(
+        FUNCTION_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json",
+
+            "Authorization":
+              "Bearer " + accessToken,
+
+            "apikey":
+              SUPABASE_KEY
+          },
+
+          body:JSON.stringify({
+            action:"reset",
+            branch_code:branch,
+            email:email,
+            password:password
+          })
+        }
+      );
+
+    const result =
+      await response.json();
+
+    if(!response.ok){
+
+      showMessage(
+        "❌ " +
+        (result.error ||
+        "Password reset failed."),
+        false
+      );
+
+      return;
+    }
+
+    showMessage(
+      "✅ Password reset successfully.",
+      true
     );
 
+    document.getElementById(
+      "managePassword"
+    ).value = "";
 
-  banner.textContent =
-    "🏢 MAIN / HQ — View Only";
+  }catch(error){
 
+    showMessage(
+      "❌ Connection error: " +
+      error.message,
+      false
+    );
+  }
 }
 
 
@@ -730,51 +843,22 @@ function loadSettings(){
 
 function logoutUser(){
 
-  localStorage.removeItem(
-    "access_token"
-  );
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("is_logged_in");
 
-  localStorage.removeItem(
-    "refresh_token"
-  );
+  localStorage.removeItem("selected_branch_id");
+  localStorage.removeItem("selected_branch_name");
+  localStorage.removeItem("selected_branch_code");
+  localStorage.removeItem("selected_branch_uuid");
 
-  localStorage.removeItem(
-    "is_logged_in"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_id"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_name"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_code"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_uuid"
-  );
-
-  localStorage.removeItem(
-    "user_role"
-  );
-
-  localStorage.removeItem(
-    "login_user"
-  );
-
-  localStorage.removeItem(
-    "user_email"
-  );
-
+  localStorage.removeItem("user_role");
+  localStorage.removeItem("login_user");
+  localStorage.removeItem("user_email");
 
   window.location.replace(
     "index.html"
   );
-
 }
 
 
@@ -786,7 +870,5 @@ loadSettings();
 
 </script>
 
-
 </body>
-
 </html>
