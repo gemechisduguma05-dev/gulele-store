@@ -2,1076 +2,605 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAFDRMC - Item Management</title>
 
 <style>
-
 *{
-    box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5efe8;
-    color:#3e2723;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f1ed;
+  color:#3e2723;
 }
 
-/* ================= HEADER ================= */
-
-.header{
-    background:#5d4037;
-    color:white;
-    padding:14px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    flex-wrap:wrap;
-    box-shadow:0 3px 10px rgba(0,0,0,.18);
+header{
+  background:#5d4037;
+  color:white;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  box-shadow:0 3px 10px rgba(0,0,0,.15);
 }
 
 .header-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo-box{
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    overflow:hidden;
-    background:white;
-    border:3px solid #d7ccc8;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
 .logo{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
+  width:52px;
+  height:52px;
+  object-fit:cover;
+  border-radius:8px;
+  background:white;
 }
 
-.title{
-    font-size:21px;
-    font-weight:bold;
+.header-title h1{
+  margin:0;
+  font-size:20px;
 }
 
-.branch-name{
-    font-size:13px;
-    margin-top:5px;
-    opacity:.9;
+.header-title p{
+  margin:4px 0 0;
+  font-size:13px;
+  opacity:.9;
 }
 
-.header-buttons{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
+.branch-box{
+  background:#795548;
+  padding:9px 14px;
+  border-radius:8px;
+  font-size:14px;
+}
+
+.container{
+  max-width:1200px;
+  margin:25px auto;
+  padding:0 15px;
+}
+
+.top-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
 }
 
 button{
-    border:none;
-    border-radius:8px;
-    padding:10px 15px;
-    font-size:14px;
-    font-weight:bold;
-    cursor:pointer;
+  border:none;
+  border-radius:7px;
+  padding:10px 16px;
+  font-size:14px;
+  cursor:pointer;
 }
 
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
+.btn-back{
+  background:#6d4c41;
+  color:white;
 }
 
-.btn-menu{
-    background:#efebe9;
-    color:#4e342e;
+.btn-refresh{
+  background:#8d6e63;
+  color:white;
 }
 
-.btn-logout{
-    background:#8d6e63;
-    color:white;
+.btn-save{
+  background:#4e342e;
+  color:white;
 }
 
-/* ================= CONTAINER ================= */
-
-.container{
-    max-width:1100px;
-    margin:25px auto;
-    padding:0 15px;
+.btn-edit{
+  background:#795548;
+  color:white;
 }
 
-/* ================= CARD ================= */
+.btn-delete{
+  background:#b71c1c;
+  color:white;
+}
+
+button:hover{
+  opacity:.9;
+}
 
 .card{
-    background:white;
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 3px 12px rgba(62,39,35,.10);
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .card h2{
-    margin-top:0;
-    color:#5d4037;
+  margin-top:0;
+  color:#4e342e;
 }
-
-/* ================= INFO ================= */
 
 .info{
-    background:#fff8e1;
-    border-left:4px solid #8d6e63;
-    padding:12px;
-    margin-bottom:18px;
-    border-radius:6px;
-    font-size:14px;
+  background:#efebe9;
+  border-left:5px solid #795548;
+  padding:12px;
+  border-radius:6px;
+  margin-bottom:15px;
+  line-height:1.6;
 }
 
-/* ================= FORM ================= */
+.main-view{
+  background:#fff3e0;
+  border-left:5px solid #e65100;
+  padding:12px;
+  border-radius:6px;
+  margin-bottom:15px;
+  color:#5d4037;
+  font-weight:bold;
+}
 
 .form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
-.field{
-    display:flex;
-    flex-direction:column;
-}
-
-.field label{
-    font-weight:bold;
-    margin-bottom:6px;
-    font-size:14px;
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
 }
 
 input,
 select{
-    width:100%;
-    padding:12px;
-    border:1px solid #d7ccc8;
-    border-radius:8px;
-    font-size:15px;
-    outline:none;
-    background:white;
+  width:100%;
+  padding:11px;
+  border:1px solid #d7ccc8;
+  border-radius:7px;
+  font-size:15px;
+  outline:none;
 }
 
 input:focus,
 select:focus{
-    border-color:#795548;
-    box-shadow:0 0 0 2px rgba(121,85,72,.12);
+  border-color:#795548;
+  box-shadow:0 0 0 2px rgba(121,85,72,.12);
 }
 
-/* ================= FORM BUTTONS ================= */
-
-.form-buttons{
-    margin-top:18px;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+.form-actions{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.btn-save{
-    background:#6d4c41;
-    color:white;
+.cancel-btn{
+  background:#ddd;
+  color:#333;
 }
-
-.btn-clear{
-    background:#d7ccc8;
-    color:#3e2723;
-}
-
-/* ================= MESSAGE ================= */
-
-.message{
-    margin-top:15px;
-    padding:12px;
-    border-radius:8px;
-    display:none;
-    font-weight:bold;
-    word-break:break-word;
-}
-
-.message.success{
-    display:block;
-    background:#e8f5e9;
-    color:#2e7d32;
-}
-
-.message.error{
-    display:block;
-    background:#ffebee;
-    color:#c62828;
-}
-
-/* ================= TABLE ================= */
 
 .table-wrap{
-    width:100%;
-    overflow-x:auto;
+  width:100%;
+  overflow-x:auto;
 }
 
 table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:650px;
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
 }
 
 th{
-    background:#6d4c41;
-    color:white;
-    padding:12px;
-    text-align:left;
+  background:#5d4037;
+  color:white;
+  padding:12px;
+  text-align:left;
 }
 
 td{
-    padding:11px;
-    border-bottom:1px solid #eee;
+  padding:11px;
+  border-bottom:1px solid #eee;
 }
 
 tr:hover{
-    background:#faf7f4;
+  background:#faf7f5;
 }
 
-.badge{
-    display:inline-block;
-    padding:6px 9px;
-    border-radius:15px;
-    background:#efebe9;
-    color:#5d4037;
-    font-size:12px;
-    font-weight:bold;
-}
-
-/* ================= ACTION BUTTONS ================= */
-
-.action-btn{
-    padding:7px 10px;
-    margin:2px;
-    font-size:12px;
-}
-
-.edit{
-    background:#ffe0b2;
-    color:#e65100;
-}
-
-.delete{
-    background:#ffcdd2;
-    color:#b71c1c;
-}
-
-/* ================= STATUS ================= */
-
-.loading{
-    text-align:center;
-    padding:20px;
-    color:#795548;
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
 }
 
 .empty{
-    text-align:center;
-    padding:25px;
-    color:#795548;
+  text-align:center;
+  padding:25px;
+  color:#777;
 }
 
-/* ================= MOBILE ================= */
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#795548;
+  font-weight:bold;
+}
+
+.status{
+  margin-top:12px;
+  padding:10px;
+  border-radius:7px;
+  display:none;
+}
+
+.status.success{
+  display:block;
+  background:#e8f5e9;
+  color:#2e7d32;
+}
+
+.status.error{
+  display:block;
+  background:#ffebee;
+  color:#c62828;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#efebe9;
+  color:#5d4037;
+  font-size:12px;
+}
+
+.view-only{
+  color:#e65100;
+  font-weight:bold;
+}
 
 @media(max-width:700px){
 
-    .header{
-        align-items:flex-start;
-    }
+  header{
+    align-items:flex-start;
+  }
 
-    .title{
-        font-size:17px;
-    }
+  .header-title h1{
+    font-size:17px;
+  }
 
-    .logo-box{
-        width:48px;
-        height:48px;
-    }
+  .form-grid{
+    grid-template-columns:1fr;
+  }
 
-    .form-grid{
-        grid-template-columns:1fr;
-    }
+  .container{
+    margin-top:15px;
+  }
 
-    .container{
-        margin-top:15px;
-    }
+  .card{
+    padding:15px;
+  }
 
-    .card{
-        padding:15px;
-    }
+  .top-buttons button{
+    width:100%;
+  }
 
-    .header-buttons{
-        width:100%;
-    }
-
-    .header-buttons button{
-        flex:1;
-    }
+  .form-actions button{
+    width:100%;
+  }
 
 }
-
 </style>
-
 </head>
 
 <body>
 
+<header>
 
-<!-- ================= HEADER ================= -->
+  <div class="header-left">
 
-<header class="header">
+    <img
+      src="./1788633150526.jpg"
+      class="logo"
+      alt="AAFDRMC Logo"
+    >
 
-    <div class="header-left">
-
-        <div class="logo-box">
-
-            <img
-                src="./1788633150526.jpg"
-                class="logo"
-                alt="AAFDRMC Profile"
-            >
-
-        </div>
-
-        <div>
-
-            <div class="title">
-                AAFDRMC - Item Management
-            </div>
-
-            <div
-                class="branch-name"
-                id="branchDisplay">
-                Branch: Loading...
-            </div>
-
-        </div>
-
+    <div class="header-title">
+      <h1>AAFDRMC - Item Management</h1>
+      <p>Item / Category Management</p>
     </div>
 
+  </div>
 
-    <div class="header-buttons">
-
-        <button
-            class="btn-menu"
-            onclick="goDashboard()">
-
-            ← Dashboard
-
-        </button>
-
-
-        <button
-            class="btn-logout"
-            onclick="logout()">
-
-            Logout
-
-        </button>
-
-    </div>
+  <div class="branch-box">
+    Branch:
+    <strong id="branchName">Loading...</strong>
+  </div>
 
 </header>
 
 
-<!-- ================= MAIN ================= -->
+<div class="container">
+
+  <!-- TOP BUTTONS -->
+  <div class="top-buttons">
 
-<main class="container">
+    <button
+      class="btn-back"
+      onclick="goDashboard()">
+      ← Back to Menu
+    </button>
+
+    <button
+      class="btn-refresh"
+      onclick="loadItems()">
+      🔄 Refresh
+    </button>
+
+  </div>
+
+
+  <!-- ADD / EDIT ITEM -->
+  <div
+    class="card"
+    id="itemFormCard">
 
+    <h2 id="formTitle">
+      ➕ Add New Item
+    </h2>
 
-    <!-- ================= ADD / EDIT ITEM ================= -->
+    <div class="info">
+      <strong>Note:</strong>
+      Item ID hin galchinaa. ID'n database keessatti
+      ofumaan uumama.
+    </div>
 
-    <section class="card">
+    <div class="form-grid">
 
-        <h2 id="formTitle">
-            Add New Item
-        </h2>
+      <div>
+        <label for="itemName">
+          Item Name
+        </label>
+
+        <input
+          type="text"
+          id="itemName"
+          placeholder="Enter item name">
+      </div>
 
 
-        <div class="info">
+      <div>
+        <label for="itemCategory">
+          Category
+        </label>
 
-            <strong>Item ID:</strong>
+        <select id="itemCategory">
 
-            ID harkaan hin galchinu.
-            Database'n ofumaan ID uuma.
+          <option value="">
+            -- Select Category --
+          </option>
 
-        </div>
+          <option value="Meeshaalee Nyaataa Tarsiimawaa">
+            Meeshaalee Nyaataa Tarsiimawaa /
+            Strategic Food Items /
+            ስትራቴጂክ ምግብ ነክ
+          </option>
+
+          <option value="Meeshaalee Nyaataa Guyyaa Guyyaa">
+            Meeshaalee Nyaataa Guyyaa Guyyaa /
+            Daily Food Items /
+            የዕለት ምግብ ነክ
+          </option>
 
+          <option value="Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa">
+            Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
+            Daily Non-Food Items /
+            የዕለት ምግብ ነክ ያልሆኑ
+          </option>
+
+          <option value="Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan">
+            Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan /
+            Non-Food Kitchen Items /
+            የምግብ ዝግጅት የማይሆኑ እቃዎች
+          </option>
+
+          <option value="Meeshaalee Qulqullinaa">
+            Meeshaalee Qulqullinaa /
+            Non-Food Hygiene Items /
+            የንጽህና እቃዎች
+          </option>
 
-        <div class="form-grid">
+          <option value="Meeshaa Ijaarsa Manaaf Oolu">
+            Meeshaa Ijaarsa Manaaf Oolu /
+            Building & Construction Items /
+            የግንባታ እቃዎች
+          </option>
 
+        </select>
 
-            <!-- ITEM NAME -->
+      </div>
 
-            <div class="field">
+    </div>
 
-                <label>
-                    Item Name / Maqaa Meeshaa
-                </label>
 
-                <input
-                    type="text"
-                    id="itemName"
-                    placeholder="Fakkeenya: Xaafii">
+    <div class="form-actions">
 
-            </div>
+      <button
+        class="btn-save"
+        id="saveButton"
+        onclick="saveItem()">
+        💾 Save Item
+      </button>
 
+      <button
+        class="cancel-btn"
+        id="cancelButton"
+        onclick="cancelEdit()"
+        style="display:none;">
+        Cancel
+      </button>
 
-            <!-- CATEGORY -->
+    </div>
 
-            <div class="field">
 
-                <label>
-                    Category / Ramaddii / ምድብ
-                </label>
+    <div
+      id="status"
+      class="status">
+    </div>
 
-                <select id="category">
+  </div>
 
-                    <option value="">
-                        -- Category / Ramaddii / ምድብ ይምረጡ --
-                    </option>
 
+  <!-- MAIN VIEW ONLY MESSAGE -->
+  <div
+    id="mainViewCard"
+    class="card"
+    style="display:none;">
 
-                    <option value="Meeshaalee Nyaataa Tarsiimawaa">
-                        Meeshaalee Nyaataa Tarsiimawaa /
-                        Strategic Food Items /
-                        ስትራቴጂክ ምግብ ነክ
-                    </option>
+    <div class="main-view">
+      👁️ Main / HQ View Only:
+      Itemwwan ilaalu qofa.
+      Add, Edit fi Delete gochuun hin danda'amu.
+    </div>
 
+  </div>
 
-                    <option value="Meeshaalee Nyaataa Guyyaa Guyyaa">
-                        Meeshaalee Nyaataa Guyyaa Guyyaa /
-                        Daily Food Items /
-                        የዕለት ምግብ ነክ
-                    </option>
 
+  <!-- ITEMS LIST -->
+  <div class="card">
 
-                    <option value="Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa">
-                        Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa /
-                        Daily Non-Food Items /
-                        የዕለት ምግብ ነክ ያልሆኑ
-                    </option>
+    <h2>
+      📦 Items
+    </h2>
 
+    <div
+      id="loading"
+      class="loading">
+      Loading items...
+    </div>
 
-                    <option value="Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan">
-                        Meeshaalee Nyaataa Hin Taane
-                        Ittiin Nyaata Qopheessan /
-                        Non-Food Kitchen Items /
-                        የምግብ ዝግጅት የማይሆኑ እቃዎች
-                    </option>
+    <div
+      id="empty"
+      class="empty"
+      style="display:none;">
+      Item tokko illee hin jiru.
+    </div>
 
+    <div
+      id="tableContainer"
+      class="table-wrap"
+      style="display:none;">
 
-                    <option value="Meeshaalee Qulqullinaa">
-                        Meeshaalee Qulqullinaa /
-                        Non-Food Hygiene Items /
-                        የንጽህና እቃዎች
-                    </option>
+      <table>
 
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Item Name</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-                    <option value="Meeshaa Ijaarsa Manaaf Oolu">
-                        Meeshaa Ijaarsa Manaaf Oolu /
-                        Building & Construction Items /
-                        የግንባታ እቃዎች
-                    </option>
+        <tbody id="itemsBody">
+        </tbody>
 
-                </select>
+      </table>
 
-            </div>
+    </div>
 
-        </div>
+  </div>
 
-
-        <!-- BUTTONS -->
-
-        <div class="form-buttons">
-
-            <button
-                class="btn-save"
-                id="saveButton"
-                onclick="saveItem()">
-
-                + Save Item
-
-            </button>
-
-
-            <button
-                class="btn-clear"
-                onclick="clearForm()">
-
-                Clear
-
-            </button>
-
-        </div>
-
-
-        <div
-            id="message"
-            class="message">
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= ITEMS LIST ================= -->
-
-    <section class="card">
-
-        <h2>
-            Items
-        </h2>
-
-
-        <div
-            id="loading"
-            class="loading">
-
-            Loading items...
-
-        </div>
-
-
-        <div class="table-wrap">
-
-            <table
-                id="itemsTable"
-                style="display:none;">
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Item Name</th>
-
-                        <th>Category</th>
-
-                        <th>Actions</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="itemsBody"></tbody>
-
-            </table>
-
-        </div>
-
-
-        <div
-            id="empty"
-            class="empty"
-            style="display:none;">
-
-            No items found for this branch.
-
-        </div>
-
-    </section>
-
-</main>
+</div>
 
 
 <script>
 
 /* =====================================================
-   SUPABASE
+   SUPABASE CONFIGURATION
 ===================================================== */
 
 const SUPABASE_URL =
-    "https://sslabegtsxlkafuygmar.supabase.co";
+  "https://sslabegtsxlkafuygmar.supabase.co";
 
-const SUPABASE_KEY =
-    "sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+const SUPABASE_ANON_KEY =
+  localStorage.getItem("access_token") || "";
 
 
 /* =====================================================
-   BRANCH INFORMATION
+   LOGIN / BRANCH INFORMATION
 ===================================================== */
 
-/*
-   IMPORTANT:
-
-   selected_branch_id = GUL
-
-   GUL is NOT UUID.
-
-   Kanaaf GUL akka UUIDtti
-   hin fayyadamnu.
-
-   UUID dhugaa branches table
-   keessaa barbaanna.
-*/
+const isLoggedIn =
+  localStorage.getItem("is_logged_in") === "true";
 
 let branchCode =
-    localStorage.getItem(
-        "selected_branch_code"
-    );
+  localStorage.getItem("selected_branch_code") || "";
 
 let branchName =
-    localStorage.getItem(
-        "selected_branch_name"
-    );
+  localStorage.getItem("selected_branch_name") || "";
 
-
-/*
-   Yoo branch code hin jirre,
-   selected_branch_id irraa
-   fallback godha.
-
-   Fakkeenya:
-   selected_branch_id = GUL
-*/
-
-if(!branchCode){
-
-    branchCode =
-        localStorage.getItem(
-            "selected_branch_id"
-        );
-
-}
-
-
-/*
-   UUID DHUGAA QOFA
-*/
+const selectedBranchId =
+  localStorage.getItem("selected_branch_id") || "";
 
 let branchUUID =
-    localStorage.getItem(
-        "selected_branch_uuid"
-    );
+  localStorage.getItem("selected_branch_uuid") || "";
+
+let userRole =
+  localStorage.getItem("user_role") || "";
 
 
 /* =====================================================
-   EDITING
+   MAIN = VIEW ONLY
+===================================================== */
+
+const isMainViewer =
+  String(userRole).trim().toLowerCase() === "main";
+
+
+/* =====================================================
+   CURRENT EDIT ID
 ===================================================== */
 
 let editingId = null;
 
 
 /* =====================================================
-   PAGE START
+   AUTH CHECK
 ===================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async function(){
+if(!isLoggedIn){
 
-        /* ================= LOGIN CHECK ================= */
+  window.location.href = "index.html";
 
-        if(
-            localStorage.getItem(
-                "is_logged_in"
-            ) !== "true"
-        ){
-
-            window.location.href =
-                "index.html";
-
-            return;
-
-        }
-
-
-        /* ================= SHOW BRANCH ================= */
-
-        document
-            .getElementById(
-                "branchDisplay"
-            )
-            .textContent =
-                "Branch: " +
-                (
-                    branchName ||
-                    branchCode ||
-                    "Unknown"
-                );
-
-
-        /* ================= LOAD ================= */
-
-        await loadItems();
-
-    }
-);
+}
 
 
 /* =====================================================
    SUPABASE HEADERS
 ===================================================== */
 
-function headers(extra = {}){
+function getHeaders(){
 
-    return {
+  const headers = {
+    "apikey": SUPABASE_ANON_KEY,
+    "Content-Type": "application/json"
+  };
 
-        "apikey":
-            SUPABASE_KEY,
+  const token =
+    localStorage.getItem("access_token");
 
-        "Authorization":
-            "Bearer " + SUPABASE_KEY,
+  if(token){
+    headers["Authorization"] =
+      "Bearer " + token;
+  }
 
-        "Content-Type":
-            "application/json",
-
-        ...extra
-
-    };
-
-}
-
-
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-    text,
-    type
-){
-
-    const box =
-        document.getElementById(
-            "message"
-        );
-
-    box.textContent =
-        text;
-
-    box.className =
-        "message " + type;
-
-}
-
-
-/* =====================================================
-   CLEAR MESSAGE
-===================================================== */
-
-function clearMessage(){
-
-    const box =
-        document.getElementById(
-            "message"
-        );
-
-    box.textContent =
-        "";
-
-    box.className =
-        "message";
-
-}
-
-
-/* =====================================================
-   RESOLVE REAL BRANCH UUID
-===================================================== */
-
-async function resolveBranchUUID(){
-
-    /*
-       Yoo UUID duraan dursee argame,
-       isa fayyadamna.
-    */
-
-    if(
-        branchUUID &&
-        isUUID(branchUUID)
-    ){
-
-        return branchUUID;
-
-    }
-
-
-    /*
-       Branch code/name irraa
-       UUID barbaanna.
-    */
-
-    try{
-
-        const response =
-            await fetch(
-                SUPABASE_URL +
-                "/rest/v1/branches?select=*",
-                {
-                    method:"GET",
-                    headers:headers()
-                }
-            );
-
-
-        const text =
-            await response.text();
-
-
-        if(!response.ok){
-
-            throw new Error(
-                text
-            );
-
-        }
-
-
-        const branches =
-            JSON.parse(text);
-
-
-        if(
-            !Array.isArray(branches)
-        ){
-
-            throw new Error(
-                "Branches data sirrii miti."
-            );
-
-        }
-
-
-        const wantedCode =
-            String(
-                branchCode || ""
-            )
-            .trim()
-            .toLowerCase();
-
-
-        const wantedName =
-            String(
-                branchName || ""
-            )
-            .trim()
-            .toLowerCase();
-
-
-        /*
-           Columns adda addaa
-           branches table keessatti
-           jiraachuu danda'u.
-        */
-
-        const codeColumns = [
-
-            "code",
-            "branch_code",
-            "branchCode",
-            "branchcode",
-            "branch_id_code",
-            "short_code"
-
-        ];
-
-
-        const nameColumns = [
-
-            "name",
-            "branch_name",
-            "branch",
-            "branchName",
-            "title",
-            "branch_title",
-            "office_name",
-            "office"
-
-        ];
-
-
-        /*
-           1. CODE irratti barbaadi
-        */
-
-        for(
-            const b of branches
-        ){
-
-            let codeMatch =
-                false;
-
-
-            for(
-                const col of codeColumns
-            ){
-
-                if(
-                    b[col] !== undefined &&
-                    b[col] !== null
-                ){
-
-                    const value =
-                        String(
-                            b[col]
-                        )
-                        .trim()
-                        .toLowerCase();
-
-
-                    if(
-                        value === wantedCode
-                    ){
-
-                        codeMatch =
-                            true;
-
-                        break;
-
-                    }
-
-                }
-
-            }
-
-
-            if(
-                codeMatch &&
-                b.id &&
-                isUUID(
-                    String(b.id)
-                )
-            ){
-
-                branchUUID =
-                    String(b.id);
-
-
-                /*
-                   UUID addatti kaa'a.
-
-                   selected_branch_id
-                   hin tuqnu.
-                */
-
-                localStorage.setItem(
-                    "selected_branch_uuid",
-                    branchUUID
-                );
-
-
-                return branchUUID;
-
-            }
-
-        }
-
-
-        /*
-           2. NAME irratti barbaadi
-        */
-
-        for(
-            const b of branches
-        ){
-
-            let nameMatch =
-                false;
-
-
-            for(
-                const col of nameColumns
-            ){
-
-                if(
-                    b[col] !== undefined &&
-                    b[col] !== null
-                ){
-
-                    const value =
-                        String(
-                            b[col]
-                        )
-                        .trim()
-                        .toLowerCase();
-
-
-                    if(
-                        value === wantedName
-                    ){
-
-                        nameMatch =
-                            true;
-
-                        break;
-
-                    }
-
-                }
-
-            }
-
-
-            if(
-                nameMatch &&
-                b.id &&
-                isUUID(
-                    String(b.id)
-                )
-            ){
-
-                branchUUID =
-                    String(b.id);
-
-
-                localStorage.setItem(
-                    "selected_branch_uuid",
-                    branchUUID
-                );
-
-
-                return branchUUID;
-
-            }
-
-        }
-
-
-        /*
-           Yoo code/name hin argamne
-        */
-
-        throw new Error(
-            "Branch '" +
-            (
-                branchName ||
-                branchCode
-            ) +
-            "' branches table keessatti hin argamne."
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "Branch UUID error:",
-            error
-        );
-
-        return null;
-
-    }
-
+  return headers;
 }
 
 
@@ -1081,17 +610,239 @@ async function resolveBranchUUID(){
 
 function isUUID(value){
 
-    if(!value){
+  if(!value) return false;
 
-        return false;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    .test(String(value).trim());
 
-    }
+}
 
 
-    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-        .test(
-            String(value)
-        );
+/* =====================================================
+   SHOW STATUS
+===================================================== */
+
+function showStatus(message,type){
+
+  const box =
+    document.getElementById("status");
+
+  box.textContent = message;
+
+  box.className =
+    "status " + type;
+
+}
+
+
+/* =====================================================
+   CLEAR STATUS
+===================================================== */
+
+function clearStatus(){
+
+  const box =
+    document.getElementById("status");
+
+  box.style.display = "none";
+
+  box.className = "status";
+
+  box.textContent = "";
+
+}
+
+
+/* =====================================================
+   FIND BRANCH UUID
+===================================================== */
+
+async function resolveBranchUUID(){
+
+  /*
+    selected_branch_id is GUL / AKT / etc.
+    But items.branch_id requires real UUID.
+
+    Therefore we first find the real UUID
+    from branches table.
+  */
+
+  if(isUUID(branchUUID)){
+    return branchUUID;
+  }
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/branches?select=*",
+      {
+        method:"GET",
+        headers:getHeaders()
+      }
+    );
+
+
+  if(!response.ok){
+
+    const errorText =
+      await response.text();
+
+    throw new Error(
+      "Branches loading failed: " +
+      errorText
+    );
+
+  }
+
+
+  const branches =
+    await response.json();
+
+
+  if(!Array.isArray(branches)){
+
+    throw new Error(
+      "Branches data sirrii miti."
+    );
+
+  }
+
+
+  const code =
+    String(branchCode || "").trim().toLowerCase();
+
+  const name =
+    String(branchName || "").trim().toLowerCase();
+
+  const id =
+    String(selectedBranchId || "").trim().toLowerCase();
+
+
+  const possibleCodeFields = [
+    "code",
+    "branch_code",
+    "branchCode",
+    "branchcode",
+    "branch_id_code",
+    "short_code"
+  ];
+
+
+  const possibleNameFields = [
+    "name",
+    "branch_name",
+    "branch",
+    "branchName",
+    "title",
+    "branch_title",
+    "office_name",
+    "office"
+  ];
+
+
+  let found = null;
+
+
+  /* ---------- MATCH CODE ---------- */
+
+  if(code){
+
+    found =
+      branches.find(b => {
+
+        return possibleCodeFields.some(field => {
+
+          if(b[field] === undefined ||
+             b[field] === null){
+
+            return false;
+
+          }
+
+          return String(b[field])
+            .trim()
+            .toLowerCase() === code;
+
+        });
+
+      });
+
+  }
+
+
+  /* ---------- MATCH NAME ---------- */
+
+  if(!found && name){
+
+    found =
+      branches.find(b => {
+
+        return possibleNameFields.some(field => {
+
+          if(b[field] === undefined ||
+             b[field] === null){
+
+            return false;
+
+          }
+
+          return String(b[field])
+            .trim()
+            .toLowerCase() === name;
+
+        });
+
+      });
+
+  }
+
+
+  /* ---------- MATCH SELECTED ID ---------- */
+
+  if(!found && id){
+
+    found =
+      branches.find(b => {
+
+        return String(b.id || "")
+          .trim()
+          .toLowerCase() === id;
+
+      });
+
+  }
+
+
+  if(!found){
+
+    throw new Error(
+      "Branch UUID hin argamne. " +
+      "Branch: " +
+      (branchName || branchCode || "Unknown")
+    );
+
+  }
+
+
+  if(!isUUID(found.id)){
+
+    throw new Error(
+      "Branch ID database irraa UUID miti."
+    );
+
+  }
+
+
+  branchUUID = found.id;
+
+  localStorage.setItem(
+    "selected_branch_uuid",
+    branchUUID
+  );
+
+
+  return branchUUID;
 
 }
 
@@ -1102,271 +853,214 @@ function isUUID(value){
 
 async function loadItems(){
 
-    const loading =
-        document.getElementById(
-            "loading"
-        );
+  const loading =
+    document.getElementById("loading");
 
-    const table =
-        document.getElementById(
-            "itemsTable"
-        );
+  const empty =
+    document.getElementById("empty");
 
-    const empty =
-        document.getElementById(
-            "empty"
-        );
+  const table =
+    document.getElementById("tableContainer");
+
+  const body =
+    document.getElementById("itemsBody");
 
 
-    loading.style.display =
-        "block";
+  loading.style.display = "block";
+  empty.style.display = "none";
+  table.style.display = "none";
 
-    table.style.display =
-        "none";
+  body.innerHTML = "";
 
-    empty.style.display =
-        "none";
-
-
-    clearMessage();
+  clearStatus();
 
 
-    try{
+  try{
 
-        /*
-           REAL UUID barbaadi
-        */
-
-        const uuid =
-            await resolveBranchUUID();
+    const uuid =
+      await resolveBranchUUID();
 
 
-        if(
-            !uuid
-        ){
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(uuid) +
+      "&order=id.asc";
 
-            throw new Error(
-                "Branch UUID hin argamne. Branch filannoo/login kee mirkaneessi."
-            );
 
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
         }
+      );
 
 
-        /*
-           IMPORTANT:
+    if(!response.ok){
 
-           Asitti GUL hin erginu.
+      const errorText =
+        await response.text();
 
-           UUID dhugaa qofa:
-           branch_id=eq.UUID
-        */
-
-        const url =
-            SUPABASE_URL +
-            "/rest/v1/items" +
-            "?select=*" +
-            "&branch_id=eq." +
-            encodeURIComponent(uuid) +
-            "&order=id.asc";
-
-
-        console.log(
-            "Items URL:",
-            url
-        );
-
-
-        const response =
-            await fetch(
-                url,
-                {
-                    method:"GET",
-                    headers:headers()
-                }
-            );
-
-
-        const text =
-            await response.text();
-
-
-        if(!response.ok){
-
-            throw new Error(
-                text
-            );
-
-        }
-
-
-        const items =
-            JSON.parse(text);
-
-
-        renderItems(
-            items
-        );
+      throw new Error(
+        "Items loading failed: " +
+        errorText
+      );
 
     }
-    catch(error){
-
-        console.error(error);
 
 
-        loading.style.display =
-            "none";
+    const items =
+      await response.json();
 
 
-        showMessage(
-            "Items loading hin milkoofne: " +
-            error.message,
-            "error"
-        );
+    loading.style.display = "none";
+
+
+    if(!Array.isArray(items) ||
+       items.length === 0){
+
+      empty.style.display = "block";
+
+      return;
 
     }
+
+
+    renderItems(items);
+
+
+  }catch(error){
+
+    loading.style.display = "none";
+
+    showStatus(
+      error.message,
+      "error"
+    );
+
+    console.error(error);
+
+  }
 
 }
 
 
 /* =====================================================
-   DISPLAY ITEMS
+   RENDER ITEMS
 ===================================================== */
 
 function renderItems(items){
 
-    const loading =
-        document.getElementById(
-            "loading"
-        );
+  const body =
+    document.getElementById("itemsBody");
 
-    const table =
-        document.getElementById(
-            "itemsTable"
-        );
+  const table =
+    document.getElementById("tableContainer");
 
-    const empty =
-        document.getElementById(
-            "empty"
-        );
-
-    const body =
-        document.getElementById(
-            "itemsBody"
-        );
+  body.innerHTML = "";
 
 
-    loading.style.display =
-        "none";
+  items.forEach(item => {
+
+    const tr =
+      document.createElement("tr");
 
 
-    body.innerHTML =
-        "";
+    const id =
+      item.id ?? "—";
+
+    const name =
+      item.name ?? "—";
+
+    const category =
+      item.category ?? "—";
 
 
-    if(
-        !items ||
-        items.length === 0
-    ){
+    let actionHTML = "";
 
-        table.style.display =
-            "none";
 
-        empty.style.display =
-            "block";
+    if(isMainViewer){
 
-        return;
+      actionHTML = `
+        <span class="view-only">
+          👁️ View Only
+        </span>
+      `;
+
+    }else{
+
+      actionHTML = `
+        <div class="actions">
+
+          <button
+            class="btn-edit"
+            onclick="editItem(${JSON.stringify(item.id)})">
+            ✏️ Edit
+          </button>
+
+          <button
+            class="btn-delete"
+            onclick="deleteItem(${JSON.stringify(item.id)})">
+            🗑️ Delete
+          </button>
+
+        </div>
+      `;
 
     }
 
 
-    table.style.display =
-        "table";
+    tr.innerHTML = `
 
-    empty.style.display =
-        "none";
+      <td>
+        <span class="badge">
+          ${escapeHTML(String(id))}
+        </span>
+      </td>
 
+      <td>
+        <strong>
+          ${escapeHTML(String(name))}
+        </strong>
+      </td>
 
-    items.forEach(
-        item => {
+      <td>
+        ${escapeHTML(String(category))}
+      </td>
 
-            const row =
-                document.createElement(
-                    "tr"
-                );
+      <td>
+        ${actionHTML}
+      </td>
 
-
-            const id =
-                item.id ?? "";
-
-
-            const name =
-                item.name ?? "";
-
-
-            const category =
-                item.category ?? "";
+    `;
 
 
-            row.innerHTML = `
+    body.appendChild(tr);
 
-                <td>
-                    ${escapeHtml(
-                        String(id)
-                    )}
-                </td>
-
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            String(name)
-                        )}
-                    </strong>
-                </td>
-
-                <td>
-                    <span class="badge">
-                        ${escapeHtml(
-                            String(category)
-                        )}
-                    </span>
-                </td>
-
-                <td>
-
-                    <button
-                        class="action-btn edit"
-                        onclick='editItem(
-                            ${JSON.stringify(item)}
-                        )'>
-
-                        Edit
-
-                    </button>
+  });
 
 
-                    <button
-                        class="action-btn delete"
-                        onclick="deleteItem(
-                            '${escapeJs(
-                                String(id)
-                            )}'
-                        )">
+  table.style.display = "block";
 
-                        Delete
-
-                    </button>
-
-                </td>
-
-            `;
+}
 
 
-            body.appendChild(
-                row
-            );
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-        }
-    );
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
@@ -1377,292 +1071,248 @@ function renderItems(items){
 
 async function saveItem(){
 
-    clearMessage();
+  /* Main cannot save */
+
+  if(isMainViewer){
+
+    showStatus(
+      "Main / HQ View Only dha. Item dabaluun hin danda'amu.",
+      "error"
+    );
+
+    return;
+
+  }
 
 
-    const name =
-        document
-        .getElementById(
-            "itemName"
-        )
-        .value
-        .trim();
+  const nameInput =
+    document.getElementById("itemName");
+
+  const categoryInput =
+    document.getElementById("itemCategory");
 
 
-    const category =
-        document
-        .getElementById(
-            "category"
-        )
-        .value
-        .trim();
+  const name =
+    nameInput.value.trim();
+
+  const category =
+    categoryInput.value.trim();
 
 
-    if(!name){
+  if(!name){
 
-        showMessage(
-            "Maqaa item galchi.",
-            "error"
+    showStatus(
+      "Maqaa item galchi.",
+      "error"
+    );
+
+    nameInput.focus();
+
+    return;
+
+  }
+
+
+  if(!category){
+
+    showStatus(
+      "Category filadhu.",
+      "error"
+    );
+
+    categoryInput.focus();
+
+    return;
+
+  }
+
+
+  try{
+
+    const uuid =
+      await resolveBranchUUID();
+
+
+    /* =================================================
+       EDIT EXISTING ITEM
+    ================================================= */
+
+    if(editingId !== null){
+
+      const url =
+        SUPABASE_URL +
+        "/rest/v1/items" +
+        "?id=eq." +
+        encodeURIComponent(editingId);
+
+
+      const response =
+        await fetch(
+          url,
+          {
+            method:"PATCH",
+
+            headers:{
+              ...getHeaders(),
+              "Prefer":"return=representation"
+            },
+
+            body:JSON.stringify({
+
+              name:name,
+              category:category
+
+            })
+
+          }
         );
 
-        return;
+
+      if(!response.ok){
+
+        const errorText =
+          await response.text();
+
+        throw new Error(
+          "Edit failed: " +
+          errorText
+        );
+
+      }
+
+
+      showStatus(
+        "Item sirriitti fooyya'e.",
+        "success"
+      );
+
 
     }
 
+    /* =================================================
+       ADD NEW ITEM
+    ================================================= */
 
-    if(!category){
+    else{
 
-        showMessage(
-            "Category filadhu.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    /*
-       Edit yoo ta'e branch UUID
-       barbaachisaa miti.
-
-       New item yoo ta'e UUID
-       barbaachisa.
-    */
-
-    let uuid =
-        branchUUID;
-
-
-    if(
-        editingId === null
-    ){
-
-        uuid =
-            await resolveBranchUUID();
-
-
-        if(!uuid){
-
-            showMessage(
-                "Branch UUID hin argamne. Mee Logout godhiitii Login irra deebi'i.",
-                "error"
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    const saveButton =
-        document.getElementById(
-            "saveButton"
-        );
-
-
-    saveButton.disabled =
-        true;
-
-
-    saveButton.textContent =
-        editingId !== null
-        ? "Updating..."
-        : "Saving...";
-
-
-    try{
-
-        /* =================================================
-           EDIT
-        ================================================= */
-
-        if(
-            editingId !== null
-        ){
-
-            const data = {
-
-                name:
-                    name,
-
-                category:
-                    category
-
-            };
-
-
-            const response =
-                await fetch(
-
-                    SUPABASE_URL +
-                    "/rest/v1/items?id=eq." +
-                    encodeURIComponent(
-                        editingId
-                    ),
-
-                    {
-                        method:"PATCH",
-
-                        headers:headers({
-
-                            "Prefer":
-                                "return=representation"
-
-                        }),
-
-                        body:
-                            JSON.stringify(
-                                data
-                            )
-
-                    }
-
-                );
-
-
-            const text =
-                await response.text();
-
-
-            if(!response.ok){
-
-                throw new Error(
-                    text
-                );
-
-            }
-
-
-            showMessage(
-                "Item sirriitti fooyya'e.",
-                "success"
-            );
-
-
-            clearForm();
-
-
-            await loadItems();
-
-
-            return;
-
-        }
-
-
-        /* =================================================
-           NEW ITEM
-        ================================================= */
+      const payload = {
 
         /*
-           ID hin erginu.
-
-           Database'n ofumaan ID uuma.
-
-           branch_id keessatti
-           UUID DHUGAA qofa ergina.
+          ID hin erginu.
+          Database ofumaan ID uuma.
         */
 
-        const data = {
+        name:name,
+        category:category,
+        branch_id:uuid
 
-            name:
-                name,
-
-            category:
-                category,
-
-            branch_id:
-                uuid,
-
-            branch_code:
-                branchCode || null
-
-        };
+      };
 
 
-        console.log(
-            "Saving item:",
-            data
+      /*
+        branch_code yoo database keessatti jiraate
+        qofa itti dabala.
+        Error yoo uumame branch_code malee irra
+        deebi'ee yaala.
+      */
+
+      let response =
+        await fetch(
+          SUPABASE_URL +
+          "/rest/v1/items",
+          {
+            method:"POST",
+
+            headers:{
+              ...getHeaders(),
+              "Prefer":"return=representation"
+            },
+
+            body:JSON.stringify(payload)
+
+          }
         );
 
 
-        const response =
+      if(!response.ok){
+
+        const firstError =
+          await response.text();
+
+        /*
+          branch_code schema keessatti hin jirre
+          taanaan payload irraa haqa.
+        */
+
+        if(
+          firstError.includes("branch_code") ||
+          firstError.includes("column")
+        ){
+
+          response =
             await fetch(
+              SUPABASE_URL +
+              "/rest/v1/items",
+              {
+                method:"POST",
 
-                SUPABASE_URL +
-                "/rest/v1/items",
+                headers:{
+                  ...getHeaders(),
+                  "Prefer":"return=representation"
+                },
 
-                {
-                    method:"POST",
+                body:JSON.stringify({
 
-                    headers:headers({
+                  name:name,
+                  category:category,
+                  branch_id:uuid
 
-                        "Prefer":
-                            "return=representation"
+                })
 
-                    }),
-
-                    body:
-                        JSON.stringify(
-                            data
-                        )
-
-                }
-
-            );
-
-
-        const text =
-            await response.text();
-
-
-        if(!response.ok){
-
-            throw new Error(
-                text
+              }
             );
 
         }
 
+      }
 
-        showMessage(
-            "Item haaraan sirriitti galmaa'e.",
-            "success"
+
+      if(!response.ok){
+
+        const errorText =
+          await response.text();
+
+        throw new Error(
+          "Save failed: " +
+          errorText
         );
 
-
-        clearForm();
-
-
-        await loadItems();
-
-    }
-    catch(error){
-
-        console.error(error);
+      }
 
 
-        showMessage(
-            "Save hin milkoofne: " +
-            error.message,
-            "error"
-        );
+      showStatus(
+        "Item haaraan sirriitti galmaa'e.",
+        "success"
+      );
 
     }
-    finally{
-
-        saveButton.disabled =
-            false;
 
 
-        saveButton.textContent =
-            editingId !== null
-            ? "Update Item"
-            : "+ Save Item";
+    clearForm();
 
-    }
+    await loadItems();
+
+
+  }catch(error){
+
+    showStatus(
+      error.message,
+      "error"
+    );
+
+    console.error(error);
+
+  }
 
 }
 
@@ -1671,51 +1321,118 @@ async function saveItem(){
    EDIT ITEM
 ===================================================== */
 
-function editItem(item){
+async function editItem(id){
+
+  if(isMainViewer){
+
+    showStatus(
+      "Main / HQ View Only dha. Edit gochuun hin danda'amu.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?id=eq." +
+      encodeURIComponent(id);
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      throw new Error(
+        "Item loading failed: " +
+        errorText
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if(!Array.isArray(data) ||
+       data.length === 0){
+
+      throw new Error(
+        "Item hin argamne."
+      );
+
+    }
+
+
+    const item =
+      data[0];
+
 
     editingId =
-        item.id;
+      item.id;
 
 
-    document
-        .getElementById(
-            "itemName"
-        )
-        .value =
-            item.name || "";
+    document.getElementById(
+      "itemName"
+    ).value =
+      item.name || "";
 
 
-    document
-        .getElementById(
-            "category"
-        )
-        .value =
-            item.category || "";
+    document.getElementById(
+      "itemCategory"
+    ).value =
+      item.category || "";
 
 
-    document
-        .getElementById(
-            "formTitle"
-        )
-        .textContent =
-            "Edit Item";
+    document.getElementById(
+      "formTitle"
+    ).textContent =
+      "✏️ Edit Item";
 
 
-    document
-        .getElementById(
-            "saveButton"
-        )
-        .textContent =
-            "Update Item";
+    document.getElementById(
+      "saveButton"
+    ).textContent =
+      "💾 Update Item";
+
+
+    document.getElementById(
+      "cancelButton"
+    ).style.display =
+      "inline-block";
 
 
     window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
+      top:0,
+      behavior:"smooth"
     });
+
+
+  }catch(error){
+
+    showStatus(
+      error.message,
+      "error"
+    );
+
+  }
 
 }
 
@@ -1726,86 +1443,83 @@ function editItem(item){
 
 async function deleteItem(id){
 
-    if(!id){
+  if(isMainViewer){
 
-        return;
+    showStatus(
+      "Main / HQ View Only dha. Delete gochuun hin danda'amu.",
+      "error"
+    );
 
-    }
+    return;
 
-
-    const ok =
-        confirm(
-            "Item kana haqeeqaatti haquu barbaaddaa?"
-        );
-
-
-    if(!ok){
-
-        return;
-
-    }
+  }
 
 
-    try{
-
-        const response =
-            await fetch(
-
-                SUPABASE_URL +
-                "/rest/v1/items?id=eq." +
-                encodeURIComponent(
-                    id
-                ),
-
-                {
-                    method:"DELETE",
-
-                    headers:headers({
-
-                        "Prefer":
-                            "return=minimal"
-
-                    })
-
-                }
-
-            );
+  const confirmed =
+    confirm(
+      "Item kana haquu mirkaneeffattaa?"
+    );
 
 
-        const text =
-            await response.text();
+  if(!confirmed){
+    return;
+  }
 
 
-        if(!response.ok){
+  try{
 
-            throw new Error(
-                text
-            );
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/items" +
+      "?id=eq." +
+      encodeURIComponent(id);
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"DELETE",
+
+          headers:{
+            ...getHeaders(),
+            "Prefer":"return=representation"
+          }
 
         }
+      );
 
 
-        showMessage(
-            "Item haqameera.",
-            "success"
-        );
+    if(!response.ok){
 
+      const errorText =
+        await response.text();
 
-        await loadItems();
-
-    }
-    catch(error){
-
-        console.error(error);
-
-
-        showMessage(
-            "Delete hin milkoofne: " +
-            error.message,
-            "error"
-        );
+      throw new Error(
+        "Delete failed: " +
+        errorText
+      );
 
     }
+
+
+    showStatus(
+      "Item sirriitti haqame.",
+      "success"
+    );
+
+
+    await loadItems();
+
+
+  }catch(error){
+
+    showStatus(
+      error.message,
+      "error"
+    );
+
+  }
 
 }
 
@@ -1816,191 +1530,121 @@ async function deleteItem(id){
 
 function clearForm(){
 
-    editingId =
-        null;
+  editingId = null;
 
 
-    document
-        .getElementById(
-            "itemName"
-        )
-        .value =
-            "";
+  document.getElementById(
+    "itemName"
+  ).value = "";
 
 
-    document
-        .getElementById(
-            "category"
-        )
-        .value =
-            "";
+  document.getElementById(
+    "itemCategory"
+  ).value = "";
 
 
-    document
-        .getElementById(
-            "formTitle"
-        )
-        .textContent =
-            "Add New Item";
+  document.getElementById(
+    "formTitle"
+  ).textContent =
+    "➕ Add New Item";
 
 
-    document
-        .getElementById(
-            "saveButton"
-        )
-        .textContent =
-            "+ Save Item";
+  document.getElementById(
+    "saveButton"
+  ).textContent =
+    "💾 Save Item";
 
 
-    clearMessage();
+  document.getElementById(
+    "cancelButton"
+  ).style.display =
+    "none";
 
 }
 
 
 /* =====================================================
-   DASHBOARD
+   CANCEL EDIT
+===================================================== */
+
+function cancelEdit(){
+
+  clearForm();
+
+  clearStatus();
+
+}
+
+
+/* =====================================================
+   GO DASHBOARD
 ===================================================== */
 
 function goDashboard(){
 
-    window.location.href =
-        "dashboard.html";
+  window.location.href =
+    "dashboard.html";
 
 }
 
 
 /* =====================================================
-   LOGOUT
-===================================================== */
-
-function logout(){
-
-    localStorage.removeItem(
-        "is_logged_in"
-    );
-
-    localStorage.removeItem(
-        "user_role"
-    );
-
-    localStorage.removeItem(
-        "login_user"
-    );
-
-    localStorage.removeItem(
-        "access_token"
-    );
-
-    localStorage.removeItem(
-        "refresh_token"
-    );
-
-    /*
-       Branch filannoo fi UUID
-       illee qulqulleessina.
-    */
-
-    localStorage.removeItem(
-        "selected_branch_id"
-    );
-
-    localStorage.removeItem(
-        "selected_branch_name"
-    );
-
-    localStorage.removeItem(
-        "selected_branch_code"
-    );
-
-    localStorage.removeItem(
-        "selected_branch_uuid"
-    );
-
-
-    window.location.href =
-        "index.html";
-
-}
-
-
-/* =====================================================
-   SECURITY
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-function escapeJs(value){
-
-    return String(value)
-
-        .replace(
-            /\\/g,
-            "\\\\"
-        )
-
-        .replace(
-            /'/g,
-            "\\'"
-        );
-
-}
-
-
-/* =====================================================
-   ENTER KEY
+   INITIALIZE PAGE
 ===================================================== */
 
 document.addEventListener(
-    "keydown",
-    function(event){
+  "DOMContentLoaded",
+  async function(){
 
-        if(
-            event.key === "Enter" &&
-            document.activeElement.tagName
-            !== "BUTTON"
-        ){
+    /* Branch name */
 
-            event.preventDefault();
+    document.getElementById(
+      "branchName"
+    ).textContent =
+      branchName ||
+      branchCode ||
+      "Unknown";
 
-            saveItem();
 
-        }
+    /* -----------------------------------------------
+       MAIN VIEW ONLY
+    ------------------------------------------------ */
+
+    if(isMainViewer){
+
+      const form =
+        document.getElementById(
+          "itemFormCard"
+        );
+
+      const mainView =
+        document.getElementById(
+          "mainViewCard"
+        );
+
+
+      if(form){
+        form.style.display = "none";
+      }
+
+
+      if(mainView){
+        mainView.style.display = "block";
+      }
 
     }
+
+
+    /* -----------------------------------------------
+       LOAD ITEMS
+    ------------------------------------------------ */
+
+    await loadItems();
+
+  }
 );
 
 </script>
 
 </body>
-
 </html>
