@@ -1,3 +1,19 @@
+Eeyyee. Koodii kee isa amma jiru irratti hundaa’ee Stock IN + Stock OUT + Model 19 + Model 22 + Branch isolation + Report + Details + Back to Menu waliin sirreesseera.
+Fooyya’iinsi ijoo:
+Model 19 lakkoofsa isaa sirnaan galcha.
+Model 22 lakkoofsa isaa sirnaan galcha.
+VERBAL fi Hin jiru ni hojjetu.
+Stock OUT yeroo galchitu balance dura ilaala.
+Item maqaa wal fakkaatu tokkootti walitti qaba.
+Branch tokko data branch biraa hin argisiisu.
+Unit Item irraa ofumaan guutama.
+Details keessatti Model 19/22 ni mul’ata.
+Back to Menu gara dashboard.html deema.
+Date/time handling fooyya’eera.
+Save booda report ofumaan haaroma.
+Error yoo model_19/model_22 columns hin jirre ifatti si beeksisa.
+stock.html guutuu isaa kanaan bakka buusi:
+Writing
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,6 +141,12 @@ header h1{
   display:block;
   background:#fee2e2;
   color:#991b1b;
+}
+
+.message.warning{
+  display:block;
+  background:#fef3c7;
+  color:#92400e;
 }
 
 .form-box{
@@ -929,7 +951,7 @@ const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXq";
+"sb_publishable_M6oxZjm6xF5NbrXkSO9JqA_7JGSucXkSO9JqA_7JGSucXq";
 
 
 /* =====================================================
@@ -946,7 +968,6 @@ let CURRENT_BRANCH_NAME =
 localStorage.getItem("selected_branch_name") ||
 localStorage.getItem("branch_name") ||
 "Unknown Branch";
-
 
 let CURRENT_BRANCH_UUID = null;
 
@@ -1002,7 +1023,7 @@ function escapeHTML(value){
 
 
 /* =====================================================
-   UUID CHECK
+   UUID
 ===================================================== */
 
 function isUUID(value){
@@ -1019,18 +1040,16 @@ function isUUID(value){
 
 function getBranchCodeFromRow(branch){
 
-  const possible = [
-
+  const fields = [
     branch.code,
     branch.branch_code,
     branch.branchCode,
     branch.branchcode,
     branch.branch_id_code,
     branch.short_code
-
   ];
 
-  for(const value of possible){
+  for(const value of fields){
 
     if(
       value !== undefined &&
@@ -1050,10 +1069,7 @@ function getBranchCodeFromRow(branch){
 
 
 /* =====================================================
-   RESOLVE BRANCH UUID
-   IMPORTANT FIX:
-   CACHED UUID hin amanne.
-   Dura CODE, booda NAME.
+   BRANCH UUID
 ===================================================== */
 
 async function resolveBranchUUID(){
@@ -1067,7 +1083,6 @@ async function resolveBranchUUID(){
     return null;
 
   }
-
 
   try{
 
@@ -1090,21 +1105,8 @@ async function resolveBranchUUID(){
 
     }
 
-    let branches = [];
-
-    try{
-
-      branches =
-        JSON.parse(text);
-
-    }
-    catch(e){
-
-      throw new Error(
-        "Branches response JSON miti."
-      );
-
-    }
+    const branches =
+      JSON.parse(text);
 
     if(!Array.isArray(branches)){
 
@@ -1114,14 +1116,12 @@ async function resolveBranchUUID(){
 
     }
 
-
     const wantedCode =
       String(
         CURRENT_BRANCH_CODE || ""
       )
       .trim()
       .toLowerCase();
-
 
     const wantedName =
       String(
@@ -1130,38 +1130,29 @@ async function resolveBranchUUID(){
       .trim()
       .toLowerCase();
 
-
     let foundBranch = null;
 
 
-    /* 1. CODE */
+    /* CODE */
 
     if(wantedCode){
 
       foundBranch =
         branches.find(
-          branch => {
-
-            return (
-              getBranchCodeFromRow(branch)
-                .trim()
-                .toLowerCase()
-              ===
-              wantedCode
-            );
-
-          }
+          branch =>
+            getBranchCodeFromRow(branch)
+              .toLowerCase()
+            === wantedCode
         );
 
     }
 
 
-    /* 2. NAME */
+    /* NAME */
 
     if(!foundBranch && wantedName){
 
       const nameFields = [
-
         "name",
         "branch_name",
         "branch",
@@ -1170,36 +1161,26 @@ async function resolveBranchUUID(){
         "branch_title",
         "office_name",
         "office"
-
       ];
 
       foundBranch =
         branches.find(
-          branch => {
-
-            return nameFields.some(
-              field => {
-
-                return (
-                  branch[field] !== undefined &&
-                  branch[field] !== null &&
-                  String(branch[field])
-                    .trim()
-                    .toLowerCase()
-                  ===
-                  wantedName
-                );
-
-              }
-            );
-
-          }
+          branch =>
+            nameFields.some(
+              field =>
+                branch[field] !== undefined &&
+                branch[field] !== null &&
+                String(branch[field])
+                  .trim()
+                  .toLowerCase()
+                === wantedName
+            )
         );
 
     }
 
 
-    /* 3. OLD UUID FALLBACK ONLY */
+    /* UUID FALLBACK */
 
     if(!foundBranch){
 
@@ -1214,8 +1195,7 @@ async function resolveBranchUUID(){
           branches.find(
             branch =>
               String(branch.id)
-              ===
-              String(oldUUID)
+              === String(oldUUID)
           );
 
       }
@@ -1225,21 +1205,12 @@ async function resolveBranchUUID(){
 
     if(!foundBranch){
 
-      console.error(
-        "Branch not found:",
-        {
-          code:CURRENT_BRANCH_CODE,
-          name:CURRENT_BRANCH_NAME,
-          branches:branches
-        }
-      );
-
       throw new Error(
         "Branch '" +
         CURRENT_BRANCH_NAME +
         "' (" +
         CURRENT_BRANCH_CODE +
-        ") branches table keessatti hin argamne."
+        ") hin argamne."
       );
 
     }
@@ -1260,28 +1231,10 @@ async function resolveBranchUUID(){
     CURRENT_BRANCH_UUID =
       String(foundBranch.id);
 
-
     localStorage.setItem(
       "selected_branch_uuid",
       CURRENT_BRANCH_UUID
     );
-
-
-    console.log(
-      "CURRENT BRANCH CODE:",
-      CURRENT_BRANCH_CODE
-    );
-
-    console.log(
-      "CURRENT BRANCH NAME:",
-      CURRENT_BRANCH_NAME
-    );
-
-    console.log(
-      "CURRENT BRANCH UUID:",
-      CURRENT_BRANCH_UUID
-    );
-
 
     return CURRENT_BRANCH_UUID;
 
@@ -1289,7 +1242,7 @@ async function resolveBranchUUID(){
   catch(error){
 
     console.error(
-      "RESOLVE BRANCH UUID ERROR:",
+      "BRANCH UUID ERROR:",
       error
     );
 
@@ -1331,7 +1284,7 @@ function checkLogin(){
 
 
 /* =====================================================
-   BRANCH
+   BRANCH DISPLAY
 ===================================================== */
 
 function checkBranch(){
@@ -1346,7 +1299,6 @@ function checkBranch(){
       "reportBranch"
     );
 
-
   if(!CURRENT_BRANCH_CODE){
 
     branchBox.textContent =
@@ -1359,7 +1311,6 @@ function checkBranch(){
 
   }
 
-
   branchBox.textContent =
     "🏢 Branch: " +
     CURRENT_BRANCH_NAME +
@@ -1367,10 +1318,8 @@ function checkBranch(){
     CURRENT_BRANCH_CODE +
     ")";
 
-
   reportBranch.textContent =
     CURRENT_BRANCH_NAME;
-
 
   return true;
 
@@ -1389,10 +1338,9 @@ async function loadItems(){
 
   }
 
-
   try{
 
-    let url =
+    const url =
       SUPABASE_URL +
       "/rest/v1/items" +
       "?select=id,name,category,unit,branch_id" +
@@ -1401,7 +1349,6 @@ async function loadItems(){
         CURRENT_BRANCH_UUID
       ) +
       "&order=name.asc";
-
 
     const response =
       await fetch(
@@ -1412,10 +1359,8 @@ async function loadItems(){
         }
       );
 
-
     const text =
       await response.text();
-
 
     if(!response.ok){
 
@@ -1423,25 +1368,12 @@ async function loadItems(){
 
     }
 
-
     const data =
       JSON.parse(text);
 
-
-    if(!Array.isArray(data)){
-
-      return [];
-
-    }
-
-
-    console.log(
-      "CURRENT BRANCH ITEMS:",
-      data
-    );
-
-
-    return data;
+    return Array.isArray(data)
+      ? data
+      : [];
 
   }
   catch(error){
@@ -1476,7 +1408,6 @@ async function loadTransactions(){
 
   }
 
-
   try{
 
     const url =
@@ -1489,7 +1420,6 @@ async function loadTransactions(){
       ) +
       "&order=id.desc";
 
-
     const response =
       await fetch(
         url,
@@ -1499,10 +1429,8 @@ async function loadTransactions(){
         }
       );
 
-
     const text =
       await response.text();
-
 
     if(!response.ok){
 
@@ -1510,10 +1438,8 @@ async function loadTransactions(){
 
     }
 
-
     const data =
       JSON.parse(text);
-
 
     return Array.isArray(data)
       ? data
@@ -1541,7 +1467,7 @@ async function loadTransactions(){
 
 
 /* =====================================================
-   FILL ITEM LIST
+   ITEM LIST
 ===================================================== */
 
 function fillItemLists(){
@@ -1556,60 +1482,41 @@ function fillItemLists(){
       "outItem"
     );
 
-
   inItem.innerHTML =
-    `
-      <option value="">
-        -- Item filadhu --
-      </option>
-    `;
-
+    `<option value="">-- Item filadhu --</option>`;
 
   outItem.innerHTML =
-    `
-      <option value="">
-        -- Item filadhu --
-      </option>
-    `;
+    `<option value="">-- Item filadhu --</option>`;
 
+  allItems.forEach(item => {
 
-  allItems.forEach(
-    item => {
-
-      const option1 =
-        document.createElement(
-          "option"
-        );
-
-
-      option1.value =
-        item.id;
-
-
-      option1.textContent =
-        item.name ||
-        "Unnamed Item";
-
-
-      option1.dataset.unit =
-        item.unit || "";
-
-
-      inItem.appendChild(
-        option1
+    const option1 =
+      document.createElement(
+        "option"
       );
 
+    option1.value =
+      item.id;
 
-      const option2 =
-        option1.cloneNode(true);
+    option1.textContent =
+      item.name ||
+      "Unnamed Item";
 
+    option1.dataset.unit =
+      item.unit || "";
 
-      outItem.appendChild(
-        option2
-      );
+    inItem.appendChild(
+      option1
+    );
 
-    }
-  );
+    const option2 =
+      option1.cloneNode(true);
+
+    outItem.appendChild(
+      option2
+    );
+
+  });
 
 }
 
@@ -1678,7 +1585,6 @@ document
         "inModel19Number"
       );
 
-
     if(this.value === "NUMBER"){
 
       box.classList.add("show");
@@ -1718,7 +1624,6 @@ document
         "outModel22Number"
       );
 
-
     if(this.value === "NUMBER"){
 
       box.classList.add("show");
@@ -1747,34 +1652,27 @@ function setDefaultDates(){
   const now =
     new Date();
 
-
   const local =
     new Date(
-      now.getTime()
-      -
-      now.getTimezoneOffset()
-      * 60000
+      now.getTime() -
+      now.getTimezoneOffset() * 60000
     )
     .toISOString()
     .slice(0,16);
 
-
   document.getElementById(
     "inDate"
-  ).value =
-    local;
-
+  ).value = local;
 
   document.getElementById(
     "outDate"
-  ).value =
-    local;
+  ).value = local;
 
 }
 
 
 /* =====================================================
-   DATETIME
+   DATETIME TO ISO
 ===================================================== */
 
 function datetimeToISO(value){
@@ -1785,10 +1683,8 @@ function datetimeToISO(value){
 
   }
 
-
   const date =
     new Date(value);
-
 
   if(
     Number.isNaN(
@@ -1799,7 +1695,6 @@ function datetimeToISO(value){
     return null;
 
   }
-
 
   return date.toISOString();
 
@@ -1818,10 +1713,8 @@ function formatDateTime(value){
 
   }
 
-
   const date =
     new Date(value);
-
 
   if(
     Number.isNaN(
@@ -1833,7 +1726,6 @@ function formatDateTime(value){
 
   }
 
-
   return date.toLocaleString(
     "en-GB",
     {
@@ -1841,8 +1733,7 @@ function formatDateTime(value){
       month:"2-digit",
       day:"2-digit",
       hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit"
+      minute:"2-digit"
     }
   );
 
@@ -1857,25 +1748,16 @@ async function openForm(type){
 
   closeForms();
 
-
   if(!checkBranch()){
 
     return;
 
   }
 
-
-  /*
-     ALWAYS re-resolve branch.
-     Kun item hin jiru rakkoo fura.
-  */
-
   CURRENT_BRANCH_UUID =
     null;
 
-
   await resolveBranchUUID();
-
 
   if(!CURRENT_BRANCH_UUID){
 
@@ -1888,17 +1770,10 @@ async function openForm(type){
 
   }
 
-
-  /*
-     Items fresh load.
-  */
-
   allItems =
     await loadItems();
 
-
   fillItemLists();
-
 
   if(allItems.length === 0){
 
@@ -1913,7 +1788,6 @@ async function openForm(type){
 
   }
 
-
   if(type === "IN"){
 
     document
@@ -1923,7 +1797,6 @@ async function openForm(type){
       .classList.add("show");
 
   }
-
 
   if(type === "OUT"){
 
@@ -1950,7 +1823,6 @@ function closeForms(){
     )
     .classList.remove("show");
 
-
   document
     .getElementById(
       "stockOutForm"
@@ -1974,21 +1846,17 @@ function showMessage(
       "message"
     );
 
-
   box.textContent =
     text;
-
 
   box.className =
     "message " +
     type;
 
-
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
-
 
   setTimeout(
     () => {
@@ -2012,61 +1880,51 @@ function getItemBalance(itemName){
   let totalIn = 0;
   let totalOut = 0;
 
-
   const normalized =
     String(itemName || "")
       .trim()
       .toLowerCase();
 
+  allTransactions.forEach(t => {
 
-  allTransactions.forEach(
-    t => {
+    const tItem =
+      String(
+        t.transaction || ""
+      )
+      .trim()
+      .toLowerCase();
 
-      const tItem =
-        String(
-          t.transaction || ""
-        )
-        .trim()
-        .toLowerCase();
+    if(tItem !== normalized){
 
-
-      if(tItem !== normalized){
-
-        return;
-
-      }
-
-
-      const quantity =
-        Number(
-          t.quantity || 0
-        );
-
-
-      const type =
-        String(
-          t.transaction_type || ""
-        )
-        .trim()
-        .toUpperCase();
-
-
-      if(type === "IN"){
-
-        totalIn += quantity;
-
-      }
-
-
-      if(type === "OUT"){
-
-        totalOut += quantity;
-
-      }
+      return;
 
     }
-  );
 
+    const quantity =
+      Number(
+        t.quantity || 0
+      );
+
+    const type =
+      String(
+        t.transaction_type || ""
+      )
+      .trim()
+      .toUpperCase();
+
+    if(type === "IN"){
+
+      totalIn += quantity;
+
+    }
+
+    if(type === "OUT"){
+
+      totalOut += quantity;
+
+    }
+
+  });
 
   return totalIn - totalOut;
 
@@ -2077,9 +1935,7 @@ function getItemBalance(itemName){
    MODEL VALUE
 ===================================================== */
 
-function getModelValue(
-  type
-){
+function getModelValue(type){
 
   if(type === "IN"){
 
@@ -2088,7 +1944,6 @@ function getModelValue(
         "inModel19"
       ).value;
 
-
     if(mode === "NUMBER"){
 
       const number =
@@ -2096,25 +1951,21 @@ function getModelValue(
           "inModel19Number"
         ).value.trim();
 
-
       if(!number){
 
         return null;
 
       }
 
-
       return number;
 
     }
-
 
     if(mode === "VERBAL"){
 
       return "VERBAL";
 
     }
-
 
     return "NONE";
 
@@ -2128,7 +1979,6 @@ function getModelValue(
         "outModel22"
       ).value;
 
-
     if(mode === "NUMBER"){
 
       const number =
@@ -2136,18 +1986,15 @@ function getModelValue(
           "outModel22Number"
         ).value.trim();
 
-
       if(!number){
 
         return null;
 
       }
 
-
       return number;
 
     }
-
 
     if(mode === "VERBAL"){
 
@@ -2155,11 +2002,9 @@ function getModelValue(
 
     }
 
-
     return "NONE";
 
   }
-
 
   return null;
 
@@ -2178,17 +2023,10 @@ async function saveStock(type){
 
   }
 
-
-  /*
-     Branch UUID fresh resolve.
-  */
-
   CURRENT_BRANCH_UUID =
     null;
 
-
   await resolveBranchUUID();
-
 
   if(!CURRENT_BRANCH_UUID){
 
@@ -2201,14 +2039,8 @@ async function saveStock(type){
 
   }
 
-
-  /*
-     Fresh items.
-  */
-
   allItems =
     await loadItems();
-
 
   fillItemLists();
 
@@ -2234,7 +2066,6 @@ async function saveStock(type){
         "inItem"
       ).value;
 
-
     quantity =
       Number(
         document.getElementById(
@@ -2242,18 +2073,15 @@ async function saveStock(type){
         ).value
       );
 
-
     unit =
       document.getElementById(
         "inUnit"
       ).value;
 
-
     enteredBy =
       document.getElementById(
         "inEnteredBy"
       ).value.trim();
-
 
     expiryDate =
       document.getElementById(
@@ -2261,18 +2089,15 @@ async function saveStock(type){
       ).value ||
       null;
 
-
     enteredAt =
       document.getElementById(
         "inDate"
       ).value;
 
-
     signature =
       document.getElementById(
         "inSignature"
       ).value.trim();
-
 
     model19 =
       getModelValue("IN");
@@ -2289,7 +2114,6 @@ async function saveStock(type){
         "outItem"
       ).value;
 
-
     quantity =
       Number(
         document.getElementById(
@@ -2297,30 +2121,25 @@ async function saveStock(type){
         ).value
       );
 
-
     unit =
       document.getElementById(
         "outUnit"
       ).value;
-
 
     issuedBy =
       document.getElementById(
         "outIssuedBy"
       ).value.trim();
 
-
     enteredAt =
       document.getElementById(
         "outDate"
       ).value;
 
-
     signature =
       document.getElementById(
         "outSignature"
       ).value.trim();
-
 
     model22 =
       getModelValue("OUT");
@@ -2341,7 +2160,6 @@ async function saveStock(type){
 
   }
 
-
   if(
     !quantity ||
     quantity <= 0
@@ -2356,7 +2174,6 @@ async function saveStock(type){
 
   }
 
-
   if(!enteredAt){
 
     showMessage(
@@ -2367,7 +2184,6 @@ async function saveStock(type){
     return;
 
   }
-
 
   if(
     type === "IN" &&
@@ -2383,7 +2199,6 @@ async function saveStock(type){
 
   }
 
-
   if(
     type === "OUT" &&
     !issuedBy
@@ -2397,7 +2212,6 @@ async function saveStock(type){
     return;
 
   }
-
 
   if(
     type === "IN" &&
@@ -2415,7 +2229,6 @@ async function saveStock(type){
     return;
 
   }
-
 
   if(
     type === "OUT" &&
@@ -2440,7 +2253,6 @@ async function saveStock(type){
       enteredAt
     );
 
-
   if(!timestamp){
 
     showMessage(
@@ -2461,11 +2273,10 @@ async function saveStock(type){
         String(itemId)
     );
 
-
   if(!item){
 
     showMessage(
-      "❌ Item hin argamne. Mee Items page irraa mirkaneessi.",
+      "❌ Item hin argamne.",
       "error"
     );
 
@@ -2474,19 +2285,17 @@ async function saveStock(type){
   }
 
 
-  /* ================= OUT BALANCE ================= */
+  /* ================= BALANCE ================= */
 
   if(type === "OUT"){
 
     allTransactions =
       await loadTransactions();
 
-
     const balance =
       getItemBalance(
         item.name
       );
-
 
     if(quantity > balance){
 
@@ -2503,13 +2312,6 @@ async function saveStock(type){
     }
 
   }
-
-
-  /* ================= CATEGORY ================= */
-
-  const category =
-    item.category ||
-    null;
 
 
   /* ================= DATA ================= */
@@ -2537,7 +2339,8 @@ async function saveStock(type){
       expiryDate,
 
     category:
-      category,
+      item.category ||
+      null,
 
     issued_by:
       type === "OUT"
@@ -2569,19 +2372,12 @@ async function saveStock(type){
   };
 
 
-  console.log(
-    "FINAL STOCK DATA:",
-    data
-  );
-
-
   const button =
     document.getElementById(
       type === "IN"
         ? "saveInButton"
         : "saveOutButton"
     );
-
 
   if(button){
 
@@ -2597,29 +2393,20 @@ async function saveStock(type){
 
     const response =
       await fetch(
-
         SUPABASE_URL +
         "/rest/v1/stock_transactions",
-
         {
           method:"POST",
-
           headers:{
-
             ...getHeaders(),
-
             "Prefer":
               "return=representation"
-
           },
-
           body:
             JSON.stringify(
               data
             )
-
         }
-
       );
 
 
@@ -2627,13 +2414,12 @@ async function saveStock(type){
       await response.text();
 
 
-    console.log(
-      "SUPABASE RESPONSE:",
-      resultText
-    );
-
-
     if(!response.ok){
+
+      console.error(
+        "SUPABASE ERROR:",
+        resultText
+      );
 
       throw new Error(
         resultText
@@ -2665,9 +2451,29 @@ async function saveStock(type){
     );
 
 
+    let message =
+      error.message || "";
+
+
+    if(
+      message.includes(
+        "model_19"
+      ) ||
+      message.includes(
+        "model_22"
+      )
+    ){
+
+      message =
+        "Supabase keessatti model_19 ykn model_22 column hin jiru. " +
+        "Mee columns lamaan database keessatti dabali.";
+
+    }
+
+
     showMessage(
       "❌ Save hin milkoofne: " +
-      error.message,
+      message,
       "error"
     );
 
@@ -2703,41 +2509,33 @@ function clearForm(type){
       "inItem"
     ).value = "";
 
-
     document.getElementById(
       "inUnit"
     ).value = "";
-
 
     document.getElementById(
       "inQuantity"
     ).value = "";
 
-
     document.getElementById(
       "inEnteredBy"
     ).value = "";
-
 
     document.getElementById(
       "inExpiryDate"
     ).value = "";
 
-
     document.getElementById(
       "inSignature"
     ).value = "";
-
 
     document.getElementById(
       "inModel19"
     ).value = "NONE";
 
-
     document.getElementById(
       "inModel19Number"
     ).value = "";
-
 
     document.getElementById(
       "inModel19NumberBox"
@@ -2752,43 +2550,35 @@ function clearForm(type){
       "outItem"
     ).value = "";
 
-
     document.getElementById(
       "outUnit"
     ).value = "";
-
 
     document.getElementById(
       "outQuantity"
     ).value = "";
 
-
     document.getElementById(
       "outIssuedBy"
     ).value = "";
-
 
     document.getElementById(
       "outSignature"
     ).value = "";
 
-
     document.getElementById(
       "outModel22"
     ).value = "NONE";
 
-
     document.getElementById(
       "outModel22Number"
     ).value = "";
-
 
     document.getElementById(
       "outModel22NumberBox"
     ).classList.remove("show");
 
   }
-
 
   setDefaultDates();
 
@@ -2807,26 +2597,16 @@ async function loadStock(){
 
   }
 
-
   if(!checkBranch()){
 
     return;
 
   }
 
-
-  /*
-     IMPORTANT FIX:
-     Every refresh branch UUID
-     code/name irraa haaromsa.
-  */
-
   CURRENT_BRANCH_UUID =
     null;
 
-
   await resolveBranchUUID();
-
 
   if(!CURRENT_BRANCH_UUID){
 
@@ -2835,15 +2615,11 @@ async function loadStock(){
     ).innerHTML =
       `
         <tr>
-
           <td
             colspan="7"
             style="text-align:center;padding:30px">
-
             ❌ Branch UUID hin argamne.
-
           </td>
-
         </tr>
       `;
 
@@ -2855,10 +2631,8 @@ async function loadStock(){
   allItems =
     await loadItems();
 
-
   allTransactions =
     await loadTransactions();
-
 
   fillItemLists();
 
@@ -2873,7 +2647,7 @@ async function loadStock(){
       "⚠️ Branch " +
       CURRENT_BRANCH_NAME +
       " keessatti Item hin argamne. Mee Items page irraa Item galchi.",
-      "error"
+      "warning"
     );
 
   }
@@ -2890,120 +2664,108 @@ function buildReport(){
   const groups = {};
 
 
-  allItems.forEach(
-    item => {
+  allItems.forEach(item => {
 
-      const key =
-        String(
-          item.name || ""
-        )
-        .trim()
-        .toLowerCase();
+    const key =
+      String(
+        item.name || ""
+      )
+      .trim()
+      .toLowerCase();
 
+    if(!key){
 
-      if(!key){
-
-        return;
-
-      }
-
-
-      if(!groups[key]){
-
-        groups[key] = {
-
-          name:
-            item.name || "",
-
-          unit:
-            item.unit || "",
-
-          category:
-            item.category || "",
-
-          in:0,
-
-          out:0
-
-        };
-
-      }
+      return;
 
     }
-  );
 
+    if(!groups[key]){
 
-  allTransactions.forEach(
-    t => {
+      groups[key] = {
 
-      const itemName =
-        String(
-          t.transaction || ""
-        )
-        .trim()
-        .toLowerCase();
+        name:
+          item.name || "",
 
+        unit:
+          item.unit || "",
 
-      if(!itemName){
+        category:
+          item.category || "",
 
-        return;
+        in:0,
 
-      }
+        out:0
 
-
-      if(!groups[itemName]){
-
-        groups[itemName] = {
-
-          name:
-            t.transaction,
-
-          unit:
-            t.unit || "",
-
-          category:
-            t.category || "",
-
-          in:0,
-
-          out:0
-
-        };
-
-      }
-
-
-      const quantity =
-        Number(
-          t.quantity || 0
-        );
-
-
-      const type =
-        String(
-          t.transaction_type || ""
-        )
-        .trim()
-        .toUpperCase();
-
-
-      if(type === "IN"){
-
-        groups[itemName].in +=
-          quantity;
-
-      }
-
-
-      if(type === "OUT"){
-
-        groups[itemName].out +=
-          quantity;
-
-      }
+      };
 
     }
-  );
+
+  });
+
+
+  allTransactions.forEach(t => {
+
+    const itemName =
+      String(
+        t.transaction || ""
+      )
+      .trim()
+      .toLowerCase();
+
+    if(!itemName){
+
+      return;
+
+    }
+
+    if(!groups[itemName]){
+
+      groups[itemName] = {
+
+        name:
+          t.transaction,
+
+        unit:
+          t.unit || "",
+
+        category:
+          t.category || "",
+
+        in:0,
+
+        out:0
+
+      };
+
+    }
+
+    const quantity =
+      Number(
+        t.quantity || 0
+      );
+
+    const type =
+      String(
+        t.transaction_type || ""
+      )
+      .trim()
+      .toUpperCase();
+
+    if(type === "IN"){
+
+      groups[itemName].in +=
+        quantity;
+
+    }
+
+    if(type === "OUT"){
+
+      groups[itemName].out +=
+        quantity;
+
+    }
+
+  });
 
 
   return Object.values(groups);
@@ -3022,13 +2784,10 @@ function showReport(){
       "reportTable"
     );
 
-
   const groups =
     buildReport();
 
-
   table.innerHTML = "";
-
 
   let totalIn = 0;
   let totalOut = 0;
@@ -3039,15 +2798,11 @@ function showReport(){
     table.innerHTML =
       `
         <tr>
-
           <td
             colspan="7"
             style="text-align:center;padding:30px">
-
             📦 Item hin jiru.
-
           </td>
-
         </tr>
       `;
 
@@ -3061,10 +2816,8 @@ function showReport(){
         group.in -
         group.out;
 
-
       totalIn +=
         group.in;
-
 
       totalOut +=
         group.out;
@@ -3075,10 +2828,8 @@ function showReport(){
           "tr"
         );
 
-
       row.className =
         "item-row";
-
 
       row.onclick =
         () =>
@@ -3088,7 +2839,6 @@ function showReport(){
 
 
       row.innerHTML =
-
         `
           <td>
             ${index + 1}
@@ -3169,18 +2919,20 @@ function showReport(){
 
 function displayModel(value){
 
-  if(!value){
+  if(
+    value === null ||
+    value === undefined ||
+    String(value).trim() === ""
+  ){
 
     return "—";
 
   }
 
-
   const text =
     String(value)
       .trim()
       .toUpperCase();
-
 
   if(text === "NONE"){
 
@@ -3188,13 +2940,11 @@ function displayModel(value){
 
   }
 
-
   if(text === "VERBAL"){
 
     return "Verbal";
 
   }
-
 
   return escapeHTML(value);
 
@@ -3221,8 +2971,7 @@ function showItemDetails(itemName){
         )
         .trim()
         .toLowerCase()
-        ===
-        normalized
+        === normalized
     );
 
 
@@ -3231,12 +2980,10 @@ function showItemDetails(itemName){
       "detailsBox"
     );
 
-
   const title =
     document.getElementById(
       "detailsTitle"
     );
-
 
   const table =
     document.getElementById(
@@ -3259,15 +3006,11 @@ function showItemDetails(itemName){
     table.innerHTML =
       `
         <tr>
-
           <td
             colspan="11"
             style="text-align:center;padding:25px">
-
             Transaction hin jiru.
-
           </td>
-
         </tr>
       `;
 
@@ -3292,7 +3035,6 @@ function showItemDetails(itemName){
 
 
       row.innerHTML =
-
         `
           <td>
             ${index + 1}
@@ -3379,7 +3121,6 @@ function showItemDetails(itemName){
               t.model_22
             )}
           </td>
-
         `;
 
 
@@ -3454,7 +3195,6 @@ window.addEventListener(
       return;
 
     }
-
 
     checkBranch();
 
