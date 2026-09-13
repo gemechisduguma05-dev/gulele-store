@@ -335,13 +335,6 @@ button:disabled{
 const SUPABASE_URL =
     "https://sslabegtsxlkafuygmar.supabase.co";
 
-/*
- IMPORTANT:
- API KEY kee asuma keessatti hin jijjiirin.
- Key sirrii Supabase Project > Settings > API
- irraa fudhatamuu qaba.
-*/
-
 const SUPABASE_KEY =
     "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
@@ -356,91 +349,91 @@ const BRANCHES = [
         id:"MAIN",
         name:"Main",
         code:"MAIN",
-        db_id:""
+        db_id:"bd1b10ec-43dc-4eb0-ad8c-53a78b80815d"
     },
 
     {
         id:"GUL",
         name:"Gulele",
         code:"GUL",
-        db_id:""
+        db_id:"b7b2ff8c-0be4-4678-a6d3-63c05cdf144c"
     },
 
     {
         id:"AKT",
         name:"Addis Katama",
         code:"AKT",
-        db_id:""
+        db_id:"9ed31570-9cfb-4706-82ed-049addf493fd"
     },
 
     {
         id:"KLF",
         name:"Kolfee",
         code:"KLF",
-        db_id:""
+        db_id:"6d51f505-1e5f-4c47-b2a9-ff83029293d4"
     },
 
     {
         id:"NSL",
         name:"Nifas Silk Lafto",
         code:"NSL",
-        db_id:""
+        db_id:"ea8fcf0f-eb72-4b2c-a167-2ad7f380bade"
     },
 
     {
         id:"KIR",
         name:"Kirkos",
         code:"KIR",
-        db_id:""
+        db_id:"06cda455-02cb-4b4b-a84b-b01bf1c28b33"
     },
 
     {
         id:"LAM",
         name:"Lami Kura",
         code:"LAM",
-        db_id:""
+        db_id:"6d9324f2-0120-455a-9161-ed46fbf06b61"
     },
 
     {
         id:"ARA",
         name:"Arada",
         code:"ARA",
-        db_id:""
+        db_id:"b0d43ff1-ba2d-4b90-aa65-eab6acec4bdb"
     },
 
     {
         id:"LID",
         name:"Lideta",
         code:"LID",
-        db_id:""
+        db_id:"f26b2605-f4df-4a32-8c61-76131fe7e559"
     },
 
     {
         id:"BOL",
         name:"Bole",
         code:"BOL",
-        db_id:""
+        db_id:"d104e8ab-ed63-4d20-a314-6696abed839a"
     },
 
     {
         id:"EKA",
-        name:"Ekaa",
+        name:"Yekaa",
         code:"EKA",
-        db_id:""
+        db_id:"015d6857-73a2-4b05-8555-4091387a305d"
     },
 
     {
         id:"AKA",
         name:"Akaki Kality",
         code:"AKA",
-        db_id:""
+        db_id:"ac4f8c9a-8855-42f4-b98f-35d454c8d89e"
     },
 
     {
         id:"CTR",
         name:"Center",
         code:"CTR",
-        db_id:""
+        db_id:"96a20750-5ff6-4475-ae03-009cd7688c33"
     }
 
 ];
@@ -482,7 +475,7 @@ function loadBranches(){
             branch.code;
 
         option.dataset.dbid =
-            branch.db_id || "";
+            branch.db_id;
 
         select.appendChild(option);
 
@@ -521,10 +514,6 @@ function saveSelectedBranch(){
         return false;
     }
 
-    /*
-       Local branch code
-    */
-
     localStorage.setItem(
         "selected_branch_id",
         branch.id
@@ -540,15 +529,9 @@ function saveSelectedBranch(){
         branch.code
     );
 
-    /*
-       Real Supabase UUID.
-       Yeroo UUID hin jirre
-       empty ta'a.
-    */
-
     localStorage.setItem(
         "selected_branch_uuid",
-        branch.db_id || ""
+        branch.db_id
     );
 
     return true;
@@ -598,6 +581,63 @@ function showMessage(
 
 
 /* =====================================================
+   VERIFY BRANCH LOGIN
+===================================================== */
+
+async function verifyBranchLogin(
+    username,
+    password
+){
+
+    const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/rpc/verify_branch_login",
+            {
+                method:"POST",
+
+                headers:{
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_KEY,
+
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify({
+                        p_username:
+                            username,
+
+                        p_password:
+                            password
+                    })
+            }
+        );
+
+    const data =
+        await response.json();
+
+    if(!response.ok){
+
+        throw new Error(
+            data.message ||
+            data.error ||
+            "Password verification failed."
+        );
+
+    }
+
+    return data;
+
+}
+
+
+/* =====================================================
    LOGIN
 ===================================================== */
 
@@ -625,7 +665,6 @@ async function login(){
         );
 
         return;
-
     }
 
     if(!username){
@@ -636,7 +675,6 @@ async function login(){
         );
 
         return;
-
     }
 
     if(!password){
@@ -647,7 +685,6 @@ async function login(){
         );
 
         return;
-
     }
 
     if(!saveSelectedBranch()){
@@ -658,7 +695,6 @@ async function login(){
         );
 
         return;
-
     }
 
     const selectedBranch =
@@ -674,148 +710,73 @@ async function login(){
         );
 
         return;
-
     }
 
     const loginButton =
-        document.getElementById("loginButton");
+        document.getElementById(
+            "loginButton"
+        );
 
-    loginButton.disabled =
-        true;
+    loginButton.disabled = true;
 
     loginButton.textContent =
         "Logging in...";
 
 
-    /* =================================================
-       MAIN
-    ================================================= */
-
-    if(selectedBranch.id === "MAIN"){
-
-        localStorage.setItem(
-            "is_logged_in",
-            "true"
-        );
-
-        localStorage.setItem(
-            "user_role",
-            "main"
-        );
-
-        localStorage.setItem(
-            "login_user",
-            username
-        );
-
-        window.location.href =
-            "dashboard.html";
-
-        return;
-
-    }
-
-
-    /* =================================================
-       BRANCH CODE LOGIN
-    ================================================= */
-
-    if(
-        username.toUpperCase()
-        ===
-        selectedBranch.code
-    ){
-
-        localStorage.setItem(
-            "is_logged_in",
-            "true"
-        );
-
-        localStorage.setItem(
-            "user_role",
-            "branch"
-        );
-
-        localStorage.setItem(
-            "login_user",
-            username
-        );
-
-        window.location.href =
-            "dashboard.html";
-
-        return;
-
-    }
-
-
-    /* =================================================
-       EMAIL LOGIN
-    ================================================= */
-
     try{
 
-        const response =
-            await fetch(
+        /*
+        =============================================
+        BRANCH / MAIN CODE LOGIN
+        =============================================
+        */
 
-                SUPABASE_URL +
-                "/auth/v1/token?grant_type=password",
-
-                {
-                    method:"POST",
-
-                    headers:{
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            "Bearer " +
-                            SUPABASE_KEY,
-
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            email:username,
-
-                            password:password
-
-                        })
-                }
-
+        const result =
+            await verifyBranchLogin(
+                username,
+                password
             );
 
 
-        const data =
-            await response.json();
-
-
-        if(!response.ok){
+        if(
+            !Array.isArray(result) ||
+            result.length === 0
+        ){
 
             throw new Error(
-                data.error_description ||
-                data.msg ||
-                data.message ||
-                "Login failed"
+                "Branch Code ykn Password sirrii miti."
             );
 
         }
 
 
-        /* ================= SESSION ================= */
+        const user =
+            result[0];
 
-        localStorage.setItem(
-            "access_token",
-            data.access_token || ""
-        );
 
-        localStorage.setItem(
-            "refresh_token",
-            data.refresh_token || ""
-        );
+        /*
+        =============================================
+        CHECK SELECTED BRANCH
+        =============================================
+        */
+
+        if(
+            user.branch_id !==
+            selectedBranch.db_id
+        ){
+
+            throw new Error(
+                "Branch filatame fi login branch wal hin simu."
+            );
+
+        }
+
+
+        /*
+        =============================================
+        SAVE REAL LOGIN
+        =============================================
+        */
 
         localStorage.setItem(
             "is_logged_in",
@@ -824,16 +785,48 @@ async function login(){
 
         localStorage.setItem(
             "user_role",
-            "branch"
+            user.ismain
+                ? "main"
+                : "branch"
         );
 
         localStorage.setItem(
             "login_user",
-            username
+            user.username
         );
 
-        window.location.href =
-            "dashboard.html";
+        localStorage.setItem(
+            "selected_branch_uuid",
+            user.branch_id
+        );
+
+        localStorage.setItem(
+            "selected_branch_name",
+            user.branch_name
+        );
+
+        localStorage.setItem(
+            "selected_branch_code",
+            user.username
+        );
+
+
+        showMessage(
+            "Login successful. Gara Dashboard deemaa...",
+            "success"
+        );
+
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                    "dashboard.html";
+
+            },
+            500
+        );
+
 
     }
     catch(error){
@@ -844,8 +837,8 @@ async function login(){
         );
 
         showMessage(
-            "Login hin milkoofne: " +
-            error.message,
+            error.message ||
+            "Login hin milkoofne.",
             "error"
         );
 
@@ -862,47 +855,121 @@ async function login(){
 
 /* =====================================================
    MAIN DASHBOARD
-===================================================== */
+   ===================================================== */
 
-function goMain(){
+async function goMain(){
 
-    localStorage.setItem(
-        "selected_branch_id",
-        "MAIN"
-    );
+    const password =
+        document
+            .getElementById("password")
+            .value;
 
-    localStorage.setItem(
-        "selected_branch_name",
-        "Main"
-    );
+    if(!password){
 
-    localStorage.setItem(
-        "selected_branch_code",
-        "MAIN"
-    );
+        showMessage(
+            "Main Dashboard seenuuf MAIN password galchi.",
+            "error"
+        );
 
-    localStorage.setItem(
-        "selected_branch_uuid",
-        ""
-    );
+        document
+            .getElementById("password")
+            .focus();
 
-    localStorage.setItem(
-        "is_logged_in",
-        "true"
-    );
+        return;
 
-    localStorage.setItem(
-        "user_role",
-        "main"
-    );
+    }
 
-    localStorage.setItem(
-        "login_user",
-        "MAIN"
-    );
 
-    window.location.href =
-        "dashboard.html";
+    try{
+
+        const result =
+            await verifyBranchLogin(
+                "MAIN",
+                password
+            );
+
+
+        if(
+            !Array.isArray(result) ||
+            result.length === 0
+        ){
+
+            throw new Error(
+                "MAIN password sirrii miti."
+            );
+
+        }
+
+
+        const mainUser =
+            result[0];
+
+
+        if(
+            !mainUser.ismain
+        ){
+
+            throw new Error(
+                "User kun Main user miti."
+            );
+
+        }
+
+
+        localStorage.setItem(
+            "selected_branch_id",
+            "MAIN"
+        );
+
+        localStorage.setItem(
+            "selected_branch_name",
+            mainUser.branch_name
+        );
+
+        localStorage.setItem(
+            "selected_branch_code",
+            "MAIN"
+        );
+
+        localStorage.setItem(
+            "selected_branch_uuid",
+            mainUser.branch_id
+        );
+
+        localStorage.setItem(
+            "is_logged_in",
+            "true"
+        );
+
+        localStorage.setItem(
+            "user_role",
+            "main"
+        );
+
+        localStorage.setItem(
+            "login_user",
+            "MAIN"
+        );
+
+
+        window.location.href =
+            "dashboard.html";
+
+    }
+    catch(error){
+
+        console.error(
+            "MAIN LOGIN ERROR:",
+            error
+        );
+
+        showMessage(
+            error.message ||
+            "Main login hin milkoofne.",
+            "error"
+        );
+
+    }
 
 }
 
@@ -938,4 +1005,3 @@ loadBranches();
 </body>
 
 </html>
-
