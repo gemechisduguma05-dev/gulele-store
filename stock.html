@@ -1,7 +1,14 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
 
-<title>AAFDRMC - Stock Management</title><style>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Stock Management</title>
+
+<style>
 
 *{
   box-sizing:border-box;
@@ -384,479 +391,536 @@ tr:nth-child(even){
 
 }
 
-</style></head><body><!-- ================= HEADER ================= --><div class="header"><img
-src="./1788633150526.jpg"
-class="logo"
-alt="AAFDRMC Logo"
-onerror="this.style.display='none'"
+</style>
 
-«»
+</head>
 
-  <h1>AAFDRMC - STOCK MANAGEMENT</h1>  <div
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+  <img
+    src="./1788633150526.jpg"
+    class="logo"
+    alt="AAFDRMC Logo"
+    onerror="this.style.display='none'"
+  >
+
+  <h1>AAFDRMC - STOCK MANAGEMENT</h1>
+
+  <div
     id="branchName"
     class="branch-name">
     Loading Branch...
-  </div></div><!-- ================= MAIN CONTAINER ================= --><div class="container">  <div class="title">
+  </div>
+
+</div>
+
+<!-- ================= MAIN CONTAINER ================= -->
+
+<div class="container">
+
+  <div class="title">
     📦 Stock Management
-  </div>  <div
-    id="message"
-    class="message">
-  </div>  <!-- ================= BUTTONS ================= -->  <div class="buttons"><button
-  type="button"
-  class="btn btn-in"
-  onclick="openForm('IN')">
-  ➕ Stock IN
-</button>
-
-<button
-  type="button"
-  class="btn btn-out"
-  onclick="openForm('OUT')">
-  ➖ Stock OUT
-</button>
-
-<button
-  type="button"
-  class="btn btn-blue"
-  onclick="loadStock()">
-  🔄 Refresh
-</button>
-
-<button
-  type="button"
-  class="btn btn-orange"
-  onclick="goReports()">
-  📋 Stock Report
-</button>
-
-<button
-  type="button"
-  class="btn btn-gray"
-  onclick="backToMenu()">
-  ⬅️ Back to Menu
-</button>
-
-  </div>  <!-- ================= STOCK IN ================= -->  <div
-    id="inForm"
-    class="form-card"><div class="form-title in">
-  🟢 STOCK IN — Receiving Stock
-</div>
-
-<div class="form-grid">
-
-  <div class="form-group">
-
-    <label>Item</label>
-
-    <select id="inItem">
-
-      <option value="">
-        -- Select Item --
-      </option>
-
-    </select>
-
   </div>
-
-  <div class="form-group">
-
-    <label>Unit</label>
-
-    <input
-      id="inUnit"
-      class="readonly"
-      readonly>
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Quantity</label>
-
-    <input
-      id="inQuantity"
-      type="number"
-      min="0.01"
-      step="any"
-      placeholder="Quantity">
-
-  </div>
-
-  <div class="form-group">
-
-    <label>
-      Date and Time Received
-    </label>
-
-    <input
-      id="inDate"
-      type="datetime-local">
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Entered By</label>
-
-    <input
-      id="inEnteredBy"
-      type="text"
-      placeholder="Name of person who entered the stock">
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Expiry Date</label>
-
-    <input
-      id="inExpiryDate"
-      type="date">
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Signature</label>
-
-    <input
-      id="inSignature"
-      type="text"
-      placeholder="Signature">
-
-  </div>
-
-  <!-- MODEL 19 -->
-
-  <div class="form-group model-box">
-
-    <label>Model 19</label>
-
-    <select id="inModel19">
-
-      <option value="NONE">
-        Not Available
-      </option>
-
-      <option value="NUMBER">
-        Model 19 Available
-      </option>
-
-      <option value="VERBAL">
-        Verbal
-      </option>
-
-    </select>
-
-    <div
-      id="inModel19NumberBox"
-      class="model-number">
-
-      <input
-        id="inModel19Number"
-        type="text"
-        placeholder="Model 19 Number">
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="submit-row">
-
-  <button
-    id="saveInButton"
-    type="button"
-    class="save-btn save-in"
-    onclick="saveStock('IN')">
-    💾 Save Stock IN
-  </button>
-
-  <button
-    type="button"
-    class="save-btn cancel"
-    onclick="closeForms()">
-    Cancel
-  </button>
-
-</div>
-
-  </div>  <!-- ================= STOCK OUT ================= -->  <div
-    id="outForm"
-    class="form-card"><div class="form-title out">
-  🔴 STOCK OUT — Issuing Stock
-</div>
-
-<div class="form-grid">
-
-  <div class="form-group">
-
-    <label>Item</label>
-
-    <select id="outItem">
-
-      <option value="">
-        -- Select Item --
-      </option>
-
-    </select>
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Unit</label>
-
-    <input
-      id="outUnit"
-      class="readonly"
-      readonly>
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Quantity</label>
-
-    <input
-      id="outQuantity"
-      type="number"
-      min="0.01"
-      step="any"
-      placeholder="Quantity">
-
-  </div>
-
-  <div class="form-group">
-
-    <label>
-      Date and Time Issued
-    </label>
-
-    <input
-      id="outDate"
-      type="datetime-local">
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Issued By</label>
-
-    <input
-      id="outIssuedBy"
-      type="text"
-      placeholder="Name of person who issued the stock">
-
-  </div>
-
-  <div class="form-group">
-
-    <label>Signature</label>
-
-    <input
-      id="outSignature"
-      type="text"
-      placeholder="Signature">
-
-  </div>
-
-  <!-- MODEL 22 -->
-
-  <div class="form-group model-box">
-
-    <label>Model 22</label>
-
-    <select id="outModel22">
-
-      <option value="NONE">
-        Not Available
-      </option>
-
-      <option value="NUMBER">
-        Model 22 Available
-      </option>
-
-      <option value="VERBAL">
-        Verbal
-      </option>
-
-    </select>
-
-    <div
-      id="outModel22NumberBox"
-      class="model-number">
-
-      <input
-        id="outModel22Number"
-        type="text"
-        placeholder="Model 22 Number">
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="submit-row">
-
-  <button
-    id="saveOutButton"
-    type="button"
-    class="save-btn save-out"
-    onclick="saveStock('OUT')">
-    💾 Save Stock OUT
-  </button>
-
-  <button
-    type="button"
-    class="save-btn cancel"
-    onclick="closeForms()">
-    Cancel
-  </button>
-
-</div>
-
-  </div>  <!-- ================= SUMMARY ================= -->  <div class="summary-grid"><div class="summary-card">
-
-  <span>Total Items</span>
-
-  <strong id="totalItems">
-    0
-  </strong>
-
-</div>
-
-<div class="summary-card">
-
-  <span>Total Stock IN</span>
-
-  <strong id="totalIn">
-    0
-  </strong>
-
-</div>
-
-<div class="summary-card">
-
-  <span>Total Stock OUT</span>
-
-  <strong id="totalOut">
-    0
-  </strong>
-
-</div>
-
-<div class="summary-card">
-
-  <span>Current Balance</span>
-
-  <strong id="totalBalance">
-    0
-  </strong>
-
-</div>
-
-  </div>  <!-- ================= REPORT ================= -->  <div class="report-card"><div class="report-title">
-
-  📊 Stock Report —
-  <span id="reportBranch">
-    Branch
-  </span>
-
-</div>
-
-<div style="overflow-x:auto;">
-
-  <table>
-
-    <thead>
-
-      <tr>
-
-        <th>No</th>
-        <th>Item</th>
-        <th>Unit</th>
-        <th>Stock IN</th>
-        <th>Stock OUT</th>
-        <th>Balance</th>
-        <th>Details</th>
-
-      </tr>
-
-    </thead>
-
-    <tbody id="reportTable">
-
-      <tr>
-
-        <td
-          colspan="7"
-          style="text-align:center;padding:25px">
-
-          Loading...
-
-        </td>
-
-      </tr>
-
-    </tbody>
-
-  </table>
-
-</div>
-
-  </div>  <!-- ================= DETAILS ================= -->  <div
-    id="detailsCard"
-    class="details-card"><div class="details-header">
 
   <div
-    id="detailsTitle"
-    class="details-title">
+    id="message"
+    class="message">
   </div>
 
-  <button
-    type="button"
-    class="close-btn"
-    onclick="closeDetails()">
-    ✖ Close
-  </button>
+  <!-- ================= BUTTONS ================= -->
+
+  <div class="buttons">
+
+    <button
+      type="button"
+      class="btn btn-in"
+      onclick="openForm('IN')">
+      ➕ Stock IN
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-out"
+      onclick="openForm('OUT')">
+      ➖ Stock OUT
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-blue"
+      onclick="loadStock()">
+      🔄 Refresh
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-orange"
+      onclick="goReports()">
+      📋 Stock Report
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-gray"
+      onclick="backToMenu()">
+      ⬅️ Back to Menu
+    </button>
+
+  </div>
+
+  <!-- ================= STOCK IN ================= -->
+
+  <div
+    id="inForm"
+    class="form-card">
+
+    <div class="form-title in">
+      🟢 STOCK IN — Receiving Stock
+    </div>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>Item</label>
+
+        <select id="inItem">
+
+          <option value="">
+            -- Select Item --
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Unit</label>
+
+        <input
+          id="inUnit"
+          class="readonly"
+          readonly>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Quantity</label>
+
+        <input
+          id="inQuantity"
+          type="number"
+          min="0.01"
+          step="any"
+          placeholder="Quantity">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Date and Time Received</label>
+
+        <input
+          id="inDate"
+          type="datetime-local">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Entered By</label>
+
+        <input
+          id="inEnteredBy"
+          type="text"
+          placeholder="Name of person who entered the stock">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Expiry Date</label>
+
+        <input
+          id="inExpiryDate"
+          type="date">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Signature</label>
+
+        <input
+          id="inSignature"
+          type="text"
+          placeholder="Signature">
+
+      </div>
+
+      <!-- MODEL 19 -->
+
+      <div class="form-group model-box">
+
+        <label>Model 19</label>
+
+        <select id="inModel19">
+
+          <option value="NONE">
+            Not Available
+          </option>
+
+          <option value="NUMBER">
+            Model 19 Available
+          </option>
+
+          <option value="VERBAL">
+            Verbal
+          </option>
+
+        </select>
+
+        <div
+          id="inModel19NumberBox"
+          class="model-number">
+
+          <input
+            id="inModel19Number"
+            type="text"
+            placeholder="Model 19 Number">
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="submit-row">
+
+      <button
+        id="saveInButton"
+        type="button"
+        class="save-btn save-in"
+        onclick="saveStock('IN')">
+        💾 Save Stock IN
+      </button>
+
+      <button
+        type="button"
+        class="save-btn cancel"
+        onclick="closeForms()">
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ================= STOCK OUT ================= -->
+
+  <div
+    id="outForm"
+    class="form-card">
+
+    <div class="form-title out">
+      🔴 STOCK OUT — Issuing Stock
+    </div>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>Item</label>
+
+        <select id="outItem">
+
+          <option value="">
+            -- Select Item --
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Unit</label>
+
+        <input
+          id="outUnit"
+          class="readonly"
+          readonly>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Quantity</label>
+
+        <input
+          id="outQuantity"
+          type="number"
+          min="0.01"
+          step="any"
+          placeholder="Quantity">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Date and Time Issued</label>
+
+        <input
+          id="outDate"
+          type="datetime-local">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Issued By</label>
+
+        <input
+          id="outIssuedBy"
+          type="text"
+          placeholder="Name of person who issued the stock">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Signature</label>
+
+        <input
+          id="outSignature"
+          type="text"
+          placeholder="Signature">
+
+      </div>
+
+      <!-- MODEL 22 -->
+
+      <div class="form-group model-box">
+
+        <label>Model 22</label>
+
+        <select id="outModel22">
+
+          <option value="NONE">
+            Not Available
+          </option>
+
+          <option value="NUMBER">
+            Model 22 Available
+          </option>
+
+          <option value="VERBAL">
+            Verbal
+          </option>
+
+        </select>
+
+        <div
+          id="outModel22NumberBox"
+          class="model-number">
+
+          <input
+            id="outModel22Number"
+            type="text"
+            placeholder="Model 22 Number">
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="submit-row">
+
+      <button
+        id="saveOutButton"
+        type="button"
+        class="save-btn save-out"
+        onclick="saveStock('OUT')">
+        💾 Save Stock OUT
+      </button>
+
+      <button
+        type="button"
+        class="save-btn cancel"
+        onclick="closeForms()">
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ================= SUMMARY ================= -->
+
+  <div class="summary-grid">
+
+    <div class="summary-card">
+
+      <span>Total Items</span>
+
+      <strong id="totalItems">
+        0
+      </strong>
+
+    </div>
+
+    <div class="summary-card">
+
+      <span>Total Stock IN</span>
+
+      <strong id="totalIn">
+        0
+      </strong>
+
+    </div>
+
+    <div class="summary-card">
+
+      <span>Total Stock OUT</span>
+
+      <strong id="totalOut">
+        0
+      </strong>
+
+    </div>
+
+    <div class="summary-card">
+
+      <span>Current Balance</span>
+
+      <strong id="totalBalance">
+        0
+      </strong>
+
+    </div>
+
+  </div>
+
+  <!-- ================= REPORT ================= -->
+
+  <div class="report-card">
+
+    <div class="report-title">
+
+      📊 Stock Report —
+      <span id="reportBranch">
+        Branch
+      </span>
+
+    </div>
+
+    <div style="overflow-x:auto;">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>No</th>
+            <th>Item</th>
+            <th>Unit</th>
+            <th>Stock IN</th>
+            <th>Stock OUT</th>
+            <th>Balance</th>
+            <th>Details</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="reportTable">
+
+          <tr>
+
+            <td
+              colspan="7"
+              style="text-align:center;padding:25px">
+
+              Loading...
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- ================= DETAILS ================= -->
+
+  <div
+    id="detailsCard"
+    class="details-card">
+
+    <div class="details-header">
+
+      <div
+        id="detailsTitle"
+        class="details-title">
+      </div>
+
+      <button
+        type="button"
+        class="close-btn"
+        onclick="closeDetails()">
+        ✖ Close
+      </button>
+
+    </div>
+
+    <div style="overflow-x:auto;">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>No</th>
+            <th>Transaction</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Date and Time</th>
+            <th>Entered By</th>
+            <th>Issued By</th>
+            <th>Expiry Date</th>
+            <th>Signature</th>
+            <th>Model 19</th>
+            <th>Model 22</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="detailsTable">
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
 
 </div>
 
-<div style="overflow-x:auto;">
-
-  <table>
-
-    <thead>
-
-      <tr>
-
-        <th>No</th>
-        <th>Transaction</th>
-        <th>Quantity</th>
-        <th>Unit</th>
-        <th>Date and Time</th>
-        <th>Entered By</th>
-        <th>Issued By</th>
-        <th>Expiry Date</th>
-        <th>Signature</th>
-        <th>Model 19</th>
-        <th>Model 22</th>
-
-      </tr>
-
-    </thead>
-
-    <tbody id="detailsTable">
-    </tbody>
-
-  </table>
-
-</div>
-
-  </div></div><script>
+<script>
 
 /* =========================================================
    SUPABASE
@@ -988,6 +1052,67 @@ function getHeaders(){
       "return=representation"
 
   };
+
+}
+
+/* =========================================================
+   ENGLISH CATEGORY
+========================================================= */
+
+function getEnglishCategory(category){
+
+  const value =
+    String(category || "")
+      .trim()
+      .toLowerCase();
+
+  const categories = {
+
+    "meeshaalee nyaataa tarsiimawaa":
+      "Strategic Food Items",
+
+    "strategic food items":
+      "Strategic Food Items",
+
+    "meeshaalee nyaataa guyyaa guyyaa":
+      "Daily Food Items",
+
+    "daily food items":
+      "Daily Food Items",
+
+    "meeshaalee nyaataa hin taane guyyaa guyyaa":
+      "Daily Non-Food Items",
+
+    "daily non-food items":
+      "Daily Non-Food Items",
+
+    "meeshaalee nyaataa hin taane ittiin nyaata qopheessan":
+      "Non-Food Kitchen Items",
+
+    "non-food kitchen items":
+      "Non-Food Kitchen Items",
+
+    "meeshaalee qulqullinaa":
+      "Non-Food Hygiene Items",
+
+    "non-food hygiene items":
+      "Non-Food Hygiene Items",
+
+    "meeshaa ijaarsa manaaf oolu":
+      "Building / Construction Items",
+
+    "building / construction items":
+      "Building / Construction Items",
+
+    "building items":
+      "Building / Construction Items",
+
+    "construction items":
+      "Building / Construction Items"
+
+  };
+
+  return categories[value] || category || "";
 
 }
 
@@ -1156,14 +1281,14 @@ window.addEventListener(
     if(!resolveBranchUUID()){
 
       showMessage(
-        "Unable to find the Branch UUID. Please log in again.",
+        "Unable to find the branch. Please log in again.",
         "error"
       );
 
       document.getElementById(
         "branchName"
       ).textContent =
-        "Branch not found";
+        "Branch Not Found";
 
       return;
 
@@ -1549,7 +1674,7 @@ async function loadStock(){
     if(!resolveBranchUUID()){
 
       showMessage(
-        "Unable to find the Branch UUID.",
+        "Unable to identify the branch.",
         "error"
       );
 
@@ -1609,7 +1734,7 @@ async function saveStock(type){
   if(!CURRENT_BRANCH_UUID){
 
     showMessage(
-      "Branch UUID is not available. Please log in again.",
+      "Branch not found. Please log in again.",
       "error"
     );
 
@@ -1630,7 +1755,7 @@ async function saveStock(type){
   if(!itemId){
 
     showMessage(
-      "Please select an Item.",
+      "Please select an item.",
       "error"
     );
 
@@ -1648,7 +1773,7 @@ async function saveStock(type){
   if(!item){
 
     showMessage(
-      "The selected Item was not found. Please refresh.",
+      "Selected item was not found. Please refresh.",
       "error"
     );
 
@@ -1671,7 +1796,7 @@ async function saveStock(type){
   if(!quantity || quantity <= 0){
 
     showMessage(
-      "Please enter a valid Quantity.",
+      "Please enter a valid quantity.",
       "error"
     );
 
@@ -1748,7 +1873,7 @@ async function saveStock(type){
     if(!enteredBy){
 
       showMessage(
-        "Please enter Entered By.",
+        "Please enter the name of the person who entered the stock.",
         "error"
       );
 
@@ -1816,7 +1941,7 @@ async function saveStock(type){
     if(!issuedBy){
 
       showMessage(
-        "Please enter Issued By.",
+        "Please enter the name of the person who issued the stock.",
         "error"
       );
 
@@ -1846,6 +1971,15 @@ async function saveStock(type){
 
   }
 
+  /*
+    CATEGORY IS ALWAYS STORED IN ENGLISH
+  */
+
+  const englishCategory =
+    getEnglishCategory(
+      item.category
+    );
+
   const payload = {
 
     branch_id:
@@ -1867,7 +2001,7 @@ async function saveStock(type){
       expiryDate,
 
     category:
-      item.category || null,
+      englishCategory || null,
 
     issued_by:
       issuedBy,
@@ -2156,6 +2290,11 @@ function renderReport(){
 
           unit:item.unit || "",
 
+          category:
+            getEnglishCategory(
+              item.category
+            ),
+
           in:0,
 
           out:0
@@ -2187,6 +2326,11 @@ function renderReport(){
           name:row.transaction,
 
           unit:row.unit || "",
+
+          category:
+            getEnglishCategory(
+              row.category
+            ),
 
           in:0,
 
@@ -2393,7 +2537,7 @@ async function showDetails(itemName){
   if(!card || !title || !tbody){
 
     alert(
-      "Details section was not found."
+      "Details section not found."
     );
 
     return;
@@ -2425,7 +2569,7 @@ async function showDetails(itemName){
     if(!CURRENT_BRANCH_UUID){
 
       throw new Error(
-        "Branch UUID is not available."
+        "Branch not found."
       );
 
     }
@@ -2954,4 +3098,7 @@ localStorage.removeItem(
   "access_token"
 );
 
-</script></body></html>
+</script>
+
+</body>
+</html>
