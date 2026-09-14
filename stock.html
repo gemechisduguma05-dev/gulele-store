@@ -444,30 +444,35 @@ tr:nth-child(even){
   <div class="buttons">
 
     <button
+      type="button"
       class="btn btn-in"
       onclick="openForm('IN')">
       ➕ Stock IN
     </button>
 
     <button
+      type="button"
       class="btn btn-out"
       onclick="openForm('OUT')">
       ➖ Stock OUT
     </button>
 
     <button
+      type="button"
       class="btn btn-blue"
       onclick="loadStock()">
       🔄 Refresh
     </button>
 
     <button
+      type="button"
       class="btn btn-orange"
       onclick="goReports()">
       📋 Stock Report
     </button>
 
     <button
+      type="button"
       class="btn btn-gray"
       onclick="backToMenu()">
       ⬅️ Back to Menu
@@ -622,12 +627,14 @@ tr:nth-child(even){
 
       <button
         id="saveInButton"
+        type="button"
         class="save-btn save-in"
         onclick="saveStock('IN')">
         💾 Save Stock IN
       </button>
 
       <button
+        type="button"
         class="save-btn cancel"
         onclick="closeForms()">
         Cancel
@@ -773,12 +780,14 @@ tr:nth-child(even){
 
       <button
         id="saveOutButton"
+        type="button"
         class="save-btn save-out"
         onclick="saveStock('OUT')">
         💾 Save Stock OUT
       </button>
 
       <button
+        type="button"
         class="save-btn cancel"
         onclick="closeForms()">
         Cancel
@@ -911,6 +920,7 @@ tr:nth-child(even){
       </div>
 
       <button
+        type="button"
         class="close-btn"
         onclick="closeDetails()">
         ✖ Close
@@ -1070,8 +1080,6 @@ let allTransactions = [];
 
 /* =========================================================
    HEADERS
-   IMPORTANT:
-   DO NOT USE OLD access_token
 ========================================================= */
 
 function getHeaders(){
@@ -1148,8 +1156,6 @@ function resolveBranchUUID(){
     );
 
 
-  /* UUID */
-
   if(savedUUID){
 
     for(const key in BRANCHES){
@@ -1170,8 +1176,6 @@ function resolveBranchUUID(){
 
   }
 
-
-  /* CODE */
 
   if(savedCode){
 
@@ -1197,8 +1201,6 @@ function resolveBranchUUID(){
 
   }
 
-
-  /* NAME */
 
   if(savedName){
 
@@ -1305,9 +1307,7 @@ window.addEventListener(
 
     setCurrentDateTime();
 
-
     setupModelFields();
-
 
     await loadStock();
 
@@ -1398,7 +1398,6 @@ async function loadItems(){
     fillItemLists();
 
     updateSummary();
-
 
     return true;
 
@@ -1730,11 +1729,9 @@ async function loadStock(){
 
     await loadTransactions();
 
-
     renderReport();
 
     updateSummary();
-
 
   }
   catch(error){
@@ -1779,12 +1776,6 @@ async function saveStock(type){
 
   }
 
-
-  /*
-    IMPORTANT:
-    DO NOT reload items here before reading select value.
-    The selected item must stay selected.
-  */
 
   const itemSelect =
     document.getElementById(
@@ -1913,12 +1904,6 @@ async function saveStock(type){
         "Verbal";
 
     }
-    else{
-
-      model19 =
-        null;
-
-    }
 
 
     if(!date){
@@ -1992,12 +1977,6 @@ async function saveStock(type){
         "Verbal";
 
     }
-    else{
-
-      model22 =
-        null;
-
-    }
 
 
     if(!date){
@@ -2028,8 +2007,6 @@ async function saveStock(type){
       new Date(date).toISOString();
 
 
-    /* ================= BALANCE CHECK ================= */
-
     const balance =
       getItemBalance(
         item.name
@@ -2050,8 +2027,6 @@ async function saveStock(type){
 
   }
 
-
-  /* ================= PAYLOAD ================= */
 
   const payload = {
 
@@ -2155,12 +2130,9 @@ async function saveStock(type){
 
     clearForm(type);
 
-
     closeForms();
 
-
     await loadStock();
-
 
   }
   catch(error){
@@ -2370,11 +2342,6 @@ function renderReport(){
   const grouped = {};
 
 
-  /*
-    First create groups from items.
-    Same item names are grouped together.
-  */
-
   items.forEach(
     function(item){
 
@@ -2407,10 +2374,6 @@ function renderReport(){
     }
   );
 
-
-  /*
-    Add transactions.
-  */
 
   allTransactions.forEach(
     function(row){
@@ -2509,49 +2472,129 @@ function renderReport(){
         );
 
 
-      tr.innerHTML = `
+      const noTd =
+        document.createElement(
+          "td"
+        );
 
-        <td>${number}</td>
+      noTd.textContent =
+        number;
 
-        <td>
-          <strong>
-            ${escapeHtml(row.name)}
-          </strong>
-        </td>
 
-        <td>
-          ${escapeHtml(row.unit)}
-        </td>
+      const nameTd =
+        document.createElement(
+          "td"
+        );
 
-        <td>
-          ${formatNumber(row.in)}
-        </td>
+      const strong =
+        document.createElement(
+          "strong"
+        );
 
-        <td>
-          ${formatNumber(row.out)}
-        </td>
+      strong.textContent =
+        row.name;
 
-        <td>
-          <strong>
-            ${formatNumber(balance)}
-          </strong>
-        </td>
+      nameTd.appendChild(
+        strong
+      );
 
-        <td>
 
-          <button
-            class="details-btn"
-            onclick="showDetails(
-              ${JSON.stringify(row.name)}
-            )">
+      const unitTd =
+        document.createElement(
+          "td"
+        );
 
-            Details
+      unitTd.textContent =
+        row.unit;
 
-          </button>
 
-        </td>
+      const inTd =
+        document.createElement(
+          "td"
+        );
 
-      `;
+      inTd.textContent =
+        formatNumber(row.in);
+
+
+      const outTd =
+        document.createElement(
+          "td"
+        );
+
+      outTd.textContent =
+        formatNumber(row.out);
+
+
+      const balanceTd =
+        document.createElement(
+          "td"
+        );
+
+      const balanceStrong =
+        document.createElement(
+          "strong"
+        );
+
+      balanceStrong.textContent =
+        formatNumber(balance);
+
+      balanceTd.appendChild(
+        balanceStrong
+      );
+
+
+      const detailsTd =
+        document.createElement(
+          "td"
+        );
+
+
+      const detailsButton =
+        document.createElement(
+          "button"
+        );
+
+      detailsButton.type =
+        "button";
+
+      detailsButton.className =
+        "details-btn";
+
+      detailsButton.textContent =
+        "Details";
+
+
+      /*
+        IMPORTANT FIX:
+        Do not use inline onclick here.
+        Direct event listener is safer.
+      */
+
+      detailsButton.addEventListener(
+        "click",
+        function(){
+
+          showDetails(
+            row.name
+          );
+
+        }
+      );
+
+
+      detailsTd.appendChild(
+        detailsButton
+      );
+
+
+      tr.appendChild(noTd);
+      tr.appendChild(nameTd);
+      tr.appendChild(unitTd);
+      tr.appendChild(inTd);
+      tr.appendChild(outTd);
+      tr.appendChild(balanceTd);
+      tr.appendChild(detailsTd);
 
 
       tbody.appendChild(tr);
@@ -2566,9 +2609,10 @@ function renderReport(){
 
 /* =========================================================
    SHOW DETAILS
+   FIXED VERSION
 ========================================================= */
 
-function showDetails(itemName){
+async function showDetails(itemName){
 
   const card =
     document.getElementById(
@@ -2586,176 +2630,516 @@ function showDetails(itemName){
     );
 
 
+  if(!card || !title || !tbody){
+
+    alert(
+      "Details section hin argamne."
+    );
+
+    return;
+
+  }
+
+
   title.textContent =
     "📋 Details — " +
     itemName;
 
 
-  tbody.innerHTML =
-    "";
+  tbody.innerHTML = `
+
+    <tr>
+
+      <td
+        colspan="11"
+        style="text-align:center;padding:20px">
+
+        ⏳ Details loading...
+
+      </td>
+
+    </tr>
+
+  `;
 
 
-  const target =
-    String(itemName || "")
-      .trim()
-      .toLowerCase();
+  /*
+    IMPORTANT:
+    Details button tuqameen,
+    transaction haaraa Supabase irraa
+    kallattiin barbaadama.
+  */
+
+  try{
+
+    if(!CURRENT_BRANCH_UUID){
+
+      throw new Error(
+        "Branch UUID hin jiru."
+      );
+
+    }
 
 
-  const rows =
-    allTransactions.filter(
-      function(row){
-
-        return String(
-          row.transaction || ""
-        )
-        .trim()
-        .toLowerCase()
-        === target;
-
-      }
-    );
+    const transactionName =
+      String(
+        itemName || ""
+      ).trim();
 
 
-  if(!rows.length){
+    /*
+      Supabase keessatti:
+      branch_id + transaction
+      irratti filter godha.
+    */
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions" +
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(
+        CURRENT_BRANCH_UUID
+      ) +
+      "&transaction=eq." +
+      encodeURIComponent(
+        transactionName
+      ) +
+      "&order=id.desc";
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      throw new Error(
+        "Details loading error: " +
+        errorText
+      );
+
+    }
+
+
+    let rows =
+      await response.json();
+
+
+    /*
+      Yoo Supabase irraa rows hin dhufne,
+      allTransactions keessaa fallback godha.
+    */
+
+    if(
+      !Array.isArray(rows) ||
+      rows.length === 0
+    ){
+
+      const target =
+        transactionName
+          .toLowerCase();
+
+
+      rows =
+        (allTransactions || [])
+          .filter(
+            function(row){
+
+              return String(
+                row.transaction || ""
+              )
+              .trim()
+              .toLowerCase()
+              === target;
+
+            }
+          );
+
+    }
+
 
     tbody.innerHTML =
-
-      `<tr>
-        <td colspan="11"
-            style="text-align:center;padding:20px">
-          Transaction hin jiru.
-        </td>
-      </tr>`;
-
-  }
-  else{
-
-    rows.forEach(
-      function(row,index){
-
-        const type =
-          String(
-            row.transaction_type || ""
-          )
-          .toUpperCase();
+      "";
 
 
-        let transactionText =
-          row.transaction || "";
+    /*
+      Yoo transaction hin jirre
+    */
+
+    if(
+      !Array.isArray(rows) ||
+      rows.length === 0
+    ){
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
 
 
-        if(type){
+      const td =
+        document.createElement(
+          "td"
+        );
 
-          transactionText =
-            type + " - " +
+
+      td.colSpan =
+        11;
+
+
+      td.style.textAlign =
+        "center";
+
+      td.style.padding =
+        "20px";
+
+      td.style.color =
+        "#991b1b";
+
+
+      td.textContent =
+        "Transaction detail hin jiru.";
+
+
+      tr.appendChild(
+        td
+      );
+
+
+      tbody.appendChild(
+        tr
+      );
+
+
+    }
+    else{
+
+      /*
+        Transaction hunda tarreessi
+      */
+
+      rows.forEach(
+        function(row,index){
+
+          const type =
+            String(
+              row.transaction_type || ""
+            )
+            .toUpperCase();
+
+
+          let transactionText =
+            row.transaction ||
+            itemName;
+
+
+          if(type){
+
+            transactionText =
+              type +
+              " - " +
+              transactionText;
+
+          }
+
+
+          let model19 =
+            row.model_19 || "";
+
+
+          let model22 =
+            row.model_22 || "";
+
+
+          if(
+            !model19 &&
+            type === "IN"
+          ){
+
+            model19 =
+              "Hin jiru";
+
+          }
+
+
+          if(
+            !model22 &&
+            type === "OUT"
+          ){
+
+            model22 =
+              "Hin jiru";
+
+          }
+
+
+          const enteredAt =
+            formatDateTime(
+              row.entered_at
+            );
+
+
+          const tr =
+            document.createElement(
+              "tr"
+            );
+
+
+          /*
+            No
+          */
+
+          const noTd =
+            document.createElement(
+              "td"
+            );
+
+          noTd.textContent =
+            index + 1;
+
+
+          /*
+            Transaction
+          */
+
+          const transactionTd =
+            document.createElement(
+              "td"
+            );
+
+          transactionTd.textContent =
             transactionText;
 
+
+          /*
+            Quantity
+          */
+
+          const quantityTd =
+            document.createElement(
+              "td"
+            );
+
+          quantityTd.textContent =
+            formatNumber(
+              Number(
+                row.quantity || 0
+              )
+            );
+
+
+          /*
+            Unit
+          */
+
+          const unitTd =
+            document.createElement(
+              "td"
+            );
+
+          unitTd.textContent =
+            row.unit || "";
+
+
+          /*
+            Date
+          */
+
+          const dateTd =
+            document.createElement(
+              "td"
+            );
+
+          dateTd.textContent =
+            enteredAt;
+
+
+          /*
+            Entered By
+          */
+
+          const enteredByTd =
+            document.createElement(
+              "td"
+            );
+
+          enteredByTd.textContent =
+            row.entered_by || "";
+
+
+          /*
+            Issued By
+          */
+
+          const issuedByTd =
+            document.createElement(
+              "td"
+            );
+
+          issuedByTd.textContent =
+            row.issued_by || "";
+
+
+          /*
+            Expiry
+          */
+
+          const expiryTd =
+            document.createElement(
+              "td"
+            );
+
+          expiryTd.textContent =
+            row.expiry_date || "";
+
+
+          /*
+            Signature
+          */
+
+          const signatureTd =
+            document.createElement(
+              "td"
+            );
+
+          signatureTd.textContent =
+            row.signature || "";
+
+
+          /*
+            Model 19
+          */
+
+          const model19Td =
+            document.createElement(
+              "td"
+            );
+
+          model19Td.textContent =
+            model19;
+
+
+          /*
+            Model 22
+          */
+
+          const model22Td =
+            document.createElement(
+              "td"
+            );
+
+          model22Td.textContent =
+            model22;
+
+
+          tr.appendChild(noTd);
+          tr.appendChild(transactionTd);
+          tr.appendChild(quantityTd);
+          tr.appendChild(unitTd);
+          tr.appendChild(dateTd);
+          tr.appendChild(enteredByTd);
+          tr.appendChild(issuedByTd);
+          tr.appendChild(expiryTd);
+          tr.appendChild(signatureTd);
+          tr.appendChild(model19Td);
+          tr.appendChild(model22Td);
+
+
+          tbody.appendChild(
+            tr
+          );
+
         }
+      );
+
+    }
 
 
-        const model19 =
-          row.model_19 || "";
+    /*
+      Details card mul'isi.
+    */
+
+    card.style.display =
+      "block";
 
 
-        const model22 =
-          row.model_22 || "";
+    /*
+      User akka battalum argutti gadi bu'a.
+    */
+
+    setTimeout(
+      function(){
+
+        card.scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+
+      },
+      50
+    );
 
 
-        const enteredAt =
-          formatDateTime(
-            row.entered_at
-          );
+  }
+  catch(error){
+
+    console.error(
+      "SHOW DETAILS ERROR:",
+      error
+    );
 
 
-        const tr =
-          document.createElement(
-            "tr"
-          );
+    tbody.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="11"
+          style="
+            text-align:center;
+            padding:20px;
+            color:#991b1b;
+          ">
+
+          ${escapeHtml(
+            error.message ||
+            "Details loading error."
+          )}
+
+        </td>
+
+      </tr>
+
+    `;
 
 
-        tr.innerHTML = `
-
-          <td>${index + 1}</td>
-
-          <td>
-            ${escapeHtml(
-              transactionText
-            )}
-          </td>
-
-          <td>
-            ${formatNumber(
-              Number(row.quantity || 0)
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              row.unit || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              enteredAt
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              row.entered_by || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              row.issued_by || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              row.expiry_date || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              row.signature || ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              model19
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              model22
-            )}
-          </td>
-
-        `;
+    card.style.display =
+      "block";
 
 
-        tbody.appendChild(tr);
+    setTimeout(
+      function(){
 
-      }
+        card.scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+
+      },
+      50
     );
 
   }
-
-
-  card.style.display =
-    "block";
-
-
-  card.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
 
 }
 
@@ -2766,10 +3150,17 @@ function showDetails(itemName){
 
 function closeDetails(){
 
-  document.getElementById(
-    "detailsCard"
-  ).style.display =
-    "none";
+  const card =
+    document.getElementById(
+      "detailsCard"
+    );
+
+  if(card){
+
+    card.style.display =
+      "none";
+
+  }
 
 }
 
@@ -2942,8 +3333,7 @@ function backToMenu(){
 
 
 /* =========================================================
-   CLEAN OLD ACCESS TOKEN
-   This prevents old JWT from being reused.
+   REMOVE OLD JWT
 ========================================================= */
 
 localStorage.removeItem(
