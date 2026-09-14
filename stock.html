@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC - Stock Management</title>
-
-<style>
+<title>AAFDRMC - Stock Management</title><style>
 
 *{
   box-sizing:border-box;
@@ -393,581 +384,479 @@ tr:nth-child(even){
 
 }
 
-</style>
+</style></head><body><!-- ================= HEADER ================= --><div class="header"><img
+src="./1788633150526.jpg"
+class="logo"
+alt="AAFDRMC Logo"
+onerror="this.style.display='none'"
 
-</head>
+«»
 
-
-<body>
-
-
-<!-- ================= HEADER ================= -->
-
-<div class="header">
-
-  <img
-    src="./1788633150526.jpg"
-    class="logo"
-    alt="AAFDRMC Logo"
-    onerror="this.style.display='none'"
-  >
-
-  <h1>AAFDRMC - STOCK MANAGEMENT</h1>
-
-  <div
+  <h1>AAFDRMC - STOCK MANAGEMENT</h1>  <div
     id="branchName"
     class="branch-name">
     Loading Branch...
-  </div>
-
-</div>
-
-
-<!-- ================= MAIN CONTAINER ================= -->
-
-<div class="container">
-
-
-  <div class="title">
+  </div></div><!-- ================= MAIN CONTAINER ================= --><div class="container">  <div class="title">
     📦 Stock Management
-  </div>
-
-
-  <div
+  </div>  <div
     id="message"
     class="message">
-  </div>
+  </div>  <!-- ================= BUTTONS ================= -->  <div class="buttons"><button
+  type="button"
+  class="btn btn-in"
+  onclick="openForm('IN')">
+  ➕ Stock IN
+</button>
 
+<button
+  type="button"
+  class="btn btn-out"
+  onclick="openForm('OUT')">
+  ➖ Stock OUT
+</button>
 
-  <!-- ================= BUTTONS ================= -->
+<button
+  type="button"
+  class="btn btn-blue"
+  onclick="loadStock()">
+  🔄 Refresh
+</button>
 
-  <div class="buttons">
+<button
+  type="button"
+  class="btn btn-orange"
+  onclick="goReports()">
+  📋 Stock Report
+</button>
 
-    <button
-      type="button"
-      class="btn btn-in"
-      onclick="openForm('IN')">
-      ➕ Stock IN
-    </button>
+<button
+  type="button"
+  class="btn btn-gray"
+  onclick="backToMenu()">
+  ⬅️ Back to Menu
+</button>
 
-    <button
-      type="button"
-      class="btn btn-out"
-      onclick="openForm('OUT')">
-      ➖ Stock OUT
-    </button>
-
-    <button
-      type="button"
-      class="btn btn-blue"
-      onclick="loadStock()">
-      🔄 Refresh
-    </button>
-
-    <button
-      type="button"
-      class="btn btn-orange"
-      onclick="goReports()">
-      📋 Stock Report
-    </button>
-
-    <button
-      type="button"
-      class="btn btn-gray"
-      onclick="backToMenu()">
-      ⬅️ Back to Menu
-    </button>
-
-  </div>
-
-
-  <!-- ================= STOCK IN ================= -->
-
-  <div
+  </div>  <!-- ================= STOCK IN ================= -->  <div
     id="inForm"
-    class="form-card">
+    class="form-card"><div class="form-title in">
+  🟢 STOCK IN — Receiving Stock
+</div>
 
-    <div class="form-title in">
-      🟢 STOCK IN — Meeshaa Galchuu
-    </div>
+<div class="form-grid">
 
+  <div class="form-group">
 
-    <div class="form-grid">
+    <label>Item</label>
 
+    <select id="inItem">
 
-      <div class="form-group">
+      <option value="">
+        -- Select Item --
+      </option>
 
-        <label>Item</label>
+    </select>
 
-        <select id="inItem">
+  </div>
 
-          <option value="">
-            -- Item filadhu --
-          </option>
+  <div class="form-group">
 
-        </select>
+    <label>Unit</label>
 
-      </div>
+    <input
+      id="inUnit"
+      class="readonly"
+      readonly>
 
+  </div>
 
-      <div class="form-group">
+  <div class="form-group">
 
-        <label>Unit</label>
+    <label>Quantity</label>
 
-        <input
-          id="inUnit"
-          class="readonly"
-          readonly>
+    <input
+      id="inQuantity"
+      type="number"
+      min="0.01"
+      step="any"
+      placeholder="Quantity">
 
-      </div>
+  </div>
 
+  <div class="form-group">
 
-      <div class="form-group">
+    <label>
+      Date and Time Received
+    </label>
 
-        <label>Quantity</label>
+    <input
+      id="inDate"
+      type="datetime-local">
 
-        <input
-          id="inQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity">
+  </div>
 
-      </div>
+  <div class="form-group">
 
+    <label>Entered By</label>
 
-      <div class="form-group">
+    <input
+      id="inEnteredBy"
+      type="text"
+      placeholder="Name of person who entered the stock">
 
-        <label>
-          Guyyaa fi Sa'aatii itti gale
-        </label>
+  </div>
 
-        <input
-          id="inDate"
-          type="datetime-local">
+  <div class="form-group">
 
-      </div>
+    <label>Expiry Date</label>
 
+    <input
+      id="inExpiryDate"
+      type="date">
 
-      <div class="form-group">
+  </div>
 
-        <label>Nama galche</label>
+  <div class="form-group">
 
-        <input
-          id="inEnteredBy"
-          type="text"
-          placeholder="Maqaa nama galche">
+    <label>Signature</label>
 
-      </div>
+    <input
+      id="inSignature"
+      type="text"
+      placeholder="Signature">
 
+  </div>
 
-      <div class="form-group">
+  <!-- MODEL 19 -->
 
-        <label>Expiry Date</label>
+  <div class="form-group model-box">
 
-        <input
-          id="inExpiryDate"
-          type="date">
+    <label>Model 19</label>
 
-      </div>
+    <select id="inModel19">
 
+      <option value="NONE">
+        Not Available
+      </option>
 
-      <div class="form-group">
+      <option value="NUMBER">
+        Model 19 Available
+      </option>
 
-        <label>Mallattoo</label>
+      <option value="VERBAL">
+        Verbal
+      </option>
 
-        <input
-          id="inSignature"
-          type="text"
-          placeholder="Mallattoo">
+    </select>
 
-      </div>
+    <div
+      id="inModel19NumberBox"
+      class="model-number">
 
-
-      <!-- MODEL 19 -->
-
-      <div class="form-group model-box">
-
-        <label>Model 19</label>
-
-        <select id="inModel19">
-
-          <option value="NONE">
-            Hin jiru
-          </option>
-
-          <option value="NUMBER">
-            Model 19 qaba
-          </option>
-
-          <option value="VERBAL">
-            Verbal
-          </option>
-
-        </select>
-
-
-        <div
-          id="inModel19NumberBox"
-          class="model-number">
-
-          <input
-            id="inModel19Number"
-            type="text"
-            placeholder="Lakkoofsa Model 19">
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="submit-row">
-
-      <button
-        id="saveInButton"
-        type="button"
-        class="save-btn save-in"
-        onclick="saveStock('IN')">
-        💾 Save Stock IN
-      </button>
-
-      <button
-        type="button"
-        class="save-btn cancel"
-        onclick="closeForms()">
-        Cancel
-      </button>
+      <input
+        id="inModel19Number"
+        type="text"
+        placeholder="Model 19 Number">
 
     </div>
 
   </div>
-
-
-  <!-- ================= STOCK OUT ================= -->
-
-  <div
-    id="outForm"
-    class="form-card">
-
-    <div class="form-title out">
-      🔴 STOCK OUT — Meeshaa Baasuu
-    </div>
-
-
-    <div class="form-grid">
-
-
-      <div class="form-group">
-
-        <label>Item</label>
-
-        <select id="outItem">
-
-          <option value="">
-            -- Item filadhu --
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Unit</label>
-
-        <input
-          id="outUnit"
-          class="readonly"
-          readonly>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Quantity</label>
-
-        <input
-          id="outQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity">
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Guyyaa fi Sa'aatii itti bahe
-        </label>
-
-        <input
-          id="outDate"
-          type="datetime-local">
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Nama baase</label>
-
-        <input
-          id="outIssuedBy"
-          type="text"
-          placeholder="Maqaa nama baase">
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Mallattoo</label>
-
-        <input
-          id="outSignature"
-          type="text"
-          placeholder="Mallattoo">
-
-      </div>
-
-
-      <!-- MODEL 22 -->
-
-      <div class="form-group model-box">
-
-        <label>Model 22</label>
-
-        <select id="outModel22">
-
-          <option value="NONE">
-            Hin jiru
-          </option>
-
-          <option value="NUMBER">
-            Model 22 qaba
-          </option>
-
-          <option value="VERBAL">
-            Verbal
-          </option>
-
-        </select>
-
-
-        <div
-          id="outModel22NumberBox"
-          class="model-number">
-
-          <input
-            id="outModel22Number"
-            type="text"
-            placeholder="Lakkoofsa Model 22">
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="submit-row">
-
-      <button
-        id="saveOutButton"
-        type="button"
-        class="save-btn save-out"
-        onclick="saveStock('OUT')">
-        💾 Save Stock OUT
-      </button>
-
-      <button
-        type="button"
-        class="save-btn cancel"
-        onclick="closeForms()">
-        Cancel
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- ================= SUMMARY ================= -->
-
-  <div class="summary-grid">
-
-    <div class="summary-card">
-
-      <span>Total Items</span>
-
-      <strong id="totalItems">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="summary-card">
-
-      <span>Total Stock IN</span>
-
-      <strong id="totalIn">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="summary-card">
-
-      <span>Total Stock OUT</span>
-
-      <strong id="totalOut">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="summary-card">
-
-      <span>Current Balance</span>
-
-      <strong id="totalBalance">
-        0
-      </strong>
-
-    </div>
-
-  </div>
-
-
-  <!-- ================= REPORT ================= -->
-
-  <div class="report-card">
-
-    <div class="report-title">
-
-      📊 Stock Report —
-      <span id="reportBranch">
-        Branch
-      </span>
-
-    </div>
-
-
-    <div style="overflow-x:auto;">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>No</th>
-            <th>Item</th>
-            <th>Unit</th>
-            <th>Stock IN</th>
-            <th>Stock OUT</th>
-            <th>Balance</th>
-            <th>Details</th>
-
-          </tr>
-
-        </thead>
-
-
-        <tbody id="reportTable">
-
-          <tr>
-
-            <td
-              colspan="7"
-              style="text-align:center;padding:25px">
-
-              Loading...
-
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-
-  <!-- ================= DETAILS ================= -->
-
-  <div
-    id="detailsCard"
-    class="details-card">
-
-    <div class="details-header">
-
-      <div
-        id="detailsTitle"
-        class="details-title">
-      </div>
-
-      <button
-        type="button"
-        class="close-btn"
-        onclick="closeDetails()">
-        ✖ Close
-      </button>
-
-    </div>
-
-
-    <div style="overflow-x:auto;">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>No</th>
-            <th>Transaction</th>
-            <th>Quantity</th>
-            <th>Unit</th>
-            <th>Guyyaa fi Sa'aatii</th>
-            <th>Nama Galche</th>
-            <th>Nama Baase</th>
-            <th>Expiry Date</th>
-            <th>Mallattoo</th>
-            <th>Model 19</th>
-            <th>Model 22</th>
-
-          </tr>
-
-        </thead>
-
-
-        <tbody id="detailsTable">
-        </tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
 
 </div>
 
+<div class="submit-row">
 
-<script>
+  <button
+    id="saveInButton"
+    type="button"
+    class="save-btn save-in"
+    onclick="saveStock('IN')">
+    💾 Save Stock IN
+  </button>
+
+  <button
+    type="button"
+    class="save-btn cancel"
+    onclick="closeForms()">
+    Cancel
+  </button>
+
+</div>
+
+  </div>  <!-- ================= STOCK OUT ================= -->  <div
+    id="outForm"
+    class="form-card"><div class="form-title out">
+  🔴 STOCK OUT — Issuing Stock
+</div>
+
+<div class="form-grid">
+
+  <div class="form-group">
+
+    <label>Item</label>
+
+    <select id="outItem">
+
+      <option value="">
+        -- Select Item --
+      </option>
+
+    </select>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Unit</label>
+
+    <input
+      id="outUnit"
+      class="readonly"
+      readonly>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Quantity</label>
+
+    <input
+      id="outQuantity"
+      type="number"
+      min="0.01"
+      step="any"
+      placeholder="Quantity">
+
+  </div>
+
+  <div class="form-group">
+
+    <label>
+      Date and Time Issued
+    </label>
+
+    <input
+      id="outDate"
+      type="datetime-local">
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Issued By</label>
+
+    <input
+      id="outIssuedBy"
+      type="text"
+      placeholder="Name of person who issued the stock">
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Signature</label>
+
+    <input
+      id="outSignature"
+      type="text"
+      placeholder="Signature">
+
+  </div>
+
+  <!-- MODEL 22 -->
+
+  <div class="form-group model-box">
+
+    <label>Model 22</label>
+
+    <select id="outModel22">
+
+      <option value="NONE">
+        Not Available
+      </option>
+
+      <option value="NUMBER">
+        Model 22 Available
+      </option>
+
+      <option value="VERBAL">
+        Verbal
+      </option>
+
+    </select>
+
+    <div
+      id="outModel22NumberBox"
+      class="model-number">
+
+      <input
+        id="outModel22Number"
+        type="text"
+        placeholder="Model 22 Number">
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="submit-row">
+
+  <button
+    id="saveOutButton"
+    type="button"
+    class="save-btn save-out"
+    onclick="saveStock('OUT')">
+    💾 Save Stock OUT
+  </button>
+
+  <button
+    type="button"
+    class="save-btn cancel"
+    onclick="closeForms()">
+    Cancel
+  </button>
+
+</div>
+
+  </div>  <!-- ================= SUMMARY ================= -->  <div class="summary-grid"><div class="summary-card">
+
+  <span>Total Items</span>
+
+  <strong id="totalItems">
+    0
+  </strong>
+
+</div>
+
+<div class="summary-card">
+
+  <span>Total Stock IN</span>
+
+  <strong id="totalIn">
+    0
+  </strong>
+
+</div>
+
+<div class="summary-card">
+
+  <span>Total Stock OUT</span>
+
+  <strong id="totalOut">
+    0
+  </strong>
+
+</div>
+
+<div class="summary-card">
+
+  <span>Current Balance</span>
+
+  <strong id="totalBalance">
+    0
+  </strong>
+
+</div>
+
+  </div>  <!-- ================= REPORT ================= -->  <div class="report-card"><div class="report-title">
+
+  📊 Stock Report —
+  <span id="reportBranch">
+    Branch
+  </span>
+
+</div>
+
+<div style="overflow-x:auto;">
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>No</th>
+        <th>Item</th>
+        <th>Unit</th>
+        <th>Stock IN</th>
+        <th>Stock OUT</th>
+        <th>Balance</th>
+        <th>Details</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody id="reportTable">
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="text-align:center;padding:25px">
+
+          Loading...
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+  </div>  <!-- ================= DETAILS ================= -->  <div
+    id="detailsCard"
+    class="details-card"><div class="details-header">
+
+  <div
+    id="detailsTitle"
+    class="details-title">
+  </div>
+
+  <button
+    type="button"
+    class="close-btn"
+    onclick="closeDetails()">
+    ✖ Close
+  </button>
+
+</div>
+
+<div style="overflow-x:auto;">
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>No</th>
+        <th>Transaction</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th>Date and Time</th>
+        <th>Entered By</th>
+        <th>Issued By</th>
+        <th>Expiry Date</th>
+        <th>Signature</th>
+        <th>Model 19</th>
+        <th>Model 22</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody id="detailsTable">
+    </tbody>
+
+  </table>
+
+</div>
+
+  </div></div><script>
 
 /* =========================================================
    SUPABASE
@@ -978,7 +867,6 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
   "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
-
 
 /* =========================================================
    BRANCH UUID MAP
@@ -1066,7 +954,6 @@ const BRANCHES = {
 
 };
 
-
 /* =========================================================
    CURRENT BRANCH
 ========================================================= */
@@ -1076,7 +963,6 @@ let CURRENT_BRANCH_NAME = "Branch";
 
 let items = [];
 let allTransactions = [];
-
 
 /* =========================================================
    HEADERS
@@ -1105,7 +991,6 @@ function getHeaders(){
 
 }
 
-
 /* =========================================================
    MESSAGE
 ========================================================= */
@@ -1133,7 +1018,6 @@ function showMessage(text,type="error"){
 
 }
 
-
 /* =========================================================
    FIND BRANCH LOCALLY
 ========================================================= */
@@ -1155,7 +1039,6 @@ function resolveBranchUUID(){
       "selected_branch_name"
     );
 
-
   if(savedUUID){
 
     for(const key in BRANCHES){
@@ -1175,7 +1058,6 @@ function resolveBranchUUID(){
     }
 
   }
-
 
   if(savedCode){
 
@@ -1200,7 +1082,6 @@ function resolveBranchUUID(){
     }
 
   }
-
 
   if(savedName){
 
@@ -1233,11 +1114,9 @@ function resolveBranchUUID(){
 
   }
 
-
   return false;
 
 }
-
 
 /* =========================================================
    AUTH CHECK
@@ -1263,7 +1142,6 @@ function checkLogin(){
 
 }
 
-
 /* =========================================================
    PAGE START
 ========================================================= */
@@ -1275,35 +1153,31 @@ window.addEventListener(
     if(!checkLogin())
       return;
 
-
     if(!resolveBranchUUID()){
 
       showMessage(
-        "Branch UUID argachuu hin dandeenye. Mee irra deebi'ii Login godhi.",
+        "Unable to find the Branch UUID. Please log in again.",
         "error"
       );
 
       document.getElementById(
         "branchName"
       ).textContent =
-        "Branch hin argamne";
+        "Branch not found";
 
       return;
 
     }
-
 
     document.getElementById(
       "branchName"
     ).textContent =
       CURRENT_BRANCH_NAME;
 
-
     document.getElementById(
       "reportBranch"
     ).textContent =
       CURRENT_BRANCH_NAME;
-
 
     setCurrentDateTime();
 
@@ -1313,7 +1187,6 @@ window.addEventListener(
 
   }
 );
-
 
 /* =========================================================
    CURRENT DATE/TIME
@@ -1332,18 +1205,15 @@ function setCurrentDateTime(){
     .toISOString()
     .slice(0,16);
 
-
   document.getElementById(
     "inDate"
   ).value = local;
-
 
   document.getElementById(
     "outDate"
   ).value = local;
 
 }
-
 
 /* =========================================================
    LOAD ITEMS
@@ -1353,7 +1223,6 @@ async function loadItems(){
 
   if(!CURRENT_BRANCH_UUID)
     return false;
-
 
   const url =
     SUPABASE_URL +
@@ -1365,7 +1234,6 @@ async function loadItems(){
     ) +
     "&order=name.asc";
 
-
   try{
 
     const response =
@@ -1376,7 +1244,6 @@ async function loadItems(){
           headers:getHeaders()
         }
       );
-
 
     if(!response.ok){
 
@@ -1390,10 +1257,8 @@ async function loadItems(){
 
     }
 
-
     items =
       await response.json();
-
 
     fillItemLists();
 
@@ -1417,7 +1282,6 @@ async function loadItems(){
 
 }
 
-
 /* =========================================================
    FILL ITEM SELECTS
 ========================================================= */
@@ -1434,13 +1298,11 @@ function fillItemLists(){
       "outItem"
     );
 
-
   inSelect.innerHTML =
-    '<option value="">-- Item filadhu --</option>';
+    '<option value="">-- Select Item --</option>';
 
   outSelect.innerHTML =
-    '<option value="">-- Item filadhu --</option>';
-
+    '<option value="">-- Select Item --</option>';
 
   items.forEach(function(item){
 
@@ -1458,7 +1320,6 @@ function fillItemLists(){
     inSelect.appendChild(
       option1
     );
-
 
     const option2 =
       document.createElement(
@@ -1478,7 +1339,6 @@ function fillItemLists(){
   });
 
 }
-
 
 /* =========================================================
    ITEM UNIT
@@ -1505,7 +1365,6 @@ document.getElementById(
   }
 );
 
-
 document.getElementById(
   "outItem"
 ).addEventListener(
@@ -1526,7 +1385,6 @@ document.getElementById(
 
   }
 );
-
 
 /* =========================================================
    MODEL FIELDS
@@ -1553,7 +1411,6 @@ function setupModelFields(){
     }
   );
 
-
   document.getElementById(
     "outModel22"
   ).addEventListener(
@@ -1575,7 +1432,6 @@ function setupModelFields(){
 
 }
 
-
 /* =========================================================
    OPEN FORM
 ========================================================= */
@@ -1583,7 +1439,6 @@ function setupModelFields(){
 function openForm(type){
 
   closeForms();
-
 
   if(type === "IN"){
 
@@ -1597,7 +1452,6 @@ function openForm(type){
     ).focus();
 
   }
-
 
   if(type === "OUT"){
 
@@ -1613,7 +1467,6 @@ function openForm(type){
   }
 
 }
-
 
 /* =========================================================
    CLOSE FORMS
@@ -1633,7 +1486,6 @@ function closeForms(){
 
 }
 
-
 /* =========================================================
    LOAD TRANSACTIONS
 ========================================================= */
@@ -1642,7 +1494,6 @@ async function loadTransactions(){
 
   if(!CURRENT_BRANCH_UUID)
     return [];
-
 
   const url =
     SUPABASE_URL +
@@ -1654,7 +1505,6 @@ async function loadTransactions(){
     ) +
     "&order=id.desc";
 
-
   const response =
     await fetch(
       url,
@@ -1663,7 +1513,6 @@ async function loadTransactions(){
         headers:getHeaders()
       }
     );
-
 
   if(!response.ok){
 
@@ -1677,21 +1526,17 @@ async function loadTransactions(){
 
   }
 
-
   const data =
     await response.json();
-
 
   allTransactions =
     Array.isArray(data)
       ? data
       : [];
 
-
   return allTransactions;
 
 }
-
 
 /* =========================================================
    LOAD STOCK
@@ -1704,7 +1549,7 @@ async function loadStock(){
     if(!resolveBranchUUID()){
 
       showMessage(
-        "Branch UUID argachuu hin dandeenye.",
+        "Unable to find the Branch UUID.",
         "error"
       );
 
@@ -1712,18 +1557,15 @@ async function loadStock(){
 
     }
 
-
     document.getElementById(
       "branchName"
     ).textContent =
       CURRENT_BRANCH_NAME;
 
-
     document.getElementById(
       "reportBranch"
     ).textContent =
       CURRENT_BRANCH_NAME;
-
 
     await loadItems();
 
@@ -1758,7 +1600,6 @@ async function loadStock(){
 
 }
 
-
 /* =========================================================
    SAVE STOCK
 ========================================================= */
@@ -1768,14 +1609,13 @@ async function saveStock(type){
   if(!CURRENT_BRANCH_UUID){
 
     showMessage(
-      "Branch UUID hin jiru. Login irra deebi'i.",
+      "Branch UUID is not available. Please log in again.",
       "error"
     );
 
     return;
 
   }
-
 
   const itemSelect =
     document.getElementById(
@@ -1784,22 +1624,19 @@ async function saveStock(type){
         : "outItem"
     );
 
-
   const itemId =
     itemSelect.value;
-
 
   if(!itemId){
 
     showMessage(
-      "Mee Item filadhu.",
+      "Please select an Item.",
       "error"
     );
 
     return;
 
   }
-
 
   const item =
     items.find(
@@ -1808,18 +1645,16 @@ async function saveStock(type){
       String(itemId)
     );
 
-
   if(!item){
 
     showMessage(
-      "Item filatame hin argamne. Refresh godhi.",
+      "The selected Item was not found. Please refresh.",
       "error"
     );
 
     return;
 
   }
-
 
   const quantityInput =
     document.getElementById(
@@ -1828,24 +1663,21 @@ async function saveStock(type){
         : "outQuantity"
     );
 
-
   const quantity =
     Number(
       quantityInput.value
     );
 
-
   if(!quantity || quantity <= 0){
 
     showMessage(
-      "Quantity sirrii galchi.",
+      "Please enter a valid Quantity.",
       "error"
     );
 
     return;
 
   }
-
 
   let timestamp;
   let enteredBy = null;
@@ -1854,7 +1686,6 @@ async function saveStock(type){
   let signature = null;
   let model19 = null;
   let model22 = null;
-
 
   if(type === "IN"){
 
@@ -1878,12 +1709,10 @@ async function saveStock(type){
         "inSignature"
       ).value.trim() || null;
 
-
     const modelType =
       document.getElementById(
         "inModel19"
       ).value;
-
 
     if(modelType === "NUMBER"){
 
@@ -1905,30 +1734,27 @@ async function saveStock(type){
 
     }
 
-
     if(!date){
 
       showMessage(
-        "Guyyaa fi sa'aatii Stock IN galchi.",
+        "Please enter the Stock IN date and time.",
         "error"
       );
 
       return;
 
     }
-
 
     if(!enteredBy){
 
       showMessage(
-        "Nama galche galchi.",
+        "Please enter Entered By.",
         "error"
       );
 
       return;
 
     }
-
 
     timestamp =
       new Date(date).toISOString();
@@ -1951,12 +1777,10 @@ async function saveStock(type){
         "outSignature"
       ).value.trim() || null;
 
-
     const modelType =
       document.getElementById(
         "outModel22"
       ).value;
-
 
     if(modelType === "NUMBER"){
 
@@ -1978,23 +1802,21 @@ async function saveStock(type){
 
     }
 
-
     if(!date){
 
       showMessage(
-        "Guyyaa fi sa'aatii Stock OUT galchi.",
+        "Please enter the Stock OUT date and time.",
         "error"
       );
 
       return;
 
     }
-
 
     if(!issuedBy){
 
       showMessage(
-        "Nama baase galchi.",
+        "Please enter Issued By.",
         "error"
       );
 
@@ -2002,21 +1824,18 @@ async function saveStock(type){
 
     }
 
-
     timestamp =
       new Date(date).toISOString();
-
 
     const balance =
       getItemBalance(
         item.name
       );
 
-
     if(quantity > balance){
 
       showMessage(
-        "Stock gahaa hin jiru. Current balance: " +
+        "Insufficient stock. Current balance: " +
         balance,
         "error"
       );
@@ -2026,7 +1845,6 @@ async function saveStock(type){
     }
 
   }
-
 
   const payload = {
 
@@ -2071,7 +1889,6 @@ async function saveStock(type){
 
   };
 
-
   const button =
     document.getElementById(
       type === "IN"
@@ -2079,17 +1896,14 @@ async function saveStock(type){
         : "saveOutButton"
     );
 
-
   const oldText =
     button.textContent;
-
 
   button.disabled =
     true;
 
   button.textContent =
     "⏳ Saving...";
-
 
   try{
 
@@ -2106,7 +1920,6 @@ async function saveStock(type){
         }
       );
 
-
     if(!response.ok){
 
       const errorText =
@@ -2119,14 +1932,12 @@ async function saveStock(type){
 
     }
 
-
     showMessage(
       type === "IN"
         ? "Stock IN successfully saved."
         : "Stock OUT successfully saved.",
       "success"
     );
-
 
     clearForm(type);
 
@@ -2156,7 +1967,6 @@ async function saveStock(type){
   }
 
 }
-
 
 /* =========================================================
    CLEAR FORM
@@ -2204,7 +2014,6 @@ function clearForm(type){
 
   }
 
-
   if(type === "OUT"){
 
     document.getElementById(
@@ -2241,11 +2050,9 @@ function clearForm(type){
 
   }
 
-
   setCurrentDateTime();
 
 }
-
 
 /* =========================================================
    GET ITEM BALANCE
@@ -2258,10 +2065,8 @@ function getItemBalance(itemName){
       .trim()
       .toLowerCase();
 
-
   let totalIn = 0;
   let totalOut = 0;
-
 
   allTransactions.forEach(
     function(row){
@@ -2273,23 +2078,18 @@ function getItemBalance(itemName){
         .trim()
         .toLowerCase();
 
-
       if(name !== target)
         return;
-
 
       const qty =
         Number(
           row.quantity || 0
         );
 
-
       const type =
         String(
           row.transaction_type || ""
-        )
-        .toUpperCase();
-
+        ).toUpperCase();
 
       if(type === "IN"){
 
@@ -2305,11 +2105,9 @@ function getItemBalance(itemName){
     }
   );
 
-
   return totalIn - totalOut;
 
 }
-
 
 /* =========================================================
    REPORT
@@ -2322,7 +2120,6 @@ function renderReport(){
       "reportTable"
     );
 
-
   if(!items.length){
 
     tbody.innerHTML =
@@ -2330,7 +2127,7 @@ function renderReport(){
       `<tr>
         <td colspan="7"
             style="text-align:center;padding:25px">
-          Item hin jiru.
+          No items found.
         </td>
       </tr>`;
 
@@ -2338,9 +2135,7 @@ function renderReport(){
 
   }
 
-
   const grouped = {};
-
 
   items.forEach(
     function(item){
@@ -2350,10 +2145,8 @@ function renderReport(){
           .trim()
           .toLowerCase();
 
-
       if(!key)
         return;
-
 
       if(!grouped[key]){
 
@@ -2374,7 +2167,6 @@ function renderReport(){
     }
   );
 
-
   allTransactions.forEach(
     function(row){
 
@@ -2385,10 +2177,8 @@ function renderReport(){
         .trim()
         .toLowerCase();
 
-
       if(!key)
         return;
-
 
       if(!grouped[key]){
 
@@ -2406,19 +2196,16 @@ function renderReport(){
 
       }
 
-
       const qty =
         Number(
           row.quantity || 0
         );
-
 
       const type =
         String(
           row.transaction_type || ""
         )
         .toUpperCase();
-
 
       if(type === "IN"){
 
@@ -2434,12 +2221,10 @@ function renderReport(){
     }
   );
 
-
   const rows =
     Object.values(
       grouped
     );
-
 
   rows.sort(
     function(a,b){
@@ -2452,12 +2237,9 @@ function renderReport(){
     }
   );
 
-
   tbody.innerHTML = "";
 
-
   let number = 1;
-
 
   rows.forEach(
     function(row){
@@ -2465,12 +2247,10 @@ function renderReport(){
       const balance =
         row.in - row.out;
 
-
       const tr =
         document.createElement(
           "tr"
         );
-
 
       const noTd =
         document.createElement(
@@ -2479,7 +2259,6 @@ function renderReport(){
 
       noTd.textContent =
         number;
-
 
       const nameTd =
         document.createElement(
@@ -2498,7 +2277,6 @@ function renderReport(){
         strong
       );
 
-
       const unitTd =
         document.createElement(
           "td"
@@ -2506,7 +2284,6 @@ function renderReport(){
 
       unitTd.textContent =
         row.unit;
-
 
       const inTd =
         document.createElement(
@@ -2516,7 +2293,6 @@ function renderReport(){
       inTd.textContent =
         formatNumber(row.in);
 
-
       const outTd =
         document.createElement(
           "td"
@@ -2524,7 +2300,6 @@ function renderReport(){
 
       outTd.textContent =
         formatNumber(row.out);
-
 
       const balanceTd =
         document.createElement(
@@ -2543,12 +2318,10 @@ function renderReport(){
         balanceStrong
       );
 
-
       const detailsTd =
         document.createElement(
           "td"
         );
-
 
       const detailsButton =
         document.createElement(
@@ -2564,13 +2337,6 @@ function renderReport(){
       detailsButton.textContent =
         "Details";
 
-
-      /*
-        IMPORTANT FIX:
-        Do not use inline onclick here.
-        Direct event listener is safer.
-      */
-
       detailsButton.addEventListener(
         "click",
         function(){
@@ -2582,11 +2348,9 @@ function renderReport(){
         }
       );
 
-
       detailsTd.appendChild(
         detailsButton
       );
-
 
       tr.appendChild(noTd);
       tr.appendChild(nameTd);
@@ -2595,7 +2359,6 @@ function renderReport(){
       tr.appendChild(outTd);
       tr.appendChild(balanceTd);
       tr.appendChild(detailsTd);
-
 
       tbody.appendChild(tr);
 
@@ -2606,10 +2369,8 @@ function renderReport(){
 
 }
 
-
 /* =========================================================
    SHOW DETAILS
-   FIXED VERSION
 ========================================================= */
 
 async function showDetails(itemName){
@@ -2629,22 +2390,19 @@ async function showDetails(itemName){
       "detailsTable"
     );
 
-
   if(!card || !title || !tbody){
 
     alert(
-      "Details section hin argamne."
+      "Details section was not found."
     );
 
     return;
 
   }
 
-
   title.textContent =
     "📋 Details — " +
     itemName;
-
 
   tbody.innerHTML = `
 
@@ -2654,7 +2412,7 @@ async function showDetails(itemName){
         colspan="11"
         style="text-align:center;padding:20px">
 
-        ⏳ Details loading...
+        ⏳ Loading details...
 
       </td>
 
@@ -2662,36 +2420,20 @@ async function showDetails(itemName){
 
   `;
 
-
-  /*
-    IMPORTANT:
-    Details button tuqameen,
-    transaction haaraa Supabase irraa
-    kallattiin barbaadama.
-  */
-
   try{
 
     if(!CURRENT_BRANCH_UUID){
 
       throw new Error(
-        "Branch UUID hin jiru."
+        "Branch UUID is not available."
       );
 
     }
-
 
     const transactionName =
       String(
         itemName || ""
       ).trim();
-
-
-    /*
-      Supabase keessatti:
-      branch_id + transaction
-      irratti filter godha.
-    */
 
     const url =
       SUPABASE_URL +
@@ -2707,7 +2449,6 @@ async function showDetails(itemName){
       ) +
       "&order=id.desc";
 
-
     const response =
       await fetch(
         url,
@@ -2716,7 +2457,6 @@ async function showDetails(itemName){
           headers:getHeaders()
         }
       );
-
 
     if(!response.ok){
 
@@ -2730,15 +2470,8 @@ async function showDetails(itemName){
 
     }
 
-
     let rows =
       await response.json();
-
-
-    /*
-      Yoo Supabase irraa rows hin dhufne,
-      allTransactions keessaa fallback godha.
-    */
 
     if(
       !Array.isArray(rows) ||
@@ -2748,7 +2481,6 @@ async function showDetails(itemName){
       const target =
         transactionName
           .toLowerCase();
-
 
       rows =
         (allTransactions || [])
@@ -2767,14 +2499,8 @@ async function showDetails(itemName){
 
     }
 
-
     tbody.innerHTML =
       "";
-
-
-    /*
-      Yoo transaction hin jirre
-    */
 
     if(
       !Array.isArray(rows) ||
@@ -2786,16 +2512,13 @@ async function showDetails(itemName){
           "tr"
         );
 
-
       const td =
         document.createElement(
           "td"
         );
 
-
       td.colSpan =
         11;
-
 
       td.style.textAlign =
         "center";
@@ -2806,27 +2529,19 @@ async function showDetails(itemName){
       td.style.color =
         "#991b1b";
 
-
       td.textContent =
-        "Transaction detail hin jiru.";
-
+        "No transaction details found.";
 
       tr.appendChild(
         td
       );
 
-
       tbody.appendChild(
         tr
       );
 
-
     }
     else{
-
-      /*
-        Transaction hunda tarreessi
-      */
 
       rows.forEach(
         function(row,index){
@@ -2837,11 +2552,9 @@ async function showDetails(itemName){
             )
             .toUpperCase();
 
-
           let transactionText =
             row.transaction ||
             itemName;
-
 
           if(type){
 
@@ -2852,14 +2565,11 @@ async function showDetails(itemName){
 
           }
 
-
           let model19 =
             row.model_19 || "";
 
-
           let model22 =
             row.model_22 || "";
-
 
           if(
             !model19 &&
@@ -2867,10 +2577,9 @@ async function showDetails(itemName){
           ){
 
             model19 =
-              "Hin jiru";
+              "Not Available";
 
           }
-
 
           if(
             !model22 &&
@@ -2878,26 +2587,19 @@ async function showDetails(itemName){
           ){
 
             model22 =
-              "Hin jiru";
+              "Not Available";
 
           }
-
 
           const enteredAt =
             formatDateTime(
               row.entered_at
             );
 
-
           const tr =
             document.createElement(
               "tr"
             );
-
-
-          /*
-            No
-          */
 
           const noTd =
             document.createElement(
@@ -2907,11 +2609,6 @@ async function showDetails(itemName){
           noTd.textContent =
             index + 1;
 
-
-          /*
-            Transaction
-          */
-
           const transactionTd =
             document.createElement(
               "td"
@@ -2919,11 +2616,6 @@ async function showDetails(itemName){
 
           transactionTd.textContent =
             transactionText;
-
-
-          /*
-            Quantity
-          */
 
           const quantityTd =
             document.createElement(
@@ -2937,11 +2629,6 @@ async function showDetails(itemName){
               )
             );
 
-
-          /*
-            Unit
-          */
-
           const unitTd =
             document.createElement(
               "td"
@@ -2949,11 +2636,6 @@ async function showDetails(itemName){
 
           unitTd.textContent =
             row.unit || "";
-
-
-          /*
-            Date
-          */
 
           const dateTd =
             document.createElement(
@@ -2963,11 +2645,6 @@ async function showDetails(itemName){
           dateTd.textContent =
             enteredAt;
 
-
-          /*
-            Entered By
-          */
-
           const enteredByTd =
             document.createElement(
               "td"
@@ -2975,11 +2652,6 @@ async function showDetails(itemName){
 
           enteredByTd.textContent =
             row.entered_by || "";
-
-
-          /*
-            Issued By
-          */
 
           const issuedByTd =
             document.createElement(
@@ -2989,11 +2661,6 @@ async function showDetails(itemName){
           issuedByTd.textContent =
             row.issued_by || "";
 
-
-          /*
-            Expiry
-          */
-
           const expiryTd =
             document.createElement(
               "td"
@@ -3001,11 +2668,6 @@ async function showDetails(itemName){
 
           expiryTd.textContent =
             row.expiry_date || "";
-
-
-          /*
-            Signature
-          */
 
           const signatureTd =
             document.createElement(
@@ -3015,11 +2677,6 @@ async function showDetails(itemName){
           signatureTd.textContent =
             row.signature || "";
 
-
-          /*
-            Model 19
-          */
-
           const model19Td =
             document.createElement(
               "td"
@@ -3028,11 +2685,6 @@ async function showDetails(itemName){
           model19Td.textContent =
             model19;
 
-
-          /*
-            Model 22
-          */
-
           const model22Td =
             document.createElement(
               "td"
@@ -3040,7 +2692,6 @@ async function showDetails(itemName){
 
           model22Td.textContent =
             model22;
-
 
           tr.appendChild(noTd);
           tr.appendChild(transactionTd);
@@ -3054,7 +2705,6 @@ async function showDetails(itemName){
           tr.appendChild(model19Td);
           tr.appendChild(model22Td);
 
-
           tbody.appendChild(
             tr
           );
@@ -3064,18 +2714,8 @@ async function showDetails(itemName){
 
     }
 
-
-    /*
-      Details card mul'isi.
-    */
-
     card.style.display =
       "block";
-
-
-    /*
-      User akka battalum argutti gadi bu'a.
-    */
 
     setTimeout(
       function(){
@@ -3089,7 +2729,6 @@ async function showDetails(itemName){
       50
     );
 
-
   }
   catch(error){
 
@@ -3097,7 +2736,6 @@ async function showDetails(itemName){
       "SHOW DETAILS ERROR:",
       error
     );
-
 
     tbody.innerHTML = `
 
@@ -3122,10 +2760,8 @@ async function showDetails(itemName){
 
     `;
 
-
     card.style.display =
       "block";
-
 
     setTimeout(
       function(){
@@ -3142,7 +2778,6 @@ async function showDetails(itemName){
   }
 
 }
-
 
 /* =========================================================
    CLOSE DETAILS
@@ -3164,7 +2799,6 @@ function closeDetails(){
 
 }
 
-
 /* =========================================================
    SUMMARY
 ========================================================= */
@@ -3174,10 +2808,8 @@ function updateSummary(){
   const itemCount =
     items.length;
 
-
   let totalIn = 0;
   let totalOut = 0;
-
 
   allTransactions.forEach(
     function(row){
@@ -3187,13 +2819,11 @@ function updateSummary(){
           row.quantity || 0
         );
 
-
       const type =
         String(
           row.transaction_type || ""
         )
         .toUpperCase();
-
 
       if(type === "IN"){
 
@@ -3209,28 +2839,23 @@ function updateSummary(){
     }
   );
 
-
   const balance =
     totalIn - totalOut;
-
 
   document.getElementById(
     "totalItems"
   ).textContent =
     itemCount;
 
-
   document.getElementById(
     "totalIn"
   ).textContent =
     formatNumber(totalIn);
 
-
   document.getElementById(
     "totalOut"
   ).textContent =
     formatNumber(totalOut);
-
 
   document.getElementById(
     "totalBalance"
@@ -3238,7 +2863,6 @@ function updateSummary(){
     formatNumber(balance);
 
 }
-
 
 /* =========================================================
    NUMBER FORMAT
@@ -3249,20 +2873,17 @@ function formatNumber(value){
   const number =
     Number(value || 0);
 
-
   if(Number.isInteger(number)){
 
     return String(number);
 
   }
 
-
   return number
     .toFixed(2)
     .replace(/\.?0+$/,"");
 
 }
-
 
 /* =========================================================
    DATE FORMAT
@@ -3273,16 +2894,13 @@ function formatDateTime(value){
   if(!value)
     return "";
 
-
   try{
 
     const date =
       new Date(value);
 
-
     if(isNaN(date.getTime()))
       return String(value);
-
 
     return date.toLocaleString();
 
@@ -3294,7 +2912,6 @@ function formatDateTime(value){
   }
 
 }
-
 
 /* =========================================================
    ESCAPE HTML
@@ -3311,7 +2928,6 @@ function escapeHtml(value){
 
 }
 
-
 /* =========================================================
    NAVIGATION
 ========================================================= */
@@ -3323,14 +2939,12 @@ function goReports(){
 
 }
 
-
 function backToMenu(){
 
   window.location.href =
     "dashboard.html";
 
 }
-
 
 /* =========================================================
    REMOVE OLD JWT
@@ -3340,8 +2954,4 @@ localStorage.removeItem(
   "access_token"
 );
 
-</script>
-
-</body>
-
-</html>
+</script></body></html>
