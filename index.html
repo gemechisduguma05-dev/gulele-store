@@ -172,6 +172,7 @@ button:disabled{
     background:#d7ccc8;
 }
 
+
 /* ===============================
    CHANGE PASSWORD BUTTON
 ================================ */
@@ -246,6 +247,48 @@ button:disabled{
 
 .cancel-btn:hover{
     background:#d7ccc8;
+}
+
+
+/* ===============================
+   PASSWORD WRAPPER
+================================ */
+
+.password-wrapper{
+    position:relative;
+    width:100%;
+}
+
+.password-wrapper input{
+    padding-right:75px;
+}
+
+.show-password-btn{
+    position:absolute;
+
+    right:8px;
+    top:6px;
+
+    width:auto;
+
+    padding:7px 9px;
+
+    background:#efebe9;
+    color:#4e342e;
+
+    font-size:12px;
+
+    border-radius:6px;
+
+    transform:none;
+
+    z-index:2;
+}
+
+.show-password-btn:hover{
+    background:#d7ccc8;
+
+    transform:none;
 }
 
 
@@ -336,9 +379,11 @@ button:disabled{
 
         </div>
 
+
         <h1>
             AAFDRMC
         </h1>
+
 
         <div class="subtitle">
             Stock Management System
@@ -377,11 +422,24 @@ button:disabled{
             Password
         </label>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            autocomplete="current-password">
+        <div class="password-wrapper">
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                autocomplete="current-password">
+
+            <button
+                type="button"
+                class="show-password-btn"
+                onclick="togglePassword('password', this)">
+
+                Show
+
+            </button>
+
+        </div>
 
 
         <button
@@ -434,33 +492,72 @@ button:disabled{
                 Current Password
             </label>
 
-            <input
-                type="password"
-                id="oldPassword"
-                placeholder="Current Password"
-                autocomplete="current-password">
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="oldPassword"
+                    placeholder="Current Password"
+                    autocomplete="current-password">
+
+                <button
+                    type="button"
+                    class="show-password-btn"
+                    onclick="togglePassword('oldPassword', this)">
+
+                    Show
+
+                </button>
+
+            </div>
 
 
             <label for="newPassword">
                 New Password
             </label>
 
-            <input
-                type="password"
-                id="newPassword"
-                placeholder="New Password"
-                autocomplete="new-password">
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="newPassword"
+                    placeholder="New Password"
+                    autocomplete="new-password">
+
+                <button
+                    type="button"
+                    class="show-password-btn"
+                    onclick="togglePassword('newPassword', this)">
+
+                    Show
+
+                </button>
+
+            </div>
 
 
             <label for="confirmPassword">
                 Confirm New Password
             </label>
 
-            <input
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirm New Password"
-                autocomplete="new-password">
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm New Password"
+                    autocomplete="new-password">
+
+                <button
+                    type="button"
+                    class="show-password-btn"
+                    onclick="togglePassword('confirmPassword', this)">
+
+                    Show
+
+                </button>
+
+            </div>
 
 
             <button
@@ -1146,22 +1243,71 @@ async function goMain(){
 
 
 /* =====================================================
-   SHOW / HIDE CHANGE PASSWORD
+   SHOW / HIDE PASSWORD
 ===================================================== */
 
-function toggleChangePassword(show){
+function togglePassword(
+    inputId,
+    button
+){
+
+    const input =
+        document.getElementById(
+            inputId
+        );
+
+    if(!input){
+        return;
+    }
+
+
+    if(
+        input.type === "password"
+    ){
+
+        input.type =
+            "text";
+
+        button.textContent =
+            "Hide";
+
+    }
+    else{
+
+        input.type =
+            "password";
+
+        button.textContent =
+            "Show";
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOW / HIDE CHANGE PASSWORD BOX
+===================================================== */
+
+function toggleChangePassword(
+    show
+){
 
     const box =
         document.getElementById(
             "changePasswordBox"
         );
 
-    if(show === undefined){
+    if(
+        show === undefined
+    ){
 
         show =
-            box.style.display !== "block";
+            box.style.display !==
+            "block";
 
     }
+
 
     if(show){
 
@@ -1169,7 +1315,9 @@ function toggleChangePassword(show){
             "block";
 
         document
-            .getElementById("oldPassword")
+            .getElementById(
+                "oldPassword"
+            )
             .focus();
 
     }
@@ -1179,15 +1327,21 @@ function toggleChangePassword(show){
             "none";
 
         document
-            .getElementById("oldPassword")
+            .getElementById(
+                "oldPassword"
+            )
             .value = "";
 
         document
-            .getElementById("newPassword")
+            .getElementById(
+                "newPassword"
+            )
             .value = "";
 
         document
-            .getElementById("confirmPassword")
+            .getElementById(
+                "confirmPassword"
+            )
             .value = "";
 
     }
@@ -1202,33 +1356,43 @@ function toggleChangePassword(show){
 async function changePassword(){
 
     const select =
-        document.getElementById("branch");
+        document.getElementById(
+            "branch"
+        );
 
     const username =
         document
-            .getElementById("username")
+            .getElementById(
+                "username"
+            )
             .value
             .trim();
 
     const oldPassword =
         document
-            .getElementById("oldPassword")
+            .getElementById(
+                "oldPassword"
+            )
             .value;
 
     const newPassword =
         document
-            .getElementById("newPassword")
+            .getElementById(
+                "newPassword"
+            )
             .value;
 
     const confirmPassword =
         document
-            .getElementById("confirmPassword")
+            .getElementById(
+                "confirmPassword"
+            )
             .value;
 
 
-    /* ================================================
+    /* ============================================
        VALIDATION
-    ================================================ */
+    ============================================ */
 
     if(!select.value){
 
@@ -1296,7 +1460,10 @@ async function changePassword(){
     }
 
 
-    if(newPassword !== confirmPassword){
+    if(
+        newPassword !==
+        confirmPassword
+    ){
 
         showMessage(
             "New Password fi Confirm Password wal hin simne.",
@@ -1307,7 +1474,10 @@ async function changePassword(){
     }
 
 
-    if(oldPassword === newPassword){
+    if(
+        oldPassword ===
+        newPassword
+    ){
 
         showMessage(
             "New Password kan durii irraa adda ta'uu qaba.",
@@ -1350,7 +1520,7 @@ async function changePassword(){
     try{
 
         /* ============================================
-           1. VERIFY OLD PASSWORD FIRST
+           VERIFY OLD PASSWORD
         ============================================ */
 
         const loginResult =
@@ -1377,7 +1547,7 @@ async function changePassword(){
 
 
         /* ============================================
-           2. CHECK SELECTED BRANCH
+           CHECK BRANCH
         ============================================ */
 
         if(
@@ -1393,7 +1563,7 @@ async function changePassword(){
 
 
         /* ============================================
-           3. CHANGE PASSWORD RPC
+           CHANGE PASSWORD RPC
         ============================================ */
 
         const response =
@@ -1438,7 +1608,7 @@ async function changePassword(){
 
 
         /* ============================================
-           4. SUCCESS
+           SUCCESS
         ============================================ */
 
         showMessage(
@@ -1447,17 +1617,22 @@ async function changePassword(){
         );
 
 
-        toggleChangePassword(false);
+        toggleChangePassword(
+            false
+        );
 
 
         document
-            .getElementById("password")
-            .value =
-            "";
+            .getElementById(
+                "password"
+            )
+            .value = "";
 
 
         document
-            .getElementById("username")
+            .getElementById(
+                "username"
+            )
             .focus();
 
 
@@ -1498,26 +1673,29 @@ document.addEventListener(
     function(event){
 
         if(
-            event.key === "Enter"
+            event.key !== "Enter"
+        ){
+            return;
+        }
+
+
+        const changeBox =
+            document.getElementById(
+                "changePasswordBox"
+            );
+
+
+        if(
+            changeBox.style.display ===
+            "block"
         ){
 
-            const changeBox =
-                document.getElementById(
-                    "changePasswordBox"
-                );
+            changePassword();
 
-            if(
-                changeBox.style.display === "block"
-            ){
+        }
+        else{
 
-                changePassword();
-
-            }
-            else{
-
-                login();
-
-            }
+            login();
 
         }
 
