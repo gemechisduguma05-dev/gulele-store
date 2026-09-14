@@ -427,7 +427,7 @@ th{
       </div>
 
 
-      <!-- CATEGORY -->
+      <!-- CATEGORY - ENGLISH ONLY -->
 
       <div class="form-group">
 
@@ -442,27 +442,27 @@ th{
           </option>
 
           <option value="Strategic Food Items">
-            Meeshaalee Nyaataa Tarsiimawaa / Strategic Food Items
+            Strategic Food Items
           </option>
 
           <option value="Daily Food Items">
-            Meeshaalee Nyaataa Guyyaa Guyyaa / Daily Food Items
+            Daily Food Items
           </option>
 
           <option value="Daily Non-Food Items">
-            Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa / Daily Non-Food Items
+            Daily Non-Food Items
           </option>
 
           <option value="Non-Food Kitchen Items">
-            Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan / Non-Food Kitchen Items
+            Non-Food Kitchen Items
           </option>
 
           <option value="Non-Food Hygiene Items">
-            Meeshaalee Qulqullinaa / Non-Food Hygiene Items
+            Non-Food Hygiene Items
           </option>
 
           <option value="Building / Construction Items">
-            Meeshaa Ijaarsa Manaaf Oolu / Building & Construction Items
+            Building / Construction Items
           </option>
 
         </select>
@@ -762,7 +762,6 @@ function isValidUUID(value){
 
 /* =========================================================
    SUPABASE HEADERS
-   Do NOT use old access_token
 ========================================================= */
 
 function getHeaders(){
@@ -879,12 +878,9 @@ function checkLogin(){
 
 /* =========================================================
    FIND CURRENT BRANCH UUID
-   No branches API request required
 ========================================================= */
 
 function findBranchUUID(){
-
-  /* MAIN */
 
   if(userRole === "main" ||
      branchCode.toUpperCase() === "MAIN"){
@@ -896,8 +892,6 @@ function findBranchUUID(){
 
   }
 
-
-  /* First use cached UUID */
 
   const cachedUUID =
     localStorage.getItem(
@@ -947,8 +941,6 @@ function findBranchUUID(){
   }
 
 
-  /* Match by branch code */
-
   if(branchCode){
 
     const foundByCode =
@@ -989,8 +981,6 @@ function findBranchUUID(){
 
   }
 
-
-  /* Match by branch name */
 
   if(branchName){
 
@@ -1117,13 +1107,9 @@ async function loadItems(){
     );
 
 
-    /* Resolve branch */
-
     const branchUUID =
       findBranchUUID();
 
-
-    /* Operational branch must have UUID */
 
     if(
       userRole !== "main" &&
@@ -1141,8 +1127,6 @@ async function loadItems(){
       SUPABASE_URL +
       "/rest/v1/items?select=*";
 
-
-    /* Branch isolation */
 
     if(userRole !== "main"){
 
@@ -1190,6 +1174,7 @@ async function loadItems(){
           text;
 
       }catch(e){}
+
 
       throw new Error(
         "Items loading error: " +
@@ -1256,9 +1241,6 @@ async function loadItems(){
 
 
   }finally{
-
-    /* VERY IMPORTANT:
-       Loading yeroo hunda ni dhaabbata */
 
     loading.classList.add(
       "hidden"
@@ -1391,7 +1373,9 @@ function renderItems(){
 
           <td>
             ${escapeHtml(
-              item.category || ""
+              getEnglishCategory(
+                item.category
+              )
             )}
           </td>
 
@@ -1432,8 +1416,6 @@ function renderItems(){
   }
 
 
-  /* Main is view-only */
-
   const isMain =
     userRole === "main" ||
     branchCode.toUpperCase()
@@ -1471,6 +1453,71 @@ function renderItems(){
   table.classList.remove(
     "hidden"
   );
+
+}
+
+
+/* =========================================================
+   ENGLISH CATEGORY NORMALIZATION
+========================================================= */
+
+function getEnglishCategory(category){
+
+  const value =
+    String(category || "")
+      .trim()
+      .toLowerCase();
+
+  const categories = {
+
+    "meeshaalee nyaataa tarsiimawaa":
+      "Strategic Food Items",
+
+    "strategic food items":
+      "Strategic Food Items",
+
+    "meeshaalee nyaataa guyyaa guyyaa":
+      "Daily Food Items",
+
+    "daily food items":
+      "Daily Food Items",
+
+    "meeshaalee nyaataa hin taane guyyaa guyyaa":
+      "Daily Non-Food Items",
+
+    "daily non-food items":
+      "Daily Non-Food Items",
+
+    "meeshaalee nyaataa hin taane ittiin nyaata qopheessan":
+      "Non-Food Kitchen Items",
+
+    "non-food kitchen items":
+      "Non-Food Kitchen Items",
+
+    "meeshaalee qulqullinaa":
+      "Non-Food Hygiene Items",
+
+    "non-food hygiene items":
+      "Non-Food Hygiene Items",
+
+    "meeshaa ijaarsa manaaf oolu":
+      "Building / Construction Items",
+
+    "building / construction items":
+      "Building / Construction Items",
+
+    "building & construction items":
+      "Building / Construction Items",
+
+    "building items":
+      "Building / Construction Items",
+
+    "construction items":
+      "Building / Construction Items"
+
+  };
+
+  return categories[value] || category || "";
 
 }
 
@@ -1526,7 +1573,9 @@ function filterItems(){
           ||
 
           String(
-            item.category || ""
+            getEnglishCategory(
+              item.category
+            )
           )
             .toLowerCase()
             .includes(search)
@@ -1846,7 +1895,9 @@ function editItem(id){
   document.getElementById(
     "category"
   ).value =
-    item.category || "";
+    getEnglishCategory(
+      item.category
+    );
 
 
   document.getElementById(
@@ -2133,20 +2184,8 @@ document.addEventListener(
     setBranchBadge();
 
 
-    /*
-      Important:
-      UUID is resolved locally from the branch map.
-      No branches API call is needed here.
-    */
-
     findBranchUUID();
 
-
-    /*
-      Load items immediately.
-      Loading will always be removed
-      even if Supabase returns an error.
-    */
 
     await loadItems();
 
