@@ -172,6 +172,87 @@ button:disabled{
     background:#d7ccc8;
 }
 
+/* ===============================
+   CHANGE PASSWORD BUTTON
+================================ */
+
+.change-password-btn{
+    background:#fff8e1;
+    color:#6d4c41;
+
+    border:1px solid #d7ccc8;
+
+    margin-top:10px;
+}
+
+.change-password-btn:hover{
+    background:#ffecb3;
+}
+
+
+/* ===============================
+   CHANGE PASSWORD BOX
+================================ */
+
+.change-password-box{
+    display:none;
+
+    margin-top:15px;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:#faf7f5;
+
+    border:1px solid #d7ccc8;
+
+    text-align:left;
+}
+
+.change-password-box h3{
+    margin:0 0 15px;
+
+    text-align:center;
+
+    color:#4e342e;
+
+    font-size:17px;
+}
+
+.change-password-box label{
+    margin-top:5px;
+}
+
+.change-password-box input{
+    margin-bottom:12px;
+}
+
+.change-btn{
+    background:#795548;
+    color:white;
+}
+
+.change-btn:hover{
+    background:#6d4c41;
+}
+
+.cancel-btn{
+    background:#efebe9;
+    color:#4e342e;
+
+    margin-top:8px;
+}
+
+.cancel-btn:hover{
+    background:#d7ccc8;
+}
+
+
+/* ===============================
+   MESSAGE
+================================ */
+
 .message{
     display:none;
 
@@ -263,6 +344,11 @@ button:disabled{
             Stock Management System
         </div>
 
+
+        <!-- ===============================
+             LOGIN
+        ================================ -->
+
         <label for="branch">
             Select Branch
         </label>
@@ -275,6 +361,7 @@ button:disabled{
 
         </select>
 
+
         <label for="username">
             Email or Branch Code
         </label>
@@ -284,6 +371,7 @@ button:disabled{
             id="username"
             placeholder="Email ykn Branch Code"
             autocomplete="username">
+
 
         <label for="password">
             Password
@@ -295,6 +383,7 @@ button:disabled{
             placeholder="Password"
             autocomplete="current-password">
 
+
         <button
             class="login-btn"
             id="loginButton"
@@ -304,6 +393,7 @@ button:disabled{
 
         </button>
 
+
         <button
             class="main-btn"
             onclick="goMain()">
@@ -312,10 +402,93 @@ button:disabled{
 
         </button>
 
+
+        <!-- ===============================
+             CHANGE PASSWORD BUTTON
+        ================================ -->
+
+        <button
+            class="change-password-btn"
+            id="changePasswordToggle"
+            onclick="toggleChangePassword()">
+
+            Change Password
+
+        </button>
+
+
+        <!-- ===============================
+             CHANGE PASSWORD FORM
+        ================================ -->
+
+        <div
+            class="change-password-box"
+            id="changePasswordBox">
+
+            <h3>
+                Change Password
+            </h3>
+
+
+            <label for="oldPassword">
+                Current Password
+            </label>
+
+            <input
+                type="password"
+                id="oldPassword"
+                placeholder="Current Password"
+                autocomplete="current-password">
+
+
+            <label for="newPassword">
+                New Password
+            </label>
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="New Password"
+                autocomplete="new-password">
+
+
+            <label for="confirmPassword">
+                Confirm New Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm New Password"
+                autocomplete="new-password">
+
+
+            <button
+                class="change-btn"
+                id="changePasswordButton"
+                onclick="changePassword()">
+
+                Change Password
+
+            </button>
+
+
+            <button
+                class="cancel-btn"
+                onclick="toggleChangePassword(false)">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+
         <div
             id="message"
             class="message">
         </div>
+
 
         <div class="footer">
             AAFDRMC Stock Management System
@@ -581,6 +754,32 @@ function showMessage(
 
 
 /* =====================================================
+   SUPABASE HEADERS
+===================================================== */
+
+function getHeaders(){
+
+    return {
+
+        "apikey":
+            SUPABASE_KEY,
+
+        "Authorization":
+            "Bearer " +
+            SUPABASE_KEY,
+
+        "Content-Type":
+            "application/json",
+
+        "Accept":
+            "application/json"
+
+    };
+
+}
+
+
+/* =====================================================
    VERIFY BRANCH LOGIN
 ===================================================== */
 
@@ -596,17 +795,7 @@ async function verifyBranchLogin(
             {
                 method:"POST",
 
-                headers:{
-                    "apikey":
-                        SUPABASE_KEY,
-
-                    "Authorization":
-                        "Bearer " +
-                        SUPABASE_KEY,
-
-                    "Content-Type":
-                        "application/json"
-                },
+                headers:getHeaders(),
 
                 body:
                     JSON.stringify({
@@ -725,12 +914,6 @@ async function login(){
 
     try{
 
-        /*
-        =============================================
-        BRANCH / MAIN CODE LOGIN
-        =============================================
-        */
-
         const result =
             await verifyBranchLogin(
                 username,
@@ -754,12 +937,6 @@ async function login(){
             result[0];
 
 
-        /*
-        =============================================
-        CHECK SELECTED BRANCH
-        =============================================
-        */
-
         if(
             user.branch_id !==
             selectedBranch.db_id
@@ -771,12 +948,6 @@ async function login(){
 
         }
 
-
-        /*
-        =============================================
-        SAVE REAL LOGIN
-        =============================================
-        */
 
         localStorage.setItem(
             "is_logged_in",
@@ -855,7 +1026,7 @@ async function login(){
 
 /* =====================================================
    MAIN DASHBOARD
-   ===================================================== */
+===================================================== */
 
 async function goMain(){
 
@@ -975,6 +1146,350 @@ async function goMain(){
 
 
 /* =====================================================
+   SHOW / HIDE CHANGE PASSWORD
+===================================================== */
+
+function toggleChangePassword(show){
+
+    const box =
+        document.getElementById(
+            "changePasswordBox"
+        );
+
+    if(show === undefined){
+
+        show =
+            box.style.display !== "block";
+
+    }
+
+    if(show){
+
+        box.style.display =
+            "block";
+
+        document
+            .getElementById("oldPassword")
+            .focus();
+
+    }
+    else{
+
+        box.style.display =
+            "none";
+
+        document
+            .getElementById("oldPassword")
+            .value = "";
+
+        document
+            .getElementById("newPassword")
+            .value = "";
+
+        document
+            .getElementById("confirmPassword")
+            .value = "";
+
+    }
+
+}
+
+
+/* =====================================================
+   CHANGE PASSWORD
+===================================================== */
+
+async function changePassword(){
+
+    const select =
+        document.getElementById("branch");
+
+    const username =
+        document
+            .getElementById("username")
+            .value
+            .trim();
+
+    const oldPassword =
+        document
+            .getElementById("oldPassword")
+            .value;
+
+    const newPassword =
+        document
+            .getElementById("newPassword")
+            .value;
+
+    const confirmPassword =
+        document
+            .getElementById("confirmPassword")
+            .value;
+
+
+    /* ================================================
+       VALIDATION
+    ================================================ */
+
+    if(!select.value){
+
+        showMessage(
+            "Mee Branch filadhu.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!username){
+
+        showMessage(
+            "Branch Code ykn Username galchi.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!oldPassword){
+
+        showMessage(
+            "Current Password galchi.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!newPassword){
+
+        showMessage(
+            "New Password galchi.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(newPassword.length < 6){
+
+        showMessage(
+            "New Password yoo xiqqaate characters 6 qabaachuu qaba.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(!confirmPassword){
+
+        showMessage(
+            "New Password irra deebi'ii galchi.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(newPassword !== confirmPassword){
+
+        showMessage(
+            "New Password fi Confirm Password wal hin simne.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(oldPassword === newPassword){
+
+        showMessage(
+            "New Password kan durii irraa adda ta'uu qaba.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const selectedBranch =
+        BRANCHES.find(
+            b => b.id === select.value
+        );
+
+
+    if(!selectedBranch){
+
+        showMessage(
+            "Branch hin argamne.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const changeButton =
+        document.getElementById(
+            "changePasswordButton"
+        );
+
+    changeButton.disabled =
+        true;
+
+    changeButton.textContent =
+        "Changing Password...";
+
+
+    try{
+
+        /* ============================================
+           1. VERIFY OLD PASSWORD FIRST
+        ============================================ */
+
+        const loginResult =
+            await verifyBranchLogin(
+                username,
+                oldPassword
+            );
+
+
+        if(
+            !Array.isArray(loginResult) ||
+            loginResult.length === 0
+        ){
+
+            throw new Error(
+                "Current Password sirrii miti."
+            );
+
+        }
+
+
+        const user =
+            loginResult[0];
+
+
+        /* ============================================
+           2. CHECK SELECTED BRANCH
+        ============================================ */
+
+        if(
+            user.branch_id !==
+            selectedBranch.db_id
+        ){
+
+            throw new Error(
+                "Username fi Branch filatame wal hin simu."
+            );
+
+        }
+
+
+        /* ============================================
+           3. CHANGE PASSWORD RPC
+        ============================================ */
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/rpc/change_branch_password",
+                {
+                    method:"POST",
+
+                    headers:getHeaders(),
+
+                    body:
+                        JSON.stringify({
+
+                            p_username:
+                                username,
+
+                            p_old_password:
+                                oldPassword,
+
+                            p_new_password:
+                                newPassword
+
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.message ||
+                data.error ||
+                "Password jijjiiruun hin milkoofne."
+            );
+
+        }
+
+
+        /* ============================================
+           4. SUCCESS
+        ============================================ */
+
+        showMessage(
+            "Password successfully changed. Amma password haaraa fayyadami.",
+            "success"
+        );
+
+
+        toggleChangePassword(false);
+
+
+        document
+            .getElementById("password")
+            .value =
+            "";
+
+
+        document
+            .getElementById("username")
+            .focus();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "CHANGE PASSWORD ERROR:",
+            error
+        );
+
+        showMessage(
+            error.message ||
+            "Password jijjiiruun hin milkoofne.",
+            "error"
+        );
+
+    }
+    finally{
+
+        changeButton.disabled =
+            false;
+
+        changeButton.textContent =
+            "Change Password";
+
+    }
+
+}
+
+
+/* =====================================================
    ENTER KEY
 ===================================================== */
 
@@ -986,7 +1501,23 @@ document.addEventListener(
             event.key === "Enter"
         ){
 
-            login();
+            const changeBox =
+                document.getElementById(
+                    "changePasswordBox"
+                );
+
+            if(
+                changeBox.style.display === "block"
+            ){
+
+                changePassword();
+
+            }
+            else{
+
+                login();
+
+            }
 
         }
 
