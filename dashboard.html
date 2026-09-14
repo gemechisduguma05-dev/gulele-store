@@ -39,6 +39,32 @@ header h1{
   font-weight:bold;
 }
 
+/* ================= PROFILE ================= */
+
+.profile-area{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+}
+
+.profile-picture{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #fff;
+  box-shadow:0 3px 10px rgba(0,0,0,.20);
+  background:#efebe9;
+}
+
+.profile-name{
+  font-size:16px;
+  font-weight:bold;
+  color:white;
+}
+
 .container{
   width:94%;
   max-width:1200px;
@@ -374,6 +400,11 @@ header h1{
     font-size:20px;
   }
 
+  .profile-picture{
+    width:52px;
+    height:52px;
+  }
+
 }
 
 </style>
@@ -387,6 +418,51 @@ header h1{
 
 <div id="branchName" class="branch">
 Loading Branch...
+</div>
+
+<!-- ================= BUILT-IN PROFILE PICTURE ================= -->
+
+<div class="profile-area">
+
+  <svg
+    class="profile-picture"
+    viewBox="0 0 120 120"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="AAFDRMC Profile Picture">
+
+    <circle
+      cx="60"
+      cy="60"
+      r="58"
+      fill="#efebe9"/>
+
+    <circle
+      cx="60"
+      cy="43"
+      r="21"
+      fill="#795548"/>
+
+    <path
+      d="M23 104
+         C27 78, 42 66, 60 66
+         C78 66, 93 78, 97 104
+         Z"
+      fill="#5d4037"/>
+
+    <circle
+      cx="60"
+      cy="60"
+      r="57"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="5"/>
+
+  </svg>
+
+  <div class="profile-name">
+    AAFDRMC User
+  </div>
+
 </div>
 
 <div id="modeBadge" class="mode-badge"></div>
@@ -504,7 +580,6 @@ hin danda'amu.
 
 </div>
 
-
 <!-- MAIN HQ MENU -->
 
 <div id="mainMenu" class="menu-grid hidden">
@@ -513,8 +588,6 @@ hin danda'amu.
    class="btn report">
 📊 All Branches Report
 </a>
-
-<!-- SETTINGS IS ONLY HERE FOR MAIN HQ -->
 
 <a href="settings.html"
    class="btn settings">
@@ -677,6 +750,9 @@ localStorage.getItem("selected_branch_name") || "";
 let branchCode =
 localStorage.getItem("selected_branch_code") || "";
 
+let branchUUID =
+localStorage.getItem("selected_branch_uuid") || "";
+
 
 /* =====================================================
    USER ROLE
@@ -709,7 +785,12 @@ function isMainHQ(){
     isMainUser() &&
     String(branchCode)
       .trim()
-      .toUpperCase() === "MAIN"
+      .toUpperCase() === "MAIN" &&
+    (
+      !branchUUID ||
+      branchUUID ===
+      "bd1b10ec-43dc-4eb0-ad8c-53a78b80815d"
+    )
   );
 
 }
@@ -721,20 +802,87 @@ function isMainHQ(){
 
 const BRANCHES = [
 
-  {name:"Gulele",code:"GUL"},
-  {name:"Addis Katama",code:"AKT"},
-  {name:"Kolfee",code:"KLF"},
-  {name:"Nifas Silk Lafto",code:"NSL"},
-  {name:"Kirkos",code:"KIR"},
-  {name:"Lami Kura",code:"LAM"},
-  {name:"Arada",code:"ARA"},
-  {name:"Lideta",code:"LID"},
-  {name:"Bole",code:"BOL"},
-  {name:"Ekaa",code:"EKA"},
-  {name:"Akaki Kality",code:"AKA"},
-  {name:"Center",code:"CTR"}
+  {
+    name:"Gulele",
+    code:"GUL",
+    uuid:"b7b2ff8c-0be4-4678-a6d3-63c05cdf144c"
+  },
+
+  {
+    name:"Addis Katama",
+    code:"AKT",
+    uuid:"9ed31570-9cfb-4706-82ed-049addf493fd"
+  },
+
+  {
+    name:"Kolfee",
+    code:"KLF",
+    uuid:"6d51f505-1e5f-4c47-b2a9-ff83029293d4"
+  },
+
+  {
+    name:"Nifas Silk Lafto",
+    code:"NSL",
+    uuid:"ea8fcf0f-eb72-4b2c-a167-2ad7f380bade"
+  },
+
+  {
+    name:"Kirkos",
+    code:"KIR",
+    uuid:"06cda455-02cb-4b4b-a84b-b01bf1c28b33"
+  },
+
+  {
+    name:"Lami Kura",
+    code:"LAM",
+    uuid:"6d9324f2-0120-455a-9161-ed46fbf06b61"
+  },
+
+  {
+    name:"Arada",
+    code:"ARA",
+    uuid:"b0d43ff1-ba2d-4b90-aa65-eab6acec4bdb"
+  },
+
+  {
+    name:"Lideta",
+    code:"LID",
+    uuid:"f26b2605-f4df-4a32-8c61-76131fe7e559"
+  },
+
+  {
+    name:"Bole",
+    code:"BOL",
+    uuid:"d104e8ab-ed63-4d20-a314-6696abed839a"
+  },
+
+  {
+    name:"Ekaa",
+    code:"EKA",
+    uuid:"015d6857-73a2-4b05-8555-4091387a305d"
+  },
+
+  {
+    name:"Akaki Kality",
+    code:"AKA",
+    uuid:"ac4f8c9a-8855-42f4-b98f-35d454c8d89e"
+  },
+
+  {
+    name:"Center",
+    code:"CTR",
+    uuid:"96a20750-5ff6-4475-ae03-009cd7688c33"
+  }
 
 ];
+
+
+/* =====================================================
+   MAIN UUID
+===================================================== */
+
+const MAIN_UUID =
+"bd1b10ec-43dc-4eb0-ad8c-53a78b80815d";
 
 
 /* =====================================================
@@ -785,13 +933,18 @@ let dashboardCategoryData = {};
 
 /* =====================================================
    HEADERS
+   Publishable Key ONLY
 ===================================================== */
 
 function getHeaders(){
 
-  const headers = {
+  return {
 
-    "apikey":SUPABASE_KEY,
+    "apikey":
+      SUPABASE_KEY,
+
+    "Authorization":
+      "Bearer " + SUPABASE_KEY,
 
     "Content-Type":
       "application/json",
@@ -803,21 +956,6 @@ function getHeaders(){
       "return=representation"
 
   };
-
-  const token =
-    localStorage.getItem("access_token");
-
-  if(
-    token &&
-    token !== SUPABASE_KEY
-  ){
-
-    headers["Authorization"] =
-      "Bearer " + token;
-
-  }
-
-  return headers;
 
 }
 
@@ -926,7 +1064,6 @@ function setupMenu(){
 
   /* =================================================
      MAIN HQ
-     Settings = SHOW
   ================================================= */
 
   if(isMainHQ()){
@@ -945,8 +1082,7 @@ function setupMenu(){
 
 
   /* =================================================
-     MAIN USER VIEWING A BRANCH
-     Settings = HIDE
+     MAIN USER VIEWING BRANCH
   ================================================= */
 
   if(isMainUser()){
@@ -959,11 +1095,6 @@ function setupMenu(){
 
     allBranchesCard.classList.remove("hidden");
 
-
-    /*
-      Main selected a branch.
-      Settings must NOT appear.
-    */
 
     if(settingsButton){
 
@@ -998,7 +1129,6 @@ function setupMenu(){
 
   /* =================================================
      OPERATIONAL BRANCH
-     Settings = HIDE
   ================================================= */
 
   branchMenu.classList.remove("hidden");
@@ -1107,6 +1237,54 @@ async function resolveBranchUUID(){
 
   }
 
+
+  /* Already stored UUID */
+
+  if(isUUID(branchUUID)){
+
+    return branchUUID;
+
+  }
+
+
+  /* Find from known branch list */
+
+  const knownBranch =
+    BRANCHES.find(
+      function(branch){
+
+        return (
+          branch.code === branchCode ||
+          branch.name.toLowerCase() ===
+          String(branchName)
+            .trim()
+            .toLowerCase()
+        );
+
+      }
+    );
+
+
+  if(
+    knownBranch &&
+    isUUID(knownBranch.uuid)
+  ){
+
+    branchUUID =
+      knownBranch.uuid;
+
+    localStorage.setItem(
+      "selected_branch_uuid",
+      branchUUID
+    );
+
+    return branchUUID;
+
+  }
+
+
+  /* Fallback to Supabase */
+
   const response =
     await fetch(
       SUPABASE_URL +
@@ -1147,87 +1325,37 @@ async function resolveBranchUUID(){
       .toLowerCase();
 
 
-  const codeFields = [
-    "code",
-    "branch_code",
-    "branchCode",
-    "branchcode",
-    "branch_id_code",
-    "short_code"
-  ];
+  let found =
+    branches.find(
+      function(b){
 
+        const bCode =
+          String(
+            b.code ||
+            b.branch_code ||
+            b.short_code ||
+            ""
+          )
+          .trim()
+          .toLowerCase();
 
-  const nameFields = [
-    "name",
-    "branch_name",
-    "branch",
-    "branchName",
-    "title",
-    "branch_title",
-    "office_name",
-    "office"
-  ];
+        const bName =
+          String(
+            b.branch_name ||
+            b.name ||
+            b.branch ||
+            ""
+          )
+          .trim()
+          .toLowerCase();
 
-
-  let found = null;
-
-
-  if(code){
-
-    found =
-      branches.find(function(b){
-
-        return codeFields.some(
-          function(field){
-
-            if(
-              b[field] === undefined ||
-              b[field] === null
-            ){
-
-              return false;
-
-            }
-
-            return String(b[field])
-              .trim()
-              .toLowerCase() === code;
-
-          }
+        return (
+          (code && bCode === code) ||
+          (name && bName === name)
         );
 
-      });
-
-  }
-
-
-  if(!found && name){
-
-    found =
-      branches.find(function(b){
-
-        return nameFields.some(
-          function(field){
-
-            if(
-              b[field] === undefined ||
-              b[field] === null
-            ){
-
-              return false;
-
-            }
-
-            return String(b[field])
-              .trim()
-              .toLowerCase() === name;
-
-          }
-        );
-
-      });
-
-  }
+      }
+    );
 
 
   if(
@@ -1244,7 +1372,17 @@ async function resolveBranchUUID(){
   }
 
 
-  return String(found.id).trim();
+  branchUUID =
+    String(found.id).trim();
+
+
+  localStorage.setItem(
+    "selected_branch_uuid",
+    branchUUID
+  );
+
+
+  return branchUUID;
 
 }
 
@@ -2029,9 +2167,17 @@ function openBranch(branch){
   );
 
 
-  localStorage.removeItem(
-    "selected_branch_uuid"
+  localStorage.setItem(
+    "selected_branch_uuid",
+    branch.uuid
   );
+
+
+  /*
+    Main irraa branch filatame.
+    Main role localStorage keessa
+    akkuma jirutti hafa.
+  */
 
 
   window.location.href =
@@ -2079,82 +2225,117 @@ async function loadDashboard(){
     .textContent = "...";
 
 
-  const items =
-    await loadItems();
+  try{
+
+    const items =
+      await loadItems();
 
 
-  const transactions =
-    await loadTransactions();
+    const transactions =
+      await loadTransactions();
 
 
-  let totalIn = 0;
+    let totalIn = 0;
 
-  let totalOut = 0;
-
-
-  transactions.forEach(
-    function(t){
-
-      const quantity =
-        Number(t.quantity || 0);
+    let totalOut = 0;
 
 
-      const type =
-        getTransactionType(t);
+    transactions.forEach(
+      function(t){
+
+        const quantity =
+          Number(t.quantity || 0);
 
 
-      if(type === "IN"){
+        const type =
+          getTransactionType(t);
 
-        totalIn += quantity;
+
+        if(type === "IN"){
+
+          totalIn += quantity;
+
+        }
+
+
+        if(type === "OUT"){
+
+          totalOut += quantity;
+
+        }
 
       }
+    );
 
 
-      if(type === "OUT"){
-
-        totalOut += quantity;
-
-      }
-
-    }
-  );
+    const balance =
+      totalIn - totalOut;
 
 
-  const balance =
-    totalIn - totalOut;
+    document.getElementById("totalItems")
+      .textContent =
+      items.length.toLocaleString();
 
 
-  document.getElementById("totalItems")
-    .textContent =
-    items.length.toLocaleString();
+    document.getElementById("totalIn")
+      .textContent =
+      formatNumber(totalIn);
 
 
-  document.getElementById("totalIn")
-    .textContent =
-    formatNumber(totalIn);
+    document.getElementById("totalOut")
+      .textContent =
+      formatNumber(totalOut);
 
 
-  document.getElementById("totalOut")
-    .textContent =
-    formatNumber(totalOut);
+    document.getElementById("balance")
+      .textContent =
+      formatNumber(balance);
 
 
-  document.getElementById("balance")
-    .textContent =
-    formatNumber(balance);
+    prepareCategoryData(
+      transactions
+    );
 
 
-  prepareCategoryData(
-    transactions
-  );
+    document.getElementById(
+      "categorySelect"
+    ).value = "";
 
 
-  document.getElementById(
-    "categorySelect"
-  ).value = "";
+    renderSelectedCategory();
+
+  }
+  catch(error){
+
+    console.error(
+      "Dashboard loading error:",
+      error
+    );
 
 
-  renderSelectedCategory();
+    document.getElementById("totalItems")
+      .textContent = "0";
+
+
+    document.getElementById("totalIn")
+      .textContent = "0";
+
+
+    document.getElementById("totalOut")
+      .textContent = "0";
+
+
+    document.getElementById("balance")
+      .textContent = "0";
+
+
+    showMessage(
+      "Dashboard data loading irratti rakkoon uumame.\n\n" +
+      error.message,
+      "error"
+    );
+
+  }
 
 }
 
