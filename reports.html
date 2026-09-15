@@ -178,6 +178,25 @@ td{
   background:#fee2e2 !important;
 }
 
+/* =====================================================
+   EX DATE COLORS
+===================================================== */
+
+.expiry-red{
+  color:#dc2626 !important;
+  font-weight:bold;
+}
+
+.expiry-yellow{
+  color:#ca8a04 !important;
+  font-weight:bold;
+}
+
+.expiry-green{
+  color:#16a34a !important;
+  font-weight:bold;
+}
+
 .empty{
   text-align:center;
   padding:25px;
@@ -464,6 +483,7 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
   "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
+
 
 /* =====================================================
    LOGIN
@@ -859,6 +879,108 @@ function formatDate(value){
 
 
   return d.toLocaleString();
+
+}
+
+
+/* =====================================================
+   EX DATE COLOR
+===================================================== */
+
+function getExpiryClass(expiryDate){
+
+  if(
+    !expiryDate ||
+    expiryDate === "—"
+  ){
+
+    return "";
+
+  }
+
+
+  /*
+    Convert expiry date to local
+    calendar date.
+  */
+
+  const expiryText =
+    String(expiryDate)
+      .substring(0,10);
+
+
+  const expiry =
+    new Date(
+      expiryText + "T00:00:00"
+    );
+
+
+  if(
+    isNaN(
+      expiry.getTime()
+    )
+  ){
+
+    return "";
+
+  }
+
+
+  const today =
+    new Date();
+
+  today.setHours(
+    0,0,0,0
+  );
+
+
+  /*
+    1. TODAY or PASSED
+       = RED
+  */
+
+  if(
+    expiry <= today
+  ){
+
+    return "expiry-red";
+
+  }
+
+
+  /*
+    4 CALENDAR MONTHS
+       FROM TODAY
+  */
+
+  const fourMonths =
+    new Date(today);
+
+  fourMonths.setMonth(
+    fourMonths.getMonth() + 4
+  );
+
+
+  /*
+    2. 4 MONTHS OR LESS
+       = YELLOW
+  */
+
+  if(
+    expiry <= fourMonths
+  ){
+
+    return "expiry-yellow";
+
+  }
+
+
+  /*
+    3. MORE THAN 4 MONTHS
+       = GREEN
+  */
+
+  return "expiry-green";
 
 }
 
@@ -1271,6 +1393,16 @@ async function loadReport(){
               );
 
 
+      /*
+        EX DATE COLOR CLASS
+      */
+
+      const expiryClass =
+        getExpiryClass(
+          expiryDate
+        );
+
+
       list.innerHTML += `
 
         <tr class="${rowClass}">
@@ -1311,7 +1443,7 @@ async function loadReport(){
             ${escapeHTML(issuedBy)}
           </td>
 
-          <td>
+          <td class="${expiryClass}">
             ${escapeHTML(expiryDate)}
           </td>
 
