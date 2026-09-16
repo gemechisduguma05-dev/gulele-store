@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC - Login</title>
-
-<style>
+<title>AAFDRMC - Login</title><!-- ===============================
+     PWA
+================================ --><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#6d4c41"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><style>
 
 *{
     box-sizing:border-box;
@@ -359,81 +352,190 @@ button:disabled{
 
 }
 
-</style>
+</style></head><body><div class="login-container"><div class="login-card">
 
-</head>
+    <div class="logo-box">
 
+        <img
+            src="./1788633150526.jpg"
+            class="logo"
+            alt="AAFDRMC Profile">
 
-<body>
-
-<div class="login-container">
-
-    <div class="login-card">
-
-        <div class="logo-box">
-
-            <img
-                src="./1788633150526.jpg"
-                class="logo"
-                alt="AAFDRMC Profile">
-
-        </div>
+    </div>
 
 
-        <h1>
-            AAFDRMC
-        </h1>
+    <h1>
+        AAFDRMC
+    </h1>
 
 
-        <div class="subtitle">
-            Stock Management System
-        </div>
+    <div class="subtitle">
+        Stock Management System
+    </div>
 
 
-        <!-- ===============================
-             LOGIN
-        ================================ -->
+    <!-- ===============================
+         LOGIN
+    ================================ -->
 
-        <label for="branch">
-            Select Branch
-        </label>
+    <label for="branch">
+        Select Branch
+    </label>
 
-        <select id="branch">
+    <select id="branch">
 
-            <option value="">
-                -- Select Branch --
-            </option>
+        <option value="">
+            -- Select Branch --
+        </option>
 
-        </select>
+    </select>
 
 
-        <label for="username">
-            Email or Branch Code
-        </label>
+    <label for="username">
+        Email or Branch Code
+    </label>
+
+    <input
+        type="text"
+        id="username"
+        placeholder="Email ykn Branch Code"
+        autocomplete="username">
+
+
+    <label for="password">
+        Password
+    </label>
+
+    <div class="password-wrapper">
 
         <input
-            type="text"
-            id="username"
-            placeholder="Email ykn Branch Code"
-            autocomplete="username">
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password">
+
+        <button
+            type="button"
+            class="show-password-btn"
+            onclick="togglePassword('password', this)">
+
+            Show
+
+        </button>
+
+    </div>
 
 
-        <label for="password">
-            Password
+    <button
+        class="login-btn"
+        id="loginButton"
+        onclick="login()">
+
+        Login
+
+    </button>
+
+
+    <button
+        class="main-btn"
+        onclick="goMain()">
+
+        Main Dashboard
+
+    </button>
+
+
+    <!-- ===============================
+         CHANGE PASSWORD BUTTON
+    ================================ -->
+
+    <button
+        class="change-password-btn"
+        id="changePasswordToggle"
+        onclick="toggleChangePassword()">
+
+        Change Password
+
+    </button>
+
+
+    <!-- ===============================
+         CHANGE PASSWORD FORM
+    ================================ -->
+
+    <div
+        class="change-password-box"
+        id="changePasswordBox">
+
+        <h3>
+            Change Password
+        </h3>
+
+
+        <label for="oldPassword">
+            Current Password
         </label>
 
         <div class="password-wrapper">
 
             <input
                 type="password"
-                id="password"
-                placeholder="Password"
+                id="oldPassword"
+                placeholder="Current Password"
                 autocomplete="current-password">
 
             <button
                 type="button"
                 class="show-password-btn"
-                onclick="togglePassword('password', this)">
+                onclick="togglePassword('oldPassword', this)">
+
+                Show
+
+            </button>
+
+        </div>
+
+
+        <label for="newPassword">
+            New Password
+        </label>
+
+        <div class="password-wrapper">
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="New Password"
+                autocomplete="new-password">
+
+            <button
+                type="button"
+                class="show-password-btn"
+                onclick="togglePassword('newPassword', this)">
+
+                Show
+
+            </button>
+
+        </div>
+
+
+        <label for="confirmPassword">
+            Confirm New Password
+        </label>
+
+        <div class="password-wrapper">
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm New Password"
+                autocomplete="new-password">
+
+            <button
+                type="button"
+                class="show-password-btn"
+                onclick="togglePassword('confirmPassword', this)">
 
                 Show
 
@@ -443,160 +545,39 @@ button:disabled{
 
 
         <button
-            class="login-btn"
-            id="loginButton"
-            onclick="login()">
-
-            Login
-
-        </button>
-
-
-        <button
-            class="main-btn"
-            onclick="goMain()">
-
-            Main Dashboard
-
-        </button>
-
-
-        <!-- ===============================
-             CHANGE PASSWORD BUTTON
-        ================================ -->
-
-        <button
-            class="change-password-btn"
-            id="changePasswordToggle"
-            onclick="toggleChangePassword()">
+            class="change-btn"
+            id="changePasswordButton"
+            onclick="changePassword()">
 
             Change Password
 
         </button>
 
 
-        <!-- ===============================
-             CHANGE PASSWORD FORM
-        ================================ -->
+        <button
+            class="cancel-btn"
+            onclick="toggleChangePassword(false)">
 
-        <div
-            class="change-password-box"
-            id="changePasswordBox">
+            Cancel
 
-            <h3>
-                Change Password
-            </h3>
+        </button>
+
+    </div>
 
 
-            <label for="oldPassword">
-                Current Password
-            </label>
-
-            <div class="password-wrapper">
-
-                <input
-                    type="password"
-                    id="oldPassword"
-                    placeholder="Current Password"
-                    autocomplete="current-password">
-
-                <button
-                    type="button"
-                    class="show-password-btn"
-                    onclick="togglePassword('oldPassword', this)">
-
-                    Show
-
-                </button>
-
-            </div>
+    <div
+        id="message"
+        class="message">
+    </div>
 
 
-            <label for="newPassword">
-                New Password
-            </label>
-
-            <div class="password-wrapper">
-
-                <input
-                    type="password"
-                    id="newPassword"
-                    placeholder="New Password"
-                    autocomplete="new-password">
-
-                <button
-                    type="button"
-                    class="show-password-btn"
-                    onclick="togglePassword('newPassword', this)">
-
-                    Show
-
-                </button>
-
-            </div>
-
-
-            <label for="confirmPassword">
-                Confirm New Password
-            </label>
-
-            <div class="password-wrapper">
-
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm New Password"
-                    autocomplete="new-password">
-
-                <button
-                    type="button"
-                    class="show-password-btn"
-                    onclick="togglePassword('confirmPassword', this)">
-
-                    Show
-
-                </button>
-
-            </div>
-
-
-            <button
-                class="change-btn"
-                id="changePasswordButton"
-                onclick="changePassword()">
-
-                Change Password
-
-            </button>
-
-
-            <button
-                class="cancel-btn"
-                onclick="toggleChangePassword(false)">
-
-                Cancel
-
-            </button>
-
-        </div>
-
-
-        <div
-            id="message"
-            class="message">
-        </div>
-
-
-        <div class="footer">
-            AAFDRMC Stock Management System
-        </div>
-
+    <div class="footer">
+        AAFDRMC Stock Management System
     </div>
 
 </div>
 
-
-<script>
+</div><script>
 
 /* =====================================================
    SUPABASE
@@ -1709,8 +1690,38 @@ document.addEventListener(
 
 loadBranches();
 
-</script>
 
-</body>
+/* =====================================================
+   PWA SERVICE WORKER
+===================================================== */
 
-</html>
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(
+                    function(){
+                        console.log(
+                            "AAFDRMC Service Worker registered successfully."
+                        );
+                    }
+                )
+                .catch(
+                    function(error){
+                        console.error(
+                            "Service Worker registration failed:",
+                            error
+                        );
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script></body></html>
