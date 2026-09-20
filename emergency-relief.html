@@ -1709,12 +1709,11 @@ function populateReliefItemSelect(select){
 /* =========================================================
    SET ITEM UNIT/CATEGORY
 ========================================================= */
-
+  
 function setReliefItemUnit(select){
 
   const row =
     select.closest(".relief-row");
-
 
   if(!row) return;
 
@@ -1743,6 +1742,13 @@ function setReliefItemUnit(select){
     option.dataset.category || ""
     :
     "";
+
+
+  /*
+    Immediately check stock after selecting an item.
+  */
+
+  updateReliefRowStock(row);
 
 }
 
