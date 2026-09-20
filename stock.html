@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC - Stock Management</title>
-
-<style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Stock Management</title><style>
 
 *{
   box-sizing:border-box;
@@ -391,528 +382,176 @@ tr:nth-child(even){
 
 }
 
-</style>
+</style></head><body><!-- ================= HEADER ================= --><div class="header"><img
+src="./1788633150526.jpg"
+class="logo"
+alt="AAFDRMC Logo"
+onerror="this.style.display='none'"
 
-</head>
+«»
 
-<body>
-
-<!-- ================= HEADER ================= -->
-
-<div class="header">
-
-  <img
-    src="./1788633150526.jpg"
-    class="logo"
-    alt="AAFDRMC Logo"
-    onerror="this.style.display='none'"
-  >
-
-  <h1>AAFDRMC - STOCK MANAGEMENT</h1>
-
-  <div
+  <h1>AAFDRMC - STOCK MANAGEMENT</h1>  <div
     id="branchName"
     class="branch-name">
     Loading Branch...
-  </div>
-
-</div>
-
-<!-- ================= MAIN CONTAINER ================= -->
-
-<div class="container">
-
-  <div class="title">
+  </div></div><!-- ================= MAIN CONTAINER ================= --><div class="container">  <div class="title">
     📦 Stock Management
-  </div>
-
-  <div
+  </div>  <div
     id="message"
     class="message">
-  </div>
+  </div>  <!-- ================= BUTTONS ================= -->  <div class="buttons"><button
+  type="button"
+  class="btn btn-in"
+  onclick="openForm('IN')">
+  ➕ Stock IN
+</button>
 
-  <!-- ================= BUTTONS ================= -->
+<button
+  type="button"
+  class="btn btn-out"
+  onclick="openForm('OUT')">
+  ➖ Stock OUT
+</button>
 
-  <div class="buttons">
+<button
+  type="button"
+  class="btn btn-blue"
+  onclick="loadStock()">
+  🔄 Refresh
+</button>
 
-    <button
-      type="button"
-      class="btn btn-in"
-      onclick="openForm('IN')">
-      ➕ Stock IN
-    </button>
+<button
+  type="button"
+  class="btn btn-orange"
+  onclick="goReports()">
+  📋 Stock Report
+</button>
 
-    <button
-      type="button"
-      class="btn btn-out"
-      onclick="openForm('OUT')">
-      ➖ Stock OUT
-    </button>
+<button
+  type="button"
+  class="btn btn-gray"
+  onclick="backToMenu()">
+  ⬅️ Back to Menu
+</button>
 
-    <button
-      type="button"
-      class="btn btn-blue"
-      onclick="loadStock()">
-      🔄 Refresh
-    </button>
-
-    <button
-      type="button"
-      class="btn btn-orange"
-      onclick="goReports()">
-      📋 Stock Report
-    </button>
-
-    <button
-      type="button"
-      class="btn btn-gray"
-      onclick="backToMenu()">
-      ⬅️ Back to Menu
-    </button>
-
-  </div>
-
-  <!-- ================= STOCK IN ================= -->
-
-  <div
+  </div>  <!-- ================= STOCK IN ================= -->  <div
     id="inForm"
-    class="form-card">
+    class="form-card"><div class="form-title in">
+  🟢 STOCK IN — Receiving Stock
+</div>
 
-    <div class="form-title in">
-      🟢 STOCK IN — Receiving Stock
-    </div>
+<div class="form-grid">
 
-    <div class="form-grid">
+  <div class="form-group">
 
-      <div class="form-group">
+    <label>Item</label>
 
-        <label>Item</label>
+    <select id="inItem">
 
-        <select id="inItem">
+      <option value="">
+        -- Select Item --
+      </option>
 
-          <option value="">
-            -- Select Item --
-          </option>
-
-        </select>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Unit</label>
-
-        <input
-          id="inUnit"
-          class="readonly"
-          readonly>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Quantity</label>
-
-        <input
-          id="inQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Date and Time Received</label>
-
-        <input
-          id="inDate"
-          type="datetime-local">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Entered By</label>
-
-        <input
-          id="inEnteredBy"
-          type="text"
-          placeholder="Name of person who entered the stock">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Expiry Date</label>
-
-        <input
-          id="inExpiryDate"
-          type="date">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Signature</label>
-
-        <input
-          id="inSignature"
-          type="text"
-          placeholder="Signature">
-
-      </div>
-
-      <!-- MODEL 19 -->
-
-      <div class="form-group model-box">
-
-        <label>Model 19</label>
-
-        <select id="inModel19">
-
-          <option value="NONE">
-            Not Available
-          </option>
-
-          <option value="NUMBER">
-            Model 19 Available
-          </option>
-
-          <option value="VERBAL">
-            Verbal
-          </option>
-
-        </select>
-
-        <div
-          id="inModel19NumberBox"
-          class="model-number">
-
-          <input
-            id="inModel19Number"
-            type="text"
-            placeholder="Model 19 Number">
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="submit-row">
-
-      <button
-        id="saveInButton"
-        type="button"
-        class="save-btn save-in"
-        onclick="saveStock('IN')">
-        💾 Save Stock IN
-      </button>
-
-      <button
-        type="button"
-        class="save-btn cancel"
-        onclick="closeForms()">
-        Cancel
-      </button>
-
-    </div>
+    </select>
 
   </div>
 
-  <!-- ================= STOCK OUT ================= -->
+  <div class="form-group">
 
-  <div
-    id="outForm"
-    class="form-card">
+    <label>Unit</label>
 
-    <div class="form-title out">
-      🔴 STOCK OUT — Issuing Stock
-    </div>
-
-    <div class="form-grid">
-
-      <div class="form-group">
-
-        <label>Item</label>
-
-        <select id="outItem">
-
-          <option value="">
-            -- Select Item --
-          </option>
-
-        </select>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Unit</label>
-
-        <input
-          id="outUnit"
-          class="readonly"
-          readonly>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Quantity</label>
-
-        <input
-          id="outQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Date and Time Issued</label>
-
-        <input
-          id="outDate"
-          type="datetime-local">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Issued By</label>
-
-        <input
-          id="outIssuedBy"
-          type="text"
-          placeholder="Name of person who issued the stock">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Signature</label>
-
-        <input
-          id="outSignature"
-          type="text"
-          placeholder="Signature">
-
-      </div>
-
-      <!-- MODEL 22 -->
-
-      <div class="form-group model-box">
-
-        <label>Model 22</label>
-
-        <select id="outModel22">
-
-          <option value="NONE">
-            Not Available
-          </option>
-
-          <option value="NUMBER">
-            Model 22 Available
-          </option>
-
-          <option value="VERBAL">
-            Verbal
-          </option>
-
-        </select>
-
-        <div
-          id="outModel22NumberBox"
-          class="model-number">
-
-          <input
-            id="outModel22Number"
-            type="text"
-            placeholder="Model 22 Number">
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="submit-row">
-
-      <button
-        id="saveOutButton"
-        type="button"
-        class="save-btn save-out"
-        onclick="saveStock('OUT')">
-        💾 Save Stock OUT
-      </button>
-
-      <button
-        type="button"
-        class="save-btn cancel"
-        onclick="closeForms()">
-        Cancel
-      </button>
-
-    </div>
+    <input
+      id="inUnit"
+      class="readonly"
+      readonly>
 
   </div>
 
-  <!-- ================= SUMMARY ================= -->
+  <div class="form-group">
 
-  <div class="summary-grid">
+    <label>Quantity</label>
 
-    <div class="summary-card">
-
-      <span>Total Items</span>
-
-      <strong id="totalItems">
-        0
-      </strong>
-
-    </div>
-
-    <div class="summary-card">
-
-      <span>Total Stock IN</span>
-
-      <strong id="totalIn">
-        0
-      </strong>
-
-    </div>
-
-    <div class="summary-card">
-
-      <span>Total Stock OUT</span>
-
-      <strong id="totalOut">
-        0
-      </strong>
-
-    </div>
-
-    <div class="summary-card">
-
-      <span>Current Balance</span>
-
-      <strong id="totalBalance">
-        0
-      </strong>
-
-    </div>
+    <input
+      id="inQuantity"
+      type="number"
+      min="0.01"
+      step="any"
+      placeholder="Quantity">
 
   </div>
 
-  <!-- ================= REPORT ================= -->
+  <div class="form-group">
 
-  <div class="report-card">
+    <label>Date and Time Received</label>
 
-    <div class="report-title">
-
-      📊 Stock Report —
-      <span id="reportBranch">
-        Branch
-      </span>
-
-    </div>
-
-    <div style="overflow-x:auto;">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>No</th>
-            <th>Item</th>
-            <th>Unit</th>
-            <th>Stock IN</th>
-            <th>Stock OUT</th>
-            <th>Balance</th>
-            <th>Details</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody id="reportTable">
-
-          <tr>
-
-            <td
-              colspan="7"
-              style="text-align:center;padding:25px">
-
-              Loading...
-
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
+    <input
+      id="inDate"
+      type="datetime-local">
 
   </div>
 
-  <!-- ================= DETAILS ================= -->
+  <div class="form-group">
 
-  <div
-    id="detailsCard"
-    class="details-card">
+    <label>Entered By</label>
 
-    <div class="details-header">
+    <input
+      id="inEnteredBy"
+      type="text"
+      placeholder="Name of person who entered the stock">
 
-      <div
-        id="detailsTitle"
-        class="details-title">
-      </div>
+  </div>
 
-      <button
-        type="button"
-        class="close-btn"
-        onclick="closeDetails()">
-        ✖ Close
-      </button>
+  <div class="form-group">
 
-    </div>
+    <label>Expiry Date</label>
 
-    <div style="overflow-x:auto;">
+    <input
+      id="inExpiryDate"
+      type="date">
 
-      <table>
+  </div>
 
-        <thead>
+  <div class="form-group">
 
-          <tr>
+    <label>Signature</label>
 
-            <th>No</th>
-            <th>Transaction</th>
-            <th>Quantity</th>
-            <th>Unit</th>
-            <th>Date and Time</th>
-            <th>Entered By</th>
-            <th>Issued By</th>
-            <th>Expiry Date</th>
-            <th>Signature</th>
-            <th>Model 19</th>
-            <th>Model 22</th>
+    <input
+      id="inSignature"
+      type="text"
+      placeholder="Signature">
 
-          </tr>
+  </div>
 
-        </thead>
+  <!-- MODEL 19 -->
 
-        <tbody id="detailsTable">
-        </tbody>
+  <div class="form-group model-box">
 
-      </table>
+    <label>Model 19</label>
+
+    <select id="inModel19">
+
+      <option value="NONE">
+        Not Available
+      </option>
+
+      <option value="NUMBER">
+        Model 19 Available
+      </option>
+
+      <option value="VERBAL">
+        Verbal
+      </option>
+
+    </select>
+
+    <div
+      id="inModel19NumberBox"
+      class="model-number">
+
+      <input
+        id="inModel19Number"
+        type="text"
+        placeholder="Model 19 Number">
 
     </div>
 
@@ -920,7 +559,298 @@ tr:nth-child(even){
 
 </div>
 
-<script>
+<div class="submit-row">
+
+  <button
+    id="saveInButton"
+    type="button"
+    class="save-btn save-in"
+    onclick="saveStock('IN')">
+    💾 Save Stock IN
+  </button>
+
+  <button
+    type="button"
+    class="save-btn cancel"
+    onclick="closeForms()">
+    Cancel
+  </button>
+
+</div>
+
+  </div>  <!-- ================= STOCK OUT ================= -->  <div
+    id="outForm"
+    class="form-card"><div class="form-title out">
+  🔴 STOCK OUT — Issuing Stock
+</div>
+
+<div class="form-grid">
+
+  <div class="form-group">
+
+    <label>Item</label>
+
+    <select id="outItem">
+
+      <option value="">
+        -- Select Item --
+      </option>
+
+    </select>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Unit</label>
+
+    <input
+      id="outUnit"
+      class="readonly"
+      readonly>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Quantity</label>
+
+    <input
+      id="outQuantity"
+      type="number"
+      min="0.01"
+      step="any"
+      placeholder="Quantity">
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Date and Time Issued</label>
+
+    <input
+      id="outDate"
+      type="datetime-local">
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Issued By</label>
+
+    <input
+      id="outIssuedBy"
+      type="text"
+      placeholder="Name of person who issued the stock">
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Signature</label>
+
+    <input
+      id="outSignature"
+      type="text"
+      placeholder="Signature">
+
+  </div>
+
+  <!-- MODEL 22 -->
+
+  <div class="form-group model-box">
+
+    <label>Model 22</label>
+
+    <select id="outModel22">
+
+      <option value="NONE">
+        Not Available
+      </option>
+
+      <option value="NUMBER">
+        Model 22 Available
+      </option>
+
+      <option value="VERBAL">
+        Verbal
+      </option>
+
+    </select>
+
+    <div
+      id="outModel22NumberBox"
+      class="model-number">
+
+      <input
+        id="outModel22Number"
+        type="text"
+        placeholder="Model 22 Number">
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="submit-row">
+
+  <button
+    id="saveOutButton"
+    type="button"
+    class="save-btn save-out"
+    onclick="saveStock('OUT')">
+    💾 Save Stock OUT
+  </button>
+
+  <button
+    type="button"
+    class="save-btn cancel"
+    onclick="closeForms()">
+    Cancel
+  </button>
+
+</div>
+
+  </div>  <!-- ================= SUMMARY ================= -->  <div class="summary-grid"><div class="summary-card">
+
+  <span>Total Items</span>
+
+  <strong id="totalItems">
+    0
+  </strong>
+
+</div>
+
+<div class="summary-card">
+
+  <span>Total Stock IN</span>
+
+  <strong id="totalIn">
+    0
+  </strong>
+
+</div>
+
+<div class="summary-card">
+
+  <span>Total Stock OUT</span>
+
+  <strong id="totalOut">
+    0
+  </strong>
+
+</div>
+
+<div class="summary-card">
+
+  <span>Current Balance</span>
+
+  <strong id="totalBalance">
+    0
+  </strong>
+
+</div>
+
+  </div>  <!-- ================= REPORT ================= -->  <div class="report-card"><div class="report-title">
+
+  📊 Stock Report —
+  <span id="reportBranch">
+    Branch
+  </span>
+
+</div>
+
+<div style="overflow-x:auto;">
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>No</th>
+        <th>Item</th>
+        <th>Unit</th>
+        <th>Stock IN</th>
+        <th>Stock OUT</th>
+        <th>Balance</th>
+        <th>Details</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody id="reportTable">
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="text-align:center;padding:25px">
+
+          Loading...
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+  </div>  <!-- ================= DETAILS ================= -->  <div
+    id="detailsCard"
+    class="details-card"><div class="details-header">
+
+  <div
+    id="detailsTitle"
+    class="details-title">
+  </div>
+
+  <button
+    type="button"
+    class="close-btn"
+    onclick="closeDetails()">
+    ✖ Close
+  </button>
+
+</div>
+
+<div style="overflow-x:auto;">
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th>No</th>
+        <th>Transaction</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th>Date and Time</th>
+        <th>Entered By</th>
+        <th>Issued By</th>
+        <th>Expiry Date</th>
+        <th>Signature</th>
+        <th>Model 19</th>
+        <th>Model 22</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody id="detailsTable">
+    </tbody>
+
+  </table>
+
+</div>
+
+  </div></div><script>
 
 /* =========================================================
    SUPABASE
@@ -1954,6 +1884,7 @@ async function saveStock(type){
 
     const balance =
       getItemBalance(
+        item.id,
         item.name
       );
 
@@ -1961,7 +1892,7 @@ async function saveStock(type){
 
       showMessage(
         "Insufficient stock. Current balance: " +
-        balance,
+        formatNumber(balance),
         "error"
       );
 
@@ -1984,6 +1915,15 @@ async function saveStock(type){
 
     branch_id:
       CURRENT_BRANCH_UUID,
+
+    /*
+      IMPORTANT:
+      Save the exact item ID with every
+      new transaction.
+    */
+
+    item_id:
+      item.id,
 
     transaction_type:
       type,
@@ -2190,9 +2130,13 @@ function clearForm(type){
 
 /* =========================================================
    GET ITEM BALANCE
+   FIXED:
+   - New transactions use item_id
+   - Old transactions without item_id
+     are matched by item name
 ========================================================= */
 
-function getItemBalance(itemName){
+function getItemBalance(itemId,itemName){
 
   const target =
     String(itemName || "")
@@ -2205,14 +2149,44 @@ function getItemBalance(itemName){
   allTransactions.forEach(
     function(row){
 
-      const name =
-        String(
-          row.transaction || ""
-        )
-        .trim()
-        .toLowerCase();
+      let sameItem = false;
 
-      if(name !== target)
+      /*
+        First use item_id when available.
+      */
+
+      if(
+        row.item_id !== null &&
+        row.item_id !== undefined &&
+        String(row.item_id) !== ""
+      ){
+
+        sameItem =
+          String(row.item_id) ===
+          String(itemId);
+
+      }
+      else{
+
+        /*
+          OLD RECORDS:
+          If item_id is empty, use the
+          existing transaction name.
+        */
+
+        const name =
+          String(
+            row.transaction || ""
+          )
+          .trim()
+          .toLowerCase();
+
+        sameItem =
+          name === target;
+
+      }
+
+      if(!sameItem)
         return;
 
       const qty =
@@ -2223,14 +2197,22 @@ function getItemBalance(itemName){
       const type =
         String(
           row.transaction_type || ""
-        ).toUpperCase();
+        )
+        .trim()
+        .toUpperCase();
 
-      if(type === "IN"){
+      if(
+        type === "IN" ||
+        type === "STOCK IN"
+      ){
 
         totalIn += qty;
 
       }
-      else if(type === "OUT"){
+      else if(
+        type === "OUT" ||
+        type === "STOCK OUT"
+      ){
 
         totalOut += qty;
 
@@ -2271,74 +2253,120 @@ function renderReport(){
 
   const grouped = {};
 
+  /*
+    First create rows from current branch items.
+  */
+
   items.forEach(
     function(item){
 
       const key =
-        String(item.name || "")
-          .trim()
-          .toLowerCase();
+        String(item.id);
 
-      if(!key)
-        return;
+      grouped[key] = {
 
-      if(!grouped[key]){
+        id:item.id,
 
-        grouped[key] = {
+        name:item.name,
 
-          name:item.name,
+        unit:item.unit || "",
 
-          unit:item.unit || "",
+        category:
+          getEnglishCategory(
+            item.category
+          ),
 
-          category:
-            getEnglishCategory(
-              item.category
-            ),
+        in:0,
 
-          in:0,
+        out:0
 
-          out:0
-
-        };
-
-      }
+      };
 
     }
   );
 
+  /*
+    Add transactions.
+    New transactions are matched by item_id.
+    Old transactions without item_id are
+    matched by transaction name.
+  */
+
   allTransactions.forEach(
     function(row){
 
-      const key =
-        String(
-          row.transaction || ""
-        )
-        .trim()
-        .toLowerCase();
+      let groupKey = null;
 
-      if(!key)
-        return;
+      /*
+        NEW RECORD
+      */
 
-      if(!grouped[key]){
+      if(
+        row.item_id !== null &&
+        row.item_id !== undefined &&
+        String(row.item_id) !== ""
+      ){
 
-        grouped[key] = {
+        const possibleKey =
+          String(row.item_id);
 
-          name:row.transaction,
+        if(grouped[possibleKey]){
 
-          unit:row.unit || "",
+          groupKey =
+            possibleKey;
 
-          category:
-            getEnglishCategory(
-              row.category
-            ),
-
-          in:0,
-
-          out:0
-
-        };
+        }
 
       }
+
+      /*
+        OLD RECORD:
+        item_id may be NULL.
+        Match using item name.
+      */
+
+      if(!groupKey){
+
+        const transactionName =
+          String(
+            row.transaction || ""
+          )
+          .trim()
+          .toLowerCase();
+
+        const matchingItem =
+          items.find(
+            function(item){
+
+              return String(
+                item.name || ""
+              )
+              .trim()
+              .toLowerCase()
+              === transactionName;
+
+            }
+          );
+
+        if(matchingItem){
+
+          groupKey =
+            String(
+              matchingItem.id
+            );
+
+        }
+
+      }
+
+      /*
+        If the transaction cannot be matched
+        to a current item, do not alter the
+        current item report.
+      */
+
+      if(!groupKey)
+        return;
 
       const qty =
         Number(
@@ -2349,16 +2377,23 @@ function renderReport(){
         String(
           row.transaction_type || ""
         )
+        .trim()
         .toUpperCase();
 
-      if(type === "IN"){
+      if(
+        type === "IN" ||
+        type === "STOCK IN"
+      ){
 
-        grouped[key].in += qty;
+        grouped[groupKey].in += qty;
 
       }
-      else if(type === "OUT"){
+      else if(
+        type === "OUT" ||
+        type === "STOCK OUT"
+      ){
 
-        grouped[key].out += qty;
+        grouped[groupKey].out += qty;
 
       }
 
@@ -2373,9 +2408,9 @@ function renderReport(){
   rows.sort(
     function(a,b){
 
-      return a.name
+      return String(a.name || "")
         .localeCompare(
-          b.name
+          String(b.name || "")
         );
 
     }
@@ -2486,7 +2521,8 @@ function renderReport(){
         function(){
 
           showDetails(
-            row.name
+            row.name,
+            row.id
           );
 
         }
@@ -2517,7 +2553,7 @@ function renderReport(){
    SHOW DETAILS
 ========================================================= */
 
-async function showDetails(itemName){
+async function showDetails(itemName,itemId){
 
   const card =
     document.getElementById(
@@ -2574,74 +2610,62 @@ async function showDetails(itemName){
 
     }
 
-    const transactionName =
+    /*
+      Use already loaded transactions.
+      This also allows OLD records with
+      NULL item_id to appear.
+    */
+
+    const target =
       String(
         itemName || ""
-      ).trim();
-
-    const url =
-      SUPABASE_URL +
-      "/rest/v1/stock_transactions" +
-      "?select=*" +
-      "&branch_id=eq." +
-      encodeURIComponent(
-        CURRENT_BRANCH_UUID
-      ) +
-      "&transaction=eq." +
-      encodeURIComponent(
-        transactionName
-      ) +
-      "&order=id.desc";
-
-    const response =
-      await fetch(
-        url,
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
-
-    if(!response.ok){
-
-      const errorText =
-        await response.text();
-
-      throw new Error(
-        "Details loading error: " +
-        errorText
-      );
-
-    }
+      )
+      .trim()
+      .toLowerCase();
 
     let rows =
-      await response.json();
+      (allTransactions || [])
+        .filter(
+          function(row){
 
-    if(
-      !Array.isArray(rows) ||
-      rows.length === 0
-    ){
-
-      const target =
-        transactionName
-          .toLowerCase();
-
-      rows =
-        (allTransactions || [])
-          .filter(
-            function(row){
+            if(
+              row.item_id !== null &&
+              row.item_id !== undefined &&
+              String(row.item_id) !== ""
+            ){
 
               return String(
-                row.transaction || ""
-              )
-              .trim()
-              .toLowerCase()
-              === target;
+                row.item_id
+              ) === String(itemId);
 
             }
-          );
 
-    }
+            return String(
+              row.transaction || ""
+            )
+            .trim()
+            .toLowerCase()
+            === target;
+
+          }
+        );
+
+    /*
+      Keep newest first.
+    */
+
+    rows.sort(
+      function(a,b){
+
+        return Number(
+          b.id || 0
+        ) -
+        Number(
+          a.id || 0
+        );
+
+      }
+    );
 
     tbody.innerHTML =
       "";
@@ -2958,6 +2982,11 @@ function updateSummary(){
   allTransactions.forEach(
     function(row){
 
+      /*
+        Summary remains branch-based,
+        exactly as before.
+      */
+
       const qty =
         Number(
           row.quantity || 0
@@ -2967,14 +2996,21 @@ function updateSummary(){
         String(
           row.transaction_type || ""
         )
+        .trim()
         .toUpperCase();
 
-      if(type === "IN"){
+      if(
+        type === "IN" ||
+        type === "STOCK IN"
+      ){
 
         totalIn += qty;
 
       }
-      else if(type === "OUT"){
+      else if(
+        type === "OUT" ||
+        type === "STOCK OUT"
+      ){
 
         totalOut += qty;
 
@@ -3098,7 +3134,5 @@ localStorage.removeItem(
   "access_token"
 );
 
-</script>
-
-</body>
+</script></body>
 </html>
