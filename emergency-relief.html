@@ -422,13 +422,32 @@ tr:nth-child(even){
 <div class="container">
 
   <div class="topbar">
-    <a href="dashboard.html" class="btn back">← Back to Dashboard</a>
-    <button class="btn primary" onclick="showNewHousehold()">
+
+    <a href="dashboard.html" class="btn back">
+      ← Back to Dashboard
+    </a>
+
+    <button
+      class="btn primary"
+      onclick="showNewHousehold()"
+    >
       + New Household
     </button>
-    <button class="btn blue" onclick="loadHouseholds()">
+
+    <button
+      class="btn purple"
+      onclick="showNewRelief()"
+    >
+      + Individual Relief
+    </button>
+
+    <button
+      class="btn blue"
+      onclick="loadHouseholds()"
+    >
       ↻ Refresh
     </button>
+
   </div>
 
 
@@ -487,14 +506,22 @@ tr:nth-child(even){
         oninput="filterHouseholds()"
       >
 
-      <select id="filterDisaster" onchange="filterHouseholds()">
-        <option value="">All Disaster Types</option>
+      <select
+        id="filterDisaster"
+        onchange="filterHouseholds()"
+      >
+
+        <option value="">
+          All Disaster Types
+        </option>
+
         <option value="Flood">Flood</option>
         <option value="Fire">Fire</option>
         <option value="Drought">Drought</option>
         <option value="Landslide">Landslide</option>
         <option value="Conflict">Conflict</option>
         <option value="Other">Other</option>
+
       </select>
 
       <input
@@ -517,7 +544,9 @@ tr:nth-child(even){
     <h2>Household Folders</h2>
 
     <div id="householdList">
-      <div class="loading">Loading households...</div>
+      <div class="loading">
+        Loading households...
+      </div>
     </div>
 
   </div>
@@ -527,68 +556,141 @@ tr:nth-child(even){
        NEW HOUSEHOLD FORM
   ========================== -->
 
-  <div id="householdFormCard" class="card hidden">
+  <div
+    id="householdFormCard"
+    class="card hidden"
+  >
 
     <h2>New Household</h2>
 
     <div class="grid">
 
       <div class="field">
-        <label>Household Representative / Household Name *</label>
-        <input id="householdName" type="text">
+
+        <label>
+          Household Representative / Household Name *
+        </label>
+
+        <input
+          id="householdName"
+          type="text"
+        >
+
       </div>
 
+
       <div class="field">
+
         <label>Disaster Type *</label>
+
         <select id="disasterType">
-          <option value="">Select Disaster Type</option>
+
+          <option value="">
+            Select Disaster Type
+          </option>
+
           <option value="Flood">Flood</option>
           <option value="Fire">Fire</option>
           <option value="Drought">Drought</option>
           <option value="Landslide">Landslide</option>
           <option value="Conflict">Conflict</option>
           <option value="Other">Other</option>
+
         </select>
+
       </div>
 
+
       <div class="field">
+
         <label>Disaster Date</label>
-        <input id="disasterDate" type="date">
+
+        <input
+          id="disasterDate"
+          type="date"
+        >
+
       </div>
 
+
       <div class="field">
+
         <label>City</label>
-        <input id="city" type="text">
+
+        <input
+          id="city"
+          type="text"
+        >
+
       </div>
 
+
       <div class="field">
+
         <label>Sub-City</label>
-        <input id="subCity" type="text">
+
+        <input
+          id="subCity"
+          type="text"
+        >
+
       </div>
 
+
       <div class="field">
+
         <label>Woreda</label>
-        <input id="woreda" type="text">
+
+        <input
+          id="woreda"
+          type="text"
+        >
+
       </div>
 
+
       <div class="field">
+
         <label>Specific Location</label>
-        <input id="specificLocation" type="text">
+
+        <input
+          id="specificLocation"
+          type="text"
+        >
+
       </div>
 
+
       <div class="field">
+
         <label>House Number</label>
-        <input id="houseNumber" type="text">
+
+        <input
+          id="houseNumber"
+          type="text"
+        >
+
       </div>
 
+
       <div class="field">
+
         <label>FAN Number</label>
-        <input id="fanNumber" type="text">
+
+        <input
+          id="fanNumber"
+          type="text"
+        >
+
       </div>
+
 
       <div class="field full">
+
         <label>Other Information</label>
+
         <textarea id="householdOther"></textarea>
+
       </div>
 
     </div>
@@ -646,6 +748,171 @@ tr:nth-child(even){
 
   </div>
 
+
+  <!-- =========================
+       INDIVIDUAL RELIEF FORM
+  ========================== -->
+
+  <div
+    id="reliefFormCard"
+    class="card hidden"
+  >
+
+    <h2>Individual Relief</h2>
+
+    <div class="grid">
+
+
+      <div class="field">
+
+        <label>Household *</label>
+
+        <select
+          id="reliefHousehold"
+          onchange="loadReliefMembers()"
+        >
+
+          <option value="">
+            Select Household
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Member *</label>
+
+        <select id="reliefMember">
+
+          <option value="">
+            Select Member
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Relief Date *</label>
+
+        <input
+          id="reliefDate"
+          type="datetime-local"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Entered By *</label>
+
+        <input
+          id="reliefEnteredBy"
+          type="text"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Model 22 *</label>
+
+        <select
+          id="reliefModel22"
+          onchange="toggleReliefModel22Number()"
+        >
+
+          <option value="">
+            Select Model 22
+          </option>
+
+          <option value="Hin jiru">
+            Hin jiru
+          </option>
+
+          <option value="Model 22 qaba">
+            Model 22 qaba
+          </option>
+
+          <option value="Verbal">
+            Verbal
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div
+        class="field"
+        id="reliefModel22NumberBox"
+        style="display:none;"
+      >
+
+        <label>Model 22 Number *</label>
+
+        <input
+          id="reliefModel22Number"
+          type="text"
+        >
+
+      </div>
+
+
+      <div class="field full">
+
+        <label>Notes</label>
+
+        <textarea id="reliefNotes"></textarea>
+
+      </div>
+
+    </div>
+
+
+    <h3>Relief Items</h3>
+
+    <div id="reliefItemsContainer"></div>
+
+
+    <button
+      type="button"
+      class="btn add"
+      onclick="addReliefItem()"
+    >
+      + Add Item
+    </button>
+
+
+    <div style="margin-top:20px;">
+
+      <button
+        type="button"
+        class="btn green"
+        onclick="saveRelief()"
+      >
+        Save Relief
+      </button>
+
+      <button
+        type="button"
+        class="btn red"
+        onclick="hideNewRelief()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
 
@@ -653,7 +920,10 @@ tr:nth-child(even){
      HOUSEHOLD DETAILS MODAL
 ====================================================== -->
 
-<div id="detailsModal" class="modal">
+<div
+  id="detailsModal"
+  class="modal"
+>
 
   <div class="modal-box">
 
@@ -663,7 +933,10 @@ tr:nth-child(even){
         Household Details
       </h2>
 
-      <button class="close" onclick="closeModal()">
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
         ✕
       </button>
 
@@ -688,16 +961,22 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
-
-const API = SUPABASE_URL + "/rest/v1";
+const API =
+  SUPABASE_URL + "/rest/v1";
 
 
 function headers(){
 
   return {
+
     "apikey": SUPABASE_KEY,
-    "Authorization": "Bearer " + SUPABASE_KEY,
-    "Content-Type": "application/json"
+
+    "Authorization":
+      "Bearer " + SUPABASE_KEY,
+
+    "Content-Type":
+      "application/json"
+
   };
 
 }
@@ -711,21 +990,32 @@ const isLoggedIn =
   localStorage.getItem("is_logged_in");
 
 if(isLoggedIn !== "true"){
-  window.location.href = "index.html";
+
+  window.location.href =
+    "index.html";
+
 }
 
 
 let currentBranchId =
-  localStorage.getItem("selected_branch_uuid");
+  localStorage.getItem(
+    "selected_branch_uuid"
+  );
 
 let currentBranchCode =
-  localStorage.getItem("selected_branch_code");
+  localStorage.getItem(
+    "selected_branch_code"
+  );
 
 let currentBranchName =
-  localStorage.getItem("selected_branch_name");
+  localStorage.getItem(
+    "selected_branch_name"
+  );
 
 let loginUser =
-  localStorage.getItem("login_user") || "";
+  localStorage.getItem(
+    "login_user"
+  ) || "";
 
 
 /* =========================================================
@@ -733,13 +1023,22 @@ let loginUser =
 ========================================================= */
 
 let households = [];
+
 let members = [];
+
 let reliefs = [];
+
 let reliefItems = [];
+
 let documents = [];
 
+let items = [];
+
 let memberCounter = 0;
+
 let documentCounter = 0;
+
+let reliefItemCounter = 0;
 
 
 /* =========================================================
@@ -748,17 +1047,186 @@ let documentCounter = 0;
 
 function showMessage(text,type){
 
-  const box = document.getElementById("message");
+  const box =
+    document.getElementById(
+      "message"
+    );
 
-  box.textContent = text;
+  box.textContent =
+    text;
 
-  box.className = "message " + type;
+  box.className =
+    "message " + type;
 
-  box.style.display = "block";
+  box.style.display =
+    "block";
 
   setTimeout(function(){
-    box.style.display = "none";
+
+    box.style.display =
+      "none";
+
   },5000);
+
+}
+
+
+/* =========================================================
+   LOAD ITEMS
+========================================================= */
+
+async function loadItems(){
+
+  try{
+
+    let url =
+      API +
+      "/items?select=*&order=name.asc";
+
+
+    /*
+     * Branch-specific items.
+     *
+     * If the items table uses branch_id,
+     * only current branch items are loaded.
+     */
+
+    if(currentBranchCode !== "MAIN" &&
+       currentBranchId){
+
+      url +=
+        "&branch_id=eq." +
+        encodeURIComponent(
+          currentBranchId
+        );
+
+    }
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          headers:headers()
+        }
+      );
+
+
+    if(!response.ok){
+
+      /*
+       * Some existing projects may use
+       * item_name instead of name.
+       *
+       * Retry with the common structure.
+       */
+
+      const retryUrl =
+        API +
+        "/items?select=*&order=item_name.asc" +
+        (
+          currentBranchCode !== "MAIN" &&
+          currentBranchId
+          ?
+          "&branch_id=eq." +
+          encodeURIComponent(
+            currentBranchId
+          )
+          :
+          ""
+        );
+
+
+      const retry =
+        await fetch(
+          retryUrl,
+          {
+            headers:headers()
+          }
+        );
+
+
+      if(!retry.ok){
+
+        throw new Error(
+          await response.text()
+        );
+
+      }
+
+
+      items =
+        await retry.json();
+
+    }else{
+
+      items =
+        await response.json();
+
+    }
+
+
+  }catch(error){
+
+    console.error(
+      "Item loading error:",
+      error
+    );
+
+    showMessage(
+      "Items could not be loaded: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ITEM NAME
+========================================================= */
+
+function getItemName(item){
+
+  return (
+    item.item_name ||
+    item.name ||
+    item.item ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   ITEM UNIT
+========================================================= */
+
+function getItemUnit(item){
+
+  return (
+    item.unit ||
+    item.measurement ||
+    item.unit_name ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   ITEM CATEGORY
+========================================================= */
+
+function getItemCategory(item){
+
+  return (
+    item.category ||
+    item.category_name ||
+    ""
+  );
 
 }
 
@@ -770,28 +1238,58 @@ function showMessage(text,type){
 function showNewHousehold(){
 
   document
-    .getElementById("householdFormCard")
-    .classList.remove("hidden");
+    .getElementById(
+      "householdFormCard"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
 
   document
-    .getElementById("membersContainer")
-    .innerHTML = "";
+    .getElementById(
+      "reliefFormCard"
+    )
+    .classList.add(
+      "hidden"
+    );
+
 
   document
-    .getElementById("documentsContainer")
+    .getElementById(
+      "membersContainer"
+    )
     .innerHTML = "";
+
+
+  document
+    .getElementById(
+      "documentsContainer"
+    )
+    .innerHTML = "";
+
 
   memberCounter = 0;
+
   documentCounter = 0;
 
+
   addMember();
+
   addDocument();
 
+
   window.scrollTo({
-    top:document
-      .getElementById("householdFormCard")
-      .offsetTop - 10,
+
+    top:
+      document
+        .getElementById(
+          "householdFormCard"
+        )
+        .offsetTop - 10,
+
     behavior:"smooth"
+
   });
 
 }
@@ -800,8 +1298,1162 @@ function showNewHousehold(){
 function hideNewHousehold(){
 
   document
-    .getElementById("householdFormCard")
-    .classList.add("hidden");
+    .getElementById(
+      "householdFormCard"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   NEW RELIEF
+========================================================= */
+
+async function showNewRelief(){
+
+  document
+    .getElementById(
+      "reliefFormCard"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "householdFormCard"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "reliefHousehold"
+    )
+    .innerHTML = `
+
+      <option value="">
+        Select Household
+      </option>
+
+  `;
+
+
+  households.forEach(h => {
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+    option.value =
+      h.id;
+
+    option.textContent =
+      h.household_name +
+      (
+        h.fan_number
+        ?
+        " - FAN: " +
+        h.fan_number
+        :
+        ""
+      );
+
+    document
+      .getElementById(
+        "reliefHousehold"
+      )
+      .appendChild(
+        option
+      );
+
+  });
+
+
+  document
+    .getElementById(
+      "reliefMember"
+    )
+    .innerHTML = `
+
+      <option value="">
+        Select Member
+      </option>
+
+  `;
+
+
+  document
+    .getElementById(
+      "reliefItemsContainer"
+    )
+    .innerHTML = "";
+
+
+  reliefItemCounter = 0;
+
+
+  addReliefItem();
+
+
+  document
+    .getElementById(
+      "reliefEnteredBy"
+    )
+    .value =
+    loginUser || "";
+
+
+  const now =
+    new Date();
+
+
+  const localDateTime =
+    new Date(
+      now.getTime() -
+      now.getTimezoneOffset() * 60000
+    )
+    .toISOString()
+    .slice(0,16);
+
+
+  document
+    .getElementById(
+      "reliefDate"
+    )
+    .value =
+    localDateTime;
+
+
+  window.scrollTo({
+
+    top:
+      document
+        .getElementById(
+          "reliefFormCard"
+        )
+        .offsetTop - 10,
+
+    behavior:"smooth"
+
+  });
+
+
+  if(items.length === 0){
+
+    await loadItems();
+
+  }
+
+}
+
+
+function hideNewRelief(){
+
+  document
+    .getElementById(
+      "reliefFormCard"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD RELIEF MEMBERS
+========================================================= */
+
+async function loadReliefMembers(){
+
+  const householdId =
+    document
+      .getElementById(
+        "reliefHousehold"
+      )
+      .value;
+
+
+  const select =
+    document
+      .getElementById(
+        "reliefMember"
+      );
+
+
+  select.innerHTML = `
+
+    <option value="">
+      Loading members...
+    </option>
+
+  `;
+
+
+  if(!householdId){
+
+    select.innerHTML = `
+
+      <option value="">
+        Select Member
+      </option>
+
+    `;
+
+    return;
+
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+
+        API +
+        "/emergency_members" +
+        "?household_id=eq." +
+        encodeURIComponent(
+          householdId
+        ) +
+        "&order=created_at.asc",
+
+        {
+          headers:headers()
+        }
+
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    members =
+      data;
+
+
+    select.innerHTML = `
+
+      <option value="">
+        Select Member
+      </option>
+
+    `;
+
+
+    data.forEach(member => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        member.id;
+
+      option.textContent =
+        member.full_name;
+
+      select.appendChild(
+        option
+      );
+
+    });
+
+
+    if(data.length === 0){
+
+      select.innerHTML = `
+
+        <option value="">
+          No members found
+        </option>
+
+      `;
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    select.innerHTML = `
+
+      <option value="">
+        Could not load members
+      </option>
+
+    `;
+
+    showMessage(
+      "Members could not be loaded: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ADD RELIEF ITEM
+========================================================= */
+
+function addReliefItem(){
+
+  reliefItemCounter++;
+
+  const id =
+    reliefItemCounter;
+
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.className =
+    "relief-row";
+
+
+  div.id =
+    "relief_item_" + id;
+
+
+  div.innerHTML = `
+
+    <div class="row-title">
+
+      <strong>
+        Relief Item ${id}
+      </strong>
+
+      <button
+        type="button"
+        class="small-btn remove"
+        onclick="removeElement('relief_item_${id}')"
+      >
+        Remove
+      </button>
+
+    </div>
+
+
+    <div class="grid">
+
+
+      <div class="field">
+
+        <label>
+          Item *
+        </label>
+
+        <select
+          class="relief-item-select"
+          onchange="setReliefItemUnit(this)"
+        >
+
+          <option value="">
+            Select Item
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Unit
+        </label>
+
+        <input
+          class="relief-item-unit"
+          type="text"
+          readonly
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Quantity *
+        </label>
+
+        <input
+          class="relief-item-quantity"
+          type="number"
+          min="0.01"
+          step="0.01"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Category
+        </label>
+
+        <input
+          class="relief-item-category"
+          type="text"
+          readonly
+        >
+
+      </div>
+
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById(
+      "reliefItemsContainer"
+    )
+    .appendChild(
+      div
+    );
+
+
+  populateReliefItemSelect(
+    div.querySelector(
+      ".relief-item-select"
+    )
+  );
+
+}
+
+
+/* =========================================================
+   POPULATE ITEM SELECT
+========================================================= */
+
+function populateReliefItemSelect(
+  select
+){
+
+  select.innerHTML = `
+
+    <option value="">
+      Select Item
+    </option>
+
+  `;
+
+
+  items.forEach(item => {
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+
+    option.value =
+      item.id;
+
+
+    option.textContent =
+      getItemName(item);
+
+
+    option.dataset.unit =
+      getItemUnit(item);
+
+
+    option.dataset.category =
+      getItemCategory(item);
+
+
+    select.appendChild(
+      option
+    );
+
+  });
+
+
+  if(items.length === 0){
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+    option.value = "";
+
+    option.textContent =
+      "No items found";
+
+    select.appendChild(
+      option
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SET ITEM UNIT
+========================================================= */
+
+function setReliefItemUnit(
+  select
+){
+
+  const row =
+    select.closest(
+      ".relief-row"
+    );
+
+
+  if(!row) return;
+
+
+  const option =
+    select.options[
+      select.selectedIndex
+    ];
+
+
+  row.querySelector(
+    ".relief-item-unit"
+  ).value =
+    option
+    ?
+    option.dataset.unit || ""
+    :
+    "";
+
+
+  row.querySelector(
+    ".relief-item-category"
+  ).value =
+    option
+    ?
+    option.dataset.category || ""
+    :
+    "";
+
+}
+
+
+/* =========================================================
+   MODEL 22
+========================================================= */
+
+function toggleReliefModel22Number(){
+
+  const value =
+    document
+      .getElementById(
+        "reliefModel22"
+      )
+      .value;
+
+
+  const box =
+    document
+      .getElementById(
+        "reliefModel22NumberBox"
+      );
+
+
+  const input =
+    document
+      .getElementById(
+        "reliefModel22Number"
+      );
+
+
+  if(value === "Model 22 qaba"){
+
+    box.style.display =
+      "flex";
+
+    input.required =
+      true;
+
+  }else{
+
+    box.style.display =
+      "none";
+
+    input.required =
+      false;
+
+    input.value =
+      "";
+
+  }
+
+}
+
+
+/* =========================================================
+   SAVE RELIEF
+========================================================= */
+
+async function saveRelief(){
+
+  const householdId =
+    document
+      .getElementById(
+        "reliefHousehold"
+      )
+      .value;
+
+
+  const memberId =
+    document
+      .getElementById(
+        "reliefMember"
+      )
+      .value;
+
+
+  const reliefDate =
+    document
+      .getElementById(
+        "reliefDate"
+      )
+      .value;
+
+
+  const enteredBy =
+    document
+      .getElementById(
+        "reliefEnteredBy"
+      )
+      .value
+      .trim();
+
+
+  const model22 =
+    document
+      .getElementById(
+        "reliefModel22"
+      )
+      .value;
+
+
+  const model22Number =
+    document
+      .getElementById(
+        "reliefModel22Number"
+      )
+      .value
+      .trim();
+
+
+  const notes =
+    document
+      .getElementById(
+        "reliefNotes"
+      )
+      .value
+      .trim();
+
+
+  if(!householdId){
+
+    showMessage(
+      "Please select Household.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!memberId){
+
+    showMessage(
+      "Please select Member.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!reliefDate){
+
+    showMessage(
+      "Please select Relief Date.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!enteredBy){
+
+    showMessage(
+      "Entered By is required.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!model22){
+
+    showMessage(
+      "Model 22 is required.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    model22 === "Model 22 qaba" &&
+    !model22Number
+  ){
+
+    showMessage(
+      "Model 22 Number is required.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const itemRows =
+    document.querySelectorAll(
+      ".relief-row"
+    );
+
+
+  if(itemRows.length === 0){
+
+    showMessage(
+      "Please add at least one relief item.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const selectedItems = [];
+
+
+  for(const row of itemRows){
+
+    const itemId =
+      row.querySelector(
+        ".relief-item-select"
+      ).value;
+
+
+    const quantity =
+      row.querySelector(
+        ".relief-item-quantity"
+      ).value;
+
+
+    const unit =
+      row.querySelector(
+        ".relief-item-unit"
+      ).value;
+
+
+    if(!itemId){
+
+      showMessage(
+        "Please select an Item for every relief row.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if(
+      !quantity ||
+      Number(quantity) <= 0
+    ){
+
+      showMessage(
+        "Quantity must be greater than zero.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    selectedItems.push({
+
+      item_id:itemId,
+
+      quantity:Number(quantity),
+
+      unit:unit || null
+
+    });
+
+  }
+
+
+  try{
+
+    showMessage(
+      "Saving Individual Relief...",
+      "info"
+    );
+
+
+    /* =========================================
+       1. SAVE RELIEF
+    ========================================== */
+
+    const reliefData = {
+
+      household_id:
+        householdId,
+
+      member_id:
+        memberId,
+
+      relief_date:
+        new Date(reliefDate).toISOString(),
+
+      entered_by:
+        enteredBy,
+
+      model_22:
+        model22,
+
+      model_22_number:
+        model22Number || null,
+
+      notes:
+        notes || null
+
+    };
+
+
+    const reliefResponse =
+      await fetch(
+
+        API +
+        "/emergency_reliefs",
+
+        {
+
+          method:"POST",
+
+          headers:{
+            ...headers(),
+            "Prefer":
+              "return=representation"
+          },
+
+          body:
+            JSON.stringify(
+              reliefData
+            )
+
+        }
+
+      );
+
+
+    if(!reliefResponse.ok){
+
+      throw new Error(
+        "Relief save failed: " +
+        await reliefResponse.text()
+      );
+
+    }
+
+
+    const reliefResult =
+      await reliefResponse.json();
+
+
+    const relief =
+      reliefResult[0];
+
+
+    if(!relief ||
+       !relief.id){
+
+      throw new Error(
+        "Relief ID was not returned."
+      );
+
+    }
+
+
+    /* =========================================
+       2. SAVE RELIEF ITEMS
+    ========================================== */
+
+    for(
+      const selected of selectedItems
+    ){
+
+      const item =
+        items.find(
+          x =>
+            String(x.id) ===
+            String(
+              selected.item_id
+            )
+        );
+
+
+      const itemName =
+        item
+        ?
+        getItemName(item)
+        :
+        null;
+
+
+      const category =
+        item
+        ?
+        getItemCategory(item)
+        :
+        null;
+
+
+      const reliefItemData = {
+
+        relief_id:
+          relief.id,
+
+        item_id:
+          selected.item_id,
+
+        quantity:
+          selected.quantity,
+
+        unit:
+          selected.unit,
+
+        item_name:
+          itemName,
+
+        category:
+          category
+
+      };
+
+
+      const reliefItemResponse =
+        await fetch(
+
+          API +
+          "/emergency_relief_items",
+
+          {
+
+            method:"POST",
+
+            headers:{
+              ...headers(),
+              "Prefer":
+                "return=representation"
+            },
+
+            body:
+              JSON.stringify(
+                reliefItemData
+              )
+
+          }
+
+        );
+
+
+      if(!reliefItemResponse.ok){
+
+        throw new Error(
+          "Relief item save failed: " +
+          await reliefItemResponse.text()
+        );
+
+      }
+
+
+      /* =====================================
+         3. AUTOMATIC STOCK OUT
+      ====================================== */
+
+      const stockData = {
+
+        transaction_type:
+          "OUT",
+
+        quantity:
+          selected.quantity,
+
+        entered_by:
+          enteredBy,
+
+        entered_at:
+          new Date(
+            reliefDate
+          ).toISOString(),
+
+        expiry_date:
+          null,
+
+        category:
+          category,
+
+        issued_by:
+          enteredBy,
+
+        signature:
+          null,
+
+        unit:
+          selected.unit,
+
+        transaction:
+          "Emergency Relief",
+
+        branch_id:
+          currentBranchId,
+
+        branch_code:
+          currentBranchCode || null,
+
+        item_id:
+          selected.item_id,
+
+        relief_id:
+          relief.id,
+
+        model_22:
+          model22 ===
+          "Model 22 qaba"
+          ?
+          model22Number
+          :
+          model22,
+
+        source_type:
+          "Emergency Relief"
+
+      };
+
+
+      const stockResponse =
+        await fetch(
+
+          API +
+          "/stock_transactions",
+
+          {
+
+            method:"POST",
+
+            headers:{
+              ...headers(),
+              "Prefer":
+                "return=representation"
+            },
+
+            body:
+              JSON.stringify(
+                stockData
+              )
+
+          }
+
+        );
+
+
+      if(!stockResponse.ok){
+
+        throw new Error(
+          "Automatic Stock OUT failed: " +
+          await stockResponse.text()
+        );
+
+      }
+
+    }
+
+
+    showMessage(
+      "Individual Relief saved successfully and Stock OUT registered automatically.",
+      "success"
+    );
+
+
+    hideNewRelief();
+
+
+    await loadHouseholds();
+
+
+    openHousehold(
+      householdId
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    showMessage(
+      "Relief save failed: " +
+      error.message,
+      "error"
+    );
+
+  }
 
 }
 
@@ -814,19 +2466,31 @@ function addMember(){
 
   memberCounter++;
 
-  const id = memberCounter;
+  const id =
+    memberCounter;
 
-  const div = document.createElement("div");
 
-  div.className = "member-row";
+  const div =
+    document.createElement(
+      "div"
+    );
 
-  div.id = "member_" + id;
+
+  div.className =
+    "member-row";
+
+
+  div.id =
+    "member_" + id;
+
 
   div.innerHTML = `
 
     <div class="row-title">
 
-      <strong>Member ${id}</strong>
+      <strong>
+        Member ${id}
+      </strong>
 
       <button
         type="button"
@@ -838,18 +2502,29 @@ function addMember(){
 
     </div>
 
+
     <div class="grid">
 
+
       <div class="field">
-        <label>Full Name *</label>
+
+        <label>
+          Full Name *
+        </label>
+
         <input
           class="member-name"
           type="text"
         >
+
       </div>
 
+
       <div class="field">
-        <label>Relationship to Household Representative *</label>
+
+        <label>
+          Relationship to Household Representative *
+        </label>
 
         <select class="member-relationship">
 
@@ -868,12 +2543,19 @@ function addMember(){
 
       </div>
 
+
       <div class="field">
-        <label>Sex</label>
+
+        <label>
+          Sex
+        </label>
 
         <select class="member-sex">
 
-          <option value="">Select Sex</option>
+          <option value="">
+            Select Sex
+          </option>
+
           <option>Male</option>
           <option>Female</option>
 
@@ -881,8 +2563,12 @@ function addMember(){
 
       </div>
 
+
       <div class="field">
-        <label>Age</label>
+
+        <label>
+          Age
+        </label>
 
         <input
           class="member-age"
@@ -892,9 +2578,12 @@ function addMember(){
 
       </div>
 
+
       <div class="field full">
 
-        <label>Other Information</label>
+        <label>
+          Other Information
+        </label>
 
         <textarea
           class="member-other"
@@ -902,12 +2591,19 @@ function addMember(){
 
       </div>
 
+
     </div>
+
   `;
 
+
   document
-    .getElementById("membersContainer")
-    .appendChild(div);
+    .getElementById(
+      "membersContainer"
+    )
+    .appendChild(
+      div
+    );
 
 }
 
@@ -920,19 +2616,31 @@ function addDocument(){
 
   documentCounter++;
 
-  const id = documentCounter;
+  const id =
+    documentCounter;
 
-  const div = document.createElement("div");
 
-  div.className = "document-row";
+  const div =
+    document.createElement(
+      "div"
+    );
 
-  div.id = "document_" + id;
+
+  div.className =
+    "document-row";
+
+
+  div.id =
+    "document_" + id;
+
 
   div.innerHTML = `
 
     <div class="row-title">
 
-      <strong>Document ${id}</strong>
+      <strong>
+        Document ${id}
+      </strong>
 
       <button
         type="button"
@@ -944,10 +2652,15 @@ function addDocument(){
 
     </div>
 
+
     <div class="grid">
 
+
       <div class="field">
-        <label>Document Number</label>
+
+        <label>
+          Document Number
+        </label>
 
         <input
           class="document-number"
@@ -956,9 +2669,12 @@ function addDocument(){
 
       </div>
 
+
       <div class="field">
 
-        <label>Document Date</label>
+        <label>
+          Document Date
+        </label>
 
         <input
           class="document-date"
@@ -967,9 +2683,12 @@ function addDocument(){
 
       </div>
 
+
       <div class="field">
 
-        <label>Document Name</label>
+        <label>
+          Document Name
+        </label>
 
         <input
           class="document-name"
@@ -979,9 +2698,12 @@ function addDocument(){
 
       </div>
 
+
       <div class="field">
 
-        <label>Scanned Document / Image</label>
+        <label>
+          Scanned Document / Image
+        </label>
 
         <input
           class="document-file"
@@ -996,9 +2718,12 @@ function addDocument(){
 
       </div>
 
+
       <div class="field full">
 
-        <label>Other Information</label>
+        <label>
+          Other Information
+        </label>
 
         <textarea
           class="document-other"
@@ -1006,12 +2731,19 @@ function addDocument(){
 
       </div>
 
+
     </div>
+
   `;
 
+
   document
-    .getElementById("documentsContainer")
-    .appendChild(div);
+    .getElementById(
+      "documentsContainer"
+    )
+    .appendChild(
+      div
+    );
 
 }
 
@@ -1022,10 +2754,16 @@ function addDocument(){
 
 function removeElement(id){
 
-  const el = document.getElementById(id);
+  const el =
+    document.getElementById(
+      id
+    );
+
 
   if(el){
+
     el.remove();
+
   }
 
 }
@@ -1038,26 +2776,45 @@ function removeElement(id){
 async function saveHousehold(){
 
   const householdName =
-    document.getElementById("householdName").value.trim();
+    document
+      .getElementById(
+        "householdName"
+      )
+      .value
+      .trim();
+
 
   const disasterType =
-    document.getElementById("disasterType").value;
+    document
+      .getElementById(
+        "disasterType"
+      )
+      .value;
+
 
   if(!householdName){
+
     showMessage(
       "Household Representative / Household Name is required.",
       "error"
     );
+
     return;
+
   }
 
+
   if(!disasterType){
+
     showMessage(
       "Please select Disaster Type.",
       "error"
     );
+
     return;
+
   }
+
 
   if(!currentBranchId){
 
@@ -1067,11 +2824,15 @@ async function saveHousehold(){
     );
 
     return;
+
   }
 
 
   const memberRows =
-    document.querySelectorAll(".member-row");
+    document.querySelectorAll(
+      ".member-row"
+    );
+
 
   if(memberRows.length === 0){
 
@@ -1081,20 +2842,30 @@ async function saveHousehold(){
     );
 
     return;
+
   }
 
 
-  /* Validate members */
-
-  for(const row of memberRows){
+  for(
+    const row of memberRows
+  ){
 
     const name =
-      row.querySelector(".member-name").value.trim();
+      row.querySelector(
+        ".member-name"
+      ).value.trim();
+
 
     const relationship =
-      row.querySelector(".member-relationship").value;
+      row.querySelector(
+        ".member-relationship"
+      ).value;
 
-    if(!name || !relationship){
+
+    if(
+      !name ||
+      !relationship
+    ){
 
       showMessage(
         "Every household member needs Full Name and Relationship.",
@@ -1102,6 +2873,7 @@ async function saveHousehold(){
       );
 
       return;
+
     }
 
   }
@@ -1109,39 +2881,93 @@ async function saveHousehold(){
 
   const householdData = {
 
-    branch_id: currentBranchId,
+    branch_id:
+      currentBranchId,
 
-    branch_code: currentBranchCode || null,
+    branch_code:
+      currentBranchCode ||
+      null,
 
-    household_name: householdName,
+    household_name:
+      householdName,
 
-    disaster_type: disasterType,
+    disaster_type:
+      disasterType,
 
     disaster_date:
-      document.getElementById("disasterDate").value || null,
+      document
+        .getElementById(
+          "disasterDate"
+        )
+        .value ||
+      null,
 
     city:
-      document.getElementById("city").value.trim() || null,
+      document
+        .getElementById(
+          "city"
+        )
+        .value
+        .trim() ||
+      null,
 
     sub_city:
-      document.getElementById("subCity").value.trim() || null,
+      document
+        .getElementById(
+          "subCity"
+        )
+        .value
+        .trim() ||
+      null,
 
     woreda:
-      document.getElementById("woreda").value.trim() || null,
+      document
+        .getElementById(
+          "woreda"
+        )
+        .value
+        .trim() ||
+      null,
 
     specific_location:
-      document.getElementById("specificLocation").value.trim() || null,
+      document
+        .getElementById(
+          "specificLocation"
+        )
+        .value
+        .trim() ||
+      null,
 
     house_number:
-      document.getElementById("houseNumber").value.trim() || null,
+      document
+        .getElementById(
+          "houseNumber"
+        )
+        .value
+        .trim() ||
+      null,
 
     fan_number:
-      document.getElementById("fanNumber").value.trim() || null,
+      document
+        .getElementById(
+          "fanNumber"
+        )
+        .value
+        .trim() ||
+      null,
 
     other_information:
-      document.getElementById("householdOther").value.trim() || null,
+      document
+        .getElementById(
+          "householdOther"
+        )
+        .value
+        .trim() ||
+      null,
 
-    created_by: loginUser || null
+    created_by:
+      loginUser ||
+      null
 
   };
 
@@ -1154,171 +2980,239 @@ async function saveHousehold(){
     );
 
 
-    /* =========================
-       HOUSEHOLD
-    ========================== */
-
     const householdResponse =
       await fetch(
-        API + "/emergency_households",
+
+        API +
+        "/emergency_households",
+
         {
+
           method:"POST",
+
           headers:{
             ...headers(),
-            "Prefer":"return=representation"
+            "Prefer":
+              "return=representation"
           },
-          body:JSON.stringify(householdData)
+
+          body:
+            JSON.stringify(
+              householdData
+            )
+
         }
+
       );
 
 
     if(!householdResponse.ok){
 
-      const error =
-        await householdResponse.text();
+      throw new Error(
+        await householdResponse.text()
+      );
 
-      throw new Error(error);
     }
 
 
     const householdResult =
       await householdResponse.json();
 
+
     const household =
       householdResult[0];
 
 
-    /* =========================
-       MEMBERS
-    ========================== */
-
-    for(const row of memberRows){
+    for(
+      const row of memberRows
+    ){
 
       const memberData = {
 
-        household_id: household.id,
+        household_id:
+          household.id,
 
         full_name:
-          row.querySelector(".member-name")
-            .value.trim(),
+          row.querySelector(
+            ".member-name"
+          )
+          .value
+          .trim(),
 
         relationship:
-          row.querySelector(".member-relationship")
-            .value,
+          row.querySelector(
+            ".member-relationship"
+          )
+          .value,
 
         sex:
-          row.querySelector(".member-sex")
-            .value || null,
+          row.querySelector(
+            ".member-sex"
+          )
+          .value ||
+          null,
 
         age:
-          row.querySelector(".member-age")
-            .value
-            ?
-            Number(
-              row.querySelector(".member-age")
-                .value
+          row.querySelector(
+            ".member-age"
+          )
+          .value
+          ?
+          Number(
+            row.querySelector(
+              ".member-age"
             )
-            :
-            null,
+            .value
+          )
+          :
+          null,
 
         other_information:
-          row.querySelector(".member-other")
-            .value.trim() || null
+          row.querySelector(
+            ".member-other"
+          )
+          .value
+          .trim() ||
+          null
 
       };
 
 
       const memberResponse =
         await fetch(
-          API + "/emergency_members",
+
+          API +
+          "/emergency_members",
+
           {
+
             method:"POST",
+
             headers:{
               ...headers(),
-              "Prefer":"return=representation"
+              "Prefer":
+                "return=representation"
             },
-            body:JSON.stringify(memberData)
+
+            body:
+              JSON.stringify(
+                memberData
+              )
+
           }
+
         );
 
 
       if(!memberResponse.ok){
 
-        const error =
-          await memberResponse.text();
+        throw new Error(
+          await memberResponse.text()
+        );
 
-        throw new Error(error);
       }
 
     }
 
 
-    /* =========================
-       DOCUMENTS
-    ========================== */
-
     const documentRows =
-      document.querySelectorAll(".document-row");
+      document.querySelectorAll(
+        ".document-row"
+      );
 
 
-    for(const row of documentRows){
+    for(
+      const row of documentRows
+    ){
 
       const file =
-        row.querySelector(".document-file").files[0];
+        row.querySelector(
+          ".document-file"
+        )
+        .files[0];
 
-      /*
-       * File upload/storage will be connected
-       * in the next integration step.
-       */
 
       const documentData = {
 
-        household_id: household.id,
+        household_id:
+          household.id,
 
         document_number:
-          row.querySelector(".document-number")
-            .value.trim() || null,
+          row.querySelector(
+            ".document-number"
+          )
+          .value
+          .trim() ||
+          null,
 
         document_date:
-          row.querySelector(".document-date")
-            .value || null,
+          row.querySelector(
+            ".document-date"
+          )
+          .value ||
+          null,
 
         document_name:
-          row.querySelector(".document-name")
-            .value.trim() || null,
+          row.querySelector(
+            ".document-name"
+          )
+          .value
+          .trim() ||
+          null,
 
         file_name:
-          file ? file.name : null,
+          file
+          ?
+          file.name
+          :
+          null,
 
-        file_url:null,
+        file_url:
+          null,
 
         other_information:
-          row.querySelector(".document-other")
-            .value.trim() || null
+          row.querySelector(
+            ".document-other"
+          )
+          .value
+          .trim() ||
+          null
 
       };
 
 
       const documentResponse =
         await fetch(
-          API + "/emergency_documents",
+
+          API +
+          "/emergency_documents",
+
           {
+
             method:"POST",
+
             headers:{
               ...headers(),
-              "Prefer":"return=representation"
+              "Prefer":
+                "return=representation"
             },
-            body:JSON.stringify(documentData)
+
+            body:
+              JSON.stringify(
+                documentData
+              )
+
           }
+
         );
 
 
       if(!documentResponse.ok){
 
-        const error =
-          await documentResponse.text();
+        throw new Error(
+          await documentResponse.text()
+        );
 
-        throw new Error(error);
       }
 
     }
@@ -1332,6 +3226,7 @@ async function saveHousehold(){
 
     hideNewHousehold();
 
+
     await loadHouseholds();
 
 
@@ -1344,8 +3239,10 @@ async function saveHousehold(){
 
     console.error(error);
 
+
     showMessage(
-      "Save failed: " + error.message,
+      "Save failed: " +
+      error.message,
       "error"
     );
 
@@ -1363,7 +3260,9 @@ async function loadHouseholds(){
   try{
 
     document
-      .getElementById("householdList")
+      .getElementById(
+        "householdList"
+      )
       .innerHTML =
       '<div class="loading">Loading households...</div>';
 
@@ -1375,34 +3274,38 @@ async function loadHouseholds(){
       "&order=created_at.desc";
 
 
-    /*
-     * Branch isolation
-     */
-
-    if(currentBranchCode !== "MAIN"){
+    if(
+      currentBranchCode !==
+      "MAIN"
+    ){
 
       url +=
         "&branch_id=eq." +
-        encodeURIComponent(currentBranchId);
+        encodeURIComponent(
+          currentBranchId
+        );
 
     }
 
 
     const response =
       await fetch(
+
         url,
+
         {
           headers:headers()
         }
+
       );
 
 
     if(!response.ok){
 
-      const error =
-        await response.text();
+      throw new Error(
+        await response.text()
+      );
 
-      throw new Error(error);
     }
 
 
@@ -1412,6 +3315,7 @@ async function loadHouseholds(){
 
     await loadSummary();
 
+
     renderHouseholds();
 
 
@@ -1419,12 +3323,17 @@ async function loadHouseholds(){
 
     console.error(error);
 
+
     document
-      .getElementById("householdList")
+      .getElementById(
+        "householdList"
+      )
       .innerHTML =
       '<div class="message error" style="display:block">' +
       'Failed to load households: ' +
-      escapeHtml(error.message) +
+      escapeHtml(
+        error.message
+      ) +
       '</div>';
 
   }
@@ -1440,8 +3349,12 @@ async function loadSummary(){
 
   try{
 
-    document.getElementById("totalHouseholds")
-      .textContent = households.length;
+    document
+      .getElementById(
+        "totalHouseholds"
+      )
+      .textContent =
+      households.length;
 
 
     let memberUrl =
@@ -1459,64 +3372,110 @@ async function loadSummary(){
       "/emergency_documents?select=id,household_id";
 
 
-    if(currentBranchCode !== "MAIN"){
-
-      /*
-       * Members/reliefs/documents do not have branch_id.
-       * We use household IDs belonging to current branch.
-       */
+    if(
+      currentBranchCode !==
+      "MAIN"
+    ){
 
       const ids =
-        households
-          .map(x => x.id);
+        households.map(
+          x => x.id
+        );
+
 
       if(ids.length === 0){
 
-        document.getElementById("totalMembers")
-          .textContent = "0";
+        document
+          .getElementById(
+            "totalMembers"
+          )
+          .textContent =
+          "0";
 
-        document.getElementById("totalReliefs")
-          .textContent = "0";
 
-        document.getElementById("totalDocuments")
-          .textContent = "0";
+        document
+          .getElementById(
+            "totalReliefs"
+          )
+          .textContent =
+          "0";
+
+
+        document
+          .getElementById(
+            "totalDocuments"
+          )
+          .textContent =
+          "0";
+
 
         return;
+
       }
+
 
       const idList =
         "(" +
         ids.join(",") +
         ")";
 
+
       memberUrl +=
         "&household_id=in." +
-        encodeURIComponent(idList);
+        encodeURIComponent(
+          idList
+        );
+
 
       reliefUrl +=
         "&household_id=in." +
-        encodeURIComponent(idList);
+        encodeURIComponent(
+          idList
+        );
+
 
       documentUrl +=
         "&household_id=in." +
-        encodeURIComponent(idList);
+        encodeURIComponent(
+          idList
+        );
 
     }
 
 
     const [
+
       memberResponse,
+
       reliefResponse,
+
       documentResponse
-    ] = await Promise.all([
 
-      fetch(memberUrl,{headers:headers()}),
+    ] =
+      await Promise.all([
 
-      fetch(reliefUrl,{headers:headers()}),
+        fetch(
+          memberUrl,
+          {
+            headers:headers()
+          }
+        ),
 
-      fetch(documentUrl,{headers:headers()})
+        fetch(
+          reliefUrl,
+          {
+            headers:headers()
+          }
+        ),
 
-    ]);
+        fetch(
+          documentUrl,
+          {
+            headers:headers()
+          }
+        )
+
+      ]);
 
 
     if(memberResponse.ok){
@@ -1524,8 +3483,13 @@ async function loadSummary(){
       const data =
         await memberResponse.json();
 
-      document.getElementById("totalMembers")
-        .textContent = data.length;
+
+      document
+        .getElementById(
+          "totalMembers"
+        )
+        .textContent =
+        data.length;
 
     }
 
@@ -1535,8 +3499,13 @@ async function loadSummary(){
       const data =
         await reliefResponse.json();
 
-      document.getElementById("totalReliefs")
-        .textContent = data.length;
+
+      document
+        .getElementById(
+          "totalReliefs"
+        )
+        .textContent =
+        data.length;
 
     }
 
@@ -1546,8 +3515,13 @@ async function loadSummary(){
       const data =
         await documentResponse.json();
 
-      document.getElementById("totalDocuments")
-        .textContent = data.length;
+
+      document
+        .getElementById(
+          "totalDocuments"
+        )
+        .textContent =
+        data.length;
 
     }
 
@@ -1570,9 +3544,14 @@ async function loadSummary(){
 function renderHouseholds(){
 
   const list =
-    document.getElementById("householdList");
+    document.getElementById(
+      "householdList"
+    );
 
-  if(households.length === 0){
+
+  if(
+    households.length === 0
+  ){
 
     list.innerHTML =
       '<div class="loading">' +
@@ -1580,78 +3559,104 @@ function renderHouseholds(){
       '</div>';
 
     return;
+
   }
 
 
-  list.innerHTML = "";
+  list.innerHTML =
+    "";
 
 
-  households.forEach(household => {
+  households.forEach(
+    household => {
 
-    const folder =
-      document.createElement("div");
+      const folder =
+        document.createElement(
+          "div"
+        );
 
-    folder.className = "folder";
 
-    folder.onclick = function(){
+      folder.className =
+        "folder";
 
-      openHousehold(
-        household.id
+
+      folder.onclick =
+        function(){
+
+          openHousehold(
+            household.id
+          );
+
+        };
+
+
+      folder.innerHTML = `
+
+        <div class="folder-title">
+          📁
+          ${escapeHtml(
+            household.household_name
+          )}
+        </div>
+
+        <div class="folder-meta">
+
+          <span class="badge">
+            ${escapeHtml(
+              household.disaster_type ||
+              "Unknown"
+            )}
+          </span>
+
+          ${
+            household.disaster_date
+            ?
+            `<span class="badge">
+              ${escapeHtml(
+                household.disaster_date
+              )}
+            </span>`
+            :
+            ""
+          }
+
+          ${
+            household.fan_number
+            ?
+            `<span class="badge">
+              FAN:
+              ${escapeHtml(
+                household.fan_number
+              )}
+            </span>`
+            :
+            ""
+          }
+
+          ${
+            household.woreda
+            ?
+            `<span class="badge">
+              Woreda:
+              ${escapeHtml(
+                household.woreda
+              )}
+            </span>`
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+
+      list.appendChild(
+        folder
       );
 
-    };
-
-
-    folder.innerHTML = `
-
-      <div class="folder-title">
-        📁 ${escapeHtml(household.household_name)}
-      </div>
-
-      <div class="folder-meta">
-
-        <span class="badge">
-          ${escapeHtml(household.disaster_type || "Unknown")}
-        </span>
-
-        ${
-          household.disaster_date
-          ?
-          `<span class="badge">
-             ${escapeHtml(household.disaster_date)}
-           </span>`
-          :
-          ""
-        }
-
-        ${
-          household.fan_number
-          ?
-          `<span class="badge">
-             FAN: ${escapeHtml(household.fan_number)}
-           </span>`
-          :
-          ""
-        }
-
-        ${
-          household.woreda
-          ?
-          `<span class="badge">
-             Woreda: ${escapeHtml(household.woreda)}
-           </span>`
-          :
-          ""
-        }
-
-      </div>
-
-    `;
-
-
-    list.appendChild(folder);
-
-  });
+    }
+  );
 
 }
 
@@ -1663,63 +3668,89 @@ function renderHouseholds(){
 function filterHouseholds(){
 
   const text =
-    document.getElementById("searchText")
+    document
+      .getElementById(
+        "searchText"
+      )
       .value
       .toLowerCase()
       .trim();
 
+
   const disaster =
-    document.getElementById("filterDisaster")
+    document
+      .getElementById(
+        "filterDisaster"
+      )
       .value;
 
+
   const date =
-    document.getElementById("filterDate")
+    document
+      .getElementById(
+        "filterDate"
+      )
       .value;
 
 
   const filtered =
-    households.filter(h => {
+    households.filter(
+      h => {
 
-      const matchesText =
+        const matchesText =
 
-        !text ||
+          !text ||
 
-        (h.household_name || "")
+          (
+            h.household_name ||
+            ""
+          )
           .toLowerCase()
           .includes(text) ||
 
-        (h.fan_number || "")
+          (
+            h.fan_number ||
+            ""
+          )
           .toLowerCase()
           .includes(text);
 
 
-      const matchesDisaster =
-        !disaster ||
-        h.disaster_type === disaster;
+        const matchesDisaster =
+          !disaster ||
+          h.disaster_type ===
+          disaster;
 
 
-      const matchesDate =
-        !date ||
-        h.disaster_date === date;
+        const matchesDate =
+          !date ||
+          h.disaster_date ===
+          date;
 
 
-      return (
-        matchesText &&
-        matchesDisaster &&
-        matchesDate
-      );
+        return(
+          matchesText &&
+          matchesDisaster &&
+          matchesDate
+        );
 
-    });
+      }
+    );
 
 
   const original =
     households;
 
-  households = filtered;
+
+  households =
+    filtered;
+
 
   renderHouseholds();
 
-  households = original;
+
+  households =
+    original;
 
 }
 
@@ -1734,37 +3765,42 @@ async function openHousehold(id){
 
     const household =
       households.find(
-        h => h.id === id
+        h =>
+          h.id === id
       );
 
 
     if(!household){
 
-      /*
-       * If called after filtering,
-       * fetch directly.
-       */
-
       const response =
         await fetch(
+
           API +
           "/emergency_households?id=eq." +
           encodeURIComponent(id),
+
           {
             headers:headers()
           }
+
         );
+
 
       const data =
         await response.json();
 
-      if(!data.length) return;
+
+      if(!data.length)
+        return;
+
 
       await renderHouseholdDetails(
         data[0]
       );
 
+
       return;
+
     }
 
 
@@ -1776,6 +3812,7 @@ async function openHousehold(id){
   }catch(error){
 
     console.error(error);
+
 
     showMessage(
       "Could not open household: " +
@@ -1797,74 +3834,88 @@ async function renderHouseholdDetails(
 ){
 
   const modal =
-    document.getElementById("detailsModal");
+    document.getElementById(
+      "detailsModal"
+    );
+
 
   const content =
-    document.getElementById("modalContent");
+    document.getElementById(
+      "modalContent"
+    );
+
 
   document.getElementById(
     "modalHouseholdName"
-  ).textContent =
+  )
+  .textContent =
     "📁 " +
     household.household_name;
 
 
-  modal.style.display = "flex";
+  modal.style.display =
+    "flex";
+
 
   content.innerHTML =
-    '<div class="loading">Loading household details...</div>';
+    '<div class="loading">' +
+    'Loading household details...' +
+    '</div>';
 
 
   try{
 
     const memberResponse =
       await fetch(
+
         API +
         "/emergency_members" +
         "?household_id=eq." +
-        encodeURIComponent(household.id) +
+        encodeURIComponent(
+          household.id
+        ) +
         "&order=created_at.asc",
+
         {
           headers:headers()
         }
+
       );
 
 
     const reliefResponse =
       await fetch(
+
         API +
         "/emergency_reliefs" +
         "?household_id=eq." +
-        encodeURIComponent(household.id) +
+        encodeURIComponent(
+          household.id
+        ) +
         "&order=created_at.asc",
+
         {
           headers:headers()
         }
-      );
 
-
-    const itemResponse =
-      await fetch(
-        API +
-        "/emergency_relief_items" +
-        "?relief_id=in.(" +
-        ")" ,
-        {
-          headers:headers()
-        }
       );
 
 
     const documentResponse =
       await fetch(
+
         API +
         "/emergency_documents" +
         "?household_id=eq." +
-        encodeURIComponent(household.id) +
+        encodeURIComponent(
+          household.id
+        ) +
         "&order=created_at.asc",
+
         {
           headers:headers()
         }
+
       );
 
 
@@ -1892,7 +3943,8 @@ async function renderHouseholdDetails(
       [];
 
 
-    let html = "";
+    let html =
+      "";
 
 
     /* HOUSEHOLD */
@@ -1901,56 +3953,107 @@ async function renderHouseholdDetails(
 
       <div class="detail-box">
 
-        <h3>Household Information</h3>
+        <h3>
+          Household Information
+        </h3>
 
         <p>
-          <strong>Household Representative:</strong>
-          ${escapeHtml(household.household_name)}
+          <strong>
+            Household Representative:
+          </strong>
+          ${escapeHtml(
+            household.household_name
+          )}
         </p>
 
         <p>
-          <strong>Disaster Type:</strong>
-          ${escapeHtml(household.disaster_type || "-")}
+          <strong>
+            Disaster Type:
+          </strong>
+          ${escapeHtml(
+            household.disaster_type ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>Disaster Date:</strong>
-          ${escapeHtml(household.disaster_date || "-")}
+          <strong>
+            Disaster Date:
+          </strong>
+          ${escapeHtml(
+            household.disaster_date ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>City:</strong>
-          ${escapeHtml(household.city || "-")}
+          <strong>
+            City:
+          </strong>
+          ${escapeHtml(
+            household.city ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>Sub-City:</strong>
-          ${escapeHtml(household.sub_city || "-")}
+          <strong>
+            Sub-City:
+          </strong>
+          ${escapeHtml(
+            household.sub_city ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>Woreda:</strong>
-          ${escapeHtml(household.woreda || "-")}
+          <strong>
+            Woreda:
+          </strong>
+          ${escapeHtml(
+            household.woreda ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>Specific Location:</strong>
-          ${escapeHtml(household.specific_location || "-")}
+          <strong>
+            Specific Location:
+          </strong>
+          ${escapeHtml(
+            household.specific_location ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>House Number:</strong>
-          ${escapeHtml(household.house_number || "-")}
+          <strong>
+            House Number:
+          </strong>
+          ${escapeHtml(
+            household.house_number ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>FAN Number:</strong>
-          ${escapeHtml(household.fan_number || "-")}
+          <strong>
+            FAN Number:
+          </strong>
+          ${escapeHtml(
+            household.fan_number ||
+            "-"
+          )}
         </p>
 
         <p>
-          <strong>Other Information:</strong>
-          ${escapeHtml(household.other_information || "-")}
+          <strong>
+            Other Information:
+          </strong>
+          ${escapeHtml(
+            household.other_information ||
+            "-"
+          )}
         </p>
 
       </div>
@@ -1972,9 +4075,12 @@ async function renderHouseholdDetails(
     `;
 
 
-    if(memberData.length === 0){
+    if(
+      memberData.length === 0
+    ){
 
-      html += "<p>No members found.</p>";
+      html +=
+        "<p>No members found.</p>";
 
     }else{
 
@@ -1987,11 +4093,21 @@ async function renderHouseholdDetails(
           <thead>
 
             <tr>
+
               <th>Full Name</th>
-              <th>Relationship</th>
+
+              <th>
+                Relationship
+              </th>
+
               <th>Sex</th>
+
               <th>Age</th>
-              <th>Other Information</th>
+
+              <th>
+                Other Information
+              </th>
+
             </tr>
 
           </thead>
@@ -2001,49 +4117,67 @@ async function renderHouseholdDetails(
       `;
 
 
-      memberData.forEach(member => {
+      memberData.forEach(
+        member => {
 
-        html += `
+          html += `
 
-          <tr>
+            <tr>
 
-            <td>
-              ${escapeHtml(member.full_name)}
-            </td>
+              <td>
+                ${escapeHtml(
+                  member.full_name
+                )}
+              </td>
 
-            <td>
-              ${escapeHtml(member.relationship || "-")}
-            </td>
+              <td>
+                ${escapeHtml(
+                  member.relationship ||
+                  "-"
+                )}
+              </td>
 
-            <td>
-              ${escapeHtml(member.sex || "-")}
-            </td>
+              <td>
+                ${escapeHtml(
+                  member.sex ||
+                  "-"
+                )}
+              </td>
 
-            <td>
-              ${member.age ?? "-"}
-            </td>
+              <td>
+                ${member.age ?? "-"}
+              </td>
 
-            <td>
-              ${escapeHtml(member.other_information || "-")}
-            </td>
+              <td>
+                ${escapeHtml(
+                  member.other_information ||
+                  "-"
+                )}
+              </td>
 
-          </tr>
+            </tr>
 
-        `;
+          `;
 
-      });
+        }
+      );
 
 
       html += `
+
           </tbody>
+
         </table>
+
         </div>
+
       `;
 
     }
 
 
-    html += "</div>";
+    html +=
+      "</div>";
 
 
     /* RELIEF */
@@ -2059,39 +4193,51 @@ async function renderHouseholdDetails(
     `;
 
 
-    if(reliefData.length === 0){
+    if(
+      reliefData.length === 0
+    ){
 
       html +=
         "<p>No relief records found.</p>";
 
     }else{
 
-      for(const relief of reliefData){
+      for(
+        const relief of reliefData
+      ){
 
         const member =
           memberData.find(
-            m => m.id === relief.member_id
+            m =>
+              m.id ===
+              relief.member_id
           );
 
 
-        let items = [];
+        let itemsForRelief =
+          [];
 
 
         const itemResponse =
           await fetch(
+
             API +
             "/emergency_relief_items" +
             "?relief_id=eq." +
-            encodeURIComponent(relief.id),
+            encodeURIComponent(
+              relief.id
+            ),
+
             {
               headers:headers()
             }
+
           );
 
 
         if(itemResponse.ok){
 
-          items =
+          itemsForRelief =
             await itemResponse.json();
 
         }
@@ -2104,6 +4250,7 @@ async function renderHouseholdDetails(
             <div class="row-title">
 
               <strong>
+
                 ${
                   escapeHtml(
                     member
@@ -2113,32 +4260,56 @@ async function renderHouseholdDetails(
                     "Unknown Member"
                   )
                 }
+
               </strong>
 
               <span class="badge">
+
                 ${
                   escapeHtml(
-                    relief.relief_date || "-"
+                    relief.relief_date ||
+                    "-"
                   )
                 }
+
               </span>
 
             </div>
 
-            <p>
-              <strong>Model 22:</strong>
-              ${escapeHtml(relief.model_22 || "-")}
-            </p>
 
             <p>
-              <strong>Model 22 Number:</strong>
-              ${escapeHtml(relief.model_22_number || "-")}
+
+              <strong>
+                Model 22:
+              </strong>
+
+              ${escapeHtml(
+                relief.model_22 ||
+                "-"
+              )}
+
+            </p>
+
+
+            <p>
+
+              <strong>
+                Model 22 Number:
+              </strong>
+
+              ${escapeHtml(
+                relief.model_22_number ||
+                "-"
+              )}
+
             </p>
 
         `;
 
 
-        if(items.length){
+        if(
+          itemsForRelief.length
+        ){
 
           html += `
 
@@ -2149,10 +4320,21 @@ async function renderHouseholdDetails(
                 <thead>
 
                   <tr>
+
                     <th>Item</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                    <th>Unit</th>
+
+                    <th>
+                      Category
+                    </th>
+
+                    <th>
+                      Quantity
+                    </th>
+
+                    <th>
+                      Unit
+                    </th>
+
                   </tr>
 
                 </thead>
@@ -2162,40 +4344,65 @@ async function renderHouseholdDetails(
           `;
 
 
-          items.forEach(item => {
+          itemsForRelief.forEach(
+            item => {
 
-            html += `
+              html += `
 
-              <tr>
+                <tr>
 
-                <td>
-                  ${escapeHtml(item.item_name)}
-                </td>
+                  <td>
+                    ${escapeHtml(
+                      item.item_name ||
+                      getItemName(
+                        items.find(
+                          x =>
+                            String(x.id) ===
+                            String(
+                              item.item_id
+                            )
+                        ) || {}
+                      ) ||
+                      "-"
+                    )}
+                  </td>
 
-                <td>
-                  ${escapeHtml(item.category || "-")}
-                </td>
+                  <td>
+                    ${escapeHtml(
+                      item.category ||
+                      "-"
+                    )}
+                  </td>
 
-                <td>
-                  ${escapeHtml(item.quantity)}
-                </td>
+                  <td>
+                    ${escapeHtml(
+                      item.quantity
+                    )}
+                  </td>
 
-                <td>
-                  ${escapeHtml(item.unit)}
-                </td>
+                  <td>
+                    ${escapeHtml(
+                      item.unit ||
+                      "-"
+                    )}
+                  </td>
 
-              </tr>
+                </tr>
 
-            `;
+              `;
 
-          });
+            }
+          );
 
 
           html += `
+
                 </tbody>
+
               </table>
 
             </div>
+
           `;
 
         }else{
@@ -2217,7 +4424,8 @@ async function renderHouseholdDetails(
     }
 
 
-    html += "</div>";
+    html +=
+      "</div>";
 
 
     /* DOCUMENTS */
@@ -2227,77 +4435,135 @@ async function renderHouseholdDetails(
       <div class="detail-box">
 
         <h3>
+
           Official Documents
           (${documentData.length})
+
         </h3>
 
     `;
 
 
-    if(documentData.length === 0){
+    if(
+      documentData.length === 0
+    ){
 
       html +=
         "<p>No official documents found.</p>";
 
     }else{
 
-      documentData.forEach(doc => {
+      documentData.forEach(
+        doc => {
 
-        html += `
+          html += `
 
-          <div class="member-row">
+            <div class="member-row">
 
-            <p>
-              <strong>Document:</strong>
-              ${escapeHtml(doc.document_name || "-")}
-            </p>
+              <p>
 
-            <p>
-              <strong>Document Number:</strong>
-              ${escapeHtml(doc.document_number || "-")}
-            </p>
+                <strong>
+                  Document:
+                </strong>
 
-            <p>
-              <strong>Date:</strong>
-              ${escapeHtml(doc.document_date || "-")}
-            </p>
+                ${escapeHtml(
+                  doc.document_name ||
+                  "-"
+                )}
 
-            <p>
-              <strong>File:</strong>
-              ${escapeHtml(doc.file_name || "-")}
-            </p>
+              </p>
 
-            <p>
-              <strong>Other Information:</strong>
-              ${escapeHtml(doc.other_information || "-")}
-            </p>
 
-          </div>
+              <p>
 
-        `;
+                <strong>
+                  Document Number:
+                </strong>
 
-      });
+                ${escapeHtml(
+                  doc.document_number ||
+                  "-"
+                )}
+
+              </p>
+
+
+              <p>
+
+                <strong>
+                  Date:
+                </strong>
+
+                ${escapeHtml(
+                  doc.document_date ||
+                  "-"
+                )}
+
+              </p>
+
+
+              <p>
+
+                <strong>
+                  File:
+                </strong>
+
+                ${escapeHtml(
+                  doc.file_name ||
+                  "-"
+                )}
+
+              </p>
+
+
+              <p>
+
+                <strong>
+                  Other Information:
+                </strong>
+
+                ${escapeHtml(
+                  doc.other_information ||
+                  "-"
+                )}
+
+              </p>
+
+            </div>
+
+          `;
+
+        }
+      );
 
     }
 
 
-    html += "</div>";
+    html +=
+      "</div>";
 
 
-    content.innerHTML = html;
+    content.innerHTML =
+      html;
 
 
   }catch(error){
 
     console.error(error);
 
+
     content.innerHTML = `
 
-      <div class="message error"
-           style="display:block">
+      <div
+        class="message error"
+        style="display:block"
+      >
 
         Failed to load details:
-        ${escapeHtml(error.message)}
+
+        ${escapeHtml(
+          error.message
+        )}
 
       </div>
 
@@ -2315,20 +4581,29 @@ async function renderHouseholdDetails(
 function closeModal(){
 
   document
-    .getElementById("detailsModal")
-    .style.display = "none";
+    .getElementById(
+      "detailsModal"
+    )
+    .style.display =
+    "none";
 
 }
 
 
 document
-  .getElementById("detailsModal")
+  .getElementById(
+    "detailsModal"
+  )
   .addEventListener(
     "click",
     function(e){
 
-      if(e.target === this){
+      if(
+        e.target === this
+      ){
+
         closeModal();
+
       }
 
     }
@@ -2341,19 +4616,42 @@ document
 
 function escapeHtml(value){
 
-  if(value === null ||
-     value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
 
     return "";
 
   }
 
+
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
@@ -2362,7 +4660,13 @@ function escapeHtml(value){
    INITIAL LOAD
 ========================================================= */
 
-loadHouseholds();
+(async function(){
+
+  await loadItems();
+
+  await loadHouseholds();
+
+})();
 
 </script>
 
