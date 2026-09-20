@@ -279,6 +279,15 @@ tr:nth-child(even){background:#fafafa}
   margin-top:5px;
 }
 
+.stock-info{
+  background:#efebe9;
+  border-radius:6px;
+  padding:8px 10px;
+  margin-top:7px;
+  font-size:12px;
+  color:#5d4037;
+}
+
 @media(max-width:800px){
   .grid{grid-template-columns:1fr}
   .full{grid-column:auto}
@@ -534,30 +543,6 @@ tr:nth-child(even){background:#fafafa}
       <div class="field">
         <label>Entered By *</label>
         <input id="reliefEnteredBy" type="text">
-      </div>
-
-      <div class="field">
-
-        <label>Model 22 *</label>
-
-        <select id="reliefModel22" onchange="toggleReliefModel22Number()">
-          <option value="">Select Model 22</option>
-          <option value="Hin jiru">Hin jiru</option>
-          <option value="Model 22 qaba">Model 22 qaba</option>
-          <option value="Verbal">Verbal</option>
-        </select>
-
-      </div>
-
-      <div
-        class="field"
-        id="reliefModel22NumberBox"
-        style="display:none;"
-      >
-
-        <label>Model 22 Number *</label>
-        <input id="reliefModel22Number" type="text">
-
       </div>
 
       <div class="field full">
@@ -882,6 +867,90 @@ function getItemCategory(item){
 }
 
 
+/* =========================================================
+   GET CURRENT STOCK BALANCE
+========================================================= */
+
+async function getItemStockBalance(itemId){
+
+  let url =
+    API +
+    "/stock_transactions" +
+    "?select=transaction_type,quantity,branch_id,item_id" +
+    "&item_id=eq." +
+    encodeURIComponent(itemId);
+
+  if(
+    currentBranchCode !== "MAIN"
+  ){
+
+    if(!currentBranchId){
+
+      throw new Error(
+        "Current branch UUID is missing."
+      );
+
+    }
+
+    url +=
+      "&branch_id=eq." +
+      encodeURIComponent(
+        currentBranchId
+      );
+
+  }
+
+  const response =
+    await fetch(
+      url,
+      {headers:headers()}
+    );
+
+  if(!response.ok){
+
+    throw new Error(
+      "Could not check stock balance for item: " +
+      await getResponseError(response)
+    );
+
+  }
+
+  const data =
+    await response.json();
+
+  let balance = 0;
+
+  data.forEach(transaction => {
+
+    const quantity =
+      Number(
+        transaction.quantity || 0
+      );
+
+    const type =
+      String(
+        transaction.transaction_type || ""
+      ).toUpperCase();
+
+    if(type === "IN"){
+      balance += quantity;
+    }
+
+    if(type === "OUT"){
+      balance -= quantity;
+    }
+
+  });
+
+  return balance;
+
+}
+
+
+/* =========================================================
+   SHOW NEW HOUSEHOLD
+========================================================= */
+
 function showNewHousehold(){
 
   document
@@ -925,6 +994,10 @@ function hideNewHousehold(){
 
 }
 
+
+/* =========================================================
+   SHOW NEW RELIEF
+========================================================= */
 
 async function showNewRelief(){
 
@@ -1027,6 +1100,10 @@ function hideNewRelief(){
 }
 
 
+/* =========================================================
+   LOAD RELIEF MEMBERS
+========================================================= */
+
 async function loadReliefMembers(){
 
   const householdId =
@@ -1115,6 +1192,10 @@ async function loadReliefMembers(){
 }
 
 
+/* =========================================================
+   RELIEF ITEM ROW
+========================================================= */
+
 function addReliefItem(){
 
   reliefItemCounter++;
@@ -1198,6 +1279,10 @@ function addReliefItem(){
           type="text"
           readonly
         >
+
+        <div class="stock-info">
+          Stock balance will be checked before saving.
+        </div>
 
       </div>
 
@@ -1288,39 +1373,8 @@ function setReliefItemUnit(select){
 }
 
 
-function toggleReliefModel22Number(){
-
-  const value =
-    document
-      .getElementById("reliefModel22")
-      .value;
-
-  const box =
-    document
-      .getElementById("reliefModel22NumberBox");
-
-  const input =
-    document
-      .getElementById("reliefModel22Number");
-
-  if(value === "Model 22 qaba"){
-
-    box.style.display = "flex";
-    input.required = true;
-
-  }else{
-
-    box.style.display = "none";
-    input.required = false;
-    input.value = "";
-
-  }
-
-}
-
-
 /* =========================================================
-   SAVE RELIEF - FIXED
+   SAVE RELIEF
 ========================================================= */
 
 async function saveRelief(){
@@ -1346,63 +1400,66 @@ async function saveRelief(){
       .value
       .trim();
 
-  const model22 =
-    document
-      .getElementById("reliefModel22")
-      .value;
-
-  const model22Number =
-    document
-      .getElementById("reliefModel22Number")
-      .value
-      .trim();
-
   const notes =
     document
       .getElementById("reliefNotes")
       .value
       .trim();
 
+
   if(!householdId){
-    showMessage("Please select Household.","error");
-    return;
-  }
 
-  if(!memberId){
-    showMessage("Please select Member.","error");
-    return;
-  }
-
-  if(!reliefDate){
-    showMessage("Please select Relief Date.","error");
-    return;
-  }
-
-  if(!enteredBy){
-    showMessage("Entered By is required.","error");
-    return;
-  }
-
-  if(!model22){
-    showMessage("Model 22 is required.","error");
-    return;
-  }
-
-  if(
-    model22 === "Model 22 qaba" &&
-    !model22Number
-  ){
     showMessage(
-      "Model 22 Number is required.",
+      "Please select Household.",
       "error"
     );
+
     return;
+
   }
+
+
+  if(!memberId){
+
+    showMessage(
+      "Please select Member.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!reliefDate){
+
+    showMessage(
+      "Please select Relief Date.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!enteredBy){
+
+    showMessage(
+      "Entered By is required.",
+      "error"
+    );
+
+    return;
+
+  }
+
 
   const rows =
     Array.from(
       document.querySelectorAll(".relief-row")
     );
+
 
   if(rows.length === 0){
 
@@ -1415,7 +1472,9 @@ async function saveRelief(){
 
   }
 
+
   const selectedItems = [];
+
 
   for(const row of rows){
 
@@ -1437,6 +1496,7 @@ async function saveRelief(){
       ).value
       .trim();
 
+
     if(!itemId){
 
       showMessage(
@@ -1447,6 +1507,7 @@ async function saveRelief(){
       return;
 
     }
+
 
     if(!quantity || quantity <= 0){
 
@@ -1459,6 +1520,7 @@ async function saveRelief(){
 
     }
 
+
     const item =
       items.find(
         x =>
@@ -1466,35 +1528,142 @@ async function saveRelief(){
           String(itemId)
       );
 
+
     selectedItems.push({
 
       item_id:itemId,
+
       quantity:quantity,
-      unit:unit || getItemUnit(item || {}),
-      item_name:getItemName(item || {}),
-      category:getItemCategory(item || {})
+
+      unit:
+        unit ||
+        getItemUnit(
+          item || {}
+        ),
+
+      item_name:
+        getItemName(
+          item || {}
+        ),
+
+      category:
+        getItemCategory(
+          item || {}
+        )
 
     });
 
   }
 
+
   try{
 
     showMessage(
-      "Saving Individual Relief...",
+      "Checking stock balance...",
       "info"
     );
 
 
     /* =====================================================
+       CHECK STOCK BEFORE ANY DATABASE INSERT
+    ===================================================== */
+
+    const requiredByItem = {};
+
+
+    selectedItems.forEach(selected => {
+
+      if(!requiredByItem[selected.item_id]){
+
+        requiredByItem[selected.item_id] = {
+
+          item_id:
+            selected.item_id,
+
+          item_name:
+            selected.item_name,
+
+          quantity:0,
+
+          unit:
+            selected.unit,
+
+          category:
+            selected.category
+
+        };
+
+      }
+
+      requiredByItem[
+        selected.item_id
+      ].quantity +=
+        Number(
+          selected.quantity
+        );
+
+    });
+
+
+    const requiredItems =
+      Object.values(
+        requiredByItem
+      );
+
+
+    for(
+      const required of requiredItems
+    ){
+
+      const balance =
+        await getItemStockBalance(
+          required.item_id
+        );
+
+
+      if(balance <= 0){
+
+        throw new Error(
+          "Item '" +
+          required.item_name +
+          "' has no stock available. Current balance: 0."
+        );
+
+      }
+
+
+      if(
+        required.quantity >
+        balance
+      ){
+
+        throw new Error(
+          "Insufficient stock for '" +
+          required.item_name +
+          "'. Current balance: " +
+          balance +
+          ", requested: " +
+          required.quantity +
+          "."
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
        1. SAVE RELIEF
 
-       IMPORTANT:
-       emergency_reliefs table uses issued_by,
-       NOT entered_by.
+       Model 22 is NOT shown in Relief UI.
 
-       It also uses other_information,
-       NOT notes.
+       IMPORTANT:
+       Because the current emergency_reliefs table has
+       a Model 22 CHECK constraint, we do not send an
+       invalid Model 22 value here.
+
+       The Model 22 information is stored with the
+       automatic Stock OUT transaction.
     ===================================================== */
 
     const reliefPayload = {
@@ -1506,19 +1675,15 @@ async function saveRelief(){
         memberId,
 
       relief_date:
-        new Date(reliefDate).toISOString(),
+        new Date(
+          reliefDate
+        ).toISOString(),
 
       issued_by:
         enteredBy,
 
       signature:
         null,
-
-      model_22:
-        model22,
-
-      model_22_number:
-        model22Number || null,
 
       other_information:
         notes || null
@@ -1610,6 +1775,9 @@ async function saveRelief(){
 
       /* =================================================
          3. AUTOMATIC STOCK OUT
+
+         Model 22 is registered here.
+         It is NOT displayed on Relief form.
       ================================================= */
 
       const stockPayload = {
@@ -1658,8 +1826,12 @@ async function saveRelief(){
         relief_id:
           relief.id,
 
+        /*
+          Model 22 is stored in Stock OUT.
+          The visible Stock OUT page can read this value.
+        */
         model_22:
-          model22,
+          "Model 22",
 
         source_type:
           "Emergency Relief"
@@ -1707,6 +1879,10 @@ async function saveRelief(){
 
 }
 
+
+/* =========================================================
+   HOUSEHOLD MEMBERS
+========================================================= */
 
 function addMember(){
 
@@ -1822,6 +1998,10 @@ function addMember(){
 }
 
 
+/* =========================================================
+   DOCUMENT
+========================================================= */
+
 function addDocument(){
 
   documentCounter++;
@@ -1935,6 +2115,10 @@ function removeElement(id){
 
 }
 
+
+/* =========================================================
+   SAVE HOUSEHOLD
+========================================================= */
 
 async function saveHousehold(){
 
@@ -2380,6 +2564,10 @@ async function saveHousehold(){
 }
 
 
+/* =========================================================
+   LOAD HOUSEHOLDS
+========================================================= */
+
 async function loadHouseholds(){
 
   try{
@@ -2461,6 +2649,10 @@ async function loadHouseholds(){
 
 }
 
+
+/* =========================================================
+   SUMMARY
+========================================================= */
 
 async function loadSummary(){
 
@@ -2603,6 +2795,10 @@ async function loadSummary(){
 }
 
 
+/* =========================================================
+   RENDER HOUSEHOLDS
+========================================================= */
+
 function renderHouseholds(){
 
   const list =
@@ -2714,6 +2910,10 @@ function renderHouseholds(){
 
 }
 
+
+/* =========================================================
+   FILTER
+========================================================= */
 
 async function filterHouseholds(){
 
@@ -2851,6 +3051,10 @@ async function filterHouseholds(){
 }
 
 
+/* =========================================================
+   OPEN HOUSEHOLD
+========================================================= */
+
 async function openHousehold(id){
 
   const household =
@@ -2933,6 +3137,10 @@ async function openHouseholdById(id){
 
 }
 
+
+/* =========================================================
+   HOUSEHOLD DETAILS
+========================================================= */
 
 async function renderHouseholdDetails(
   household
@@ -3309,26 +3517,6 @@ async function renderHouseholdDetails(
 
             <p>
 
-              <strong>Model 22:</strong>
-
-              ${escapeHtml(
-                relief.model_22 || "-"
-              )}
-
-            </p>
-
-            <p>
-
-              <strong>Model 22 Number:</strong>
-
-              ${escapeHtml(
-                relief.model_22_number || "-"
-              )}
-
-            </p>
-
-            <p>
-
               <strong>Notes:</strong>
 
               ${escapeHtml(
@@ -3613,6 +3801,10 @@ function escapeHtml(value){
 
 }
 
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
 
 (async function(){
 
