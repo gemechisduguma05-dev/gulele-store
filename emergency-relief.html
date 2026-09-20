@@ -1435,75 +1435,233 @@ function getItemById(itemId){
    STOCK BALANCE - FIXED
 ========================================================= */
 
-async function getItemStockBalance(
-  itemId
-){
-
-  if(!itemId){
-
-    return 0;
-
-  }
-
+async function getItemStockBalance(itemId){
+  if(!itemId) return 0;
 
   try{
+    // 1. Item details
+    const item = getItemById(itemId);
 
-    /*
-      Read ALL transactions for this item.
+    if(!item){
+      console.warn("Item not found:", itemId);
+      return 0;
+    }
 
-      We intentionally do not filter branch in the
-      Supabase URL because old records can contain:
-      - branch_id
-      - branch_code
-      - one missing
-      - one incorrect
-    */
+    const itemName = String(getItemName(item) || "")
+      .trim()
+      .toLowerCase();
 
+    const itemUnit = String(getItemUnit(item) || "")
+      .trim()
+      .toLowerCase();
+
+    const itemCategory = String(getItemCategory(item) || "")
+      .trim()
+      .toLowerCase();
+
+    // 2. Fetch ALL stock transactions
     const url =
       API +
-      "/stock_transactions" +
-      "?select=*" +
-      "&item_id=eq." +
-      encodeURIComponent(
-        itemId
-      );
+      "/stock_transactions?select=*";
 
-
-    const response =
-      await fetch(
-        url,
-        {
-          headers:headers()
-        }
-      );
-
+    const response = await fetch(url,{
+      headers: headers()
+    });
 
     if(!response.ok){
-
-      throw new Error(
-        await getResponseError(
-          response
-        )
-      );
-
+      throw new Error(await getResponseError(response));
     }
 
+    const allTransactions = await response.json();
 
-    const allTransactions =
-      await response.json();
-
-
-    if(!Array.isArray(
-      allTransactions
-    )){
-
+    if(!Array.isArray(allTransactions)){
       return 0;
-
     }
 
+    // 3. Current branch filter
+    let transactions = allTransactions;
 
-    let transactions =
-      allTransactions;
+    if(!isMainBranch()){
+
+      const branchId = String(currentBranchId || "")
+        .trim()
+        .toLowerCase();
+
+      const branchCode = String(currentBranchCode || "")
+        .trim()
+        .toLowerCase();
+
+      transactions = allTransactions.filter(t => {
+
+        const tBranchId = String(t.branch_id ?? "")
+          .trim()
+          .toLowerCase();
+
+        const tBranchCode = String(t.branch_code ?? "")
+          .trim()
+          .toLowerCase();
+
+        return (
+          (branchId && tBranchId === branchId) ||
+          (branchCode && tBranchCode === branchCode)
+        );
+      });
+    }
+
+    // 4. First try exact item_id
+    let itemTransactions = transactions.filter(t =>
+      String(t.item_id ?? "").trim() ===
+      String(itemId).trim()
+    );
+
+    /*
+      5. IMPORTANT FALLBACK
+
+      Yoo stock IN keessatti item_id dogoggoraan galmaa'e,
+      garuu item name/unit/category sirrii ta'e,
+      maqaa itemiin stock barbaada.
+    */
+
+    if(itemTransactions.length === 0 && itemName){
+
+      itemTransactions = transactions.filter(t => {
+
+        const transactionItem = getItemById(t.item_id);
+
+        if(!transactionItem) return false;
+
+        const transactionName =
+          String(getItemName(transactionItem) || "")
+            .trim()
+            .toLowerCase();
+
+        const transactionUnit =
+          String(
+            t.unit ||
+            getItemUnit(transactionItem) ||
+            ""
+          )
+          .trim()
+          .toLowerCase();
+
+        const transactionCategory =
+          String(
+            t.category ||
+            getItemCategory(transactionItem) ||
+            ""
+          )
+          .trim()
+          .toLowerCase();
+
+        const nameMatch =
+          transactionName === itemName;
+
+        const unitMatch =
+          !itemUnit ||
+          !transactionUnit ||
+          transactionUnit === itemUnit;
+
+        const categoryMatch =
+          !itemCategory ||
+          !transactionCategory ||
+          transactionCategory === itemCategory;
+
+        return nameMatch && unitMatch && categoryMatch;
+      });
+    }
+
+    // 6. Calculate balance
+    let balance = 0;
+
+    itemTransactions.forEach(t => {
+
+      const rawQuantity = Number(t.quantity);
+
+      if(!Number.isFinite(rawQuantity)){
+        return;
+      }
+
+      const quantity = Math.abs(rawQuantity);
+
+      const type = String(
+        t.transaction_type || ""
+      )
+      .trim()
+      .toUpperCase()
+      .replace(/[_-]+/g," ")
+      .replace(/\s+/g," ");
+
+      const transaction = String(
+        t.transaction || ""
+      )
+      .trim()
+      .toUpperCase()
+      .replace(/[_-]+/g," ")
+      .replace(/\s+/g," ");
+
+      const combined =
+        (type + " " + transaction).trim();
+
+      // STOCK IN
+      const isStockIn =
+        type === "IN" ||
+        type === "STOCK IN" ||
+        type === "STOCKIN" ||
+        type === "RECEIPT" ||
+        type === "RECEIVED" ||
+        type === "RECEIVE" ||
+        combined.includes("STOCK IN") ||
+        combined.includes("RECEIVED") ||
+        combined.includes("RECEIPT");
+
+      // STOCK OUT
+      const isStockOut =
+        type === "OUT" ||
+        type === "STOCK OUT" ||
+        type === "STOCKOUT" ||
+        type === "ISSUE" ||
+        type === "ISSUED" ||
+        combined.includes("STOCK OUT") ||
+        combined.includes("ISSUE") ||
+        combined.includes("EMERGENCY RELIEF") ||
+        combined.includes("MODEL 22");
+
+      if(isStockIn){
+        balance += quantity;
+      }
+      else if(isStockOut){
+        balance -= quantity;
+      }
+      else{
+        // Yoo transaction_type hin beekamne,
+        // quantity mallattoo isaa hordofa.
+        balance += rawQuantity;
+      }
+    });
+
+    balance = Math.round(balance * 100) / 100;
+
+    console.log("AAFDRMC FINAL STOCK BALANCE:",{
+      itemId:itemId,
+      itemName:itemName,
+      branchId:currentBranchId,
+      branchCode:currentBranchCode,
+      transactionCount:itemTransactions.length,
+      balance:balance
+    });
+
+    return Math.max(0,balance);
+
+  }catch(error){
+
+    console.error(
+      "getItemStockBalance ERROR:",
+      error
+    );
+
+    return 0;
+  }
+}
 
 
     /* =====================================================
