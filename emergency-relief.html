@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Emergency Relief Management</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
+}
+
+.header{
+  background:#6d4c41;
+  color:white;
+  padding:18px 20px;
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.header h1{
+  margin:0;
+  font-size:24px;
+}
+
+.header p{
+  margin:6px 0 0;
+  font-size:13px;
+  opacity:.9;
+}
+
+.container{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 15px;
+}
+
+.topbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.btn{
+  border:none;
+  padding:11px 16px;
+  border-radius:7px;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.back{
+  background:#455a64;
+}
+
+.primary{
+  background:#6d4c41;
+}
+
+.green{
+  background:#2e7d32;
+}
+
+.red{
+  background:#c62828;
+}
+
+.blue{
+  background:#1565c0;
+}
+
+.purple{
+  background:#7b1fa2;
+}
+
+.card{
+  background:white;
+  border-radius:10px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.card h2{
+  margin-top:0;
+  color:#5d4037;
+  font-size:20px;
+}
+
+.card h3{
+  color:#6d4c41;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+}
+
+.field label{
+  font-weight:bold;
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+  font-size:14px;
+  background:white;
+}
+
+textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.full{
+  grid-column:1 / -1;
+}
+
+.member-row,
+.relief-row,
+.document-row{
+  border:1px solid #d7ccc8;
+  border-radius:8px;
+  padding:15px;
+  margin-bottom:12px;
+  background:#fafafa;
+}
+
+.row-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.row-title strong{
+  color:#5d4037;
+}
+
+.small-btn{
+  border:none;
+  border-radius:5px;
+  padding:7px 10px;
+  cursor:pointer;
+  color:white;
+  font-size:12px;
+}
+
+.remove{
+  background:#c62828;
+}
+
+.add{
+  background:#2e7d32;
+  margin-top:5px;
+}
+
+.search-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:10px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:800px;
+}
+
+th,
+td{
+  border:1px solid #ddd;
+  padding:10px;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  background:#6d4c41;
+  color:white;
+}
+
+tr:nth-child(even){
+  background:#fafafa;
+}
+
+.folder{
+  border:1px solid #d7ccc8;
+  border-radius:8px;
+  padding:15px;
+  margin-bottom:12px;
+  cursor:pointer;
+  background:#fff;
+}
+
+.folder:hover{
+  background:#f8f3f1;
+}
+
+.folder-title{
+  font-size:18px;
+  font-weight:bold;
+  color:#5d4037;
+}
+
+.folder-meta{
+  margin-top:7px;
+  font-size:13px;
+  color:#64748b;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:12px;
+  font-size:11px;
+  background:#efebe9;
+  color:#5d4037;
+  margin:2px;
+}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.summary-box{
+  padding:16px;
+  border-radius:8px;
+  background:#efebe9;
+  text-align:center;
+}
+
+.summary-box strong{
+  display:block;
+  font-size:25px;
+  color:#5d4037;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.message{
+  padding:12px;
+  border-radius:7px;
+  margin-bottom:15px;
+  display:none;
+}
+
+.success{
+  background:#e8f5e9;
+  color:#2e7d32;
+}
+
+.error{
+  background:#ffebee;
+  color:#c62828;
+}
+
+.info{
+  background:#e3f2fd;
+  color:#1565c0;
+}
+
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#64748b;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  z-index:1000;
+}
+
+.modal-box{
+  background:white;
+  border-radius:10px;
+  max-width:900px;
+  width:100%;
+  max-height:90vh;
+  overflow:auto;
+  padding:20px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #ddd;
+  padding-bottom:10px;
+  margin-bottom:15px;
+}
+
+.modal-head h2{
+  margin:0;
+  color:#5d4037;
+}
+
+.close{
+  background:#c62828;
+  color:white;
+  border:none;
+  padding:7px 11px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.detail-box{
+  background:#fafafa;
+  border:1px solid #ddd;
+  border-radius:7px;
+  padding:12px;
+  margin-bottom:12px;
+}
+
+.detail-box h3{
+  margin-top:0;
+}
+
+.file-note{
+  font-size:12px;
+  color:#64748b;
+  margin-top:5px;
+}
+
+@media(max-width:800px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .search-grid{
+    grid-template-columns:1fr;
+  }
+
+  .summary{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:500px){
+
+  .header h1{
+    font-size:19px;
+  }
+
+  .container{
+    padding:0 10px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .summary{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="header">
+  <h1>AAFDRMC - Emergency Relief Management</h1>
+  <p>Household Emergency Relief Records</p>
+</div>
+
+
+<div class="container">
+
+  <div class="topbar">
+    <a href="dashboard.html" class="btn back">← Back to Dashboard</a>
+    <button class="btn primary" onclick="showNewHousehold()">
+      + New Household
+    </button>
+    <button class="btn blue" onclick="loadHouseholds()">
+      ↻ Refresh
+    </button>
+  </div>
+
+
+  <div id="message" class="message"></div>
+
+
+  <!-- =========================
+       SUMMARY
+  ========================== -->
+
+  <div class="card">
+
+    <h2>Emergency Relief Summary</h2>
+
+    <div class="summary">
+
+      <div class="summary-box">
+        <strong id="totalHouseholds">0</strong>
+        Households
+      </div>
+
+      <div class="summary-box">
+        <strong id="totalMembers">0</strong>
+        Members
+      </div>
+
+      <div class="summary-box">
+        <strong id="totalReliefs">0</strong>
+        Relief Records
+      </div>
+
+      <div class="summary-box">
+        <strong id="totalDocuments">0</strong>
+        Documents
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       SEARCH
+  ========================== -->
+
+  <div class="card">
+
+    <h2>Search Households</h2>
+
+    <div class="search-grid">
+
+      <input
+        type="text"
+        id="searchText"
+        placeholder="Search Household Name, Member Name or FAN Number"
+        oninput="filterHouseholds()"
+      >
+
+      <select id="filterDisaster" onchange="filterHouseholds()">
+        <option value="">All Disaster Types</option>
+        <option value="Flood">Flood</option>
+        <option value="Fire">Fire</option>
+        <option value="Drought">Drought</option>
+        <option value="Landslide">Landslide</option>
+        <option value="Conflict">Conflict</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input
+        type="date"
+        id="filterDate"
+        onchange="filterHouseholds()"
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       HOUSEHOLD LIST
+  ========================== -->
+
+  <div class="card">
+
+    <h2>Household Folders</h2>
+
+    <div id="householdList">
+      <div class="loading">Loading households...</div>
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       NEW HOUSEHOLD FORM
+  ========================== -->
+
+  <div id="householdFormCard" class="card hidden">
+
+    <h2>New Household</h2>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Household Representative / Household Name *</label>
+        <input id="householdName" type="text">
+      </div>
+
+      <div class="field">
+        <label>Disaster Type *</label>
+        <select id="disasterType">
+          <option value="">Select Disaster Type</option>
+          <option value="Flood">Flood</option>
+          <option value="Fire">Fire</option>
+          <option value="Drought">Drought</option>
+          <option value="Landslide">Landslide</option>
+          <option value="Conflict">Conflict</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Disaster Date</label>
+        <input id="disasterDate" type="date">
+      </div>
+
+      <div class="field">
+        <label>City</label>
+        <input id="city" type="text">
+      </div>
+
+      <div class="field">
+        <label>Sub-City</label>
+        <input id="subCity" type="text">
+      </div>
+
+      <div class="field">
+        <label>Woreda</label>
+        <input id="woreda" type="text">
+      </div>
+
+      <div class="field">
+        <label>Specific Location</label>
+        <input id="specificLocation" type="text">
+      </div>
+
+      <div class="field">
+        <label>House Number</label>
+        <input id="houseNumber" type="text">
+      </div>
+
+      <div class="field">
+        <label>FAN Number</label>
+        <input id="fanNumber" type="text">
+      </div>
+
+      <div class="field full">
+        <label>Other Information</label>
+        <textarea id="householdOther"></textarea>
+      </div>
+
+    </div>
+
+
+    <!-- MEMBERS -->
+
+    <h3>Household Members</h3>
+
+    <div id="membersContainer"></div>
+
+    <button
+      type="button"
+      class="btn add"
+      onclick="addMember()"
+    >
+      + Add Member
+    </button>
+
+
+    <!-- DOCUMENTS -->
+
+    <h3>Official Documents</h3>
+
+    <div id="documentsContainer"></div>
+
+    <button
+      type="button"
+      class="btn add"
+      onclick="addDocument()"
+    >
+      + Add Document
+    </button>
+
+
+    <div style="margin-top:20px;">
+
+      <button
+        type="button"
+        class="btn green"
+        onclick="saveHousehold()"
+      >
+        Save Household
+      </button>
+
+      <button
+        type="button"
+        class="btn red"
+        onclick="hideNewHousehold()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     HOUSEHOLD DETAILS MODAL
+====================================================== -->
+
+<div id="detailsModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2 id="modalHouseholdName">
+        Household Details
+      </h2>
+
+      <button class="close" onclick="closeModal()">
+        ✕
+      </button>
+
+    </div>
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+  "https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
+
+
+const API = SUPABASE_URL + "/rest/v1";
+
+
+function headers(){
+
+  return {
+    "apikey": SUPABASE_KEY,
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json"
+  };
+
+}
+
+
+/* =========================================================
+   LOGIN / BRANCH
+========================================================= */
+
+const isLoggedIn =
+  localStorage.getItem("is_logged_in");
+
+if(isLoggedIn !== "true"){
+  window.location.href = "index.html";
+}
+
+
+let currentBranchId =
+  localStorage.getItem("selected_branch_uuid");
+
+let currentBranchCode =
+  localStorage.getItem("selected_branch_code");
+
+let currentBranchName =
+  localStorage.getItem("selected_branch_name");
+
+let loginUser =
+  localStorage.getItem("login_user") || "";
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let households = [];
+let members = [];
+let reliefs = [];
+let reliefItems = [];
+let documents = [];
+
+let memberCounter = 0;
+let documentCounter = 0;
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(text,type){
+
+  const box = document.getElementById("message");
+
+  box.textContent = text;
+
+  box.className = "message " + type;
+
+  box.style.display = "block";
+
+  setTimeout(function(){
+    box.style.display = "none";
+  },5000);
+
+}
+
+
+/* =========================================================
+   NEW HOUSEHOLD
+========================================================= */
+
+function showNewHousehold(){
+
+  document
+    .getElementById("householdFormCard")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("membersContainer")
+    .innerHTML = "";
+
+  document
+    .getElementById("documentsContainer")
+    .innerHTML = "";
+
+  memberCounter = 0;
+  documentCounter = 0;
+
+  addMember();
+  addDocument();
+
+  window.scrollTo({
+    top:document
+      .getElementById("householdFormCard")
+      .offsetTop - 10,
+    behavior:"smooth"
+  });
+
+}
+
+
+function hideNewHousehold(){
+
+  document
+    .getElementById("householdFormCard")
+    .classList.add("hidden");
+
+}
+
+
+/* =========================================================
+   ADD MEMBER
+========================================================= */
+
+function addMember(){
+
+  memberCounter++;
+
+  const id = memberCounter;
+
+  const div = document.createElement("div");
+
+  div.className = "member-row";
+
+  div.id = "member_" + id;
+
+  div.innerHTML = `
+
+    <div class="row-title">
+
+      <strong>Member ${id}</strong>
+
+      <button
+        type="button"
+        class="small-btn remove"
+        onclick="removeElement('member_${id}')"
+      >
+        Remove
+      </button>
+
+    </div>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Full Name *</label>
+        <input
+          class="member-name"
+          type="text"
+        >
+      </div>
+
+      <div class="field">
+        <label>Relationship to Household Representative *</label>
+
+        <select class="member-relationship">
+
+          <option value="">
+            Select Relationship
+          </option>
+
+          <option>Husband</option>
+          <option>Wife</option>
+          <option>Child</option>
+          <option>Relative</option>
+          <option>Domestic Worker</option>
+          <option>Other</option>
+
+        </select>
+
+      </div>
+
+      <div class="field">
+        <label>Sex</label>
+
+        <select class="member-sex">
+
+          <option value="">Select Sex</option>
+          <option>Male</option>
+          <option>Female</option>
+
+        </select>
+
+      </div>
+
+      <div class="field">
+        <label>Age</label>
+
+        <input
+          class="member-age"
+          type="number"
+          min="0"
+        >
+
+      </div>
+
+      <div class="field full">
+
+        <label>Other Information</label>
+
+        <textarea
+          class="member-other"
+        ></textarea>
+
+      </div>
+
+    </div>
+  `;
+
+  document
+    .getElementById("membersContainer")
+    .appendChild(div);
+
+}
+
+
+/* =========================================================
+   ADD DOCUMENT
+========================================================= */
+
+function addDocument(){
+
+  documentCounter++;
+
+  const id = documentCounter;
+
+  const div = document.createElement("div");
+
+  div.className = "document-row";
+
+  div.id = "document_" + id;
+
+  div.innerHTML = `
+
+    <div class="row-title">
+
+      <strong>Document ${id}</strong>
+
+      <button
+        type="button"
+        class="small-btn remove"
+        onclick="removeElement('document_${id}')"
+      >
+        Remove
+      </button>
+
+    </div>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Document Number</label>
+
+        <input
+          class="document-number"
+          type="text"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Document Date</label>
+
+        <input
+          class="document-date"
+          type="date"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Document Name</label>
+
+        <input
+          class="document-name"
+          type="text"
+          placeholder="Example: Woreda Relief Paper"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Scanned Document / Image</label>
+
+        <input
+          class="document-file"
+          type="file"
+          accept="image/*,.pdf"
+          capture="environment"
+        >
+
+        <div class="file-note">
+          You can use Camera Scan or select a file from Gallery.
+        </div>
+
+      </div>
+
+      <div class="field full">
+
+        <label>Other Information</label>
+
+        <textarea
+          class="document-other"
+        ></textarea>
+
+      </div>
+
+    </div>
+  `;
+
+  document
+    .getElementById("documentsContainer")
+    .appendChild(div);
+
+}
+
+
+/* =========================================================
+   REMOVE
+========================================================= */
+
+function removeElement(id){
+
+  const el = document.getElementById(id);
+
+  if(el){
+    el.remove();
+  }
+
+}
+
+
+/* =========================================================
+   SAVE HOUSEHOLD
+========================================================= */
+
+async function saveHousehold(){
+
+  const householdName =
+    document.getElementById("householdName").value.trim();
+
+  const disasterType =
+    document.getElementById("disasterType").value;
+
+  if(!householdName){
+    showMessage(
+      "Household Representative / Household Name is required.",
+      "error"
+    );
+    return;
+  }
+
+  if(!disasterType){
+    showMessage(
+      "Please select Disaster Type.",
+      "error"
+    );
+    return;
+  }
+
+  if(!currentBranchId){
+
+    showMessage(
+      "Branch information was not found. Please log in again.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const memberRows =
+    document.querySelectorAll(".member-row");
+
+  if(memberRows.length === 0){
+
+    showMessage(
+      "Please add at least one household member.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  /* Validate members */
+
+  for(const row of memberRows){
+
+    const name =
+      row.querySelector(".member-name").value.trim();
+
+    const relationship =
+      row.querySelector(".member-relationship").value;
+
+    if(!name || !relationship){
+
+      showMessage(
+        "Every household member needs Full Name and Relationship.",
+        "error"
+      );
+
+      return;
+    }
+
+  }
+
+
+  const householdData = {
+
+    branch_id: currentBranchId,
+
+    branch_code: currentBranchCode || null,
+
+    household_name: householdName,
+
+    disaster_type: disasterType,
+
+    disaster_date:
+      document.getElementById("disasterDate").value || null,
+
+    city:
+      document.getElementById("city").value.trim() || null,
+
+    sub_city:
+      document.getElementById("subCity").value.trim() || null,
+
+    woreda:
+      document.getElementById("woreda").value.trim() || null,
+
+    specific_location:
+      document.getElementById("specificLocation").value.trim() || null,
+
+    house_number:
+      document.getElementById("houseNumber").value.trim() || null,
+
+    fan_number:
+      document.getElementById("fanNumber").value.trim() || null,
+
+    other_information:
+      document.getElementById("householdOther").value.trim() || null,
+
+    created_by: loginUser || null
+
+  };
+
+
+  try{
+
+    showMessage(
+      "Saving household...",
+      "info"
+    );
+
+
+    /* =========================
+       HOUSEHOLD
+    ========================== */
+
+    const householdResponse =
+      await fetch(
+        API + "/emergency_households",
+        {
+          method:"POST",
+          headers:{
+            ...headers(),
+            "Prefer":"return=representation"
+          },
+          body:JSON.stringify(householdData)
+        }
+      );
+
+
+    if(!householdResponse.ok){
+
+      const error =
+        await householdResponse.text();
+
+      throw new Error(error);
+    }
+
+
+    const householdResult =
+      await householdResponse.json();
+
+    const household =
+      householdResult[0];
+
+
+    /* =========================
+       MEMBERS
+    ========================== */
+
+    for(const row of memberRows){
+
+      const memberData = {
+
+        household_id: household.id,
+
+        full_name:
+          row.querySelector(".member-name")
+            .value.trim(),
+
+        relationship:
+          row.querySelector(".member-relationship")
+            .value,
+
+        sex:
+          row.querySelector(".member-sex")
+            .value || null,
+
+        age:
+          row.querySelector(".member-age")
+            .value
+            ?
+            Number(
+              row.querySelector(".member-age")
+                .value
+            )
+            :
+            null,
+
+        other_information:
+          row.querySelector(".member-other")
+            .value.trim() || null
+
+      };
+
+
+      const memberResponse =
+        await fetch(
+          API + "/emergency_members",
+          {
+            method:"POST",
+            headers:{
+              ...headers(),
+              "Prefer":"return=representation"
+            },
+            body:JSON.stringify(memberData)
+          }
+        );
+
+
+      if(!memberResponse.ok){
+
+        const error =
+          await memberResponse.text();
+
+        throw new Error(error);
+      }
+
+    }
+
+
+    /* =========================
+       DOCUMENTS
+    ========================== */
+
+    const documentRows =
+      document.querySelectorAll(".document-row");
+
+
+    for(const row of documentRows){
+
+      const file =
+        row.querySelector(".document-file").files[0];
+
+      /*
+       * File upload/storage will be connected
+       * in the next integration step.
+       */
+
+      const documentData = {
+
+        household_id: household.id,
+
+        document_number:
+          row.querySelector(".document-number")
+            .value.trim() || null,
+
+        document_date:
+          row.querySelector(".document-date")
+            .value || null,
+
+        document_name:
+          row.querySelector(".document-name")
+            .value.trim() || null,
+
+        file_name:
+          file ? file.name : null,
+
+        file_url:null,
+
+        other_information:
+          row.querySelector(".document-other")
+            .value.trim() || null
+
+      };
+
+
+      const documentResponse =
+        await fetch(
+          API + "/emergency_documents",
+          {
+            method:"POST",
+            headers:{
+              ...headers(),
+              "Prefer":"return=representation"
+            },
+            body:JSON.stringify(documentData)
+          }
+        );
+
+
+      if(!documentResponse.ok){
+
+        const error =
+          await documentResponse.text();
+
+        throw new Error(error);
+      }
+
+    }
+
+
+    showMessage(
+      "Household saved successfully.",
+      "success"
+    );
+
+
+    hideNewHousehold();
+
+    await loadHouseholds();
+
+
+    openHousehold(
+      household.id
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "Save failed: " + error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD HOUSEHOLDS
+========================================================= */
+
+async function loadHouseholds(){
+
+  try{
+
+    document
+      .getElementById("householdList")
+      .innerHTML =
+      '<div class="loading">Loading households...</div>';
+
+
+    let url =
+      API +
+      "/emergency_households" +
+      "?select=*" +
+      "&order=created_at.desc";
+
+
+    /*
+     * Branch isolation
+     */
+
+    if(currentBranchCode !== "MAIN"){
+
+      url +=
+        "&branch_id=eq." +
+        encodeURIComponent(currentBranchId);
+
+    }
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          headers:headers()
+        }
+      );
+
+
+    if(!response.ok){
+
+      const error =
+        await response.text();
+
+      throw new Error(error);
+    }
+
+
+    households =
+      await response.json();
+
+
+    await loadSummary();
+
+    renderHouseholds();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    document
+      .getElementById("householdList")
+      .innerHTML =
+      '<div class="message error" style="display:block">' +
+      'Failed to load households: ' +
+      escapeHtml(error.message) +
+      '</div>';
+
+  }
+
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+async function loadSummary(){
+
+  try{
+
+    document.getElementById("totalHouseholds")
+      .textContent = households.length;
+
+
+    let memberUrl =
+      API +
+      "/emergency_members?select=id,household_id";
+
+
+    let reliefUrl =
+      API +
+      "/emergency_reliefs?select=id,household_id";
+
+
+    let documentUrl =
+      API +
+      "/emergency_documents?select=id,household_id";
+
+
+    if(currentBranchCode !== "MAIN"){
+
+      /*
+       * Members/reliefs/documents do not have branch_id.
+       * We use household IDs belonging to current branch.
+       */
+
+      const ids =
+        households
+          .map(x => x.id);
+
+      if(ids.length === 0){
+
+        document.getElementById("totalMembers")
+          .textContent = "0";
+
+        document.getElementById("totalReliefs")
+          .textContent = "0";
+
+        document.getElementById("totalDocuments")
+          .textContent = "0";
+
+        return;
+      }
+
+      const idList =
+        "(" +
+        ids.join(",") +
+        ")";
+
+      memberUrl +=
+        "&household_id=in." +
+        encodeURIComponent(idList);
+
+      reliefUrl +=
+        "&household_id=in." +
+        encodeURIComponent(idList);
+
+      documentUrl +=
+        "&household_id=in." +
+        encodeURIComponent(idList);
+
+    }
+
+
+    const [
+      memberResponse,
+      reliefResponse,
+      documentResponse
+    ] = await Promise.all([
+
+      fetch(memberUrl,{headers:headers()}),
+
+      fetch(reliefUrl,{headers:headers()}),
+
+      fetch(documentUrl,{headers:headers()})
+
+    ]);
+
+
+    if(memberResponse.ok){
+
+      const data =
+        await memberResponse.json();
+
+      document.getElementById("totalMembers")
+        .textContent = data.length;
+
+    }
+
+
+    if(reliefResponse.ok){
+
+      const data =
+        await reliefResponse.json();
+
+      document.getElementById("totalReliefs")
+        .textContent = data.length;
+
+    }
+
+
+    if(documentResponse.ok){
+
+      const data =
+        await documentResponse.json();
+
+      document.getElementById("totalDocuments")
+        .textContent = data.length;
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Summary error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER HOUSEHOLDS
+========================================================= */
+
+function renderHouseholds(){
+
+  const list =
+    document.getElementById("householdList");
+
+  if(households.length === 0){
+
+    list.innerHTML =
+      '<div class="loading">' +
+      'No emergency relief households found.' +
+      '</div>';
+
+    return;
+  }
+
+
+  list.innerHTML = "";
+
+
+  households.forEach(household => {
+
+    const folder =
+      document.createElement("div");
+
+    folder.className = "folder";
+
+    folder.onclick = function(){
+
+      openHousehold(
+        household.id
+      );
+
+    };
+
+
+    folder.innerHTML = `
+
+      <div class="folder-title">
+        📁 ${escapeHtml(household.household_name)}
+      </div>
+
+      <div class="folder-meta">
+
+        <span class="badge">
+          ${escapeHtml(household.disaster_type || "Unknown")}
+        </span>
+
+        ${
+          household.disaster_date
+          ?
+          `<span class="badge">
+             ${escapeHtml(household.disaster_date)}
+           </span>`
+          :
+          ""
+        }
+
+        ${
+          household.fan_number
+          ?
+          `<span class="badge">
+             FAN: ${escapeHtml(household.fan_number)}
+           </span>`
+          :
+          ""
+        }
+
+        ${
+          household.woreda
+          ?
+          `<span class="badge">
+             Woreda: ${escapeHtml(household.woreda)}
+           </span>`
+          :
+          ""
+        }
+
+      </div>
+
+    `;
+
+
+    list.appendChild(folder);
+
+  });
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function filterHouseholds(){
+
+  const text =
+    document.getElementById("searchText")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const disaster =
+    document.getElementById("filterDisaster")
+      .value;
+
+  const date =
+    document.getElementById("filterDate")
+      .value;
+
+
+  const filtered =
+    households.filter(h => {
+
+      const matchesText =
+
+        !text ||
+
+        (h.household_name || "")
+          .toLowerCase()
+          .includes(text) ||
+
+        (h.fan_number || "")
+          .toLowerCase()
+          .includes(text);
+
+
+      const matchesDisaster =
+        !disaster ||
+        h.disaster_type === disaster;
+
+
+      const matchesDate =
+        !date ||
+        h.disaster_date === date;
+
+
+      return (
+        matchesText &&
+        matchesDisaster &&
+        matchesDate
+      );
+
+    });
+
+
+  const original =
+    households;
+
+  households = filtered;
+
+  renderHouseholds();
+
+  households = original;
+
+}
+
+
+/* =========================================================
+   OPEN HOUSEHOLD
+========================================================= */
+
+async function openHousehold(id){
+
+  try{
+
+    const household =
+      households.find(
+        h => h.id === id
+      );
+
+
+    if(!household){
+
+      /*
+       * If called after filtering,
+       * fetch directly.
+       */
+
+      const response =
+        await fetch(
+          API +
+          "/emergency_households?id=eq." +
+          encodeURIComponent(id),
+          {
+            headers:headers()
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if(!data.length) return;
+
+      await renderHouseholdDetails(
+        data[0]
+      );
+
+      return;
+    }
+
+
+    await renderHouseholdDetails(
+      household
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "Could not open household: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HOUSEHOLD DETAILS
+========================================================= */
+
+async function renderHouseholdDetails(
+  household
+){
+
+  const modal =
+    document.getElementById("detailsModal");
+
+  const content =
+    document.getElementById("modalContent");
+
+  document.getElementById(
+    "modalHouseholdName"
+  ).textContent =
+    "📁 " +
+    household.household_name;
+
+
+  modal.style.display = "flex";
+
+  content.innerHTML =
+    '<div class="loading">Loading household details...</div>';
+
+
+  try{
+
+    const memberResponse =
+      await fetch(
+        API +
+        "/emergency_members" +
+        "?household_id=eq." +
+        encodeURIComponent(household.id) +
+        "&order=created_at.asc",
+        {
+          headers:headers()
+        }
+      );
+
+
+    const reliefResponse =
+      await fetch(
+        API +
+        "/emergency_reliefs" +
+        "?household_id=eq." +
+        encodeURIComponent(household.id) +
+        "&order=created_at.asc",
+        {
+          headers:headers()
+        }
+      );
+
+
+    const itemResponse =
+      await fetch(
+        API +
+        "/emergency_relief_items" +
+        "?relief_id=in.(" +
+        ")" ,
+        {
+          headers:headers()
+        }
+      );
+
+
+    const documentResponse =
+      await fetch(
+        API +
+        "/emergency_documents" +
+        "?household_id=eq." +
+        encodeURIComponent(household.id) +
+        "&order=created_at.asc",
+        {
+          headers:headers()
+        }
+      );
+
+
+    const memberData =
+      memberResponse.ok
+      ?
+      await memberResponse.json()
+      :
+      [];
+
+
+    const reliefData =
+      reliefResponse.ok
+      ?
+      await reliefResponse.json()
+      :
+      [];
+
+
+    const documentData =
+      documentResponse.ok
+      ?
+      await documentResponse.json()
+      :
+      [];
+
+
+    let html = "";
+
+
+    /* HOUSEHOLD */
+
+    html += `
+
+      <div class="detail-box">
+
+        <h3>Household Information</h3>
+
+        <p>
+          <strong>Household Representative:</strong>
+          ${escapeHtml(household.household_name)}
+        </p>
+
+        <p>
+          <strong>Disaster Type:</strong>
+          ${escapeHtml(household.disaster_type || "-")}
+        </p>
+
+        <p>
+          <strong>Disaster Date:</strong>
+          ${escapeHtml(household.disaster_date || "-")}
+        </p>
+
+        <p>
+          <strong>City:</strong>
+          ${escapeHtml(household.city || "-")}
+        </p>
+
+        <p>
+          <strong>Sub-City:</strong>
+          ${escapeHtml(household.sub_city || "-")}
+        </p>
+
+        <p>
+          <strong>Woreda:</strong>
+          ${escapeHtml(household.woreda || "-")}
+        </p>
+
+        <p>
+          <strong>Specific Location:</strong>
+          ${escapeHtml(household.specific_location || "-")}
+        </p>
+
+        <p>
+          <strong>House Number:</strong>
+          ${escapeHtml(household.house_number || "-")}
+        </p>
+
+        <p>
+          <strong>FAN Number:</strong>
+          ${escapeHtml(household.fan_number || "-")}
+        </p>
+
+        <p>
+          <strong>Other Information:</strong>
+          ${escapeHtml(household.other_information || "-")}
+        </p>
+
+      </div>
+
+    `;
+
+
+    /* MEMBERS */
+
+    html += `
+
+      <div class="detail-box">
+
+        <h3>
+          Household Members
+          (${memberData.length})
+        </h3>
+
+    `;
+
+
+    if(memberData.length === 0){
+
+      html += "<p>No members found.</p>";
+
+    }else{
+
+      html += `
+
+        <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Full Name</th>
+              <th>Relationship</th>
+              <th>Sex</th>
+              <th>Age</th>
+              <th>Other Information</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+      `;
+
+
+      memberData.forEach(member => {
+
+        html += `
+
+          <tr>
+
+            <td>
+              ${escapeHtml(member.full_name)}
+            </td>
+
+            <td>
+              ${escapeHtml(member.relationship || "-")}
+            </td>
+
+            <td>
+              ${escapeHtml(member.sex || "-")}
+            </td>
+
+            <td>
+              ${member.age ?? "-"}
+            </td>
+
+            <td>
+              ${escapeHtml(member.other_information || "-")}
+            </td>
+
+          </tr>
+
+        `;
+
+      });
+
+
+      html += `
+          </tbody>
+        </table>
+        </div>
+      `;
+
+    }
+
+
+    html += "</div>";
+
+
+    /* RELIEF */
+
+    html += `
+
+      <div class="detail-box">
+
+        <h3>
+          Individual Relief
+        </h3>
+
+    `;
+
+
+    if(reliefData.length === 0){
+
+      html +=
+        "<p>No relief records found.</p>";
+
+    }else{
+
+      for(const relief of reliefData){
+
+        const member =
+          memberData.find(
+            m => m.id === relief.member_id
+          );
+
+
+        let items = [];
+
+
+        const itemResponse =
+          await fetch(
+            API +
+            "/emergency_relief_items" +
+            "?relief_id=eq." +
+            encodeURIComponent(relief.id),
+            {
+              headers:headers()
+            }
+          );
+
+
+        if(itemResponse.ok){
+
+          items =
+            await itemResponse.json();
+
+        }
+
+
+        html += `
+
+          <div class="member-row">
+
+            <div class="row-title">
+
+              <strong>
+                ${
+                  escapeHtml(
+                    member
+                    ?
+                    member.full_name
+                    :
+                    "Unknown Member"
+                  )
+                }
+              </strong>
+
+              <span class="badge">
+                ${
+                  escapeHtml(
+                    relief.relief_date || "-"
+                  )
+                }
+              </span>
+
+            </div>
+
+            <p>
+              <strong>Model 22:</strong>
+              ${escapeHtml(relief.model_22 || "-")}
+            </p>
+
+            <p>
+              <strong>Model 22 Number:</strong>
+              ${escapeHtml(relief.model_22_number || "-")}
+            </p>
+
+        `;
+
+
+        if(items.length){
+
+          html += `
+
+            <div class="table-wrap">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                  </tr>
+
+                </thead>
+
+                <tbody>
+
+          `;
+
+
+          items.forEach(item => {
+
+            html += `
+
+              <tr>
+
+                <td>
+                  ${escapeHtml(item.item_name)}
+                </td>
+
+                <td>
+                  ${escapeHtml(item.category || "-")}
+                </td>
+
+                <td>
+                  ${escapeHtml(item.quantity)}
+                </td>
+
+                <td>
+                  ${escapeHtml(item.unit)}
+                </td>
+
+              </tr>
+
+            `;
+
+          });
+
+
+          html += `
+                </tbody>
+              </table>
+
+            </div>
+          `;
+
+        }else{
+
+          html +=
+            "<p>No relief items recorded.</p>";
+
+        }
+
+
+        html += `
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    html += "</div>";
+
+
+    /* DOCUMENTS */
+
+    html += `
+
+      <div class="detail-box">
+
+        <h3>
+          Official Documents
+          (${documentData.length})
+        </h3>
+
+    `;
+
+
+    if(documentData.length === 0){
+
+      html +=
+        "<p>No official documents found.</p>";
+
+    }else{
+
+      documentData.forEach(doc => {
+
+        html += `
+
+          <div class="member-row">
+
+            <p>
+              <strong>Document:</strong>
+              ${escapeHtml(doc.document_name || "-")}
+            </p>
+
+            <p>
+              <strong>Document Number:</strong>
+              ${escapeHtml(doc.document_number || "-")}
+            </p>
+
+            <p>
+              <strong>Date:</strong>
+              ${escapeHtml(doc.document_date || "-")}
+            </p>
+
+            <p>
+              <strong>File:</strong>
+              ${escapeHtml(doc.file_name || "-")}
+            </p>
+
+            <p>
+              <strong>Other Information:</strong>
+              ${escapeHtml(doc.other_information || "-")}
+            </p>
+
+          </div>
+
+        `;
+
+      });
+
+    }
+
+
+    html += "</div>";
+
+
+    content.innerHTML = html;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    content.innerHTML = `
+
+      <div class="message error"
+           style="display:block">
+
+        Failed to load details:
+        ${escapeHtml(error.message)}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal(){
+
+  document
+    .getElementById("detailsModal")
+    .style.display = "none";
+
+}
+
+
+document
+  .getElementById("detailsModal")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target === this){
+        closeModal();
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+  if(value === null ||
+     value === undefined){
+
+    return "";
+
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+loadHouseholds();
+
+</script>
+
+</body>
+</html>
