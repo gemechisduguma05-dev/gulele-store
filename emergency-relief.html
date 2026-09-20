@@ -288,6 +288,16 @@ tr:nth-child(even){background:#fafafa}
   color:#5d4037;
 }
 
+.stock-ok{
+  background:#e8f5e9;
+  color:#2e7d32;
+}
+
+.stock-low{
+  background:#fff3e0;
+  color:#e65100;
+}
+
 @media(max-width:800px){
   .grid{grid-template-columns:1fr}
   .full{grid-column:auto}
@@ -328,7 +338,7 @@ tr:nth-child(even){background:#fafafa}
       + Individual Relief
     </button>
 
-    <button class="btn blue" onclick="loadHouseholds()">
+    <button class="btn blue" onclick="refreshAll()">
       ↻ Refresh
     </button>
 
@@ -563,6 +573,7 @@ tr:nth-child(even){background:#fafafa}
     <div style="margin-top:20px;">
 
       <button
+        id="saveReliefBtn"
         type="button"
         class="btn green"
         onclick="saveRelief()"
@@ -607,6 +618,10 @@ tr:nth-child(even){background:#fafafa}
 
 <script>
 
+/* =========================================================
+   SUPABASE
+========================================================= */
+
 const SUPABASE_URL =
   "https://sslabegtsxlkafuygmar.supabase.co";
 
@@ -628,22 +643,55 @@ function headers(){
 }
 
 
+/* =========================================================
+   LOGIN / BRANCH
+========================================================= */
+
 if(localStorage.getItem("is_logged_in") !== "true"){
   window.location.href = "index.html";
 }
 
+
+/*
+  selected_branch_uuid is preferred.
+
+  selected_branch_id is used as fallback because
+  older login versions may have saved the UUID there.
+*/
+
 let currentBranchId =
-  localStorage.getItem("selected_branch_uuid");
+  localStorage.getItem("selected_branch_uuid") ||
+  localStorage.getItem("selected_branch_id") ||
+  "";
 
 let currentBranchCode =
-  localStorage.getItem("selected_branch_code");
+  localStorage.getItem("selected_branch_code") ||
+  localStorage.getItem("branch_code") ||
+  "";
 
 let currentBranchName =
-  localStorage.getItem("selected_branch_name");
+  localStorage.getItem("selected_branch_name") ||
+  localStorage.getItem("branch_name") ||
+  "";
 
 let loginUser =
   localStorage.getItem("login_user") || "";
 
+
+currentBranchCode =
+  String(currentBranchCode).trim().toUpperCase();
+
+
+function isMainBranch(){
+
+  return currentBranchCode === "MAIN";
+
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
 
 let households = [];
 let members = [];
@@ -656,35 +704,55 @@ let memberCounter = 0;
 let documentCounter = 0;
 let reliefItemCounter = 0;
 
+let savingRelief = false;
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
 
 function showMessage(text,type){
 
-  const box = document.getElementById("message");
+  const box =
+    document.getElementById("message");
 
   box.textContent = text;
 
-  box.className = "message " + type;
+  box.className =
+    "message " + type;
 
-  box.style.display = "block";
+  box.style.display =
+    "block";
 
   setTimeout(function(){
-    box.style.display = "none";
+
+    box.style.display =
+      "none";
+
   },6000);
 
 }
 
 
+/* =========================================================
+   ERROR
+========================================================= */
+
 async function getResponseError(response){
 
   try{
 
-    const text = await response.text();
+    const text =
+      await response.text();
 
-    if(!text) return "Unknown server error.";
+    if(!text){
+      return "Unknown server error.";
+    }
 
     try{
 
-      const json = JSON.parse(text);
+      const json =
+        JSON.parse(text);
 
       return (
         json.message ||
@@ -708,6 +776,10 @@ async function getResponseError(response){
 }
 
 
+/* =========================================================
+   POST
+========================================================= */
+
 async function postTable(table,payload){
 
   const response =
@@ -715,11 +787,14 @@ async function postTable(table,payload){
       API + "/" + table,
       {
         method:"POST",
+
         headers:{
           ...headers(),
           "Prefer":"return=representation"
         },
-        body:JSON.stringify(payload)
+
+        body:
+          JSON.stringify(payload)
       }
     );
 
@@ -741,96 +816,119 @@ async function postTable(table,payload){
   }
 
   try{
+
     return JSON.parse(text);
+
   }catch(e){
+
     return [];
+
   }
 
 }
 
+
+/* =========================================================
+   LOAD ITEMS
+========================================================= */
 
 async function loadItems(){
 
-  try{
+  let lastError = null;
 
-    let url =
-      API +
-      "/items?select=*&order=name.asc";
+  const urls = [];
 
-    if(
-      currentBranchCode !== "MAIN" &&
-      currentBranchId
-    ){
+  let base =
+    API + "/items?select=*";
 
-      url +=
-        "&branch_id=eq." +
-        encodeURIComponent(
-          currentBranchId
-        );
+  if(
+    !isMainBranch() &&
+    currentBranchId
+  ){
 
-    }
-
-    let response =
-      await fetch(
-        url,
-        {headers:headers()}
-      );
-
-    if(!response.ok){
-
-      let retryUrl =
-        API +
-        "/items?select=*&order=item_name.asc";
-
-      if(
-        currentBranchCode !== "MAIN" &&
+    base +=
+      "&branch_id=eq." +
+      encodeURIComponent(
         currentBranchId
-      ){
-
-        retryUrl +=
-          "&branch_id=eq." +
-          encodeURIComponent(
-            currentBranchId
-          );
-
-      }
-
-      response =
-        await fetch(
-          retryUrl,
-          {headers:headers()}
-        );
-
-    }
-
-    if(!response.ok){
-
-      throw new Error(
-        await getResponseError(response)
       );
-
-    }
-
-    items =
-      await response.json();
-
-  }catch(error){
-
-    console.error(
-      "Item loading error:",
-      error
-    );
-
-    showMessage(
-      "Items could not be loaded: " +
-      error.message,
-      "error"
-    );
 
   }
 
+  urls.push(
+    base + "&order=name.asc"
+  );
+
+  urls.push(
+    base + "&order=item_name.asc"
+  );
+
+  urls.push(base);
+
+
+  for(const url of urls){
+
+    try{
+
+      const response =
+        await fetch(
+          url,
+          {headers:headers()}
+        );
+
+      if(!response.ok){
+
+        lastError =
+          await getResponseError(response);
+
+        continue;
+
+      }
+
+      const data =
+        await response.json();
+
+      items =
+        Array.isArray(data)
+        ? data
+        : [];
+
+      /*
+        If branch filtering returned nothing because the
+        older items table does not contain branch_id,
+        do NOT mix branches automatically.
+
+        For normal branch operation, branch_id is expected.
+      */
+
+      return;
+
+    }catch(error){
+
+      lastError =
+        error.message;
+
+    }
+
+  }
+
+
+  console.error(
+    "Item loading error:",
+    lastError
+  );
+
+  showMessage(
+    "Items could not be loaded: " +
+    (lastError || "Unknown error"),
+    "error"
+  );
+
 }
 
+
+/* =========================================================
+   ITEM HELPERS
+========================================================= */
 
 function getItemName(item){
 
@@ -868,57 +966,140 @@ function getItemCategory(item){
 
 
 /* =========================================================
-   GET CURRENT STOCK BALANCE
+   STOCK BALANCE
 ========================================================= */
 
 async function getItemStockBalance(itemId){
 
-  let url =
-    API +
-    "/stock_transactions" +
-    "?select=transaction_type,quantity,branch_id,item_id" +
+  let urls = [];
+
+  const itemFilter =
     "&item_id=eq." +
     encodeURIComponent(itemId);
 
-  if(
-    currentBranchCode !== "MAIN"
-  ){
 
-    if(!currentBranchId){
+  /*
+    MAIN:
+    Read all branches because Main is the HQ dashboard.
+  */
 
-      throw new Error(
-        "Current branch UUID is missing."
+  if(isMainBranch()){
+
+    urls.push(
+      API +
+      "/stock_transactions" +
+      "?select=transaction_type,quantity" +
+      itemFilter
+    );
+
+  }else{
+
+    /*
+      First method:
+      branch_id + item_id
+    */
+
+    if(currentBranchId){
+
+      urls.push(
+        API +
+        "/stock_transactions" +
+        "?select=transaction_type,quantity,branch_id,item_id" +
+        itemFilter +
+        "&branch_id=eq." +
+        encodeURIComponent(
+          currentBranchId
+        )
       );
 
     }
 
-    url +=
-      "&branch_id=eq." +
-      encodeURIComponent(
-        currentBranchId
+
+    /*
+      Second method:
+      branch_code + item_id
+
+      This protects against an old/mismatched UUID
+      in localStorage.
+    */
+
+    if(currentBranchCode){
+
+      urls.push(
+        API +
+        "/stock_transactions" +
+        "?select=transaction_type,quantity,branch_code,item_id" +
+        itemFilter +
+        "&branch_code=eq." +
+        encodeURIComponent(
+          currentBranchCode
+        )
       );
 
+    }
+
   }
 
-  const response =
-    await fetch(
-      url,
-      {headers:headers()}
-    );
 
-  if(!response.ok){
+  if(urls.length === 0){
 
     throw new Error(
-      "Could not check stock balance for item: " +
-      await getResponseError(response)
+      "Current branch information is missing. Please log in again."
     );
 
   }
 
-  const data =
-    await response.json();
+
+  let data = null;
+  let lastError = null;
+
+
+  for(const url of urls){
+
+    try{
+
+      const response =
+        await fetch(
+          url,
+          {headers:headers()}
+        );
+
+      if(!response.ok){
+
+        lastError =
+          await getResponseError(response);
+
+        continue;
+
+      }
+
+      data =
+        await response.json();
+
+      break;
+
+    }catch(error){
+
+      lastError =
+        error.message;
+
+    }
+
+  }
+
+
+  if(!Array.isArray(data)){
+
+    throw new Error(
+      "Could not read stock transactions. " +
+      (lastError || "")
+    );
+
+  }
+
 
   let balance = 0;
+
 
   data.forEach(transaction => {
 
@@ -927,22 +1108,67 @@ async function getItemStockBalance(itemId){
         transaction.quantity || 0
       );
 
+
     const type =
       String(
         transaction.transaction_type || ""
-      ).toUpperCase();
+      )
+      .trim()
+      .toUpperCase();
 
-    if(type === "IN"){
+
+    /*
+      Support all common values used by the
+      AAFDRMC stock page.
+    */
+
+    if(
+      type === "IN" ||
+      type === "STOCK IN" ||
+      type === "STOCK_IN"
+    ){
+
       balance += quantity;
+
     }
 
-    if(type === "OUT"){
+
+    if(
+      type === "OUT" ||
+      type === "STOCK OUT" ||
+      type === "STOCK_OUT"
+    ){
+
       balance -= quantity;
+
     }
 
   });
 
+
   return balance;
+
+}
+
+
+/* =========================================================
+   REFRESH ALL
+========================================================= */
+
+async function refreshAll(){
+
+  showMessage(
+    "Refreshing data...",
+    "info"
+  );
+
+  await loadItems();
+  await loadHouseholds();
+
+  showMessage(
+    "Data refreshed successfully.",
+    "success"
+  );
 
 }
 
@@ -996,10 +1222,90 @@ function hideNewHousehold(){
 
 
 /* =========================================================
+   POPULATE HOUSEHOLD DROPDOWN
+========================================================= */
+
+function populateHouseholdSelect(){
+
+  const select =
+    document.getElementById(
+      "reliefHousehold"
+    );
+
+  select.innerHTML =
+    '<option value="">Select Household</option>';
+
+
+  if(!households.length){
+
+    select.innerHTML =
+      '<option value="">No Household Found</option>';
+
+    return;
+
+  }
+
+
+  households.forEach(h => {
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      String(h.id);
+
+    option.textContent =
+      (
+        h.household_name ||
+        "Unnamed Household"
+      ) +
+      (
+        h.fan_number
+        ?
+        " - FAN: " +
+        h.fan_number
+        :
+        ""
+      );
+
+    select.appendChild(option);
+
+  });
+
+}
+
+
+/* =========================================================
    SHOW NEW RELIEF
 ========================================================= */
 
 async function showNewRelief(){
+
+  /*
+    IMPORTANT FIX:
+    Always reload households before opening
+    the Individual Relief form.
+  */
+
+  showMessage(
+    "Loading households and items...",
+    "info"
+  );
+
+
+  try{
+
+    await Promise.all([
+      loadHouseholds(),
+      loadItems()
+    ]);
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
 
   document
     .getElementById("reliefFormCard")
@@ -1009,38 +1315,15 @@ async function showNewRelief(){
     .getElementById("householdFormCard")
     .classList.add("hidden");
 
-  document
-    .getElementById("reliefHousehold")
-    .innerHTML =
-    '<option value="">Select Household</option>';
 
-  households.forEach(h => {
+  populateHouseholdSelect();
 
-    const option =
-      document.createElement("option");
-
-    option.value = h.id;
-
-    option.textContent =
-      h.household_name +
-      (
-        h.fan_number
-        ?
-        " - FAN: " + h.fan_number
-        :
-        ""
-      );
-
-    document
-      .getElementById("reliefHousehold")
-      .appendChild(option);
-
-  });
 
   document
     .getElementById("reliefMember")
     .innerHTML =
     '<option value="">Select Member</option>';
+
 
   document
     .getElementById("reliefItemsContainer")
@@ -1048,14 +1331,19 @@ async function showNewRelief(){
 
   reliefItemCounter = 0;
 
+
   addReliefItem();
+
 
   document
     .getElementById("reliefEnteredBy")
     .value =
     loginUser || "";
 
-  const now = new Date();
+
+  const now =
+    new Date();
+
 
   const localDateTime =
     new Date(
@@ -1065,20 +1353,12 @@ async function showNewRelief(){
     .toISOString()
     .slice(0,16);
 
+
   document
     .getElementById("reliefDate")
     .value =
     localDateTime;
 
-  if(items.length === 0){
-    await loadItems();
-  }
-
-  document
-    .querySelectorAll(".relief-item-select")
-    .forEach(select => {
-      populateReliefItemSelect(select);
-    });
 
   window.scrollTo({
     top:
@@ -1111,12 +1391,15 @@ async function loadReliefMembers(){
       .getElementById("reliefHousehold")
       .value;
 
+
   const select =
     document
       .getElementById("reliefMember");
 
+
   select.innerHTML =
     '<option value="">Loading members...</option>';
+
 
   if(!householdId){
 
@@ -1127,47 +1410,96 @@ async function loadReliefMembers(){
 
   }
 
+
   try{
 
     const response =
       await fetch(
         API +
         "/emergency_members" +
-        "?household_id=eq." +
-        encodeURIComponent(householdId) +
+        "?select=*" +
+        "&household_id=eq." +
+        encodeURIComponent(
+          householdId
+        ) +
         "&order=created_at.asc",
         {headers:headers()}
       );
 
+
     if(!response.ok){
 
-      throw new Error(
-        await getResponseError(response)
-      );
+      /*
+        Retry without created_at ordering
+        in case the table has no created_at column.
+      */
+
+      const retry =
+        await fetch(
+          API +
+          "/emergency_members" +
+          "?select=*" +
+          "&household_id=eq." +
+          encodeURIComponent(
+            householdId
+          ),
+          {headers:headers()}
+        );
+
+
+      if(!retry.ok){
+
+        throw new Error(
+          await getResponseError(retry)
+        );
+
+      }
+
+
+      const retryData =
+        await retry.json();
+
+      members =
+        Array.isArray(retryData)
+        ? retryData
+        : [];
+
+
+    }else{
+
+      const data =
+        await response.json();
+
+      members =
+        Array.isArray(data)
+        ? data
+        : [];
 
     }
 
-    const data =
-      await response.json();
-
-    members = data;
 
     select.innerHTML =
       '<option value="">Select Member</option>';
 
-    data.forEach(member => {
+
+    members.forEach(member => {
 
       const option =
         document.createElement("option");
 
-      option.value = member.id;
-      option.textContent = member.full_name;
+      option.value =
+        String(member.id);
+
+      option.textContent =
+        member.full_name ||
+        "Unnamed Member";
 
       select.appendChild(option);
 
     });
 
-    if(data.length === 0){
+
+    if(members.length === 0){
 
       select.innerHTML =
         '<option value="">No members found</option>';
@@ -1176,7 +1508,10 @@ async function loadReliefMembers(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Member loading error:",
+      error
+    );
 
     select.innerHTML =
       '<option value="">Could not load members</option>';
@@ -1200,13 +1535,20 @@ function addReliefItem(){
 
   reliefItemCounter++;
 
-  const id = reliefItemCounter;
+  const id =
+    reliefItemCounter;
+
 
   const div =
     document.createElement("div");
 
-  div.className = "relief-row";
-  div.id = "relief_item_" + id;
+
+  div.className =
+    "relief-row";
+
+  div.id =
+    "relief_item_" + id;
+
 
   div.innerHTML = `
 
@@ -1289,41 +1631,63 @@ function addReliefItem(){
     </div>
   `;
 
+
   document
-    .getElementById("reliefItemsContainer")
+    .getElementById(
+      "reliefItemsContainer"
+    )
     .appendChild(div);
 
+
   populateReliefItemSelect(
-    div.querySelector(".relief-item-select")
+    div.querySelector(
+      ".relief-item-select"
+    )
   );
 
 }
 
 
+/* =========================================================
+   POPULATE ITEM SELECT
+========================================================= */
+
 function populateReliefItemSelect(select){
+
+  if(!select) return;
+
 
   select.innerHTML =
     '<option value="">Select Item</option>';
+
 
   items.forEach(item => {
 
     const option =
       document.createElement("option");
 
-    option.value = item.id;
+
+    option.value =
+      String(item.id);
+
 
     option.textContent =
-      getItemName(item);
+      getItemName(item) ||
+      "Unnamed Item";
+
 
     option.dataset.unit =
       getItemUnit(item);
 
+
     option.dataset.category =
       getItemCategory(item);
+
 
     select.appendChild(option);
 
   });
+
 
   if(items.length === 0){
 
@@ -1331,7 +1695,9 @@ function populateReliefItemSelect(select){
       document.createElement("option");
 
     option.value = "";
-    option.textContent = "No items found";
+
+    option.textContent =
+      "No items found";
 
     select.appendChild(option);
 
@@ -1340,17 +1706,24 @@ function populateReliefItemSelect(select){
 }
 
 
+/* =========================================================
+   SET ITEM UNIT/CATEGORY
+========================================================= */
+
 function setReliefItemUnit(select){
 
   const row =
     select.closest(".relief-row");
 
+
   if(!row) return;
+
 
   const option =
     select.options[
       select.selectedIndex
     ];
+
 
   row.querySelector(
     ".relief-item-unit"
@@ -1360,6 +1733,7 @@ function setReliefItemUnit(select){
     option.dataset.unit || ""
     :
     "";
+
 
   row.querySelector(
     ".relief-item-category"
@@ -1374,31 +1748,118 @@ function setReliefItemUnit(select){
 
 
 /* =========================================================
+   UPDATE STOCK INFORMATION FOR ROW
+========================================================= */
+
+async function updateReliefRowStock(row){
+
+  const select =
+    row.querySelector(
+      ".relief-item-select"
+    );
+
+  const info =
+    row.querySelector(
+      ".stock-info"
+    );
+
+
+  if(!select.value){
+
+    info.textContent =
+      "Stock balance will be checked before saving.";
+
+    info.className =
+      "stock-info";
+
+    return;
+
+  }
+
+
+  info.textContent =
+    "Checking current stock...";
+
+
+  try{
+
+    const balance =
+      await getItemStockBalance(
+        select.value
+      );
+
+
+    if(balance > 0){
+
+      info.textContent =
+        "Current Stock: " +
+        balance;
+
+      info.className =
+        "stock-info stock-ok";
+
+    }else{
+
+      info.textContent =
+        "Current Stock: 0";
+
+      info.className =
+        "stock-info stock-low";
+
+    }
+
+  }catch(error){
+
+    info.textContent =
+      "Stock could not be checked.";
+
+    info.className =
+      "stock-info stock-low";
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* =========================================================
    SAVE RELIEF
 ========================================================= */
 
 async function saveRelief(){
+
+  if(savingRelief){
+
+    return;
+
+  }
+
 
   const householdId =
     document
       .getElementById("reliefHousehold")
       .value;
 
+
   const memberId =
     document
       .getElementById("reliefMember")
       .value;
+
 
   const reliefDate =
     document
       .getElementById("reliefDate")
       .value;
 
+
   const enteredBy =
     document
       .getElementById("reliefEnteredBy")
       .value
       .trim();
+
 
   const notes =
     document
@@ -1457,7 +1918,9 @@ async function saveRelief(){
 
   const rows =
     Array.from(
-      document.querySelectorAll(".relief-row")
+      document.querySelectorAll(
+        ".relief-row"
+      )
     );
 
 
@@ -1483,12 +1946,14 @@ async function saveRelief(){
         ".relief-item-select"
       ).value;
 
+
     const quantity =
       Number(
         row.querySelector(
           ".relief-item-quantity"
         ).value
       );
+
 
     const unit =
       row.querySelector(
@@ -1509,7 +1974,10 @@ async function saveRelief(){
     }
 
 
-    if(!quantity || quantity <= 0){
+    if(
+      !Number.isFinite(quantity) ||
+      quantity <= 0
+    ){
 
       showMessage(
         "Quantity must be greater than zero.",
@@ -1529,27 +1997,35 @@ async function saveRelief(){
       );
 
 
+    if(!item){
+
+      showMessage(
+        "Selected item was not found.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
     selectedItems.push({
 
-      item_id:itemId,
+      item_id:
+        itemId,
 
-      quantity:quantity,
+      quantity:
+        quantity,
 
       unit:
         unit ||
-        getItemUnit(
-          item || {}
-        ),
+        getItemUnit(item),
 
       item_name:
-        getItemName(
-          item || {}
-        ),
+        getItemName(item),
 
       category:
-        getItemCategory(
-          item || {}
-        )
+        getItemCategory(item)
 
     });
 
@@ -1558,6 +2034,22 @@ async function saveRelief(){
 
   try{
 
+    savingRelief = true;
+
+
+    const saveButton =
+      document.getElementById(
+        "saveReliefBtn"
+      );
+
+
+    saveButton.disabled =
+      true;
+
+    saveButton.textContent =
+      "Saving...";
+
+
     showMessage(
       "Checking stock balance...",
       "info"
@@ -1565,7 +2057,7 @@ async function saveRelief(){
 
 
     /* =====================================================
-       CHECK STOCK BEFORE ANY DATABASE INSERT
+       AGGREGATE SAME ITEM
     ===================================================== */
 
     const requiredByItem = {};
@@ -1573,9 +2065,15 @@ async function saveRelief(){
 
     selectedItems.forEach(selected => {
 
-      if(!requiredByItem[selected.item_id]){
+      const key =
+        String(
+          selected.item_id
+        );
 
-        requiredByItem[selected.item_id] = {
+
+      if(!requiredByItem[key]){
+
+        requiredByItem[key] = {
 
           item_id:
             selected.item_id,
@@ -1595,9 +2093,8 @@ async function saveRelief(){
 
       }
 
-      requiredByItem[
-        selected.item_id
-      ].quantity +=
+
+      requiredByItem[key].quantity +=
         Number(
           selected.quantity
         );
@@ -1611,6 +2108,10 @@ async function saveRelief(){
       );
 
 
+    /* =====================================================
+       CHECK STOCK
+    ===================================================== */
+
     for(
       const required of requiredItems
     ){
@@ -1619,6 +2120,18 @@ async function saveRelief(){
         await getItemStockBalance(
           required.item_id
         );
+
+
+      if(balance < 0){
+
+        throw new Error(
+          "Stock balance for '" +
+          required.item_name +
+          "' is invalid: " +
+          balance
+        );
+
+      }
 
 
       if(balance <= 0){
@@ -1654,17 +2167,13 @@ async function saveRelief(){
 
     /* =====================================================
        1. SAVE RELIEF
-
-       Model 22 is NOT shown in Relief UI.
-
-       IMPORTANT:
-       Because the current emergency_reliefs table has
-       a Model 22 CHECK constraint, we do not send an
-       invalid Model 22 value here.
-
-       The Model 22 information is stored with the
-       automatic Stock OUT transaction.
     ===================================================== */
+
+    showMessage(
+      "Saving relief record...",
+      "info"
+    );
+
 
     const reliefPayload = {
 
@@ -1772,13 +2281,51 @@ async function saveRelief(){
 
       }
 
+    }
 
-      /* =================================================
-         3. AUTOMATIC STOCK OUT
 
-         Model 22 is registered here.
-         It is NOT displayed on Relief form.
-      ================================================= */
+    /* =====================================================
+       3. AUTOMATIC STOCK OUT
+
+       IMPORTANT FIX:
+
+       Your current stock_transactions schema contains:
+
+       id
+       transaction_type
+       quantity
+       entered_by
+       entered_at
+       expiry_date
+       category
+       issued_by
+       signature
+       unit
+       transaction
+       branch_id
+       branch_code
+       item_id
+
+       Therefore we DO NOT send:
+       - relief_id
+       - model_22
+       - source_type
+
+       Sending unknown columns was causing Save to fail.
+
+       Model 22 is represented in the existing
+       "transaction" text field.
+    ===================================================== */
+
+    showMessage(
+      "Registering Stock OUT...",
+      "info"
+    );
+
+
+    for(
+      const selected of selectedItems
+    ){
 
       const stockPayload = {
 
@@ -1812,31 +2359,45 @@ async function saveRelief(){
           selected.unit || null,
 
         transaction:
-          "Emergency Relief",
+          "Emergency Relief - Model 22",
 
         branch_id:
+          isMainBranch()
+          ?
+          null
+          :
           currentBranchId,
 
         branch_code:
-          currentBranchCode || null,
+          isMainBranch()
+          ?
+          "MAIN"
+          :
+          (currentBranchCode || null),
 
         item_id:
-          selected.item_id,
-
-        relief_id:
-          relief.id,
-
-        /*
-          Model 22 is stored in Stock OUT.
-          The visible Stock OUT page can read this value.
-        */
-        model_22:
-          "Model 22",
-
-        source_type:
-          "Emergency Relief"
+          selected.item_id
 
       };
+
+
+      /*
+        MAIN should not normally create operational
+        branch stock transactions.
+
+        For operational branches, branch_id is required.
+      */
+
+      if(
+        !isMainBranch() &&
+        !currentBranchId
+      ){
+
+        throw new Error(
+          "Current branch UUID is missing. Please log in again."
+        );
+
+      }
 
 
       await postTable(
@@ -1847,6 +2408,10 @@ async function saveRelief(){
     }
 
 
+    /* =====================================================
+       SUCCESS
+    ===================================================== */
+
     showMessage(
       "Individual Relief saved successfully and Stock OUT registered automatically.",
       "success"
@@ -1855,7 +2420,11 @@ async function saveRelief(){
 
     hideNewRelief();
 
+
+    await loadItems();
+
     await loadHouseholds();
+
 
     await openHouseholdById(
       householdId
@@ -1869,11 +2438,30 @@ async function saveRelief(){
       error
     );
 
+
     showMessage(
       "Relief save failed: " +
       error.message,
       "error"
     );
+
+
+  }finally{
+
+    savingRelief = false;
+
+
+    const saveButton =
+      document.getElementById(
+        "saveReliefBtn"
+      );
+
+
+    saveButton.disabled =
+      false;
+
+    saveButton.textContent =
+      "Save Relief";
 
   }
 
@@ -1891,11 +2479,17 @@ function addMember(){
   const id =
     memberCounter;
 
+
   const div =
     document.createElement("div");
 
-  div.className = "member-row";
-  div.id = "member_" + id;
+
+  div.className =
+    "member-row";
+
+  div.id =
+    "member_" + id;
+
 
   div.innerHTML = `
 
@@ -1991,8 +2585,11 @@ function addMember(){
     </div>
   `;
 
+
   document
-    .getElementById("membersContainer")
+    .getElementById(
+      "membersContainer"
+    )
     .appendChild(div);
 
 }
@@ -2009,11 +2606,17 @@ function addDocument(){
   const id =
     documentCounter;
 
+
   const div =
     document.createElement("div");
 
-  div.className = "document-row";
-  div.id = "document_" + id;
+
+  div.className =
+    "document-row";
+
+  div.id =
+    "document_" + id;
+
 
   div.innerHTML = `
 
@@ -2097,8 +2700,11 @@ function addDocument(){
     </div>
   `;
 
+
   document
-    .getElementById("documentsContainer")
+    .getElementById(
+      "documentsContainer"
+    )
     .appendChild(div);
 
 }
@@ -2128,10 +2734,12 @@ async function saveHousehold(){
       .value
       .trim();
 
+
   const disasterType =
     document
       .getElementById("disasterType")
       .value;
+
 
   if(!householdName){
 
@@ -2144,6 +2752,7 @@ async function saveHousehold(){
 
   }
 
+
   if(!disasterType){
 
     showMessage(
@@ -2155,8 +2764,9 @@ async function saveHousehold(){
 
   }
 
+
   if(
-    currentBranchCode !== "MAIN" &&
+    !isMainBranch() &&
     !currentBranchId
   ){
 
@@ -2172,8 +2782,11 @@ async function saveHousehold(){
 
   const memberRows =
     Array.from(
-      document.querySelectorAll(".member-row")
+      document.querySelectorAll(
+        ".member-row"
+      )
     );
+
 
   if(memberRows.length === 0){
 
@@ -2201,11 +2814,13 @@ async function saveHousehold(){
       .value
       .trim();
 
+
     const relationship =
       row.querySelector(
         ".member-relationship"
       )
       .value;
+
 
     if(!name || !relationship){
 
@@ -2218,22 +2833,26 @@ async function saveHousehold(){
 
     }
 
+
     const ageValue =
       row.querySelector(
         ".member-age"
-      )
-      .value;
+      ).value;
+
 
     memberDataList.push({
 
-      full_name:name,
+      full_name:
+        name,
 
-      relationship:relationship,
+      relationship:
+        relationship,
 
       sex:
         row.querySelector(
           ".member-sex"
-        ).value || null,
+        ).value ||
+        null,
 
       age:
         ageValue
@@ -2245,7 +2864,8 @@ async function saveHousehold(){
       other_information:
         row.querySelector(
           ".member-other"
-        ).value.trim() || null
+        ).value.trim() ||
+        null
 
     });
 
@@ -2254,7 +2874,9 @@ async function saveHousehold(){
 
   const documentRows =
     Array.from(
-      document.querySelectorAll(".document-row")
+      document.querySelectorAll(
+        ".document-row"
+      )
     );
 
 
@@ -2276,66 +2898,90 @@ async function saveHousehold(){
 
       disaster_date:
         document
-          .getElementById("disasterDate")
-          .value || null,
+          .getElementById(
+            "disasterDate"
+          )
+          .value ||
+        null,
 
       city:
         document
-          .getElementById("city")
+          .getElementById(
+            "city"
+          )
           .value
-          .trim() || null,
+          .trim() ||
+        null,
 
       sub_city:
         document
-          .getElementById("subCity")
+          .getElementById(
+            "subCity"
+          )
           .value
-          .trim() || null,
+          .trim() ||
+        null,
 
       woreda:
         document
-          .getElementById("woreda")
+          .getElementById(
+            "woreda"
+          )
           .value
-          .trim() || null,
+          .trim() ||
+        null,
 
       specific_location:
         document
-          .getElementById("specificLocation")
+          .getElementById(
+            "specificLocation"
+          )
           .value
-          .trim() || null,
+          .trim() ||
+        null,
 
       house_number:
         document
-          .getElementById("houseNumber")
+          .getElementById(
+            "houseNumber"
+          )
           .value
-          .trim() || null,
+          .trim() ||
+        null,
 
       fan_number:
         document
-          .getElementById("fanNumber")
+          .getElementById(
+            "fanNumber"
+          )
           .value
-          .trim() || null,
+          .trim() ||
+        null,
 
       other_information:
         document
-          .getElementById("householdOther")
+          .getElementById(
+            "householdOther"
+          )
           .value
-          .trim() || null,
+          .trim() ||
+        null,
 
       created_by:
-        loginUser || null
+        loginUser ||
+        null
 
     };
 
 
-    if(
-      currentBranchCode !== "MAIN"
-    ){
+    if(!isMainBranch()){
 
       householdPayload.branch_id =
         currentBranchId;
 
       householdPayload.branch_code =
-        currentBranchCode || null;
+        currentBranchCode ||
+        null;
 
     }else{
 
@@ -2377,6 +3023,10 @@ async function saveHousehold(){
     }
 
 
+    /* =====================================================
+       MEMBERS
+    ===================================================== */
+
     for(
       const member of memberDataList
     ){
@@ -2412,6 +3062,10 @@ async function saveHousehold(){
     }
 
 
+    /* =====================================================
+       DOCUMENTS
+    ===================================================== */
+
     for(
       const row of documentRows
     ){
@@ -2433,20 +3087,22 @@ async function saveHousehold(){
             ".document-number"
           )
           .value
-          .trim() || null,
+          .trim() ||
+          null,
 
         document_date:
           row.querySelector(
             ".document-date"
-          )
-          .value || null,
+          ).value ||
+          null,
 
         document_name:
           row.querySelector(
             ".document-name"
           )
           .value
-          .trim() || null,
+          .trim() ||
+          null,
 
         file_name:
           file
@@ -2463,7 +3119,8 @@ async function saveHousehold(){
             ".document-other"
           )
           .value
-          .trim() || null
+          .trim() ||
+          null
 
       };
 
@@ -2539,7 +3196,21 @@ async function saveHousehold(){
     ).value = "";
 
 
+    document.getElementById(
+      "membersContainer"
+    ).innerHTML = "";
+
+    document.getElementById(
+      "documentsContainer"
+    ).innerHTML = "";
+
+
+    memberCounter = 0;
+    documentCounter = 0;
+
+
     await loadHouseholds();
+
 
     await openHouseholdById(
       household.id
@@ -2552,6 +3223,7 @@ async function saveHousehold(){
       "SAVE HOUSEHOLD ERROR:",
       error
     );
+
 
     showMessage(
       "Save failed: " +
@@ -2573,7 +3245,9 @@ async function loadHouseholds(){
   try{
 
     document
-      .getElementById("householdList")
+      .getElementById(
+        "householdList"
+      )
       .innerHTML =
       '<div class="loading">Loading households...</div>';
 
@@ -2581,13 +3255,10 @@ async function loadHouseholds(){
     let url =
       API +
       "/emergency_households" +
-      "?select=*" +
-      "&order=created_at.desc";
+      "?select=*";
 
 
-    if(
-      currentBranchCode !== "MAIN"
-    ){
+    if(!isMainBranch()){
 
       if(!currentBranchId){
 
@@ -2596,6 +3267,7 @@ async function loadHouseholds(){
         );
 
       }
+
 
       url +=
         "&branch_id=eq." +
@@ -2606,11 +3278,32 @@ async function loadHouseholds(){
     }
 
 
-    const response =
+    /*
+      Try created_at ordering first.
+    */
+
+    let response =
       await fetch(
-        url,
+        url +
+        "&order=created_at.desc",
         {headers:headers()}
       );
+
+
+    /*
+      If created_at does not exist, retry
+      without ordering.
+    */
+
+    if(!response.ok){
+
+      response =
+        await fetch(
+          url,
+          {headers:headers()}
+        );
+
+    }
 
 
     if(!response.ok){
@@ -2622,8 +3315,14 @@ async function loadHouseholds(){
     }
 
 
-    households =
+    const data =
       await response.json();
+
+
+    households =
+      Array.isArray(data)
+      ? data
+      : [];
 
 
     await loadSummary();
@@ -2633,10 +3332,16 @@ async function loadHouseholds(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "LOAD HOUSEHOLDS ERROR:",
+      error
+    );
+
 
     document
-      .getElementById("householdList")
+      .getElementById(
+        "householdList"
+      )
       .innerHTML =
       '<div class="message error" style="display:block">' +
       escapeHtml(
@@ -2658,9 +3363,9 @@ async function loadSummary(){
 
   try{
 
-    document
-      .getElementById("totalHouseholds")
-      .textContent =
+    document.getElementById(
+      "totalHouseholds"
+    ).textContent =
       households.length;
 
 
@@ -2674,15 +3379,18 @@ async function loadSummary(){
 
       document.getElementById(
         "totalMembers"
-      ).textContent = "0";
+      ).textContent =
+        "0";
 
       document.getElementById(
         "totalReliefs"
-      ).textContent = "0";
+      ).textContent =
+        "0";
 
       document.getElementById(
         "totalDocuments"
-      ).textContent = "0";
+      ).textContent =
+        "0";
 
       return;
 
@@ -2740,7 +3448,8 @@ async function loadSummary(){
         const data =
           await memberResponse.json();
 
-        memberCount += data.length;
+        memberCount +=
+          data.length;
 
       }
 
@@ -2750,7 +3459,8 @@ async function loadSummary(){
         const data =
           await reliefResponse.json();
 
-        reliefCount += data.length;
+        reliefCount +=
+          data.length;
 
       }
 
@@ -2760,7 +3470,8 @@ async function loadSummary(){
         const data =
           await documentResponse.json();
 
-        documentCount += data.length;
+        documentCount +=
+          data.length;
 
       }
 
@@ -2772,10 +3483,12 @@ async function loadSummary(){
     ).textContent =
       memberCount;
 
+
     document.getElementById(
       "totalReliefs"
     ).textContent =
       reliefCount;
+
 
     document.getElementById(
       "totalDocuments"
@@ -2826,15 +3539,22 @@ function renderHouseholds(){
     household => {
 
       const folder =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
-      folder.className = "folder";
+
+      folder.className =
+        "folder";
+
 
       folder.onclick =
         function(){
+
           openHousehold(
             household.id
           );
+
         };
 
 
@@ -2903,7 +3623,9 @@ function renderHouseholds(){
       `;
 
 
-      list.appendChild(folder);
+      list.appendChild(
+        folder
+      );
 
     }
   );
@@ -2919,19 +3641,27 @@ async function filterHouseholds(){
 
   const text =
     document
-      .getElementById("searchText")
+      .getElementById(
+        "searchText"
+      )
       .value
       .toLowerCase()
       .trim();
 
+
   const disaster =
     document
-      .getElementById("filterDisaster")
+      .getElementById(
+        "filterDisaster"
+      )
       .value;
+
 
   const date =
     document
-      .getElementById("filterDate")
+      .getElementById(
+        "filterDate"
+      )
       .value;
 
 
@@ -2956,16 +3686,29 @@ async function filterHouseholds(){
         const data =
           await response.json();
 
+
         data.forEach(member => {
 
-          if(!memberNames[member.household_id]){
-            memberNames[member.household_id] = "";
+          if(
+            !memberNames[
+              member.household_id
+            ]
+          ){
+
+            memberNames[
+              member.household_id
+            ] = "";
+
           }
 
-          memberNames[member.household_id] +=
+
+          memberNames[
+            member.household_id
+          ] +=
             " " +
             (
-              member.full_name || ""
+              member.full_name ||
+              ""
             )
             .toLowerCase();
 
@@ -2996,12 +3739,14 @@ async function filterHouseholds(){
           )
           .toLowerCase();
 
+
         const fan =
           (
             h.fan_number ||
             ""
           )
           .toLowerCase();
+
 
         const memberText =
           (
@@ -3037,16 +3782,124 @@ async function filterHouseholds(){
     );
 
 
-  const original =
-    households;
+  /*
+    Do not replace the main households array.
+    Render only the filtered list.
+  */
 
-  households =
-    filtered;
+  renderHouseholdArray(
+    filtered
+  );
 
-  renderHouseholds();
+}
 
-  households =
-    original;
+
+/* =========================================================
+   RENDER FILTERED ARRAY
+========================================================= */
+
+function renderHouseholdArray(listData){
+
+  const list =
+    document.getElementById(
+      "householdList"
+    );
+
+
+  if(!listData.length){
+
+    list.innerHTML =
+      '<div class="loading">' +
+      'No matching households found.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML = "";
+
+
+  listData.forEach(
+    household => {
+
+      const folder =
+        document.createElement(
+          "div"
+        );
+
+
+      folder.className =
+        "folder";
+
+
+      folder.onclick =
+        function(){
+
+          openHousehold(
+            household.id
+          );
+
+        };
+
+
+      folder.innerHTML = `
+
+        <div class="folder-title">
+
+          📁
+          ${escapeHtml(
+            household.household_name
+          )}
+
+        </div>
+
+        <div class="folder-meta">
+
+          <span class="badge">
+            ${escapeHtml(
+              household.disaster_type ||
+              "Unknown"
+            )}
+          </span>
+
+          ${
+            household.disaster_date
+            ?
+            `<span class="badge">
+              ${escapeHtml(
+                household.disaster_date
+              )}
+            </span>`
+            :
+            ""
+          }
+
+          ${
+            household.fan_number
+            ?
+            `<span class="badge">
+              FAN:
+              ${escapeHtml(
+                household.fan_number
+              )}
+            </span>`
+            :
+            ""
+          }
+
+        </div>
+
+      `;
+
+
+      list.appendChild(
+        folder
+      );
+
+    }
+  );
 
 }
 
@@ -3060,7 +3913,8 @@ async function openHousehold(id){
   const household =
     households.find(
       h =>
-        h.id === id
+        String(h.id) ===
+        String(id)
     );
 
 
@@ -3075,10 +3929,16 @@ async function openHousehold(id){
   }
 
 
-  await openHouseholdById(id);
+  await openHouseholdById(
+    id
+  );
 
 }
 
+
+/* =========================================================
+   OPEN HOUSEHOLD BY ID
+========================================================= */
 
 async function openHouseholdById(id){
 
@@ -3127,6 +3987,7 @@ async function openHouseholdById(id){
 
     console.error(error);
 
+
     showMessage(
       "Could not open household: " +
       error.message,
@@ -3151,6 +4012,7 @@ async function renderHouseholdDetails(
       "detailsModal"
     );
 
+
   const content =
     document.getElementById(
       "modalContent"
@@ -3162,10 +4024,14 @@ async function renderHouseholdDetails(
   )
   .textContent =
     "📁 " +
-    household.household_name;
+    (
+      household.household_name ||
+      "Household Details"
+    );
 
 
-  modal.style.display = "flex";
+  modal.style.display =
+    "flex";
 
 
   content.innerHTML =
@@ -3176,6 +4042,33 @@ async function renderHouseholdDetails(
 
   try{
 
+    const memberUrl =
+      API +
+      "/emergency_members" +
+      "?household_id=eq." +
+      encodeURIComponent(
+        household.id
+      );
+
+
+    const reliefUrl =
+      API +
+      "/emergency_reliefs" +
+      "?household_id=eq." +
+      encodeURIComponent(
+        household.id
+      );
+
+
+    const documentUrl =
+      API +
+      "/emergency_documents" +
+      "?household_id=eq." +
+      encodeURIComponent(
+        household.id
+      );
+
+
     const [
       memberResponse,
       reliefResponse,
@@ -3184,35 +4077,17 @@ async function renderHouseholdDetails(
     await Promise.all([
 
       fetch(
-        API +
-        "/emergency_members" +
-        "?household_id=eq." +
-        encodeURIComponent(
-          household.id
-        ) +
-        "&order=created_at.asc",
+        memberUrl,
         {headers:headers()}
       ),
 
       fetch(
-        API +
-        "/emergency_reliefs" +
-        "?household_id=eq." +
-        encodeURIComponent(
-          household.id
-        ) +
-        "&order=created_at.asc",
+        reliefUrl,
         {headers:headers()}
       ),
 
       fetch(
-        API +
-        "/emergency_documents" +
-        "?household_id=eq." +
-        encodeURIComponent(
-          household.id
-        ) +
-        "&order=created_at.asc",
+        documentUrl,
         {headers:headers()}
       )
 
@@ -3327,6 +4202,10 @@ async function renderHouseholdDetails(
     `;
 
 
+    /* =====================================================
+       MEMBERS
+    ===================================================== */
+
     html += `
 
       <div class="detail-box">
@@ -3427,6 +4306,10 @@ async function renderHouseholdDetails(
 
     html += "</div>";
 
+
+    /* =====================================================
+       RELIEF
+    ===================================================== */
 
     html += `
 
@@ -3641,6 +4524,10 @@ async function renderHouseholdDetails(
     html += "</div>";
 
 
+    /* =====================================================
+       DOCUMENTS
+    ===================================================== */
+
     html += `
 
       <div class="detail-box">
@@ -3736,6 +4623,7 @@ async function renderHouseholdDetails(
 
     console.error(error);
 
+
     content.innerHTML = `
 
       <div
@@ -3758,10 +4646,16 @@ async function renderHouseholdDetails(
 }
 
 
+/* =========================================================
+   MODAL
+========================================================= */
+
 function closeModal(){
 
   document
-    .getElementById("detailsModal")
+    .getElementById(
+      "detailsModal"
+    )
     .style.display =
     "none";
 
@@ -3769,18 +4663,26 @@ function closeModal(){
 
 
 document
-  .getElementById("detailsModal")
+  .getElementById(
+    "detailsModal"
+  )
   .addEventListener(
     "click",
     function(e){
 
       if(e.target === this){
+
         closeModal();
+
       }
 
     }
   );
 
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHtml(value){
 
@@ -3788,16 +4690,38 @@ function escapeHtml(value){
     value === null ||
     value === undefined
   ){
+
     return "";
+
   }
+
 
   return String(value)
 
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
