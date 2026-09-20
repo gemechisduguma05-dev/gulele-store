@@ -327,8 +327,6 @@ tr:nth-child(even){background:#fafafa}
 
   <div id="message" class="message"></div>
 
-  <!-- SUMMARY -->
-
   <div class="card">
 
     <h2>Emergency Relief Summary</h2>
@@ -358,8 +356,6 @@ tr:nth-child(even){background:#fafafa}
     </div>
 
   </div>
-
-  <!-- SEARCH -->
 
   <div class="card">
 
@@ -394,8 +390,6 @@ tr:nth-child(even){background:#fafafa}
 
   </div>
 
-  <!-- HOUSEHOLDS -->
-
   <div class="card">
 
     <h2>Household Folders</h2>
@@ -405,8 +399,6 @@ tr:nth-child(even){background:#fafafa}
     </div>
 
   </div>
-
-  <!-- NEW HOUSEHOLD -->
 
   <div id="householdFormCard" class="card hidden">
 
@@ -512,8 +504,6 @@ tr:nth-child(even){background:#fafafa}
 
   </div>
 
-  <!-- INDIVIDUAL RELIEF -->
-
   <div id="reliefFormCard" class="card hidden">
 
     <h2>Individual Relief</h2>
@@ -609,8 +599,6 @@ tr:nth-child(even){background:#fafafa}
 
 </div>
 
-<!-- DETAILS MODAL -->
-
 <div id="detailsModal" class="modal">
 
   <div class="modal-box">
@@ -634,10 +622,6 @@ tr:nth-child(even){background:#fafafa}
 
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
-
 const SUPABASE_URL =
   "https://sslabegtsxlkafuygmar.supabase.co";
 
@@ -659,10 +643,6 @@ function headers(){
 }
 
 
-/* =========================================================
-   LOGIN / BRANCH
-========================================================= */
-
 if(localStorage.getItem("is_logged_in") !== "true"){
   window.location.href = "index.html";
 }
@@ -680,10 +660,6 @@ let loginUser =
   localStorage.getItem("login_user") || "";
 
 
-/* =========================================================
-   DATA
-========================================================= */
-
 let households = [];
 let members = [];
 let reliefs = [];
@@ -696,10 +672,6 @@ let documentCounter = 0;
 let reliefItemCounter = 0;
 
 
-/* =========================================================
-   MESSAGE
-========================================================= */
-
 function showMessage(text,type){
 
   const box = document.getElementById("message");
@@ -711,17 +683,11 @@ function showMessage(text,type){
   box.style.display = "block";
 
   setTimeout(function(){
-
     box.style.display = "none";
-
   },6000);
 
 }
 
-
-/* =========================================================
-   SAFE JSON
-========================================================= */
 
 async function getResponseError(response){
 
@@ -756,10 +722,6 @@ async function getResponseError(response){
 
 }
 
-
-/* =========================================================
-   GENERIC POST
-========================================================= */
 
 async function postTable(table,payload){
 
@@ -801,10 +763,6 @@ async function postTable(table,payload){
 
 }
 
-
-/* =========================================================
-   LOAD ITEMS
-========================================================= */
 
 async function loadItems(){
 
@@ -924,10 +882,6 @@ function getItemCategory(item){
 }
 
 
-/* =========================================================
-   NEW HOUSEHOLD
-========================================================= */
-
 function showNewHousehold(){
 
   document
@@ -971,10 +925,6 @@ function hideNewHousehold(){
 
 }
 
-
-/* =========================================================
-   NEW RELIEF
-========================================================= */
 
 async function showNewRelief(){
 
@@ -1077,10 +1027,6 @@ function hideNewRelief(){
 }
 
 
-/* =========================================================
-   LOAD MEMBERS
-========================================================= */
-
 async function loadReliefMembers(){
 
   const householdId =
@@ -1168,10 +1114,6 @@ async function loadReliefMembers(){
 
 }
 
-
-/* =========================================================
-   ADD RELIEF ITEM
-========================================================= */
 
 function addReliefItem(){
 
@@ -1346,10 +1288,6 @@ function setReliefItemUnit(select){
 }
 
 
-/* =========================================================
-   MODEL 22
-========================================================= */
-
 function toggleReliefModel22Number(){
 
   const value =
@@ -1382,7 +1320,7 @@ function toggleReliefModel22Number(){
 
 
 /* =========================================================
-   SAVE RELIEF
+   SAVE RELIEF - FIXED
 ========================================================= */
 
 async function saveRelief(){
@@ -1550,6 +1488,13 @@ async function saveRelief(){
 
     /* =====================================================
        1. SAVE RELIEF
+
+       IMPORTANT:
+       emergency_reliefs table uses issued_by,
+       NOT entered_by.
+
+       It also uses other_information,
+       NOT notes.
     ===================================================== */
 
     const reliefPayload = {
@@ -1563,8 +1508,11 @@ async function saveRelief(){
       relief_date:
         new Date(reliefDate).toISOString(),
 
-      entered_by:
+      issued_by:
         enteredBy,
+
+      signature:
+        null,
 
       model_22:
         model22,
@@ -1572,23 +1520,19 @@ async function saveRelief(){
       model_22_number:
         model22Number || null,
 
-      notes:
+      other_information:
         notes || null
 
     };
 
 
-    let reliefResult =
+    const reliefResult =
       await postTable(
         "emergency_reliefs",
         reliefPayload
       );
 
 
-    /*
-     * Some versions of the table use
-     * other_information instead of notes.
-     */
     if(
       !reliefResult ||
       !reliefResult.length
@@ -1764,10 +1708,6 @@ async function saveRelief(){
 }
 
 
-/* =========================================================
-   ADD MEMBER
-========================================================= */
-
 function addMember(){
 
   memberCounter++;
@@ -1882,10 +1822,6 @@ function addMember(){
 }
 
 
-/* =========================================================
-   ADD DOCUMENT
-========================================================= */
-
 function addDocument(){
 
   documentCounter++;
@@ -1988,10 +1924,6 @@ function addDocument(){
 }
 
 
-/* =========================================================
-   REMOVE
-========================================================= */
-
 function removeElement(id){
 
   const el =
@@ -2003,10 +1935,6 @@ function removeElement(id){
 
 }
 
-
-/* =========================================================
-   SAVE HOUSEHOLD
-========================================================= */
 
 async function saveHousehold(){
 
@@ -2043,11 +1971,6 @@ async function saveHousehold(){
 
   }
 
-  /*
-   * Main has no operational branch.
-   * Therefore branch_id is required only
-   * when a normal branch is logged in.
-   */
   if(
     currentBranchCode !== "MAIN" &&
     !currentBranchId
@@ -2159,10 +2082,6 @@ async function saveHousehold(){
     );
 
 
-    /* =====================================================
-       1. HOUSEHOLD
-    ===================================================== */
-
     const householdPayload = {
 
       household_name:
@@ -2224,9 +2143,6 @@ async function saveHousehold(){
     };
 
 
-    /*
-     * Do not send branch_id for MAIN.
-     */
     if(
       currentBranchCode !== "MAIN"
     ){
@@ -2277,10 +2193,6 @@ async function saveHousehold(){
     }
 
 
-    /* =====================================================
-       2. MEMBERS
-    ===================================================== */
-
     for(
       const member of memberDataList
     ){
@@ -2315,10 +2227,6 @@ async function saveHousehold(){
 
     }
 
-
-    /* =====================================================
-       3. DOCUMENTS
-    ===================================================== */
 
     for(
       const row of documentRows
@@ -2376,9 +2284,6 @@ async function saveHousehold(){
       };
 
 
-      /*
-       * Empty document rows are ignored.
-       */
       const hasDocumentData =
         documentPayload.document_number ||
         documentPayload.document_date ||
@@ -2400,10 +2305,6 @@ async function saveHousehold(){
     }
 
 
-    /* =====================================================
-       SUCCESS
-    ===================================================== */
-
     showMessage(
       "Household saved successfully.",
       "success"
@@ -2413,9 +2314,6 @@ async function saveHousehold(){
     hideNewHousehold();
 
 
-    /*
-     * Clear form after successful save.
-     */
     document.getElementById(
       "householdName"
     ).value = "";
@@ -2459,7 +2357,6 @@ async function saveHousehold(){
 
     await loadHouseholds();
 
-
     await openHouseholdById(
       household.id
     );
@@ -2482,10 +2379,6 @@ async function saveHousehold(){
 
 }
 
-
-/* =========================================================
-   LOAD HOUSEHOLDS
-========================================================= */
 
 async function loadHouseholds(){
 
@@ -2569,10 +2462,6 @@ async function loadHouseholds(){
 }
 
 
-/* =========================================================
-   SUMMARY
-========================================================= */
-
 async function loadSummary(){
 
   try{
@@ -2607,12 +2496,6 @@ async function loadSummary(){
 
     }
 
-
-    /*
-     * Use individual requests instead of
-     * complicated PostgREST IN UUID syntax.
-     * This avoids UUID parsing problems.
-     */
 
     let memberCount = 0;
     let reliefCount = 0;
@@ -2719,10 +2602,6 @@ async function loadSummary(){
 
 }
 
-
-/* =========================================================
-   RENDER HOUSEHOLDS
-========================================================= */
 
 function renderHouseholds(){
 
@@ -2836,10 +2715,6 @@ function renderHouseholds(){
 }
 
 
-/* =========================================================
-   FILTER
-========================================================= */
-
 async function filterHouseholds(){
 
   const text =
@@ -2860,9 +2735,6 @@ async function filterHouseholds(){
       .value;
 
 
-  /*
-   * Search member names too.
-   */
   let memberNames = {};
 
 
@@ -2979,10 +2851,6 @@ async function filterHouseholds(){
 }
 
 
-/* =========================================================
-   OPEN HOUSEHOLD
-========================================================= */
-
 async function openHousehold(id){
 
   const household =
@@ -3065,10 +2933,6 @@ async function openHouseholdById(id){
 
 }
 
-
-/* =========================================================
-   HOUSEHOLD DETAILS
-========================================================= */
 
 async function renderHouseholdDetails(
   household
@@ -3174,8 +3038,6 @@ async function renderHouseholdDetails(
     let html = "";
 
 
-    /* HOUSEHOLD */
-
     html += `
 
       <div class="detail-box">
@@ -3256,8 +3118,6 @@ async function renderHouseholdDetails(
 
     `;
 
-
-    /* MEMBERS */
 
     html += `
 
@@ -3360,8 +3220,6 @@ async function renderHouseholdDetails(
     html += "</div>";
 
 
-    /* RELIEF */
-
     html += `
 
       <div class="detail-box">
@@ -3442,8 +3300,8 @@ async function renderHouseholdDetails(
               <strong>Entered By:</strong>
 
               ${escapeHtml(
-                relief.entered_by ||
                 relief.issued_by ||
+                relief.entered_by ||
                 "-"
               )}
 
@@ -3474,8 +3332,8 @@ async function renderHouseholdDetails(
               <strong>Notes:</strong>
 
               ${escapeHtml(
-                relief.notes ||
                 relief.other_information ||
+                relief.notes ||
                 "-"
               )}
 
@@ -3595,8 +3453,6 @@ async function renderHouseholdDetails(
     html += "</div>";
 
 
-    /* DOCUMENTS */
-
     html += `
 
       <div class="detail-box">
@@ -3714,10 +3570,6 @@ async function renderHouseholdDetails(
 }
 
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
 function closeModal(){
 
   document
@@ -3742,10 +3594,6 @@ document
   );
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
 function escapeHtml(value){
 
   if(
@@ -3765,10 +3613,6 @@ function escapeHtml(value){
 
 }
 
-
-/* =========================================================
-   INITIAL LOAD
-========================================================= */
 
 (async function(){
 
