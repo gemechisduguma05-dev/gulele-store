@@ -7,7 +7,9 @@
 <title>AAFDRMC - Emergency Relief Management</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -18,7 +20,7 @@ body{
 
 .header{
   background:#6d4c41;
-  color:white;
+  color:#fff;
   padding:20px;
   text-align:center;
 }
@@ -47,17 +49,24 @@ body{
 }
 
 .btn{
-  border:none;
+  border:0;
   border-radius:7px;
   padding:11px 16px;
   cursor:pointer;
   font-weight:bold;
-  color:white;
+  color:#fff;
   text-decoration:none;
   display:inline-block;
 }
 
-.btn:hover{opacity:.9}
+.btn:hover{
+  opacity:.9;
+}
+
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
 
 .back{background:#455a64}
 .primary{background:#6d4c41}
@@ -68,7 +77,7 @@ body{
 .add{background:#00897b}
 
 .card{
-  background:white;
+  background:#fff;
   border-radius:12px;
   padding:20px;
   margin-bottom:20px;
@@ -77,6 +86,10 @@ body{
 
 .card h2{
   margin-top:0;
+  color:#5d4037;
+}
+
+.card h3{
   color:#5d4037;
 }
 
@@ -107,12 +120,14 @@ body{
   gap:12px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   width:100%;
   padding:11px;
   border:1px solid #cbd5e1;
   border-radius:7px;
-  background:white;
+  background:#fff;
   font-size:14px;
 }
 
@@ -121,7 +136,9 @@ textarea{
   resize:vertical;
 }
 
-input:focus,select:focus,textarea:focus{
+input:focus,
+select:focus,
+textarea:focus{
   outline:none;
   border-color:#6d4c41;
 }
@@ -141,7 +158,9 @@ input:focus,select:focus,textarea:focus{
   margin-bottom:6px;
 }
 
-.full{grid-column:1/-1}
+.full{
+  grid-column:1/-1;
+}
 
 .household-list{
   display:grid;
@@ -198,21 +217,23 @@ input:focus,select:focus,textarea:focus{
   gap:10px;
 }
 
-.row-actions{margin-top:10px}
+.row-actions{
+  margin-top:10px;
+}
 
 .remove-btn{
   background:#c62828;
-  color:white;
-  border:none;
+  color:#fff;
+  border:0;
   padding:8px 12px;
   border-radius:6px;
   cursor:pointer;
 }
 
 .stock-info{
-  margin-top:7px;
-  padding:8px 10px;
-  border-radius:5px;
+  margin-top:10px;
+  padding:9px 10px;
+  border-radius:6px;
   background:#eceff1;
   color:#455a64;
   font-size:13px;
@@ -229,6 +250,11 @@ input:focus,select:focus,textarea:focus{
   color:#c62828;
 }
 
+.stock-checking{
+  background:#fff8e1;
+  color:#8d6e63;
+}
+
 .modal{
   display:none;
   position:fixed;
@@ -240,28 +266,31 @@ input:focus,select:focus,textarea:focus{
 }
 
 .modal-box{
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
-  background:white;
+  background:#fff;
   border-radius:12px;
   overflow:hidden;
 }
 
 .modal-head{
   background:#6d4c41;
-  color:white;
+  color:#fff;
   padding:15px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.modal-head h2{margin:0}
+.modal-head h2{
+  margin:0;
+  color:#fff;
+}
 
 .close{
   background:none;
-  border:none;
-  color:white;
+  border:0;
+  color:#fff;
   font-size:25px;
   cursor:pointer;
 }
@@ -289,7 +318,9 @@ input:focus,select:focus,textarea:focus{
   font-size:13px;
 }
 
-.detail-table th{background:#f5f5f5}
+.detail-table th{
+  background:#f5f5f5;
+}
 
 .empty{
   padding:20px;
@@ -302,33 +333,106 @@ input:focus,select:focus,textarea:focus{
   position:fixed;
   top:20px;
   right:20px;
+  max-width:420px;
   z-index:10000;
-  color:white;
+  color:#fff;
   padding:14px 20px;
   border-radius:8px;
   display:none;
   box-shadow:0 4px 12px rgba(0,0,0,.2);
 }
 
-.success-message{background:#2e7d32}
-.error-message{background:#c62828}
+.success-message{
+  background:#2e7d32;
+}
+
+.error-message{
+  background:#c62828;
+}
+
+.status-bar{
+  display:none;
+  margin-bottom:15px;
+  padding:12px 15px;
+  border-radius:8px;
+  background:#fff8e1;
+  color:#6d4c41;
+  font-weight:bold;
+}
 
 @media(max-width:900px){
-  .summary{grid-template-columns:repeat(2,1fr)}
-  .search-grid{grid-template-columns:1fr}
-  .grid{grid-template-columns:1fr 1fr}
-  .household-list{grid-template-columns:1fr 1fr}
-  .row-grid{grid-template-columns:1fr 1fr}
+
+  .summary{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .search-grid{
+    grid-template-columns:1fr;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .household-list{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .row-grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
 
 @media(max-width:600px){
-  .container{padding:10px}
-  .summary{grid-template-columns:1fr 1fr;gap:8px}
-  .summary-box{padding:14px 8px}
-  .summary-box strong{font-size:22px}
-  .grid,.household-list,.row-grid{grid-template-columns:1fr}
-  .topbar{flex-direction:column}
-  .btn{width:100%;text-align:center}
+
+  .container{
+    padding:10px;
+  }
+
+  .header{
+    padding:15px 10px;
+  }
+
+  .header h1{
+    font-size:20px;
+  }
+
+  .summary{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .summary-box{
+    padding:14px 8px;
+  }
+
+  .summary-box strong{
+    font-size:22px;
+  }
+
+  .grid,
+  .household-list,
+  .row-grid{
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+
+  .modal{
+    padding:10px;
+  }
+
+  .detail-table{
+    display:block;
+    overflow-x:auto;
+  }
 }
 </style>
 </head>
@@ -342,253 +446,395 @@ input:focus,select:focus,textarea:focus{
 
 <div class="container">
 
-<div class="topbar">
-  <a href="dashboard.html" class="btn back">← Back to Dashboard</a>
-  <button class="btn primary" onclick="showNewHousehold()">+ New Household</button>
-  <button class="btn purple" onclick="showNewRelief()">+ Individual Relief</button>
-  <button class="btn blue" onclick="refreshAll()">↻ Refresh</button>
+  <div id="statusBar" class="status-bar"></div>
+
+  <div class="topbar">
+
+    <a href="dashboard.html" class="btn back">
+      ← Back to Dashboard
+    </a>
+
+    <button
+      type="button"
+      class="btn primary"
+      onclick="showNewHousehold()"
+    >
+      + New Household
+    </button>
+
+    <button
+      type="button"
+      class="btn purple"
+      onclick="showNewRelief()"
+    >
+      + Individual Relief
+    </button>
+
+    <button
+      type="button"
+      class="btn blue"
+      onclick="refreshAll()"
+    >
+      ↻ Refresh
+    </button>
+
+  </div>
+
+  <!-- SUMMARY -->
+
+  <div class="card">
+
+    <h2>Emergency Relief Summary</h2>
+
+    <div class="summary">
+
+      <div class="summary-box">
+        <strong id="totalHouseholds">0</strong>
+        Households
+      </div>
+
+      <div class="summary-box">
+        <strong id="totalMembers">0</strong>
+        Members
+      </div>
+
+      <div class="summary-box">
+        <strong id="totalReliefs">0</strong>
+        Relief Records
+      </div>
+
+      <div class="summary-box">
+        <strong id="totalDocuments">0</strong>
+        Documents
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SEARCH -->
+
+  <div class="card">
+
+    <h2>Search Households</h2>
+
+    <div class="search-grid">
+
+      <input
+        type="text"
+        id="searchText"
+        placeholder="Search Household Name, Member Name or FAN Number"
+        oninput="filterHouseholds()"
+      >
+
+      <select
+        id="filterDisaster"
+        onchange="filterHouseholds()"
+      >
+        <option value="">All Disaster Types</option>
+        <option value="Flood">Flood</option>
+        <option value="Fire">Fire</option>
+        <option value="Drought">Drought</option>
+        <option value="Landslide">Landslide</option>
+        <option value="Conflict">Conflict</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input
+        type="date"
+        id="filterDate"
+        onchange="filterHouseholds()"
+      >
+
+    </div>
+
+  </div>
+
+  <!-- HOUSEHOLDS -->
+
+  <div class="card">
+
+    <h2>Household Folders</h2>
+
+    <div
+      id="householdList"
+      class="household-list"
+    >
+      <div class="loading">
+        Loading households...
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NEW HOUSEHOLD -->
+
+  <div
+    class="card"
+    id="newHouseholdCard"
+    style="display:none"
+  >
+
+    <h2>New Household</h2>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Household Representative / Household Name *</label>
+        <input id="householdName" type="text">
+      </div>
+
+      <div class="field">
+        <label>Disaster Type *</label>
+
+        <select id="disasterType">
+          <option value="">Select Disaster Type</option>
+          <option value="Flood">Flood</option>
+          <option value="Fire">Fire</option>
+          <option value="Drought">Drought</option>
+          <option value="Landslide">Landslide</option>
+          <option value="Conflict">Conflict</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Disaster Date</label>
+        <input id="disasterDate" type="date">
+      </div>
+
+      <div class="field">
+        <label>City</label>
+        <input id="city" type="text">
+      </div>
+
+      <div class="field">
+        <label>Sub-City</label>
+        <input id="subCity" type="text">
+      </div>
+
+      <div class="field">
+        <label>Woreda</label>
+        <input id="woreda" type="text">
+      </div>
+
+      <div class="field">
+        <label>Specific Location</label>
+        <input id="specificLocation" type="text">
+      </div>
+
+      <div class="field">
+        <label>House Number</label>
+        <input id="houseNumber" type="text">
+      </div>
+
+      <div class="field">
+        <label>FAN Number</label>
+        <input id="fanNumber" type="text">
+      </div>
+
+      <div class="field full">
+        <label>Other Information</label>
+        <textarea id="householdOther"></textarea>
+      </div>
+
+    </div>
+
+    <h3>Household Members</h3>
+
+    <div id="membersContainer"></div>
+
+    <button
+      type="button"
+      class="btn add"
+      onclick="addMember()"
+    >
+      + Add Member
+    </button>
+
+    <h3>Official Documents</h3>
+
+    <div id="documentsContainer"></div>
+
+    <button
+      type="button"
+      class="btn add"
+      onclick="addDocument()"
+    >
+      + Add Document
+    </button>
+
+    <div style="margin-top:20px">
+
+      <button
+        id="saveHouseholdBtn"
+        type="button"
+        class="btn green"
+        onclick="saveHousehold()"
+      >
+        Save Household
+      </button>
+
+      <button
+        type="button"
+        class="btn red"
+        onclick="hideNewHousehold()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- NEW RELIEF -->
+
+  <div
+    class="card"
+    id="newReliefCard"
+    style="display:none"
+  >
+
+    <h2>Individual Relief</h2>
+
+    <div class="grid">
+
+      <div class="field">
+
+        <label>Household *</label>
+
+        <select
+          id="reliefHousehold"
+          onchange="loadReliefMembers()"
+        >
+          <option value="">Select Household</option>
+        </select>
+
+      </div>
+
+      <div class="field">
+
+        <label>Member *</label>
+
+        <select id="reliefMember">
+
+          <option value="">
+            Select Member
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="field">
+
+        <label>Relief Date *</label>
+
+        <input
+          id="reliefDate"
+          type="datetime-local"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Entered By *</label>
+
+        <input
+          id="reliefEnteredBy"
+          type="text"
+        >
+
+      </div>
+
+      <div class="field full">
+
+        <label>Notes</label>
+
+        <textarea id="reliefNotes"></textarea>
+
+      </div>
+
+    </div>
+
+    <h3>Relief Items</h3>
+
+    <div id="reliefItemsContainer"></div>
+
+    <button
+      type="button"
+      class="btn add"
+      onclick="addReliefItem()"
+    >
+      + Add Item
+    </button>
+
+    <div style="margin-top:20px">
+
+      <button
+        id="saveReliefBtn"
+        type="button"
+        class="btn green"
+        onclick="saveRelief()"
+      >
+        Save Relief
+      </button>
+
+      <button
+        type="button"
+        class="btn red"
+        onclick="hideNewRelief()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
-<div class="card">
-<h2>Emergency Relief Summary</h2>
+<!-- MODAL -->
 
-<div class="summary">
-  <div class="summary-box">
-    <strong id="totalHouseholds">0</strong>
-    Households
-  </div>
-
-  <div class="summary-box">
-    <strong id="totalMembers">0</strong>
-    Members
-  </div>
-
-  <div class="summary-box">
-    <strong id="totalReliefs">0</strong>
-    Relief Records
-  </div>
-
-  <div class="summary-box">
-    <strong id="totalDocuments">0</strong>
-    Documents
-  </div>
-</div>
-</div>
-
-<div class="card">
-<h2>Search Households</h2>
-
-<div class="search-grid">
-<input
-  type="text"
-  id="searchText"
-  placeholder="Search Household Name, Member Name or FAN Number"
-  oninput="filterHouseholds()"
+<div
+  class="modal"
+  id="detailsModal"
 >
 
-<select id="filterDisaster" onchange="filterHouseholds()">
-<option value="">All Disaster Types</option>
-<option value="Flood">Flood</option>
-<option value="Fire">Fire</option>
-<option value="Drought">Drought</option>
-<option value="Landslide">Landslide</option>
-<option value="Conflict">Conflict</option>
-<option value="Other">Other</option>
-</select>
+  <div class="modal-box">
 
-<input type="date" id="filterDate" onchange="filterHouseholds()">
-</div>
-</div>
+    <div class="modal-head">
 
-<div class="card">
-<h2>Household Folders</h2>
+      <h2 id="modalHouseholdName">
+        Household Details
+      </h2>
 
-<div id="householdList" class="household-list">
-<div class="loading">Loading households...</div>
-</div>
-</div>
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ✕
+      </button>
 
-<div class="card" id="newHouseholdCard" style="display:none">
+    </div>
 
-<h2>New Household</h2>
+    <div id="modalContent"></div>
 
-<div class="grid">
-
-<div class="field">
-<label>Household Representative / Household Name *</label>
-<input id="householdName" type="text">
-</div>
-
-<div class="field">
-<label>Disaster Type *</label>
-<select id="disasterType">
-<option value="">Select Disaster Type</option>
-<option value="Flood">Flood</option>
-<option value="Fire">Fire</option>
-<option value="Drought">Drought</option>
-<option value="Landslide">Landslide</option>
-<option value="Conflict">Conflict</option>
-<option value="Other">Other</option>
-</select>
-</div>
-
-<div class="field">
-<label>Disaster Date</label>
-<input id="disasterDate" type="date">
-</div>
-
-<div class="field">
-<label>City</label>
-<input id="city" type="text">
-</div>
-
-<div class="field">
-<label>Sub-City</label>
-<input id="subCity" type="text">
-</div>
-
-<div class="field">
-<label>Woreda</label>
-<input id="woreda" type="text">
-</div>
-
-<div class="field">
-<label>Specific Location</label>
-<input id="specificLocation" type="text">
-</div>
-
-<div class="field">
-<label>House Number</label>
-<input id="houseNumber" type="text">
-</div>
-
-<div class="field">
-<label>FAN Number</label>
-<input id="fanNumber" type="text">
-</div>
-
-<div class="field full">
-<label>Other Information</label>
-<textarea id="householdOther"></textarea>
-</div>
+  </div>
 
 </div>
 
-<h3>Household Members</h3>
+<div
+  id="successMessage"
+  class="success-message"
+></div>
 
-<div id="membersContainer"></div>
+<div
+  id="errorMessage"
+  class="error-message"
+></div>
 
-<button type="button" class="btn add" onclick="addMember()">
-+ Add Member
-</button>
-
-<h3>Official Documents</h3>
-
-<div id="documentsContainer"></div>
-
-<button type="button" class="btn add" onclick="addDocument()">
-+ Add Document
-</button>
-
-<div style="margin-top:20px">
-<button type="button" class="btn green" onclick="saveHousehold()">
-Save Household
-</button>
-
-<button type="button" class="btn red" onclick="hideNewHousehold()">
-Cancel
-</button>
-</div>
-
-</div>
-
-<div class="card" id="newReliefCard" style="display:none">
-
-<h2>Individual Relief</h2>
-
-<div class="grid">
-
-<div class="field">
-<label>Household *</label>
-
-<select id="reliefHousehold" onchange="loadReliefMembers()">
-<option value="">Select Household</option>
-</select>
-</div>
-
-<div class="field">
-<label>Member *</label>
-
-<select id="reliefMember">
-<option value="">Select Member</option>
-</select>
-</div>
-
-<div class="field">
-<label>Relief Date *</label>
-<input id="reliefDate" type="datetime-local">
-</div>
-
-<div class="field">
-<label>Entered By *</label>
-<input id="reliefEnteredBy" type="text">
-</div>
-
-<div class="field full">
-<label>Notes</label>
-<textarea id="reliefNotes"></textarea>
-</div>
-
-</div>
-
-<h3>Relief Items</h3>
-
-<div id="reliefItemsContainer"></div>
-
-<button type="button" class="btn add" onclick="addReliefItem()">
-+ Add Item
-</button>
-
-<div style="margin-top:20px">
-
-<button
-  id="saveReliefBtn"
-  type="button"
-  class="btn green"
-  onclick="saveRelief()"
->
-Save Relief
-</button>
-
-<button
-  type="button"
-  class="btn red"
-  onclick="hideNewRelief()"
->
-Cancel
-</button>
-
-</div>
-</div>
-</div>
-
-<div class="modal" id="detailsModal">
-
-<div class="modal-box">
-
-<div class="modal-head">
-<h2 id="modalHouseholdName">Household Details</h2>
-
-<button class="close" onclick="closeModal()">✕</button>
-</div>
-
-<div id="modalContent"></div>
-
-</div>
-</div>
-
-<div id="successMessage" class="success-message"></div>
-<div id="errorMessage" class="error-message"></div>
 
 <script>
 
@@ -597,76 +843,102 @@ Cancel
 ========================================================= */
 
 const SUPABASE_URL =
-"https://sslabegtsxlkafuygmar.supabase.co";
+  "https://sslabegtsxlkafuygmar.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
+  "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
 const API =
-SUPABASE_URL + "/rest/v1";
+  SUPABASE_URL + "/rest/v1";
+
 
 function headers(){
-return {
-  "apikey":SUPABASE_KEY,
-  "Authorization":"Bearer "+SUPABASE_KEY,
-  "Content-Type":"application/json"
-};
+
+  return {
+    "apikey": SUPABASE_KEY,
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json"
+  };
+
 }
+
 
 /* =========================================================
    BRANCH
 ========================================================= */
 
 let currentBranchId =
-localStorage.getItem("selected_branch_uuid") ||
-localStorage.getItem("selected_branch_id") ||
-"";
+  localStorage.getItem("selected_branch_uuid") ||
+  localStorage.getItem("selected_branch_id") ||
+  "";
 
 let currentBranchCode =
-localStorage.getItem("selected_branch_code") ||
-localStorage.getItem("branch_code") ||
-"";
+  localStorage.getItem("selected_branch_code") ||
+  localStorage.getItem("branch_code") ||
+  "";
 
 let currentBranchName =
-localStorage.getItem("selected_branch_name") ||
-localStorage.getItem("branch_name") ||
-"";
+  localStorage.getItem("selected_branch_name") ||
+  localStorage.getItem("branch_name") ||
+  "";
 
 let loginUser =
-localStorage.getItem("login_user") ||
-"";
+  localStorage.getItem("login_user") ||
+  "";
+
 
 function isValidUUID(value){
-return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-.test(String(value||"").trim());
+
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    .test(String(value || "").trim());
+
 }
 
+
 function getValidBranchUUID(){
-const value=String(currentBranchId||"").trim();
-return isValidUUID(value)?value:"";
+
+  const value =
+    String(currentBranchId || "").trim();
+
+  return isValidUUID(value)
+    ? value
+    : "";
+
 }
+
 
 function isMainBranch(){
 
-const code=String(currentBranchCode||"")
-.trim().toUpperCase();
+  const code =
+    String(currentBranchCode || "")
+      .trim()
+      .toUpperCase();
 
-const name=String(currentBranchName||"")
-.trim().toUpperCase();
+  const name =
+    String(currentBranchName || "")
+      .trim()
+      .toUpperCase();
 
-return code==="MAIN" || name==="MAIN";
+  return (
+    code === "MAIN" ||
+    name === "MAIN"
+  );
+
 }
+
 
 /* =========================================================
    DATA
 ========================================================= */
 
-let households=[];
-let members=[];
-let reliefs=[];
-let reliefItems=[];
-let documents=[];
-let items=[];
+let households = [];
+let members = [];
+let reliefs = [];
+let documents = [];
+let items = [];
+
+let loadingState = false;
+
 
 /* =========================================================
    MESSAGE
@@ -674,161 +946,210 @@ let items=[];
 
 function showSuccess(message){
 
-const el=document.getElementById("successMessage");
+  const el =
+    document.getElementById("successMessage");
 
-el.textContent=message;
-el.style.display="block";
+  el.textContent = message;
+  el.style.display = "block";
 
-setTimeout(()=>{
-el.style.display="none";
-},3000);
+  setTimeout(() => {
+    el.style.display = "none";
+  }, 3500);
+
 }
+
 
 function showError(message){
 
-const el=document.getElementById("errorMessage");
+  const el =
+    document.getElementById("errorMessage");
 
-el.textContent=message;
-el.style.display="block";
+  el.textContent = message;
+  el.style.display = "block";
 
-setTimeout(()=>{
-el.style.display="none";
-},7000);
+  setTimeout(() => {
+    el.style.display = "none";
+  }, 8000);
+
 }
 
+
+function setStatus(message){
+
+  const el =
+    document.getElementById("statusBar");
+
+  if(!el) return;
+
+  if(!message){
+
+    el.style.display = "none";
+    el.textContent = "";
+    return;
+  }
+
+  el.textContent = message;
+  el.style.display = "block";
+
+}
+
+
 /* =========================================================
-   ERROR
+   FETCH WITH TIMEOUT
+========================================================= */
+
+async function fetchWithTimeout(
+  url,
+  options = {},
+  timeout = 15000
+){
+
+  const controller =
+    new AbortController();
+
+  const timer =
+    setTimeout(
+      () => controller.abort(),
+      timeout
+    );
+
+  try{
+
+    return await fetch(
+      url,
+      {
+        ...options,
+        signal: controller.signal
+      }
+    );
+
+  }catch(error){
+
+    if(error.name === "AbortError"){
+
+      throw new Error(
+        "Connection timed out. Please check Supabase or internet connection."
+      );
+
+    }
+
+    throw error;
+
+  }finally{
+
+    clearTimeout(timer);
+
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSE ERROR
 ========================================================= */
 
 async function getResponseError(response){
 
-try{
+  try{
 
-const data=await response.json();
+    const data =
+      await response.json();
 
-return data.message ||
-data.error_description ||
-data.hint ||
-data.details ||
-JSON.stringify(data);
+    return (
+      data.message ||
+      data.error_description ||
+      data.hint ||
+      data.details ||
+      JSON.stringify(data)
+    );
 
-}catch(e){
+  }catch(error){
 
-return response.status+" "+response.statusText;
+    return (
+      response.status +
+      " " +
+      response.statusText
+    );
+
+  }
+
 }
-}
+
 
 /* =========================================================
-   POST
+   POST TABLE
 ========================================================= */
 
-async function postTable(table,data){
+async function postTable(
+  table,
+  data
+){
 
-const response=await fetch(
-API+"/"+table,
-{
-method:"POST",
-headers:{
-...headers(),
-"Prefer":"return=representation"
-},
-body:JSON.stringify(data)
-}
-);
+  const response =
+    await fetchWithTimeout(
+      API + "/" + table,
+      {
+        method:"POST",
 
-if(!response.ok){
-throw new Error(await getResponseError(response));
+        headers:{
+          ...headers(),
+          "Prefer":"return=representation"
+        },
+
+        body:JSON.stringify(data)
+      }
+    );
+
+  if(!response.ok){
+
+    throw new Error(
+      await getResponseError(response)
+    );
+
+  }
+
+  return await response.json();
+
 }
 
-return await response.json();
-}
 
 /* =========================================================
-   LOAD ITEMS
+   GET TABLE
 ========================================================= */
 
-async function loadItems(){
+async function getTable(
+  table,
+  query=""
+){
 
-try{
+  const response =
+    await fetchWithTimeout(
+      API +
+      "/" +
+      table +
+      query,
+      {
+        headers:headers()
+      }
+    );
 
-let response=await fetch(
-API+"/items?select=*&order=name.asc",
-{headers:headers()}
-);
+  if(!response.ok){
 
-if(!response.ok){
+    throw new Error(
+      await getResponseError(response)
+    );
 
-response=await fetch(
-API+"/items?select=*&order=item_name.asc",
-{headers:headers()}
-);
-}
+  }
 
-if(!response.ok){
-throw new Error(await getResponseError(response));
-}
+  const data =
+    await response.json();
 
-const allItems=await response.json();
-
-if(!Array.isArray(allItems)){
-items=[];
-return;
-}
-
-if(isMainBranch()){
-
-items=allItems;
-
-}else{
-
-const branchId=String(currentBranchId||"")
-.trim().toLowerCase();
-
-const branchCode=String(currentBranchCode||"")
-.trim().toUpperCase();
-
-const hasBranchFields=allItems.some(item=>
-Object.prototype.hasOwnProperty.call(item,"branch_id") ||
-Object.prototype.hasOwnProperty.call(item,"branch_code")
-);
-
-if(!hasBranchFields){
-
-items=allItems;
-
-}else{
-
-items=allItems.filter(item=>{
-
-const itemBranchId=String(item.branch_id??"")
-.trim().toLowerCase();
-
-const itemBranchCode=String(item.branch_code??"")
-.trim().toUpperCase();
-
-return (
-(branchId && itemBranchId===branchId) ||
-(branchCode && itemBranchCode===branchCode)
-);
-
-});
+  return Array.isArray(data)
+    ? data
+    : [];
 
 }
-}
 
-console.log("AAFDRMC ITEMS:",items);
-
-}catch(error){
-
-console.error("loadItems ERROR:",error);
-
-items=[];
-
-showError(
-"Items could not be loaded: "+error.message
-);
-}
-}
 
 /* =========================================================
    ITEM HELPERS
@@ -836,317 +1157,452 @@ showError(
 
 function getItemName(item){
 
-return item?.name ||
-item?.item_name ||
-item?.item ||
-"";
+  return (
+    item?.name ||
+    item?.item_name ||
+    item?.item ||
+    ""
+  );
+
 }
+
 
 function getItemUnit(item){
 
-return item?.unit ||
-item?.measurement ||
-item?.safartuu ||
-"";
+  return (
+    item?.unit ||
+    item?.measurement ||
+    item?.safartuu ||
+    ""
+  );
+
 }
+
 
 function getItemCategory(item){
 
-return item?.category ||
-item?.category_name ||
-"";
+  return (
+    item?.category ||
+    item?.category_name ||
+    ""
+  );
+
 }
+
 
 function getItemById(itemId){
 
-return items.find(item=>
-String(item.id)===String(itemId)
-);
+  return items.find(item =>
+    String(item.id) ===
+    String(itemId)
+  );
+
 }
 
+
 /* =========================================================
-   NORMALIZE
+   LOAD ITEMS
 ========================================================= */
 
-function normalizeText(value){
+async function loadItems(){
 
-return String(value??"")
-.trim()
-.toUpperCase()
-.replace(/[_-]+/g," ")
-.replace(/\s+/g," ");
+  try{
+
+    const allItems =
+      await getTable(
+        "items",
+        "?select=*"
+      );
+
+    if(!allItems.length){
+
+      items = [];
+
+      return;
+
+    }
+
+    if(isMainBranch()){
+
+      items = allItems;
+
+      return;
+
+    }
+
+    const branchId =
+      String(currentBranchId || "")
+        .trim()
+        .toLowerCase();
+
+    const branchCode =
+      String(currentBranchCode || "")
+        .trim()
+        .toUpperCase();
+
+    const hasBranchFields =
+      allItems.some(item =>
+        Object.prototype.hasOwnProperty.call(
+          item,
+          "branch_id"
+        ) ||
+        Object.prototype.hasOwnProperty.call(
+          item,
+          "branch_code"
+        )
+      );
+
+    if(!hasBranchFields){
+
+      items = allItems;
+
+      return;
+
+    }
+
+    items =
+      allItems.filter(item => {
+
+        const itemBranchId =
+          String(item.branch_id || "")
+            .trim()
+            .toLowerCase();
+
+        const itemBranchCode =
+          String(item.branch_code || "")
+            .trim()
+            .toUpperCase();
+
+        return (
+          (
+            branchId &&
+            itemBranchId === branchId
+          ) ||
+          (
+            branchCode &&
+            itemBranchCode === branchCode
+          )
+        );
+
+      });
+
+  }catch(error){
+
+    console.error(
+      "LOAD ITEMS ERROR:",
+      error
+    );
+
+    items = [];
+
+    showError(
+      "Items could not be loaded: " +
+      error.message
+    );
+
+  }
+
 }
 
+
 /* =========================================================
-   STOCK BALANCE - FIXED
+   TRANSACTION TYPE
+========================================================= */
+
+function transactionIsIn(transaction){
+
+  const type =
+    String(
+      transaction.transaction_type || ""
+    )
+      .trim()
+      .toUpperCase();
+
+  const name =
+    String(
+      transaction.transaction || ""
+    )
+      .trim()
+      .toUpperCase();
+
+  return (
+    type === "IN" ||
+    type === "STOCK IN" ||
+    type === "STOCKIN" ||
+    type === "RECEIPT" ||
+    type === "RECEIVED" ||
+    type === "RECEIVE" ||
+
+    name.includes("STOCK IN") ||
+    name.includes("STOCKIN") ||
+    name.includes("RECEIPT") ||
+    name.includes("RECEIVED")
+  );
+
+}
+
+
+function transactionIsOut(transaction){
+
+  const type =
+    String(
+      transaction.transaction_type || ""
+    )
+      .trim()
+      .toUpperCase();
+
+  const name =
+    String(
+      transaction.transaction || ""
+    )
+      .trim()
+      .toUpperCase();
+
+  return (
+    type === "OUT" ||
+    type === "STOCK OUT" ||
+    type === "STOCKOUT" ||
+    type === "ISSUE" ||
+    type === "ISSUED" ||
+    type === "RELIEF" ||
+
+    name.includes("STOCK OUT") ||
+    name.includes("STOCKOUT") ||
+    name.includes("ISSUE") ||
+    name.includes("ISSUED") ||
+    name.includes("EMERGENCY RELIEF") ||
+    name.includes("MODEL 22")
+  );
+
+}
+
+
+/* =========================================================
+   GET STOCK BALANCE
 ========================================================= */
 
 async function getItemStockBalance(itemId){
 
-if(!itemId){
-return 0;
-}
+  if(!itemId){
 
-try{
+    return 0;
 
-const selectedItem=getItemById(itemId);
+  }
 
-if(!selectedItem){
-console.warn("ITEM NOT FOUND:",itemId);
-return 0;
-}
+  const selectedItem =
+    getItemById(itemId);
 
-const selectedName=String(
-getItemName(selectedItem)
-).trim().toLowerCase();
+  if(!selectedItem){
 
-const selectedUnit=String(
-getItemUnit(selectedItem)
-).trim().toLowerCase();
+    return 0;
 
-const selectedCategory=String(
-getItemCategory(selectedItem)
-).trim().toLowerCase();
+  }
 
-const response=await fetch(
-API+"/stock_transactions?select=*",
-{
-headers:headers()
-}
-);
+  const allTransactions =
+    await getTable(
+      "stock_transactions",
+      "?select=*"
+    );
 
-if(!response.ok){
-throw new Error(await getResponseError(response));
-}
+  if(!Array.isArray(allTransactions)){
 
-const allTransactions=await response.json();
+    return 0;
 
-if(!Array.isArray(allTransactions)){
-return 0;
-}
+  }
 
-/* =====================================================
-   BRANCH FILTER
-===================================================== */
+  let transactions =
+    allTransactions;
 
-let transactions=allTransactions;
 
-if(!isMainBranch()){
+  /* =========================
+     BRANCH
+  ========================= */
 
-const branchId=String(currentBranchId||"")
-.trim().toLowerCase();
+  if(!isMainBranch()){
 
-const branchCode=String(currentBranchCode||"")
-.trim().toLowerCase();
+    const branchId =
+      String(currentBranchId || "")
+        .trim()
+        .toLowerCase();
 
-transactions=allTransactions.filter(t=>{
+    const branchCode =
+      String(currentBranchCode || "")
+        .trim()
+        .toLowerCase();
 
-const tBranchId=String(t.branch_id??"")
-.trim().toLowerCase();
+    transactions =
+      allTransactions.filter(t => {
 
-const tBranchCode=String(t.branch_code??"")
-.trim().toLowerCase();
+        const tBranchId =
+          String(t.branch_id || "")
+            .trim()
+            .toLowerCase();
 
-/*
- IMPORTANT:
- Branch ID OR Branch Code.
-*/
+        const tBranchCode =
+          String(t.branch_code || "")
+            .trim()
+            .toLowerCase();
 
-if(branchId && tBranchId===branchId){
-return true;
-}
+        if(
+          branchId &&
+          tBranchId === branchId
+        ){
 
-if(branchCode && tBranchCode===branchCode){
-return true;
-}
+          return true;
 
-return false;
+        }
 
-});
-}
+        if(
+          branchCode &&
+          tBranchCode === branchCode
+        ){
 
-/* =====================================================
-   ITEM MATCH
-===================================================== */
+          return true;
 
-let itemTransactions=transactions.filter(t=>
-String(t.item_id??"").trim()===
-String(itemId).trim()
-);
+        }
 
-/*
- If item_id is not matching, try to identify
- transaction through the item table.
-*/
+        return false;
 
-if(itemTransactions.length===0 && selectedName){
+      });
 
-itemTransactions=transactions.filter(t=>{
+  }
 
-const transactionItem=
-getItemById(t.item_id);
 
-if(transactionItem){
+  /* =========================
+     ITEM ID
+  ========================= */
 
-const transactionName=
-String(getItemName(transactionItem))
-.trim()
-.toLowerCase();
+  let matched =
+    transactions.filter(t => {
 
-if(transactionName===selectedName){
-return true;
-}
-}
+      return (
+        String(t.item_id || "")
+          .trim() ===
+        String(itemId)
+          .trim()
+      );
 
-/*
- Some old transaction rows may contain
- the item name directly.
-*/
+    });
 
-const possibleNames=[
-t.item_name,
-t.name,
-t.item,
-t.transaction_item,
-t.description
-];
 
-return possibleNames.some(value=>
-String(value??"")
-.trim()
-.toLowerCase()===selectedName
-);
+  /* =========================
+     OLD DATA FALLBACK
+  ========================= */
 
-});
-}
+  if(
+    matched.length === 0
+  ){
 
-/* =====================================================
-   LAST FALLBACK:
-   SEARCH ITEM NAME INSIDE TRANSACTION FIELD
-===================================================== */
+    const selectedName =
+      String(
+        getItemName(selectedItem)
+      )
+        .trim()
+        .toLowerCase();
 
-if(itemTransactions.length===0 && selectedName){
+    if(selectedName){
 
-itemTransactions=transactions.filter(t=>{
+      matched =
+        transactions.filter(t => {
 
-const transactionText=
-String(t.transaction??"")
-.trim()
-.toLowerCase();
+          const name =
+            String(
+              t.item_name ||
+              t.name ||
+              t.item ||
+              ""
+            )
+              .trim()
+              .toLowerCase();
 
-return transactionText===selectedName ||
-transactionText.includes(selectedName);
+          return name === selectedName;
 
-});
-}
+        });
 
-/* =====================================================
-   CALCULATE
-===================================================== */
+    }
 
-let balance=0;
+  }
 
-itemTransactions.forEach(t=>{
 
-const rawQuantity=Number(t.quantity);
+  /* =========================
+     CALCULATE
+  ========================= */
 
-if(!Number.isFinite(rawQuantity)){
-return;
-}
+  let balance = 0;
 
-const quantity=Math.abs(rawQuantity);
+  matched.forEach(t => {
 
-const type=normalizeText(
-t.transaction_type
-);
+    const quantity =
+      Number(t.quantity);
 
-const transactionName=normalizeText(
-t.transaction
-);
+    if(
+      !Number.isFinite(quantity)
+    ){
 
-const combined=
-(type+" "+transactionName).trim();
+      return;
 
-/* STOCK IN */
+    }
 
-const isStockIn=
-type==="IN" ||
-type==="STOCK IN" ||
-type==="STOCKIN" ||
-type==="RECEIPT" ||
-type==="RECEIVED" ||
-type==="RECEIVE" ||
-combined.includes("STOCK IN") ||
-combined.includes("STOCKIN") ||
-combined.includes("RECEIVED") ||
-combined.includes("RECEIPT") ||
-combined.includes("STOCK RECEIPT");
+    if(
+      transactionIsIn(t)
+    ){
 
-/* STOCK OUT */
+      balance +=
+        Math.abs(quantity);
 
-const isStockOut=
-type==="OUT" ||
-type==="STOCK OUT" ||
-type==="STOCKOUT" ||
-type==="ISSUE" ||
-type==="ISSUED" ||
-type==="RELIEF" ||
-combined.includes("STOCK OUT") ||
-combined.includes("STOCKOUT") ||
-combined.includes("ISSUE") ||
-combined.includes("ISSUED") ||
-combined.includes("EMERGENCY RELIEF") ||
-combined.includes("MODEL 22");
+      return;
 
-if(isStockIn){
+    }
 
-balance+=quantity;
+    if(
+      transactionIsOut(t)
+    ){
 
-}else if(isStockOut){
+      balance -=
+        Math.abs(quantity);
 
-balance-=quantity;
+      return;
 
-}else{
+    }
 
-/*
- Unknown type:
- preserve original quantity sign.
-*/
+    /*
+      Unknown transaction:
+      preserve its sign.
+    */
 
-balance+=rawQuantity;
+    balance += quantity;
+
+  });
+
+
+  balance =
+    Math.round(
+      balance * 100
+    ) / 100;
+
+
+  console.log(
+    "AAFDRMC STOCK",
+    {
+      itemId,
+      itemName:getItemName(selectedItem),
+      branchId:currentBranchId,
+      branchCode:currentBranchCode,
+      totalTransactions:allTransactions.length,
+      branchTransactions:transactions.length,
+      matchedTransactions:matched.length,
+      balance
+    }
+  );
+
+
+  return Math.max(
+    0,
+    balance
+  );
 
 }
 
-});
-
-balance=Math.round(balance*100)/100;
-
-console.log(
-"========== AAFDRMC STOCK DEBUG ==========",
-{
-itemId:itemId,
-itemName:selectedName,
-branchId:currentBranchId,
-branchCode:currentBranchCode,
-allTransactions:allTransactions.length,
-branchTransactions:transactions.length,
-matchedTransactions:itemTransactions.length,
-balance:balance,
-matched:itemTransactions
-}
-);
-
-return Math.max(0,balance);
-
-}catch(error){
-
-console.error(
-"getItemStockBalance ERROR:",
-error
-);
-
-throw error;
-}
 
 /* =========================================================
    UPDATE STOCK DISPLAY
@@ -1154,121 +1610,185 @@ throw error;
 
 async function updateReliefRowStock(row){
 
-const select=row.querySelector(".relief-item-select");
-const info=row.querySelector(".stock-info");
+  const select =
+    row.querySelector(
+      ".relief-item-select"
+    );
 
-if(!select||!info)return;
+  const info =
+    row.querySelector(
+      ".stock-info"
+    );
 
-if(!select.value){
+  if(!select || !info){
 
-info.textContent=
-"Stock balance will be checked before saving.";
+    return;
 
-info.className="stock-info";
+  }
 
-return;
+  if(!select.value){
+
+    info.textContent =
+      "Select an item to check stock.";
+
+    info.className =
+      "stock-info";
+
+    return;
+
+  }
+
+  info.textContent =
+    "Checking current stock...";
+
+  info.className =
+    "stock-info stock-checking";
+
+  try{
+
+    const balance =
+      await getItemStockBalance(
+        select.value
+      );
+
+    if(balance > 0){
+
+      info.textContent =
+        "Current Stock: " +
+        balance;
+
+      info.className =
+        "stock-info stock-ok";
+
+    }else{
+
+      info.textContent =
+        "Current Stock: 0";
+
+      info.className =
+        "stock-info stock-low";
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "STOCK DISPLAY ERROR:",
+      error
+    );
+
+    info.textContent =
+      "Stock could not be checked.";
+
+    info.className =
+      "stock-info stock-low";
+
+  }
+
 }
 
-info.textContent="Checking current stock...";
-info.className="stock-info";
-
-try{
-
-const balance=
-await getItemStockBalance(select.value);
-
-if(balance>0){
-
-info.textContent=
-"Current Stock: "+balance;
-
-info.className=
-"stock-info stock-ok";
-
-}else{
-
-info.textContent=
-"Current Stock: 0";
-
-info.className=
-"stock-info stock-low";
-}
-
-}catch(error){
-
-console.error(error);
-
-info.textContent=
-"Stock could not be checked.";
-
-info.className=
-"stock-info stock-low";
-}
-}
 
 /* =========================================================
-   SET ITEM
-========================================================= */
-
-function setReliefItemUnit(select){
-
-const row=select.closest(".relief-row");
-
-if(!row)return;
-
-const option=
-select.options[select.selectedIndex];
-
-const unit=
-option?.dataset.unit||"";
-
-const category=
-option?.dataset.category||"";
-
-const unitInput=
-row.querySelector(".relief-item-unit");
-
-const categoryInput=
-row.querySelector(".relief-item-category");
-
-if(unitInput){
-unitInput.value=unit;
-}
-
-if(categoryInput){
-categoryInput.value=category;
-}
-
-updateReliefRowStock(row);
-}
-
-/* =========================================================
-   POPULATE ITEMS
+   POPULATE ITEM SELECT
 ========================================================= */
 
 function populateReliefItemSelect(select){
 
-if(!select)return;
+  if(!select){
 
-select.innerHTML=
-`<option value="">Select Item</option>`;
+    return;
 
-items.forEach(item=>{
+  }
 
-const option=document.createElement("option");
+  select.innerHTML =
+    `<option value="">Select Item</option>`;
 
-option.value=String(item.id);
+  if(!items.length){
 
-option.textContent=getItemName(item);
+    select.innerHTML =
+      `<option value="">No Item Found</option>`;
 
-option.dataset.unit=getItemUnit(item);
+    return;
 
-option.dataset.category=getItemCategory(item);
+  }
 
-select.appendChild(option);
+  items.forEach(item => {
 
-});
+    const option =
+      document.createElement("option");
+
+    option.value =
+      String(item.id);
+
+    option.textContent =
+      getItemName(item) ||
+      "Unnamed Item";
+
+    option.dataset.unit =
+      getItemUnit(item);
+
+    option.dataset.category =
+      getItemCategory(item);
+
+    select.appendChild(option);
+
+  });
+
 }
+
+
+/* =========================================================
+   SET ITEM DATA
+========================================================= */
+
+function setReliefItemData(select){
+
+  const row =
+    select.closest(".relief-row");
+
+  if(!row){
+
+    return;
+
+  }
+
+  const option =
+    select.options[
+      select.selectedIndex
+    ];
+
+  const unit =
+    option?.dataset.unit || "";
+
+  const category =
+    option?.dataset.category || "";
+
+  const unitInput =
+    row.querySelector(
+      ".relief-item-unit"
+    );
+
+  const categoryInput =
+    row.querySelector(
+      ".relief-item-category"
+    );
+
+  if(unitInput){
+
+    unitInput.value = unit;
+
+  }
+
+  if(categoryInput){
+
+    categoryInput.value = category;
+
+  }
+
+  updateReliefRowStock(row);
+
+}
+
 
 /* =========================================================
    ADD RELIEF ITEM
@@ -1276,86 +1796,110 @@ select.appendChild(option);
 
 function addReliefItem(){
 
-const container=
-document.getElementById(
-"reliefItemsContainer"
-);
+  const container =
+    document.getElementById(
+      "reliefItemsContainer"
+    );
 
-const row=document.createElement("div");
+  const row =
+    document.createElement("div");
 
-row.className="relief-row";
+  row.className =
+    "relief-row";
 
-row.innerHTML=`
+  row.innerHTML = `
 
-<div class="row-grid">
+    <div class="row-grid">
 
-<div>
-<label>Item *</label>
+      <div>
+        <label>Item *</label>
 
-<select
-class="relief-item-select"
-onchange="setReliefItemUnit(this)"
->
-<option value="">Select Item</option>
-</select>
-</div>
+        <select
+          class="relief-item-select"
+          onchange="setReliefItemData(this)"
+        >
+          <option value="">
+            Select Item
+          </option>
+        </select>
+      </div>
 
-<div>
-<label>Unit</label>
+      <div>
+        <label>Unit</label>
 
-<input
-class="relief-item-unit"
-type="text"
-readonly
->
-</div>
+        <input
+          class="relief-item-unit"
+          type="text"
+          readonly
+        >
+      </div>
 
-<div>
-<label>Quantity *</label>
+      <div>
+        <label>Quantity *</label>
 
-<input
-class="relief-item-quantity"
-type="number"
-min="0.01"
-step="0.01"
->
-</div>
+        <input
+          class="relief-item-quantity"
+          type="number"
+          min="0.01"
+          step="0.01"
+          inputmode="decimal"
+        >
+      </div>
 
-<div>
-<label>Category</label>
+      <div>
+        <label>Category</label>
 
-<input
-class="relief-item-category"
-type="text"
-readonly
->
-</div>
+        <input
+          class="relief-item-category"
+          type="text"
+          readonly
+        >
+      </div>
 
-</div>
+    </div>
 
-<div class="stock-info">
-Stock balance will be checked before saving.
-</div>
+    <div class="stock-info">
+      Select an item to check stock.
+    </div>
 
-<div class="row-actions">
+    <div class="row-actions">
 
-<button
-type="button"
-class="remove-btn"
-onclick="this.closest('.relief-row').remove()"
->
-Remove Item
-</button>
+      <button
+        type="button"
+        class="remove-btn"
+        onclick="removeReliefRow(this)"
+      >
+        Remove Item
+      </button>
 
-</div>
-`;
+    </div>
 
-container.appendChild(row);
+  `;
 
-populateReliefItemSelect(
-row.querySelector(".relief-item-select")
-);
+  container.appendChild(row);
+
+  populateReliefItemSelect(
+    row.querySelector(
+      ".relief-item-select"
+    )
+  );
+
 }
+
+
+function removeReliefRow(button){
+
+  const row =
+    button.closest(".relief-row");
+
+  if(row){
+
+    row.remove();
+
+  }
+
+}
+
 
 /* =========================================================
    NEW HOUSEHOLD
@@ -1363,28 +1907,32 @@ row.querySelector(".relief-item-select")
 
 function showNewHousehold(){
 
-document.getElementById(
-"newHouseholdCard"
-).style.display="block";
+  document.getElementById(
+    "newHouseholdCard"
+  ).style.display = "block";
 
-document.getElementById(
-"newReliefCard"
-).style.display="none";
+  document.getElementById(
+    "newReliefCard"
+  ).style.display = "none";
 
-window.scrollTo({
-top:document.getElementById(
-"newHouseholdCard"
-).offsetTop-10,
-behavior:"smooth"
-});
+  document.getElementById(
+    "newHouseholdCard"
+  ).scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
 }
+
 
 function hideNewHousehold(){
 
-document.getElementById(
-"newHouseholdCard"
-).style.display="none";
+  document.getElementById(
+    "newHouseholdCard"
+  ).style.display = "none";
+
 }
+
 
 /* =========================================================
    NEW RELIEF
@@ -1392,191 +1940,252 @@ document.getElementById(
 
 async function showNewRelief(){
 
-const reliefCard=
-document.getElementById("newReliefCard");
+  const card =
+    document.getElementById(
+      "newReliefCard"
+    );
 
-reliefCard.style.display="block";
+  card.style.display =
+    "block";
 
-document.getElementById(
-"newHouseholdCard"
-).style.display="none";
+  document.getElementById(
+    "newHouseholdCard"
+  ).style.display =
+    "none";
 
-reliefCard.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
+  card.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
 
-const householdSelect=
-document.getElementById("reliefHousehold");
 
-householdSelect.innerHTML=
-`<option value="">Loading households...</option>`;
+  const householdSelect =
+    document.getElementById(
+      "reliefHousehold"
+    );
 
-try{
+  householdSelect.innerHTML =
+    `<option value="">Loading households...</option>`;
 
-await loadHouseholds();
-await loadItems();
 
-populateHouseholdSelect();
+  document.getElementById(
+    "reliefMember"
+  ).innerHTML =
+    `<option value="">Select Member</option>`;
 
-document.getElementById(
-"reliefMember"
-).innerHTML=
-`<option value="">Select Member</option>`;
 
-document.getElementById(
-"reliefEnteredBy"
-).value=loginUser;
+  try{
 
-const now=new Date();
+    await Promise.all([
+      loadItems(),
+      loadHouseholds()
+    ]);
 
-const localDateTime=
-new Date(
-now.getTime()-
-now.getTimezoneOffset()*60000
-)
-.toISOString()
-.slice(0,16);
 
-document.getElementById(
-"reliefDate"
-).value=localDateTime;
+    populateHouseholdSelect();
 
-document.getElementById(
-"reliefNotes"
-).value="";
 
-document.getElementById(
-"reliefItemsContainer"
-).innerHTML="";
+    document.getElementById(
+      "reliefEnteredBy"
+    ).value =
+      loginUser;
 
-addReliefItem();
 
-if(!households.length){
+    setCurrentDateTime();
 
-showError(
-"No households found for this branch."
-);
+
+    document.getElementById(
+      "reliefNotes"
+    ).value = "";
+
+
+    document.getElementById(
+      "reliefItemsContainer"
+    ).innerHTML = "";
+
+
+    addReliefItem();
+
+
+    if(!households.length){
+
+      showError(
+        "No households found for this branch."
+      );
+
+    }
+
+    if(!items.length){
+
+      showError(
+        "No items found for this branch."
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "SHOW RELIEF ERROR:",
+      error
+    );
+
+    householdSelect.innerHTML =
+      `<option value="">
+        Could not load households
+      </option>`;
+
+    showError(
+      "Relief form could not be prepared: " +
+      error.message
+    );
+
+  }
+
 }
 
-if(!items.length){
-
-showError(
-"No items found for this branch."
-);
-}
-
-}catch(error){
-
-console.error(
-"showNewRelief ERROR:",
-error
-);
-
-showError(
-"Could not prepare Relief form: "+
-error.message
-);
-}
-}
 
 function hideNewRelief(){
 
-document.getElementById(
-"newReliefCard"
-).style.display="none";
+  document.getElementById(
+    "newReliefCard"
+  ).style.display =
+    "none";
+
 }
 
+
+function setCurrentDateTime(){
+
+  const now =
+    new Date();
+
+  const local =
+    new Date(
+      now.getTime() -
+      now.getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .slice(0,16);
+
+  document.getElementById(
+    "reliefDate"
+  ).value = local;
+
+}
+
+
 /* =========================================================
-   LOAD MEMBERS
+   LOAD RELIEF MEMBERS
 ========================================================= */
 
 async function loadReliefMembers(){
 
-const householdId=
-document.getElementById(
-"reliefHousehold"
-).value;
+  const householdId =
+    String(
+      document.getElementById(
+        "reliefHousehold"
+      ).value || ""
+    ).trim();
 
-const select=
-document.getElementById(
-"reliefMember"
-);
 
-select.innerHTML=
-`<option value="">Loading members...</option>`;
+  const select =
+    document.getElementById(
+      "reliefMember"
+    );
 
-if(!householdId){
 
-select.innerHTML=
-`<option value="">Select Member</option>`;
+  if(!householdId){
 
-return;
+    select.innerHTML =
+      `<option value="">
+        Select Member
+      </option>`;
+
+    return;
+
+  }
+
+
+  select.innerHTML =
+    `<option value="">
+      Loading members...
+    </option>`;
+
+
+  try{
+
+    const data =
+      await getTable(
+        "emergency_members",
+        "?select=*" +
+        "&household_id=eq." +
+        encodeURIComponent(
+          householdId
+        ) +
+        "&order=id.asc"
+      );
+
+
+    select.innerHTML =
+      `<option value="">
+        Select Member
+      </option>`;
+
+
+    if(!data.length){
+
+      select.innerHTML =
+        `<option value="">
+          No Member Found
+        </option>`;
+
+      return;
+
+    }
+
+
+    data.forEach(member => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        String(member.id);
+
+      option.textContent =
+        member.full_name ||
+        member.name ||
+        "Member";
+
+      select.appendChild(option);
+
+    });
+
+
+  }catch(error){
+
+    console.error(
+      "LOAD MEMBERS ERROR:",
+      error
+    );
+
+    select.innerHTML =
+      `<option value="">
+        Could not load members
+      </option>`;
+
+    showError(
+      "Members could not be loaded: " +
+      error.message
+    );
+
+  }
+
 }
 
-try{
-
-const response=await fetch(
-API+
-"/emergency_members"+
-"?select=*"+
-"&household_id=eq."+
-encodeURIComponent(householdId)+
-"&order=id.asc",
-{
-headers:headers()
-}
-);
-
-if(!response.ok){
-
-throw new Error(
-await getResponseError(response)
-);
-}
-
-const data=await response.json();
-
-select.innerHTML=
-`<option value="">Select Member</option>`;
-
-if(!Array.isArray(data)||!data.length){
-
-select.innerHTML=
-`<option value="">No Member Found</option>`;
-
-return;
-}
-
-data.forEach(member=>{
-
-const option=document.createElement("option");
-
-option.value=String(member.id);
-
-option.textContent=
-member.full_name||
-member.name||
-"Member";
-
-select.appendChild(option);
-});
-
-}catch(error){
-
-console.error(
-"loadReliefMembers ERROR:",
-error
-);
-
-select.innerHTML=
-`<option value="">Could not load members</option>`;
-
-showError(
-"Members could not be loaded: "+
-error.message
-);
-}
 
 /* =========================================================
    ADD MEMBER
@@ -1584,64 +2193,97 @@ error.message
 
 function addMember(){
 
-const container=
-document.getElementById(
-"membersContainer"
-);
+  const container =
+    document.getElementById(
+      "membersContainer"
+    );
 
-const row=document.createElement("div");
+  const row =
+    document.createElement("div");
 
-row.className="member-row";
+  row.className =
+    "member-row";
 
-row.innerHTML=`
+  row.innerHTML = `
 
-<div class="row-grid">
+    <div class="row-grid">
 
-<div>
-<label>Full Name *</label>
-<input class="member-name" type="text">
-</div>
+      <div>
+        <label>Full Name *</label>
+        <input
+          class="member-name"
+          type="text"
+        >
+      </div>
 
-<div>
-<label>Relationship *</label>
-<input class="member-relationship" type="text">
-</div>
+      <div>
+        <label>Relationship *</label>
+        <input
+          class="member-relationship"
+          type="text"
+        >
+      </div>
 
-<div>
-<label>Sex</label>
+      <div>
+        <label>Sex</label>
 
-<select class="member-sex">
-<option value="">Select</option>
-<option value="Male">Male</option>
-<option value="Female">Female</option>
-</select>
-</div>
+        <select class="member-sex">
+          <option value="">
+            Select
+          </option>
 
-<div>
-<label>Age</label>
-<input class="member-age" type="number" min="0">
-</div>
+          <option value="Male">
+            Male
+          </option>
 
-</div>
+          <option value="Female">
+            Female
+          </option>
+        </select>
 
-<div style="margin-top:10px">
-<label>Other Information</label>
-<textarea class="member-other"></textarea>
-</div>
+      </div>
 
-<div class="row-actions">
-<button
-type="button"
-class="remove-btn"
-onclick="this.closest('.member-row').remove()"
->
-Remove Member
-</button>
-</div>
-`;
+      <div>
+        <label>Age</label>
 
-container.appendChild(row);
+        <input
+          class="member-age"
+          type="number"
+          min="0"
+        >
+
+      </div>
+
+    </div>
+
+    <div style="margin-top:10px">
+
+      <label>Other Information</label>
+
+      <textarea
+        class="member-other"
+      ></textarea>
+
+    </div>
+
+    <div class="row-actions">
+
+      <button
+        type="button"
+        class="remove-btn"
+        onclick="this.closest('.member-row').remove()"
+      >
+        Remove Member
+      </button>
+
+    </div>
+
+  `;
+
+  container.appendChild(row);
+
 }
+
 
 /* =========================================================
    ADD DOCUMENT
@@ -1649,63 +2291,88 @@ container.appendChild(row);
 
 function addDocument(){
 
-const container=
-document.getElementById(
-"documentsContainer"
-);
+  const container =
+    document.getElementById(
+      "documentsContainer"
+    );
 
-const row=document.createElement("div");
+  const row =
+    document.createElement("div");
 
-row.className="document-row";
+  row.className =
+    "document-row";
 
-row.innerHTML=`
+  row.innerHTML = `
 
-<div class="row-grid">
+    <div class="row-grid">
 
-<div>
-<label>Document Number</label>
-<input class="document-number" type="text">
-</div>
+      <div>
+        <label>Document Number</label>
 
-<div>
-<label>Document Date</label>
-<input class="document-date" type="date">
-</div>
+        <input
+          class="document-number"
+          type="text"
+        >
+      </div>
 
-<div>
-<label>Document Name</label>
-<input class="document-name" type="text">
-</div>
+      <div>
+        <label>Document Date</label>
 
-<div>
-<label>Scanned File / Image</label>
-<input
-class="document-file"
-type="file"
-accept="image/*,.pdf"
->
-</div>
+        <input
+          class="document-date"
+          type="date"
+        >
+      </div>
 
-</div>
+      <div>
+        <label>Document Name</label>
 
-<div style="margin-top:10px">
-<label>Other Information</label>
-<textarea class="document-other"></textarea>
-</div>
+        <input
+          class="document-name"
+          type="text"
+        >
+      </div>
 
-<div class="row-actions">
-<button
-type="button"
-class="remove-btn"
-onclick="this.closest('.document-row').remove()"
->
-Remove Document
-</button>
-</div>
-`;
+      <div>
+        <label>Scanned File / Image</label>
 
-container.appendChild(row);
+        <input
+          class="document-file"
+          type="file"
+          accept="image/*,.pdf"
+        >
+      </div>
+
+    </div>
+
+    <div style="margin-top:10px">
+
+      <label>Other Information</label>
+
+      <textarea
+        class="document-other"
+      ></textarea>
+
+    </div>
+
+    <div class="row-actions">
+
+      <button
+        type="button"
+        class="remove-btn"
+        onclick="this.closest('.document-row').remove()"
+      >
+        Remove Document
+      </button>
+
+    </div>
+
+  `;
+
+  container.appendChild(row);
+
 }
+
 
 /* =========================================================
    SAVE HOUSEHOLD
@@ -1713,263 +2380,347 @@ container.appendChild(row);
 
 async function saveHousehold(){
 
-const name=
-document.getElementById(
-"householdName"
-).value.trim();
+  const button =
+    document.getElementById(
+      "saveHouseholdBtn"
+    );
 
-const disasterType=
-document.getElementById(
-"disasterType"
-).value;
+  if(button.disabled){
 
-if(!name){
+    return;
 
-showError(
-"Household Name is required."
-);
+  }
 
-return;
+
+  const name =
+    document.getElementById(
+      "householdName"
+    ).value.trim();
+
+
+  const disasterType =
+    document.getElementById(
+      "disasterType"
+    ).value;
+
+
+  if(!name){
+
+    showError(
+      "Household Name is required."
+    );
+
+    return;
+
+  }
+
+
+  if(!disasterType){
+
+    showError(
+      "Disaster Type is required."
+    );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+  button.textContent =
+    "Saving...";
+
+
+  try{
+
+    const householdData = {
+
+      household_name:name,
+
+      disaster_type:
+        disasterType,
+
+      disaster_date:
+        document.getElementById(
+          "disasterDate"
+        ).value || null,
+
+      city:
+        document.getElementById(
+          "city"
+        ).value.trim() || null,
+
+      sub_city:
+        document.getElementById(
+          "subCity"
+        ).value.trim() || null,
+
+      woreda:
+        document.getElementById(
+          "woreda"
+        ).value.trim() || null,
+
+      specific_location:
+        document.getElementById(
+          "specificLocation"
+        ).value.trim() || null,
+
+      house_number:
+        document.getElementById(
+          "houseNumber"
+        ).value.trim() || null,
+
+      fan_number:
+        document.getElementById(
+          "fanNumber"
+        ).value.trim() || null,
+
+      other_information:
+        document.getElementById(
+          "householdOther"
+        ).value.trim() || null
+
+    };
+
+
+    if(!isMainBranch()){
+
+      const uuid =
+        getValidBranchUUID();
+
+      if(uuid){
+
+        householdData.branch_id =
+          uuid;
+
+      }
+
+      if(currentBranchCode){
+
+        householdData.branch_code =
+          currentBranchCode;
+
+      }
+
+    }
+
+
+    const result =
+      await postTable(
+        "emergency_households",
+        householdData
+      );
+
+
+    if(
+      !Array.isArray(result) ||
+      !result.length
+    ){
+
+      throw new Error(
+        "Household was not created."
+      );
+
+    }
+
+
+    const householdId =
+      result[0].id;
+
+
+    /* MEMBERS */
+
+    const memberRows =
+      Array.from(
+        document.querySelectorAll(
+          ".member-row"
+        )
+      );
+
+
+    for(
+      const row of memberRows
+    ){
+
+      const fullName =
+        row.querySelector(
+          ".member-name"
+        ).value.trim();
+
+
+      const relationship =
+        row.querySelector(
+          ".member-relationship"
+        ).value.trim();
+
+
+      if(!fullName){
+
+        throw new Error(
+          "Member Full Name is required."
+        );
+
+      }
+
+
+      if(!relationship){
+
+        throw new Error(
+          "Member Relationship is required."
+        );
+
+      }
+
+
+      await postTable(
+        "emergency_members",
+        {
+
+          household_id:
+            householdId,
+
+          full_name:
+            fullName,
+
+          relationship:
+            relationship,
+
+          sex:
+            row.querySelector(
+              ".member-sex"
+            ).value || null,
+
+          age:
+            row.querySelector(
+              ".member-age"
+            ).value
+              ? Number(
+                  row.querySelector(
+                    ".member-age"
+                  ).value
+                )
+              : null,
+
+          other_information:
+            row.querySelector(
+              ".member-other"
+            ).value.trim() || null
+
+        }
+      );
+
+    }
+
+
+    /* DOCUMENTS */
+
+    const documentRows =
+      Array.from(
+        document.querySelectorAll(
+          ".document-row"
+        )
+      );
+
+
+    for(
+      const row of documentRows
+    ){
+
+      const fileInput =
+        row.querySelector(
+          ".document-file"
+        );
+
+
+      let fileName = null;
+
+
+      if(
+        fileInput &&
+        fileInput.files &&
+        fileInput.files.length
+      ){
+
+        fileName =
+          fileInput.files[0].name;
+
+      }
+
+
+      await postTable(
+        "emergency_documents",
+        {
+
+          household_id:
+            householdId,
+
+          document_number:
+            row.querySelector(
+              ".document-number"
+            ).value.trim() || null,
+
+          document_date:
+            row.querySelector(
+              ".document-date"
+            ).value || null,
+
+          document_name:
+            row.querySelector(
+              ".document-name"
+            ).value.trim() || null,
+
+          file_name:
+            fileName,
+
+          other_information:
+            row.querySelector(
+              ".document-other"
+            ).value.trim() || null
+
+        }
+      );
+
+    }
+
+
+    showSuccess(
+      "Household saved successfully."
+    );
+
+
+    hideNewHousehold();
+
+    clearHouseholdForm();
+
+    await loadHouseholds();
+
+    await loadSummary();
+
+
+  }catch(error){
+
+    console.error(
+      "SAVE HOUSEHOLD ERROR:",
+      error
+    );
+
+    showError(
+      "Save Household failed: " +
+      error.message
+    );
+
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      "Save Household";
+
+  }
+
 }
 
-if(!disasterType){
-
-showError(
-"Disaster Type is required."
-);
-
-return;
-}
-
-try{
-
-const householdData={
-
-household_name:name,
-
-disaster_type:disasterType,
-
-disaster_date:
-document.getElementById(
-"disasterDate"
-).value||null,
-
-city:
-document.getElementById(
-"city"
-).value.trim()||null,
-
-sub_city:
-document.getElementById(
-"subCity"
-).value.trim()||null,
-
-woreda:
-document.getElementById(
-"woreda"
-).value.trim()||null,
-
-specific_location:
-document.getElementById(
-"specificLocation"
-).value.trim()||null,
-
-house_number:
-document.getElementById(
-"houseNumber"
-).value.trim()||null,
-
-fan_number:
-document.getElementById(
-"fanNumber"
-).value.trim()||null,
-
-other_information:
-document.getElementById(
-"householdOther"
-).value.trim()||null
-};
-
-if(!isMainBranch()){
-
-const validUUID=
-getValidBranchUUID();
-
-if(validUUID){
-householdData.branch_id=validUUID;
-}
-
-if(currentBranchCode){
-householdData.branch_code=currentBranchCode;
-}
-}
-
-const householdResult=
-await postTable(
-"emergency_households",
-householdData
-);
-
-if(
-!Array.isArray(householdResult)||
-!householdResult.length
-){
-
-throw new Error(
-"Household was not created."
-);
-}
-
-const householdId=
-householdResult[0].id;
-
-/* MEMBERS */
-
-const memberRows=
-document.querySelectorAll(
-".member-row"
-);
-
-for(const row of memberRows){
-
-const fullName=
-row.querySelector(
-".member-name"
-).value.trim();
-
-const relationship=
-row.querySelector(
-".member-relationship"
-).value.trim();
-
-if(!fullName){
-
-throw new Error(
-"Member Full Name is required."
-);
-}
-
-if(!relationship){
-
-throw new Error(
-"Member Relationship is required."
-);
-}
-
-await postTable(
-"emergency_members",
-{
-
-household_id:householdId,
-
-full_name:fullName,
-
-relationship:relationship,
-
-sex:
-row.querySelector(
-".member-sex"
-).value||null,
-
-age:
-row.querySelector(
-".member-age"
-).value
-?Number(
-row.querySelector(
-".member-age"
-).value
-):null,
-
-other_information:
-row.querySelector(
-".member-other"
-).value.trim()||null
-}
-);
-}
-
-/* DOCUMENTS */
-
-const documentRows=
-document.querySelectorAll(
-".document-row"
-);
-
-for(const row of documentRows){
-
-const fileInput=
-row.querySelector(
-".document-file"
-);
-
-let fileName=null;
-
-if(
-fileInput&&
-fileInput.files&&
-fileInput.files.length
-){
-
-fileName=
-fileInput.files[0].name;
-}
-
-await postTable(
-"emergency_documents",
-{
-
-household_id:householdId,
-
-document_number:
-row.querySelector(
-".document-number"
-).value.trim()||null,
-
-document_date:
-row.querySelector(
-".document-date"
-).value||null,
-
-document_name:
-row.querySelector(
-".document-name"
-).value.trim()||null,
-
-file_name:fileName,
-
-other_information:
-row.querySelector(
-".document-other"
-).value.trim()||null
-}
-);
-}
-
-showSuccess(
-"Household saved successfully."
-);
-
-hideNewHousehold();
-
-clearHouseholdForm();
-
-await loadHouseholds();
-await loadSummary();
-
-}catch(error){
-
-console.error(
-"saveHousehold ERROR:",
-error
-);
-
-showError(
-"Save Household failed: "+
-error.message
-);
-}
-}
 
 /* =========================================================
    CLEAR HOUSEHOLD
@@ -1977,32 +2728,194 @@ error.message
 
 function clearHouseholdForm(){
 
-[
-"householdName",
-"disasterDate",
-"city",
-"subCity",
-"woreda",
-"specificLocation",
-"houseNumber",
-"fanNumber",
-"householdOther"
-].forEach(id=>{
-document.getElementById(id).value="";
-});
+  [
+    "householdName",
+    "disasterDate",
+    "city",
+    "subCity",
+    "woreda",
+    "specificLocation",
+    "houseNumber",
+    "fanNumber",
+    "householdOther"
+  ].forEach(id => {
 
-document.getElementById(
-"disasterType"
-).value="";
+    const el =
+      document.getElementById(id);
 
-document.getElementById(
-"membersContainer"
-).innerHTML="";
+    if(el){
 
-document.getElementById(
-"documentsContainer"
-).innerHTML="";
+      el.value = "";
+
+    }
+
+  });
+
+
+  document.getElementById(
+    "disasterType"
+  ).value = "";
+
+
+  document.getElementById(
+    "membersContainer"
+  ).innerHTML = "";
+
+
+  document.getElementById(
+    "documentsContainer"
+  ).innerHTML = "";
+
 }
+
+
+/* =========================================================
+   BUILD RELIEF ITEMS
+========================================================= */
+
+function readReliefItems(){
+
+  const rows =
+    Array.from(
+      document.querySelectorAll(
+        ".relief-row"
+      )
+    );
+
+
+  if(!rows.length){
+
+    throw new Error(
+      "Please add at least one relief item."
+    );
+
+  }
+
+
+  const raw = [];
+
+
+  rows.forEach(row => {
+
+    const select =
+      row.querySelector(
+        ".relief-item-select"
+      );
+
+    const quantityInput =
+      row.querySelector(
+        ".relief-item-quantity"
+      );
+
+
+    const itemId =
+      String(
+        select?.value || ""
+      ).trim();
+
+
+    const quantity =
+      Number(
+        quantityInput?.value
+      );
+
+
+    if(!itemId){
+
+      throw new Error(
+        "Please select an Item in every relief row."
+      );
+
+    }
+
+
+    if(
+      !Number.isFinite(quantity) ||
+      quantity <= 0
+    ){
+
+      throw new Error(
+        "Quantity must be greater than 0."
+      );
+
+    }
+
+
+    const item =
+      getItemById(itemId);
+
+
+    if(!item){
+
+      throw new Error(
+        "Selected item could not be found."
+      );
+
+    }
+
+
+    raw.push({
+
+      itemId,
+
+      quantity,
+
+      name:
+        getItemName(item),
+
+      unit:
+        getItemUnit(item),
+
+      category:
+        getItemCategory(item)
+
+    });
+
+  });
+
+
+  /* GROUP SAME ITEM */
+
+  const grouped = {};
+
+
+  raw.forEach(item => {
+
+    if(!grouped[item.itemId]){
+
+      grouped[item.itemId] = {
+
+        itemId:
+          item.itemId,
+
+        quantity:0,
+
+        name:
+          item.name,
+
+        unit:
+          item.unit,
+
+        category:
+          item.category
+
+      };
+
+    }
+
+
+    grouped[item.itemId].quantity +=
+      item.quantity;
+
+  });
+
+
+  return Object.values(
+    grouped
+  );
+
+}
+
 
 /* =========================================================
    SAVE RELIEF
@@ -2010,396 +2923,395 @@ document.getElementById(
 
 async function saveRelief(){
 
-const saveButton=
-document.getElementById(
-"saveReliefBtn"
-);
+  const button =
+    document.getElementById(
+      "saveReliefBtn"
+    );
 
-if(saveButton.disabled)return;
 
-const householdId=
-String(
-document.getElementById(
-"reliefHousehold"
-).value||""
-).trim();
+  if(button.disabled){
 
-const memberId=
-String(
-document.getElementById(
-"reliefMember"
-).value||""
-).trim();
+    return;
 
-const reliefDate=
-document.getElementById(
-"reliefDate"
-).value;
+  }
 
-const enteredBy=
-document.getElementById(
-"reliefEnteredBy"
-).value.trim();
 
-const notes=
-document.getElementById(
-"reliefNotes"
-).value.trim();
+  const householdId =
+    String(
+      document.getElementById(
+        "reliefHousehold"
+      ).value || ""
+    ).trim();
 
-if(!householdId){
 
-showError(
-"Please select Household."
-);
+  const memberId =
+    String(
+      document.getElementById(
+        "reliefMember"
+      ).value || ""
+    ).trim();
 
-return;
+
+  const reliefDate =
+    document.getElementById(
+      "reliefDate"
+    ).value;
+
+
+  const enteredBy =
+    document.getElementById(
+      "reliefEnteredBy"
+    ).value.trim();
+
+
+  const notes =
+    document.getElementById(
+      "reliefNotes"
+    ).value.trim();
+
+
+  if(!householdId){
+
+    showError(
+      "Please select Household."
+    );
+
+    return;
+
+  }
+
+
+  if(!memberId){
+
+    showError(
+      "Please select Member."
+    );
+
+    return;
+
+  }
+
+
+  if(!reliefDate){
+
+    showError(
+      "Relief Date is required."
+    );
+
+    return;
+
+  }
+
+
+  if(!enteredBy){
+
+    showError(
+      "Entered By is required."
+    );
+
+    return;
+
+  }
+
+
+  let finalItems;
+
+
+  try{
+
+    finalItems =
+      readReliefItems();
+
+  }catch(error){
+
+    showError(
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+  button.textContent =
+    "Checking Stock...";
+
+
+  try{
+
+    /* =====================================================
+       STOCK CHECK
+    ===================================================== */
+
+    for(
+      const item of finalItems
+    ){
+
+      const currentStock =
+        await getItemStockBalance(
+          item.itemId
+        );
+
+
+      console.log(
+        "RELIEF STOCK CHECK",
+        {
+          item:item.name,
+          requested:item.quantity,
+          currentStock
+        }
+      );
+
+
+      if(
+        item.quantity >
+        currentStock
+      ){
+
+        throw new Error(
+          "Insufficient stock for " +
+          item.name +
+          ". Current Stock: " +
+          currentStock +
+          ", Requested: " +
+          item.quantity
+        );
+
+      }
+
+    }
+
+
+    button.textContent =
+      "Saving Relief...";
+
+
+    /* =====================================================
+       RELIEF HEADER
+    ===================================================== */
+
+    const reliefData = {
+
+      household_id:
+        householdId,
+
+      member_id:
+        memberId,
+
+      relief_date:
+        reliefDate,
+
+      issued_by:
+        enteredBy,
+
+      signature:
+        null,
+
+      other_information:
+        notes || null
+
+    };
+
+
+    if(!isMainBranch()){
+
+      const uuid =
+        getValidBranchUUID();
+
+
+      if(uuid){
+
+        reliefData.branch_id =
+          uuid;
+
+      }
+
+
+      if(currentBranchCode){
+
+        reliefData.branch_code =
+          currentBranchCode;
+
+      }
+
+    }
+
+
+    const reliefResult =
+      await postTable(
+        "emergency_reliefs",
+        reliefData
+      );
+
+
+    if(
+      !Array.isArray(
+        reliefResult
+      ) ||
+      !reliefResult.length
+    ){
+
+      throw new Error(
+        "Relief record was not created."
+      );
+
+    }
+
+
+    const reliefId =
+      reliefResult[0].id;
+
+
+    /* =====================================================
+       SAVE RELIEF ITEMS + STOCK OUT
+    ===================================================== */
+
+    for(
+      const item of finalItems
+    ){
+
+      await postTable(
+        "emergency_relief_items",
+        {
+
+          relief_id:
+            reliefId,
+
+          item_id:
+            item.itemId,
+
+          quantity:
+            item.quantity,
+
+          unit:
+            item.unit || null,
+
+          item_name:
+            item.name || null,
+
+          category:
+            item.category || null
+
+        }
+      );
+
+
+      const stockOut = {
+
+        transaction_type:
+          "OUT",
+
+        quantity:
+          item.quantity,
+
+        entered_by:
+          enteredBy,
+
+        entered_at:
+          reliefDate,
+
+        expiry_date:
+          null,
+
+        category:
+          item.category || null,
+
+        issued_by:
+          enteredBy,
+
+        signature:
+          null,
+
+        unit:
+          item.unit || null,
+
+        transaction:
+          "Emergency Relief - Model 22",
+
+        item_id:
+          item.itemId
+
+      };
+
+
+      if(!isMainBranch()){
+
+        const uuid =
+          getValidBranchUUID();
+
+
+        if(uuid){
+
+          stockOut.branch_id =
+            uuid;
+
+        }
+
+
+        if(currentBranchCode){
+
+          stockOut.branch_code =
+            currentBranchCode;
+
+        }
+
+      }else{
+
+        stockOut.branch_id = null;
+        stockOut.branch_code =
+          "MAIN";
+
+      }
+
+
+      await postTable(
+        "stock_transactions",
+        stockOut
+      );
+
+    }
+
+
+    showSuccess(
+      "Relief saved and stock updated successfully."
+    );
+
+
+    hideNewRelief();
+
+
+    await Promise.all([
+      loadItems(),
+      loadHouseholds(),
+      loadSummary()
+    ]);
+
+
+  }catch(error){
+
+    console.error(
+      "SAVE RELIEF ERROR:",
+      error
+    );
+
+    showError(
+      "Save Relief failed: " +
+      error.message
+    );
+
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      "Save Relief";
+
+  }
+
 }
 
-if(!memberId){
-
-showError(
-"Please select Member."
-);
-
-return;
-}
-
-if(!reliefDate){
-
-showError(
-"Relief Date is required."
-);
-
-return;
-}
-
-if(!enteredBy){
-
-showError(
-"Entered By is required."
-);
-
-return;
-}
-
-const rows=
-Array.from(
-document.querySelectorAll(
-".relief-row"
-)
-);
-
-if(!rows.length){
-
-showError(
-"Please add at least one relief item."
-);
-
-return;
-}
-
-/* READ ITEMS */
-
-const selectedItems=[];
-
-for(const row of rows){
-
-const select=
-row.querySelector(
-".relief-item-select"
-);
-
-const quantityInput=
-row.querySelector(
-".relief-item-quantity"
-);
-
-const itemId=
-select?
-String(select.value||"").trim():"";
-
-const quantity=
-quantityInput?
-Number(quantityInput.value):0;
-
-if(!itemId){
-
-showError(
-"Please select an Item in every relief row."
-);
-
-return;
-}
-
-if(
-!Number.isFinite(quantity)||
-quantity<=0
-){
-
-showError(
-"Quantity must be greater than 0."
-);
-
-return;
-}
-
-const item=
-getItemById(itemId);
-
-if(!item){
-
-showError(
-"Selected item could not be found."
-);
-
-return;
-}
-
-selectedItems.push({
-
-itemId:itemId,
-
-quantity:quantity,
-
-name:getItemName(item),
-
-unit:getItemUnit(item),
-
-category:getItemCategory(item)
-});
-}
-
-/* GROUP DUPLICATES */
-
-const grouped={};
-
-selectedItems.forEach(item=>{
-
-if(!grouped[item.itemId]){
-
-grouped[item.itemId]={
-
-itemId:item.itemId,
-
-quantity:0,
-
-name:item.name,
-
-unit:item.unit,
-
-category:item.category
-};
-}
-
-grouped[item.itemId].quantity+=
-item.quantity;
-});
-
-const finalItems=
-Object.values(grouped);
-
-try{
-
-saveButton.disabled=true;
-saveButton.textContent=
-"Checking Stock...";
-
-/* =====================================================
-   CHECK STOCK
-===================================================== */
-
-for(const item of finalItems){
-
-const currentStock=
-await getItemStockBalance(
-item.itemId
-);
-
-console.log(
-"RELIEF STOCK CHECK:",
-{
-itemId:item.itemId,
-item:item.name,
-requested:item.quantity,
-currentStock:currentStock
-}
-);
-
-if(item.quantity>currentStock){
-
-throw new Error(
-"Insufficient stock for "+
-item.name+
-". Current Stock: "+
-currentStock+
-", Requested: "+
-item.quantity
-);
-}
-}
-
-saveButton.textContent=
-"Saving Relief...";
-
-/* =====================================================
-   RELIEF
-===================================================== */
-
-const reliefData={
-
-household_id:householdId,
-
-member_id:memberId,
-
-relief_date:reliefDate,
-
-issued_by:enteredBy,
-
-signature:null,
-
-other_information:
-notes||null
-};
-
-if(!isMainBranch()){
-
-const validUUID=
-getValidBranchUUID();
-
-if(validUUID){
-reliefData.branch_id=
-validUUID;
-}
-
-if(currentBranchCode){
-reliefData.branch_code=
-currentBranchCode;
-}
-
-}
-
-const reliefResult=
-await postTable(
-"emergency_reliefs",
-reliefData
-);
-
-if(
-!Array.isArray(reliefResult)||
-!reliefResult.length
-){
-
-throw new Error(
-"Relief record was not created."
-);
-}
-
-const reliefId=
-reliefResult[0].id;
-
-/* =====================================================
-   ITEMS + STOCK OUT
-===================================================== */
-
-for(const item of finalItems){
-
-await postTable(
-"emergency_relief_items",
-{
-
-relief_id:reliefId,
-
-item_id:item.itemId,
-
-quantity:item.quantity,
-
-unit:item.unit||null,
-
-item_name:item.name||null,
-
-category:item.category||null
-}
-);
-
-/* STOCK OUT */
-
-const stockOut={
-
-transaction_type:"OUT",
-
-quantity:item.quantity,
-
-entered_by:enteredBy,
-
-entered_at:reliefDate,
-
-expiry_date:null,
-
-category:item.category||null,
-
-issued_by:enteredBy,
-
-signature:null,
-
-unit:item.unit||null,
-
-transaction:
-"Emergency Relief - Model 22",
-
-item_id:item.itemId
-};
-
-if(!isMainBranch()){
-
-const validUUID=
-getValidBranchUUID();
-
-stockOut.branch_id=
-validUUID||null;
-
-stockOut.branch_code=
-currentBranchCode||null;
-
-}else{
-
-stockOut.branch_id=null;
-stockOut.branch_code="MAIN";
-}
-
-await postTable(
-"stock_transactions",
-stockOut
-);
-}
-
-showSuccess(
-"Relief saved and stock updated successfully."
-);
-
-hideNewRelief();
-
-await loadItems();
-await loadHouseholds();
-await loadSummary();
-
-}catch(error){
-
-console.error(
-"saveRelief ERROR:",
-error
-);
-
-showError(
-"Save Relief failed: "+
-error.message
-);
-
-}finally{
-
-saveButton.disabled=false;
-saveButton.textContent="Save Relief";
-}
-}
 
 /* =========================================================
    LOAD HOUSEHOLDS
@@ -2407,112 +3319,143 @@ saveButton.textContent="Save Relief";
 
 async function loadHouseholds(){
 
-const container=
-document.getElementById(
-"householdList"
-);
+  const container =
+    document.getElementById(
+      "householdList"
+    );
 
-container.innerHTML=
-`<div class="loading">Loading households...</div>`;
 
-try{
+  container.innerHTML =
+    `<div class="loading">
+      Loading households...
+    </div>`;
 
-const response=
-await fetch(
-API+
-"/emergency_households"+
-"?select=*"+
-"&order=id.desc",
-{
-headers:headers()
+
+  try{
+
+    const all =
+      await getTable(
+        "emergency_households",
+        "?select=*&order=id.desc"
+      );
+
+
+    if(!Array.isArray(all)){
+
+      households = [];
+
+    }else if(
+      isMainBranch()
+    ){
+
+      households = all;
+
+    }else{
+
+      const branchId =
+        String(
+          currentBranchId || ""
+        )
+          .trim()
+          .toLowerCase();
+
+
+      const branchCode =
+        String(
+          currentBranchCode || ""
+        )
+          .trim()
+          .toUpperCase();
+
+
+      const hasBranchFields =
+        all.some(h =>
+          Object.prototype.hasOwnProperty.call(
+            h,
+            "branch_id"
+          ) ||
+          Object.prototype.hasOwnProperty.call(
+            h,
+            "branch_code"
+          )
+        );
+
+
+      if(!hasBranchFields){
+
+        households = all;
+
+      }else{
+
+        households =
+          all.filter(h => {
+
+            const hBranchId =
+              String(
+                h.branch_id || ""
+              )
+                .trim()
+                .toLowerCase();
+
+
+            const hBranchCode =
+              String(
+                h.branch_code || ""
+              )
+                .trim()
+                .toUpperCase();
+
+
+            return (
+              (
+                branchId &&
+                hBranchId === branchId
+              ) ||
+              (
+                branchCode &&
+                hBranchCode === branchCode
+              )
+            );
+
+          });
+
+      }
+
+    }
+
+
+    renderHouseholds();
+
+    populateHouseholdSelect();
+
+
+  }catch(error){
+
+    console.error(
+      "LOAD HOUSEHOLDS ERROR:",
+      error
+    );
+
+
+    households = [];
+
+
+    container.innerHTML =
+      `<div class="empty">
+        Could not load households.
+        <br><br>
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
+
+
+    populateHouseholdSelect();
+
+  }
+
 }
-);
 
-if(!response.ok){
-
-throw new Error(
-await getResponseError(response)
-);
-}
-
-const allHouseholds=
-await response.json();
-
-if(!Array.isArray(allHouseholds)){
-
-households=[];
-
-}else if(isMainBranch()){
-
-households=allHouseholds;
-
-}else{
-
-const branchId=
-String(currentBranchId||"")
-.trim().toLowerCase();
-
-const branchCode=
-String(currentBranchCode||"")
-.trim().toUpperCase();
-
-const hasBranchFields=
-allHouseholds.some(h=>
-Object.prototype.hasOwnProperty.call(
-h,"branch_id"
-)||
-Object.prototype.hasOwnProperty.call(
-h,"branch_code"
-)
-);
-
-if(!hasBranchFields){
-
-households=allHouseholds;
-
-}else{
-
-households=
-allHouseholds.filter(h=>{
-
-const hBranchId=
-String(h.branch_id??"")
-.trim().toLowerCase();
-
-const hBranchCode=
-String(h.branch_code??"")
-.trim().toUpperCase();
-
-return(
-(branchId&&hBranchId===branchId)||
-(branchCode&&hBranchCode===branchCode)
-);
-});
-}
-}
-
-renderHouseholds();
-populateHouseholdSelect();
-
-}catch(error){
-
-console.error(
-"loadHouseholds ERROR:",
-error
-);
-
-households=[];
-
-container.innerHTML=
-`<div class="empty">
-Could not load households.
-<br><br>
-${escapeHtml(error.message)}
-</div>`;
-
-populateHouseholdSelect();
-}
-}
 
 /* =========================================================
    HOUSEHOLD SELECT
@@ -2520,667 +3463,912 @@ populateHouseholdSelect();
 
 function populateHouseholdSelect(){
 
-const select=
-document.getElementById(
-"reliefHousehold"
-);
+  const select =
+    document.getElementById(
+      "reliefHousehold"
+    );
 
-if(!select)return;
 
-select.innerHTML=
-`<option value="">Select Household</option>`;
+  if(!select){
 
-households.forEach(household=>{
+    return;
 
-const option=
-document.createElement("option");
+  }
 
-option.value=
-String(household.id);
 
-option.textContent=
-household.household_name||
-household.name||
-"Household";
+  select.innerHTML =
+    `<option value="">
+      Select Household
+    </option>`;
 
-select.appendChild(option);
-});
+
+  households.forEach(
+    household => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        String(
+          household.id
+        );
+
+
+      option.textContent =
+        household.household_name ||
+        household.name ||
+        "Household";
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
 }
+
 
 /* =========================================================
    RENDER HOUSEHOLDS
 ========================================================= */
 
-function renderHouseholds(list=households){
+function renderHouseholds(
+  list = households
+){
 
-const container=
-document.getElementById(
-"householdList"
-);
+  const container =
+    document.getElementById(
+      "householdList"
+    );
 
-if(!Array.isArray(list)||!list.length){
 
-container.innerHTML=
-`<div class="empty">
-No households found.
-</div>`;
+  if(
+    !Array.isArray(list) ||
+    !list.length
+  ){
 
-return;
+    container.innerHTML =
+      `<div class="empty">
+        No households found.
+      </div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  list.forEach(
+    household => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "household-folder";
+
+
+      card.onclick = () => {
+
+        openHousehold(
+          household.id
+        );
+
+      };
+
+
+      card.innerHTML = `
+
+        <div class="folder-title">
+
+          📁
+
+          ${escapeHtml(
+            household.household_name ||
+            household.name ||
+            "Household"
+          )}
+
+        </div>
+
+        <div class="folder-line">
+
+          <strong>Disaster:</strong>
+
+          ${escapeHtml(
+            household.disaster_type ||
+            ""
+          )}
+
+        </div>
+
+        <div class="folder-line">
+
+          <strong>Date:</strong>
+
+          ${escapeHtml(
+            household.disaster_date ||
+            ""
+          )}
+
+        </div>
+
+        <div class="folder-line">
+
+          <strong>FAN:</strong>
+
+          ${escapeHtml(
+            household.fan_number ||
+            "-"
+          )}
+
+        </div>
+
+        <div class="folder-line">
+
+          <strong>Location:</strong>
+
+          ${escapeHtml(
+            household.specific_location ||
+            household.woreda ||
+            household.sub_city ||
+            household.city ||
+            "-"
+          )}
+
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
 }
 
-container.innerHTML="";
-
-list.forEach(household=>{
-
-const card=
-document.createElement("div");
-
-card.className=
-"household-folder";
-
-card.onclick=()=>{
-openHousehold(household.id);
-};
-
-card.innerHTML=`
-
-<div class="folder-title">
-📁
-${escapeHtml(
-household.household_name||
-household.name||
-"Household"
-)}
-</div>
-
-<div class="folder-line">
-<strong>Disaster:</strong>
-${escapeHtml(
-household.disaster_type||""
-)}
-</div>
-
-<div class="folder-line">
-<strong>Date:</strong>
-${escapeHtml(
-household.disaster_date||""
-)}
-</div>
-
-<div class="folder-line">
-<strong>FAN:</strong>
-${escapeHtml(
-household.fan_number||"-"
-)}
-</div>
-
-<div class="folder-line">
-<strong>Location:</strong>
-${escapeHtml(
-household.specific_location||
-household.woreda||
-household.sub_city||
-household.city||
-"-"
-)}
-</div>
-`;
-
-container.appendChild(card);
-});
-}
 
 /* =========================================================
-   FILTER
+   FILTER HOUSEHOLDS
 ========================================================= */
 
 async function filterHouseholds(){
 
-const text=
-document.getElementById(
-"searchText"
-).value.trim().toLowerCase();
+  const text =
+    document.getElementById(
+      "searchText"
+    ).value
+      .trim()
+      .toLowerCase();
 
-const disaster=
-document.getElementById(
-"filterDisaster"
-).value;
 
-const date=
-document.getElementById(
-"filterDate"
-).value;
+  const disaster =
+    document.getElementById(
+      "filterDisaster"
+    ).value;
 
-let result=
-households.filter(h=>{
 
-const name=
-String(
-h.household_name||
-h.name||
-""
-).toLowerCase();
+  const date =
+    document.getElementById(
+      "filterDate"
+    ).value;
 
-const fan=
-String(
-h.fan_number||
-""
-).toLowerCase();
 
-const textMatch=
-!text||
-name.includes(text)||
-fan.includes(text);
+  let result =
+    households.filter(
+      h => {
 
-const disasterMatch=
-!disaster||
-h.disaster_type===disaster;
+        const name =
+          String(
+            h.household_name ||
+            h.name ||
+            ""
+          )
+            .toLowerCase();
 
-const dateMatch=
-!date||
-h.disaster_date===date;
 
-return(
-textMatch&&
-disasterMatch&&
-dateMatch
-);
-});
+        const fan =
+          String(
+            h.fan_number ||
+            ""
+          )
+            .toLowerCase();
 
-if(text){
 
-try{
+        const textMatch =
+          !text ||
+          name.includes(text) ||
+          fan.includes(text);
 
-const response=
-await fetch(
-API+
-"/emergency_members"+
-"?select=household_id"+
-"&full_name=ilike.*"+
-encodeURIComponent(text)+
-"*",
-{
-headers:headers()
+
+        const disasterMatch =
+          !disaster ||
+          h.disaster_type === disaster;
+
+
+        const dateMatch =
+          !date ||
+          h.disaster_date === date;
+
+
+        return (
+          textMatch &&
+          disasterMatch &&
+          dateMatch
+        );
+
+      }
+    );
+
+
+  /* MEMBER SEARCH */
+
+  if(text){
+
+    try{
+
+      const data =
+        await getTable(
+          "emergency_members",
+          "?select=household_id" +
+          "&full_name=ilike.*" +
+          encodeURIComponent(text) +
+          "*"
+        );
+
+
+      const ids =
+        data.map(
+          m =>
+            String(
+              m.household_id
+            )
+        );
+
+
+      result =
+        households.filter(
+          h => {
+
+            const id =
+              String(h.id);
+
+
+            const name =
+              String(
+                h.household_name ||
+                h.name ||
+                ""
+              )
+                .toLowerCase();
+
+
+            const fan =
+              String(
+                h.fan_number ||
+                ""
+              )
+                .toLowerCase();
+
+
+            const match =
+              name.includes(text) ||
+              fan.includes(text) ||
+              ids.includes(id);
+
+
+            const disasterMatch =
+              !disaster ||
+              h.disaster_type === disaster;
+
+
+            const dateMatch =
+              !date ||
+              h.disaster_date === date;
+
+
+            return (
+              match &&
+              disasterMatch &&
+              dateMatch
+            );
+
+          }
+        );
+
+
+    }catch(error){
+
+      console.error(
+        "MEMBER SEARCH ERROR:",
+        error
+      );
+
+    }
+
+  }
+
+
+  renderHouseholds(
+    result
+  );
+
 }
-);
 
-if(response.ok){
-
-const data=
-await response.json();
-
-const ids=
-Array.isArray(data)?
-data.map(m=>String(m.household_id)):
-[];
-
-result=
-households.filter(h=>{
-
-const id=String(h.id);
-
-const match=
-nameMatchesHousehold(h,text)||
-ids.includes(id);
-
-const disasterMatch=
-!disaster||
-h.disaster_type===disaster;
-
-const dateMatch=
-!date||
-h.disaster_date===date;
-
-return(
-match&&
-disasterMatch&&
-dateMatch
-);
-}
-);
-}
-
-}catch(error){
-
-console.error(
-"Member search error:",
-error
-);
-}
-}
-
-renderHouseholds(result);
-}
-
-function nameMatchesHousehold(h,text){
-
-const name=
-String(
-h.household_name||
-h.name||
-""
-).toLowerCase();
-
-const fan=
-String(
-h.fan_number||
-""
-).toLowerCase();
-
-return(
-name.includes(text)||
-fan.includes(text)
-);
-}
 
 /* =========================================================
    OPEN HOUSEHOLD
 ========================================================= */
 
-async function openHousehold(householdId){
+async function openHousehold(
+  householdId
+){
 
-const household=
-households.find(h=>
-String(h.id)===
-String(householdId)
-);
+  const household =
+    households.find(
+      h =>
+        String(h.id) ===
+        String(householdId)
+    );
 
-if(!household){
 
-showError(
-"Household not found."
-);
+  if(!household){
 
-return;
+    showError(
+      "Household not found."
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "modalHouseholdName"
+  ).textContent =
+    household.household_name ||
+    household.name ||
+    "Household Details";
+
+
+  document.getElementById(
+    "modalContent"
+  ).innerHTML =
+    `<div class="loading">
+      Loading details...
+    </div>`;
+
+
+  document.getElementById(
+    "detailsModal"
+  ).style.display =
+    "block";
+
+
+  try{
+
+    const [
+      householdMembers,
+      householdReliefs,
+      householdDocuments
+    ] = await Promise.all([
+
+      getTable(
+        "emergency_members",
+        "?select=*" +
+        "&household_id=eq." +
+        encodeURIComponent(
+          householdId
+        ) +
+        "&order=id.asc"
+      ),
+
+      getTable(
+        "emergency_reliefs",
+        "?select=*" +
+        "&household_id=eq." +
+        encodeURIComponent(
+          householdId
+        ) +
+        "&order=id.desc"
+      ),
+
+      getTable(
+        "emergency_documents",
+        "?select=*" +
+        "&household_id=eq." +
+        encodeURIComponent(
+          householdId
+        ) +
+        "&order=id.asc"
+      )
+
+    ]);
+
+
+    let html = "";
+
+
+    /* HOUSEHOLD */
+
+    html += `
+
+      <div class="detail-section">
+
+        <h3>
+          Household Information
+        </h3>
+
+        <table class="detail-table">
+
+          <tr>
+            <th>Household</th>
+            <td>
+              ${escapeHtml(
+                household.household_name ||
+                household.name ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Disaster Type</th>
+            <td>
+              ${escapeHtml(
+                household.disaster_type ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Disaster Date</th>
+            <td>
+              ${escapeHtml(
+                household.disaster_date ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>City</th>
+            <td>
+              ${escapeHtml(
+                household.city ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Sub-City</th>
+            <td>
+              ${escapeHtml(
+                household.sub_city ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Woreda</th>
+            <td>
+              ${escapeHtml(
+                household.woreda ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Specific Location</th>
+            <td>
+              ${escapeHtml(
+                household.specific_location ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>House Number</th>
+            <td>
+              ${escapeHtml(
+                household.house_number ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>FAN Number</th>
+            <td>
+              ${escapeHtml(
+                household.fan_number ||
+                ""
+              )}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Other Information</th>
+            <td>
+              ${escapeHtml(
+                household.other_information ||
+                ""
+              )}
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    `;
+
+
+    /* MEMBERS */
+
+    html += `
+
+      <div class="detail-section">
+
+        <h3>
+          Household Members
+        </h3>
+
+    `;
+
+
+    if(!householdMembers.length){
+
+      html += `
+        <div class="empty">
+          No members recorded.
+        </div>
+      `;
+
+    }else{
+
+      html += `
+
+        <table class="detail-table">
+
+          <tr>
+            <th>Full Name</th>
+            <th>Relationship</th>
+            <th>Sex</th>
+            <th>Age</th>
+            <th>Other Information</th>
+          </tr>
+
+      `;
+
+
+      householdMembers.forEach(
+        member => {
+
+          html += `
+
+            <tr>
+
+              <td>
+                ${escapeHtml(
+                  member.full_name ||
+                  member.name ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  member.relationship ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  member.sex ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  member.age ??
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  member.other_information ||
+                  ""
+                )}
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      );
+
+
+      html += `
+        </table>
+      `;
+
+    }
+
+
+    html += `
+      </div>
+    `;
+
+
+    /* DOCUMENTS */
+
+    html += `
+
+      <div class="detail-section">
+
+        <h3>
+          Official Documents
+        </h3>
+
+    `;
+
+
+    if(!householdDocuments.length){
+
+      html += `
+        <div class="empty">
+          No documents recorded.
+        </div>
+      `;
+
+    }else{
+
+      html += `
+
+        <table class="detail-table">
+
+          <tr>
+            <th>Document Number</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>File</th>
+            <th>Other Information</th>
+          </tr>
+
+      `;
+
+
+      householdDocuments.forEach(
+        doc => {
+
+          html += `
+
+            <tr>
+
+              <td>
+                ${escapeHtml(
+                  doc.document_number ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  doc.document_date ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  doc.document_name ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  doc.file_name ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  doc.other_information ||
+                  ""
+                )}
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      );
+
+
+      html += `
+        </table>
+      `;
+
+    }
+
+
+    html += `
+      </div>
+    `;
+
+
+    /* RELIEF */
+
+    html += `
+
+      <div class="detail-section">
+
+        <h3>
+          Relief Records
+        </h3>
+
+    `;
+
+
+    if(!householdReliefs.length){
+
+      html += `
+        <div class="empty">
+          No relief records.
+        </div>
+      `;
+
+    }else{
+
+      for(
+        const relief of householdReliefs
+      ){
+
+        const member =
+          householdMembers.find(
+            m =>
+              String(m.id) ===
+              String(
+                relief.member_id
+              )
+          );
+
+
+        html += `
+
+          <div style="
+            border:1px solid #ddd;
+            padding:12px;
+            border-radius:8px;
+            margin-bottom:12px;
+          ">
+
+            <strong>
+              Member:
+            </strong>
+
+            ${escapeHtml(
+              member
+                ? (
+                    member.full_name ||
+                    member.name ||
+                    ""
+                  )
+                : (
+                    relief.member_id ||
+                    ""
+                  )
+            )}
+
+            <br><br>
+
+            <strong>
+              Relief Date:
+            </strong>
+
+            ${escapeHtml(
+              relief.relief_date ||
+              ""
+            )}
+
+            <br><br>
+
+            <strong>
+              Entered By:
+            </strong>
+
+            ${escapeHtml(
+              relief.issued_by ||
+              ""
+            )}
+
+            <br><br>
+
+            <strong>
+              Notes:
+            </strong>
+
+            ${escapeHtml(
+              relief.other_information ||
+              ""
+            )}
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    html += `
+      </div>
+    `;
+
+
+    document.getElementById(
+      "modalContent"
+    ).innerHTML =
+      html;
+
+
+  }catch(error){
+
+    console.error(
+      "OPEN HOUSEHOLD ERROR:",
+      error
+    );
+
+
+    document.getElementById(
+      "modalContent"
+    ).innerHTML = `
+
+      <div class="empty">
+
+        Could not load household details.
+
+        <br><br>
+
+        ${escapeHtml(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+  }
+
 }
 
-document.getElementById(
-"modalHouseholdName"
-).textContent=
-household.household_name||
-household.name||
-"Household Details";
-
-document.getElementById(
-"modalContent"
-).innerHTML=
-`<div class="loading">Loading details...</div>`;
-
-document.getElementById(
-"detailsModal"
-).style.display="block";
-
-try{
-
-const[
-membersResponse,
-reliefsResponse,
-documentsResponse
-]=await Promise.all([
-
-fetch(
-API+
-"/emergency_members"+
-"?select=*"+
-"&household_id=eq."+
-encodeURIComponent(householdId)+
-"&order=id.asc",
-{headers:headers()}
-),
-
-fetch(
-API+
-"/emergency_reliefs"+
-"?select=*"+
-"&household_id=eq."+
-encodeURIComponent(householdId)+
-"&order=id.desc",
-{headers:headers()}
-),
-
-fetch(
-API+
-"/emergency_documents"+
-"?select=*"+
-"&household_id=eq."+
-encodeURIComponent(householdId)+
-"&order=id.asc",
-{headers:headers()}
-)
-
-]);
-
-const householdMembers=
-membersResponse.ok?
-await membersResponse.json():[];
-
-const householdReliefs=
-reliefsResponse.ok?
-await reliefsResponse.json():[];
-
-const householdDocuments=
-documentsResponse.ok?
-await documentsResponse.json():[];
-
-let html="";
-
-html+=`
-
-<div class="detail-section">
-
-<h3>Household Information</h3>
-
-<table class="detail-table">
-
-<tr>
-<th>Household</th>
-<td>
-${escapeHtml(
-household.household_name||
-household.name||
-""
-)}
-</td>
-</tr>
-
-<tr>
-<th>Disaster Type</th>
-<td>
-${escapeHtml(
-household.disaster_type||""
-)}
-</td>
-</tr>
-
-<tr>
-<th>Disaster Date</th>
-<td>
-${escapeHtml(
-household.disaster_date||""
-)}
-</td>
-</tr>
-
-<tr>
-<th>City</th>
-<td>${escapeHtml(household.city||"")}</td>
-</tr>
-
-<tr>
-<th>Sub-City</th>
-<td>${escapeHtml(household.sub_city||"")}</td>
-</tr>
-
-<tr>
-<th>Woreda</th>
-<td>${escapeHtml(household.woreda||"")}</td>
-</tr>
-
-<tr>
-<th>Specific Location</th>
-<td>${escapeHtml(household.specific_location||"")}</td>
-</tr>
-
-<tr>
-<th>House Number</th>
-<td>${escapeHtml(household.house_number||"")}</td>
-</tr>
-
-<tr>
-<th>FAN Number</th>
-<td>${escapeHtml(household.fan_number||"")}</td>
-</tr>
-
-<tr>
-<th>Other Information</th>
-<td>${escapeHtml(household.other_information||"")}</td>
-</tr>
-
-</table>
-</div>
-`;
-
-html+=`
-<div class="detail-section">
-
-<h3>Household Members</h3>
-`;
-
-if(!householdMembers.length){
-
-html+=`
-<div class="empty">
-No members recorded.
-</div>
-`;
-
-}else{
-
-html+=`
-<table class="detail-table">
-
-<tr>
-<th>Full Name</th>
-<th>Relationship</th>
-<th>Sex</th>
-<th>Age</th>
-<th>Other Information</th>
-</tr>
-`;
-
-householdMembers.forEach(member=>{
-
-html+=`
-
-<tr>
-
-<td>
-${escapeHtml(
-member.full_name||
-member.name||
-""
-)}
-</td>
-
-<td>
-${escapeHtml(
-member.relationship||
-""
-)}
-</td>
-
-<td>
-${escapeHtml(member.sex||"")}
-</td>
-
-<td>
-${escapeHtml(member.age??"")}
-</td>
-
-<td>
-${escapeHtml(
-member.other_information||
-""
-)}
-</td>
-
-</tr>
-`;
-});
-
-html+=`</table>`;
-}
-
-html+=`</div>`;
-
-html+=`
-<div class="detail-section">
-
-<h3>Official Documents</h3>
-`;
-
-if(!householdDocuments.length){
-
-html+=`
-<div class="empty">
-No documents recorded.
-</div>
-`;
-
-}else{
-
-html+=`
-<table class="detail-table">
-
-<tr>
-<th>Document Number</th>
-<th>Date</th>
-<th>Name</th>
-<th>File</th>
-<th>Other Information</th>
-</tr>
-`;
-
-householdDocuments.forEach(document=>{
-
-html+=`
-
-<tr>
-
-<td>
-${escapeHtml(
-document.document_number||""
-)}
-</td>
-
-<td>
-${escapeHtml(
-document.document_date||""
-)}
-</td>
-
-<td>
-${escapeHtml(
-document.document_name||""
-)}
-</td>
-
-<td>
-${escapeHtml(
-document.file_name||""
-)}
-</td>
-
-<td>
-${escapeHtml(
-document.other_information||""
-)}
-</td>
-
-</tr>
-`;
-});
-
-html+=`</table>`;
-}
-
-html+=`</div>`;
-
-html+=`
-<div class="detail-section">
-
-<h3>Relief Records</h3>
-`;
-
-if(!householdReliefs.length){
-
-html+=`
-<div class="empty">
-No relief records.
-</div>
-`;
-
-}else{
-
-for(const relief of householdReliefs){
-
-const member=
-householdMembers.find(member=>
-String(member.id)===
-String(relief.member_id)
-);
-
-html+=`
-
-<div style="
-border:1px solid #ddd;
-padding:12px;
-border-radius:8px;
-margin-bottom:12px;
-">
-
-<strong>Member:</strong>
-
-${escapeHtml(
-member?
-(member.full_name||
-member.name||
-""):
-(relief.member_id||"")
-)}
-
-<br>
-
-<strong>Relief Date:</strong>
-
-${escapeHtml(
-relief.relief_date||""
-)}
-
-<br>
-
-<strong>Entered By:</strong>
-
-${escapeHtml(
-relief.issued_by||""
-)}
-
-<br>
-
-<strong>Notes:</strong>
-
-${escapeHtml(
-relief.other_information||""
-)}
-
-</div>
-`;
-}
-}
-
-html+=`</div>`;
-
-document.getElementById(
-"modalContent"
-).innerHTML=html;
-
-}catch(error){
-
-console.error(
-"openHousehold ERROR:",
-error
-);
-
-document.getElementById(
-"modalContent"
-).innerHTML=
-`<div class="empty">
-Could not load household details.
-<br><br>
-${escapeHtml(error.message)}
-</div>`;
-}
-}
 
 /* =========================================================
    CLOSE MODAL
@@ -3188,10 +4376,13 @@ ${escapeHtml(error.message)}
 
 function closeModal(){
 
-document.getElementById(
-"detailsModal"
-).style.display="none";
+  document.getElementById(
+    "detailsModal"
+  ).style.display =
+    "none";
+
 }
+
 
 /* =========================================================
    SUMMARY
@@ -3199,107 +4390,136 @@ document.getElementById(
 
 async function loadSummary(){
 
-try{
+  try{
 
-document.getElementById(
-"totalHouseholds"
-).textContent=
-households.length;
+    document.getElementById(
+      "totalHouseholds"
+    ).textContent =
+      households.length;
 
-let totalMembers=0;
-let totalReliefs=0;
-let totalDocuments=0;
 
-for(const household of households){
+    if(!households.length){
 
-const id=household.id;
+      document.getElementById(
+        "totalMembers"
+      ).textContent = "0";
 
-const[
-memberResponse,
-reliefResponse,
-documentResponse
-]=await Promise.all([
+      document.getElementById(
+        "totalReliefs"
+      ).textContent = "0";
 
-fetch(
-API+
-"/emergency_members"+
-"?select=id"+
-"&household_id=eq."+
-encodeURIComponent(id),
-{headers:headers()}
-),
+      document.getElementById(
+        "totalDocuments"
+      ).textContent = "0";
 
-fetch(
-API+
-"/emergency_reliefs"+
-"?select=id"+
-"&household_id=eq."+
-encodeURIComponent(id),
-{headers:headers()}
-),
+      return;
 
-fetch(
-API+
-"/emergency_documents"+
-"?select=id"+
-"&household_id=eq."+
-encodeURIComponent(id),
-{headers:headers()}
-)
+    }
 
-]);
 
-if(memberResponse.ok){
+    const householdIds =
+      households.map(
+        h => String(h.id)
+      );
 
-const data=
-await memberResponse.json();
 
-totalMembers+=
-Array.isArray(data)?
-data.length:0;
+    /*
+      Load all records once instead of making
+      3 requests for every household.
+    */
+
+    const [
+      allMembers,
+      allReliefs,
+      allDocuments
+    ] = await Promise.all([
+
+      getTable(
+        "emergency_members",
+        "?select=id,household_id"
+      ),
+
+      getTable(
+        "emergency_reliefs",
+        "?select=id,household_id"
+      ),
+
+      getTable(
+        "emergency_documents",
+        "?select=id,household_id"
+      )
+
+    ]);
+
+
+    const allowed =
+      new Set(
+        householdIds
+      );
+
+
+    const memberCount =
+      allMembers.filter(
+        m =>
+          allowed.has(
+            String(
+              m.household_id
+            )
+          )
+      ).length;
+
+
+    const reliefCount =
+      allReliefs.filter(
+        r =>
+          allowed.has(
+            String(
+              r.household_id
+            )
+          )
+      ).length;
+
+
+    const documentCount =
+      allDocuments.filter(
+        d =>
+          allowed.has(
+            String(
+              d.household_id
+            )
+          )
+      ).length;
+
+
+    document.getElementById(
+      "totalMembers"
+    ).textContent =
+      memberCount;
+
+
+    document.getElementById(
+      "totalReliefs"
+    ).textContent =
+      reliefCount;
+
+
+    document.getElementById(
+      "totalDocuments"
+    ).textContent =
+      documentCount;
+
+
+  }catch(error){
+
+    console.error(
+      "LOAD SUMMARY ERROR:",
+      error
+    );
+
+  }
+
 }
 
-if(reliefResponse.ok){
-
-const data=
-await reliefResponse.json();
-
-totalReliefs+=
-Array.isArray(data)?
-data.length:0;
-}
-
-if(documentResponse.ok){
-
-const data=
-await documentResponse.json();
-
-totalDocuments+=
-Array.isArray(data)?
-data.length:0;
-}
-}
-
-document.getElementById(
-"totalMembers"
-).textContent=totalMembers;
-
-document.getElementById(
-"totalReliefs"
-).textContent=totalReliefs;
-
-document.getElementById(
-"totalDocuments"
-).textContent=totalDocuments;
-
-}catch(error){
-
-console.error(
-"loadSummary ERROR:",
-error
-);
-}
-}
 
 /* =========================================================
    REFRESH
@@ -3307,29 +4527,44 @@ error
 
 async function refreshAll(){
 
-try{
+  try{
 
-await loadItems();
-await loadHouseholds();
-await loadSummary();
+    setStatus(
+      "Refreshing data..."
+    );
 
-showSuccess(
-"Data refreshed successfully."
-);
 
-}catch(error){
+    await Promise.all([
+      loadItems(),
+      loadHouseholds()
+    ]);
 
-console.error(
-"refreshAll ERROR:",
-error
-);
 
-showError(
-"Refresh failed: "+
-error.message
-);
+    await loadSummary();
+
+
+    setStatus("");
+
+
+    showSuccess(
+      "Data refreshed successfully."
+    );
+
+
+  }catch(error){
+
+    setStatus("");
+
+
+    showError(
+      "Refresh failed: " +
+      error.message
+    );
+
+  }
+
 }
-}
+
 
 /* =========================================================
    ESCAPE HTML
@@ -3337,35 +4572,66 @@ error.message
 
 function escapeHtml(value){
 
-if(value===null||value===undefined){
-return "";
+  if(
+    value === null ||
+    value === undefined
+  ){
+
+    return "";
+
+  }
+
+
+  return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
 }
 
-return String(value)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-}
 
 /* =========================================================
    MODAL OUTSIDE CLICK
 ========================================================= */
 
 window.addEventListener(
-"click",
-function(event){
+  "click",
+  function(event){
 
-const modal=
-document.getElementById(
-"detailsModal"
+    const modal =
+      document.getElementById(
+        "detailsModal"
+      );
+
+
+    if(
+      event.target === modal
+    ){
+
+      closeModal();
+
+    }
+
+  }
 );
 
-if(event.target===modal){
-closeModal();
-}
-});
 
 /* =========================================================
    INITIAL LOAD
@@ -3373,36 +4639,70 @@ closeModal();
 
 async function init(){
 
-console.log(
-"AAFDRMC Emergency Relief",
-{
-branchId:currentBranchId,
-branchCode:currentBranchCode,
-branchName:currentBranchName,
-user:loginUser,
-main:isMainBranch()
+  console.log(
+    "AAFDRMC RELIEF INIT",
+    {
+      branchId:
+        currentBranchId,
+
+      branchCode:
+        currentBranchCode,
+
+      branchName:
+        currentBranchName,
+
+      user:
+        loginUser,
+
+      main:
+        isMainBranch()
+    }
+  );
+
+
+  setStatus(
+    "Loading AAFDRMC Relief Management..."
+  );
+
+
+  try{
+
+    await Promise.all([
+      loadItems(),
+      loadHouseholds()
+    ]);
+
+
+    await loadSummary();
+
+
+    setStatus("");
+
+
+  }catch(error){
+
+    console.error(
+      "INITIAL LOAD ERROR:",
+      error
+    );
+
+
+    setStatus("");
+
+
+    showError(
+      "Page initialization failed: " +
+      error.message
+    );
+
+  }
+
 }
-);
 
-try{
 
-await loadItems();
-await loadHouseholds();
-await loadSummary();
-
-}catch(error){
-
-console.error(
-"INIT ERROR:",
-error
-);
-
-showError(
-"Page initialization failed: "+
-error.message
-);
-}
-}
+/* =========================================================
+   START
+========================================================= */
 
 init();
 
