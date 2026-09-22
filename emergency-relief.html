@@ -22,15 +22,8 @@ body{
   text-align:center;
 }
 
-.header h1{
-  margin:0;
-  font-size:25px;
-}
-
-.header p{
-  margin:7px 0 0;
-  opacity:.9;
-}
+.header h1{margin:0;font-size:25px}
+.header p{margin:7px 0 0;opacity:.9}
 
 .container{
   max-width:1400px;
@@ -75,11 +68,7 @@ body{
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.card h2{
-  margin-top:0;
-  color:#5d4037;
-}
-
+.card h2{margin-top:0;color:#5d4037}
 .card h3{color:#5d4037}
 
 .summary{
@@ -221,20 +210,9 @@ input:focus,select:focus,textarea:focus{
   font-weight:bold;
 }
 
-.stock-ok{
-  background:#e8f5e9;
-  color:#2e7d32;
-}
-
-.stock-low{
-  background:#ffebee;
-  color:#c62828;
-}
-
-.stock-checking{
-  background:#fff8e1;
-  color:#8d6e63;
-}
+.stock-ok{background:#e8f5e9;color:#2e7d32}
+.stock-low{background:#ffebee;color:#c62828}
+.stock-checking{background:#fff8e1;color:#8d6e63}
 
 .modal{
   display:none;
@@ -263,10 +241,7 @@ input:focus,select:focus,textarea:focus{
   align-items:center;
 }
 
-.modal-head h2{
-  margin:0;
-  color:#fff;
-}
+.modal-head h2{margin:0;color:#fff}
 
 .close{
   background:none;
@@ -392,20 +367,18 @@ input:focus,select:focus,textarea:focus{
 
 <div class="topbar">
 
-<a href="dashboard.html" class="btn back">
-  ← Back to Dashboard
-</a>
+<a href="dashboard.html" class="btn back">← Back to Dashboard</a>
 
 <button type="button" class="btn primary" onclick="showNewHousehold()">
-  + New Household
++ New Household
 </button>
 
 <button type="button" class="btn purple" onclick="showNewRelief()">
-  + Individual Relief
++ Individual Relief
 </button>
 
 <button type="button" class="btn blue" onclick="refreshAll()">
-  ↻ Refresh
+↻ Refresh
 </button>
 
 </div>
@@ -474,12 +447,9 @@ onchange="filterHouseholds()">
 <h2>Household Folders</h2>
 
 <div id="householdList" class="household-list">
-
-<div class="loading">
-Resolving branch and loading households...
+<div class="loading">Resolving branch and loading households...</div>
 </div>
 
-</div>
 </div>
 
 <!-- NEW HOUSEHOLD -->
@@ -497,7 +467,6 @@ Resolving branch and loading households...
 
 <div class="field">
 <label>Disaster Type *</label>
-
 <select id="disasterType">
 <option value="">Select Disaster Type</option>
 <option value="Flood">Flood</option>
@@ -569,18 +538,12 @@ Resolving branch and loading households...
 
 <div style="margin-top:20px">
 
-<button
-id="saveHouseholdBtn"
-type="button"
-class="btn green"
+<button id="saveHouseholdBtn" type="button" class="btn green"
 onclick="saveHousehold()">
 Save Household
 </button>
 
-<button
-type="button"
-class="btn red"
-onclick="hideNewHousehold()">
+<button type="button" class="btn red" onclick="hideNewHousehold()">
 Cancel
 </button>
 
@@ -596,62 +559,57 @@ Cancel
 <div class="grid">
 
 <div class="field">
-
 <label>Household *</label>
 
 <select id="reliefHousehold" onchange="loadReliefMembers()">
 <option value="">Select Household</option>
 </select>
-
 </div>
 
 <div class="field">
-
 <label>Member *</label>
 
 <select id="reliefMember">
 <option value="">Select Member</option>
 </select>
-
 </div>
 
 <div class="field">
-
 <label>Relief Date *</label>
-
 <input id="reliefDate" type="datetime-local">
-
 </div>
 
 <div class="field">
-
 <label>Issued By *</label>
-
 <input id="reliefEnteredBy" type="text">
-
 </div>
 
 <div class="field">
-
 <label>Signature</label>
-
-<input
-id="reliefSignature"
-type="text"
-placeholder="Signature">
-
+<input id="reliefSignature" type="text" placeholder="Signature">
 </div>
+
+<!-- MODEL 22 FIXED -->
 
 <div class="field">
 
 <label>Model 22 *</label>
 
-<select id="reliefModel22" onchange="toggleModel22Number()">
+<select id="reliefModel22" onchange="toggleModel22Number()" required>
 
 <option value="">Select Model 22</option>
-<option value="Hin jiru">Hin jiru</option>
-<option value="Model 22 qaba">Model 22 qaba</option>
-<option value="Verbal">Verbal</option>
+
+<option value="No Model 22">
+No Model 22
+</option>
+
+<option value="Model 22 Available">
+Model 22 Available
+</option>
+
+<option value="Verbal">
+Verbal
+</option>
 
 </select>
 
@@ -661,10 +619,7 @@ Model 22 is required.
 
 </div>
 
-<div
-class="field"
-id="model22NumberField"
-style="display:none">
+<div class="field" id="model22NumberField" style="display:none">
 
 <label>Model 22 Number *</label>
 
@@ -678,7 +633,6 @@ placeholder="Enter Model 22 number">
 <div class="field full">
 
 <label>Other Information</label>
-
 <textarea id="reliefNotes"></textarea>
 
 </div>
@@ -695,22 +649,17 @@ placeholder="Enter Model 22 number">
 
 <div style="margin-top:20px">
 
-<button
-id="saveReliefBtn"
-type="button"
-class="btn green"
+<button id="saveReliefBtn" type="button" class="btn green"
 onclick="saveRelief()">
 Save Relief
 </button>
 
-<button
-type="button"
-class="btn red"
-onclick="hideNewRelief()">
+<button type="button" class="btn red" onclick="hideNewRelief()">
 Cancel
 </button>
 
 </div>
+
 </div>
 
 </div>
@@ -723,9 +672,7 @@ Cancel
 
 <div class="modal-head">
 
-<h2 id="modalHouseholdName">
-Household Details
-</h2>
+<h2 id="modalHouseholdName">Household Details</h2>
 
 <button class="close" onclick="closeModal()">✕</button>
 
@@ -754,7 +701,6 @@ const SUPABASE_KEY =
 const API =
 SUPABASE_URL + "/rest/v1";
 
-
 function headers(){
 return {
 "apikey":SUPABASE_KEY,
@@ -763,9 +709,8 @@ return {
 };
 }
 
-
 /* =========================================================
-BRANCH VARIABLES
+BRANCH
 ========================================================= */
 
 let currentBranchId =
@@ -784,26 +729,14 @@ localStorage.getItem("branch_name") ||
 let loginUser =
 localStorage.getItem("login_user") || "";
 
-
-/*
-IMPORTANT:
-selected_branch_id can be numeric.
-We NEVER use a numeric selected_branch_id as UUID.
-*/
-
 const oldSelectedId =
 localStorage.getItem("selected_branch_id") || "";
 
-if(
-!currentBranchId &&
-isValidUUID(oldSelectedId)
-){
+if(!currentBranchId && isValidUUID(oldSelectedId)){
 currentBranchId = oldSelectedId;
 }
 
-
 const BRANCH_CODES = {
-
 "GULELE":"GUL",
 "ADDIS KATAMA":"AKT",
 "KOLFEE":"KLF",
@@ -818,83 +751,63 @@ const BRANCH_CODES = {
 "AKAKI KALITY":"AKA",
 "CENTER":"CTR",
 "MAIN":"MAIN"
-
 };
 
-
 function normalizeText(value){
-
 return String(value || "")
 .trim()
 .toUpperCase()
 .replace(/\s+/g," ");
-
 }
-
 
 function isValidUUID(value){
-
 return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 .test(String(value || "").trim());
-
 }
-
 
 function getEffectiveBranchCode(){
 
-const code =
-normalizeText(currentBranchCode);
+const code = normalizeText(currentBranchCode);
 
-if(code){
-return code;
-}
+if(code)return code;
 
 return BRANCH_CODES[
 normalizeText(currentBranchName)
 ] || "";
-
 }
 
-
 function getValidBranchUUID(){
-
 return isValidUUID(currentBranchId)
 ? String(currentBranchId).trim()
 : "";
-
 }
 
-
 function isMainBranch(){
-
 return (
 getEffectiveBranchCode() === "MAIN" ||
 normalizeText(currentBranchName) === "MAIN"
 );
-
 }
 
-
 /* =========================================================
-ROBUST BRANCH RESOLVER
+BRANCH RESOLVER
 ========================================================= */
-
-/*
-This version does NOT assume branches table column names.
-
-It loads branches?select=* once and checks:
-- id
-- branch_id
-- uuid
-- branch_code
-- code
-- branch_name
-- name
-*/
 
 async function resolveCurrentBranch(){
 
-/* MAIN */
+currentBranchId =
+localStorage.getItem("selected_branch_uuid") ||
+"";
+
+currentBranchCode =
+localStorage.getItem("selected_branch_code") ||
+localStorage.getItem("branch_code") ||
+"";
+
+currentBranchName =
+localStorage.getItem("selected_branch_name") ||
+localStorage.getItem("branch_name") ||
+"";
 
 if(
 normalizeText(currentBranchCode) === "MAIN" ||
@@ -905,15 +818,10 @@ currentBranchCode = "MAIN";
 currentBranchName = "MAIN";
 currentBranchId = "";
 
-localStorage.setItem(
-"selected_branch_code",
-"MAIN"
-);
-
-localStorage.setItem(
-"selected_branch_name",
-"MAIN"
-);
+localStorage.setItem("selected_branch_code","MAIN");
+localStorage.setItem("branch_code","MAIN");
+localStorage.setItem("selected_branch_name","MAIN");
+localStorage.setItem("branch_name","MAIN");
 
 updateBranchInfo();
 
@@ -925,51 +833,24 @@ name:"MAIN"
 
 }
 
+const savedUUID = getValidBranchUUID();
+const savedCode = normalizeText(currentBranchCode);
+const savedName = normalizeText(currentBranchName);
 
-/* If UUID already exists, try to identify branch */
-
-const savedUUID =
-getValidBranchUUID();
-
-
-const savedCode =
-normalizeText(currentBranchCode);
-
-
-const savedName =
-normalizeText(currentBranchName);
-
-
-/* Load branches */
-
-const branches =
-await getTable(
+const branches = await getTable(
 "branches",
 "?select=*"
 );
 
-
 if(!Array.isArray(branches) || !branches.length){
-
-throw new Error(
-"No branch records found in branches table."
-);
-
+throw new Error("No branch records found in branches table.");
 }
-
-
-/* Find matching branch */
 
 let found = null;
 
-
-/* UUID match */
-
 if(savedUUID){
 
-found =
-branches.find(branch =>
-
+found = branches.find(branch =>
 String(
 branch.id ??
 branch.branch_id ??
@@ -978,53 +859,36 @@ branch.uuid ??
 ).trim().toLowerCase()
 ===
 savedUUID.toLowerCase()
-
 );
 
 }
-
-
-/* Branch code match */
 
 if(!found && savedCode){
 
-found =
-branches.find(branch => {
-
-const code =
+found = branches.find(branch =>
 normalizeText(
 branch.branch_code ??
 branch.code ??
+branch.branchCode ??
 ""
+) === savedCode
 );
 
-return code === savedCode;
-
-});
-
 }
-
-
-/* Branch name match */
 
 if(!found && savedName){
 
-found =
-branches.find(branch => {
-
-const name =
+found = branches.find(branch =>
 normalizeText(
 branch.branch_name ??
 branch.name ??
+branch.branch ??
+branch.title ??
 ""
+) === savedName
 );
 
-return name === savedName;
-
-});
-
 }
-
 
 if(!found){
 
@@ -1033,9 +897,6 @@ throw new Error(
 );
 
 }
-
-
-/* Resolve actual values */
 
 const resolvedId =
 found.id ??
@@ -1046,43 +907,28 @@ found.uuid ??
 const resolvedCode =
 found.branch_code ??
 found.code ??
+found.branchCode ??
 savedCode ??
 "";
 
 const resolvedName =
 found.branch_name ??
 found.name ??
+found.branch ??
+found.title ??
 savedName ??
 resolvedCode;
 
-
-/* Save resolved branch */
-
-currentBranchId =
-String(resolvedId || "");
-
-currentBranchCode =
-String(resolvedCode || "");
-
-currentBranchName =
-String(resolvedName || "");
-
-
-/* Save correct values */
+currentBranchId = String(resolvedId || "");
+currentBranchCode = String(resolvedCode || "");
+currentBranchName = String(resolvedName || "");
 
 if(isValidUUID(currentBranchId)){
-
 localStorage.setItem(
 "selected_branch_uuid",
 currentBranchId
 );
-
 }
-
-/*
-Do NOT overwrite selected_branch_id with UUID
-if the login system uses numeric branch id.
-*/
 
 if(currentBranchCode){
 
@@ -1112,18 +958,7 @@ currentBranchName
 
 }
 
-
 updateBranchInfo();
-
-console.log(
-"RESOLVED BRANCH:",
-{
-id:currentBranchId,
-code:currentBranchCode,
-name:currentBranchName
-}
-);
-
 
 return {
 id:currentBranchId,
@@ -1133,14 +968,12 @@ name:currentBranchName
 
 }
 
-
 function updateBranchInfo(){
 
 const el =
 document.getElementById("branchInfo");
 
 if(!el)return;
-
 
 if(isMainBranch()){
 
@@ -1151,48 +984,28 @@ return;
 
 }
 
-
 const name =
-currentBranchName ||
-"Unknown Branch";
+currentBranchName || "Unknown Branch";
 
 const code =
 getEffectiveBranchCode();
 
-
-if(code){
-
 el.textContent =
-"Branch: " +
-name +
-" (" +
-code +
-")";
-
-}else{
-
-el.textContent =
-"Branch: " +
-name;
+code
+? "Branch: " + name + " (" + code + ")"
+: "Branch: " + name;
 
 }
-
-}
-
 
 /* =========================================================
 DATA
 ========================================================= */
 
-let households = [];
-let members = [];
-let reliefs = [];
-let documents = [];
-let items = [];
+let households=[];
+let items=[];
 
-let savingHousehold = false;
-let savingRelief = false;
-
+let savingHousehold=false;
+let savingRelief=false;
 
 /* =========================================================
 MESSAGES
@@ -1203,30 +1016,28 @@ function showSuccess(message){
 const el =
 document.getElementById("successMessage");
 
-el.textContent = message;
-el.style.display = "block";
+el.textContent=message;
+el.style.display="block";
 
 setTimeout(()=>{
-el.style.display = "none";
+el.style.display="none";
 },3500);
 
 }
-
 
 function showError(message){
 
 const el =
 document.getElementById("errorMessage");
 
-el.textContent = message;
-el.style.display = "block";
+el.textContent=message;
+el.style.display="block";
 
 setTimeout(()=>{
-el.style.display = "none";
+el.style.display="none";
 },9000);
 
 }
-
 
 function setStatus(message){
 
@@ -1237,17 +1048,16 @@ if(!el)return;
 
 if(!message){
 
-el.style.display = "none";
-el.textContent = "";
+el.style.display="none";
+el.textContent="";
 return;
 
 }
 
-el.textContent = message;
-el.style.display = "block";
+el.textContent=message;
+el.style.display="block";
 
 }
-
 
 /* =========================================================
 FETCH
@@ -1255,8 +1065,8 @@ FETCH
 
 async function fetchWithTimeout(
 url,
-options = {},
-timeout = 20000
+options={},
+timeout=20000
 ){
 
 const controller =
@@ -1280,12 +1090,10 @@ signal:controller.signal
 
 }catch(error){
 
-if(error.name === "AbortError"){
-
+if(error.name==="AbortError"){
 throw new Error(
 "Connection timed out. Please check internet/Supabase."
 );
-
 }
 
 throw error;
@@ -1298,13 +1106,11 @@ clearTimeout(timer);
 
 }
 
-
 async function getResponseError(response){
 
 try{
 
-const data =
-await response.json();
+const data=await response.json();
 
 return (
 data.message ||
@@ -1316,132 +1122,83 @@ JSON.stringify(data)
 
 }catch(error){
 
-return (
-response.status +
-" " +
-response.statusText
-);
+return response.status+" "+response.statusText;
 
 }
 
 }
 
-
-async function getTable(
-table,
-query = ""
-){
+async function getTable(table,query=""){
 
 const response =
 await fetchWithTimeout(
-
-API +
-"/" +
-table +
-query,
-
+API+"/"+table+query,
 {
 method:"GET",
 headers:headers()
 }
-
 );
 
 if(!response.ok){
-
 throw new Error(
 await getResponseError(response)
 );
+}
+
+const data=await response.json();
+
+return Array.isArray(data)?data:[];
 
 }
 
-const data =
-await response.json();
-
-return Array.isArray(data)
-? data
-: [];
-
-}
-
-
-async function postTable(
-table,
-data
-){
+async function postTable(table,data){
 
 const response =
 await fetchWithTimeout(
-
-API +
-"/" +
-table,
-
+API+"/"+table,
 {
 method:"POST",
-
 headers:{
 ...headers(),
 "Prefer":"return=representation"
 },
-
 body:JSON.stringify(data)
-
 }
-
 );
 
 if(!response.ok){
-
 throw new Error(
 await getResponseError(response)
 );
-
 }
 
 return await response.json();
 
 }
 
-
 /* =========================================================
 ITEM HELPERS
 ========================================================= */
 
 function getItemName(item){
-
-return (
-item?.name ||
+return item?.name ||
 item?.item_name ||
 item?.item ||
-""
-);
-
+"";
 }
-
 
 function getItemUnit(item){
-
-return (
-item?.unit ||
+return item?.unit ||
 item?.measurement ||
 item?.safartuu ||
-""
-);
-
+"";
 }
-
 
 function getItemCategory(item){
-
-return (
-item?.category ||
+return item?.category ||
 item?.category_name ||
-""
-);
-
+"";
 }
-
 
 function getItemById(itemId){
 
@@ -1452,7 +1209,6 @@ String(item.id) === String(itemId)
 
 }
 
-
 /* =========================================================
 BRANCH FILTER
 ========================================================= */
@@ -1461,106 +1217,55 @@ function branchMatches(row){
 
 if(isMainBranch())return true;
 
-
 const wantedUUID =
-getValidBranchUUID()
-.toLowerCase();
+getValidBranchUUID().toLowerCase();
 
 const wantedCode =
-getEffectiveBranchCode()
-.toLowerCase();
-
+getEffectiveBranchCode().toLowerCase();
 
 const rowUUID =
-String(
-row?.branch_id ??
-""
-)
+String(row?.branch_id ?? "")
 .trim()
 .toLowerCase();
 
 const rowCode =
-String(
-row?.branch_code ??
-""
-)
+String(row?.branch_code ?? "")
 .trim()
 .toLowerCase();
 
-
-if(
-wantedUUID &&
-rowUUID &&
-rowUUID === wantedUUID
-){
+if(wantedUUID && rowUUID &&
+rowUUID===wantedUUID){
 return true;
 }
 
-
-if(
-wantedCode &&
-rowCode &&
-rowCode === wantedCode
-){
+if(wantedCode && rowCode &&
+rowCode===wantedCode){
 return true;
 }
-
 
 return false;
 
 }
 
-
 function filterBranchData(data){
 
-if(!Array.isArray(data)){
-return [];
-}
+if(!Array.isArray(data))return [];
 
-if(isMainBranch()){
-return data;
-}
-
-
-/*
-If table has branch columns,
-filter strictly.
-
-If table has no branch columns,
-we cannot filter by branch.
-In that case return data because the table
-itself is apparently not branch-separated.
-*/
+if(isMainBranch())return data;
 
 const hasBranchFields =
 data.some(row =>
-
-Object.prototype.hasOwnProperty.call(
-row,
-"branch_id"
-) ||
-
-Object.prototype.hasOwnProperty.call(
-row,
-"branch_code"
-)
-
+Object.prototype.hasOwnProperty.call(row,"branch_id") ||
+Object.prototype.hasOwnProperty.call(row,"branch_code")
 );
 
+if(!hasBranchFields)return data;
 
-if(!hasBranchFields){
-
-return data;
-
-}
-
-
-return data.filter(
-row => branchMatches(row)
+return data.filter(row =>
+branchMatches(row)
 );
 
 }
-
 
 /* =========================================================
 LOAD ITEMS
@@ -1577,16 +1282,10 @@ await getTable(
 items =
 filterBranchData(allItems);
 
-console.log(
-"ITEMS:",
-items
-);
-
 }
 
-
 /* =========================================================
-TRANSACTIONS
+TRANSACTION
 ========================================================= */
 
 function normalizeTransactionValue(value){
@@ -1598,7 +1297,6 @@ return String(value || "")
 .replace(/\s+/g," ");
 
 }
-
 
 function transactionIsIn(transaction){
 
@@ -1613,12 +1311,12 @@ transaction.transaction
 );
 
 return (
-type === "IN" ||
-type === "STOCK IN" ||
-type === "STOCKIN" ||
-type === "RECEIPT" ||
-type === "RECEIVED" ||
-type === "RECEIVE" ||
+type==="IN" ||
+type==="STOCK IN" ||
+type==="STOCKIN" ||
+type==="RECEIPT" ||
+type==="RECEIVED" ||
+type==="RECEIVE" ||
 name.includes("STOCK IN") ||
 name.includes("STOCKIN") ||
 name.includes("RECEIPT") ||
@@ -1627,7 +1325,6 @@ name.includes("RECEIVE")
 );
 
 }
-
 
 function transactionIsOut(transaction){
 
@@ -1642,12 +1339,12 @@ transaction.transaction
 );
 
 return (
-type === "OUT" ||
-type === "STOCK OUT" ||
-type === "STOCKOUT" ||
-type === "ISSUE" ||
-type === "ISSUED" ||
-type === "RELIEF" ||
+type==="OUT" ||
+type==="STOCK OUT" ||
+type==="STOCKOUT" ||
+type==="ISSUE" ||
+type==="ISSUED" ||
+type==="RELIEF" ||
 name.includes("STOCK OUT") ||
 name.includes("STOCKOUT") ||
 name.includes("ISSUE") ||
@@ -1659,7 +1356,6 @@ name.includes("MODEL 22")
 
 }
 
-
 /* =========================================================
 STOCK BALANCE
 ========================================================= */
@@ -1667,21 +1363,17 @@ STOCK BALANCE
 async function getItemStockBalance(itemId){
 
 if(
-itemId === null ||
-itemId === undefined ||
-String(itemId).trim() === ""
+itemId===null ||
+itemId===undefined ||
+String(itemId).trim()===""
 ){
-
 return 0;
-
 }
 
 const selectedItem =
 getItemById(itemId);
 
-if(!selectedItem){
-return 0;
-}
+if(!selectedItem)return 0;
 
 const allTransactions =
 await getTable(
@@ -1695,9 +1387,8 @@ filterBranchData(allTransactions);
 let matched =
 transactions.filter(
 t =>
-String(
-t.item_id ?? ""
-).trim() ===
+String(t.item_id ?? "").trim()
+===
 String(itemId).trim()
 );
 
@@ -1725,19 +1416,16 @@ t.item ||
 
 }
 
-let balance = 0;
+let balance=0;
 
-matched.forEach(transaction => {
+matched.forEach(transaction=>{
 
 const quantity =
 Number(transaction.quantity);
 
-if(!Number.isFinite(quantity)){
-return;
-}
+if(!Number.isFinite(quantity))return;
 
-const amount =
-Math.abs(quantity);
+const amount=Math.abs(quantity);
 
 if(transactionIsIn(transaction)){
 balance += amount;
@@ -1750,15 +1438,14 @@ balance -= amount;
 });
 
 balance =
-Math.round(balance * 100) / 100;
+Math.round(balance*100)/100;
 
 return Math.max(0,balance);
 
 }
 
-
 /* =========================================================
-STOCK DISPLAY
+RELIEF ITEM STOCK
 ========================================================= */
 
 async function updateReliefRowStock(row){
@@ -1779,8 +1466,7 @@ if(!itemId){
 info.textContent =
 "Select an item to check stock.";
 
-info.className =
-"stock-info";
+info.className="stock-info";
 
 return;
 
@@ -1797,10 +1483,10 @@ try{
 const stock =
 await getItemStockBalance(itemId);
 
-if(stock > 0){
+if(stock>0){
 
 info.textContent =
-"Current Stock: " + stock;
+"Current Stock: "+stock;
 
 info.className =
 "stock-info stock-ok";
@@ -1817,8 +1503,6 @@ info.className =
 
 }catch(error){
 
-console.error(error);
-
 info.textContent =
 "Stock could not be checked.";
 
@@ -1828,7 +1512,6 @@ info.className =
 }
 
 }
-
 
 /* =========================================================
 RELIEF ITEM SELECT
@@ -1850,13 +1533,12 @@ return;
 
 }
 
-items.forEach(item => {
+items.forEach(item=>{
 
 const option =
 document.createElement("option");
 
-option.value =
-String(item.id);
+option.value=String(item.id);
 
 option.textContent =
 getItemName(item) || "Unnamed Item";
@@ -1872,7 +1554,6 @@ select.appendChild(option);
 });
 
 }
-
 
 async function setReliefItemData(select){
 
@@ -1896,18 +1577,12 @@ row.querySelector(".relief-item-unit");
 const categoryInput =
 row.querySelector(".relief-item-category");
 
-if(unitInput){
-unitInput.value = unit;
-}
-
-if(categoryInput){
-categoryInput.value = category;
-}
+if(unitInput)unitInput.value=unit;
+if(categoryInput)categoryInput.value=category;
 
 await updateReliefRowStock(row);
 
 }
-
 
 /* =========================================================
 ADD RELIEF ITEM
@@ -1923,10 +1598,9 @@ document.getElementById(
 const row =
 document.createElement("div");
 
-row.className =
-"relief-row";
+row.className="relief-row";
 
-row.innerHTML = `
+row.innerHTML=`
 
 <div class="row-grid">
 
@@ -1991,25 +1665,19 @@ Remove Item
 container.appendChild(row);
 
 populateReliefItemSelect(
-row.querySelector(
-".relief-item-select"
-)
+row.querySelector(".relief-item-select")
 );
 
 }
-
 
 function removeReliefRow(button){
 
 const row =
 button.closest(".relief-row");
 
-if(row){
-row.remove();
-}
+if(row)row.remove();
 
 }
-
 
 /* =========================================================
 QUANTITY CHECK
@@ -2023,9 +1691,7 @@ input.closest(".relief-row");
 if(!row)return;
 
 const select =
-row.querySelector(
-".relief-item-select"
-);
+row.querySelector(".relief-item-select");
 
 if(!select || !select.value)return;
 
@@ -2034,10 +1700,8 @@ Number(input.value);
 
 if(
 !Number.isFinite(requested) ||
-requested <= 0
-){
-return;
-}
+requested<=0
+)return;
 
 try{
 
@@ -2051,11 +1715,10 @@ row.querySelector(".stock-info");
 
 if(!info)return;
 
-if(requested > stock){
+if(requested>stock){
 
 info.textContent =
-"Current Stock: " +
-stock +
+"Current Stock: "+stock+
 " — Requested quantity is too high.";
 
 info.className =
@@ -2064,8 +1727,7 @@ info.className =
 }else{
 
 info.textContent =
-"Current Stock: " +
-stock +
+"Current Stock: "+stock+
 " — Available.";
 
 info.className =
@@ -2081,7 +1743,6 @@ console.error(error);
 
 }
 
-
 /* =========================================================
 NEW HOUSEHOLD
 ========================================================= */
@@ -2090,11 +1751,11 @@ function showNewHousehold(){
 
 document.getElementById(
 "newHouseholdCard"
-).style.display = "block";
+).style.display="block";
 
 document.getElementById(
 "newReliefCard"
-).style.display = "none";
+).style.display="none";
 
 document.getElementById(
 "newHouseholdCard"
@@ -2105,15 +1766,13 @@ block:"start"
 
 }
 
-
 function hideNewHousehold(){
 
 document.getElementById(
 "newHouseholdCard"
-).style.display = "none";
+).style.display="none";
 
 }
-
 
 /* =========================================================
 NEW RELIEF
@@ -2126,11 +1785,11 @@ document.getElementById(
 "newReliefCard"
 );
 
-card.style.display = "block";
+card.style.display="block";
 
 document.getElementById(
 "newHouseholdCard"
-).style.display = "none";
+).style.display="none";
 
 card.scrollIntoView({
 behavior:"smooth",
@@ -2163,20 +1822,19 @@ populateHouseholdSelect();
 
 document.getElementById(
 "reliefEnteredBy"
-).value =
-loginUser;
+).value=loginUser;
 
 document.getElementById(
 "reliefSignature"
-).value = "";
+).value="";
 
 document.getElementById(
 "reliefModel22"
-).value = "";
+).value="";
 
 document.getElementById(
 "reliefModel22Number"
-).value = "";
+).value="";
 
 toggleModel22Number();
 
@@ -2184,28 +1842,24 @@ setCurrentDateTime();
 
 document.getElementById(
 "reliefNotes"
-).value = "";
+).value="";
 
 document.getElementById(
 "reliefItemsContainer"
-).innerHTML = "";
+).innerHTML="";
 
 addReliefItem();
 
 if(!households.length){
-
 showError(
 "No households found for this branch."
 );
-
 }
 
 if(!items.length){
-
 showError(
 "No items found for this branch."
 );
-
 }
 
 }catch(error){
@@ -2219,7 +1873,7 @@ householdSelect.innerHTML =
 `<option value="">Could not load households</option>`;
 
 showError(
-"Relief form could not be prepared: " +
+"Relief form could not be prepared: "+
 error.message
 );
 
@@ -2227,38 +1881,34 @@ error.message
 
 }
 
-
 function hideNewRelief(){
 
 document.getElementById(
 "newReliefCard"
-).style.display = "none";
+).style.display="none";
 
 }
 
-
 function setCurrentDateTime(){
 
-const now =
-new Date();
+const now=new Date();
 
 const local =
 new Date(
 now.getTime() -
-now.getTimezoneOffset() * 60000
+now.getTimezoneOffset()*60000
 )
 .toISOString()
 .slice(0,16);
 
 document.getElementById(
 "reliefDate"
-).value = local;
+).value=local;
 
 }
 
-
 /* =========================================================
-MODEL 22
+MODEL 22 — FIXED
 ========================================================= */
 
 function toggleModel22Number(){
@@ -2278,21 +1928,23 @@ document.getElementById(
 "reliefModel22Number"
 );
 
-if(model === "Model 22 qaba"){
+if(model==="Model 22 Available"){
 
-field.style.display = "block";
-number.required = true;
+field.style.display="block";
+
+number.required=true;
 
 }else{
 
-field.style.display = "none";
-number.required = false;
-number.value = "";
+field.style.display="none";
+
+number.required=false;
+
+number.value="";
 
 }
 
 }
-
 
 /* =========================================================
 LOAD MEMBERS
@@ -2328,14 +1980,10 @@ try{
 
 const data =
 await getTable(
-
 "emergency_members",
-
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(householdId) +
+"?select=*&household_id=eq."+
+encodeURIComponent(householdId)+
 "&order=id.asc"
-
 );
 
 select.innerHTML =
@@ -2350,7 +1998,7 @@ return;
 
 }
 
-data.forEach(member => {
+data.forEach(member=>{
 
 const option =
 document.createElement("option");
@@ -2378,14 +2026,13 @@ select.innerHTML =
 `<option value="">Could not load members</option>`;
 
 showError(
-"Members could not be loaded: " +
+"Members could not be loaded: "+
 error.message
 );
 
 }
 
 }
-
 
 /* =========================================================
 ADD MEMBER
@@ -2401,10 +2048,9 @@ document.getElementById(
 const row =
 document.createElement("div");
 
-row.className =
-"member-row";
+row.className="member-row";
 
-row.innerHTML = `
+row.innerHTML=`
 
 <div class="row-grid">
 
@@ -2426,7 +2072,6 @@ row.innerHTML = `
 <option value="Male">Male</option>
 <option value="Female">Female</option>
 </select>
-
 </div>
 
 <div>
@@ -2439,7 +2084,6 @@ row.innerHTML = `
 <div style="margin-top:10px">
 
 <label>Other Information</label>
-
 <textarea class="member-other"></textarea>
 
 </div>
@@ -2460,7 +2104,6 @@ container.appendChild(row);
 
 }
 
-
 /* =========================================================
 ADD DOCUMENT
 ========================================================= */
@@ -2475,10 +2118,9 @@ document.getElementById(
 const row =
 document.createElement("div");
 
-row.className =
-"document-row";
+row.className="document-row";
 
-row.innerHTML = `
+row.innerHTML=`
 
 <div class="row-grid">
 
@@ -2512,7 +2154,6 @@ accept="image/*,.pdf">
 <div style="margin-top:10px">
 
 <label>Other Information</label>
-
 <textarea class="document-other"></textarea>
 
 </div>
@@ -2532,7 +2173,6 @@ Remove Document
 container.appendChild(row);
 
 }
-
 
 /* =========================================================
 SAVE HOUSEHOLD
@@ -2558,110 +2198,74 @@ document.getElementById(
 ).value;
 
 if(!name){
-
-showError(
-"Household Name is required."
-);
-
+showError("Household Name is required.");
 return;
-
 }
 
 if(!disasterType){
-
-showError(
-"Disaster Type is required."
-);
-
+showError("Disaster Type is required.");
 return;
-
 }
 
-savingHousehold = true;
-button.disabled = true;
-button.textContent = "Saving...";
+savingHousehold=true;
+button.disabled=true;
+button.textContent="Saving...";
 
 try{
 
 await resolveCurrentBranch();
 
-const householdData = {
+const householdData={
 
 household_name:name,
 
 disaster_type:disasterType,
 
 disaster_date:
-document.getElementById(
-"disasterDate"
-).value || null,
+document.getElementById("disasterDate").value || null,
 
 city:
-document.getElementById(
-"city"
-).value.trim() || null,
+document.getElementById("city").value.trim() || null,
 
 sub_city:
-document.getElementById(
-"subCity"
-).value.trim() || null,
+document.getElementById("subCity").value.trim() || null,
 
 woreda:
-document.getElementById(
-"woreda"
-).value.trim() || null,
+document.getElementById("woreda").value.trim() || null,
 
 specific_location:
-document.getElementById(
-"specificLocation"
-).value.trim() || null,
+document.getElementById("specificLocation").value.trim() || null,
 
 house_number:
-document.getElementById(
-"houseNumber"
-).value.trim() || null,
+document.getElementById("houseNumber").value.trim() || null,
 
 fan_number:
-document.getElementById(
-"fanNumber"
-).value.trim() || null,
+document.getElementById("fanNumber").value.trim() || null,
 
 other_information:
-document.getElementById(
-"householdOther"
-).value.trim() || null
+document.getElementById("householdOther").value.trim() || null
 
 };
 
-
-/*
-Branch information.
-Only valid UUID goes to branch_id.
-Branch code goes to branch_code.
-*/
-
 if(!isMainBranch()){
 
-const uuid =
-getValidBranchUUID();
+const uuid=getValidBranchUUID();
 
 if(uuid){
-householdData.branch_id = uuid;
+householdData.branch_id=uuid;
 }
 
-const code =
-getEffectiveBranchCode();
+const code=getEffectiveBranchCode();
 
 if(code){
-householdData.branch_code = code;
+householdData.branch_code=code;
 }
 
 }else{
 
-householdData.branch_code = "MAIN";
+householdData.branch_code="MAIN";
 
 }
-
 
 const result =
 await postTable(
@@ -2669,56 +2273,39 @@ await postTable(
 householdData
 );
 
-if(
-!Array.isArray(result) ||
-!result.length
-){
-
+if(!Array.isArray(result)||!result.length){
 throw new Error(
 "Household was not created."
 );
-
 }
 
-const householdId =
-result[0].id;
-
+const householdId=result[0].id;
 
 /* MEMBERS */
 
 const memberRows =
 Array.from(
-document.querySelectorAll(
-".member-row"
-)
+document.querySelectorAll(".member-row")
 );
 
 for(const row of memberRows){
 
 const fullName =
-row.querySelector(
-".member-name"
-).value.trim();
+row.querySelector(".member-name").value.trim();
 
 const relationship =
-row.querySelector(
-".member-relationship"
-).value.trim();
+row.querySelector(".member-relationship").value.trim();
 
 if(!fullName){
-
 throw new Error(
 "Member Full Name is required."
 );
-
 }
 
 if(!relationship){
-
 throw new Error(
 "Member Relationship is required."
 );
-
 }
 
 await postTable(
@@ -2732,59 +2319,43 @@ full_name:fullName,
 relationship:relationship,
 
 sex:
-row.querySelector(
-".member-sex"
-).value || null,
+row.querySelector(".member-sex").value || null,
 
 age:
-row.querySelector(
-".member-age"
-).value
+row.querySelector(".member-age").value
 ? Number(
-row.querySelector(
-".member-age"
-).value
+row.querySelector(".member-age").value
 )
-: null,
+:null,
 
 other_information:
-row.querySelector(
-".member-other"
-).value.trim() || null
+row.querySelector(".member-other").value.trim() || null
 
 }
 );
 
 }
-
 
 /* DOCUMENTS */
 
 const documentRows =
 Array.from(
-document.querySelectorAll(
-".document-row"
-)
+document.querySelectorAll(".document-row")
 );
 
 for(const row of documentRows){
 
 const fileInput =
-row.querySelector(
-".document-file"
-);
+row.querySelector(".document-file");
 
-let fileName = null;
+let fileName=null;
 
 if(
 fileInput &&
 fileInput.files &&
 fileInput.files.length
 ){
-
-fileName =
-fileInput.files[0].name;
-
+fileName=fileInput.files[0].name;
 }
 
 await postTable(
@@ -2794,32 +2365,23 @@ await postTable(
 household_id:householdId,
 
 document_number:
-row.querySelector(
-".document-number"
-).value.trim() || null,
+row.querySelector(".document-number").value.trim() || null,
 
 document_date:
-row.querySelector(
-".document-date"
-).value || null,
+row.querySelector(".document-date").value || null,
 
 document_name:
-row.querySelector(
-".document-name"
-).value.trim() || null,
+row.querySelector(".document-name").value.trim() || null,
 
 file_name:fileName,
 
 other_information:
-row.querySelector(
-".document-other"
-).value.trim() || null
+row.querySelector(".document-other").value.trim() || null
 
 }
 );
 
 }
-
 
 showSuccess(
 "Household saved successfully."
@@ -2830,7 +2392,6 @@ hideNewHousehold();
 clearHouseholdForm();
 
 await loadHouseholds();
-
 await loadSummary();
 
 }catch(error){
@@ -2841,20 +2402,19 @@ error
 );
 
 showError(
-"Save Household failed: " +
+"Save Household failed: "+
 error.message
 );
 
 }finally{
 
-savingHousehold = false;
-button.disabled = false;
-button.textContent = "Save Household";
+savingHousehold=false;
+button.disabled=false;
+button.textContent="Save Household";
 
 }
 
 }
-
 
 /* =========================================================
 CLEAR HOUSEHOLD
@@ -2872,31 +2432,27 @@ function clearHouseholdForm(){
 "houseNumber",
 "fanNumber",
 "householdOther"
-].forEach(id => {
+].forEach(id=>{
 
-const el =
-document.getElementById(id);
+const el=document.getElementById(id);
 
-if(el){
-el.value = "";
-}
+if(el)el.value="";
 
 });
 
 document.getElementById(
 "disasterType"
-).value = "";
+).value="";
 
 document.getElementById(
 "membersContainer"
-).innerHTML = "";
+).innerHTML="";
 
 document.getElementById(
 "documentsContainer"
-).innerHTML = "";
+).innerHTML="";
 
 }
-
 
 /* =========================================================
 READ RELIEF ITEMS
@@ -2906,95 +2462,86 @@ function readReliefItems(){
 
 const rows =
 Array.from(
-document.querySelectorAll(
-".relief-row"
-)
+document.querySelectorAll(".relief-row")
 );
 
 if(!rows.length){
-
 throw new Error(
 "Please add at least one relief item."
 );
-
 }
 
-const raw = [];
+const raw=[];
 
-rows.forEach(row => {
+rows.forEach(row=>{
 
 const select =
-row.querySelector(
-".relief-item-select"
-);
+row.querySelector(".relief-item-select");
 
 const quantityInput =
-row.querySelector(
-".relief-item-quantity"
-);
+row.querySelector(".relief-item-quantity");
 
 const itemId =
-String(
-select?.value || ""
-).trim();
+String(select?.value || "").trim();
 
 const quantity =
 Number(quantityInput?.value);
 
 if(!itemId){
-
 throw new Error(
 "Please select an Item in every relief row."
 );
-
 }
 
 if(
 !Number.isFinite(quantity) ||
-quantity <= 0
+quantity<=0
 ){
-
 throw new Error(
 "Quantity must be greater than 0."
 );
-
 }
 
-const item =
-getItemById(itemId);
+const item=getItemById(itemId);
 
 if(!item){
-
 throw new Error(
 "Selected item could not be found."
 );
-
 }
 
 raw.push({
 
 itemId:itemId,
+
 quantity:quantity,
+
 name:getItemName(item),
+
 unit:getItemUnit(item),
+
 category:getItemCategory(item)
 
 });
 
 });
 
-const grouped = {};
+const grouped={};
 
-raw.forEach(item => {
+raw.forEach(item=>{
 
 if(!grouped[item.itemId]){
 
-grouped[item.itemId] = {
+grouped[item.itemId]={
 
 itemId:item.itemId,
+
 quantity:0,
+
 name:item.name,
+
 unit:item.unit,
+
 category:item.category
 
 };
@@ -3010,9 +2557,8 @@ return Object.values(grouped);
 
 }
 
-
 /* =========================================================
-SAVE RELIEF
+SAVE RELIEF — MODEL 22 FIXED
 ========================================================= */
 
 async function saveRelief(){
@@ -3053,6 +2599,12 @@ document.getElementById(
 "reliefSignature"
 ).value.trim();
 
+/*
+IMPORTANT:
+These values MUST exactly match
+the PostgreSQL CHECK constraint.
+*/
+
 const model22 =
 document.getElementById(
 "reliefModel22"
@@ -3068,73 +2620,71 @@ document.getElementById(
 "reliefNotes"
 ).value.trim();
 
-
 if(!householdId){
-
 showError("Please select Household.");
 return;
-
 }
 
 if(!isValidUUID(householdId)){
-
 showError(
 "Household ID is not a valid UUID."
 );
-
 return;
-
 }
 
 if(!memberId){
-
 showError("Please select Member.");
 return;
-
 }
 
 if(!isValidUUID(memberId)){
-
 showError(
 "Member ID is not a valid UUID."
 );
-
 return;
-
 }
 
 if(!reliefDate){
-
 showError(
 "Relief Date is required."
 );
-
 return;
-
 }
 
 if(!issuedBy){
-
 showError(
 "Issued By is required."
 );
-
 return;
-
 }
 
-if(!model22){
+/*
+MODEL 22 VALIDATION
+*/
+
+const allowedModel22 = [
+"No Model 22",
+"Model 22 Available",
+"Verbal"
+];
+
+if(!allowedModel22.includes(model22)){
 
 showError(
-"Model 22 is required."
+"Please select a valid Model 22 option."
 );
 
 return;
 
 }
 
+/*
+NUMBER REQUIRED ONLY WHEN
+MODEL 22 IS AVAILABLE
+*/
+
 if(
-model22 === "Model 22 qaba" &&
+model22 === "Model 22 Available" &&
 !model22Number
 ){
 
@@ -3150,8 +2700,7 @@ let finalItems;
 
 try{
 
-finalItems =
-readReliefItems();
+finalItems=readReliefItems();
 
 }catch(error){
 
@@ -3160,15 +2709,14 @@ return;
 
 }
 
-savingRelief = true;
+savingRelief=true;
 
-button.disabled = true;
-button.textContent = "Checking Stock...";
+button.disabled=true;
+button.textContent="Checking Stock...";
 
 try{
 
 await resolveCurrentBranch();
-
 
 /* CHECK STOCK */
 
@@ -3179,17 +2727,14 @@ await getItemStockBalance(
 item.itemId
 );
 
-if(
-item.quantity >
-currentStock
-){
+if(item.quantity>currentStock){
 
 throw new Error(
-"Insufficient stock for " +
-item.name +
-". Current Stock: " +
-currentStock +
-", Requested: " +
+"Insufficient stock for "+
+item.name+
+". Current Stock: "+
+currentStock+
+", Requested: "+
 item.quantity
 );
 
@@ -3197,14 +2742,19 @@ item.quantity
 
 }
 
-
 /* SAVE HEADER */
 
-button.textContent =
-"Saving Relief...";
+button.textContent="Saving Relief...";
 
+/*
+IMPORTANT:
+model_22 now sends exactly one of:
+No Model 22
+Model 22 Available
+Verbal
+*/
 
-const reliefData = {
+const reliefData={
 
 household_id:householdId,
 
@@ -3223,7 +2773,7 @@ signature || null,
 model_22:model22,
 
 model_22_number:
-model22 === "Model 22 qaba"
+model22 === "Model 22 Available"
 ? model22Number
 : null,
 
@@ -3235,6 +2785,12 @@ notes || null
 
 };
 
+/*
+BRANCH:
+Only add branch fields if the table
+supports them. Current emergency_reliefs
+save keeps the original structure.
+*/
 
 const reliefResult =
 await postTable(
@@ -3255,7 +2811,6 @@ throw new Error(
 
 const reliefId =
 reliefResult[0].id;
-
 
 /* RELIEF ITEMS + STOCK OUT */
 
@@ -3280,8 +2835,7 @@ category:item.category || null
 }
 );
 
-
-const stockOut = {
+const stockOut={
 
 transaction_type:"OUT",
 
@@ -3311,27 +2865,24 @@ item_id:item.itemId
 
 };
 
-
 if(!isMainBranch()){
 
-const uuid =
-getValidBranchUUID();
+const uuid=getValidBranchUUID();
 
 if(uuid){
-stockOut.branch_id = uuid;
+stockOut.branch_id=uuid;
 }
 
-const code =
-getEffectiveBranchCode();
+const code=getEffectiveBranchCode();
 
 if(code){
-stockOut.branch_code = code;
+stockOut.branch_code=code;
 }
 
 }else{
 
-stockOut.branch_id = null;
-stockOut.branch_code = "MAIN";
+stockOut.branch_id=null;
+stockOut.branch_code="MAIN";
 
 }
 
@@ -3341,7 +2892,6 @@ stockOut
 );
 
 }
-
 
 showSuccess(
 "Relief saved and stock updated successfully."
@@ -3364,23 +2914,22 @@ error
 );
 
 showError(
-"Save Relief failed: " +
+"Save Relief failed: "+
 error.message
 );
 
 }finally{
 
-savingRelief = false;
-button.disabled = false;
-button.textContent = "Save Relief";
+savingRelief=false;
+button.disabled=false;
+button.textContent="Save Relief";
 
 }
 
 }
-
 
 /* =========================================================
-LOAD HOUSEHOLDS — FIXED
+LOAD HOUSEHOLDS
 ========================================================= */
 
 async function loadHouseholds(){
@@ -3397,28 +2946,7 @@ Loading households...
 
 try{
 
-/*
-FIRST:
-Resolve actual branch.
-*/
-
 await resolveCurrentBranch();
-
-
-console.log(
-"LOADING HOUSEHOLDS FOR BRANCH:",
-{
-id:currentBranchId,
-code:currentBranchCode,
-name:currentBranchName
-}
-);
-
-
-/*
-SECOND:
-Load households.
-*/
 
 const all =
 await getTable(
@@ -3426,32 +2954,12 @@ await getTable(
 "?select=*&order=id.desc"
 );
 
-
-console.log(
-"ALL HOUSEHOLDS FROM SUPABASE:",
-all
-);
-
-
-/*
-THIRD:
-Filter according to current branch.
-*/
-
 households =
 filterBranchData(all);
-
-
-console.log(
-"FILTERED HOUSEHOLDS:",
-households
-);
-
 
 renderHouseholds();
 
 populateHouseholdSelect();
-
 
 if(!households.length){
 
@@ -3459,7 +2967,6 @@ container.innerHTML =
 `<div class="empty">
 
 No households found for
-
 <strong>
 ${escapeHtml(
 currentBranchName ||
@@ -3476,7 +2983,6 @@ You can create a new household using
 
 }
 
-
 }catch(error){
 
 console.error(
@@ -3484,20 +2990,16 @@ console.error(
 error
 );
 
-households = [];
+households=[];
 
 container.innerHTML =
 `<div class="empty">
 
-<strong>
-Could not load households.
-</strong>
+<strong>Could not load households.</strong>
 
 <br><br>
 
-${escapeHtml(
-error.message
-)}
+${escapeHtml(error.message)}
 
 <br><br>
 
@@ -3513,14 +3015,13 @@ onclick="loadHouseholds()">
 populateHouseholdSelect();
 
 showError(
-"Households could not be loaded: " +
+"Households could not be loaded: "+
 error.message
 );
 
 }
 
 }
-
 
 /* =========================================================
 HOUSEHOLD SELECT
@@ -3538,13 +3039,12 @@ if(!select)return;
 select.innerHTML =
 `<option value="">Select Household</option>`;
 
-households.forEach(household => {
+households.forEach(household=>{
 
 const option =
 document.createElement("option");
 
-option.value =
-String(household.id);
+option.value=String(household.id);
 
 option.textContent =
 household.household_name ||
@@ -3557,22 +3057,18 @@ select.appendChild(option);
 
 }
 
-
 /* =========================================================
 RENDER HOUSEHOLDS
 ========================================================= */
 
-function renderHouseholds(list = households){
+function renderHouseholds(list=households){
 
 const container =
 document.getElementById(
 "householdList"
 );
 
-if(
-!Array.isArray(list) ||
-!list.length
-){
+if(!Array.isArray(list)||!list.length){
 
 container.innerHTML =
 `<div class="empty">
@@ -3583,23 +3079,19 @@ return;
 
 }
 
-container.innerHTML = "";
+container.innerHTML="";
 
-list.forEach(household => {
+list.forEach(household=>{
 
 const card =
 document.createElement("div");
 
-card.className =
-"household-folder";
+card.className="household-folder";
 
-card.onclick =
-() =>
-openHousehold(
-household.id
-);
+card.onclick=() =>
+openHousehold(household.id);
 
-card.innerHTML = `
+card.innerHTML=`
 
 <div class="folder-title">
 
@@ -3614,39 +3106,28 @@ household.name ||
 </div>
 
 <div class="folder-line">
-
 <strong>Disaster:</strong>
-
 ${escapeHtml(
 household.disaster_type || ""
 )}
-
 </div>
 
 <div class="folder-line">
-
 <strong>Date:</strong>
-
 ${escapeHtml(
 household.disaster_date || ""
 )}
-
 </div>
 
 <div class="folder-line">
-
 <strong>FAN:</strong>
-
 ${escapeHtml(
 household.fan_number || "-"
 )}
-
 </div>
 
 <div class="folder-line">
-
 <strong>Location:</strong>
-
 ${escapeHtml(
 household.specific_location ||
 household.woreda ||
@@ -3654,7 +3135,6 @@ household.sub_city ||
 household.city ||
 "-"
 )}
-
 </div>
 `;
 
@@ -3663,7 +3143,6 @@ container.appendChild(card);
 });
 
 }
-
 
 /* =========================================================
 FILTER
@@ -3687,7 +3166,7 @@ document.getElementById(
 ).value;
 
 let result =
-households.filter(h => {
+households.filter(h=>{
 
 const name =
 String(
@@ -3701,56 +3180,43 @@ String(
 h.fan_number || ""
 ).toLowerCase();
 
-return (
-
+return(
 (!text ||
 name.includes(text) ||
 fan.includes(text)) &&
 
 (!disaster ||
-h.disaster_type === disaster) &&
+h.disaster_type===disaster) &&
 
 (!date ||
-h.disaster_date === date)
-
+h.disaster_date===date)
 );
 
 });
-
-
-/*
-Search members.
-Then combine with household search.
-*/
 
 if(text){
 
 try{
 
-const pattern =
-"%" + text + "%";
+const pattern="%"+text+"%";
 
 const data =
 await getTable(
-
 "emergency_members",
-
-"?select=household_id" +
-"&full_name=ilike." +
+"?select=household_id"+
+"&full_name=ilike."+
 encodeURIComponent(pattern)
-
 );
 
 const ids =
 data.map(
-m => String(m.household_id)
+m=>String(m.household_id)
 );
 
 result =
-households.filter(h => {
+households.filter(h=>{
 
-const id =
-String(h.id);
+const id=String(h.id);
 
 const name =
 String(
@@ -3764,7 +3230,7 @@ String(
 h.fan_number || ""
 ).toLowerCase();
 
-return (
+return(
 
 (
 name.includes(text) ||
@@ -3773,10 +3239,10 @@ ids.includes(id)
 ) &&
 
 (!disaster ||
-h.disaster_type === disaster) &&
+h.disaster_type===disaster) &&
 
 (!date ||
-h.disaster_date === date)
+h.disaster_date===date)
 
 );
 
@@ -3797,7 +3263,6 @@ renderHouseholds(result);
 
 }
 
-
 /* =========================================================
 OPEN HOUSEHOLD
 ========================================================= */
@@ -3807,8 +3272,7 @@ async function openHousehold(householdId){
 const household =
 households.find(
 h =>
-String(h.id) ===
-String(householdId)
+String(h.id)===String(householdId)
 );
 
 if(!household){
@@ -3824,7 +3288,6 @@ return;
 document.getElementById(
 "modalHouseholdName"
 ).textContent =
-
 household.household_name ||
 household.name ||
 "Household Details";
@@ -3838,8 +3301,7 @@ Loading details...
 
 document.getElementById(
 "detailsModal"
-).style.display =
-"block";
+).style.display="block";
 
 try{
 
@@ -3847,41 +3309,39 @@ const [
 householdMembers,
 householdReliefs,
 householdDocuments
-] = await Promise.all([
+]=await Promise.all([
 
 getTable(
 "emergency_members",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(householdId) +
+"?select=*"+
+"&household_id=eq."+
+encodeURIComponent(householdId)+
 "&order=id.asc"
 ),
 
 getTable(
 "emergency_reliefs",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(householdId) +
+"?select=*"+
+"&household_id=eq."+
+encodeURIComponent(householdId)+
 "&order=id.desc"
 ),
 
 getTable(
 "emergency_documents",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(householdId) +
+"?select=*"+
+"&household_id=eq."+
+encodeURIComponent(householdId)+
 "&order=id.asc"
 )
 
 ]);
 
-
-let html = "";
-
+let html="";
 
 /* HOUSEHOLD */
 
-html += `
+html+=`
 
 <div class="detail-section">
 
@@ -3920,65 +3380,37 @@ household.disaster_date || ""
 
 <tr>
 <th>City</th>
-<td>
-${escapeHtml(
-household.city || ""
-)}
-</td>
+<td>${escapeHtml(household.city || "")}</td>
 </tr>
 
 <tr>
 <th>Sub-City</th>
-<td>
-${escapeHtml(
-household.sub_city || ""
-)}
-</td>
+<td>${escapeHtml(household.sub_city || "")}</td>
 </tr>
 
 <tr>
 <th>Woreda</th>
-<td>
-${escapeHtml(
-household.woreda || ""
-)}
-</td>
+<td>${escapeHtml(household.woreda || "")}</td>
 </tr>
 
 <tr>
 <th>Specific Location</th>
-<td>
-${escapeHtml(
-household.specific_location || ""
-)}
-</td>
+<td>${escapeHtml(household.specific_location || "")}</td>
 </tr>
 
 <tr>
 <th>House Number</th>
-<td>
-${escapeHtml(
-household.house_number || ""
-)}
-</td>
+<td>${escapeHtml(household.house_number || "")}</td>
 </tr>
 
 <tr>
 <th>FAN Number</th>
-<td>
-${escapeHtml(
-household.fan_number || ""
-)}
-</td>
+<td>${escapeHtml(household.fan_number || "")}</td>
 </tr>
 
 <tr>
 <th>Other Information</th>
-<td>
-${escapeHtml(
-household.other_information || ""
-)}
-</td>
+<td>${escapeHtml(household.other_information || "")}</td>
 </tr>
 
 </table>
@@ -3986,10 +3418,9 @@ household.other_information || ""
 </div>
 `;
 
-
 /* MEMBERS */
 
-html += `
+html+=`
 
 <div class="detail-section">
 
@@ -3998,7 +3429,7 @@ html += `
 
 if(!householdMembers.length){
 
-html += `
+html+=`
 <div class="empty">
 No members recorded.
 </div>
@@ -4006,7 +3437,7 @@ No members recorded.
 
 }else{
 
-html += `
+html+=`
 
 <table class="detail-table">
 
@@ -4019,9 +3450,9 @@ html += `
 </tr>
 `;
 
-householdMembers.forEach(member => {
+householdMembers.forEach(member=>{
 
-html += `
+html+=`
 
 <tr>
 
@@ -4062,16 +3493,15 @@ member.other_information || ""
 
 });
 
-html += "</table>";
+html+="</table>";
 
 }
 
-html += "</div>";
-
+html+="</div>";
 
 /* DOCUMENTS */
 
-html += `
+html+=`
 
 <div class="detail-section">
 
@@ -4080,7 +3510,7 @@ html += `
 
 if(!householdDocuments.length){
 
-html += `
+html+=`
 <div class="empty">
 No documents recorded.
 </div>
@@ -4088,7 +3518,7 @@ No documents recorded.
 
 }else{
 
-html += `
+html+=`
 
 <table class="detail-table">
 
@@ -4101,40 +3531,30 @@ html += `
 </tr>
 `;
 
-householdDocuments.forEach(doc => {
+householdDocuments.forEach(doc=>{
 
-html += `
+html+=`
 
 <tr>
 
 <td>
-${escapeHtml(
-doc.document_number || ""
-)}
+${escapeHtml(doc.document_number || "")}
 </td>
 
 <td>
-${escapeHtml(
-doc.document_date || ""
-)}
+${escapeHtml(doc.document_date || "")}
 </td>
 
 <td>
-${escapeHtml(
-doc.document_name || ""
-)}
+${escapeHtml(doc.document_name || "")}
 </td>
 
 <td>
-${escapeHtml(
-doc.file_name || ""
-)}
+${escapeHtml(doc.file_name || "")}
 </td>
 
 <td>
-${escapeHtml(
-doc.other_information || ""
-)}
+${escapeHtml(doc.other_information || "")}
 </td>
 
 </tr>
@@ -4142,16 +3562,15 @@ doc.other_information || ""
 
 });
 
-html += "</table>";
+html+="</table>";
 
 }
 
-html += "</div>";
-
+html+="</div>";
 
 /* RELIEF */
 
-html += `
+html+=`
 
 <div class="detail-section">
 
@@ -4160,7 +3579,7 @@ html += `
 
 if(!householdReliefs.length){
 
-html += `
+html+=`
 <div class="empty">
 No relief records.
 </div>
@@ -4173,11 +3592,11 @@ for(const relief of householdReliefs){
 const member =
 householdMembers.find(
 m =>
-String(m.id) ===
+String(m.id)===
 String(relief.member_id)
 );
 
-html += `
+html+=`
 
 <div style="
 border:1px solid #ddd;
@@ -4205,50 +3624,32 @@ relief.member_id || ""
 <br><br>
 
 <strong>Relief Date:</strong>
-
-${escapeHtml(
-relief.relief_date || ""
-)}
+${escapeHtml(relief.relief_date || "")}
 
 <br><br>
 
 <strong>Issued By:</strong>
-
-${escapeHtml(
-relief.issued_by || ""
-)}
+${escapeHtml(relief.issued_by || "")}
 
 <br><br>
 
 <strong>Signature:</strong>
-
-${escapeHtml(
-relief.signature || ""
-)}
+${escapeHtml(relief.signature || "")}
 
 <br><br>
 
 <strong>Model 22:</strong>
-
-${escapeHtml(
-relief.model_22 || ""
-)}
+${escapeHtml(relief.model_22 || "")}
 
 <br><br>
 
 <strong>Model 22 Number:</strong>
-
-${escapeHtml(
-relief.model_22_number || ""
-)}
+${escapeHtml(relief.model_22_number || "")}
 
 <br><br>
 
 <strong>Other Information:</strong>
-
-${escapeHtml(
-relief.other_information || ""
-)}
+${escapeHtml(relief.other_information || "")}
 
 </div>
 `;
@@ -4257,12 +3658,11 @@ relief.other_information || ""
 
 }
 
-html += "</div>";
+html+="</div>";
 
 document.getElementById(
 "modalContent"
-).innerHTML =
-html;
+).innerHTML=html;
 
 }catch(error){
 
@@ -4273,7 +3673,7 @@ error
 
 document.getElementById(
 "modalContent"
-).innerHTML = `
+).innerHTML=`
 
 <div class="empty">
 
@@ -4281,9 +3681,7 @@ Could not load household details.
 
 <br><br>
 
-${escapeHtml(
-error.message
-)}
+${escapeHtml(error.message)}
 
 </div>
 `;
@@ -4291,7 +3689,6 @@ error.message
 }
 
 }
-
 
 /* =========================================================
 CLOSE MODAL
@@ -4301,11 +3698,9 @@ function closeModal(){
 
 document.getElementById(
 "detailsModal"
-).style.display =
-"none";
+).style.display="none";
 
 }
-
 
 /* =========================================================
 SUMMARY
@@ -4317,22 +3712,22 @@ try{
 
 document.getElementById(
 "totalHouseholds"
-).textContent =
+).textContent=
 households.length;
 
 if(!households.length){
 
 document.getElementById(
 "totalMembers"
-).textContent = "0";
+).textContent="0";
 
 document.getElementById(
 "totalReliefs"
-).textContent = "0";
+).textContent="0";
 
 document.getElementById(
 "totalDocuments"
-).textContent = "0";
+).textContent="0";
 
 return;
 
@@ -4341,7 +3736,7 @@ return;
 const householdIds =
 new Set(
 households.map(
-h => String(h.id)
+h=>String(h.id)
 )
 );
 
@@ -4349,7 +3744,7 @@ const [
 allMembers,
 allReliefs,
 allDocuments
-] = await Promise.all([
+]=await Promise.all([
 
 getTable(
 "emergency_members",
@@ -4370,7 +3765,7 @@ getTable(
 
 document.getElementById(
 "totalMembers"
-).textContent =
+).textContent=
 
 allMembers.filter(
 m =>
@@ -4381,7 +3776,7 @@ String(m.household_id)
 
 document.getElementById(
 "totalReliefs"
-).textContent =
+).textContent=
 
 allReliefs.filter(
 r =>
@@ -4392,7 +3787,7 @@ String(r.household_id)
 
 document.getElementById(
 "totalDocuments"
-).textContent =
+).textContent=
 
 allDocuments.filter(
 d =>
@@ -4411,7 +3806,6 @@ error
 }
 
 }
-
 
 /* =========================================================
 REFRESH
@@ -4450,14 +3844,13 @@ error
 setStatus("");
 
 showError(
-"Refresh failed: " +
+"Refresh failed: "+
 error.message
 );
 
 }
 
 }
-
 
 /* =========================================================
 ESCAPE HTML
@@ -4466,16 +3859,13 @@ ESCAPE HTML
 function escapeHtml(value){
 
 if(
-value === null ||
-value === undefined
+value===null ||
+value===undefined
 ){
-
 return "";
-
 }
 
 return String(value)
-
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -4483,7 +3873,6 @@ return String(value)
 .replace(/'/g,"&#039;");
 
 }
-
 
 /* =========================================================
 MODAL CLICK
@@ -4498,15 +3887,14 @@ document.getElementById(
 "detailsModal"
 );
 
-if(event.target === modal){
+if(event.target===modal){
 closeModal();
 }
 
 });
 
-
 /* =========================================================
-INITIAL LOAD — FIXED
+INITIAL LOAD
 ========================================================= */
 
 async function init(){
@@ -4521,26 +3909,19 @@ setStatus(
 
 document.getElementById(
 "branchInfo"
-).textContent =
+).textContent=
 "Branch: Resolving...";
 
 document.getElementById(
 "householdList"
-).innerHTML =
+).innerHTML=
 `<div class="loading">
 Resolving branch...
 </div>`;
 
 try{
 
-
-/*
-STEP 1:
-Resolve branch FIRST.
-*/
-
 await resolveCurrentBranch();
-
 
 console.log(
 "BRANCH READY:",
@@ -4551,35 +3932,21 @@ name:currentBranchName
 }
 );
 
-
-/*
-STEP 2:
-Only after branch is ready,
-load data.
-*/
-
 setStatus(
 "Loading households and items..."
 );
 
 document.getElementById(
 "householdList"
-).innerHTML =
+).innerHTML=
 `<div class="loading">
 Loading households...
 </div>`;
-
 
 await Promise.all([
 loadItems(),
 loadHouseholds()
 ]);
-
-
-/*
-STEP 3:
-Summary.
-*/
 
 await loadSummary();
 
@@ -4600,7 +3967,7 @@ setStatus("");
 
 document.getElementById(
 "householdList"
-).innerHTML =
+).innerHTML=
 `<div class="empty">
 
 <strong>
@@ -4609,9 +3976,7 @@ AAFDRMC could not load this page.
 
 <br><br>
 
-${escapeHtml(
-error.message
-)}
+${escapeHtml(error.message)}
 
 <br><br>
 
@@ -4630,14 +3995,13 @@ Dashboard and login again.
 </div>`;
 
 showError(
-"Page initialization failed: " +
+"Page initialization failed: "+
 error.message
 );
 
 }
 
 }
-
 
 /* =========================================================
 START
