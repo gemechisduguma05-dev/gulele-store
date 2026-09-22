@@ -76,6 +76,7 @@ body{
 }
 
 .btn:hover{opacity:.9}
+.btn:disabled{opacity:.6;cursor:not-allowed}
 .btn-in{background:#15803d}
 .btn-out{background:#dc2626}
 .btn-blue{background:#2563eb}
@@ -146,6 +147,15 @@ body{
   background:#f1f5f9 !important;
 }
 
+.stock-info{
+  margin-top:7px;
+  padding:8px;
+  border-radius:6px;
+  background:#f1f5f9;
+  font-weight:bold;
+  color:#5b351b;
+}
+
 .model-box{
   background:#fff7ed;
   padding:12px;
@@ -171,6 +181,11 @@ body{
   color:white;
   font-weight:bold;
   cursor:pointer;
+}
+
+.save-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .save-in{background:#15803d}
@@ -204,7 +219,8 @@ body{
   color:#5b351b;
 }
 
-.report-card{
+.report-card,
+.details-card{
   background:white;
   border-radius:12px;
   padding:18px;
@@ -252,11 +268,6 @@ tr:nth-child(even){
 
 .details-card{
   display:none;
-  background:white;
-  border-radius:12px;
-  padding:18px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  margin-bottom:25px;
 }
 
 .details-header{
@@ -301,6 +312,12 @@ tr:nth-child(even){
   color:#991b1b;
 }
 
+.message.info{
+  display:block;
+  background:#dbeafe;
+  color:#1e40af;
+}
+
 @media(max-width:800px){
   .form-grid{grid-template-columns:1fr}
   .summary-grid{grid-template-columns:repeat(2,1fr)}
@@ -319,6 +336,7 @@ tr:nth-child(even){
 <body>
 
 <div class="header">
+
   <img
     src="./1788633150526.jpg"
     class="logo"
@@ -331,6 +349,7 @@ tr:nth-child(even){
   <div id="branchName" class="branch-name">
     Loading Branch...
   </div>
+
 </div>
 
 <div class="container">
@@ -343,34 +362,40 @@ tr:nth-child(even){
 
   <div class="buttons">
 
-    <button type="button" class="btn btn-in"
-      onclick="openForm('IN')">
+    <button type="button"
+            class="btn btn-in"
+            onclick="openForm('IN')">
       ➕ Stock IN
     </button>
 
-    <button type="button" class="btn btn-out"
-      onclick="openForm('OUT')">
+    <button type="button"
+            class="btn btn-out"
+            onclick="openForm('OUT')">
       ➖ Stock OUT
     </button>
 
-    <button type="button" class="btn btn-blue"
-      onclick="loadStock()">
+    <button type="button"
+            class="btn btn-blue"
+            onclick="loadStock()">
       🔄 Refresh
     </button>
 
-    <button type="button" class="btn btn-orange"
-      onclick="goReports()">
+    <button type="button"
+            class="btn btn-orange"
+            onclick="goReports()">
       📋 Stock Report
     </button>
 
-    <button type="button" class="btn btn-gray"
-      onclick="backToMenu()">
+    <button type="button"
+            class="btn btn-gray"
+            onclick="backToMenu()">
       ⬅️ Back to Menu
     </button>
 
   </div>
 
-  <!-- STOCK IN -->
+
+  <!-- ================= STOCK IN ================= -->
 
   <div id="inForm" class="form-card">
 
@@ -391,61 +416,57 @@ tr:nth-child(even){
       <div class="form-group">
         <label>Unit</label>
 
-        <input
-          id="inUnit"
-          class="readonly"
-          readonly
-        >
+        <input id="inUnit"
+               class="readonly"
+               readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+
+        <input id="inCategory"
+               class="readonly"
+               readonly>
       </div>
 
       <div class="form-group">
         <label>Quantity</label>
 
-        <input
-          id="inQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity"
-        >
+        <input id="inQuantity"
+               type="number"
+               min="0.01"
+               step="any"
+               placeholder="Quantity">
       </div>
 
       <div class="form-group">
         <label>Date and Time Received</label>
 
-        <input
-          id="inDate"
-          type="datetime-local"
-        >
+        <input id="inDate"
+               type="datetime-local">
       </div>
 
       <div class="form-group">
         <label>Entered By</label>
 
-        <input
-          id="inEnteredBy"
-          type="text"
-          placeholder="Name of person who entered the stock"
-        >
+        <input id="inEnteredBy"
+               type="text"
+               placeholder="Name of person who entered">
       </div>
 
       <div class="form-group">
         <label>Expiry Date</label>
 
-        <input
-          id="inExpiryDate"
-          type="date"
-        >
+        <input id="inExpiryDate"
+               type="date">
       </div>
 
       <div class="form-group">
         <label>Signature</label>
 
-        <input
-          id="inSignature"
-          type="text"
-          placeholder="Signature"
-        >
+        <input id="inSignature"
+               type="text"
+               placeholder="Signature">
       </div>
 
       <div class="form-group model-box">
@@ -471,11 +492,9 @@ tr:nth-child(even){
         <div id="inModel19NumberBox"
              class="model-number">
 
-          <input
-            id="inModel19Number"
-            type="text"
-            placeholder="Model 19 Number"
-          >
+          <input id="inModel19Number"
+                 type="text"
+                 placeholder="Model 19 Number">
 
         </div>
 
@@ -485,18 +504,16 @@ tr:nth-child(even){
 
     <div class="submit-row">
 
-      <button
-        id="saveInButton"
-        type="button"
-        class="save-btn save-in"
-        onclick="saveStock('IN')">
+      <button id="saveInButton"
+              type="button"
+              class="save-btn save-in"
+              onclick="saveStock('IN')">
         💾 Save Stock IN
       </button>
 
-      <button
-        type="button"
-        class="save-btn cancel"
-        onclick="closeForms()">
+      <button type="button"
+              class="save-btn cancel"
+              onclick="closeForms()">
         Cancel
       </button>
 
@@ -504,7 +521,8 @@ tr:nth-child(even){
 
   </div>
 
-  <!-- STOCK OUT -->
+
+  <!-- ================= STOCK OUT ================= -->
 
   <div id="outForm" class="form-card">
 
@@ -522,17 +540,30 @@ tr:nth-child(even){
           <option value="">-- Select Item --</option>
         </select>
 
+        <div id="outCurrentStock"
+             class="stock-info">
+          Current Stock: 0
+        </div>
+
       </div>
 
       <div class="form-group">
 
         <label>Unit</label>
 
-        <input
-          id="outUnit"
-          class="readonly"
-          readonly
-        >
+        <input id="outUnit"
+               class="readonly"
+               readonly>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Category</label>
+
+        <input id="outCategory"
+               class="readonly"
+               readonly>
 
       </div>
 
@@ -540,13 +571,11 @@ tr:nth-child(even){
 
         <label>Quantity</label>
 
-        <input
-          id="outQuantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity"
-        >
+        <input id="outQuantity"
+               type="number"
+               min="0.01"
+               step="any"
+               placeholder="Quantity">
 
       </div>
 
@@ -554,10 +583,8 @@ tr:nth-child(even){
 
         <label>Date and Time Issued</label>
 
-        <input
-          id="outDate"
-          type="datetime-local"
-        >
+        <input id="outDate"
+               type="datetime-local">
 
       </div>
 
@@ -565,11 +592,9 @@ tr:nth-child(even){
 
         <label>Issued By</label>
 
-        <input
-          id="outIssuedBy"
-          type="text"
-          placeholder="Name of person who issued the stock"
-        >
+        <input id="outIssuedBy"
+               type="text"
+               placeholder="Name of person who issued">
 
       </div>
 
@@ -577,11 +602,9 @@ tr:nth-child(even){
 
         <label>Signature</label>
 
-        <input
-          id="outSignature"
-          type="text"
-          placeholder="Signature"
-        >
+        <input id="outSignature"
+               type="text"
+               placeholder="Signature">
 
       </div>
 
@@ -605,15 +628,12 @@ tr:nth-child(even){
 
         </select>
 
-        <div
-          id="outModel22NumberBox"
-          class="model-number">
+        <div id="outModel22NumberBox"
+             class="model-number">
 
-          <input
-            id="outModel22Number"
-            type="text"
-            placeholder="Model 22 Number"
-          >
+          <input id="outModel22Number"
+                 type="text"
+                 placeholder="Model 22 Number">
 
         </div>
 
@@ -623,18 +643,16 @@ tr:nth-child(even){
 
     <div class="submit-row">
 
-      <button
-        id="saveOutButton"
-        type="button"
-        class="save-btn save-out"
-        onclick="saveStock('OUT')">
+      <button id="saveOutButton"
+              type="button"
+              class="save-btn save-out"
+              onclick="saveStock('OUT')">
         💾 Save Stock OUT
       </button>
 
-      <button
-        type="button"
-        class="save-btn cancel"
-        onclick="closeForms()">
+      <button type="button"
+              class="save-btn cancel"
+              onclick="closeForms()">
         Cancel
       </button>
 
@@ -642,7 +660,8 @@ tr:nth-child(even){
 
   </div>
 
-  <!-- SUMMARY -->
+
+  <!-- ================= SUMMARY ================= -->
 
   <div class="summary-grid">
 
@@ -668,7 +687,8 @@ tr:nth-child(even){
 
   </div>
 
-  <!-- REPORT -->
+
+  <!-- ================= REPORT ================= -->
 
   <div class="report-card">
 
@@ -677,11 +697,12 @@ tr:nth-child(even){
       <span id="reportBranch">Branch</span>
     </div>
 
-    <div style="overflow-x:auto;">
+    <div style="overflow-x:auto">
 
       <table>
 
         <thead>
+
           <tr>
             <th>No</th>
             <th>Item</th>
@@ -691,6 +712,7 @@ tr:nth-child(even){
             <th>Balance</th>
             <th>Details</th>
           </tr>
+
         </thead>
 
         <tbody id="reportTable">
@@ -710,9 +732,11 @@ tr:nth-child(even){
 
   </div>
 
-  <!-- DETAILS -->
 
-  <div id="detailsCard" class="details-card">
+  <!-- ================= DETAILS ================= -->
+
+  <div id="detailsCard"
+       class="details-card">
 
     <div class="details-header">
 
@@ -720,16 +744,15 @@ tr:nth-child(even){
            class="details-title">
       </div>
 
-      <button
-        type="button"
-        class="close-btn"
-        onclick="closeDetails()">
+      <button type="button"
+              class="close-btn"
+              onclick="closeDetails()">
         ✖ Close
       </button>
 
     </div>
 
-    <div style="overflow-x:auto;">
+    <div style="overflow-x:auto">
 
       <table>
 
@@ -760,6 +783,7 @@ tr:nth-child(even){
   </div>
 
 </div>
+
 
 <script>
 
@@ -861,7 +885,11 @@ const BRANCHES = {
 };
 
 
-let CURRENT_BRANCH_UUID = null;
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+let CURRENT_BRANCH_UUID = "";
 let CURRENT_BRANCH_NAME = "Branch";
 let CURRENT_BRANCH_CODE = "";
 
@@ -887,15 +915,181 @@ function getHeaders(){
 
 
 /* =========================================================
+   LOGIN
+========================================================= */
+
+function checkLogin(){
+
+  if(localStorage.getItem("is_logged_in") !== "true"){
+
+    window.location.href="index.html";
+
+    return false;
+  }
+
+  return true;
+}
+
+
+/* =========================================================
+   NORMALIZE
+========================================================= */
+
+function normalizeText(value){
+
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim()
+    .replace(/\s+/g," ")
+    .toLowerCase();
+
+}
+
+
+function normalizeTransaction(value){
+
+  return normalizeText(value)
+    .replace(/[_-]+/g," ");
+}
+
+
+/* =========================================================
+   BRANCH RESOLUTION
+========================================================= */
+
+function resolveBranch(){
+
+  const savedCode =
+    String(
+      localStorage.getItem("selected_branch_code") || ""
+    ).trim().toUpperCase();
+
+  const savedName =
+    String(
+      localStorage.getItem("selected_branch_name") || ""
+    ).trim().toLowerCase();
+
+  const savedUUID =
+    String(
+      localStorage.getItem("selected_branch_uuid") || ""
+    ).trim();
+
+
+  /*
+    FIRST: branch code
+    This prevents GUL from being treated as UUID.
+  */
+
+  if(savedCode && BRANCHES[savedCode]){
+
+    const branch = BRANCHES[savedCode];
+
+    CURRENT_BRANCH_UUID = branch.id;
+    CURRENT_BRANCH_NAME = branch.name;
+    CURRENT_BRANCH_CODE = branch.code;
+
+    localStorage.setItem(
+      "selected_branch_uuid",
+      branch.id
+    );
+
+    localStorage.setItem(
+      "selected_branch_code",
+      branch.code
+    );
+
+    localStorage.setItem(
+      "selected_branch_name",
+      branch.name
+    );
+
+    return true;
+  }
+
+
+  /*
+    SECOND: branch name
+  */
+
+  if(savedName){
+
+    for(const key in BRANCHES){
+
+      const branch = BRANCHES[key];
+
+      if(
+        normalizeText(branch.name) ===
+        normalizeText(savedName)
+      ){
+
+        CURRENT_BRANCH_UUID = branch.id;
+        CURRENT_BRANCH_NAME = branch.name;
+        CURRENT_BRANCH_CODE = branch.code;
+
+        localStorage.setItem(
+          "selected_branch_uuid",
+          branch.id
+        );
+
+        localStorage.setItem(
+          "selected_branch_code",
+          branch.code
+        );
+
+        localStorage.setItem(
+          "selected_branch_name",
+          branch.name
+        );
+
+        return true;
+      }
+    }
+  }
+
+
+  /*
+    THIRD: saved UUID
+  */
+
+  if(savedUUID){
+
+    for(const key in BRANCHES){
+
+      if(BRANCHES[key].id === savedUUID){
+
+        CURRENT_BRANCH_UUID = BRANCHES[key].id;
+        CURRENT_BRANCH_NAME = BRANCHES[key].name;
+        CURRENT_BRANCH_CODE = BRANCHES[key].code;
+
+        return true;
+      }
+    }
+  }
+
+
+  return false;
+}
+
+
+/* =========================================================
+   MAIN BRANCH
+========================================================= */
+
+function isMain(){
+
+  return CURRENT_BRANCH_CODE === "MAIN";
+}
+
+
+/* =========================================================
    CATEGORY
 ========================================================= */
 
 function getEnglishCategory(category){
 
   const value =
-    String(category || "")
-      .trim()
-      .toLowerCase();
+    normalizeText(category);
 
   const categories = {
 
@@ -930,20 +1124,22 @@ function getEnglishCategory(category){
       "Non-Food Hygiene Items",
 
     "meeshaa ijaarsa manaaf oolu":
-      "Building / Construction Items",
+      "Non-Food Building/Construction Items",
 
     "building / construction items":
-      "Building / Construction Items",
+      "Non-Food Building/Construction Items",
 
     "building items":
-      "Building / Construction Items",
+      "Non-Food Building/Construction Items",
 
     "construction items":
-      "Building / Construction Items"
+      "Non-Food Building/Construction Items"
 
   };
 
-  return categories[value] || category || "";
+  return categories[value] ||
+         category ||
+         "";
 
 }
 
@@ -966,188 +1162,22 @@ function showMessage(text,type="error"){
   box.style.display =
     "block";
 
-  setTimeout(function(){
+  clearTimeout(
+    window.messageTimer
+  );
 
-    box.style.display =
-      "none";
+  window.messageTimer =
+    setTimeout(function(){
 
-  },5000);
+      box.style.display="none";
 
-}
-
-
-/* =========================================================
-   BRANCH
-========================================================= */
-
-function resolveBranchUUID(){
-
-  const savedUUID =
-    localStorage.getItem("selected_branch_uuid");
-
-  const savedCode =
-    localStorage.getItem("selected_branch_code");
-
-  const savedName =
-    localStorage.getItem("selected_branch_name");
-
-
-  if(savedUUID){
-
-    for(const key in BRANCHES){
-
-      if(BRANCHES[key].id === savedUUID){
-
-        CURRENT_BRANCH_UUID =
-          BRANCHES[key].id;
-
-        CURRENT_BRANCH_NAME =
-          BRANCHES[key].name;
-
-        CURRENT_BRANCH_CODE =
-          BRANCHES[key].code;
-
-        return true;
-
-      }
-
-    }
-
-  }
-
-
-  if(savedCode){
-
-    const code =
-      savedCode.toUpperCase();
-
-    if(BRANCHES[code]){
-
-      CURRENT_BRANCH_UUID =
-        BRANCHES[code].id;
-
-      CURRENT_BRANCH_NAME =
-        BRANCHES[code].name;
-
-      CURRENT_BRANCH_CODE =
-        BRANCHES[code].code;
-
-      localStorage.setItem(
-        "selected_branch_uuid",
-        CURRENT_BRANCH_UUID
-      );
-
-      return true;
-
-    }
-
-  }
-
-
-  if(savedName){
-
-    const name =
-      savedName.trim().toLowerCase();
-
-    for(const key in BRANCHES){
-
-      if(
-        BRANCHES[key].name.toLowerCase() === name
-      ){
-
-        CURRENT_BRANCH_UUID =
-          BRANCHES[key].id;
-
-        CURRENT_BRANCH_NAME =
-          BRANCHES[key].name;
-
-        CURRENT_BRANCH_CODE =
-          BRANCHES[key].code;
-
-        localStorage.setItem(
-          "selected_branch_uuid",
-          CURRENT_BRANCH_UUID
-        );
-
-        return true;
-
-      }
-
-    }
-
-  }
-
-  return false;
+    },5000);
 
 }
 
 
 /* =========================================================
-   LOGIN
-========================================================= */
-
-function checkLogin(){
-
-  const logged =
-    localStorage.getItem("is_logged_in");
-
-  if(logged !== "true"){
-
-    window.location.href =
-      "index.html";
-
-    return false;
-
-  }
-
-  return true;
-
-}
-
-
-/* =========================================================
-   PAGE START
-========================================================= */
-
-window.addEventListener(
-  "DOMContentLoaded",
-  async function(){
-
-    if(!checkLogin())
-      return;
-
-    if(!resolveBranchUUID()){
-
-      showMessage(
-        "Unable to find the branch. Please log in again.",
-        "error"
-      );
-
-      document.getElementById("branchName").textContent =
-        "Branch Not Found";
-
-      return;
-
-    }
-
-    document.getElementById("branchName").textContent =
-      CURRENT_BRANCH_NAME;
-
-    document.getElementById("reportBranch").textContent =
-      CURRENT_BRANCH_NAME;
-
-    setCurrentDateTime();
-
-    setupModelFields();
-
-    await loadStock();
-
-  }
-);
-
-
-/* =========================================================
-   DATE TIME
+   DATE
 ========================================================= */
 
 function setCurrentDateTime(){
@@ -1156,8 +1186,8 @@ function setCurrentDateTime(){
 
   const local =
     new Date(
-      now.getTime()
-      - now.getTimezoneOffset()*60000
+      now.getTime() -
+      now.getTimezoneOffset()*60000
     )
     .toISOString()
     .slice(0,16);
@@ -1177,68 +1207,84 @@ function setCurrentDateTime(){
 
 async function loadItems(){
 
-  if(!CURRENT_BRANCH_UUID)
-    return false;
-
-  const url =
+  let url =
     SUPABASE_URL +
     "/rest/v1/items" +
-    "?select=id,name,category,unit,branch_id" +
-    "&branch_id=eq." +
-    encodeURIComponent(CURRENT_BRANCH_UUID) +
+    "?select=*" +
     "&order=name.asc";
 
-  try{
 
-    const response =
-      await fetch(
-        url,
-        {
-          method:"GET",
-          headers:getHeaders()
-        }
-      );
-
-    if(!response.ok){
-
-      const text =
-        await response.text();
-
-      throw new Error(
-        "Items loading error: " + text
-      );
-
-    }
-
-    items =
-      await response.json();
-
-    if(!Array.isArray(items))
-      items = [];
-
-    fillItemLists();
-
-    return true;
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    showMessage(
-      error.message,
-      "error"
+  const response =
+    await fetch(
+      url,
+      {
+        method:"GET",
+        headers:getHeaders()
+      }
     );
 
-    return false;
+
+  if(!response.ok){
+
+    throw new Error(
+      "Items loading failed: " +
+      await response.text()
+    );
 
   }
+
+
+  const data =
+    await response.json();
+
+
+  items =
+    Array.isArray(data)
+      ? data
+      : [];
+
+
+  /*
+    Branch isolation.
+    Main sees all items.
+  */
+
+  if(!isMain()){
+
+    items =
+      items.filter(function(item){
+
+        const rowBranchId =
+          String(item.branch_id || "")
+            .toLowerCase();
+
+        const rowBranchCode =
+          String(item.branch_code || "")
+            .trim()
+            .toUpperCase();
+
+        return (
+          rowBranchId ===
+          CURRENT_BRANCH_UUID.toLowerCase()
+        )
+        ||
+        (
+          rowBranchCode &&
+          rowBranchCode === CURRENT_BRANCH_CODE
+        );
+
+      });
+
+  }
+
+
+  fillItemLists();
 
 }
 
 
 /* =========================================================
-   ITEM LIST
+   FILL ITEM LIST
 ========================================================= */
 
 function fillItemLists(){
@@ -1249,6 +1295,7 @@ function fillItemLists(){
   const outSelect =
     document.getElementById("outItem");
 
+
   inSelect.innerHTML =
     '<option value="">-- Select Item --</option>';
 
@@ -1258,30 +1305,75 @@ function fillItemLists(){
 
   items.forEach(function(item){
 
-    const option1 =
+    const optionIn =
       document.createElement("option");
 
-    option1.value =
+    optionIn.value =
       item.id;
 
-    option1.textContent =
-      item.name;
+    optionIn.textContent =
+      item.name || item.item_name || item.item || "";
 
-    inSelect.appendChild(option1);
+    inSelect.appendChild(optionIn);
 
 
-    const option2 =
+    const optionOut =
       document.createElement("option");
 
-    option2.value =
+    optionOut.value =
       item.id;
 
-    option2.textContent =
-      item.name;
+    optionOut.textContent =
+      item.name || item.item_name || item.item || "";
 
-    outSelect.appendChild(option2);
+    outSelect.appendChild(optionOut);
 
   });
+
+}
+
+
+/* =========================================================
+   GET ITEM
+========================================================= */
+
+function getItemById(id){
+
+  return items.find(function(item){
+
+    return String(item.id) === String(id);
+
+  }) || null;
+
+}
+
+
+function getItemName(item){
+
+  if(!item)
+    return "";
+
+  return (
+    item.name ||
+    item.item_name ||
+    item.item ||
+    ""
+  );
+
+}
+
+
+function getItemUnit(item){
+
+  if(!item)
+    return "";
+
+  return (
+    item.unit ||
+    item.measurement ||
+    item.safartuu ||
+    ""
+  );
 
 }
 
@@ -1291,39 +1383,62 @@ function fillItemLists(){
 ========================================================= */
 
 document.getElementById("inItem")
-.addEventListener(
-  "change",
-  function(){
+.addEventListener("change",function(){
 
-    const item =
-      items.find(
-        x =>
-        String(x.id) === String(this.value)
-      );
+  const item =
+    getItemById(this.value);
 
-    document.getElementById("inUnit").value =
-      item ? (item.unit || "") : "";
+  document.getElementById("inUnit").value =
+    getItemUnit(item);
 
-  }
-);
+  document.getElementById("inCategory").value =
+    getEnglishCategory(
+      item ? item.category : ""
+    );
+
+});
 
 
 document.getElementById("outItem")
-.addEventListener(
-  "change",
-  function(){
+.addEventListener("change",async function(){
 
-    const item =
-      items.find(
-        x =>
-        String(x.id) === String(this.value)
+  const item =
+    getItemById(this.value);
+
+  document.getElementById("outUnit").value =
+    getItemUnit(item);
+
+  document.getElementById("outCategory").value =
+    getEnglishCategory(
+      item ? item.category : ""
+    );
+
+
+  if(item){
+
+    const balance =
+      getItemBalance(
+        item.id,
+        getItemName(item)
       );
 
-    document.getElementById("outUnit").value =
-      item ? (item.unit || "") : "";
+    document.getElementById(
+      "outCurrentStock"
+    ).textContent =
+      "Current Stock: " +
+      formatNumber(balance);
 
   }
-);
+  else{
+
+    document.getElementById(
+      "outCurrentStock"
+    ).textContent =
+      "Current Stock: 0";
+
+  }
+
+});
 
 
 /* =========================================================
@@ -1333,35 +1448,29 @@ document.getElementById("outItem")
 function setupModelFields(){
 
   document.getElementById("inModel19")
-  .addEventListener(
-    "change",
-    function(){
+  .addEventListener("change",function(){
 
-      document.getElementById(
-        "inModel19NumberBox"
-      ).style.display =
-        this.value === "NUMBER"
-          ? "block"
-          : "none";
+    document.getElementById(
+      "inModel19NumberBox"
+    ).style.display =
+      this.value === "NUMBER"
+        ? "block"
+        : "none";
 
-    }
-  );
+  });
 
 
   document.getElementById("outModel22")
-  .addEventListener(
-    "change",
-    function(){
+  .addEventListener("change",function(){
 
-      document.getElementById(
-        "outModel22NumberBox"
-      ).style.display =
-        this.value === "NUMBER"
-          ? "block"
-          : "none";
+    document.getElementById(
+      "outModel22NumberBox"
+    ).style.display =
+      this.value === "NUMBER"
+        ? "block"
+        : "none";
 
-    }
-  );
+  });
 
 }
 
@@ -1383,6 +1492,7 @@ function openForm(type){
 
   }
 
+
   if(type === "OUT"){
 
     document.getElementById("outForm").style.display =
@@ -1396,7 +1506,7 @@ function openForm(type){
 
 
 /* =========================================================
-   CLOSE FORM
+   CLOSE FORMS
 ========================================================= */
 
 function closeForms(){
@@ -1416,16 +1526,12 @@ function closeForms(){
 
 async function loadTransactions(){
 
-  if(!CURRENT_BRANCH_UUID)
-    return [];
-
   const url =
     SUPABASE_URL +
     "/rest/v1/stock_transactions" +
     "?select=*" +
-    "&branch_id=eq." +
-    encodeURIComponent(CURRENT_BRANCH_UUID) +
     "&order=id.desc";
+
 
   const response =
     await fetch(
@@ -1436,24 +1542,62 @@ async function loadTransactions(){
       }
     );
 
+
   if(!response.ok){
 
-    const text =
-      await response.text();
-
     throw new Error(
-      "Stock transactions loading error: " + text
+      "Stock transactions loading failed: " +
+      await response.text()
     );
 
   }
 
+
   const data =
     await response.json();
+
 
   allTransactions =
     Array.isArray(data)
       ? data
       : [];
+
+
+  /*
+    Branch isolation.
+    Main sees everything.
+  */
+
+  if(!isMain()){
+
+    allTransactions =
+      allTransactions.filter(function(row){
+
+        const branchId =
+          String(row.branch_id || "")
+            .trim()
+            .toLowerCase();
+
+        const branchCode =
+          String(row.branch_code || "")
+            .trim()
+            .toUpperCase();
+
+
+        return (
+          branchId ===
+          CURRENT_BRANCH_UUID.toLowerCase()
+        )
+        ||
+        (
+          branchCode &&
+          branchCode === CURRENT_BRANCH_CODE
+        );
+
+      });
+
+  }
+
 
   return allTransactions;
 
@@ -1461,50 +1605,142 @@ async function loadTransactions(){
 
 
 /* =========================================================
-   NORMALIZE ITEM NAME
+   TRANSACTION TYPE
 ========================================================= */
 
-function normalizeName(value){
+function isInTransaction(row){
 
-  return String(value || "")
-    .trim()
-    .replace(/\s+/g," ")
-    .toLowerCase();
+  const type =
+    normalizeTransaction(
+      row.transaction_type
+    );
+
+  const transaction =
+    normalizeTransaction(
+      row.transaction
+    );
+
+
+  if(
+    type === "in" ||
+    type === "stock in" ||
+    type === "stockin" ||
+    type === "receipt" ||
+    type === "received" ||
+    type === "receive"
+  ){
+
+    return true;
+
+  }
+
+
+  return (
+    transaction.includes("stock in") ||
+    transaction.includes("receipt") ||
+    transaction.includes("received")
+  );
+
+}
+
+
+function isOutTransaction(row){
+
+  const type =
+    normalizeTransaction(
+      row.transaction_type
+    );
+
+  const transaction =
+    normalizeTransaction(
+      row.transaction
+    );
+
+
+  if(
+    type === "out" ||
+    type === "stock out" ||
+    type === "stockout" ||
+    type === "issue" ||
+    type === "issued" ||
+    type === "relief"
+  ){
+
+    return true;
+
+  }
+
+
+  return (
+    transaction.includes("stock out") ||
+    transaction.includes("issue") ||
+    transaction.includes("relief") ||
+    transaction.includes("emergency relief") ||
+    transaction.includes("model 22")
+  );
 
 }
 
 
 /* =========================================================
-   TRANSACTION BELONGS TO ITEM
+   TRANSACTION MATCH
 ========================================================= */
 
-function transactionBelongsToItem(row,item){
+function transactionMatchesItem(row,itemId,itemName){
 
-  if(!row || !item)
-    return false;
+  const rowItemId =
+    String(row.item_id || "").trim();
 
-  const transactionName =
-    normalizeName(row.transaction);
+  const targetItemId =
+    String(itemId || "").trim();
 
-  const itemName =
-    normalizeName(item.name);
 
-  return transactionName === itemName;
+  /*
+    FIRST: item_id
+  */
+
+  if(
+    rowItemId &&
+    targetItemId &&
+    rowItemId === targetItemId
+  ){
+
+    return true;
+
+  }
+
+
+  /*
+    SECOND: item name
+    Needed for old transactions.
+  */
+
+  const rowName =
+    normalizeText(
+      row.item_name ||
+      row.name ||
+      row.item ||
+      row.transaction
+    );
+
+  const targetName =
+    normalizeText(itemName);
+
+
+  return (
+    rowName &&
+    targetName &&
+    rowName === targetName
+  );
 
 }
 
 
 /* =========================================================
-   GET BALANCE
-   IMPORTANT FIX:
-   Uses transaction name because
-   stock_transactions has no item_id.
+   GET ITEM BALANCE
 ========================================================= */
 
 function getItemBalance(itemId,itemName){
-
-  const target =
-    normalizeName(itemName);
 
   let totalIn = 0;
   let totalOut = 0;
@@ -1512,57 +1748,86 @@ function getItemBalance(itemId,itemName){
 
   allTransactions.forEach(function(row){
 
-    const rowName =
-      normalizeName(row.transaction);
-
-    if(rowName !== target)
-      return;
-
-
-    const qty =
-      Number(row.quantity || 0);
-
-    if(!Number.isFinite(qty))
-      return;
-
-
-    const type =
-      String(row.transaction_type || "")
-        .trim()
-        .toUpperCase();
-
-
     if(
-      type === "IN" ||
-      type === "STOCK IN"
+      !transactionMatchesItem(
+        row,
+        itemId,
+        itemName
+      )
     ){
 
-      totalIn += qty;
+      return;
 
     }
 
-    else if(
-      type === "OUT" ||
-      type === "STOCK OUT"
+
+    const qty =
+      Math.abs(
+        Number(row.quantity || 0)
+      );
+
+
+    if(
+      !Number.isFinite(qty) ||
+      qty <= 0
     ){
 
+      return;
+
+    }
+
+
+    if(isInTransaction(row)){
+
+      totalIn += qty;
+
+      return;
+
+    }
+
+
+    if(isOutTransaction(row)){
+
       totalOut += qty;
+
+      return;
+
+    }
+
+
+    /*
+      Last fallback:
+      if transaction type is missing,
+      positive quantity is treated as IN.
+    */
+
+    const rawQty =
+      Number(row.quantity || 0);
+
+    if(
+      Number.isFinite(rawQty) &&
+      rawQty > 0 &&
+      !row.transaction_type &&
+      !row.transaction
+    ){
+
+      totalIn += rawQty;
 
     }
 
   });
 
 
-  return totalIn - totalOut;
+  return Math.max(
+    0,
+    totalIn - totalOut
+  );
 
 }
 
 
 /* =========================================================
    SAVE STOCK
-   IMPORTANT FIX:
-   NO item_id is sent because
-   item_id does not exist in your table.
 ========================================================= */
 
 async function saveStock(type){
@@ -1604,16 +1869,13 @@ async function saveStock(type){
 
 
   const item =
-    items.find(
-      x =>
-      String(x.id) === String(itemId)
-    );
+    getItemById(itemId);
 
 
   if(!item){
 
     showMessage(
-      "Selected item was not found. Please refresh.",
+      "Selected item was not found.",
       "error"
     );
 
@@ -1632,7 +1894,10 @@ async function saveStock(type){
     );
 
 
-  if(!Number.isFinite(quantity) || quantity <= 0){
+  if(
+    !Number.isFinite(quantity) ||
+    quantity <= 0
+  ){
 
     showMessage(
       "Please enter a valid quantity.",
@@ -1644,6 +1909,18 @@ async function saveStock(type){
   }
 
 
+  const itemName =
+    getItemName(item);
+
+  const unit =
+    getItemUnit(item);
+
+  const category =
+    getEnglishCategory(
+      item.category
+    );
+
+
   let timestamp = null;
   let enteredBy = null;
   let issuedBy = null;
@@ -1653,12 +1930,14 @@ async function saveStock(type){
   let model22 = null;
 
 
-  /* ================= IN ================= */
+  /* ================= STOCK IN ================= */
 
   if(type === "IN"){
 
     const date =
-      document.getElementById("inDate").value;
+      document.getElementById(
+        "inDate"
+      ).value;
 
     enteredBy =
       document.getElementById(
@@ -1674,6 +1953,30 @@ async function saveStock(type){
       document.getElementById(
         "inSignature"
       ).value.trim() || null;
+
+
+    if(!date){
+
+      showMessage(
+        "Please enter the Stock IN date and time.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if(!enteredBy){
+
+      showMessage(
+        "Please enter who entered the stock.",
+        "error"
+      );
+
+      return;
+
+    }
 
 
     const modelType =
@@ -1720,42 +2023,20 @@ async function saveStock(type){
     }
 
 
-    if(!date){
-
-      showMessage(
-        "Please enter the Stock IN date and time.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(!enteredBy){
-
-      showMessage(
-        "Please enter the name of the person who entered the stock.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
     timestamp =
       new Date(date).toISOString();
 
   }
 
 
-  /* ================= OUT ================= */
+  /* ================= STOCK OUT ================= */
 
-  else{
+  if(type === "OUT"){
 
     const date =
-      document.getElementById("outDate").value;
+      document.getElementById(
+        "outDate"
+      ).value;
 
     issuedBy =
       document.getElementById(
@@ -1768,6 +2049,30 @@ async function saveStock(type){
       ).value.trim() || null;
 
 
+    if(!date){
+
+      showMessage(
+        "Please enter the Stock OUT date and time.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if(!issuedBy){
+
+      showMessage(
+        "Please enter who issued the stock.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
     const modelType =
       document.getElementById(
         "outModel22"
@@ -1775,7 +2080,7 @@ async function saveStock(type){
 
 
     /*
-      MODEL 22 IS REQUIRED
+      MODEL 22 REQUIRED
     */
 
     if(
@@ -1825,46 +2130,30 @@ async function saveStock(type){
     }
 
 
-    if(!date){
-
-      showMessage(
-        "Please enter the Stock OUT date and time.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(!issuedBy){
-
-      showMessage(
-        "Please enter the name of the person who issued the stock.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
     timestamp =
       new Date(date).toISOString();
 
 
-    const balance =
+    /*
+      IMPORTANT:
+      Reload transactions before checking balance.
+    */
+
+    await loadTransactions();
+
+
+    const currentBalance =
       getItemBalance(
         item.id,
-        item.name
+        itemName
       );
 
 
-    if(quantity > balance){
+    if(quantity > currentBalance){
 
       showMessage(
-        "Insufficient stock. Current balance: " +
-        formatNumber(balance),
+        "Insufficient stock. Current Stock: " +
+        formatNumber(currentBalance),
         "error"
       );
 
@@ -1875,22 +2164,14 @@ async function saveStock(type){
   }
 
 
-  const englishCategory =
-    getEnglishCategory(item.category);
-
-
   /*
-    IMPORTANT:
-    This payload contains ONLY the
-    columns we know exist from your schema.
-    
-    item_id has been removed.
+    IMPORTANT FIX:
+    item_id is now saved.
+    Relief page can therefore find the stock
+    exactly by item ID.
   */
 
   const payload = {
-
-    branch_id:
-      CURRENT_BRANCH_UUID,
 
     transaction_type:
       type,
@@ -1908,7 +2189,7 @@ async function saveStock(type){
       expiryDate,
 
     category:
-      englishCategory || null,
+      category || null,
 
     issued_by:
       issuedBy,
@@ -1917,10 +2198,19 @@ async function saveStock(type){
       signature,
 
     unit:
-      item.unit || null,
+      unit || null,
 
     transaction:
-      item.name || "",
+      itemName,
+
+    item_id:
+      item.id,
+
+    branch_id:
+      CURRENT_BRANCH_UUID,
+
+    branch_code:
+      CURRENT_BRANCH_CODE,
 
     model_19:
       model19,
@@ -2022,43 +2312,43 @@ function clearForm(type){
 
   if(type === "IN"){
 
-    document.getElementById("inItem").value = "";
-    document.getElementById("inUnit").value = "";
-    document.getElementById("inQuantity").value = "";
-    document.getElementById("inEnteredBy").value = "";
-    document.getElementById("inExpiryDate").value = "";
-    document.getElementById("inSignature").value = "";
+    document.getElementById("inItem").value="";
+    document.getElementById("inUnit").value="";
+    document.getElementById("inCategory").value="";
+    document.getElementById("inQuantity").value="";
+    document.getElementById("inEnteredBy").value="";
+    document.getElementById("inExpiryDate").value="";
+    document.getElementById("inSignature").value="";
 
-    document.getElementById("inModel19").value =
-      "NONE";
-
-    document.getElementById("inModel19Number").value =
-      "";
+    document.getElementById("inModel19").value="NONE";
+    document.getElementById("inModel19Number").value="";
 
     document.getElementById(
       "inModel19NumberBox"
-    ).style.display = "none";
+    ).style.display="none";
 
   }
 
 
   if(type === "OUT"){
 
-    document.getElementById("outItem").value = "";
-    document.getElementById("outUnit").value = "";
-    document.getElementById("outQuantity").value = "";
-    document.getElementById("outIssuedBy").value = "";
-    document.getElementById("outSignature").value = "";
+    document.getElementById("outItem").value="";
+    document.getElementById("outUnit").value="";
+    document.getElementById("outCategory").value="";
+    document.getElementById("outQuantity").value="";
+    document.getElementById("outIssuedBy").value="";
+    document.getElementById("outSignature").value="";
 
-    document.getElementById("outModel22").value =
-      "NONE";
-
-    document.getElementById("outModel22Number").value =
-      "";
+    document.getElementById("outModel22").value="NONE";
+    document.getElementById("outModel22Number").value="";
 
     document.getElementById(
       "outModel22NumberBox"
-    ).style.display = "none";
+    ).style.display="none";
+
+    document.getElementById(
+      "outCurrentStock"
+    ).textContent="Current Stock: 0";
 
   }
 
@@ -2075,16 +2365,18 @@ function clearForm(type){
 function renderReport(){
 
   const tbody =
-    document.getElementById("reportTable");
+    document.getElementById(
+      "reportTable"
+    );
 
 
   if(!items.length){
 
-    tbody.innerHTML = `
+    tbody.innerHTML=`
       <tr>
         <td colspan="7"
             style="text-align:center;padding:25px">
-          No items found.
+          No items found for this branch.
         </td>
       </tr>
     `;
@@ -2094,21 +2386,24 @@ function renderReport(){
   }
 
 
-  tbody.innerHTML = "";
+  tbody.innerHTML="";
 
 
   const rows =
     items.map(function(item){
 
-      let totalIn = 0;
-      let totalOut = 0;
+      let totalIn=0;
+      let totalOut=0;
 
 
       allTransactions.forEach(function(row){
 
         if(
-          normalizeName(row.transaction) !==
-          normalizeName(item.name)
+          !transactionMatchesItem(
+            row,
+            item.id,
+            getItemName(item)
+          )
         ){
 
           return;
@@ -2117,32 +2412,28 @@ function renderReport(){
 
 
         const qty =
-          Number(row.quantity || 0);
-
-
-        if(!Number.isFinite(qty))
-          return;
-
-
-        const type =
-          String(row.transaction_type || "")
-            .trim()
-            .toUpperCase();
+          Math.abs(
+            Number(row.quantity || 0)
+          );
 
 
         if(
-          type === "IN" ||
-          type === "STOCK IN"
+          !Number.isFinite(qty) ||
+          qty<=0
         ){
+
+          return;
+
+        }
+
+
+        if(isInTransaction(row)){
 
           totalIn += qty;
 
         }
 
-        else if(
-          type === "OUT" ||
-          type === "STOCK OUT"
-        ){
+        else if(isOutTransaction(row)){
 
           totalOut += qty;
 
@@ -2155,15 +2446,19 @@ function renderReport(){
 
         id:item.id,
 
-        name:item.name,
+        name:getItemName(item),
 
-        unit:item.unit || "",
+        unit:getItemUnit(item),
 
         in:totalIn,
 
         out:totalOut,
 
-        balance:totalIn-totalOut
+        balance:
+          Math.max(
+            0,
+            totalIn-totalOut
+          )
 
       };
 
@@ -2172,9 +2467,9 @@ function renderReport(){
 
   rows.sort(function(a,b){
 
-    return String(a.name || "")
+    return String(a.name)
       .localeCompare(
-        String(b.name || "")
+        String(b.name)
       );
 
   });
@@ -2186,100 +2481,60 @@ function renderReport(){
       document.createElement("tr");
 
 
-    const noTd =
-      document.createElement("td");
+    const values = [
 
-    noTd.textContent =
-      index + 1;
+      index+1,
+      row.name,
+      row.unit,
+      formatNumber(row.in),
+      formatNumber(row.out),
+      formatNumber(row.balance)
 
-
-    const nameTd =
-      document.createElement("td");
-
-    const strong =
-      document.createElement("strong");
-
-    strong.textContent =
-      row.name;
-
-    nameTd.appendChild(strong);
+    ];
 
 
-    const unitTd =
-      document.createElement("td");
+    values.forEach(function(value){
 
-    unitTd.textContent =
-      row.unit;
+      const td =
+        document.createElement("td");
 
+      td.textContent =
+        value;
 
-    const inTd =
-      document.createElement("td");
+      tr.appendChild(td);
 
-    inTd.textContent =
-      formatNumber(row.in);
-
-
-    const outTd =
-      document.createElement("td");
-
-    outTd.textContent =
-      formatNumber(row.out);
-
-
-    const balanceTd =
-      document.createElement("td");
-
-    const balanceStrong =
-      document.createElement("strong");
-
-    balanceStrong.textContent =
-      formatNumber(row.balance);
-
-    balanceTd.appendChild(
-      balanceStrong
-    );
+    });
 
 
     const detailsTd =
       document.createElement("td");
 
 
-    const detailsButton =
+    const button =
       document.createElement("button");
 
-    detailsButton.type = "button";
 
-    detailsButton.className =
+    button.type="button";
+
+    button.className=
       "details-btn";
 
-    detailsButton.textContent =
+    button.textContent=
       "Details";
 
 
-    detailsButton.addEventListener(
-      "click",
-      function(){
+    button.onclick=function(){
 
-        showDetails(
-          row.name,
-          row.id
-        );
+      showDetails(
+        row.name,
+        row.id
+      );
 
-      }
-    );
+    };
 
 
-    detailsTd.appendChild(
-      detailsButton
-    );
+    detailsTd.appendChild(button);
 
-
-    tr.appendChild(noTd);
-    tr.appendChild(nameTd);
-    tr.appendChild(unitTd);
-    tr.appendChild(inTd);
-    tr.appendChild(outTd);
-    tr.appendChild(balanceTd);
     tr.appendChild(detailsTd);
 
     tbody.appendChild(tr);
@@ -2290,53 +2545,57 @@ function renderReport(){
 
 
 /* =========================================================
-   SHOW DETAILS
+   DETAILS
 ========================================================= */
 
 function showDetails(itemName,itemId){
 
   const card =
-    document.getElementById("detailsCard");
+    document.getElementById(
+      "detailsCard"
+    );
 
   const title =
-    document.getElementById("detailsTitle");
+    document.getElementById(
+      "detailsTitle"
+    );
 
   const tbody =
-    document.getElementById("detailsTable");
+    document.getElementById(
+      "detailsTable"
+    );
 
 
   title.textContent =
     "📋 Details — " + itemName;
 
 
-  const target =
-    normalizeName(itemName);
-
-
   let rows =
     allTransactions.filter(function(row){
 
-      return normalizeName(
-        row.transaction
-      ) === target;
+      return transactionMatchesItem(
+        row,
+        itemId,
+        itemName
+      );
 
     });
 
 
   rows.sort(function(a,b){
 
-    return Number(b.id || 0) -
-           Number(a.id || 0);
+    return Number(b.id||0) -
+           Number(a.id||0);
 
   });
 
 
-  tbody.innerHTML = "";
+  tbody.innerHTML="";
 
 
   if(!rows.length){
 
-    tbody.innerHTML = `
+    tbody.innerHTML=`
       <tr>
         <td colspan="11"
             style="text-align:center;padding:20px">
@@ -2346,70 +2605,60 @@ function showDetails(itemName,itemId){
     `;
 
   }
-
   else{
 
     rows.forEach(function(row,index){
 
-      const type =
-        String(
-          row.transaction_type || ""
-        ).toUpperCase();
-
-
       let transactionText =
-        row.transaction || itemName;
+        row.transaction ||
+        itemName;
 
 
-      if(type){
+      if(row.transaction_type){
 
         transactionText =
-          type + " - " + transactionText;
+          String(
+            row.transaction_type
+          ) +
+          " - " +
+          transactionText;
 
       }
 
 
-      const model19 =
-        row.model_19 || "";
-
-
-      const model22 =
-        row.model_22 || "";
-
-
-      const tr =
-        document.createElement("tr");
-
-
       const values = [
 
-        index + 1,
+        index+1,
 
         transactionText,
 
         formatNumber(
-          Number(row.quantity || 0)
+          Number(row.quantity||0)
         ),
 
-        row.unit || "",
+        row.unit||"",
 
         formatDateTime(
           row.entered_at
         ),
 
-        row.entered_by || "",
+        row.entered_by||"",
 
-        row.issued_by || "",
+        row.issued_by||"",
 
-        row.expiry_date || "",
+        row.expiry_date||"",
 
-        row.signature || "",
+        row.signature||"",
 
-        model19,
+        row.model_19||"",
 
-        model22
+        row.model_22||""
 
       ];
+
+
+      const tr =
+        document.createElement("tr");
 
 
       values.forEach(function(value){
@@ -2432,8 +2681,7 @@ function showDetails(itemName,itemId){
   }
 
 
-  card.style.display =
-    "block";
+  card.style.display="block";
 
 
   setTimeout(function(){
@@ -2456,7 +2704,7 @@ function closeDetails(){
 
   document.getElementById(
     "detailsCard"
-  ).style.display = "none";
+  ).style.display="none";
 
 }
 
@@ -2467,51 +2715,41 @@ function closeDetails(){
 
 function updateSummary(){
 
-  let totalIn = 0;
-  let totalOut = 0;
+  let totalIn=0;
+  let totalOut=0;
 
 
   allTransactions.forEach(function(row){
 
     const qty =
-      Number(row.quantity || 0);
-
-
-    if(!Number.isFinite(qty))
-      return;
-
-
-    const type =
-      String(
-        row.transaction_type || ""
-      )
-      .trim()
-      .toUpperCase();
+      Math.abs(
+        Number(row.quantity||0)
+      );
 
 
     if(
-      type === "IN" ||
-      type === "STOCK IN"
+      !Number.isFinite(qty) ||
+      qty<=0
     ){
+
+      return;
+
+    }
+
+
+    if(isInTransaction(row)){
 
       totalIn += qty;
 
     }
 
-    else if(
-      type === "OUT" ||
-      type === "STOCK OUT"
-    ){
+    else if(isOutTransaction(row)){
 
       totalOut += qty;
 
     }
 
   });
-
-
-  const balance =
-    totalIn - totalOut;
 
 
   document.getElementById(
@@ -2535,7 +2773,12 @@ function updateSummary(){
   document.getElementById(
     "totalBalance"
   ).textContent =
-    formatNumber(balance);
+    formatNumber(
+      Math.max(
+        0,
+        totalIn-totalOut
+      )
+    );
 
 }
 
@@ -2548,10 +2791,10 @@ async function loadStock(){
 
   try{
 
-    if(!resolveBranchUUID()){
+    if(!resolveBranch()){
 
       showMessage(
-        "Unable to identify the branch.",
+        "Unable to identify the branch. Please log in again.",
         "error"
       );
 
@@ -2591,26 +2834,15 @@ async function loadStock(){
       "error"
     );
 
-
     document.getElementById(
       "reportTable"
-    ).innerHTML = `
-
+    ).innerHTML=`
       <tr>
-
         <td colspan="7"
-            style="
-              text-align:center;
-              padding:25px;
-              color:#991b1b;
-            ">
-
+            style="text-align:center;padding:25px;color:#991b1b">
           ${escapeHtml(error.message)}
-
         </td>
-
       </tr>
-
     `;
 
   }
@@ -2625,15 +2857,23 @@ async function loadStock(){
 function formatNumber(value){
 
   const number =
-    Number(value || 0);
+    Number(value||0);
 
 
-  if(!Number.isFinite(number))
+  if(
+    !Number.isFinite(number)
+  ){
+
     return "0";
 
+  }
 
-  if(Number.isInteger(number))
+
+  if(Number.isInteger(number)){
+
     return String(number);
+
+  }
 
 
   return number
@@ -2653,25 +2893,22 @@ function formatDateTime(value){
     return "";
 
 
-  try{
-
-    const date =
-      new Date(value);
+  const date =
+    new Date(value);
 
 
-    if(isNaN(date.getTime()))
-      return String(value);
-
-
-    return date.toLocaleString();
-
-  }
-
-  catch(error){
+  if(
+    isNaN(
+      date.getTime()
+    )
+  ){
 
     return String(value);
 
   }
+
+
+  return date.toLocaleString();
 
 }
 
@@ -2698,7 +2935,7 @@ function escapeHtml(value){
 
 function goReports(){
 
-  window.location.href =
+  window.location.href=
     "reports.html";
 
 }
@@ -2706,18 +2943,60 @@ function goReports(){
 
 function backToMenu(){
 
-  window.location.href =
+  window.location.href=
     "dashboard.html";
 
 }
 
 
 /* =========================================================
-   REMOVE OLD JWT
+   START
 ========================================================= */
 
-localStorage.removeItem(
-  "access_token"
+window.addEventListener(
+  "DOMContentLoaded",
+  async function(){
+
+    if(!checkLogin())
+      return;
+
+
+    if(!resolveBranch()){
+
+      document.getElementById(
+        "branchName"
+      ).textContent =
+        "Branch Not Found";
+
+      showMessage(
+        "Branch not found. Please log in again.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    document.getElementById(
+      "branchName"
+    ).textContent =
+      CURRENT_BRANCH_NAME;
+
+
+    document.getElementById(
+      "reportBranch"
+    ).textContent =
+      CURRENT_BRANCH_NAME;
+
+
+    setCurrentDateTime();
+
+    setupModelFields();
+
+    await loadStock();
+
+  }
 );
 
 </script>
