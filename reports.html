@@ -178,10 +178,6 @@ td{
   background:#fee2e2 !important;
 }
 
-/* =====================================================
-   EX DATE COLORS
-===================================================== */
-
 .expiry-red{
   color:#dc2626 !important;
   font-weight:bold;
@@ -296,7 +292,6 @@ td{
 
 <div class="container">
 
-
   <div id="branchInfo" class="branch-info">
     Loading branch...
   </div>
@@ -306,8 +301,6 @@ td{
     👁️ Main / HQ View Mode — Report is view-only.
   </div>
 
-
-  <!-- FILTER -->
 
   <div class="box">
 
@@ -362,57 +355,30 @@ td{
   </div>
 
 
-  <!-- SUMMARY -->
-
   <div class="summary">
 
     <div class="card">
-
       📥 Total IN
-
-      <strong id="reportIn">
-        0
-      </strong>
-
+      <strong id="reportIn">0</strong>
     </div>
 
-
     <div class="card">
-
       📤 Total OUT
-
-      <strong id="reportOut">
-        0
-      </strong>
-
+      <strong id="reportOut">0</strong>
     </div>
 
-
     <div class="card">
-
       📊 Transactions
-
-      <strong id="reportTransactions">
-        0
-      </strong>
-
+      <strong id="reportTransactions">0</strong>
     </div>
 
-
     <div class="card">
-
       ⚖️ Balance
-
-      <strong id="reportBalance">
-        0
-      </strong>
-
+      <strong id="reportBalance">0</strong>
     </div>
 
   </div>
 
-
-  <!-- REPORT TABLE -->
 
   <div class="box">
 
@@ -427,29 +393,19 @@ td{
           <tr>
 
             <th>Item Name</th>
-
             <th>Category</th>
-
             <th>Transaction</th>
-
             <th>Quantity</th>
-
             <th>Unit</th>
-
             <th>Date</th>
-
             <th>Entered By</th>
-
             <th>Issued By</th>
-
             <th>EX Date</th>
-
             <th>Signature</th>
 
           </tr>
 
         </thead>
-
 
         <tbody id="reportList">
 
@@ -501,8 +457,7 @@ if(
   !accessToken
 ){
 
-  window.location.href =
-    "index.html";
+  window.location.href = "index.html";
 
 }
 
@@ -531,7 +486,6 @@ const userRole =
 const isMain =
   userRole.toLowerCase() === "main";
 
-
 const isMainHQ =
   isMain &&
   (
@@ -548,18 +502,15 @@ function getHeaders(){
 
   const headers = {
 
-    "apikey":
-      SUPABASE_KEY,
+    "apikey": SUPABASE_KEY,
 
     "Content-Type":
       "application/json"
 
   };
 
-
   const token =
     localStorage.getItem("access_token");
-
 
   if(
     token &&
@@ -570,7 +521,6 @@ function getHeaders(){
       "Bearer " + token;
 
   }
-
 
   return headers;
 
@@ -683,9 +633,7 @@ async function findBranchUUID(){
   let found = null;
 
 
-  for(
-    const branch of branches
-  ){
+  for(const branch of branches){
 
     if(
       !branch.id ||
@@ -701,9 +649,7 @@ async function findBranchUUID(){
     let nameMatch = false;
 
 
-    for(
-      const field of codeFields
-    ){
+    for(const field of codeFields){
 
       const value =
         String(
@@ -726,9 +672,7 @@ async function findBranchUUID(){
     }
 
 
-    for(
-      const field of nameFields
-    ){
+    for(const field of nameFields){
 
       const value =
         String(
@@ -757,7 +701,6 @@ async function findBranchUUID(){
     ){
 
       found = branch;
-
       break;
 
     }
@@ -769,7 +712,10 @@ async function findBranchUUID(){
 
     throw new Error(
       "Branch UUID hin argamne: " +
-      (selectedBranchName || selectedBranchCode)
+      (
+        selectedBranchName ||
+        selectedBranchCode
+      )
     );
 
   }
@@ -857,15 +803,11 @@ function escapeHTML(value){
 function formatDate(value){
 
   if(!value){
-
     return "—";
-
   }
-
 
   const d =
     new Date(value);
-
 
   if(
     isNaN(
@@ -876,7 +818,6 @@ function formatDate(value){
     return String(value);
 
   }
-
 
   return d.toLocaleString();
 
@@ -898,11 +839,6 @@ function getExpiryClass(expiryDate){
 
   }
 
-
-  /*
-    Convert expiry date to local
-    calendar date.
-  */
 
   const expiryText =
     String(expiryDate)
@@ -934,11 +870,6 @@ function getExpiryClass(expiryDate){
   );
 
 
-  /*
-    1. TODAY or PASSED
-       = RED
-  */
-
   if(
     expiry <= today
   ){
@@ -948,11 +879,6 @@ function getExpiryClass(expiryDate){
   }
 
 
-  /*
-    4 CALENDAR MONTHS
-       FROM TODAY
-  */
-
   const fourMonths =
     new Date(today);
 
@@ -960,11 +886,6 @@ function getExpiryClass(expiryDate){
     fourMonths.getMonth() + 4
   );
 
-
-  /*
-    2. 4 MONTHS OR LESS
-       = YELLOW
-  */
 
   if(
     expiry <= fourMonths
@@ -975,31 +896,214 @@ function getExpiryClass(expiryDate){
   }
 
 
-  /*
-    3. MORE THAN 4 MONTHS
-       = GREEN
-  */
-
   return "expiry-green";
 
 }
 
 
 /* =====================================================
-   GET ITEM NAME
-   IMPORTANT:
-   NO item_id
+   ITEM MAP
+   FIX:
+   item_id -> items.id -> items.name
 ===================================================== */
 
-function getItemName(transaction){
+async function loadItemMap(){
 
-  return (
-    transaction.transaction ||
-    transaction.item_name ||
-    transaction.itemName ||
-    transaction.name ||
-    "—"
-  );
+  const itemMap = {};
+
+  let url =
+    SUPABASE_URL +
+    "/rest/v1/items?select=id,name,branch_id";
+
+
+  /*
+    Operational branch:
+    only current branch items.
+  */
+
+  if(!isMainHQ){
+
+    const branchUUID =
+      await findBranchUUID();
+
+    if(branchUUID){
+
+      url +=
+        "&branch_id=eq." +
+        encodeURIComponent(
+          branchUUID
+        );
+
+    }
+
+  }
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        headers:getHeaders()
+      }
+    );
+
+
+  if(!response.ok){
+
+    throw new Error(
+      "Items Error: " +
+      await response.text()
+    );
+
+  }
+
+
+  const items =
+    await response.json();
+
+
+  for(
+    const item of items
+  ){
+
+    if(
+      item.id !== null &&
+      item.id !== undefined
+    ){
+
+      itemMap[
+        String(item.id)
+      ] =
+        String(
+          item.name ||
+          item.item_name ||
+          item.itemName ||
+          "—"
+        ).trim();
+
+    }
+
+  }
+
+
+  return itemMap;
+
+}
+
+
+/* =====================================================
+   GET ITEM NAME
+   IMPORTANT FIX
+
+   Emergency Relief / Model 22
+   IS NOT the item name.
+
+   Priority:
+   1. item_name
+   2. itemName
+   3. item_id -> items table
+   4. name
+   5. safe fallback
+===================================================== */
+
+function getItemName(
+  transaction,
+  itemMap
+){
+
+  const directItemName =
+    String(
+      transaction.item_name ||
+      transaction.itemName ||
+      ""
+    ).trim();
+
+
+  if(
+    directItemName &&
+    !/emergency relief|model 22/i.test(
+      directItemName
+    )
+  ){
+
+    return directItemName;
+
+  }
+
+
+  const itemId =
+    transaction.item_id;
+
+
+  if(
+    itemId !== null &&
+    itemId !== undefined &&
+    String(itemId).trim() !== ""
+  ){
+
+    const mappedName =
+      itemMap[
+        String(itemId)
+      ];
+
+
+    if(
+      mappedName &&
+      mappedName !== "—"
+    ){
+
+      return mappedName;
+
+    }
+
+  }
+
+
+  const normalName =
+    String(
+      transaction.name ||
+      ""
+    ).trim();
+
+
+  if(
+    normalName &&
+    !/emergency relief|model 22/i.test(
+      normalName
+    )
+  ){
+
+    return normalName;
+
+  }
+
+
+  /*
+    NEVER use:
+    Emergency Relief - Model 22
+    as Item Name.
+  */
+
+  const transactionLabel =
+    String(
+      transaction.transaction ||
+      ""
+    ).trim();
+
+
+  if(
+    transactionLabel &&
+    !/emergency relief|model 22|stock in|stock out/i.test(
+      transactionLabel
+    )
+  ){
+
+    return transactionLabel;
+
+  }
+
+
+  return "—";
 
 }
 
@@ -1060,17 +1164,6 @@ async function loadReport(){
       "/rest/v1/stock_transactions?select=*&order=id.desc";
 
 
-    /*
-      MAIN HQ:
-      sees all branches.
-
-      MAIN selecting a branch:
-      sees only selected branch.
-
-      OPERATIONAL BRANCH:
-      sees only own branch.
-    */
-
     if(!isMainHQ){
 
       if(!branchUUID){
@@ -1087,7 +1180,9 @@ async function loadReport(){
         "/rest/v1/stock_transactions" +
         "?select=*" +
         "&branch_id=eq." +
-        encodeURIComponent(branchUUID) +
+        encodeURIComponent(
+          branchUUID
+        ) +
         "&order=id.desc";
 
     }
@@ -1117,6 +1212,14 @@ async function loadReport(){
 
     let data =
       await response.json();
+
+
+    /* ============================
+       LOAD ITEM MAP
+    ============================ */
+
+    const itemMap =
+      await loadItemMap();
 
 
     /* ============================
@@ -1151,8 +1254,6 @@ async function loadReport(){
       data.filter(
         transaction => {
 
-          /* DATE */
-
           if(date){
 
             const rawDate =
@@ -1179,8 +1280,6 @@ async function loadReport(){
           }
 
 
-          /* ENTERED BY */
-
           if(enteredBy){
 
             const name =
@@ -1203,8 +1302,6 @@ async function loadReport(){
 
           }
 
-
-          /* TYPE */
 
           const transactionType =
             getType(transaction);
@@ -1300,7 +1397,9 @@ async function loadReport(){
        EMPTY
     ============================ */
 
-    if(data.length === 0){
+    if(
+      data.length === 0
+    ){
 
       list.innerHTML = `
         <tr>
@@ -1331,7 +1430,10 @@ async function loadReport(){
 
 
       const itemName =
-        getItemName(transaction);
+        getItemName(
+          transaction,
+          itemMap
+        );
 
 
       const category =
@@ -1392,10 +1494,6 @@ async function loadReport(){
                 transactionType || "—"
               );
 
-
-      /*
-        EX DATE COLOR CLASS
-      */
 
       const expiryClass =
         getExpiryClass(
