@@ -20,32 +20,45 @@ html{
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  color:#3e2723;
+  color:#102a43;
   min-height:100vh;
   position:relative;
-  background:#f5f1ed;
+
+  /* ================= BLUE BACKGROUND ================= */
+  background:
+    linear-gradient(
+      135deg,
+      #0d47a1 0%,
+      #1565c0 45%,
+      #1976d2 100%
+    );
 }
 
+/* Soft blue background effect */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    linear-gradient(
-      rgba(45,30,25,.62),
-      rgba(45,30,25,.62)
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255,255,255,.14),
+      transparent 30%
     ),
-    url("./1788633150526.jpg")
-    center center /
-    cover no-repeat;
+    radial-gradient(
+      circle at 85% 85%,
+      rgba(255,255,255,.10),
+      transparent 32%
+    );
   z-index:-2;
+  pointer-events:none;
 }
 
 body::after{
   content:"";
   position:fixed;
   inset:0;
-  background:rgba(255,255,255,.08);
+  background:rgba(13,71,161,.10);
   z-index:-1;
   pointer-events:none;
 }
@@ -60,21 +73,25 @@ header,
 /* ================= HEADER ================= */
 
 header{
-  background:rgba(93,64,55,.94);
+  background:rgba(8,45,107,.94);
   color:white;
-  padding:24px 15px;
+  padding:22px 15px;
   text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,.28);
-  backdrop-filter:blur(4px);
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.28);
+
+  backdrop-filter:blur(8px);
 }
 
 header h1{
   margin:0;
   font-size:26px;
+  letter-spacing:.3px;
 }
 
 .branch{
-  margin-top:10px;
+  margin-top:9px;
   font-size:18px;
   font-weight:bold;
 }
@@ -83,20 +100,28 @@ header h1{
 
 .profile-area{
   margin-top:12px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   gap:12px;
 }
 
 .profile-picture{
-  width:58px;
-  height:58px;
+  width:60px;
+  height:60px;
+
   border-radius:50%;
+
   object-fit:cover;
-  border:3px solid #fff;
-  box-shadow:0 3px 12px rgba(0,0,0,.30);
-  background:#efebe9;
+
+  border:3px solid #ffffff;
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,.35);
+
+  background:#ffffff;
 }
 
 .profile-name{
@@ -105,367 +130,15 @@ header h1{
   color:white;
 }
 
-.container{
-  width:94%;
-  max-width:1200px;
-  margin:25px auto 15px;
-}
-
-/* ================= CARDS ================= */
-
-.card{
-  background:rgba(255,255,255,.94);
-  border-radius:18px;
-  padding:22px;
-  margin-bottom:20px;
-  box-shadow:
-    0 5px 18px rgba(0,0,0,.20),
-    0 1px 3px rgba(0,0,0,.10);
-  backdrop-filter:blur(4px);
-}
-
-.title{
-  color:#5d4037;
-  font-size:24px;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-
-/* ================= CIRCULAR APP MENU ================= */
-
-.menu-grid{
-  display:grid;
-  grid-template-columns:repeat(3,120px);
-  justify-content:center;
-  align-items:center;
-  gap:16px;
-  padding:10px 5px;
-}
-
-.btn{
-  width:120px;
-  height:120px;
-
-  border:0;
-  border-radius:50%;
-
-  color:white;
-  font-size:13px;
-  font-weight:bold;
-
-  cursor:pointer;
-  text-decoration:none;
-  text-align:center;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  padding:10px;
-
-  box-shadow:
-    0 5px 12px rgba(0,0,0,.20),
-    inset 0 1px 2px rgba(255,255,255,.20);
-
-  transition:
-    transform .18s ease,
-    opacity .18s ease,
-    box-shadow .18s ease;
-}
-
-.btn:hover{
-  opacity:.96;
-  transform:translateY(-3px) scale(1.03);
-
-  box-shadow:
-    0 8px 16px rgba(0,0,0,.25),
-    inset 0 1px 2px rgba(255,255,255,.20);
-}
-
-.btn:active{
-  transform:scale(.95);
-}
-
-/* ================= MENU COLORS ================= */
-
-.items{
-  background:#388e3c;
-}
-
-.stock{
-  background:#c62828;
-}
-
-.report{
-  background:#ef6c00;
-}
-
-.relief{
-  background:#00897b;
-}
-
-.settings{
-  background:#6d4c41;
-}
-
-.menu{
-  background:#8d6e63;
-}
-
-.branch-btn{
-  background:#6d4c41;
-}
-
-.view-only-btn{
-  background:#8d6e63;
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* ================= SUMMARY ================= */
-
-.summary{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.summary-card{
-  background:rgba(255,255,255,.95);
-  border-radius:16px;
-  padding:20px;
-  box-shadow:0 4px 14px rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.75);
-}
-
-.summary-card span{
-  display:block;
-  color:#795548;
-  font-weight:bold;
-}
-
-.summary-card strong{
-  display:block;
-  margin-top:8px;
-  color:#5d4037;
-  font-size:30px;
-}
-
-/* ================= CATEGORY ================= */
-
-.category-selector{
-  margin-bottom:20px;
-}
-
-.category-selector label{
-  display:block;
-  margin-bottom:8px;
-  color:#5d4037;
-  font-weight:bold;
-  font-size:16px;
-}
-
-.category-selector select{
-  width:100%;
-  padding:14px;
-  border:1px solid #bcaaa4;
-  border-radius:12px;
-  background:white;
-  color:#3e2723;
-  font-size:16px;
-  outline:none;
-}
-
-.category-selector select:focus{
-  border-color:#795548;
-  box-shadow:
-    0 0 0 3px rgba(121,85,72,.12);
-}
-
-.selected-category{
-  background:#efebe9;
-  border-left:5px solid #795548;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:15px;
-  color:#4e342e;
-  font-weight:bold;
-}
-
-/* ================= TABLE ================= */
-
-.category-table-wrap{
-  width:100%;
-  overflow-x:auto;
-}
-
-.category-table{
-  width:100%;
-  border-collapse:collapse;
-  background:white;
-  border-radius:12px;
-  overflow:hidden;
-  min-width:500px;
-}
-
-.category-table th,
-.category-table td{
-  padding:12px 10px;
-  border-bottom:1px solid #eee;
-  text-align:center;
-  font-size:15px;
-}
-
-.category-table th{
-  background:#efebe9;
-  color:#5d4037;
-  font-weight:bold;
-}
-
-.category-table td:first-child,
-.category-table th:first-child{
-  text-align:left;
-}
-
-.category-total-row{
-  background:#e8ded9;
-  font-weight:bold;
-}
-
-.category-total-row td{
-  color:#4e342e;
-  font-size:16px;
-}
-
-.in-number{
-  color:#2e7d32;
-  font-weight:bold;
-}
-
-.out-number{
-  color:#c62828;
-  font-weight:bold;
-}
-
-.balance-number{
-  color:#5d4037;
-  font-weight:bold;
-}
-
-.no-transaction{
-  padding:18px;
-  text-align:center;
-  color:#795548;
-  background:#faf7f5;
-  border:1px solid #d7ccc8;
-  border-radius:12px;
-}
-
-/* ================= BRANCHES ================= */
-
-.branch-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.branch-box{
-  background:rgba(250,247,245,.95);
-  border:1px solid #d7ccc8;
-  border-radius:15px;
-  padding:16px;
-  box-shadow:0 3px 9px rgba(0,0,0,.08);
-}
-
-.branch-box strong{
-  display:block;
-  color:#5d4037;
-  font-size:17px;
-  margin-bottom:5px;
-}
-
-.branch-box small{
-  display:block;
-  color:#795548;
-  margin-bottom:12px;
-}
-
-/* ================= MESSAGE ================= */
-
-.message{
-  display:none;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:20px;
-  font-weight:bold;
-  line-height:1.5;
-  white-space:pre-wrap;
-}
-
-.message.show{
-  display:block;
-}
-
-.error{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.success{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.info{
-  background:#efebe9;
-  color:#5d4037;
-  border:1px solid #d7ccc8;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:20px;
-  font-weight:bold;
-  line-height:1.5;
-}
-
-.main-note{
-  background:#fff3e0;
-  color:#6d4c41;
-  border:1px solid #ffcc80;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:20px;
-  font-weight:bold;
-  line-height:1.5;
-}
-
-.mode-badge{
-  display:inline-block;
-  padding:7px 12px;
-  border-radius:20px;
-  background:#efebe9;
-  color:#5d4037;
-  font-size:13px;
-  margin-top:10px;
-}
-
-.loading{
-  text-align:center;
-  padding:20px;
-  color:#795548;
-  font-weight:bold;
-}
-
 /* ================= LANGUAGE ================= */
 
 .language-area{
   margin-top:14px;
+
   display:flex;
   justify-content:center;
   align-items:center;
+
   gap:8px;
 }
 
@@ -477,65 +150,653 @@ header h1{
 
 .language-area select{
   border:0;
-  border-radius:8px;
-  padding:8px 10px;
+
+  border-radius:20px;
+
+  padding:8px 13px;
+
   background:white;
-  color:#3e2723;
+  color:#0d47a1;
+
   font-weight:bold;
+
   outline:none;
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,.20);
 }
 
-/* ================= BOTTOM ================= */
+/* ================= MODE ================= */
 
-.bottom-controls{
+.mode-badge{
+  display:inline-block;
+
+  padding:7px 14px;
+
+  border-radius:30px;
+
+  background:white;
+  color:#0d47a1;
+
+  font-size:13px;
+
+  margin-top:10px;
+
+  font-weight:bold;
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,.18);
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
   width:94%;
   max-width:1200px;
-  margin:10px auto 30px;
 
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  margin:25px auto 15px;
 }
 
-.bottom-btn{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+/* ================= CARDS ================= */
 
-  min-height:52px;
-  padding:14px 18px;
+.card{
+  background:rgba(255,255,255,.96);
+
+  border-radius:24px;
+
+  padding:22px;
+
+  margin-bottom:20px;
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,.18);
+
+  border:1px solid rgba(255,255,255,.70);
+
+  backdrop-filter:blur(6px);
+}
+
+.title{
+  color:#0d47a1;
+
+  font-size:23px;
+
+  font-weight:bold;
+
+  margin-bottom:20px;
+
+  text-align:center;
+}
+
+/* ================= CIRCULAR DASHBOARD MENU ================= */
+
+.menu-grid{
+  display:grid;
+
+  grid-template-columns:repeat(3,120px);
+
+  justify-content:center;
+  align-items:center;
+
+  gap:18px;
+
+  padding:10px 5px;
+}
+
+.btn{
+  width:120px;
+  height:120px;
 
   border:0;
-  border-radius:6px;
+
+  border-radius:50%;
 
   color:white;
-  text-decoration:none;
 
-  font-size:16px;
+  font-size:13px;
+
   font-weight:bold;
 
   cursor:pointer;
 
-  box-shadow:0 4px 10px rgba(0,0,0,.20);
+  text-decoration:none;
+
+  text-align:center;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:10px;
+
+  line-height:1.2;
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.24),
+    inset 0 1px 2px rgba(255,255,255,.25);
+
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    box-shadow .18s ease;
+}
+
+.btn:hover{
+  opacity:.97;
+
+  transform:
+    translateY(-4px)
+    scale(1.04);
+
+  box-shadow:
+    0 9px 20px rgba(0,0,0,.28),
+    inset 0 1px 2px rgba(255,255,255,.25);
+}
+
+.btn:active{
+  transform:scale(.93);
+}
+
+/* ================= MENU COLORS ================= */
+
+.items{
+  background:
+    linear-gradient(
+      135deg,
+      #2e7d32,
+      #43a047
+    );
+}
+
+.stock{
+  background:
+    linear-gradient(
+      135deg,
+      #c62828,
+      #e53935
+    );
+}
+
+.report{
+  background:
+    linear-gradient(
+      135deg,
+      #ef6c00,
+      #fb8c00
+    );
+}
+
+.relief{
+  background:
+    linear-gradient(
+      135deg,
+      #00897b,
+      #00a896
+    );
+}
+
+.settings{
+  background:
+    linear-gradient(
+      135deg,
+      #3949ab,
+      #5c6bc0
+    );
+}
+
+.menu{
+  background:
+    linear-gradient(
+      135deg,
+      #1565c0,
+      #1e88e5
+    );
+}
+
+.branch-btn{
+  background:
+    linear-gradient(
+      135deg,
+      #1565c0,
+      #42a5f5
+    );
+}
+
+.view-only-btn{
+  background:
+    linear-gradient(
+      135deg,
+      #546e7a,
+      #78909c
+    );
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* ================= INFO ================= */
+
+.info{
+  background:#e3f2fd;
+
+  color:#0d47a1;
+
+  border-left:
+    5px solid #1565c0;
+
+  padding:15px;
+
+  border-radius:16px;
+
+  margin-bottom:0;
+
+  font-weight:bold;
+
+  line-height:1.5;
+}
+
+/* ================= MAIN NOTE ================= */
+
+.main-note{
+  background:#e3f2fd;
+
+  color:#0d47a1;
+
+  border:1px solid #90caf9;
+
+  padding:15px;
+
+  border-radius:18px;
+
+  margin-bottom:20px;
+
+  font-weight:bold;
+
+  line-height:1.5;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:15px;
+
+  margin-bottom:20px;
+}
+
+.summary-card{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.98),
+      rgba(227,242,253,.96)
+    );
+
+  border-radius:22px;
+
+  padding:20px;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.17);
+
+  border:
+    1px solid rgba(255,255,255,.8);
+
+  text-align:center;
+}
+
+.summary-card span{
+  display:block;
+
+  color:#1565c0;
+
+  font-weight:bold;
+}
+
+.summary-card strong{
+  display:block;
+
+  margin-top:8px;
+
+  color:#0d47a1;
+
+  font-size:30px;
+}
+
+/* ================= CATEGORY ================= */
+
+.category-selector{
+  margin-bottom:20px;
+}
+
+.category-selector label{
+  display:block;
+
+  margin-bottom:8px;
+
+  color:#0d47a1;
+
+  font-weight:bold;
+
+  font-size:16px;
+}
+
+.category-selector select{
+  width:100%;
+
+  padding:14px;
+
+  border:
+    2px solid #90caf9;
+
+  border-radius:18px;
+
+  background:white;
+
+  color:#0d47a1;
+
+  font-size:16px;
+
+  outline:none;
+}
+
+.category-selector select:focus{
+  border-color:#1565c0;
+
+  box-shadow:
+    0 0 0 3px rgba(21,101,192,.12);
+}
+
+.selected-category{
+  background:#e3f2fd;
+
+  border-left:
+    5px solid #1565c0;
+
+  border-radius:16px;
+
+  padding:15px;
+
+  margin-bottom:15px;
+
+  color:#0d47a1;
+
+  font-weight:bold;
+}
+
+/* ================= TABLE ================= */
+
+.category-table-wrap{
+  width:100%;
+
+  overflow-x:auto;
+}
+
+.category-table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  background:white;
+
+  border-radius:16px;
+
+  overflow:hidden;
+
+  min-width:500px;
+}
+
+.category-table th,
+.category-table td{
+  padding:12px 10px;
+
+  border-bottom:
+    1px solid #e3f2fd;
+
+  text-align:center;
+
+  font-size:15px;
+}
+
+.category-table th{
+  background:#e3f2fd;
+
+  color:#0d47a1;
+
+  font-weight:bold;
+}
+
+.category-table td:first-child,
+.category-table th:first-child{
+  text-align:left;
+}
+
+.category-total-row{
+  background:#bbdefb;
+
+  font-weight:bold;
+}
+
+.category-total-row td{
+  color:#0d47a1;
+
+  font-size:16px;
+}
+
+.in-number{
+  color:#2e7d32;
+
+  font-weight:bold;
+}
+
+.out-number{
+  color:#c62828;
+
+  font-weight:bold;
+}
+
+.balance-number{
+  color:#0d47a1;
+
+  font-weight:bold;
+}
+
+.no-transaction{
+  padding:18px;
+
+  text-align:center;
+
+  color:#1565c0;
+
+  background:#e3f2fd;
+
+  border:
+    1px solid #90caf9;
+
+  border-radius:16px;
+}
+
+/* ================= BRANCHES ================= */
+
+.branch-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:14px;
+}
+
+.branch-box{
+  background:
+    rgba(255,255,255,.96);
+
+  border:
+    1px solid #bbdefb;
+
+  border-radius:22px;
+
+  padding:16px;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.10);
+
+  text-align:center;
+}
+
+.branch-box strong{
+  display:block;
+
+  color:#0d47a1;
+
+  font-size:17px;
+
+  margin-bottom:5px;
+}
+
+.branch-box small{
+  display:block;
+
+  color:#1565c0;
+
+  margin-bottom:12px;
+}
+
+/* ================= MESSAGE ================= */
+
+.message{
+  display:none;
+
+  padding:15px;
+
+  border-radius:16px;
+
+  margin-bottom:20px;
+
+  font-weight:bold;
+
+  line-height:1.5;
+
+  white-space:pre-wrap;
+}
+
+.message.show{
+  display:block;
+}
+
+.error{
+  background:#fee2e2;
+
+  color:#991b1b;
+}
+
+.success{
+  background:#dcfce7;
+
+  color:#166534;
+}
+
+.loading{
+  text-align:center;
+
+  padding:20px;
+
+  color:#1565c0;
+
+  font-weight:bold;
+}
+
+/* ================= BOTTOM CONTROLS ================= */
+
+.bottom-controls{
+  width:94%;
+
+  max-width:1200px;
+
+  margin:10px auto 30px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:15px;
+}
+
+.bottom-btn{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  min-height:58px;
+
+  padding:14px 18px;
+
+  border:0;
+
+  border-radius:30px;
+
+  color:white;
+
+  text-decoration:none;
+
+  font-size:16px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 5px 12px rgba(0,0,0,.22);
+
   transition:.2s;
 }
 
 .bottom-btn:hover{
-  opacity:.93;
-  transform:translateY(-1px);
+  opacity:.95;
+
+  transform:
+    translateY(-2px);
 }
 
 .refresh-bottom{
-  background:#795548;
+  background:
+    linear-gradient(
+      135deg,
+      #1565c0,
+      #42a5f5
+    );
 }
 
 .dashboard-bottom{
-  background:#6d4c41;
+  background:
+    linear-gradient(
+      135deg,
+      #0d47a1,
+      #1976d2
+    );
 }
 
 .logout-bottom{
-  background:#991b1b;
+  background:
+    linear-gradient(
+      135deg,
+      #b71c1c,
+      #e53935
+    );
 }
 
 /* ================= RESPONSIVE ================= */
@@ -543,23 +804,30 @@ header h1{
 @media(max-width:850px){
 
   .summary{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
   .branch-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
   .menu-grid{
-    grid-template-columns:repeat(2,100px);
-    gap:14px;
+    grid-template-columns:
+      repeat(2,100px);
+
+    gap:15px;
   }
 
   .menu-grid .btn{
     width:100px;
+
     height:100px;
+
     font-size:12px;
-    padding:9px;
+
+    padding:8px;
   }
 
 }
@@ -569,6 +837,7 @@ header h1{
   .category-table th,
   .category-table td{
     font-size:13px;
+
     padding:9px 6px;
   }
 
@@ -598,19 +867,24 @@ header h1{
   }
 
   .menu-grid{
-    grid-template-columns:repeat(2,100px);
+    grid-template-columns:
+      repeat(2,100px);
+
     gap:14px;
   }
 
   .menu-grid .btn{
     width:100px;
+
     height:100px;
+
     font-size:12px;
+
     padding:8px;
   }
 
   .menu-grid .btn span:first-child{
-    font-size:28px !important;
+    font-size:27px !important;
   }
 
   .title{
@@ -618,12 +892,15 @@ header h1{
   }
 
   .profile-picture{
-    width:52px;
-    height:52px;
+    width:54px;
+
+    height:54px;
   }
 
   .card{
     padding:17px;
+
+    border-radius:22px;
   }
 
   .container{
@@ -631,8 +908,11 @@ header h1{
   }
 
   .bottom-btn{
-    min-height:50px;
+    min-height:52px;
+
     font-size:15px;
+
+    border-radius:30px;
   }
 
 }
@@ -640,21 +920,52 @@ header h1{
 @media(max-width:350px){
 
   .menu-grid{
-    grid-template-columns:repeat(2,92px);
+    grid-template-columns:
+      repeat(2,92px);
+
     gap:12px;
   }
 
   .menu-grid .btn{
     width:92px;
+
     height:92px;
+
     font-size:11px;
+
     padding:7px;
   }
 
   .menu-grid .btn span:first-child{
-    font-size:25px !important;
+    font-size:24px !important;
   }
 
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+   ========================================================= */
+
+.profile-picture{
+  display:block;
+}
+
+
+/* =========================================================
+   CIRCULAR BRANCH OPEN BUTTON
+   ========================================================= */
+
+.branch-btn{
+  border-radius:50% !important;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  margin:auto;
 }
 
 </style>
@@ -672,34 +983,14 @@ AAFDRMC - STOCK MANAGEMENT
 Loading Branch...
 </div>
 
+<!-- ================= PROFILE IMAGE ================= -->
+
 <div class="profile-area">
 
-<svg
+<img
+  src="./1788633150526.jpg"
   class="profile-picture"
-  viewBox="0 0 120 120"
-  xmlns="http://www.w3.org/2000/svg">
-
-<circle cx="60" cy="60" r="58" fill="#efebe9"/>
-
-<circle
-  cx="60"
-  cy="43"
-  r="21"
-  fill="#795548"/>
-
-<path
-  d="M23 104 C27 78,42 66,60 66 C78 66,93 78,97 104 Z"
-  fill="#5d4037"/>
-
-<circle
-  cx="60"
-  cy="60"
-  r="57"
-  fill="none"
-  stroke="#ffffff"
-  stroke-width="5"/>
-
-</svg>
+  alt="AAFDRMC Profile">
 
 <div class="profile-name">
 AAFDRMC User
@@ -709,30 +1000,49 @@ AAFDRMC User
 
 <div class="language-area">
 
-<label for="languageSelect" data-i18n="language">
+<label
+  for="languageSelect"
+  data-i18n="language">
+
 Language
+
 </label>
 
 <select
   id="languageSelect"
   onchange="changeLanguage(this.value)">
 
-<option value="om">Afaan Oromoo</option>
-<option value="am">አማርኛ</option>
-<option value="en">English</option>
+<option value="om">
+Afaan Oromoo
+</option>
+
+<option value="am">
+አማርኛ
+</option>
+
+<option value="en">
+English
+</option>
 
 </select>
 
 </div>
 
-<div id="modeBadge" class="mode-badge"></div>
+<div
+  id="modeBadge"
+  class="mode-badge">
+</div>
 
 </header>
 
 
 <div class="container">
 
-<div id="message" class="message"></div>
+<div
+  id="message"
+  class="message">
+</div>
+
 
 <div class="card">
 
@@ -754,16 +1064,21 @@ Loading...
 Branch Code:
 </span>
 
-<strong id="currentCode">—</strong>
+<strong id="currentCode">
+—
+</strong>
 
 </div>
 
 </div>
 
 
-<div id="mainNote" class="main-note hidden">
+<div
+  id="mainNote"
+  class="main-note hidden">
 
-🏢 <strong data-i18n="mainViewOnly">
+🏢
+<strong data-i18n="mainViewOnly">
 Main / HQ - View Only
 </strong>
 
@@ -781,14 +1096,31 @@ Main irraa:
 
 <br>
 
-❌ <span data-i18n="itemAdd">Item Add</span>
+❌
+<span data-i18n="itemAdd">
+Item Add
+</span>
+
 <br>
-❌ <span data-i18n="itemEdit">Item Edit</span>
+
+❌
+<span data-i18n="itemEdit">
+Item Edit
+</span>
+
 <br>
-❌ <span data-i18n="itemDelete">Item Delete</span>
+
+❌
+<span data-i18n="itemDelete">
+Item Delete
+</span>
+
 <br>
+
 ❌ Stock IN
+
 <br>
+
 ❌ Stock OUT
 
 <br><br>
@@ -804,22 +1136,34 @@ hin danda'amu.
 
 <div class="card">
 
-<div class="title" data-i18n="dashboardMenu">
+<div
+  class="title"
+  data-i18n="dashboardMenu">
+
 📊 Dashboard Menu
+
 </div>
 
 
-<!-- ================= OPERATIONAL / BRANCH MENU ================= -->
+<!-- ================= BRANCH MENU ================= -->
 
-<div id="branchMenu" class="menu-grid">
+<div
+  id="branchMenu"
+  class="menu-grid">
+
 
 <a
   href="items.html"
   class="btn items"
   id="itemsButton">
 
-<span style="font-size:28px;">📦</span>
-<span data-i18n="items">Items</span>
+<span style="font-size:28px;">
+📦
+</span>
+
+<span data-i18n="items">
+Items
+</span>
 
 </a>
 
@@ -829,7 +1173,10 @@ hin danda'amu.
   class="btn stock"
   id="stockButton">
 
-<span style="font-size:28px;">📥</span>
+<span style="font-size:28px;">
+📥
+</span>
+
 <span data-i18n="stockInOut">
 Stock IN / OUT
 </span>
@@ -841,7 +1188,10 @@ Stock IN / OUT
   href="reports.html"
   class="btn report">
 
-<span style="font-size:28px;">📊</span>
+<span style="font-size:28px;">
+📊
+</span>
+
 <span data-i18n="stockReport">
 Stock Report
 </span>
@@ -854,7 +1204,10 @@ Stock Report
   class="btn relief"
   id="reliefButton">
 
-<span style="font-size:28px;">🚑</span>
+<span style="font-size:28px;">
+🚑
+</span>
+
 <span data-i18n="reliefReport">
 Relief Report
 </span>
@@ -867,7 +1220,10 @@ Relief Report
   class="btn settings"
   id="settingsButton">
 
-<span style="font-size:28px;">⚙️</span>
+<span style="font-size:28px;">
+⚙️
+</span>
+
 <span data-i18n="settings">
 Settings
 </span>
@@ -879,7 +1235,10 @@ Settings
   href="index.html"
   class="btn menu">
 
-<span style="font-size:28px;">⬅️</span>
+<span style="font-size:28px;">
+⬅️
+</span>
+
 <span data-i18n="mainMenu">
 Main Menu
 </span>
@@ -891,13 +1250,17 @@ Main Menu
 
 <!-- ================= MAIN HQ MENU ================= -->
 
-<div id="mainMenu" class="menu-grid hidden">
+<div
+  id="mainMenu"
+  class="menu-grid hidden">
 
 <a
   href="reports.html"
   class="btn report">
 
-<span style="font-size:28px;">📊</span>
+<span style="font-size:28px;">
+📊
+</span>
 
 <span data-i18n="allBranchesReport">
 All Branches Report
@@ -910,7 +1273,9 @@ All Branches Report
   href="settings.html"
   class="btn settings">
 
-<span style="font-size:28px;">⚙️</span>
+<span style="font-size:28px;">
+⚙️
+</span>
 
 <span data-i18n="settings">
 Settings
@@ -923,7 +1288,9 @@ Settings
   href="index.html"
   class="btn menu">
 
-<span style="font-size:28px;">⬅️</span>
+<span style="font-size:28px;">
+⬅️
+</span>
 
 <span data-i18n="mainMenu">
 Main Menu
@@ -946,7 +1313,9 @@ Main Menu
 📦 Total Items
 </span>
 
-<strong id="totalItems">0</strong>
+<strong id="totalItems">
+0
+</strong>
 
 </div>
 
@@ -957,7 +1326,9 @@ Main Menu
 🟢 Stock IN
 </span>
 
-<strong id="totalIn">0</strong>
+<strong id="totalIn">
+0
+</strong>
 
 </div>
 
@@ -968,7 +1339,9 @@ Main Menu
 🔴 Stock OUT
 </span>
 
-<strong id="totalOut">0</strong>
+<strong id="totalOut">
+0
+</strong>
 
 </div>
 
@@ -979,7 +1352,9 @@ Main Menu
 📊 Current Balance
 </span>
 
-<strong id="balance">0</strong>
+<strong id="balance">
+0
+</strong>
 
 </div>
 
@@ -990,9 +1365,14 @@ Main Menu
 
 <div class="card">
 
-<div class="title" data-i18n="categoryTitle">
+<div
+  class="title"
+  data-i18n="categoryTitle">
+
 🗂️ Item Transaction Total by Category
+
 </div>
+
 
 <div class="category-selector">
 
@@ -1020,10 +1400,12 @@ Select Category
 
 </div>
 
+
 <div
   id="selectedCategoryBox"
   class="selected-category hidden">
 </div>
+
 
 <div id="categoryResult">
 
@@ -1040,29 +1422,39 @@ Please select a category.
 </div>
 
 
-<!-- ================= MAIN BRANCHES ================= -->
+<!-- ================= ALL BRANCHES ================= -->
 
 <div
   id="allBranchesCard"
   class="card hidden">
 
-<div class="title" data-i18n="aafdrmcBranches">
+<div
+  class="title"
+  data-i18n="aafdrmcBranches">
+
 🏢 AAFDRMC Branches
+
 </div>
+
 
 <div class="info">
 
 <span data-i18n="mainBranchesInfo">
+
 Main irraa branches 12 hunda ilaaluun ni danda'ama.
+
 </span>
 
 <br><br>
 
 <span data-i18n="selectBranchInfo">
+
 Branch tokko filadhu. Branch sana keessatti odeeffannoo isaa ilaaluu dandeessa.
+
 </span>
 
 </div>
+
 
 <div
   class="branch-grid"
@@ -1084,6 +1476,7 @@ Branch tokko filadhu. Branch sana keessatti odeeffannoo isaa ilaaluu dandeessa.
   onclick="loadDashboard()">
 
 🔄
+
 <span data-i18n="refresh">
 Refresh
 </span>
@@ -1096,6 +1489,7 @@ Refresh
   class="bottom-btn dashboard-bottom">
 
 🏠
+
 <span data-i18n="backDashboard">
 Back to Dashboard
 </span>
@@ -1109,6 +1503,7 @@ Back to Dashboard
   onclick="logout()">
 
 🚪
+
 <span data-i18n="logout">
 Logout
 </span>
@@ -1703,8 +2098,11 @@ document.getElementById("reliefButton");
 if(isMainHQ()){
 
 branchMenu.classList.add("hidden");
+
 mainMenu.classList.remove("hidden");
+
 mainNote.classList.remove("hidden");
+
 allBranchesCard.classList.remove("hidden");
 
 return;
@@ -1717,18 +2115,16 @@ return;
 if(isMainUser()){
 
 branchMenu.classList.remove("hidden");
+
 mainMenu.classList.add("hidden");
+
 mainNote.classList.remove("hidden");
+
 allBranchesCard.classList.remove("hidden");
 
 if(settingsButton){
 settingsButton.classList.add("hidden");
 }
-
-/*
-  Main user can view branch stock,
-  but cannot use operational relief.
-*/
 
 if(reliefButton){
 reliefButton.classList.add("hidden");
@@ -1748,7 +2144,8 @@ currentLanguage==="am"
 : "Meeshaalee Ilaali"
 );
 
-itemsButton.className="btn view-only-btn";
+itemsButton.className=
+"btn view-only-btn";
 
 
 const stockButton =
@@ -1764,18 +2161,22 @@ currentLanguage==="am"
 : "Stock Ilaali"
 );
 
-stockButton.className="btn view-only-btn";
+stockButton.className=
+"btn view-only-btn";
 
 return;
 
 }
 
 
-/* ================= OPERATIONAL BRANCH ================= */
+/* OPERATIONAL BRANCH */
 
 branchMenu.classList.remove("hidden");
+
 mainMenu.classList.add("hidden");
+
 mainNote.classList.add("hidden");
+
 allBranchesCard.classList.add("hidden");
 
 if(settingsButton){
@@ -2082,7 +2483,10 @@ return Array.isArray(data)?data:[];
 }
 catch(error){
 
-console.warn("Items error:",error);
+console.warn(
+"Items error:",
+error
+);
 
 return [];
 
@@ -2267,7 +2671,11 @@ transaction.name
 
 ];
 
-for(let i=0;i<possibleNames.length;i++){
+for(
+let i=0;
+i<possibleNames.length;
+i++
+){
 
 const value=
 String(possibleNames[i]||"").trim();
@@ -2450,13 +2858,21 @@ let html=`
 
 <tr>
 
-<th>${escapeHTML(t("item"))}</th>
+<th>
+${escapeHTML(t("item"))}
+</th>
 
-<th>${escapeHTML(t("in"))}</th>
+<th>
+${escapeHTML(t("in"))}
+</th>
 
-<th>${escapeHTML(t("out"))}</th>
+<th>
+${escapeHTML(t("out"))}
+</th>
 
-<th>${escapeHTML(t("balance"))}</th>
+<th>
+${escapeHTML(t("balance"))}
+</th>
 
 </tr>
 
@@ -2469,13 +2885,16 @@ itemNames.forEach(function(itemName){
 
 const item=data.items[itemName];
 
-const itemBalance=item.in-item.out;
+const itemBalance=
+item.in-item.out;
 
 html+=`
 
 <tr>
 
-<td>${escapeHTML(itemName)}</td>
+<td>
+${escapeHTML(itemName)}
+</td>
 
 <td class="in-number">
 ${formatNumber(item.in)}
@@ -2502,7 +2921,9 @@ html+=`
 
 <tr class="category-total-row">
 
-<td>${escapeHTML(t("total"))}</td>
+<td>
+${escapeHTML(t("total"))}
+</td>
 
 <td class="in-number">
 ${formatNumber(data.totalIn)}
@@ -2575,7 +2996,8 @@ box.className="branch-box";
 const name =
 document.createElement("strong");
 
-name.textContent="🏢 "+branch.name;
+name.textContent=
+"🏢 "+branch.name;
 
 const code =
 document.createElement("small");
@@ -2588,13 +3010,17 @@ document.createElement("button");
 
 button.type="button";
 
-button.className="btn branch-btn";
+button.className=
+"btn branch-btn";
 
 button.style.width="110px";
+
 button.style.height="110px";
+
 button.style.fontSize="13px";
 
-button.textContent=t("openBranch");
+button.textContent=
+t("openBranch");
 
 button.onclick=function(){
 
@@ -2603,7 +3029,9 @@ openBranch(branch);
 };
 
 box.appendChild(name);
+
 box.appendChild(code);
+
 box.appendChild(button);
 
 grid.appendChild(box);
@@ -2637,7 +3065,8 @@ localStorage.setItem(
 branch.uuid
 );
 
-window.location.href="dashboard.html";
+window.location.href=
+"dashboard.html";
 
 }
 
@@ -2651,6 +3080,7 @@ return;
 }
 
 setupMenu();
+
 buildCategoryDropdown();
 
 if(isMainUser()){
@@ -2678,6 +3108,7 @@ const transactions =
 await loadTransactions();
 
 let totalIn=0;
+
 let totalOut=0;
 
 transactions.forEach(function(transaction){
@@ -2698,19 +3129,24 @@ totalOut+=quantity;
 
 });
 
-const balance=totalIn-totalOut;
+const balance=
+totalIn-totalOut;
 
 document.getElementById("totalItems")
-.textContent=items.length.toLocaleString();
+.textContent=
+items.length.toLocaleString();
 
 document.getElementById("totalIn")
-.textContent=formatNumber(totalIn);
+.textContent=
+formatNumber(totalIn);
 
 document.getElementById("totalOut")
-.textContent=formatNumber(totalOut);
+.textContent=
+formatNumber(totalOut);
 
 document.getElementById("balance")
-.textContent=formatNumber(balance);
+.textContent=
+formatNumber(balance);
 
 prepareCategoryData(transactions);
 
@@ -2760,18 +3196,25 @@ currentLanguage==="am"
 function logout(){
 
 localStorage.removeItem("access_token");
+
 localStorage.removeItem("refresh_token");
+
 localStorage.removeItem("is_logged_in");
 
 localStorage.removeItem("selected_branch_id");
+
 localStorage.removeItem("selected_branch_name");
+
 localStorage.removeItem("selected_branch_code");
+
 localStorage.removeItem("selected_branch_uuid");
 
 localStorage.removeItem("user_role");
+
 localStorage.removeItem("login_user");
 
-window.location.href="index.html";
+window.location.href=
+"index.html";
 
 }
 
@@ -2786,7 +3229,8 @@ const languageSelect =
 document.getElementById("languageSelect");
 
 if(languageSelect){
-languageSelect.value=currentLanguage;
+languageSelect.value=
+currentLanguage;
 }
 
 applyLanguage();
@@ -2796,7 +3240,9 @@ return;
 }
 
 setupMenu();
+
 buildCategoryDropdown();
+
 loadDashboard();
 
 });
