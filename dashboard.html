@@ -13,19 +13,69 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#f5f1ed;
   color:#3e2723;
+  min-height:100vh;
+  position:relative;
+  background:#f5f1ed;
 }
 
+/* =====================================================
+   BACKGROUND IMAGE
+===================================================== */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+    linear-gradient(
+      rgba(45,30,25,.62),
+      rgba(45,30,25,.62)
+    ),
+    url("./1788633150526.jpg")
+    center center /
+    cover no-repeat;
+
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:rgba(255,255,255,.08);
+
+  z-index:-1;
+  pointer-events:none;
+}
+
+header,
+.container,
+.bottom-controls{
+  position:relative;
+  z-index:1;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 header{
-  background:#5d4037;
+  background:rgba(93,64,55,.94);
   color:white;
   padding:24px 15px;
   text-align:center;
-  box-shadow:0 3px 10px rgba(0,0,0,.15);
+  box-shadow:0 4px 15px rgba(0,0,0,.28);
+  backdrop-filter:blur(4px);
 }
 
 header h1{
@@ -39,39 +89,9 @@ header h1{
   font-weight:bold;
 }
 
-/* ================= LANGUAGE ================= */
-
-.language-area{
-  margin:15px auto 0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.language-area label{
-  font-size:14px;
-  font-weight:bold;
-}
-
-.language-area select{
-  min-width:170px;
-  padding:10px 12px;
-  border:1px solid #d7ccc8;
-  border-radius:9px;
-  background:white;
-  color:#3e2723;
-  font-size:15px;
-  outline:none;
-  cursor:pointer;
-}
-
-.language-area select:focus{
-  border-color:#bcaaa4;
-}
-
-/* ================= PROFILE ================= */
+/* =====================================================
+   PROFILE
+===================================================== */
 
 .profile-area{
   margin-top:12px;
@@ -87,7 +107,7 @@ header h1{
   border-radius:50%;
   object-fit:cover;
   border:3px solid #fff;
-  box-shadow:0 3px 10px rgba(0,0,0,.20);
+  box-shadow:0 3px 12px rgba(0,0,0,.30);
   background:#efebe9;
 }
 
@@ -100,15 +120,22 @@ header h1{
 .container{
   width:94%;
   max-width:1200px;
-  margin:25px auto;
+  margin:25px auto 15px;
 }
 
+/* =====================================================
+   CARDS
+===================================================== */
+
 .card{
-  background:white;
-  border-radius:15px;
+  background:rgba(255,255,255,.94);
+  border-radius:18px;
   padding:22px;
   margin-bottom:20px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.20),
+    0 1px 3px rgba(0,0,0,.10);
+  backdrop-filter:blur(4px);
 }
 
 .title{
@@ -117,6 +144,10 @@ header h1{
   font-weight:bold;
   margin-bottom:20px;
 }
+
+/* =====================================================
+   MENU
+===================================================== */
 
 .menu-grid{
   display:grid;
@@ -127,7 +158,7 @@ header h1{
 .btn{
   width:100%;
   border:0;
-  border-radius:10px;
+  border-radius:12px;
   padding:17px 12px;
   color:white;
   font-size:17px;
@@ -136,25 +167,58 @@ header h1{
   text-decoration:none;
   text-align:center;
   display:block;
+  box-shadow:0 4px 9px rgba(0,0,0,.14);
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    box-shadow .18s ease;
 }
 
 .btn:hover{
-  opacity:.9;
+  opacity:.94;
+  transform:translateY(-2px);
+  box-shadow:0 6px 13px rgba(0,0,0,.20);
 }
 
-.items{background:#388e3c;}
-.stock{background:#c62828;}
-.report{background:#ef6c00;}
-.settings{background:#6d4c41;}
-.refresh{background:#795548;}
-.menu{background:#8d6e63;}
-.logout{background:#991b1b;}
-.branch-btn{background:#6d4c41;}
-.view-only-btn{background:#8d6e63;}
+.btn:active{
+  transform:translateY(0);
+}
+
+.items{
+  background:#388e3c;
+}
+
+.stock{
+  background:#c62828;
+}
+
+.report{
+  background:#ef6c00;
+}
+
+.settings{
+  background:#6d4c41;
+}
+
+.menu{
+  background:#8d6e63;
+}
+
+.branch-btn{
+  background:#6d4c41;
+}
+
+.view-only-btn{
+  background:#8d6e63;
+}
 
 .hidden{
   display:none !important;
 }
+
+/* =====================================================
+   SUMMARY
+===================================================== */
 
 .summary{
   display:grid;
@@ -164,10 +228,12 @@ header h1{
 }
 
 .summary-card{
-  background:white;
-  border-radius:12px;
+  background:rgba(255,255,255,.95);
+  border-radius:16px;
   padding:20px;
-  box-shadow:0 3px 10px rgba(0,0,0,.07);
+  box-shadow:
+    0 4px 14px rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.75);
 }
 
 .summary-card span{
@@ -183,7 +249,9 @@ header h1{
   font-size:30px;
 }
 
-/* CATEGORY */
+/* =====================================================
+   CATEGORY
+===================================================== */
 
 .category-selector{
   margin-bottom:20px;
@@ -201,7 +269,7 @@ header h1{
   width:100%;
   padding:14px;
   border:1px solid #bcaaa4;
-  border-radius:10px;
+  border-radius:12px;
   background:white;
   color:#3e2723;
   font-size:16px;
@@ -210,20 +278,23 @@ header h1{
 
 .category-selector select:focus{
   border-color:#795548;
-  box-shadow:0 0 0 2px rgba(121,85,72,.12);
+  box-shadow:
+    0 0 0 3px rgba(121,85,72,.12);
 }
 
 .selected-category{
   background:#efebe9;
   border-left:5px solid #795548;
-  border-radius:10px;
+  border-radius:12px;
   padding:15px;
   margin-bottom:15px;
   color:#4e342e;
   font-weight:bold;
 }
 
-/* CATEGORY TABLE */
+/* =====================================================
+   CATEGORY TABLE
+===================================================== */
 
 .category-table-wrap{
   width:100%;
@@ -234,7 +305,7 @@ header h1{
   width:100%;
   border-collapse:collapse;
   background:white;
-  border-radius:10px;
+  border-radius:12px;
   overflow:hidden;
   min-width:500px;
 }
@@ -289,10 +360,12 @@ header h1{
   color:#795548;
   background:#faf7f5;
   border:1px solid #d7ccc8;
-  border-radius:10px;
+  border-radius:12px;
 }
 
-/* BRANCHES */
+/* =====================================================
+   BRANCHES
+===================================================== */
 
 .branch-grid{
   display:grid;
@@ -301,10 +374,11 @@ header h1{
 }
 
 .branch-box{
-  background:#faf7f5;
+  background:rgba(250,247,245,.95);
   border:1px solid #d7ccc8;
-  border-radius:12px;
+  border-radius:15px;
   padding:16px;
+  box-shadow:0 3px 9px rgba(0,0,0,.08);
 }
 
 .branch-box strong{
@@ -320,10 +394,14 @@ header h1{
   margin-bottom:12px;
 }
 
+/* =====================================================
+   MESSAGE
+===================================================== */
+
 .message{
   display:none;
   padding:15px;
-  border-radius:10px;
+  border-radius:12px;
   margin-bottom:20px;
   font-weight:bold;
   line-height:1.5;
@@ -349,7 +427,7 @@ header h1{
   color:#5d4037;
   border:1px solid #d7ccc8;
   padding:15px;
-  border-radius:10px;
+  border-radius:12px;
   margin-bottom:20px;
   font-weight:bold;
   line-height:1.5;
@@ -360,7 +438,7 @@ header h1{
   color:#6d4c41;
   border:1px solid #ffcc80;
   padding:15px;
-  border-radius:10px;
+  border-radius:12px;
   margin-bottom:20px;
   font-weight:bold;
   line-height:1.5;
@@ -382,6 +460,99 @@ header h1{
   color:#795548;
   font-weight:bold;
 }
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+.language-area{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+}
+
+.language-area label{
+  color:white;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.language-area select{
+  border:0;
+  border-radius:8px;
+  padding:8px 10px;
+  background:white;
+  color:#3e2723;
+  font-weight:bold;
+  outline:none;
+}
+
+/* =====================================================
+   BOTTOM CONTROLS
+   NOT ROUNDED / NOT GEENGOO
+===================================================== */
+
+.bottom-controls{
+  width:94%;
+  max-width:1200px;
+  margin:10px auto 30px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:12px;
+}
+
+.bottom-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  min-height:52px;
+
+  padding:14px 18px;
+
+  border:0;
+
+  border-radius:6px;
+
+  color:white;
+  text-decoration:none;
+
+  font-size:16px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.20);
+
+  transition:.2s;
+}
+
+.bottom-btn:hover{
+  opacity:.93;
+  transform:translateY(-1px);
+}
+
+.refresh-bottom{
+  background:#795548;
+}
+
+.dashboard-bottom{
+  background:#6d4c41;
+}
+
+.logout-bottom{
+  background:#991b1b;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media(max-width:850px){
 
@@ -407,9 +578,17 @@ header h1{
     padding:9px 6px;
   }
 
+  .bottom-controls{
+    grid-template-columns:1fr;
+  }
+
 }
 
 @media(max-width:500px){
+
+  header{
+    padding:20px 12px;
+  }
 
   header h1{
     font-size:21px;
@@ -437,8 +616,17 @@ header h1{
     height:52px;
   }
 
-  .language-area{
-    flex-direction:column;
+  .card{
+    padding:17px;
+  }
+
+  .container{
+    width:94%;
+  }
+
+  .bottom-btn{
+    min-height:50px;
+    font-size:15px;
   }
 
 }
@@ -448,9 +636,13 @@ header h1{
 
 <body>
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
-<h1 data-i18n="dashboardTitle">
+<h1 data-i18n="appTitle">
 AAFDRMC - STOCK MANAGEMENT
 </h1>
 
@@ -458,66 +650,76 @@ AAFDRMC - STOCK MANAGEMENT
 Loading Branch...
 </div>
 
-<!-- ================= LANGUAGE SELECTOR ================= -->
-
-<div class="language-area">
-
-<label for="languageSelect" data-i18n="language">
-Language
-</label>
-
-<select id="languageSelect" onchange="changeLanguage(this.value)">
-
-<option value="om">Afaan Oromoo</option>
-<option value="am">አማርኛ</option>
-<option value="en">English</option>
-
-</select>
-
-</div>
-
-<!-- ================= PROFILE ================= -->
+<!-- PROFILE -->
 
 <div class="profile-area">
 
-<svg
-  class="profile-picture"
-  viewBox="0 0 120 120"
-  xmlns="http://www.w3.org/2000/svg"
-  aria-label="AAFDRMC Profile Picture">
+  <svg
+    class="profile-picture"
+    viewBox="0 0 120 120"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="AAFDRMC Profile Picture">
 
-  <circle
-    cx="60"
-    cy="60"
-    r="58"
-    fill="#efebe9"/>
+    <circle
+      cx="60"
+      cy="60"
+      r="58"
+      fill="#efebe9"/>
 
-  <circle
-    cx="60"
-    cy="43"
-    r="21"
-    fill="#795548"/>
+    <circle
+      cx="60"
+      cy="43"
+      r="21"
+      fill="#795548"/>
 
-  <path
-    d="M23 104
-       C27 78, 42 66, 60 66
-       C78 66, 93 78, 97 104
-       Z"
-    fill="#5d4037"/>
+    <path
+      d="M23 104
+         C27 78, 42 66, 60 66
+         C78 66, 93 78, 97 104
+         Z"
+      fill="#5d4037"/>
 
-  <circle
-    cx="60"
-    cy="60"
-    r="57"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="5"/>
+    <circle
+      cx="60"
+      cy="60"
+      r="57"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="5"/>
 
-</svg>
+  </svg>
 
-<div class="profile-name" data-i18n="user">
-AAFDRMC User
+  <div class="profile-name">
+    AAFDRMC User
+  </div>
+
 </div>
+
+<!-- LANGUAGE -->
+
+<div class="language-area">
+
+  <label for="languageSelect" data-i18n="language">
+    Language
+  </label>
+
+  <select
+    id="languageSelect"
+    onchange="changeLanguage(this.value)">
+
+    <option value="om">
+      Afaan Oromoo
+    </option>
+
+    <option value="am">
+      አማርኛ
+    </option>
+
+    <option value="en">
+      English
+    </option>
+
+  </select>
 
 </div>
 
@@ -525,9 +727,15 @@ AAFDRMC User
 
 </header>
 
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
 <div class="container">
 
 <div id="message" class="message"></div>
+
 
 <!-- CURRENT BRANCH -->
 
@@ -559,6 +767,7 @@ Branch Code:
 
 </div>
 
+
 <!-- MAIN NOTE -->
 
 <div id="mainNote" class="main-note hidden">
@@ -569,9 +778,8 @@ Main / HQ - View Only
 
 <br><br>
 
-<span data-i18n="mainCanView">
-Main irraa branch tokko filattee
-Item, Stock fi Report ilaaluu dandeessa.
+<span data-i18n="mainNoteText">
+Main irraa branch tokko filattee Item, Stock fi Report ilaaluu dandeessa.
 </span>
 
 <br><br>
@@ -580,25 +788,40 @@ Item, Stock fi Report ilaaluu dandeessa.
 Main irraa:
 </span>
 
+<br>
+
+❌ <span data-i18n="itemAdd">
+Item Add
+</span>
+
+<br>
+
+❌ <span data-i18n="itemEdit">
+Item Edit
+</span>
+
+<br>
+
+❌ <span data-i18n="itemDelete">
+Item Delete
+</span>
+
+<br>
+
+❌ Stock IN
+
+<br>
+
+❌ Stock OUT
+
 <br><br>
 
-❌ <span data-i18n="itemAdd">Item Add</span>
-<br>
-❌ <span data-i18n="itemEdit">Item Edit</span>
-<br>
-❌ <span data-i18n="itemDelete">Item Delete</span>
-<br>
-❌ <span data-i18n="stockIn">Stock IN</span>
-<br>
-❌ <span data-i18n="stockOut">Stock OUT</span>
-
-<br><br>
-
-<span data-i18n="notAllowed">
+<span data-i18n="mainCannotEnd">
 hin danda'amu.
 </span>
 
 </div>
+
 
 <!-- MENU -->
 
@@ -608,92 +831,79 @@ hin danda'amu.
 📊 Dashboard Menu
 </div>
 
+
 <!-- BRANCH MENU -->
 
 <div id="branchMenu" class="menu-grid">
 
-<a href="items.html"
-   class="btn items"
-   id="itemsButton">
+<a
+  href="items.html"
+  class="btn items"
+  id="itemsButton">
 📦 <span data-i18n="items">Items</span>
 </a>
 
-<a href="stock.html"
-   class="btn stock"
-   id="stockButton">
+<a
+  href="stock.html"
+  class="btn stock"
+  id="stockButton">
 📥 <span data-i18n="stockInOut">Stock IN / OUT</span>
 </a>
 
-<a href="reports.html"
-   class="btn report">
+<a
+  href="reports.html"
+  class="btn report">
 📊 <span data-i18n="stockReport">Stock Report</span>
 </a>
 
-<a href="settings.html"
-   class="btn settings"
-   id="settingsButton">
+<a
+  href="settings.html"
+  class="btn settings"
+  id="settingsButton">
 ⚙️ <span data-i18n="settings">Settings</span>
 </a>
 
-<button
-  type="button"
-  class="btn refresh"
-  onclick="loadDashboard()">
-🔄 <span data-i18n="refresh">Refresh</span>
-</button>
-
-<a href="index.html"
-   class="btn menu">
+<a
+  href="index.html"
+  class="btn menu">
 ⬅️ <span data-i18n="mainMenu">Main Menu</span>
 </a>
 
-<button
-  type="button"
-  class="btn logout"
-  onclick="logout()">
-🚪 <span data-i18n="logout">Logout</span>
-</button>
-
 </div>
+
 
 <!-- MAIN HQ MENU -->
 
 <div id="mainMenu" class="menu-grid hidden">
 
-<a href="reports.html"
-   class="btn report">
+<a
+  href="reports.html"
+  class="btn report">
 📊 <span data-i18n="allBranchesReport">
 All Branches Report
 </span>
 </a>
 
-<a href="settings.html"
-   class="btn settings">
-⚙️ <span data-i18n="settings">Settings</span>
+<a
+  href="settings.html"
+  class="btn settings">
+⚙️ <span data-i18n="settings">
+Settings
+</span>
 </a>
 
-<button
-  type="button"
-  class="btn refresh"
-  onclick="loadDashboard()">
-🔄 <span data-i18n="refresh">Refresh</span>
-</button>
-
-<a href="index.html"
-   class="btn menu">
-⬅️ <span data-i18n="mainMenu">Main Menu</span>
+<a
+  href="index.html"
+  class="btn menu">
+⬅️ <span data-i18n="mainMenu">
+Main Menu
+</span>
 </a>
-
-<button
-  type="button"
-  class="btn logout"
-  onclick="logout()">
-🚪 <span data-i18n="logout">Logout</span>
-</button>
 
 </div>
 
 </div>
+
 
 <!-- SUMMARY -->
 
@@ -705,29 +915,38 @@ All Branches Report
 📦 Total Items
 </span>
 
-<strong id="totalItems">0</strong>
+<strong id="totalItems">
+0
+</strong>
 
 </div>
 
+
 <div class="summary-card">
 
-<span data-i18n="stockInSummary">
+<span data-i18n="stockIn">
 🟢 Stock IN
 </span>
 
-<strong id="totalIn">0</strong>
+<strong id="totalIn">
+0
+</strong>
 
 </div>
+
 
 <div class="summary-card">
 
-<span data-i18n="stockOutSummary">
+<span data-i18n="stockOut">
 🔴 Stock OUT
 </span>
 
-<strong id="totalOut">0</strong>
+<strong id="totalOut">
+0
+</strong>
 
 </div>
+
 
 <div class="summary-card">
 
@@ -735,11 +954,14 @@ All Branches Report
 📊 Current Balance
 </span>
 
-<strong id="balance">0</strong>
+<strong id="balance">
+0
+</strong>
 
 </div>
 
 </div>
+
 
 <!-- CATEGORY -->
 
@@ -751,7 +973,9 @@ All Branches Report
 
 <div class="category-selector">
 
-<label for="categorySelect" data-i18n="selectCategory">
+<label
+  for="categorySelect"
+  data-i18n="selectCategory">
 Select Category
 </label>
 
@@ -759,7 +983,7 @@ Select Category
   id="categorySelect"
   onchange="renderSelectedCategory()">
 
-<option value="">
+<option value="" data-i18n="selectCategoryOption">
 -- Select Category --
 </option>
 
@@ -774,7 +998,9 @@ Select Category
 
 <div id="categoryResult">
 
-<div class="no-transaction" data-i18n="pleaseSelectCategory">
+<div
+  class="no-transaction"
+  data-i18n="pleaseSelectCategory">
 Please select a category.
 </div>
 
@@ -782,22 +1008,29 @@ Please select a category.
 
 </div>
 
+
 <!-- MAIN BRANCHES -->
 
-<div id="allBranchesCard" class="card hidden">
+<div
+  id="allBranchesCard"
+  class="card hidden">
 
-<div class="title" data-i18n="branchesTitle">
+<div class="title" data-i18n="aafdrmcBranches">
 🏢 AAFDRMC Branches
 </div>
 
-<div class="info" data-i18n="branchesInfo">
+<div class="info">
+
+<span data-i18n="mainBranchesInfo">
 Main irraa branches 12 hunda ilaaluun ni danda'ama.
+</span>
 
 <br><br>
 
-Branch tokko filadhu.
-Branch sana keessatti odeeffannoo isaa
-ilaaluu dandeessa.
+<span data-i18n="selectBranchInfo">
+Branch tokko filadhu. Branch sana keessatti odeeffannoo isaa ilaaluu dandeessa.
+</span>
+
 </div>
 
 <div
@@ -808,6 +1041,53 @@ ilaaluu dandeessa.
 </div>
 
 </div>
+
+
+<!-- =====================================================
+     BOTTOM CONTROLS
+===================================================== -->
+
+<div class="bottom-controls">
+
+<button
+  type="button"
+  class="bottom-btn refresh-bottom"
+  onclick="loadDashboard()">
+
+🔄
+<span data-i18n="refresh">
+Refresh
+</span>
+
+</button>
+
+
+<a
+  href="dashboard.html"
+  class="bottom-btn dashboard-bottom">
+
+🏠
+<span data-i18n="backDashboard">
+Back to Dashboard
+</span>
+
+</a>
+
+
+<button
+  type="button"
+  class="bottom-btn logout-bottom"
+  onclick="logout()">
+
+🚪
+<span data-i18n="logout">
+Logout
+</span>
+
+</button>
+
+</div>
+
 
 <script>
 
@@ -823,365 +1103,427 @@ const SUPABASE_KEY =
 
 
 /* =====================================================
-   LANGUAGE SYSTEM
+   TRANSLATIONS
 ===================================================== */
 
 const TRANSLATIONS = {
 
-  en: {
+  om:{
 
-    language:"Language",
+    appTitle:
+      "AAFDRMC - STOCK MANAGEMENT",
 
-    dashboardTitle:"AAFDRMC - STOCK MANAGEMENT",
+    language:
+      "Afaan",
 
-    user:"AAFDRMC User",
+    currentBranchLabel:
+      "🏢 Damee Amma:",
 
-    loadingBranch:"Loading Branch...",
+    branchCodeLabel:
+      "Koodii Damee:",
 
-    branchNotSelected:"⚠️ Branch not selected",
+    dashboardMenu:
+      "📊 Menu Dashboard",
 
-    currentBranchLabel:"🏢 Current Branch:",
+    items:
+      "Meeshaalee",
 
-    branchCodeLabel:"Branch Code:",
+    stockInOut:
+      "Stock IN / OUT",
 
-    unknown:"Unknown",
+    stockReport:
+      "📊 Gabaasa Stock",
 
-    dashboardMenu:"📊 Dashboard Menu",
+    settings:
+      "⚙️ Qindaa'ina",
 
-    items:"Items",
+    mainMenu:
+      "⬅️ Main Menu",
 
-    stockInOut:"Stock IN / OUT",
+    allBranchesReport:
+      "📊 Gabaasa Branches Hunda",
 
-    stockReport:"Stock Report",
+    totalItems:
+      "📦 Meeshaalee Waliigalaa",
 
-    settings:"Settings",
+    stockIn:
+      "🟢 Stock IN",
 
-    refresh:"Refresh",
+    stockOut:
+      "🔴 Stock OUT",
 
-    mainMenu:"Main Menu",
+    currentBalance:
+      "📊 Hafe",
 
-    logout:"Logout",
+    categoryTitle:
+      "🗂️ Walitti Qabama Transaction Category",
 
-    viewItems:"View Items",
+    selectCategory:
+      "Category Filadhu",
 
-    viewStock:"View Stock",
+    selectCategoryOption:
+      "-- Category Filadhu --",
 
-    allBranchesReport:"All Branches Report",
+    pleaseSelectCategory:
+      "Mee Category tokko filadhu.",
 
-    totalItems:"📦 Total Items",
+    aafdrmcBranches:
+      "🏢 AAFDRMC Branches",
 
-    stockInSummary:"🟢 Stock IN",
+    mainBranchesInfo:
+      "Main irraa branches 12 hunda ilaaluun ni danda'ama.",
 
-    stockOutSummary:"🔴 Stock OUT",
+    selectBranchInfo:
+      "Branch tokko filadhu. Branch sana keessatti odeeffannoo isaa ilaaluu dandeessa.",
 
-    currentBalance:"📊 Current Balance",
+    mainViewOnly:
+      "Main / HQ - Ilaalcha Qofa",
 
-    categoryTitle:"🗂️ Item Transaction Total by Category",
+    mainNoteText:
+      "Main irraa branch tokko filattee Item, Stock fi Report ilaaluu dandeessa.",
 
-    selectCategory:"Select Category",
+    mainCannot:
+      "Main irraa:",
 
-    selectCategoryOption:"-- Select Category --",
+    itemAdd:
+      "Item Add",
 
-    pleaseSelectCategory:"Please select a category.",
+    itemEdit:
+      "Item Edit",
 
-    noData:"No data available.",
+    itemDelete:
+      "Item Delete",
 
-    noTransaction:"No transaction for this category.",
+    mainCannotEnd:
+      "hin danda'amu.",
 
-    item:"Item",
+    refresh:
+      "Refresh",
 
-    in:"IN",
+    backDashboard:
+      "Gara Dashboarditti Deebi'i",
 
-    out:"OUT",
+    logout:
+      "Logout",
 
-    balance:"Balance",
+    openBranch:
+      "👁️ Branch Bani",
 
-    total:"TOTAL",
+    code:
+      "Koodii:",
 
-    branchesTitle:"🏢 AAFDRMC Branches",
+    noData:
+      "Odeeffannoon hin jiru.",
 
-    branchesInfo:
-      "All 12 branches can be viewed from Main.\n\nSelect a branch to view its information.",
+    noTransaction:
+      "Category kanaaf transaction hin jiru.",
 
-    code:"Code:",
+    balance:
+      "Hafe",
 
-    openBranch:"👁️ Open Branch",
+    total:
+      "TOTAL",
 
-    mainViewOnly:"Main / HQ - View Only",
+    item:
+      "Item",
 
-    mainCanView:
-      "From Main, you can select a branch and view its Items, Stock and Report.",
+    in:
+      "IN",
 
-    mainCannot:"From Main:",
+    out:
+      "OUT",
 
-    itemAdd:"Item Add",
+    branchNotSelected:
+      "⚠️ Branch hin filatamne",
 
-    itemEdit:"Item Edit",
+    unknown:
+      "Hin beekamne",
 
-    itemDelete:"Item Delete",
+    mainViewBadge:
+      "👁️ MAIN - VIEW ONLY",
 
-    stockIn:"Stock IN",
-
-    stockOut:"Stock OUT",
-
-    notAllowed:"are not allowed.",
-
-    branchFullAccess:"✏️ BRANCH - FULL ACCESS",
-
-    mainViewBadge:"👁️ MAIN - VIEW ONLY",
-
-    branchUnknown:
-      "Branch not selected.\n\nPlease return to Main Menu and select a branch.",
-
-    dashboardError:
-      "There was a problem loading Dashboard data.\n\n",
-
-    branchUuidError:
-      "Branch UUID could not be found.\n\nBranch: ",
-
-    codeWord:"Code: ",
-
-    loading:"Loading...",
-
-    unknownItem:"Unknown Item"
+    branchFullBadge:
+      "✏️ BRANCH - FULL ACCESS"
 
   },
 
-  om: {
 
-    language:"Afaan",
+  am:{
 
-    dashboardTitle:"AAFDRMC - BULCHIINSA STOCK",
+    appTitle:
+      "AAFDRMC - STOCK MANAGEMENT",
 
-    user:"Fayyadamaa AAFDRMC",
+    language:
+      "ቋንቋ",
 
-    loadingBranch:"Damee fe'aa jira...",
+    currentBranchLabel:
+      "🏢 የአሁኑ ቅርንጫፍ:",
 
-    branchNotSelected:"⚠️ Dameen hin filatamne",
+    branchCodeLabel:
+      "የቅርንጫፍ ኮድ:",
 
-    currentBranchLabel:"🏢 Damee Amma Jiru:",
+    dashboardMenu:
+      "📊 Dashboard Menu",
 
-    branchCodeLabel:"Koodii Damee:",
+    items:
+      "እቃዎች",
 
-    unknown:"Kan hin beekamne",
+    stockInOut:
+      "Stock IN / OUT",
 
-    dashboardMenu:"📊 Filannoo Dashboard",
+    stockReport:
+      "📊 የእቃ ሪፖርት",
 
-    items:"Meeshaalee",
+    settings:
+      "⚙️ ቅንብሮች",
 
-    stockInOut:"Stock IN / OUT",
+    mainMenu:
+      "⬅️ Main Menu",
 
-    stockReport:"Gabaasa Stock",
+    allBranchesReport:
+      "📊 የሁሉም ቅርንጫፎች ሪፖርት",
 
-    settings:"Qindaa'ina",
+    totalItems:
+      "📦 ጠቅላላ እቃዎች",
 
-    refresh:"Haaromsi",
+    stockIn:
+      "🟢 Stock IN",
 
-    mainMenu:"Menu Muummee",
+    stockOut:
+      "🔴 Stock OUT",
 
-    logout:"Ba'i",
+    currentBalance:
+      "📊 ቀሪ እቃ",
 
-    viewItems:"Meeshaalee Ilaali",
+    categoryTitle:
+      "🗂️ የእቃ ግብይት ድምር በምድብ",
 
-    viewStock:"Stock Ilaali",
+    selectCategory:
+      "ምድብ ይምረጡ",
 
-    allBranchesReport:"Gabaasa Dameewwan Hunda",
+    selectCategoryOption:
+      "-- ምድብ ይምረጡ --",
 
-    totalItems:"📦 Meeshaalee Waliigalaa",
+    pleaseSelectCategory:
+      "እባክዎ ምድብ ይምረጡ።",
 
-    stockInSummary:"🟢 Stock Galee",
+    aafdrmcBranches:
+      "🏢 AAFDRMC ቅርንጫፎች",
 
-    stockOutSummary:"🔴 Stock Bahe",
+    mainBranchesInfo:
+      "ከ Main 12 ቅርንጫፎችን ሁሉ ማየት ይቻላል።",
 
-    currentBalance:"📊 Hanga Amma Jiru",
+    selectBranchInfo:
+      "አንድ ቅርንጫፍ ይምረጡ። የዚያን ቅርንጫፍ መረጃ ማየት ይችላሉ።",
 
-    categoryTitle:"🗂️ Waliigala Transaction Meeshaalee Kategoriidhaan",
+    mainViewOnly:
+      "Main / HQ - የማየት ብቻ",
 
-    selectCategory:"Gosa Meeshaa Filadhu",
+    mainNoteText:
+      "ከ Main አንድ ቅርንጫፍ በመምረጥ Item, Stock እና Report ማየት ይችላሉ።",
 
-    selectCategoryOption:"-- Gosa Filadhu --",
+    mainCannot:
+      "ከ Main:",
 
-    pleaseSelectCategory:"Maaloo gosa meeshaa filadhu.",
+    itemAdd:
+      "Item Add",
 
-    noData:"Odeeffannoon hin jiru.",
+    itemEdit:
+      "Item Edit",
 
-    noTransaction:"Gosa kanaaf transaction hin jiru.",
+    itemDelete:
+      "Item Delete",
 
-    item:"Meeshaa",
+    mainCannotEnd:
+      "ማድረግ አይቻልም።",
 
-    in:"Gale",
+    refresh:
+      "Refresh",
 
-    out:"Bahe",
+    backDashboard:
+      "ወደ Dashboard ተመለስ",
 
-    balance:"Hafe",
+    logout:
+      "Logout",
 
-    total:"WALIIGALA",
+    openBranch:
+      "👁️ ቅርንጫፍ ክፈት",
 
-    branchesTitle:"🏢 Dameewwan AAFDRMC",
+    code:
+      "ኮድ:",
 
-    branchesInfo:
-      "Main irraa dameewwan 12 hunda ilaaluu ni dandeessa.\n\nDamee tokko filadhu; odeeffannoo damee sanaa ilaali.",
+    noData:
+      "መረጃ የለም።",
 
-    code:"Koodii:",
+    noTransaction:
+      "ለዚህ ምድብ transaction የለም።",
 
-    openBranch:"👁️ Damee Bani",
+    balance:
+      "ቀሪ",
 
-    mainViewOnly:"Main / HQ - Ilaalcha Qofa",
+    total:
+      "ጠቅላላ",
 
-    mainCanView:
-      "Main irraa damee tokko filattee Meeshaalee, Stock fi Gabaasa isaa ilaaluu dandeessa.",
+    item:
+      "እቃ",
 
-    mainCannot:"Main irraa:",
+    in:
+      "IN",
 
-    itemAdd:"Meeshaa Dabali",
+    out:
+      "OUT",
 
-    itemEdit:"Meeshaa Sirreessi",
+    branchNotSelected:
+      "⚠️ ቅርንጫፍ አልተመረጠም።",
 
-    itemDelete:"Meeshaa Haqi",
+    unknown:
+      "ያልታወቀ",
 
-    stockIn:"Stock IN",
+    mainViewBadge:
+      "👁️ MAIN - VIEW ONLY",
 
-    stockOut:"Stock OUT",
-
-    notAllowed:"hin danda'amu.",
-
-    branchFullAccess:"✏️ DAMEE - MIRGA GUUTUU",
-
-    mainViewBadge:"👁️ MAIN - ILAALCHA QOFA",
-
-    branchUnknown:
-      "Dameen hin filatamne.\n\nMee gara Main Menu deebi'ii damee filadhu.",
-
-    dashboardError:
-      "Odeeffannoo Dashboard fe'uu irratti rakkoon uumame.\n\n",
-
-    branchUuidError:
-      "UUID Damee argachuu hin dandeenye.\n\nDamee: ",
-
-    codeWord:"Koodii: ",
-
-    loading:"Fe'aa jira...",
-
-    unknownItem:"Meeshaa hin beekamne"
+    branchFullBadge:
+      "✏️ BRANCH - FULL ACCESS"
 
   },
 
-  am: {
 
-    language:"ቋንቋ",
+  en:{
 
-    dashboardTitle:"AAFDRMC - የእቃ አስተዳደር",
+    appTitle:
+      "AAFDRMC - STOCK MANAGEMENT",
 
-    user:"AAFDRMC ተጠቃሚ",
+    language:
+      "Language",
 
-    loadingBranch:"ቅርንጫፍ በመጫን ላይ...",
+    currentBranchLabel:
+      "🏢 Current Branch:",
 
-    branchNotSelected:"⚠️ ቅርንጫፍ አልተመረጠም",
+    branchCodeLabel:
+      "Branch Code:",
 
-    currentBranchLabel:"🏢 የአሁኑ ቅርንጫፍ:",
+    dashboardMenu:
+      "📊 Dashboard Menu",
 
-    branchCodeLabel:"የቅርንጫፍ ኮድ:",
+    items:
+      "Items",
 
-    unknown:"ያልታወቀ",
+    stockInOut:
+      "Stock IN / OUT",
 
-    dashboardMenu:"📊 የዳሽቦርድ ምናሌ",
+    stockReport:
+      "📊 Stock Report",
 
-    items:"እቃዎች",
+    settings:
+      "⚙️ Settings",
 
-    stockInOut:"Stock IN / OUT",
+    mainMenu:
+      "⬅️ Main Menu",
 
-    stockReport:"የእቃ ሪፖርት",
+    allBranchesReport:
+      "📊 All Branches Report",
 
-    settings:"ቅንብሮች",
+    totalItems:
+      "📦 Total Items",
 
-    refresh:"አድስ",
+    stockIn:
+      "🟢 Stock IN",
 
-    mainMenu:"ዋና ምናሌ",
+    stockOut:
+      "🔴 Stock OUT",
 
-    logout:"ውጣ",
+    currentBalance:
+      "📊 Current Balance",
 
-    viewItems:"እቃዎችን ይመልከቱ",
+    categoryTitle:
+      "🗂️ Item Transaction Total by Category",
 
-    viewStock:"Stock ይመልከቱ",
+    selectCategory:
+      "Select Category",
 
-    allBranchesReport:"የሁሉም ቅርንጫፎች ሪፖርት",
+    selectCategoryOption:
+      "-- Select Category --",
 
-    totalItems:"📦 ጠቅላላ እቃዎች",
+    pleaseSelectCategory:
+      "Please select a category.",
 
-    stockInSummary:"🟢 የገባ Stock",
+    aafdrmcBranches:
+      "🏢 AAFDRMC Branches",
 
-    stockOutSummary:"🔴 የወጣ Stock",
+    mainBranchesInfo:
+      "All 12 branches can be viewed from Main.",
 
-    currentBalance:"📊 አሁን ያለው ቀሪ",
+    selectBranchInfo:
+      "Select a branch to view its information.",
 
-    categoryTitle:"🗂️ የእቃ ግብይት ድምር በምድብ",
+    mainViewOnly:
+      "Main / HQ - View Only",
 
-    selectCategory:"ምድብ ይምረጡ",
+    mainNoteText:
+      "From Main, you can select a branch and view Items, Stock and Reports.",
 
-    selectCategoryOption:"-- ምድብ ይምረጡ --",
+    mainCannot:
+      "From Main:",
 
-    pleaseSelectCategory:"እባክዎ ምድብ ይምረጡ።",
+    itemAdd:
+      "Item Add",
 
-    noData:"ምንም መረጃ የለም።",
+    itemEdit:
+      "Item Edit",
 
-    noTransaction:"ለዚህ ምድብ ግብይት የለም።",
+    itemDelete:
+      "Item Delete",
 
-    item:"እቃ",
+    mainCannotEnd:
+      "are not allowed.",
 
-    in:"ገቢ",
+    refresh:
+      "Refresh",
 
-    out:"ወጪ",
+    backDashboard:
+      "Back to Dashboard",
 
-    balance:"ቀሪ",
+    logout:
+      "Logout",
 
-    total:"ጠቅላላ",
+    openBranch:
+      "👁️ Open Branch",
 
-    branchesTitle:"🏢 AAFDRMC ቅርንጫፎች",
+    code:
+      "Code:",
 
-    branchesInfo:
-      "ከMain ሁሉንም 12 ቅርንጫፎች ማየት ይቻላል።\n\nአንድ ቅርንጫፍ ይምረጡ እና መረጃውን ይመልከቱ።",
+    noData:
+      "No data available.",
 
-    code:"ኮድ:",
+    noTransaction:
+      "No transaction for this category.",
 
-    openBranch:"👁️ ቅርንጫፍ ክፈት",
+    balance:
+      "Balance",
 
-    mainViewOnly:"Main / HQ - ለማየት ብቻ",
+    total:
+      "TOTAL",
 
-    mainCanView:
-      "ከMain አንድ ቅርንጫፍ በመምረጥ Items፣ Stock እና Report ማየት ይችላሉ።",
+    item:
+      "Item",
 
-    mainCannot:"ከMain:",
+    in:
+      "IN",
 
-    itemAdd:"እቃ መጨመር",
+    out:
+      "OUT",
 
-    itemEdit:"እቃ ማስተካከል",
+    branchNotSelected:
+      "⚠️ Branch not selected",
 
-    itemDelete:"እቃ መሰረዝ",
+    unknown:
+      "Unknown",
 
-    stockIn:"Stock IN",
+    mainViewBadge:
+      "👁️ MAIN - VIEW ONLY",
 
-    stockOut:"Stock OUT",
-
-    notAllowed:"አይቻልም።",
-
-    branchFullAccess:"✏️ ቅርንጫፍ - ሙሉ መብት",
-
-    mainViewBadge:"👁️ MAIN - ለማየት ብቻ",
-
-    branchUnknown:
-      "ቅርንጫፍ አልተመረጠም።\n\nእባክዎ ወደ Main Menu ተመልሰው ቅርንጫፍ ይምረጡ።",
-
-    dashboardError:
-      "የDashboard መረጃን በመጫን ላይ ችግር ተፈጥሯል።\n\n",
-
-    branchUuidError:
-      "የቅርንጫፍ UUID ማግኘት አልተቻለም።\n\nቅርንጫፍ: ",
-
-    codeWord:"ኮድ: ",
-
-    loading:"በመጫን ላይ...",
-
-    unknownItem:"ያልታወቀ እቃ"
+    branchFullBadge:
+      "✏️ BRANCH - FULL ACCESS"
 
   }
 
@@ -1189,11 +1531,13 @@ const TRANSLATIONS = {
 
 
 /* =====================================================
-   LANGUAGE FUNCTIONS
+   CURRENT LANGUAGE
 ===================================================== */
 
 let currentLanguage =
-  localStorage.getItem("aafdrmc_language") || "om";
+  localStorage.getItem(
+    "aafdrmc_language"
+  ) || "om";
 
 
 function t(key){
@@ -1201,66 +1545,9 @@ function t(key){
   return (
     TRANSLATIONS[currentLanguage] &&
     TRANSLATIONS[currentLanguage][key]
-  )
-  ||
-  TRANSLATIONS.en[key]
-  ||
+  ) ||
+  TRANSLATIONS.om[key] ||
   key;
-
-}
-
-
-function applyLanguage(){
-
-  document.documentElement.lang =
-    currentLanguage === "om"
-      ? "om"
-      : currentLanguage === "am"
-        ? "am"
-        : "en";
-
-
-  document
-    .querySelectorAll("[data-i18n]")
-    .forEach(function(element){
-
-      const key =
-        element.getAttribute("data-i18n");
-
-      element.textContent =
-        t(key);
-
-    });
-
-
-  const languageSelect =
-    document.getElementById("languageSelect");
-
-  if(languageSelect){
-
-    languageSelect.value =
-      currentLanguage;
-
-  }
-
-
-  document.title =
-    currentLanguage === "om"
-      ? "AAFDRMC - Dashboard"
-      : currentLanguage === "am"
-        ? "AAFDRMC - ዳሽቦርድ"
-        : "AAFDRMC - Dashboard";
-
-
-  updateBranchTexts();
-
-  buildCategoryDropdown();
-
-  renderSelectedCategory();
-
-  setupMenu();
-
-  updateMainNote();
 
 }
 
@@ -1283,7 +1570,6 @@ function changeLanguage(language){
   currentLanguage =
     language;
 
-
   localStorage.setItem(
     "aafdrmc_language",
     currentLanguage
@@ -1291,6 +1577,71 @@ function changeLanguage(language){
 
 
   applyLanguage();
+
+  buildCategoryDropdown();
+
+  renderSelectedCategory();
+
+  showBranch();
+
+  setupMenu();
+
+  if(isMainUser()){
+
+    showAllBranches();
+
+  }
+
+}
+
+
+/* =====================================================
+   APPLY LANGUAGE
+===================================================== */
+
+function applyLanguage(){
+
+  document.documentElement.lang =
+    currentLanguage;
+
+
+  const elements =
+    document.querySelectorAll(
+      "[data-i18n]"
+    );
+
+
+  elements.forEach(
+    function(element){
+
+      const key =
+        element.getAttribute(
+          "data-i18n"
+        );
+
+      if(t(key)){
+
+        element.textContent =
+          t(key);
+
+      }
+
+    }
+  );
+
+
+  const languageSelect =
+    document.getElementById(
+      "languageSelect"
+    );
+
+
+  if(languageSelect){
+
+    languageSelect.value =
+      currentLanguage;
+
+  }
 
 }
 
@@ -1300,11 +1651,15 @@ function changeLanguage(language){
 ===================================================== */
 
 const isLoggedIn =
-localStorage.getItem("is_logged_in") === "true";
+localStorage.getItem(
+  "is_logged_in"
+) === "true";
+
 
 if(!isLoggedIn){
 
-  window.location.href = "index.html";
+  window.location.href =
+    "index.html";
 
 }
 
@@ -1314,13 +1669,19 @@ if(!isLoggedIn){
 ===================================================== */
 
 let branchName =
-localStorage.getItem("selected_branch_name") || "";
+  localStorage.getItem(
+    "selected_branch_name"
+  ) || "";
 
 let branchCode =
-localStorage.getItem("selected_branch_code") || "";
+  localStorage.getItem(
+    "selected_branch_code"
+  ) || "";
 
 let branchUUID =
-localStorage.getItem("selected_branch_uuid") || "";
+  localStorage.getItem(
+    "selected_branch_uuid"
+  ) || "";
 
 
 /* =====================================================
@@ -1328,7 +1689,9 @@ localStorage.getItem("selected_branch_uuid") || "";
 ===================================================== */
 
 const userRole =
-localStorage.getItem("user_role") || "";
+  localStorage.getItem(
+    "user_role"
+  ) || "";
 
 
 /* =====================================================
@@ -1462,44 +1825,32 @@ const CATEGORIES = [
 
   {
     key:"Strategic Food",
-    om:"Meeshaalee Nyaataa Tarsiimawaa",
-    am:"ስትራቴጂክ የምግብ እቃዎች",
-    en:"Strategic Food Items"
+    name:"Meeshaalee Nyaataa Tarsiimawaa"
   },
 
   {
     key:"Daily Food",
-    om:"Meeshaalee Nyaataa Guyyaa Guyyaa",
-    am:"የዕለት ተዕለት የምግብ እቃዎች",
-    en:"Daily Food Items"
+    name:"Meeshaalee Nyaataa Guyyaa Guyyaa"
   },
 
   {
     key:"Daily Non-Food",
-    om:"Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa",
-    am:"የዕለት ተዕለት የምግብ ያልሆኑ እቃዎች",
-    en:"Daily Non-Food Items"
+    name:"Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa"
   },
 
   {
     key:"Non-Food Kitchen",
-    om:"Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan",
-    am:"የምግብ ያልሆኑ የኩሽና እቃዎች",
-    en:"Non-Food Kitchen Items"
+    name:"Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan"
   },
 
   {
     key:"Hygiene",
-    om:"Meeshaalee Qulqullinaa",
-    am:"የንጽህና እቃዎች",
-    en:"Non-Food Hygiene Items"
+    name:"Meeshaalee Qulqullinaa"
   },
 
   {
     key:"Building",
-    om:"Meeshaalee Ijaarsa",
-    am:"የግንባታ እቃዎች",
-    en:"Non-Food Building/Construction Items"
+    name:"Meeshaa Ijaarsa Manaaf Oolu"
   }
 
 ];
@@ -1547,70 +1898,16 @@ function getHeaders(){
 function showMessage(text,type){
 
   const box =
-    document.getElementById("message");
+    document.getElementById(
+      "message"
+    );
 
-  box.textContent = text;
+  box.textContent =
+    text;
 
   box.className =
-    "message show " + type;
-
-}
-
-
-/* =====================================================
-   BRANCH TEXT
-===================================================== */
-
-function updateBranchTexts(){
-
-  const branchElement =
-    document.getElementById("branchName");
-
-  if(!branchName){
-
-    branchElement.textContent =
-      t("branchNotSelected");
-
-    document.getElementById("currentBranch")
-      .textContent =
-      t("unknown");
-
-    document.getElementById("currentCode")
-      .textContent =
-      "—";
-
-    return;
-
-  }
-
-
-  branchElement.textContent =
-    "🏢 " + branchName;
-
-  document.getElementById("currentBranch")
-    .textContent =
-    branchName;
-
-  document.getElementById("currentCode")
-    .textContent =
-    branchCode || "—";
-
-
-  const badge =
-    document.getElementById("modeBadge");
-
-  if(isMainUser()){
-
-    badge.textContent =
-      t("mainViewBadge");
-
-  }
-  else{
-
-    badge.textContent =
-      t("branchFullAccess");
-
-  }
+    "message show " +
+    type;
 
 }
 
@@ -1623,10 +1920,30 @@ function showBranch(){
 
   if(!branchName){
 
-    updateBranchTexts();
+    document.getElementById(
+      "branchName"
+    ).textContent =
+      t("branchNotSelected");
+
+
+    document.getElementById(
+      "currentBranch"
+    ).textContent =
+      t("unknown");
+
+
+    document.getElementById(
+      "currentCode"
+    ).textContent =
+      "—";
+
 
     showMessage(
-      t("branchUnknown"),
+      currentLanguage === "am"
+        ? "ቅርንጫፍ አልተመረጠም።\n\nወደ Main Menu ተመልሰው ቅርንጫፍ ይምረጡ።"
+        : currentLanguage === "en"
+        ? "Branch not selected.\n\nPlease return to Main Menu and select a branch."
+        : "Branch hin filatamne.\n\nMee gara Main Menu deebi'ii Branch filadhu.",
       "error"
     );
 
@@ -1634,39 +1951,46 @@ function showBranch(){
 
   }
 
-  updateBranchTexts();
 
-  return true;
+  document.getElementById(
+    "branchName"
+  ).textContent =
+    "🏢 " + branchName;
 
-}
+
+  document.getElementById(
+    "currentBranch"
+  ).textContent =
+    branchName;
 
 
-/* =====================================================
-   MAIN NOTE
-===================================================== */
+  document.getElementById(
+    "currentCode"
+  ).textContent =
+    branchCode || "—";
 
-function updateMainNote(){
 
-  const mainNote =
-    document.getElementById("mainNote");
+  const badge =
+    document.getElementById(
+      "modeBadge"
+    );
 
-  if(!mainNote){
-    return;
-  }
 
-  const shouldShow =
-    isMainUser();
+  if(isMainUser()){
 
-  if(shouldShow){
-
-    mainNote.classList.remove("hidden");
+    badge.textContent =
+      t("mainViewBadge");
 
   }
   else{
 
-    mainNote.classList.add("hidden");
+    badge.textContent =
+      t("branchFullBadge");
 
   }
+
+
+  return true;
 
 }
 
@@ -1678,79 +2002,123 @@ function updateMainNote(){
 function setupMenu(){
 
   const branchMenu =
-    document.getElementById("branchMenu");
+    document.getElementById(
+      "branchMenu"
+    );
 
   const mainMenu =
-    document.getElementById("mainMenu");
+    document.getElementById(
+      "mainMenu"
+    );
 
   const mainNote =
-    document.getElementById("mainNote");
+    document.getElementById(
+      "mainNote"
+    );
 
   const allBranchesCard =
-    document.getElementById("allBranchesCard");
+    document.getElementById(
+      "allBranchesCard"
+    );
 
   const settingsButton =
-    document.getElementById("settingsButton");
+    document.getElementById(
+      "settingsButton"
+    );
 
 
-  /* =================================================
-     MAIN HQ
-  ================================================= */
+  /* MAIN HQ */
 
   if(isMainHQ()){
 
-    branchMenu.classList.add("hidden");
+    branchMenu.classList.add(
+      "hidden"
+    );
 
-    mainMenu.classList.remove("hidden");
+    mainMenu.classList.remove(
+      "hidden"
+    );
 
-    mainNote.classList.remove("hidden");
+    mainNote.classList.remove(
+      "hidden"
+    );
 
-    allBranchesCard.classList.remove("hidden");
+    allBranchesCard.classList.remove(
+      "hidden"
+    );
 
     return;
 
   }
 
 
-  /* =================================================
-     MAIN USER VIEWING BRANCH
-  ================================================= */
+  /* MAIN USER VIEWING BRANCH */
 
   if(isMainUser()){
 
-    branchMenu.classList.remove("hidden");
+    branchMenu.classList.remove(
+      "hidden"
+    );
 
-    mainMenu.classList.add("hidden");
+    mainMenu.classList.add(
+      "hidden"
+    );
 
-    mainNote.classList.remove("hidden");
+    mainNote.classList.remove(
+      "hidden"
+    );
 
-    allBranchesCard.classList.remove("hidden");
+    allBranchesCard.classList.remove(
+      "hidden"
+    );
 
 
     if(settingsButton){
 
-      settingsButton.classList.add("hidden");
+      settingsButton.classList.add(
+        "hidden"
+      );
 
     }
 
 
     const itemsButton =
-      document.getElementById("itemsButton");
+      document.getElementById(
+        "itemsButton"
+      );
+
 
     itemsButton.innerHTML =
       "👁️ " +
-      `<span>${escapeHTML(t("viewItems"))}</span>`;
+      (
+        currentLanguage === "am"
+          ? "እቃዎችን ይመልከቱ"
+          : currentLanguage === "en"
+          ? "View Items"
+          : "Meeshaalee Ilaali"
+      );
+
 
     itemsButton.className =
       "btn view-only-btn";
 
 
     const stockButton =
-      document.getElementById("stockButton");
+      document.getElementById(
+        "stockButton"
+      );
+
 
     stockButton.innerHTML =
       "👁️ " +
-      `<span>${escapeHTML(t("viewStock"))}</span>`;
+      (
+        currentLanguage === "am"
+          ? "Stock ይመልከቱ"
+          : currentLanguage === "en"
+          ? "View Stock"
+          : "Stock Ilaali"
+      );
+
 
     stockButton.className =
       "btn view-only-btn";
@@ -1760,58 +2128,58 @@ function setupMenu(){
   }
 
 
-  /* =================================================
-     OPERATIONAL BRANCH
-  ================================================= */
+  /* OPERATIONAL BRANCH */
 
-  branchMenu.classList.remove("hidden");
+  branchMenu.classList.remove(
+    "hidden"
+  );
 
-  mainMenu.classList.add("hidden");
+  mainMenu.classList.add(
+    "hidden"
+  );
 
-  mainNote.classList.add("hidden");
+  mainNote.classList.add(
+    "hidden"
+  );
 
-  allBranchesCard.classList.add("hidden");
+  allBranchesCard.classList.add(
+    "hidden"
+  );
 
 
   if(settingsButton){
 
-    settingsButton.classList.add("hidden");
+    settingsButton.classList.add(
+      "hidden"
+    );
 
   }
 
 
-  document.getElementById("itemsButton").innerHTML =
-    `📦 <span>${escapeHTML(t("items"))}</span>`;
+  document.getElementById(
+    "itemsButton"
+  ).innerHTML =
+    "📦 " +
+    t("items");
 
-  document.getElementById("itemsButton")
-    .className =
+
+  document.getElementById(
+    "itemsButton"
+  ).className =
     "btn items";
 
 
-  document.getElementById("stockButton").innerHTML =
-    `📥 <span>${escapeHTML(t("stockInOut"))}</span>`;
+  document.getElementById(
+    "stockButton"
+  ).innerHTML =
+    "📥 " +
+    t("stockInOut");
 
-  document.getElementById("stockButton")
-    .className =
+
+  document.getElementById(
+    "stockButton"
+  ).className =
     "btn stock";
-
-}
-
-
-/* =====================================================
-   CATEGORY NAME
-===================================================== */
-
-function getCategoryName(category){
-
-  if(!category){
-    return "";
-  }
-
-  return category[currentLanguage] ||
-         category.en ||
-         category.om ||
-         category.key;
 
 }
 
@@ -1823,42 +2191,59 @@ function getCategoryName(category){
 function buildCategoryDropdown(){
 
   const select =
-    document.getElementById("categorySelect");
+    document.getElementById(
+      "categorySelect"
+    );
 
-  if(!select){
-    return;
-  }
 
   const oldValue =
     select.value;
+
 
   select.innerHTML = "";
 
 
   const firstOption =
-    document.createElement("option");
+    document.createElement(
+      "option"
+    );
 
-  firstOption.value = "";
+
+  firstOption.value =
+    "";
+
 
   firstOption.textContent =
     t("selectCategoryOption");
 
-  select.appendChild(firstOption);
+
+  select.appendChild(
+    firstOption
+  );
 
 
   CATEGORIES.forEach(
     function(cat){
 
       const option =
-        document.createElement("option");
+        document.createElement(
+          "option"
+        );
+
 
       option.value =
         cat.key;
 
-      option.textContent =
-        getCategoryName(cat);
 
-      select.appendChild(option);
+      option.textContent =
+        getCategoryDisplayName(
+          cat.key
+        );
+
+
+      select.appendChild(
+        option
+      );
 
     }
   );
@@ -1881,6 +2266,111 @@ function buildCategoryDropdown(){
 
 
 /* =====================================================
+   CATEGORY DISPLAY NAME
+===================================================== */
+
+function getCategoryDisplayName(
+  categoryKey
+){
+
+  const names = {
+
+    "Strategic Food":{
+
+      om:
+        "Meeshaalee Nyaataa Tarsiimawaa",
+
+      am:
+        "ስትራቴጂክ የምግብ እቃዎች",
+
+      en:
+        "Strategic Food Items"
+
+    },
+
+
+    "Daily Food":{
+
+      om:
+        "Meeshaalee Nyaataa Guyyaa Guyyaa",
+
+      am:
+        "የዕለት ተዕለት የምግብ እቃዎች",
+
+      en:
+        "Daily Food Items"
+
+    },
+
+
+    "Daily Non-Food":{
+
+      om:
+        "Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa",
+
+      am:
+        "የዕለት ተዕለት የምግብ ያልሆኑ እቃዎች",
+
+      en:
+        "Daily Non-Food Items"
+
+    },
+
+
+    "Non-Food Kitchen":{
+
+      om:
+        "Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan",
+
+      am:
+        "የምግብ ማዘጋጃ ያልሆኑ የኩሽና እቃዎች",
+
+      en:
+        "Non-Food Kitchen Items"
+
+    },
+
+
+    "Hygiene":{
+
+      om:
+        "Meeshaalee Qulqullinaa",
+
+      am:
+        "የንጽህና እቃዎች",
+
+      en:
+        "Non-Food Hygiene Items"
+
+    },
+
+
+    "Building":{
+
+      om:
+        "Meeshaa Ijaarsa Manaaf Oolu",
+
+      am:
+        "የግንባታ እቃዎች",
+
+      en:
+        "Non-Food Building / Construction Items"
+
+    }
+
+  };
+
+
+  return (
+    names[categoryKey] &&
+    names[categoryKey][currentLanguage]
+  ) ||
+  categoryKey;
+
+}
+
+
+/* =====================================================
    UUID CHECK
 ===================================================== */
 
@@ -1890,8 +2380,11 @@ function isUUID(value){
     return false;
   }
 
+
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    .test(String(value).trim());
+    .test(
+      String(value).trim()
+    );
 
 }
 
@@ -1940,10 +2433,12 @@ async function resolveBranchUUID(){
     branchUUID =
       knownBranch.uuid;
 
+
     localStorage.setItem(
       "selected_branch_uuid",
       branchUUID
     );
+
 
     return branchUUID;
 
@@ -1966,6 +2461,7 @@ async function resolveBranchUUID(){
     const errorText =
       await response.text();
 
+
     throw new Error(
       "Branches loading failed: " +
       errorText
@@ -1979,18 +2475,22 @@ async function resolveBranchUUID(){
 
 
   const code =
-    String(branchCode || "")
-      .trim()
-      .toLowerCase();
+    String(
+      branchCode || ""
+    )
+    .trim()
+    .toLowerCase();
 
 
   const name =
-    String(branchName || "")
-      .trim()
-      .toLowerCase();
+    String(
+      branchName || ""
+    )
+    .trim()
+    .toLowerCase();
 
 
-  let found =
+  const found =
     branches.find(
       function(b){
 
@@ -2004,6 +2504,7 @@ async function resolveBranchUUID(){
           .trim()
           .toLowerCase();
 
+
         const bName =
           String(
             b.branch_name ||
@@ -2013,6 +2514,7 @@ async function resolveBranchUUID(){
           )
           .trim()
           .toLowerCase();
+
 
         return (
           (code && bCode === code) ||
@@ -2029,10 +2531,10 @@ async function resolveBranchUUID(){
   ){
 
     throw new Error(
-      t("branchUuidError") +
+      "Branch UUID hin argamne.\n\n" +
+      "Branch: " +
       branchName +
-      "\n" +
-      t("codeWord") +
+      "\nCode: " +
       branchCode
     );
 
@@ -2072,6 +2574,7 @@ async function loadItems(){
       const uuid =
         await resolveBranchUUID();
 
+
       if(uuid){
 
         url +=
@@ -2083,7 +2586,8 @@ async function loadItems(){
     }
 
 
-    url += "&order=id.asc";
+    url +=
+      "&order=id.asc";
 
 
     const response =
@@ -2149,6 +2653,7 @@ async function loadTransactions(){
       const uuid =
         await resolveBranchUUID();
 
+
       if(uuid){
 
         url +=
@@ -2160,7 +2665,8 @@ async function loadTransactions(){
     }
 
 
-    url += "&order=id.desc";
+    url +=
+      "&order=id.desc";
 
 
     const response =
@@ -2212,10 +2718,11 @@ async function loadTransactions(){
    TRANSACTION TYPE
 ===================================================== */
 
-function getTransactionType(t){
+function getTransactionType(transaction){
 
   return String(
-    t.transaction_type || ""
+    transaction.transaction_type ||
+    ""
   )
   .trim()
   .toUpperCase();
@@ -2224,14 +2731,16 @@ function getTransactionType(t){
 
 
 /* =====================================================
-   NORMALIZE
+   NORMALIZE CATEGORY
 ===================================================== */
 
 function normalizeCategory(value){
 
-  return String(value || "")
-    .trim()
-    .toLowerCase();
+  return String(
+    value || ""
+  )
+  .trim()
+  .toLowerCase();
 
 }
 
@@ -2331,16 +2840,20 @@ function findCategory(value){
 
 /* =====================================================
    ITEM NAME
+   IMPORTANT: parameter is NOT "t"
 ===================================================== */
 
-function getItemName(t){
+function getItemName(transaction){
 
   const possibleNames = [
 
-    t.transaction,
-    t.item_name,
-    t.itemName,
-    t.name
+    transaction.transaction,
+
+    transaction.item_name,
+
+    transaction.itemName,
+
+    transaction.name
 
   ];
 
@@ -2354,17 +2867,20 @@ function getItemName(t){
     const value =
       String(
         possibleNames[i] || ""
-      ).trim();
+      )
+      .trim();
 
 
     if(value){
+
       return value;
+
     }
 
   }
 
 
-  return t("unknownItem");
+  return t("unknown");
 
 }
 
@@ -2373,7 +2889,9 @@ function getItemName(t){
    PREPARE CATEGORY DATA
 ===================================================== */
 
-function prepareCategoryData(transactions){
+function prepareCategoryData(
+  transactions
+){
 
   const data = {};
 
@@ -2405,7 +2923,9 @@ function prepareCategoryData(transactions){
 
 
       if(!categoryKey){
+
         return;
+
       }
 
 
@@ -2425,11 +2945,15 @@ function prepareCategoryData(transactions){
 
 
       const type =
-        getTransactionType(transaction);
+        getTransactionType(
+          transaction
+        );
 
 
       const itemName =
-        getItemName(transaction);
+        getItemName(
+          transaction
+        );
 
 
       if(
@@ -2441,6 +2965,7 @@ function prepareCategoryData(transactions){
           .items[itemName] = {
 
             in:0,
+
             out:0
 
           };
@@ -2450,24 +2975,26 @@ function prepareCategoryData(transactions){
 
       if(type === "IN"){
 
-        data[categoryKey].totalIn +=
-          quantity;
+        data[categoryKey]
+          .totalIn += quantity;
+
 
         data[categoryKey]
-          .items[itemName].in +=
-          quantity;
+          .items[itemName]
+          .in += quantity;
 
       }
 
 
       if(type === "OUT"){
 
-        data[categoryKey].totalOut +=
-          quantity;
+        data[categoryKey]
+          .totalOut += quantity;
+
 
         data[categoryKey]
-          .items[itemName].out +=
-          quantity;
+          .items[itemName]
+          .out += quantity;
 
       }
 
@@ -2493,6 +3020,13 @@ function renderSelectedCategory(){
     );
 
 
+  if(!select){
+
+    return;
+
+  }
+
+
   const selected =
     select.value;
 
@@ -2511,13 +3045,14 @@ function renderSelectedCategory(){
 
   if(!selected){
 
-    titleBox.classList.add("hidden");
+    titleBox.classList.add(
+      "hidden"
+    );
 
 
     result.innerHTML = `
 
-      <div class="no-transaction"
-           data-i18n="pleaseSelectCategory">
+      <div class="no-transaction">
         ${escapeHTML(
           t("pleaseSelectCategory")
         )}
@@ -2533,7 +3068,9 @@ function renderSelectedCategory(){
   const category =
     CATEGORIES.find(
       function(cat){
+
         return cat.key === selected;
+
       }
     );
 
@@ -2542,12 +3079,17 @@ function renderSelectedCategory(){
     dashboardCategoryData[selected];
 
 
-  if(!category || !data){
+  if(
+    !category ||
+    !data
+  ){
 
     result.innerHTML = `
 
       <div class="no-transaction">
-        ${escapeHTML(t("noData"))}
+        ${escapeHTML(
+          t("noData")
+        )}
       </div>
 
     `;
@@ -2557,19 +3099,27 @@ function renderSelectedCategory(){
   }
 
 
-  titleBox.classList.remove("hidden");
+  titleBox.classList.remove(
+    "hidden"
+  );
 
 
   titleBox.textContent =
-    "🗂️ " + getCategoryName(category);
+    "🗂️ " +
+    getCategoryDisplayName(
+      category.key
+    );
 
 
   const itemNames =
-    Object.keys(data.items)
-      .sort();
+    Object.keys(
+      data.items
+    ).sort();
 
 
-  if(itemNames.length === 0){
+  if(
+    itemNames.length === 0
+  ){
 
     result.innerHTML = `
 
@@ -2610,13 +3160,21 @@ function renderSelectedCategory(){
 
           <tr>
 
-            <th>${escapeHTML(t("item"))}</th>
+            <th>${escapeHTML(
+              t("item")
+            )}</th>
 
-            <th>${escapeHTML(t("in"))}</th>
+            <th>${escapeHTML(
+              t("in")
+            )}</th>
 
-            <th>${escapeHTML(t("out"))}</th>
+            <th>${escapeHTML(
+              t("out")
+            )}</th>
 
-            <th>${escapeHTML(t("balance"))}</th>
+            <th>${escapeHTML(
+              t("balance")
+            )}</th>
 
           </tr>
 
@@ -2676,19 +3234,27 @@ function renderSelectedCategory(){
         <tr class="category-total-row">
 
           <td>
-            ${escapeHTML(t("total"))}
+            ${escapeHTML(
+              t("total")
+            )}
           </td>
 
           <td class="in-number">
-            ${formatNumber(data.totalIn)}
+            ${formatNumber(
+              data.totalIn
+            )}
           </td>
 
           <td class="out-number">
-            ${formatNumber(data.totalOut)}
+            ${formatNumber(
+              data.totalOut
+            )}
           </td>
 
           <td class="balance-number">
-            ${formatNumber(totalBalance)}
+            ${formatNumber(
+              totalBalance
+            )}
           </td>
 
         </tr>
@@ -2702,7 +3268,8 @@ function renderSelectedCategory(){
   `;
 
 
-  result.innerHTML = html;
+  result.innerHTML =
+    html;
 
 }
 
@@ -2731,12 +3298,29 @@ function formatNumber(value){
 
 function escapeHTML(value){
 
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(
+    value || ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
@@ -2748,43 +3332,64 @@ function escapeHTML(value){
 function showAllBranches(){
 
   const grid =
-    document.getElementById("branchGrid");
+    document.getElementById(
+      "branchGrid"
+    );
 
 
-  grid.innerHTML = "";
+  grid.innerHTML =
+    "";
 
 
   BRANCHES.forEach(
     function(branch){
 
       const box =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       box.className =
         "branch-box";
 
 
       const name =
-        document.createElement("strong");
+        document.createElement(
+          "strong"
+        );
+
 
       name.textContent =
-        "🏢 " + branch.name;
+        "🏢 " +
+        branch.name;
 
 
       const code =
-        document.createElement("small");
+        document.createElement(
+          "small"
+        );
+
 
       code.textContent =
-        t("code") + " " + branch.code;
+        t("code") +
+        " " +
+        branch.code;
 
 
       const button =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
 
-      button.type = "button";
+
+      button.type =
+        "button";
+
 
       button.className =
         "btn branch-btn";
+
 
       button.textContent =
         t("openBranch");
@@ -2793,18 +3398,31 @@ function showAllBranches(){
       button.onclick =
         function(){
 
-          openBranch(branch);
+          openBranch(
+            branch
+          );
 
         };
 
 
-      box.appendChild(name);
+      box.appendChild(
+        name
+      );
 
-      box.appendChild(code);
 
-      box.appendChild(button);
+      box.appendChild(
+        code
+      );
 
-      grid.appendChild(box);
+
+      box.appendChild(
+        button
+      );
+
+
+      grid.appendChild(
+        box
+      );
 
     }
   );
@@ -2817,6 +3435,13 @@ function showAllBranches(){
 ===================================================== */
 
 function openBranch(branch){
+
+  /*
+    Main role hin jijjiiramu.
+    Main yeroo branch filatu
+    VIEW ONLY ta'ee hafa.
+  */
+
 
   localStorage.setItem(
     "selected_branch_id",
@@ -2855,7 +3480,9 @@ function openBranch(branch){
 async function loadDashboard(){
 
   if(!showBranch()){
+
     return;
+
   }
 
 
@@ -2871,17 +3498,28 @@ async function loadDashboard(){
   }
 
 
-  document.getElementById("totalItems")
-    .textContent = "...";
+  document.getElementById(
+    "totalItems"
+  ).textContent =
+    "...";
 
-  document.getElementById("totalIn")
-    .textContent = "...";
 
-  document.getElementById("totalOut")
-    .textContent = "...";
+  document.getElementById(
+    "totalIn"
+  ).textContent =
+    "...";
 
-  document.getElementById("balance")
-    .textContent = "...";
+
+  document.getElementById(
+    "totalOut"
+  ).textContent =
+    "...";
+
+
+  document.getElementById(
+    "balance"
+  ).textContent =
+    "...";
 
 
   try{
@@ -2894,9 +3532,12 @@ async function loadDashboard(){
       await loadTransactions();
 
 
-    let totalIn = 0;
+    let totalIn =
+      0;
 
-    let totalOut = 0;
+
+    let totalOut =
+      0;
 
 
     transactions.forEach(
@@ -2909,19 +3550,23 @@ async function loadDashboard(){
 
 
         const type =
-          getTransactionType(transaction);
+          getTransactionType(
+            transaction
+          );
 
 
         if(type === "IN"){
 
-          totalIn += quantity;
+          totalIn +=
+            quantity;
 
         }
 
 
         if(type === "OUT"){
 
-          totalOut += quantity;
+          totalOut +=
+            quantity;
 
         }
 
@@ -2930,37 +3575,43 @@ async function loadDashboard(){
 
 
     const balance =
-      totalIn - totalOut;
+      totalIn -
+      totalOut;
 
 
-    document.getElementById("totalItems")
-      .textContent =
+    document.getElementById(
+      "totalItems"
+    ).textContent =
       items.length.toLocaleString();
 
 
-    document.getElementById("totalIn")
-      .textContent =
-      formatNumber(totalIn);
+    document.getElementById(
+      "totalIn"
+    ).textContent =
+      formatNumber(
+        totalIn
+      );
 
 
-    document.getElementById("totalOut")
-      .textContent =
-      formatNumber(totalOut);
+    document.getElementById(
+      "totalOut"
+    ).textContent =
+      formatNumber(
+        totalOut
+      );
 
 
-    document.getElementById("balance")
-      .textContent =
-      formatNumber(balance);
+    document.getElementById(
+      "balance"
+    ).textContent =
+      formatNumber(
+        balance
+      );
 
 
     prepareCategoryData(
       transactions
     );
-
-
-    document.getElementById(
-      "categorySelect"
-    ).value = "";
 
 
     renderSelectedCategory();
@@ -2974,21 +3625,38 @@ async function loadDashboard(){
     );
 
 
-    document.getElementById("totalItems")
-      .textContent = "0";
+    document.getElementById(
+      "totalItems"
+    ).textContent =
+      "0";
 
-    document.getElementById("totalIn")
-      .textContent = "0";
 
-    document.getElementById("totalOut")
-      .textContent = "0";
+    document.getElementById(
+      "totalIn"
+    ).textContent =
+      "0";
 
-    document.getElementById("balance")
-      .textContent = "0";
+
+    document.getElementById(
+      "totalOut"
+    ).textContent =
+      "0";
+
+
+    document.getElementById(
+      "balance"
+    ).textContent =
+      "0";
 
 
     showMessage(
-      t("dashboardError") +
+      (
+        currentLanguage === "am"
+          ? "የDashboard መረጃ በመጫን ላይ ችግር ተፈጥሯል።\n\n"
+          : currentLanguage === "en"
+          ? "Dashboard data loading failed.\n\n"
+          : "Dashboard data loading irratti rakkoon uumame.\n\n"
+      ) +
       error.message,
       "error"
     );
@@ -3004,15 +3672,42 @@ async function loadDashboard(){
 
 function logout(){
 
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-  localStorage.removeItem("is_logged_in");
-  localStorage.removeItem("selected_branch_id");
-  localStorage.removeItem("selected_branch_name");
-  localStorage.removeItem("selected_branch_code");
-  localStorage.removeItem("selected_branch_uuid");
-  localStorage.removeItem("user_role");
-  localStorage.removeItem("login_user");
+  localStorage.removeItem(
+    "access_token"
+  );
+
+  localStorage.removeItem(
+    "refresh_token"
+  );
+
+  localStorage.removeItem(
+    "is_logged_in"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_code"
+  );
+
+  localStorage.removeItem(
+    "selected_branch_uuid"
+  );
+
+  localStorage.removeItem(
+    "user_role"
+  );
+
+  localStorage.removeItem(
+    "login_user"
+  );
+
 
   window.location.href =
     "index.html";
@@ -3028,14 +3723,11 @@ window.addEventListener(
   "DOMContentLoaded",
   function(){
 
-    /*
-      Afaan Oromoo default.
-      Yoo afaan duraan filatame jiraate,
-      inni sun itti fufa.
-    */
-
     const languageSelect =
-      document.getElementById("languageSelect");
+      document.getElementById(
+        "languageSelect"
+      );
+
 
     if(languageSelect){
 
@@ -3049,7 +3741,9 @@ window.addEventListener(
 
 
     if(!showBranch()){
+
       return;
+
     }
 
 
