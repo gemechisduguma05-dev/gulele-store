@@ -1,1597 +1,819 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAFDRMC - Emergency Relief Management</title>
+<title>AAFDRMC - Dashboard</title>
 
 <style>
+
 *{
   box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
 }
 
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  color:#263238;
-  min-height:100vh;
-
-  background:
-    linear-gradient(
-      rgba(245,238,233,.90),
-      rgba(236,226,218,.93)
-    ),
-    url("./1788633150526.jpg");
-
-  background-size:cover;
-  background-position:center;
-  background-attachment:fixed;
+  background:#f5f1ed;
+  color:#3e2723;
 }
 
-/* =========================
-   CELL STYLE BACKGROUND
-========================= */
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-
-  background-image:
-    linear-gradient(
-      30deg,
-      rgba(109,76,65,.035) 12%,
-      transparent 12.5%,
-      transparent 87%,
-      rgba(109,76,65,.035) 87.5%
-    ),
-    linear-gradient(
-      150deg,
-      rgba(109,76,65,.035) 12%,
-      transparent 12.5%,
-      transparent 87%,
-      rgba(109,76,65,.035) 87.5%
-    );
-
-  background-size:35px 35px;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-  position:relative;
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(62,39,35,.96),
-      rgba(109,76,65,.94),
-      rgba(121,85,72,.92)
-    );
-
-  color:#fff;
-  padding:22px 20px 25px;
+header{
+  background:#5d4037;
+  color:white;
+  padding:24px 15px;
   text-align:center;
-
-  box-shadow:
-    0 5px 20px rgba(0,0,0,.22);
-
-  border-bottom:
-    4px solid rgba(255,255,255,.18);
+  box-shadow:0 3px 10px rgba(0,0,0,.15);
 }
 
-.header::before{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(
-      rgba(60,40,34,.82),
-      rgba(60,40,34,.82)
-    ),
-    url("./1788633150526.jpg");
-
-  background-size:cover;
-  background-position:center;
-
-  opacity:.30;
-  z-index:0;
-}
-
-.header > *{
-  position:relative;
-  z-index:1;
-}
-
-/* =========================
-   PROFILE IMAGE
-========================= */
-
-.header-profile{
-  width:82px;
-  height:82px;
-
-  margin:0 auto 10px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  border:
-    4px solid rgba(255,255,255,.92);
-
-  box-shadow:
-    0 4px 18px rgba(0,0,0,.35);
-
-  background:#fff;
-}
-
-/* =========================
-   HEADER TEXT
-========================= */
-
-.header h1{
+header h1{
   margin:0;
   font-size:26px;
-  font-weight:800;
-  letter-spacing:.3px;
-
-  text-shadow:
-    0 2px 5px rgba(0,0,0,.35);
 }
 
-.header p{
-  margin:7px 0 0;
-  opacity:.94;
-  font-size:14px;
-}
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
-  max-width:1400px;
-  margin:auto;
-  padding:22px;
-}
-
-/* =========================
-   TOP BAR
-========================= */
-
-.topbar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.btn{
-  border:0;
-  border-radius:9px;
-  padding:12px 17px;
-
-  cursor:pointer;
+.branch{
+  margin-top:10px;
+  font-size:18px;
   font-weight:bold;
-
-  color:#fff;
-  text-decoration:none;
-  display:inline-block;
-
-  box-shadow:
-    0 3px 8px rgba(0,0,0,.13);
-
-  transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    opacity .18s ease;
 }
 
-.btn:hover{
-  opacity:1;
-  transform:translateY(-2px);
+/* ================= LANGUAGE ================= */
 
-  box-shadow:
-    0 6px 14px rgba(0,0,0,.18);
+.language-area{
+  margin:15px auto 0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.btn:active{
-  transform:translateY(0);
+.language-area label{
+  font-size:14px;
+  font-weight:bold;
 }
 
-.btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-  transform:none;
+.language-area select{
+  min-width:170px;
+  padding:10px 12px;
+  border:1px solid #d7ccc8;
+  border-radius:9px;
+  background:white;
+  color:#3e2723;
+  font-size:15px;
+  outline:none;
+  cursor:pointer;
 }
 
-.back{background:#455a64}
-.primary{background:#6d4c41}
-.purple{background:#7e57c2}
-.blue{background:#1976d2}
-.green{background:#2e7d32}
-.red{background:#c62828}
-.add{background:#00897b}
-
-/* =========================
-   CARDS
-========================= */
-
-.card{
-  position:relative;
-
-  background:
-    rgba(255,255,255,.94);
-
-  border-radius:16px;
-
-  padding:22px;
-  margin-bottom:20px;
-
-  border:
-    1px solid rgba(109,76,65,.13);
-
-  box-shadow:
-    0 5px 22px rgba(62,39,35,.11);
-
-  backdrop-filter:blur(5px);
+.language-area select:focus{
+  border-color:#bcaaa4;
 }
 
-.card::before{
-  content:"";
-  position:absolute;
+/* ================= PROFILE ================= */
 
-  top:0;
-  left:0;
-
-  width:100%;
-  height:4px;
-
-  border-radius:
-    16px 16px 0 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #5d4037,
-      #8d6e63,
-      #6d4c41
-    );
-}
-
-.card h2{
-  margin-top:0;
-  color:#5d4037;
-}
-
-.card h3{
-  color:#5d4037;
-}
-
-/* =========================
-   SUMMARY
-========================= */
-
-.summary{
-  display:grid;
-  grid-template-columns:
-    repeat(4,1fr);
-  gap:15px;
-}
-
-.summary-box{
-  position:relative;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(250,247,245,.98),
-      rgba(239,230,224,.95)
-    );
-
-  border:
-    1px solid #d8c8c0;
-
-  border-radius:14px;
-
-  padding:21px;
-
-  text-align:center;
-
-  box-shadow:
-    0 3px 12px rgba(93,64,55,.08);
-
-  overflow:hidden;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease;
-}
-
-.summary-box::after{
-  content:"";
-  position:absolute;
-
-  width:70px;
-  height:70px;
-
-  right:-25px;
-  top:-25px;
-
-  border-radius:50%;
-
-  background:
-    rgba(109,76,65,.07);
-}
-
-.summary-box:hover{
-  transform:translateY(-3px);
-
-  box-shadow:
-    0 7px 18px rgba(93,64,55,.14);
-}
-
-.summary-box strong{
-  display:block;
-
-  font-size:30px;
-
-  color:#6d4c41;
-
-  margin-bottom:6px;
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-grid{
-  display:grid;
-  grid-template-columns:
-    2fr 1fr 1fr;
+.profile-area{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   gap:12px;
 }
 
-/* =========================
-   INPUTS
-========================= */
-
-input,
-select,
-textarea{
-  width:100%;
-
-  padding:12px;
-
-  border:
-    1px solid #cfc1ba;
-
-  border-radius:9px;
-
-  background:
-    rgba(255,255,255,.97);
-
-  font-size:14px;
-
-  transition:
-    border-color .2s,
-    box-shadow .2s;
+.profile-picture{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #fff;
+  box-shadow:0 3px 10px rgba(0,0,0,.20);
+  background:#efebe9;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-  outline:none;
-
-  border-color:#6d4c41;
-
-  box-shadow:
-    0 0 0 3px rgba(109,76,65,.10);
-}
-
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-/* =========================
-   GRID
-========================= */
-
-.grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:15px;
-}
-
-.field label,
-.relief-row label,
-.member-row label,
-.document-row label{
-  display:block;
-
+.profile-name{
+  font-size:16px;
   font-weight:bold;
-
-  margin-bottom:6px;
-
-  color:#4e342e;
+  color:white;
 }
 
-.full{
-  grid-column:1/-1;
+.container{
+  width:94%;
+  max-width:1200px;
+  margin:25px auto;
 }
 
-/* =========================
-   HOUSEHOLD LIST
-========================= */
-
-.household-list{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:15px;
+.card{
+  background:white;
+  border-radius:15px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-/* =========================
-   HOUSEHOLD FOLDER
-========================= */
-
-.household-folder{
-  position:relative;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.97),
-      rgba(249,244,241,.96)
-    );
-
-  border:
-    1px solid #dccdc6;
-
-  border-left:
-    6px solid #6d4c41;
-
-  border-radius:12px;
-
-  padding:18px;
-
-  cursor:pointer;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    border-color .2s ease;
-
-  box-shadow:
-    0 3px 10px rgba(93,64,55,.07);
-}
-
-.household-folder:hover{
-  transform:
-    translateY(-4px);
-
-  box-shadow:
-    0 8px 20px rgba(93,64,55,.15);
-
-  border-color:#bca69c;
-}
-
-.folder-title{
-  font-weight:bold;
-
-  font-size:17px;
-
+.title{
   color:#5d4037;
-
-  margin-bottom:9px;
+  font-size:24px;
+  font-weight:bold;
+  margin-bottom:20px;
 }
 
-.folder-line{
-  margin:5px 0;
-
-  font-size:14px;
-
-  color:#455a64;
-}
-
-/* =========================
-   FORM ROWS
-========================= */
-
-.member-row,
-.document-row,
-.relief-row{
-  background:
-    linear-gradient(
-      145deg,
-      #fff,
-      #faf7f5
-    );
-
-  border:
-    1px solid #ddd2cd;
-
-  border-radius:11px;
-
-  padding:16px;
-
-  margin-bottom:12px;
-
-  box-shadow:
-    0 2px 7px rgba(0,0,0,.04);
-}
-
-.row-grid{
+.menu-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:10px;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
 }
 
-.row-actions{
-  margin-top:10px;
-}
-
-.remove-btn{
-  background:#c62828;
-
-  color:#fff;
-
+.btn{
+  width:100%;
   border:0;
-
-  padding:8px 12px;
-
-  border-radius:7px;
-
+  border-radius:10px;
+  padding:17px 12px;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
   cursor:pointer;
+  text-decoration:none;
+  text-align:center;
+  display:block;
+}
 
+.btn:hover{
+  opacity:.9;
+}
+
+.items{background:#388e3c;}
+.stock{background:#c62828;}
+.report{background:#ef6c00;}
+.settings{background:#6d4c41;}
+.refresh{background:#795548;}
+.menu{background:#8d6e63;}
+.logout{background:#991b1b;}
+.branch-btn{background:#6d4c41;}
+.view-only-btn{background:#8d6e63;}
+
+.hidden{
+  display:none !important;
+}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.summary-card{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 3px 10px rgba(0,0,0,.07);
+}
+
+.summary-card span{
+  display:block;
+  color:#795548;
   font-weight:bold;
 }
 
-/* =========================
-   STOCK INFO
-========================= */
+.summary-card strong{
+  display:block;
+  margin-top:8px;
+  color:#5d4037;
+  font-size:30px;
+}
 
-.stock-info{
-  margin-top:10px;
+/* CATEGORY */
 
-  padding:10px 12px;
+.category-selector{
+  margin-bottom:20px;
+}
 
-  border-radius:8px;
+.category-selector label{
+  display:block;
+  margin-bottom:8px;
+  color:#5d4037;
+  font-weight:bold;
+  font-size:16px;
+}
 
-  background:#eceff1;
+.category-selector select{
+  width:100%;
+  padding:14px;
+  border:1px solid #bcaaa4;
+  border-radius:10px;
+  background:white;
+  color:#3e2723;
+  font-size:16px;
+  outline:none;
+}
 
-  color:#455a64;
+.category-selector select:focus{
+  border-color:#795548;
+  box-shadow:0 0 0 2px rgba(121,85,72,.12);
+}
 
-  font-size:13px;
-
+.selected-category{
+  background:#efebe9;
+  border-left:5px solid #795548;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+  color:#4e342e;
   font-weight:bold;
 }
 
-.stock-ok{
-  background:#e8f5e9;
-  color:#2e7d32;
+/* CATEGORY TABLE */
+
+.category-table-wrap{
+  width:100%;
+  overflow-x:auto;
 }
 
-.stock-low{
-  background:#ffebee;
-  color:#c62828;
-}
-
-.stock-checking{
-  background:#fff8e1;
-  color:#8d6e63;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-  display:none;
-
-  position:fixed;
-
-  inset:0;
-
-  background:
-    rgba(35,25,21,.68);
-
-  z-index:9999;
-
-  overflow:auto;
-
-  padding:30px 15px;
-
-  backdrop-filter:blur(3px);
-}
-
-.modal-box{
-  max-width:1100px;
-
-  margin:auto;
-
-  background:#fff;
-
-  border-radius:16px;
-
-  overflow:hidden;
-
-  box-shadow:
-    0 15px 45px rgba(0,0,0,.3);
-}
-
-.modal-head{
-  background:
-    linear-gradient(
-      135deg,
-      #4e342e,
-      #6d4c41,
-      #795548
-    );
-
-  color:#fff;
-
-  padding:16px 20px;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-}
-
-.modal-head h2{
-  margin:0;
-  color:#fff;
-}
-
-.close{
-  background:none;
-
-  border:0;
-
-  color:#fff;
-
-  font-size:26px;
-
-  cursor:pointer;
-}
-
-/* =========================
-   DETAILS
-========================= */
-
-.detail-section{
-  padding:18px;
-
-  border-bottom:
-    1px solid #e0d7d2;
-}
-
-.detail-section h3{
-  color:#6d4c41;
-  margin-top:0;
-}
-
-.detail-table{
+.category-table{
   width:100%;
   border-collapse:collapse;
-}
-
-.detail-table th,
-.detail-table td{
-  border:
-    1px solid #ddd5d0;
-
-  padding:9px;
-
-  text-align:left;
-
-  font-size:13px;
-}
-
-.detail-table th{
-  background:#f3eeeb;
-  color:#4e342e;
-}
-
-/* =========================
-   MESSAGE
-========================= */
-
-.success-message,
-.error-message{
-  position:fixed;
-
-  top:20px;
-  right:20px;
-
-  max-width:420px;
-
-  z-index:10000;
-
-  color:#fff;
-
-  padding:14px 20px;
-
+  background:white;
   border-radius:10px;
-
-  display:none;
-
-  box-shadow:
-    0 6px 20px rgba(0,0,0,.25);
+  overflow:hidden;
+  min-width:500px;
 }
 
-.success-message{
-  background:#2e7d32;
+.category-table th,
+.category-table td{
+  padding:12px 10px;
+  border-bottom:1px solid #eee;
+  text-align:center;
+  font-size:15px;
 }
 
-.error-message{
-  background:#c62828;
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.status-bar{
-  display:none;
-
-  margin-bottom:15px;
-
-  padding:12px 15px;
-
-  border-radius:9px;
-
-  background:#fff8e1;
-
-  color:#6d4c41;
-
-  font-weight:bold;
-
-  border-left:
-    5px solid #8d6e63;
-}
-
-/* =========================
-   BRANCH INFO
-========================= */
-
-.branch-info{
-  margin-bottom:15px;
-
-  padding:12px 15px;
-
-  border-radius:10px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #efebe9,
-      #e8ddd8
-    );
-
+.category-table th{
+  background:#efebe9;
   color:#5d4037;
-
   font-weight:bold;
-
-  border-left:
-    5px solid #6d4c41;
-
-  box-shadow:
-    0 2px 8px rgba(93,64,55,.08);
 }
 
-.required-note{
-  font-size:12px;
+.category-table td:first-child,
+.category-table th:first-child{
+  text-align:left;
+}
+
+.category-total-row{
+  background:#e8ded9;
+  font-weight:bold;
+}
+
+.category-total-row td{
+  color:#4e342e;
+  font-size:16px;
+}
+
+.in-number{
+  color:#2e7d32;
+  font-weight:bold;
+}
+
+.out-number{
   color:#c62828;
-  margin-top:5px;
+  font-weight:bold;
 }
 
-.readonly{
-  background:#f3f0ee;
+.balance-number{
+  color:#5d4037;
+  font-weight:bold;
 }
 
-/* =========================
-   LOADING / EMPTY
-========================= */
+.no-transaction{
+  padding:18px;
+  text-align:center;
+  color:#795548;
+  background:#faf7f5;
+  border:1px solid #d7ccc8;
+  border-radius:10px;
+}
+
+/* BRANCHES */
+
+.branch-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.branch-box{
+  background:#faf7f5;
+  border:1px solid #d7ccc8;
+  border-radius:12px;
+  padding:16px;
+}
+
+.branch-box strong{
+  display:block;
+  color:#5d4037;
+  font-size:17px;
+  margin-bottom:5px;
+}
+
+.branch-box small{
+  display:block;
+  color:#795548;
+  margin-bottom:12px;
+}
+
+.message{
+  display:none;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  font-weight:bold;
+  line-height:1.5;
+  white-space:pre-wrap;
+}
+
+.message.show{
+  display:block;
+}
+
+.error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.success{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.info{
+  background:#efebe9;
+  color:#5d4037;
+  border:1px solid #d7ccc8;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.main-note{
+  background:#fff3e0;
+  color:#6d4c41;
+  border:1px solid #ffcc80;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.mode-badge{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:20px;
+  background:#efebe9;
+  color:#5d4037;
+  font-size:13px;
+  margin-top:10px;
+}
 
 .loading{
-  padding:30px;
-
   text-align:center;
-
-  color:#64748b;
-
-  background:
-    rgba(255,255,255,.55);
-
-  border-radius:10px;
+  padding:20px;
+  color:#795548;
+  font-weight:bold;
 }
 
-.empty{
-  padding:25px;
-
-  text-align:center;
-
-  color:#64748b;
-
-  background:
-    rgba(255,255,255,.65);
-
-  border-radius:10px;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:900px){
+@media(max-width:850px){
 
   .summary{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .search-grid{
+  .branch-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:700px){
+
+  .menu-grid{
     grid-template-columns:1fr;
   }
 
-  .grid{
-    grid-template-columns:
-      1fr 1fr;
-  }
-
-  .household-list{
-    grid-template-columns:
-      1fr 1fr;
-  }
-
-  .row-grid{
-    grid-template-columns:
-      1fr 1fr;
+  .category-table th,
+  .category-table td{
+    font-size:13px;
+    padding:9px 6px;
   }
 
 }
 
-@media(max-width:600px){
+@media(max-width:500px){
 
-  body{
-    background-attachment:scroll;
+  header h1{
+    font-size:21px;
   }
 
-  .container{
-    padding:10px;
+  .branch{
+    font-size:16px;
   }
 
-  .header{
-    padding:17px 10px 20px;
-  }
-
-  .header-profile{
-    width:68px;
-    height:68px;
-  }
-
-  .header h1{
-    font-size:20px;
-  }
-
-  .header p{
-    font-size:12px;
-  }
-
-  .summary{
-    grid-template-columns:
-      1fr 1fr;
-
-    gap:8px;
-  }
-
-  .summary-box{
-    padding:14px 8px;
-  }
-
-  .summary-box strong{
-    font-size:22px;
-  }
-
-  .grid,
-  .household-list,
-  .row-grid{
+  .summary,
+  .branch-grid{
     grid-template-columns:1fr;
-  }
-
-  .topbar{
-    flex-direction:column;
   }
 
   .btn{
-    width:100%;
-    text-align:center;
+    font-size:16px;
   }
 
-  .modal{
-    padding:10px;
+  .title{
+    font-size:20px;
   }
 
-  .detail-table{
-    display:block;
-    overflow-x:auto;
+  .profile-picture{
+    width:52px;
+    height:52px;
+  }
+
+  .language-area{
+    flex-direction:column;
   }
 
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<header>
 
-<div class="header">
+<h1 data-i18n="dashboardTitle">
+AAFDRMC - STOCK MANAGEMENT
+</h1>
 
-  <img
-    src="./1788633150526.jpg"
-    class="header-profile"
-    alt="AAFDRMC Profile">
+<div id="branchName" class="branch">
+Loading Branch...
+</div>
 
-  <h1>
-    AAFDRMC - Emergency Relief Management
-  </h1>
+<!-- ================= LANGUAGE SELECTOR ================= -->
 
-  <p>
-    Household Emergency Relief Records
-  </p>
+<div class="language-area">
+
+<label for="languageSelect" data-i18n="language">
+Language
+</label>
+
+<select id="languageSelect" onchange="changeLanguage(this.value)">
+
+<option value="om">Afaan Oromoo</option>
+<option value="am">አማርኛ</option>
+<option value="en">English</option>
+
+</select>
 
 </div>
+
+<!-- ================= PROFILE ================= -->
+
+<div class="profile-area">
+
+<svg
+  class="profile-picture"
+  viewBox="0 0 120 120"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="AAFDRMC Profile Picture">
+
+  <circle
+    cx="60"
+    cy="60"
+    r="58"
+    fill="#efebe9"/>
+
+  <circle
+    cx="60"
+    cy="43"
+    r="21"
+    fill="#795548"/>
+
+  <path
+    d="M23 104
+       C27 78, 42 66, 60 66
+       C78 66, 93 78, 97 104
+       Z"
+    fill="#5d4037"/>
+
+  <circle
+    cx="60"
+    cy="60"
+    r="57"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="5"/>
+
+</svg>
+
+<div class="profile-name" data-i18n="user">
+AAFDRMC User
+</div>
+
+</div>
+
+<div id="modeBadge" class="mode-badge"></div>
+
+</header>
 
 <div class="container">
 
-<div id="statusBar" class="status-bar"></div>
+<div id="message" class="message"></div>
 
-<div id="branchInfo" class="branch-info">
-  Branch: Resolving...
+<!-- CURRENT BRANCH -->
+
+<div class="card">
+
+<div class="info">
+
+<span data-i18n="currentBranchLabel">
+🏢 Current Branch:
+</span>
+
+<br>
+
+<strong id="currentBranch">
+Loading...
+</strong>
+
+<br><br>
+
+<span data-i18n="branchCodeLabel">
+Branch Code:
+</span>
+
+<strong id="currentCode">
+—
+</strong>
+
 </div>
 
-<!-- =========================
-     TOP BAR
-========================= -->
+</div>
 
-<div class="topbar">
+<!-- MAIN NOTE -->
 
-<a href="dashboard.html" class="btn back">
-← Back to Dashboard
+<div id="mainNote" class="main-note hidden">
+
+🏢 <strong data-i18n="mainViewOnly">
+Main / HQ - View Only
+</strong>
+
+<br><br>
+
+<span data-i18n="mainCanView">
+Main irraa branch tokko filattee
+Item, Stock fi Report ilaaluu dandeessa.
+</span>
+
+<br><br>
+
+<span data-i18n="mainCannot">
+Main irraa:
+</span>
+
+<br><br>
+
+❌ <span data-i18n="itemAdd">Item Add</span>
+<br>
+❌ <span data-i18n="itemEdit">Item Edit</span>
+<br>
+❌ <span data-i18n="itemDelete">Item Delete</span>
+<br>
+❌ <span data-i18n="stockIn">Stock IN</span>
+<br>
+❌ <span data-i18n="stockOut">Stock OUT</span>
+
+<br><br>
+
+<span data-i18n="notAllowed">
+hin danda'amu.
+</span>
+
+</div>
+
+<!-- MENU -->
+
+<div class="card">
+
+<div class="title" data-i18n="dashboardMenu">
+📊 Dashboard Menu
+</div>
+
+<!-- BRANCH MENU -->
+
+<div id="branchMenu" class="menu-grid">
+
+<a href="items.html"
+   class="btn items"
+   id="itemsButton">
+📦 <span data-i18n="items">Items</span>
+</a>
+
+<a href="stock.html"
+   class="btn stock"
+   id="stockButton">
+📥 <span data-i18n="stockInOut">Stock IN / OUT</span>
+</a>
+
+<a href="reports.html"
+   class="btn report">
+📊 <span data-i18n="stockReport">Stock Report</span>
+</a>
+
+<a href="settings.html"
+   class="btn settings"
+   id="settingsButton">
+⚙️ <span data-i18n="settings">Settings</span>
 </a>
 
 <button
   type="button"
-  class="btn primary"
-  onclick="showNewHousehold()">
-+ New Household
+  class="btn refresh"
+  onclick="loadDashboard()">
+🔄 <span data-i18n="refresh">Refresh</span>
 </button>
+
+<a href="index.html"
+   class="btn menu">
+⬅️ <span data-i18n="mainMenu">Main Menu</span>
+</a>
 
 <button
   type="button"
-  class="btn purple"
-  onclick="showNewRelief()">
-+ Individual Relief
-</button>
-
-<button
-  type="button"
-  class="btn blue"
-  onclick="refreshAll()">
-↻ Refresh
+  class="btn logout"
+  onclick="logout()">
+🚪 <span data-i18n="logout">Logout</span>
 </button>
 
 </div>
 
-<!-- =========================
-     SUMMARY
-========================= -->
+<!-- MAIN HQ MENU -->
 
-<div class="card">
+<div id="mainMenu" class="menu-grid hidden">
 
-<h2>
-Emergency Relief Summary
-</h2>
+<a href="reports.html"
+   class="btn report">
+📊 <span data-i18n="allBranchesReport">
+All Branches Report
+</span>
+</a>
+
+<a href="settings.html"
+   class="btn settings">
+⚙️ <span data-i18n="settings">Settings</span>
+</a>
+
+<button
+  type="button"
+  class="btn refresh"
+  onclick="loadDashboard()">
+🔄 <span data-i18n="refresh">Refresh</span>
+</button>
+
+<a href="index.html"
+   class="btn menu">
+⬅️ <span data-i18n="mainMenu">Main Menu</span>
+</a>
+
+<button
+  type="button"
+  class="btn logout"
+  onclick="logout()">
+🚪 <span data-i18n="logout">Logout</span>
+</button>
+
+</div>
+
+</div>
+
+<!-- SUMMARY -->
 
 <div class="summary">
 
-<div class="summary-box">
-<strong id="totalHouseholds">0</strong>
-Households
-</div>
+<div class="summary-card">
 
-<div class="summary-box">
-<strong id="totalMembers">0</strong>
-Members
-</div>
+<span data-i18n="totalItems">
+📦 Total Items
+</span>
 
-<div class="summary-box">
-<strong id="totalReliefs">0</strong>
-Relief Records
-</div>
-
-<div class="summary-box">
-<strong id="totalDocuments">0</strong>
-Documents
-</div>
+<strong id="totalItems">0</strong>
 
 </div>
+
+<div class="summary-card">
+
+<span data-i18n="stockInSummary">
+🟢 Stock IN
+</span>
+
+<strong id="totalIn">0</strong>
+
 </div>
 
-<!-- =========================
-     SEARCH
-========================= -->
+<div class="summary-card">
+
+<span data-i18n="stockOutSummary">
+🔴 Stock OUT
+</span>
+
+<strong id="totalOut">0</strong>
+
+</div>
+
+<div class="summary-card">
+
+<span data-i18n="currentBalance">
+📊 Current Balance
+</span>
+
+<strong id="balance">0</strong>
+
+</div>
+
+</div>
+
+<!-- CATEGORY -->
 
 <div class="card">
 
-<h2>
-Search Households
-</h2>
-
-<div class="search-grid">
-
-<input
-type="text"
-id="searchText"
-placeholder="Search Household Name, Member Name or FAN Number"
-oninput="filterHouseholds()">
-
-<select
-id="filterDisaster"
-onchange="filterHouseholds()">
-
-<option value="">
-All Disaster Types
-</option>
-
-<option value="Flood">
-Flood
-</option>
-
-<option value="Fire">
-Fire
-</option>
-
-<option value="Drought">
-Drought
-</option>
-
-<option value="Landslide">
-Landslide
-</option>
-
-<option value="Conflict">
-Conflict
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-<input
-type="date"
-id="filterDate"
-onchange="filterHouseholds()">
-
-</div>
+<div class="title" data-i18n="categoryTitle">
+🗂️ Item Transaction Total by Category
 </div>
 
-<!-- =========================
-     HOUSEHOLD LIST
-========================= -->
+<div class="category-selector">
 
-<div class="card">
-
-<h2>
-Household Folders
-</h2>
-
-<div
-id="householdList"
-class="household-list">
-
-<div class="loading">
-Resolving branch and loading households...
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================
-     NEW HOUSEHOLD
-========================= -->
-
-<div
-class="card"
-id="newHouseholdCard"
-style="display:none">
-
-<h2>
-New Household
-</h2>
-
-<div class="grid">
-
-<div class="field">
-
-<label>
-Household Representative / Household Name *
-</label>
-
-<input
-id="householdName"
-type="text">
-
-</div>
-
-<div class="field">
-
-<label>
-Disaster Type *
-</label>
-
-<select id="disasterType">
-
-<option value="">
-Select Disaster Type
-</option>
-
-<option value="Flood">
-Flood
-</option>
-
-<option value="Fire">
-Fire
-</option>
-
-<option value="Drought">
-Drought
-</option>
-
-<option value="Landslide">
-Landslide
-</option>
-
-<option value="Conflict">
-Conflict
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-<div class="field">
-
-<label>
-Disaster Date
-</label>
-
-<input
-id="disasterDate"
-type="date">
-
-</div>
-
-<div class="field">
-
-<label>
-City
-</label>
-
-<input
-id="city"
-type="text">
-
-</div>
-
-<div class="field">
-
-<label>
-Sub-City
-</label>
-
-<input
-id="subCity"
-type="text">
-
-</div>
-
-<div class="field">
-
-<label>
-Woreda
-</label>
-
-<input
-id="woreda"
-type="text">
-
-</div>
-
-<div class="field">
-
-<label>
-Specific Location
-</label>
-
-<input
-id="specificLocation"
-type="text">
-
-</div>
-
-<div class="field">
-
-<label>
-House Number
-</label>
-
-<input
-id="houseNumber"
-type="text">
-
-</div>
-
-<div class="field">
-
-<label>
-FAN Number
-</label>
-
-<input
-id="fanNumber"
-type="text">
-
-</div>
-
-<div class="field full">
-
-<label>
-Other Information
-</label>
-
-<textarea id="householdOther"></textarea>
-
-</div>
-
-</div>
-
-<h3>
-Household Members
-</h3>
-
-<div id="membersContainer"></div>
-
-<button
-type="button"
-class="btn add"
-onclick="addMember()">
-
-+ Add Member
-
-</button>
-
-<h3>
-Official Documents
-</h3>
-
-<div id="documentsContainer"></div>
-
-<button
-type="button"
-class="btn add"
-onclick="addDocument()">
-
-+ Add Document
-
-</button>
-
-<div style="margin-top:20px">
-
-<button
-id="saveHouseholdBtn"
-type="button"
-class="btn green"
-onclick="saveHousehold()">
-
-Save Household
-
-</button>
-
-<button
-type="button"
-class="btn red"
-onclick="hideNewHousehold()">
-
-Cancel
-
-</button>
-
-</div>
-
-</div>
-
-<!-- =========================
-     NEW RELIEF
-========================= -->
-
-<div
-class="card"
-id="newReliefCard"
-style="display:none">
-
-<h2>
-Individual Relief
-</h2>
-
-<div class="grid">
-
-<div class="field">
-
-<label>
-Household *
+<label for="categorySelect" data-i18n="selectCategory">
+Select Category
 </label>
 
 <select
-id="reliefHousehold"
-onchange="loadReliefMembers()">
+  id="categorySelect"
+  onchange="renderSelectedCategory()">
 
 <option value="">
-Select Household
+-- Select Category --
 </option>
 
 </select>
 
 </div>
 
-<div class="field">
+<div
+  id="selectedCategoryBox"
+  class="selected-category hidden">
+</div>
 
-<label>
-Member *
-</label>
+<div id="categoryResult">
 
-<select id="reliefMember">
-
-<option value="">
-Select Member
-</option>
-
-</select>
+<div class="no-transaction" data-i18n="pleaseSelectCategory">
+Please select a category.
+</div>
 
 </div>
 
-<div class="field">
-
-<label>
-Relief Date *
-</label>
-
-<input
-id="reliefDate"
-type="datetime-local">
-
 </div>
 
-<div class="field">
+<!-- MAIN BRANCHES -->
 
-<label>
-Issued By *
-</label>
+<div id="allBranchesCard" class="card hidden">
 
-<input
-id="reliefEnteredBy"
-type="text">
-
+<div class="title" data-i18n="branchesTitle">
+🏢 AAFDRMC Branches
 </div>
 
-<div class="field">
+<div class="info" data-i18n="branchesInfo">
+Main irraa branches 12 hunda ilaaluun ni danda'ama.
 
-<label>
-Signature
-</label>
+<br><br>
 
-<input
-id="reliefSignature"
-type="text"
-placeholder="Signature">
-
-</div>
-
-<!-- =========================
-     MODEL 22
-========================= -->
-
-<div class="field">
-
-<label>
-Model 22 *
-</label>
-
-<select
-id="reliefModel22"
-onchange="toggleModel22Number()"
-required>
-
-<option value="">
-Select Model 22
-</option>
-
-<!-- DB VALUE = No Model 22 -->
-<option value="No Model 22">
-Hin jiru
-</option>
-
-<!-- DB VALUE = Model 22 Available -->
-<option value="Model 22 Available">
-Model 22 qaba
-</option>
-
-<!-- DB VALUE = Verbal -->
-<option value="Verbal">
-Verbal
-</option>
-
-</select>
-
-<div class="required-note">
-Model 22 is required.
-</div>
-
+Branch tokko filadhu.
+Branch sana keessatti odeeffannoo isaa
+ilaaluu dandeessa.
 </div>
 
 <div
-class="field"
-id="model22NumberField"
-style="display:none">
-
-<label>
-Model 22 Number *
-</label>
-
-<input
-id="reliefModel22Number"
-type="text"
-placeholder="Enter Model 22 number">
-
-</div>
-
-<div class="field full">
-
-<label>
-Other Information
-</label>
-
-<textarea id="reliefNotes"></textarea>
-
+  class="branch-grid"
+  id="branchGrid">
 </div>
 
 </div>
 
-<h3>
-Relief Items
-</h3>
-
-<div id="reliefItemsContainer"></div>
-
-<button
-type="button"
-class="btn add"
-onclick="addReliefItem()">
-
-+ Add Item
-
-</button>
-
-<div style="margin-top:20px">
-
-<button
-id="saveReliefBtn"
-type="button"
-class="btn green"
-onclick="saveRelief()">
-
-Save Relief
-
-</button>
-
-<button
-type="button"
-class="btn red"
-onclick="hideNewRelief()">
-
-Cancel
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================
-     MODAL
-========================= -->
-
-<div
-class="modal"
-id="detailsModal">
-
-<div class="modal-box">
-
-<div class="modal-head">
-
-<h2 id="modalHouseholdName">
-Household Details
-</h2>
-
-<button
-class="close"
-onclick="closeModal()">
-
-✕
-
-</button>
-
-</div>
-
-<div id="modalContent"></div>
-
-</div>
-</div>
-
-<div
-id="successMessage"
-class="success-message">
-</div>
-
-<div
-id="errorMessage"
-class="error-message">
 </div>
 
 <script>
 
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://sslabegtsxlkafuygmar.supabase.co";
@@ -1599,4503 +821,2245 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
-const API =
-SUPABASE_URL + "/rest/v1";
 
-function headers(){
+/* =====================================================
+   LANGUAGE SYSTEM
+===================================================== */
 
-return {
+const TRANSLATIONS = {
 
-"apikey":SUPABASE_KEY,
+  en: {
 
-"Authorization":
-"Bearer " + SUPABASE_KEY,
+    language:"Language",
 
-"Content-Type":
-"application/json"
+    dashboardTitle:"AAFDRMC - STOCK MANAGEMENT",
+
+    user:"AAFDRMC User",
+
+    loadingBranch:"Loading Branch...",
+
+    branchNotSelected:"⚠️ Branch not selected",
+
+    currentBranchLabel:"🏢 Current Branch:",
+
+    branchCodeLabel:"Branch Code:",
+
+    unknown:"Unknown",
+
+    dashboardMenu:"📊 Dashboard Menu",
+
+    items:"Items",
+
+    stockInOut:"Stock IN / OUT",
+
+    stockReport:"Stock Report",
+
+    settings:"Settings",
+
+    refresh:"Refresh",
+
+    mainMenu:"Main Menu",
+
+    logout:"Logout",
+
+    viewItems:"View Items",
+
+    viewStock:"View Stock",
+
+    allBranchesReport:"All Branches Report",
+
+    totalItems:"📦 Total Items",
+
+    stockInSummary:"🟢 Stock IN",
+
+    stockOutSummary:"🔴 Stock OUT",
+
+    currentBalance:"📊 Current Balance",
+
+    categoryTitle:"🗂️ Item Transaction Total by Category",
+
+    selectCategory:"Select Category",
+
+    selectCategoryOption:"-- Select Category --",
+
+    pleaseSelectCategory:"Please select a category.",
+
+    noData:"No data available.",
+
+    noTransaction:"No transaction for this category.",
+
+    item:"Item",
+
+    in:"IN",
+
+    out:"OUT",
+
+    balance:"Balance",
+
+    total:"TOTAL",
+
+    branchesTitle:"🏢 AAFDRMC Branches",
+
+    branchesInfo:
+      "All 12 branches can be viewed from Main.\n\nSelect a branch to view its information.",
+
+    code:"Code:",
+
+    openBranch:"👁️ Open Branch",
+
+    mainViewOnly:"Main / HQ - View Only",
+
+    mainCanView:
+      "From Main, you can select a branch and view its Items, Stock and Report.",
+
+    mainCannot:"From Main:",
+
+    itemAdd:"Item Add",
+
+    itemEdit:"Item Edit",
+
+    itemDelete:"Item Delete",
+
+    stockIn:"Stock IN",
+
+    stockOut:"Stock OUT",
+
+    notAllowed:"are not allowed.",
+
+    branchFullAccess:"✏️ BRANCH - FULL ACCESS",
+
+    mainViewBadge:"👁️ MAIN - VIEW ONLY",
+
+    branchUnknown:
+      "Branch not selected.\n\nPlease return to Main Menu and select a branch.",
+
+    dashboardError:
+      "There was a problem loading Dashboard data.\n\n",
+
+    branchUuidError:
+      "Branch UUID could not be found.\n\nBranch: ",
+
+    codeWord:"Code: ",
+
+    loading:"Loading...",
+
+    unknownItem:"Unknown Item"
+
+  },
+
+  om: {
+
+    language:"Afaan",
+
+    dashboardTitle:"AAFDRMC - BULCHIINSA STOCK",
+
+    user:"Fayyadamaa AAFDRMC",
+
+    loadingBranch:"Damee fe'aa jira...",
+
+    branchNotSelected:"⚠️ Dameen hin filatamne",
+
+    currentBranchLabel:"🏢 Damee Amma Jiru:",
+
+    branchCodeLabel:"Koodii Damee:",
+
+    unknown:"Kan hin beekamne",
+
+    dashboardMenu:"📊 Filannoo Dashboard",
+
+    items:"Meeshaalee",
+
+    stockInOut:"Stock IN / OUT",
+
+    stockReport:"Gabaasa Stock",
+
+    settings:"Qindaa'ina",
+
+    refresh:"Haaromsi",
+
+    mainMenu:"Menu Muummee",
+
+    logout:"Ba'i",
+
+    viewItems:"Meeshaalee Ilaali",
+
+    viewStock:"Stock Ilaali",
+
+    allBranchesReport:"Gabaasa Dameewwan Hunda",
+
+    totalItems:"📦 Meeshaalee Waliigalaa",
+
+    stockInSummary:"🟢 Stock Galee",
+
+    stockOutSummary:"🔴 Stock Bahe",
+
+    currentBalance:"📊 Hanga Amma Jiru",
+
+    categoryTitle:"🗂️ Waliigala Transaction Meeshaalee Kategoriidhaan",
+
+    selectCategory:"Gosa Meeshaa Filadhu",
+
+    selectCategoryOption:"-- Gosa Filadhu --",
+
+    pleaseSelectCategory:"Maaloo gosa meeshaa filadhu.",
+
+    noData:"Odeeffannoon hin jiru.",
+
+    noTransaction:"Gosa kanaaf transaction hin jiru.",
+
+    item:"Meeshaa",
+
+    in:"Gale",
+
+    out:"Bahe",
+
+    balance:"Hafe",
+
+    total:"WALIIGALA",
+
+    branchesTitle:"🏢 Dameewwan AAFDRMC",
+
+    branchesInfo:
+      "Main irraa dameewwan 12 hunda ilaaluu ni dandeessa.\n\nDamee tokko filadhu; odeeffannoo damee sanaa ilaali.",
+
+    code:"Koodii:",
+
+    openBranch:"👁️ Damee Bani",
+
+    mainViewOnly:"Main / HQ - Ilaalcha Qofa",
+
+    mainCanView:
+      "Main irraa damee tokko filattee Meeshaalee, Stock fi Gabaasa isaa ilaaluu dandeessa.",
+
+    mainCannot:"Main irraa:",
+
+    itemAdd:"Meeshaa Dabali",
+
+    itemEdit:"Meeshaa Sirreessi",
+
+    itemDelete:"Meeshaa Haqi",
+
+    stockIn:"Stock IN",
+
+    stockOut:"Stock OUT",
+
+    notAllowed:"hin danda'amu.",
+
+    branchFullAccess:"✏️ DAMEE - MIRGA GUUTUU",
+
+    mainViewBadge:"👁️ MAIN - ILAALCHA QOFA",
+
+    branchUnknown:
+      "Dameen hin filatamne.\n\nMee gara Main Menu deebi'ii damee filadhu.",
+
+    dashboardError:
+      "Odeeffannoo Dashboard fe'uu irratti rakkoon uumame.\n\n",
+
+    branchUuidError:
+      "UUID Damee argachuu hin dandeenye.\n\nDamee: ",
+
+    codeWord:"Koodii: ",
+
+    loading:"Fe'aa jira...",
+
+    unknownItem:"Meeshaa hin beekamne"
+
+  },
+
+  am: {
+
+    language:"ቋንቋ",
+
+    dashboardTitle:"AAFDRMC - የእቃ አስተዳደር",
+
+    user:"AAFDRMC ተጠቃሚ",
+
+    loadingBranch:"ቅርንጫፍ በመጫን ላይ...",
+
+    branchNotSelected:"⚠️ ቅርንጫፍ አልተመረጠም",
+
+    currentBranchLabel:"🏢 የአሁኑ ቅርንጫፍ:",
+
+    branchCodeLabel:"የቅርንጫፍ ኮድ:",
+
+    unknown:"ያልታወቀ",
+
+    dashboardMenu:"📊 የዳሽቦርድ ምናሌ",
+
+    items:"እቃዎች",
+
+    stockInOut:"Stock IN / OUT",
+
+    stockReport:"የእቃ ሪፖርት",
+
+    settings:"ቅንብሮች",
+
+    refresh:"አድስ",
+
+    mainMenu:"ዋና ምናሌ",
+
+    logout:"ውጣ",
+
+    viewItems:"እቃዎችን ይመልከቱ",
+
+    viewStock:"Stock ይመልከቱ",
+
+    allBranchesReport:"የሁሉም ቅርንጫፎች ሪፖርት",
+
+    totalItems:"📦 ጠቅላላ እቃዎች",
+
+    stockInSummary:"🟢 የገባ Stock",
+
+    stockOutSummary:"🔴 የወጣ Stock",
+
+    currentBalance:"📊 አሁን ያለው ቀሪ",
+
+    categoryTitle:"🗂️ የእቃ ግብይት ድምር በምድብ",
+
+    selectCategory:"ምድብ ይምረጡ",
+
+    selectCategoryOption:"-- ምድብ ይምረጡ --",
+
+    pleaseSelectCategory:"እባክዎ ምድብ ይምረጡ።",
+
+    noData:"ምንም መረጃ የለም።",
+
+    noTransaction:"ለዚህ ምድብ ግብይት የለም።",
+
+    item:"እቃ",
+
+    in:"ገቢ",
+
+    out:"ወጪ",
+
+    balance:"ቀሪ",
+
+    total:"ጠቅላላ",
+
+    branchesTitle:"🏢 AAFDRMC ቅርንጫፎች",
+
+    branchesInfo:
+      "ከMain ሁሉንም 12 ቅርንጫፎች ማየት ይቻላል።\n\nአንድ ቅርንጫፍ ይምረጡ እና መረጃውን ይመልከቱ።",
+
+    code:"ኮድ:",
+
+    openBranch:"👁️ ቅርንጫፍ ክፈት",
+
+    mainViewOnly:"Main / HQ - ለማየት ብቻ",
+
+    mainCanView:
+      "ከMain አንድ ቅርንጫፍ በመምረጥ Items፣ Stock እና Report ማየት ይችላሉ።",
+
+    mainCannot:"ከMain:",
+
+    itemAdd:"እቃ መጨመር",
+
+    itemEdit:"እቃ ማስተካከል",
+
+    itemDelete:"እቃ መሰረዝ",
+
+    stockIn:"Stock IN",
+
+    stockOut:"Stock OUT",
+
+    notAllowed:"አይቻልም።",
+
+    branchFullAccess:"✏️ ቅርንጫፍ - ሙሉ መብት",
+
+    mainViewBadge:"👁️ MAIN - ለማየት ብቻ",
+
+    branchUnknown:
+      "ቅርንጫፍ አልተመረጠም።\n\nእባክዎ ወደ Main Menu ተመልሰው ቅርንጫፍ ይምረጡ።",
+
+    dashboardError:
+      "የDashboard መረጃን በመጫን ላይ ችግር ተፈጥሯል።\n\n",
+
+    branchUuidError:
+      "የቅርንጫፍ UUID ማግኘት አልተቻለም።\n\nቅርንጫፍ: ",
+
+    codeWord:"ኮድ: ",
+
+    loading:"በመጫን ላይ...",
+
+    unknownItem:"ያልታወቀ እቃ"
+
+  }
 
 };
 
-}
 
-/* =========================================================
-   BRANCH
-========================================================= */
+/* =====================================================
+   LANGUAGE FUNCTIONS
+===================================================== */
 
-let currentBranchId =
-localStorage.getItem(
-"selected_branch_uuid"
-) || "";
+let currentLanguage =
+  localStorage.getItem("aafdrmc_language") || "om";
 
-let currentBranchCode =
-localStorage.getItem(
-"selected_branch_code"
-) ||
-localStorage.getItem(
-"branch_code"
-) ||
-"";
 
-let currentBranchName =
-localStorage.getItem(
-"selected_branch_name"
-) ||
-localStorage.getItem(
-"branch_name"
-) ||
-"";
+function t(key){
 
-let loginUser =
-localStorage.getItem(
-"login_user"
-) || "";
-
-const oldSelectedId =
-localStorage.getItem(
-"selected_branch_id"
-) || "";
-
-if(
-!currentBranchId &&
-isValidUUID(oldSelectedId)
-){
-
-currentBranchId =
-oldSelectedId;
+  return (
+    TRANSLATIONS[currentLanguage] &&
+    TRANSLATIONS[currentLanguage][key]
+  )
+  ||
+  TRANSLATIONS.en[key]
+  ||
+  key;
 
 }
 
-const BRANCH_CODES = {
 
-"GULELE":"GUL",
-"ADDIS KATAMA":"AKT",
-"KOLFEE":"KLF",
-"NIFAS SILK LAFTO":"NSL",
-"KIRKOS":"KIR",
-"LAMI KURA":"LAM",
-"ARADA":"ARA",
-"LIDETA":"LID",
-"BOLE":"BOL",
-"EKAA":"EKA",
-"YEKAA":"EKA",
-"AKAKI KALITY":"AKA",
-"CENTER":"CTR",
-"MAIN":"MAIN"
+function applyLanguage(){
 
-};
+  document.documentElement.lang =
+    currentLanguage === "om"
+      ? "om"
+      : currentLanguage === "am"
+        ? "am"
+        : "en";
 
-function normalizeText(value){
 
-return String(value || "")
-.trim()
-.toUpperCase()
-.replace(/\s+/g," ");
+  document
+    .querySelectorAll("[data-i18n]")
+    .forEach(function(element){
 
-}
+      const key =
+        element.getAttribute("data-i18n");
 
-function isValidUUID(value){
+      element.textContent =
+        t(key);
 
-return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-.test(
-String(value || "").trim()
-);
+    });
 
-}
 
-function getEffectiveBranchCode(){
+  const languageSelect =
+    document.getElementById("languageSelect");
 
-const code =
-normalizeText(currentBranchCode);
+  if(languageSelect){
 
-if(code)return code;
+    languageSelect.value =
+      currentLanguage;
 
-return BRANCH_CODES[
-normalizeText(currentBranchName)
-] || "";
+  }
 
-}
 
-function getValidBranchUUID(){
+  document.title =
+    currentLanguage === "om"
+      ? "AAFDRMC - Dashboard"
+      : currentLanguage === "am"
+        ? "AAFDRMC - ዳሽቦርድ"
+        : "AAFDRMC - Dashboard";
 
-return isValidUUID(currentBranchId)
-?
-String(currentBranchId).trim()
-:
-"";
+
+  updateBranchTexts();
+
+  buildCategoryDropdown();
+
+  renderSelectedCategory();
+
+  setupMenu();
+
+  updateMainNote();
 
 }
 
-function isMainBranch(){
 
-return(
+/* =====================================================
+   CHANGE LANGUAGE
+===================================================== */
 
-getEffectiveBranchCode()==="MAIN" ||
+function changeLanguage(language){
 
-normalizeText(
-currentBranchName
-)==="MAIN"
+  if(
+    !TRANSLATIONS[language]
+  ){
 
-);
+    language = "om";
 
-}
+  }
 
-/* =========================================================
-   BRANCH RESOLVER
-========================================================= */
 
-async function resolveCurrentBranch(){
+  currentLanguage =
+    language;
 
-currentBranchId =
-localStorage.getItem(
-"selected_branch_uuid"
-) || "";
 
-currentBranchCode =
-localStorage.getItem(
-"selected_branch_code"
-) ||
-localStorage.getItem(
-"branch_code"
-) ||
-"";
+  localStorage.setItem(
+    "aafdrmc_language",
+    currentLanguage
+  );
 
-currentBranchName =
-localStorage.getItem(
-"selected_branch_name"
-) ||
-localStorage.getItem(
-"branch_name"
-) ||
-"";
 
-if(
-
-normalizeText(
-currentBranchCode
-)==="MAIN" ||
-
-normalizeText(
-currentBranchName
-)==="MAIN"
-
-){
-
-currentBranchCode="MAIN";
-currentBranchName="MAIN";
-currentBranchId="";
-
-localStorage.setItem(
-"selected_branch_code",
-"MAIN"
-);
-
-localStorage.setItem(
-"branch_code",
-"MAIN"
-);
-
-localStorage.setItem(
-"selected_branch_name",
-"MAIN"
-);
-
-localStorage.setItem(
-"branch_name",
-"MAIN"
-);
-
-updateBranchInfo();
-
-return{
-id:"",
-code:"MAIN",
-name:"MAIN"
-};
+  applyLanguage();
 
 }
 
-const savedUUID =
-getValidBranchUUID();
 
-const savedCode =
-normalizeText(
-currentBranchCode
-);
+/* =====================================================
+   LOGIN
+===================================================== */
 
-const savedName =
-normalizeText(
-currentBranchName
-);
+const isLoggedIn =
+localStorage.getItem("is_logged_in") === "true";
 
-const branches =
-await getTable(
-"branches",
-"?select=*"
-);
+if(!isLoggedIn){
 
-if(
-!Array.isArray(branches) ||
-!branches.length
-){
-
-throw new Error(
-"No branch records found in branches table."
-);
+  window.location.href = "index.html";
 
 }
 
-let found=null;
 
-if(savedUUID){
+/* =====================================================
+   CURRENT BRANCH
+===================================================== */
 
-found =
-branches.find(
-branch=>
+let branchName =
+localStorage.getItem("selected_branch_name") || "";
 
-String(
-branch.id ??
-branch.branch_id ??
-branch.uuid ??
-""
-)
-.trim()
-.toLowerCase()
-===
-savedUUID.toLowerCase()
-);
+let branchCode =
+localStorage.getItem("selected_branch_code") || "";
 
-}
+let branchUUID =
+localStorage.getItem("selected_branch_uuid") || "";
 
-if(!found && savedCode){
 
-found =
-branches.find(
-branch=>
+/* =====================================================
+   USER ROLE
+===================================================== */
 
-normalizeText(
-branch.branch_code ??
-branch.code ??
-branch.branchCode ??
-""
-)
-===
-savedCode
+const userRole =
+localStorage.getItem("user_role") || "";
 
-);
+
+/* =====================================================
+   MAIN USER
+===================================================== */
+
+function isMainUser(){
+
+  return String(userRole)
+    .trim()
+    .toLowerCase() === "main";
 
 }
 
-if(!found && savedName){
 
-found =
-branches.find(
-branch=>
+/* =====================================================
+   MAIN HQ
+===================================================== */
 
-normalizeText(
-branch.branch_name ??
-branch.name ??
-branch.branch ??
-branch.title ??
-""
-)
-===
-savedName
+function isMainHQ(){
 
-);
-
-}
-
-if(!found){
-
-throw new Error(
-"Current branch could not be found. Please logout and login again."
-);
+  return (
+    isMainUser() &&
+    String(branchCode)
+      .trim()
+      .toUpperCase() === "MAIN" &&
+    (
+      !branchUUID ||
+      branchUUID ===
+      "bd1b10ec-43dc-4eb0-ad8c-53a78b80815d"
+    )
+  );
 
 }
 
-const resolvedId =
-found.id ??
-found.branch_id ??
-found.uuid ??
-"";
 
-const resolvedCode =
-found.branch_code ??
-found.code ??
-found.branchCode ??
-savedCode ??
-"";
+/* =====================================================
+   BRANCH LIST
+===================================================== */
 
-const resolvedName =
-found.branch_name ??
-found.name ??
-found.branch ??
-found.title ??
-savedName ??
-resolvedCode;
+const BRANCHES = [
 
-currentBranchId =
-String(resolvedId || "");
+  {
+    name:"Gulele",
+    code:"GUL",
+    uuid:"b7b2ff8c-0be4-4678-a6d3-63c05cdf144c"
+  },
 
-currentBranchCode =
-String(resolvedCode || "");
+  {
+    name:"Addis Katama",
+    code:"AKT",
+    uuid:"9ed31570-9cfb-4706-82ed-049addf493fd"
+  },
 
-currentBranchName =
-String(resolvedName || "");
+  {
+    name:"Kolfee",
+    code:"KLF",
+    uuid:"6d51f505-1e5f-4c47-b2a9-ff83029293d4"
+  },
 
-if(
-isValidUUID(currentBranchId)
-){
+  {
+    name:"Nifas Silk Lafto",
+    code:"NSL",
+    uuid:"ea8fcf0f-eb72-4b2c-a167-2ad7f380bade"
+  },
 
-localStorage.setItem(
-"selected_branch_uuid",
-currentBranchId
-);
+  {
+    name:"Kirkos",
+    code:"KIR",
+    uuid:"06cda455-02cb-4b4b-a84b-b01bf1c28b33"
+  },
 
-}
+  {
+    name:"Lami Kura",
+    code:"LAM",
+    uuid:"6d9324f2-0120-455a-9161-ed46fbf06b61"
+  },
 
-if(currentBranchCode){
+  {
+    name:"Arada",
+    code:"ARA",
+    uuid:"b0d43ff1-ba2d-4b90-aa65-eab6acec4bdb"
+  },
 
-localStorage.setItem(
-"selected_branch_code",
-currentBranchCode
-);
+  {
+    name:"Lideta",
+    code:"LID",
+    uuid:"f26b2605-f4df-4a32-8c61-76131fe7e559"
+  },
 
-localStorage.setItem(
-"branch_code",
-currentBranchCode
-);
+  {
+    name:"Bole",
+    code:"BOL",
+    uuid:"d104e8ab-ed63-4d20-a314-6696abed839a"
+  },
 
-}
+  {
+    name:"Ekaa",
+    code:"EKA",
+    uuid:"015d6857-73a2-4b05-8555-4091387a305d"
+  },
 
-if(currentBranchName){
+  {
+    name:"Akaki Kality",
+    code:"AKA",
+    uuid:"ac4f8c9a-8855-42f4-b98f-35d454c8d89e"
+  },
 
-localStorage.setItem(
-"selected_branch_name",
-currentBranchName
-);
+  {
+    name:"Center",
+    code:"CTR",
+    uuid:"96a20750-5ff6-4475-ae03-009cd7688c33"
+  }
 
-localStorage.setItem(
-"branch_name",
-currentBranchName
-);
+];
 
-}
 
-updateBranchInfo();
+/* =====================================================
+   MAIN UUID
+===================================================== */
 
-return{
+const MAIN_UUID =
+"bd1b10ec-43dc-4eb0-ad8c-53a78b80815d";
 
-id:currentBranchId,
-code:currentBranchCode,
-name:currentBranchName
 
-};
+/* =====================================================
+   CATEGORIES
+===================================================== */
 
-}
+const CATEGORIES = [
 
-function updateBranchInfo(){
+  {
+    key:"Strategic Food",
+    om:"Meeshaalee Nyaataa Tarsiimawaa",
+    am:"ስትራቴጂክ የምግብ እቃዎች",
+    en:"Strategic Food Items"
+  },
 
-const el =
-document.getElementById(
-"branchInfo"
-);
+  {
+    key:"Daily Food",
+    om:"Meeshaalee Nyaataa Guyyaa Guyyaa",
+    am:"የዕለት ተዕለት የምግብ እቃዎች",
+    en:"Daily Food Items"
+  },
 
-if(!el)return;
+  {
+    key:"Daily Non-Food",
+    om:"Meeshaalee Nyaataa Hin Taane Guyyaa Guyyaa",
+    am:"የዕለት ተዕለት የምግብ ያልሆኑ እቃዎች",
+    en:"Daily Non-Food Items"
+  },
 
-if(isMainBranch()){
+  {
+    key:"Non-Food Kitchen",
+    om:"Meeshaalee Nyaataa Hin Taane Ittiin Nyaata Qopheessan",
+    am:"የምግብ ያልሆኑ የኩሽና እቃዎች",
+    en:"Non-Food Kitchen Items"
+  },
 
-el.textContent =
-"Branch: MAIN - Headquarters";
+  {
+    key:"Hygiene",
+    om:"Meeshaalee Qulqullinaa",
+    am:"የንጽህና እቃዎች",
+    en:"Non-Food Hygiene Items"
+  },
 
-return;
+  {
+    key:"Building",
+    om:"Meeshaalee Ijaarsa",
+    am:"የግንባታ እቃዎች",
+    en:"Non-Food Building/Construction Items"
+  }
 
-}
+];
 
-const name =
-currentBranchName ||
-"Unknown Branch";
 
-const code =
-getEffectiveBranchCode();
+/* =====================================================
+   GLOBAL CATEGORY DATA
+===================================================== */
 
-el.textContent =
-code
-?
-"Branch: " +
-name +
-" (" +
-code +
-")"
-:
-"Branch: " +
-name;
+let dashboardCategoryData = {};
 
-}
 
-/* =========================================================
-   DATA
-========================================================= */
+/* =====================================================
+   HEADERS
+===================================================== */
 
-let households=[];
-let items=[];
+function getHeaders(){
 
-let savingHousehold=false;
-let savingRelief=false;
+  return {
 
-/* =========================================================
-   MESSAGES
-========================================================= */
+    "apikey":
+      SUPABASE_KEY,
 
-function showSuccess(message){
+    "Authorization":
+      "Bearer " + SUPABASE_KEY,
 
-const el =
-document.getElementById(
-"successMessage"
-);
+    "Content-Type":
+      "application/json",
 
-el.textContent=message;
+    "Accept":
+      "application/json",
 
-el.style.display="block";
+    "Prefer":
+      "return=representation"
 
-setTimeout(
-()=>{
-el.style.display="none";
-},
-3500
-);
-
-}
-
-function showError(message){
-
-const el =
-document.getElementById(
-"errorMessage"
-);
-
-el.textContent=message;
-
-el.style.display="block";
-
-setTimeout(
-()=>{
-el.style.display="none";
-},
-9000
-);
-
-}
-
-function setStatus(message){
-
-const el =
-document.getElementById(
-"statusBar"
-);
-
-if(!el)return;
-
-if(!message){
-
-el.style.display="none";
-
-el.textContent="";
-
-return;
+  };
 
 }
 
-el.textContent=message;
 
-el.style.display="block";
+/* =====================================================
+   MESSAGE
+===================================================== */
 
-}
+function showMessage(text,type){
 
-/* =========================================================
-   FETCH
-========================================================= */
+  const box =
+    document.getElementById("message");
 
-async function fetchWithTimeout(
-url,
-options={},
-timeout=20000
-){
+  box.textContent = text;
 
-const controller =
-new AbortController();
-
-const timer =
-setTimeout(
-()=>controller.abort(),
-timeout
-);
-
-try{
-
-return await fetch(
-url,
-{
-...options,
-signal:controller.signal
-}
-);
-
-}catch(error){
-
-if(
-error.name==="AbortError"
-){
-
-throw new Error(
-"Connection timed out. Please check internet/Supabase."
-);
+  box.className =
+    "message show " + type;
 
 }
 
-throw error;
 
-}finally{
+/* =====================================================
+   BRANCH TEXT
+===================================================== */
 
-clearTimeout(timer);
+function updateBranchTexts(){
 
-}
+  const branchElement =
+    document.getElementById("branchName");
 
-}
+  if(!branchName){
 
-async function getResponseError(
-response
-){
+    branchElement.textContent =
+      t("branchNotSelected");
 
-try{
+    document.getElementById("currentBranch")
+      .textContent =
+      t("unknown");
 
-const data =
-await response.json();
+    document.getElementById("currentCode")
+      .textContent =
+      "—";
 
-return(
+    return;
 
-data.message ||
-data.error_description ||
-data.hint ||
-data.details ||
-JSON.stringify(data)
+  }
 
-);
 
-}catch(error){
+  branchElement.textContent =
+    "🏢 " + branchName;
 
-return(
-response.status +
-" " +
-response.statusText
-);
+  document.getElementById("currentBranch")
+    .textContent =
+    branchName;
 
-}
+  document.getElementById("currentCode")
+    .textContent =
+    branchCode || "—";
 
-}
 
-async function getTable(
-table,
-query=""
-){
+  const badge =
+    document.getElementById("modeBadge");
 
-const response =
-await fetchWithTimeout(
-API+"/"+table+query,
-{
-method:"GET",
-headers:headers()
-}
-);
+  if(isMainUser()){
 
-if(!response.ok){
+    badge.textContent =
+      t("mainViewBadge");
 
-throw new Error(
-await getResponseError(
-response
-)
-);
+  }
+  else{
+
+    badge.textContent =
+      t("branchFullAccess");
+
+  }
 
 }
 
-const data =
-await response.json();
 
-return Array.isArray(data)
-?
-data
-:
-[];
+/* =====================================================
+   SHOW BRANCH
+===================================================== */
 
-}
+function showBranch(){
 
-async function postTable(
-table,
-data
-){
+  if(!branchName){
 
-const response =
-await fetchWithTimeout(
-API+"/"+table,
-{
-method:"POST",
-headers:{
-...headers(),
-"Prefer":
-"return=representation"
-},
-body:
-JSON.stringify(data)
-}
-);
+    updateBranchTexts();
 
-if(!response.ok){
+    showMessage(
+      t("branchUnknown"),
+      "error"
+    );
 
-throw new Error(
-await getResponseError(
-response
-)
-);
+    return false;
+
+  }
+
+  updateBranchTexts();
+
+  return true;
 
 }
 
-return await response.json();
+
+/* =====================================================
+   MAIN NOTE
+===================================================== */
+
+function updateMainNote(){
+
+  const mainNote =
+    document.getElementById("mainNote");
+
+  if(!mainNote){
+    return;
+  }
+
+  const shouldShow =
+    isMainUser();
+
+  if(shouldShow){
+
+    mainNote.classList.remove("hidden");
+
+  }
+  else{
+
+    mainNote.classList.add("hidden");
+
+  }
 
 }
 
-/* =========================================================
-   ITEM HELPERS
-========================================================= */
 
-function getItemName(item){
+/* =====================================================
+   SET MENU
+===================================================== */
 
-return(
-item?.name ||
-item?.item_name ||
-item?.item ||
-""
-);
+function setupMenu(){
 
-}
+  const branchMenu =
+    document.getElementById("branchMenu");
 
-function getItemUnit(item){
+  const mainMenu =
+    document.getElementById("mainMenu");
 
-return(
-item?.unit ||
-item?.measurement ||
-item?.safartuu ||
-""
-);
+  const mainNote =
+    document.getElementById("mainNote");
 
-}
+  const allBranchesCard =
+    document.getElementById("allBranchesCard");
 
-function getItemCategory(item){
+  const settingsButton =
+    document.getElementById("settingsButton");
 
-return(
-item?.category ||
-item?.category_name ||
-""
-);
 
-}
+  /* =================================================
+     MAIN HQ
+  ================================================= */
 
-function getItemById(itemId){
+  if(isMainHQ()){
 
-return items.find(
-item =>
-String(item.id) ===
-String(itemId)
-);
+    branchMenu.classList.add("hidden");
 
-}
+    mainMenu.classList.remove("hidden");
 
-/* =========================================================
-   BRANCH FILTER
-========================================================= */
+    mainNote.classList.remove("hidden");
 
-function branchMatches(row){
+    allBranchesCard.classList.remove("hidden");
 
-if(isMainBranch())return true;
+    return;
 
-const wantedUUID =
-getValidBranchUUID()
-.toLowerCase();
+  }
 
-const wantedCode =
-getEffectiveBranchCode()
-.toLowerCase();
 
-const rowUUID =
-String(
-row?.branch_id ?? ""
-)
-.trim()
-.toLowerCase();
+  /* =================================================
+     MAIN USER VIEWING BRANCH
+  ================================================= */
 
-const rowCode =
-String(
-row?.branch_code ?? ""
-)
-.trim()
-.toLowerCase();
+  if(isMainUser()){
 
-if(
-wantedUUID &&
-rowUUID &&
-rowUUID===wantedUUID
-){
+    branchMenu.classList.remove("hidden");
 
-return true;
+    mainMenu.classList.add("hidden");
 
-}
+    mainNote.classList.remove("hidden");
 
-if(
-wantedCode &&
-rowCode &&
-rowCode===wantedCode
-){
+    allBranchesCard.classList.remove("hidden");
 
-return true;
 
-}
+    if(settingsButton){
 
-return false;
+      settingsButton.classList.add("hidden");
 
-}
+    }
 
-function filterBranchData(data){
 
-if(!Array.isArray(data))
-return [];
+    const itemsButton =
+      document.getElementById("itemsButton");
 
-if(isMainBranch())
-return data;
+    itemsButton.innerHTML =
+      "👁️ " +
+      `<span>${escapeHTML(t("viewItems"))}</span>`;
 
-const hasBranchFields =
-data.some(
-row =>
-Object.prototype.hasOwnProperty.call(
-row,
-"branch_id"
-) ||
-Object.prototype.hasOwnProperty.call(
-row,
-"branch_code"
-)
-);
+    itemsButton.className =
+      "btn view-only-btn";
 
-if(!hasBranchFields)
-return data;
 
-return data.filter(
-row =>
-branchMatches(row)
-);
+    const stockButton =
+      document.getElementById("stockButton");
+
+    stockButton.innerHTML =
+      "👁️ " +
+      `<span>${escapeHTML(t("viewStock"))}</span>`;
+
+    stockButton.className =
+      "btn view-only-btn";
+
+    return;
+
+  }
+
+
+  /* =================================================
+     OPERATIONAL BRANCH
+  ================================================= */
+
+  branchMenu.classList.remove("hidden");
+
+  mainMenu.classList.add("hidden");
+
+  mainNote.classList.add("hidden");
+
+  allBranchesCard.classList.add("hidden");
+
+
+  if(settingsButton){
+
+    settingsButton.classList.add("hidden");
+
+  }
+
+
+  document.getElementById("itemsButton").innerHTML =
+    `📦 <span>${escapeHTML(t("items"))}</span>`;
+
+  document.getElementById("itemsButton")
+    .className =
+    "btn items";
+
+
+  document.getElementById("stockButton").innerHTML =
+    `📥 <span>${escapeHTML(t("stockInOut"))}</span>`;
+
+  document.getElementById("stockButton")
+    .className =
+    "btn stock";
 
 }
 
-/* =========================================================
+
+/* =====================================================
+   CATEGORY NAME
+===================================================== */
+
+function getCategoryName(category){
+
+  if(!category){
+    return "";
+  }
+
+  return category[currentLanguage] ||
+         category.en ||
+         category.om ||
+         category.key;
+
+}
+
+
+/* =====================================================
+   CATEGORY DROPDOWN
+===================================================== */
+
+function buildCategoryDropdown(){
+
+  const select =
+    document.getElementById("categorySelect");
+
+  if(!select){
+    return;
+  }
+
+  const oldValue =
+    select.value;
+
+  select.innerHTML = "";
+
+
+  const firstOption =
+    document.createElement("option");
+
+  firstOption.value = "";
+
+  firstOption.textContent =
+    t("selectCategoryOption");
+
+  select.appendChild(firstOption);
+
+
+  CATEGORIES.forEach(
+    function(cat){
+
+      const option =
+        document.createElement("option");
+
+      option.value =
+        cat.key;
+
+      option.textContent =
+        getCategoryName(cat);
+
+      select.appendChild(option);
+
+    }
+  );
+
+
+  if(
+    CATEGORIES.some(
+      function(cat){
+        return cat.key === oldValue;
+      }
+    )
+  ){
+
+    select.value =
+      oldValue;
+
+  }
+
+}
+
+
+/* =====================================================
+   UUID CHECK
+===================================================== */
+
+function isUUID(value){
+
+  if(!value){
+    return false;
+  }
+
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    .test(String(value).trim());
+
+}
+
+
+/* =====================================================
+   RESOLVE BRANCH UUID
+===================================================== */
+
+async function resolveBranchUUID(){
+
+  if(isMainHQ()){
+
+    return null;
+
+  }
+
+
+  if(isUUID(branchUUID)){
+
+    return branchUUID;
+
+  }
+
+
+  const knownBranch =
+    BRANCHES.find(
+      function(branch){
+
+        return (
+          branch.code === branchCode ||
+          branch.name.toLowerCase() ===
+          String(branchName)
+            .trim()
+            .toLowerCase()
+        );
+
+      }
+    );
+
+
+  if(
+    knownBranch &&
+    isUUID(knownBranch.uuid)
+  ){
+
+    branchUUID =
+      knownBranch.uuid;
+
+    localStorage.setItem(
+      "selected_branch_uuid",
+      branchUUID
+    );
+
+    return branchUUID;
+
+  }
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/branches?select=*",
+      {
+        method:"GET",
+        headers:getHeaders()
+      }
+    );
+
+
+  if(!response.ok){
+
+    const errorText =
+      await response.text();
+
+    throw new Error(
+      "Branches loading failed: " +
+      errorText
+    );
+
+  }
+
+
+  const branches =
+    await response.json();
+
+
+  const code =
+    String(branchCode || "")
+      .trim()
+      .toLowerCase();
+
+
+  const name =
+    String(branchName || "")
+      .trim()
+      .toLowerCase();
+
+
+  let found =
+    branches.find(
+      function(b){
+
+        const bCode =
+          String(
+            b.code ||
+            b.branch_code ||
+            b.short_code ||
+            ""
+          )
+          .trim()
+          .toLowerCase();
+
+        const bName =
+          String(
+            b.branch_name ||
+            b.name ||
+            b.branch ||
+            ""
+          )
+          .trim()
+          .toLowerCase();
+
+        return (
+          (code && bCode === code) ||
+          (name && bName === name)
+        );
+
+      }
+    );
+
+
+  if(
+    !found ||
+    !isUUID(found.id)
+  ){
+
+    throw new Error(
+      t("branchUuidError") +
+      branchName +
+      "\n" +
+      t("codeWord") +
+      branchCode
+    );
+
+  }
+
+
+  branchUUID =
+    String(found.id).trim();
+
+
+  localStorage.setItem(
+    "selected_branch_uuid",
+    branchUUID
+  );
+
+
+  return branchUUID;
+
+}
+
+
+/* =====================================================
    LOAD ITEMS
-========================================================= */
+===================================================== */
 
 async function loadItems(){
 
-const allItems =
-await getTable(
-"items",
-"?select=*"
-);
-
-items =
-filterBranchData(
-allItems
-);
+  try{
 
-}
-
-/* =========================================================
-   TRANSACTION
-========================================================= */
-
-function normalizeTransactionValue(
-value
-){
-
-return String(value || "")
-.trim()
-.toUpperCase()
-.replace(/[_-]+/g," ")
-.replace(/\s+/g," ");
-
-}
-
-function transactionIsIn(
-transaction
-){
-
-const type =
-normalizeTransactionValue(
-transaction.transaction_type
-);
-
-const name =
-normalizeTransactionValue(
-transaction.transaction
-);
-
-return(
-
-type==="IN" ||
-type==="STOCK IN" ||
-type==="STOCKIN" ||
-type==="RECEIPT" ||
-type==="RECEIVED" ||
-type==="RECEIVE" ||
-
-name.includes("STOCK IN") ||
-name.includes("STOCKIN") ||
-name.includes("RECEIPT") ||
-name.includes("RECEIVED") ||
-name.includes("RECEIVE")
-
-);
-
-}
-
-function transactionIsOut(
-transaction
-){
-
-const type =
-normalizeTransactionValue(
-transaction.transaction_type
-);
-
-const name =
-normalizeTransactionValue(
-transaction.transaction
-);
-
-return(
-
-type==="OUT" ||
-type==="STOCK OUT" ||
-type==="STOCKOUT" ||
-type==="ISSUE" ||
-type==="ISSUED" ||
-type==="RELIEF" ||
-
-name.includes("STOCK OUT") ||
-name.includes("STOCKOUT") ||
-name.includes("ISSUE") ||
-name.includes("ISSUED") ||
-name.includes("RELIEF") ||
-name.includes("EMERGENCY RELIEF") ||
-name.includes("MODEL 22")
-
-);
-
-}
-
-/* =========================================================
-   STOCK BALANCE
-========================================================= */
-
-async function getItemStockBalance(
-itemId
-){
-
-if(
-itemId===null ||
-itemId===undefined ||
-String(itemId).trim()===""
-){
-
-return 0;
-
-}
-
-const selectedItem =
-getItemById(itemId);
-
-if(!selectedItem)
-return 0;
-
-const allTransactions =
-await getTable(
-"stock_transactions",
-"?select=*"
-);
-
-const transactions =
-filterBranchData(
-allTransactions
-);
-
-let matched =
-transactions.filter(
-t =>
-String(
-t.item_id ?? ""
-).trim()
-===
-String(
-itemId
-).trim()
-);
-
-if(!matched.length){
-
-const selectedName =
-normalizeTransactionValue(
-getItemName(
-selectedItem
-)
-);
-
-if(selectedName){
-
-matched =
-transactions.filter(
-t =>
-normalizeTransactionValue(
-t.item_name ||
-t.name ||
-t.item ||
-""
-)
-===
-selectedName
-);
-
-}
-
-}
-
-let balance=0;
-
-matched.forEach(
-transaction=>{
-
-const quantity =
-Number(
-transaction.quantity
-);
-
-if(
-!Number.isFinite(
-quantity
-)
-)return;
-
-const amount =
-Math.abs(quantity);
-
-if(
-transactionIsIn(
-transaction
-)
-){
-
-balance += amount;
-
-}
-
-if(
-transactionIsOut(
-transaction
-)
-){
-
-balance -= amount;
-
-}
-
-}
-);
-
-balance =
-Math.round(
-balance*100
-)/100;
-
-return Math.max(
-0,
-balance
-);
-
-}
-
-/* =========================================================
-   RELIEF ITEM STOCK
-========================================================= */
-
-async function updateReliefRowStock(
-row
-){
-
-const select =
-row.querySelector(
-".relief-item-select"
-);
-
-const info =
-row.querySelector(
-".stock-info"
-);
-
-if(!select || !info)
-return;
-
-const itemId =
-String(
-select.value || ""
-).trim();
-
-if(!itemId){
-
-info.textContent =
-"Select an item to check stock.";
-
-info.className =
-"stock-info";
-
-return;
-
-}
-
-info.textContent =
-"Checking current stock...";
-
-info.className =
-"stock-info stock-checking";
-
-try{
-
-const stock =
-await getItemStockBalance(
-itemId
-);
-
-if(stock>0){
-
-info.textContent =
-"Current Stock: " +
-stock;
-
-info.className =
-"stock-info stock-ok";
-
-}else{
-
-info.textContent =
-"Current Stock: 0";
-
-info.className =
-"stock-info stock-low";
-
-}
-
-}catch(error){
-
-info.textContent =
-"Stock could not be checked.";
-
-info.className =
-"stock-info stock-low";
-
-}
-
-}
-
-/* =========================================================
-   RELIEF ITEM SELECT
-========================================================= */
-
-function populateReliefItemSelect(
-select
-){
-
-if(!select)return;
-
-select.innerHTML =
-`
-<option value="">
-Select Item
-</option>
-`;
-
-if(!items.length){
-
-select.innerHTML =
-`
-<option value="">
-No Item Found
-</option>
-`;
-
-return;
-
-}
-
-items.forEach(
-item=>{
-
-const option =
-document.createElement(
-"option"
-);
-
-option.value =
-String(item.id);
-
-option.textContent =
-getItemName(item) ||
-"Unnamed Item";
-
-option.dataset.unit =
-getItemUnit(item);
-
-option.dataset.category =
-getItemCategory(item);
-
-select.appendChild(
-option
-);
-
-}
-);
-
-}
-
-async function setReliefItemData(
-select
-){
-
-const row =
-select.closest(
-".relief-row"
-);
-
-if(!row)return;
-
-const option =
-select.options[
-select.selectedIndex
-];
-
-const unit =
-option?.dataset.unit ||
-"";
-
-const category =
-option?.dataset.category ||
-"";
-
-const unitInput =
-row.querySelector(
-".relief-item-unit"
-);
-
-const categoryInput =
-row.querySelector(
-".relief-item-category"
-);
-
-if(unitInput)
-unitInput.value=unit;
-
-if(categoryInput)
-categoryInput.value=category;
-
-await updateReliefRowStock(
-row
-);
-
-}
-
-/* =========================================================
-   ADD RELIEF ITEM
-========================================================= */
-
-function addReliefItem(){
-
-const container =
-document.getElementById(
-"reliefItemsContainer"
-);
-
-const row =
-document.createElement(
-"div"
-);
-
-row.className="relief-row";
-
-row.innerHTML=`
-
-<div class="row-grid">
-
-<div>
-
-<label>
-Item *
-</label>
-
-<select
-class="relief-item-select"
-onchange="setReliefItemData(this)">
-
-<option value="">
-Select Item
-</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label>
-Unit
-</label>
-
-<input
-class="relief-item-unit readonly"
-type="text"
-readonly>
-
-</div>
-
-<div>
-
-<label>
-Quantity *
-</label>
-
-<input
-class="relief-item-quantity"
-type="number"
-min="0.01"
-step="0.01"
-inputmode="decimal"
-oninput="checkReliefQuantity(this)">
-
-</div>
-
-<div>
-
-<label>
-Category
-</label>
-
-<input
-class="relief-item-category readonly"
-type="text"
-readonly>
-
-</div>
-
-</div>
-
-<div class="stock-info">
-
-Select an item to check stock.
-
-</div>
-
-<div class="row-actions">
-
-<button
-type="button"
-class="remove-btn"
-onclick="removeReliefRow(this)">
-
-Remove Item
-
-</button>
-
-</div>
-
-`;
-
-container.appendChild(row);
-
-populateReliefItemSelect(
-row.querySelector(
-".relief-item-select"
-)
-);
-
-}
-
-function removeReliefRow(
-button
-){
-
-const row =
-button.closest(
-".relief-row"
-);
-
-if(row)
-row.remove();
-
-}
-
-/* =========================================================
-   QUANTITY CHECK
-========================================================= */
-
-async function checkReliefQuantity(
-input
-){
-
-const row =
-input.closest(
-".relief-row"
-);
-
-if(!row)return;
-
-const select =
-row.querySelector(
-".relief-item-select"
-);
-
-if(
-!select ||
-!select.value
-)
-return;
-
-const requested =
-Number(input.value);
-
-if(
-!Number.isFinite(
-requested
-) ||
-requested<=0
-)
-return;
-
-try{
-
-const stock =
-await getItemStockBalance(
-select.value
-);
-
-const info =
-row.querySelector(
-".stock-info"
-);
-
-if(!info)return;
-
-if(
-requested>stock
-){
-
-info.textContent =
-"Current Stock: " +
-stock +
-" — Requested quantity is too high.";
-
-info.className =
-"stock-info stock-low";
-
-}else{
-
-info.textContent =
-"Current Stock: " +
-stock +
-" — Available.";
-
-info.className =
-"stock-info stock-ok";
-
-}
-
-}catch(error){
-
-console.error(error);
-
-}
-
-}
-
-/* =========================================================
-   NEW HOUSEHOLD
-========================================================= */
-
-function showNewHousehold(){
-
-document.getElementById(
-"newHouseholdCard"
-).style.display="block";
-
-document.getElementById(
-"newReliefCard"
-).style.display="none";
-
-document.getElementById(
-"newHouseholdCard"
-).scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-}
-
-function hideNewHousehold(){
-
-document.getElementById(
-"newHouseholdCard"
-).style.display="none";
-
-}
-
-/* =========================================================
-   NEW RELIEF
-========================================================= */
-
-async function showNewRelief(){
-
-const card =
-document.getElementById(
-"newReliefCard"
-);
-
-card.style.display="block";
-
-document.getElementById(
-"newHouseholdCard"
-).style.display="none";
-
-card.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-const householdSelect =
-document.getElementById(
-"reliefHousehold"
-);
-
-householdSelect.innerHTML =
-`
-<option value="">
-Loading households...
-</option>
-`;
-
-document.getElementById(
-"reliefMember"
-).innerHTML =
-`
-<option value="">
-Select Member
-</option>
-`;
-
-try{
-
-await resolveCurrentBranch();
-
-await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
-
-populateHouseholdSelect();
-
-document.getElementById(
-"reliefEnteredBy"
-).value=loginUser;
-
-document.getElementById(
-"reliefSignature"
-).value="";
-
-document.getElementById(
-"reliefModel22"
-).value="";
-
-document.getElementById(
-"reliefModel22Number"
-).value="";
-
-toggleModel22Number();
-
-setCurrentDateTime();
-
-document.getElementById(
-"reliefNotes"
-).value="";
-
-document.getElementById(
-"reliefItemsContainer"
-).innerHTML="";
-
-addReliefItem();
-
-if(!households.length){
-
-showError(
-"No households found for this branch."
-);
-
-}
-
-if(!items.length){
-
-showError(
-"No items found for this branch."
-);
-
-}
-
-}catch(error){
-
-console.error(
-"SHOW RELIEF ERROR:",
-error
-);
-
-householdSelect.innerHTML =
-`
-<option value="">
-Could not load households
-</option>
-`;
-
-showError(
-"Relief form could not be prepared: " +
-error.message
-);
-
-}
-
-}
-
-function hideNewRelief(){
-
-document.getElementById(
-"newReliefCard"
-).style.display="none";
-
-}
-
-function setCurrentDateTime(){
-
-const now=new Date();
-
-const local =
-new Date(
-now.getTime() -
-now.getTimezoneOffset()*60000
-)
-.toISOString()
-.slice(0,16);
-
-document.getElementById(
-"reliefDate"
-).value=local;
-
-}
-
-/* =========================================================
-   MODEL 22
-   DATABASE VALUES:
-   No Model 22
-   Model 22 Available
-   Verbal
-========================================================= */
-
-function toggleModel22Number(){
-
-const model =
-document.getElementById(
-"reliefModel22"
-).value;
-
-const field =
-document.getElementById(
-"model22NumberField"
-);
-
-const number =
-document.getElementById(
-"reliefModel22Number"
-);
-
-if(
-model ===
-"Model 22 Available"
-){
-
-field.style.display="block";
-
-number.required=true;
-
-}else{
-
-field.style.display="none";
-
-number.required=false;
-
-number.value="";
-
-}
-
-}
-
-/* =========================================================
-   LOAD MEMBERS
-========================================================= */
-
-async function loadReliefMembers(){
-
-const householdId =
-String(
-document.getElementById(
-"reliefHousehold"
-).value || ""
-).trim();
-
-const select =
-document.getElementById(
-"reliefMember"
-);
-
-if(!householdId){
-
-select.innerHTML =
-`
-<option value="">
-Select Member
-</option>
-`;
-
-return;
-
-}
-
-select.innerHTML =
-`
-<option value="">
-Loading members...
-</option>
-`;
-
-try{
-
-const data =
-await getTable(
-"emergency_members",
-"?select=*&household_id=eq." +
-encodeURIComponent(
-householdId
-) +
-"&order=id.asc"
-);
-
-select.innerHTML =
-`
-<option value="">
-Select Member
-</option>
-`;
-
-if(!data.length){
-
-select.innerHTML =
-`
-<option value="">
-No Member Found
-</option>
-`;
-
-return;
-
-}
-
-data.forEach(
-member=>{
-
-const option =
-document.createElement(
-"option"
-);
-
-option.value =
-String(member.id);
-
-option.textContent =
-member.full_name ||
-member.name ||
-"Member";
-
-select.appendChild(
-option
-);
-
-}
-);
-
-}catch(error){
-
-console.error(
-"LOAD MEMBERS ERROR:",
-error
-);
-
-select.innerHTML =
-`
-<option value="">
-Could not load members
-</option>
-`;
-
-showError(
-"Members could not be loaded: " +
-error.message
-);
-
-}
-
-}
-
-/* =========================================================
-   ADD MEMBER
-========================================================= */
-
-function addMember(){
-
-const container =
-document.getElementById(
-"membersContainer"
-);
-
-const row =
-document.createElement(
-"div"
-);
-
-row.className="member-row";
-
-row.innerHTML=`
-
-<div class="row-grid">
-
-<div>
-
-<label>
-Full Name *
-</label>
-
-<input
-class="member-name"
-type="text">
-
-</div>
-
-<div>
-
-<label>
-Relationship *
-</label>
-
-<input
-class="member-relationship"
-type="text">
-
-</div>
-
-<div>
-
-<label>
-Sex
-</label>
-
-<select class="member-sex">
-
-<option value="">
-Select
-</option>
-
-<option value="Male">
-Male
-</option>
-
-<option value="Female">
-Female
-</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label>
-Age
-</label>
-
-<input
-class="member-age"
-type="number"
-min="0">
-
-</div>
-
-</div>
-
-<div style="margin-top:10px">
-
-<label>
-Other Information
-</label>
-
-<textarea
-class="member-other">
-</textarea>
-
-</div>
-
-<div class="row-actions">
-
-<button
-type="button"
-class="remove-btn"
-onclick="this.closest('.member-row').remove()">
-
-Remove Member
-
-</button>
-
-</div>
-
-`;
-
-container.appendChild(row);
-
-}
-
-/* =========================================================
-   ADD DOCUMENT
-========================================================= */
-
-function addDocument(){
-
-const container =
-document.getElementById(
-"documentsContainer"
-);
-
-const row =
-document.createElement(
-"div"
-);
-
-row.className="document-row";
-
-row.innerHTML=`
-
-<div class="row-grid">
-
-<div>
-
-<label>
-Document Number
-</label>
-
-<input
-class="document-number"
-type="text">
-
-</div>
-
-<div>
-
-<label>
-Document Date
-</label>
-
-<input
-class="document-date"
-type="date">
-
-</div>
-
-<div>
-
-<label>
-Document Name
-</label>
-
-<input
-class="document-name"
-type="text">
-
-</div>
-
-<div>
-
-<label>
-Scanned File / Image
-</label>
-
-<input
-class="document-file"
-type="file"
-accept="image/*,.pdf">
-
-</div>
-
-</div>
-
-<div style="margin-top:10px">
-
-<label>
-Other Information
-</label>
-
-<textarea
-class="document-other">
-</textarea>
-
-</div>
-
-<div class="row-actions">
-
-<button
-type="button"
-class="remove-btn"
-onclick="this.closest('.document-row').remove()">
-
-Remove Document
-
-</button>
-
-</div>
-
-`;
-
-container.appendChild(row);
-
-}
-
-/* =========================================================
-   SAVE HOUSEHOLD
-========================================================= */
-
-async function saveHousehold(){
-
-if(savingHousehold)
-return;
-
-const button =
-document.getElementById(
-"saveHouseholdBtn"
-);
-
-const name =
-document.getElementById(
-"householdName"
-).value.trim();
-
-const disasterType =
-document.getElementById(
-"disasterType"
-).value;
-
-if(!name){
-
-showError(
-"Household Name is required."
-);
-
-return;
-
-}
-
-if(!disasterType){
-
-showError(
-"Disaster Type is required."
-);
-
-return;
-
-}
-
-savingHousehold=true;
-
-button.disabled=true;
-
-button.textContent="Saving...";
-
-try{
-
-await resolveCurrentBranch();
-
-const householdData={
-
-household_name:name,
-
-disaster_type:
-disasterType,
-
-disaster_date:
-document.getElementById(
-"disasterDate"
-).value ||
-null,
-
-city:
-document.getElementById(
-"city"
-).value.trim() ||
-null,
-
-sub_city:
-document.getElementById(
-"subCity"
-).value.trim() ||
-null,
-
-woreda:
-document.getElementById(
-"woreda"
-).value.trim() ||
-null,
-
-specific_location:
-document.getElementById(
-"specificLocation"
-).value.trim() ||
-null,
-
-house_number:
-document.getElementById(
-"houseNumber"
-).value.trim() ||
-null,
-
-fan_number:
-document.getElementById(
-"fanNumber"
-).value.trim() ||
-null,
-
-other_information:
-document.getElementById(
-"householdOther"
-).value.trim() ||
-null
-
-};
-
-if(!isMainBranch()){
-
-const uuid =
-getValidBranchUUID();
-
-if(uuid){
-
-householdData.branch_id =
-uuid;
-
-}
-
-const code =
-getEffectiveBranchCode();
-
-if(code){
-
-householdData.branch_code =
-code;
-
-}
-
-}else{
-
-householdData.branch_code =
-"MAIN";
-
-}
-
-const result =
-await postTable(
-"emergency_households",
-householdData
-);
-
-if(
-!Array.isArray(result) ||
-!result.length
-){
-
-throw new Error(
-"Household was not created."
-);
-
-}
-
-const householdId =
-result[0].id;
-
-/* MEMBERS */
-
-const memberRows =
-Array.from(
-document.querySelectorAll(
-".member-row"
-)
-);
-
-for(
-const row of memberRows
-){
-
-const fullName =
-row.querySelector(
-".member-name"
-).value.trim();
-
-const relationship =
-row.querySelector(
-".member-relationship"
-).value.trim();
-
-if(!fullName){
-
-throw new Error(
-"Member Full Name is required."
-);
-
-}
-
-if(!relationship){
-
-throw new Error(
-"Member Relationship is required."
-);
-
-}
-
-await postTable(
-"emergency_members",
-{
-
-household_id:
-householdId,
-
-full_name:
-fullName,
-
-relationship:
-relationship,
-
-sex:
-row.querySelector(
-".member-sex"
-).value ||
-null,
-
-age:
-row.querySelector(
-".member-age"
-).value
-?
-Number(
-row.querySelector(
-".member-age"
-).value
-)
-:
-null,
-
-other_information:
-row.querySelector(
-".member-other"
-).value.trim()
-||
-null
-
-}
-);
-
-}
-
-/* DOCUMENTS */
-
-const documentRows =
-Array.from(
-document.querySelectorAll(
-".document-row"
-)
-);
-
-for(
-const row of documentRows
-){
-
-const fileInput =
-row.querySelector(
-".document-file"
-);
-
-let fileName=null;
-
-if(
-fileInput &&
-fileInput.files &&
-fileInput.files.length
-){
-
-fileName =
-fileInput.files[0].name;
-
-}
-
-await postTable(
-"emergency_documents",
-{
-
-household_id:
-householdId,
-
-document_number:
-row.querySelector(
-".document-number"
-).value.trim()
-||
-null,
-
-document_date:
-row.querySelector(
-".document-date"
-).value ||
-null,
-
-document_name:
-row.querySelector(
-".document-name"
-).value.trim()
-||
-null,
-
-file_name:
-fileName,
-
-other_information:
-row.querySelector(
-".document-other"
-).value.trim()
-||
-null
-
-}
-);
-
-}
-
-showSuccess(
-"Household saved successfully."
-);
-
-hideNewHousehold();
-
-clearHouseholdForm();
-
-await loadHouseholds();
-
-await loadSummary();
-
-}catch(error){
-
-console.error(
-"SAVE HOUSEHOLD ERROR:",
-error
-);
-
-showError(
-"Save Household failed: " +
-error.message
-);
-
-}finally{
-
-savingHousehold=false;
-
-button.disabled=false;
-
-button.textContent=
-"Save Household";
-
-}
-
-}
-
-/* =========================================================
-   CLEAR HOUSEHOLD
-========================================================= */
-
-function clearHouseholdForm(){
-
-[
-"householdName",
-"disasterDate",
-"city",
-"subCity",
-"woreda",
-"specificLocation",
-"houseNumber",
-"fanNumber",
-"householdOther"
-].forEach(
-id=>{
-
-const el =
-document.getElementById(id);
-
-if(el)
-el.value="";
-
-}
-);
-
-document.getElementById(
-"disasterType"
-).value="";
-
-document.getElementById(
-"membersContainer"
-).innerHTML="";
-
-document.getElementById(
-"documentsContainer"
-).innerHTML="";
-
-}
-
-/* =========================================================
-   READ RELIEF ITEMS
-========================================================= */
-
-function readReliefItems(){
-
-const rows =
-Array.from(
-document.querySelectorAll(
-".relief-row"
-)
-);
-
-if(!rows.length){
-
-throw new Error(
-"Please add at least one relief item."
-);
-
-}
-
-const raw=[];
-
-rows.forEach(
-row=>{
-
-const select =
-row.querySelector(
-".relief-item-select"
-);
-
-const quantityInput =
-row.querySelector(
-".relief-item-quantity"
-);
-
-const itemId =
-String(
-select?.value || ""
-).trim();
-
-const quantity =
-Number(
-quantityInput?.value
-);
-
-if(!itemId){
-
-throw new Error(
-"Please select an Item in every relief row."
-);
-
-}
-
-if(
-!Number.isFinite(
-quantity
-) ||
-quantity<=0
-){
-
-throw new Error(
-"Quantity must be greater than 0."
-);
-
-}
-
-const item =
-getItemById(
-itemId
-);
-
-if(!item){
-
-throw new Error(
-"Selected item could not be found."
-);
-
-}
-
-raw.push({
-
-itemId:itemId,
-
-quantity:quantity,
-
-name:
-getItemName(item),
-
-unit:
-getItemUnit(item),
-
-category:
-getItemCategory(item)
-
-});
-
-}
-);
-
-const grouped={};
-
-raw.forEach(
-item=>{
-
-if(!grouped[item.itemId]){
-
-grouped[item.itemId]={
-
-itemId:
-item.itemId,
-
-quantity:0,
-
-name:
-item.name,
-
-unit:
-item.unit,
-
-category:
-item.category
-
-};
-
-}
-
-grouped[
-item.itemId
-].quantity +=
-item.quantity;
-
-}
-);
-
-return Object.values(
-grouped
-);
-
-}
-
-/* =========================================================
-   MODEL 22 NORMALIZER
-========================================================= */
-
-function normalizeModel22Value(
-value
-){
-
-const v =
-String(
-value || ""
-).trim();
-
-if(
-v==="Hin jiru"
-){
-
-return "No Model 22";
-
-}
-
-if(
-v==="Model 22 qaba"
-){
-
-return "Model 22 Available";
-
-}
-
-if(
-v==="No Model 22" ||
-v==="Model 22 Available" ||
-v==="Verbal"
-){
-
-return v;
-
-}
-
-return v;
-
-}
-
-/* =========================================================
-   MODEL 22 DISPLAY
-========================================================= */
-
-function displayModel22(
-value
-){
-
-const v =
-String(
-value || ""
-).trim();
-
-if(
-v==="No Model 22"
-){
-
-return "Hin jiru";
-
-}
-
-if(
-v==="Model 22 Available"
-){
-
-return "Model 22 qaba";
-
-}
-
-if(
-v==="Verbal"
-){
-
-return "Verbal";
-
-}
-
-return v;
-
-}
-
-/* =========================================================
-   SAVE RELIEF
-========================================================= */
-
-async function saveRelief(){
-
-if(savingRelief)
-return;
-
-const button =
-document.getElementById(
-"saveReliefBtn"
-);
-
-const householdId =
-String(
-document.getElementById(
-"reliefHousehold"
-).value || ""
-).trim();
-
-const memberId =
-String(
-document.getElementById(
-"reliefMember"
-).value || ""
-).trim();
-
-const reliefDate =
-document.getElementById(
-"reliefDate"
-).value;
-
-const issuedBy =
-document.getElementById(
-"reliefEnteredBy"
-).value.trim();
-
-const signature =
-document.getElementById(
-"reliefSignature"
-).value.trim();
-
-/*
-IMPORTANT:
-DB CHECK CONSTRAINT:
-No Model 22
-Model 22 Available
-Verbal
-*/
-
-const model22 =
-normalizeModel22Value(
-document.getElementById(
-"reliefModel22"
-).value
-);
-
-const model22Number =
-document.getElementById(
-"reliefModel22Number"
-).value.trim();
-
-const notes =
-document.getElementById(
-"reliefNotes"
-).value.trim();
-
-if(!householdId){
-
-showError(
-"Please select Household."
-);
-
-return;
-
-}
-
-if(
-!isValidUUID(
-householdId
-)
-){
-
-showError(
-"Household ID is not a valid UUID."
-);
-
-return;
-
-}
-
-if(!memberId){
-
-showError(
-"Please select Member."
-);
-
-return;
-
-}
-
-if(
-!isValidUUID(
-memberId
-)
-){
-
-showError(
-"Member ID is not a valid UUID."
-);
-
-return;
-
-}
-
-if(!reliefDate){
-
-showError(
-"Relief Date is required."
-);
-
-return;
-
-}
-
-if(!issuedBy){
-
-showError(
-"Issued By is required."
-);
-
-return;
-
-}
-
-/* MODEL 22 */
-
-const allowedModel22=[
-"No Model 22",
-"Model 22 Available",
-"Verbal"
-];
-
-if(
-!allowedModel22.includes(
-model22
-)
-){
-
-showError(
-"Please select a valid Model 22 option."
-);
-
-return;
-
-}
-
-/* NUMBER */
-
-if(
-model22 ===
-"Model 22 Available" &&
-!model22Number
-){
-
-showError(
-"Model 22 Number is required."
-);
-
-return;
-
-}
-
-let finalItems;
-
-try{
-
-finalItems =
-readReliefItems();
+    let url =
+      SUPABASE_URL +
+      "/rest/v1/items?select=*";
 
-}catch(error){
 
-showError(
-error.message
-);
+    if(!isMainHQ()){
 
-return;
+      const uuid =
+        await resolveBranchUUID();
 
-}
-
-savingRelief=true;
-
-button.disabled=true;
-
-button.textContent=
-"Checking Stock...";
-
-try{
-
-await resolveCurrentBranch();
-
-/* CHECK STOCK */
-
-for(
-const item of finalItems
-){
+      if(uuid){
 
-const currentStock =
-await getItemStockBalance(
-item.itemId
-);
+        url +=
+          "&branch_id=eq." +
+          encodeURIComponent(uuid);
 
-if(
-item.quantity >
-currentStock
-){
+      }
 
-throw new Error(
-"Insufficient stock for " +
-item.name +
-". Current Stock: " +
-currentStock +
-", Requested: " +
-item.quantity
-);
+    }
 
-}
-
-}
-
-/* SAVE HEADER */
 
-button.textContent =
-"Saving Relief...";
+    url += "&order=id.asc";
 
-const reliefData={
 
-household_id:
-householdId,
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
 
-member_id:
-memberId,
 
-relief_date:
-new Date(
-reliefDate
-).toISOString(),
+    if(!response.ok){
 
-issued_by:
-issuedBy,
+      console.warn(
+        "Items loading:",
+        await response.text()
+      );
 
-signature:
-signature ||
-null,
+      return [];
 
-/*
-EXACT DATABASE VALUES
-*/
+    }
 
-model_22:
-model22,
 
-model_22_number:
-model22 ===
-"Model 22 Available"
-?
-model22Number
-:
-null,
+    const data =
+      await response.json();
 
-created_at:
-new Date().toISOString(),
 
-other_information:
-notes ||
-null
+    return Array.isArray(data)
+      ? data
+      : [];
 
-};
+  }
+  catch(error){
 
-const reliefResult =
-await postTable(
-"emergency_reliefs",
-reliefData
-);
+    console.warn(
+      "Items error:",
+      error
+    );
 
-if(
-!Array.isArray(
-reliefResult
-) ||
-!reliefResult.length
-){
+    return [];
 
-throw new Error(
-"Relief record was not created."
-);
+  }
 
 }
 
-const reliefId =
-reliefResult[0].id;
 
-/* RELIEF ITEMS + STOCK OUT */
+/* =====================================================
+   LOAD TRANSACTIONS
+===================================================== */
 
-for(
-const item of finalItems
-){
+async function loadTransactions(){
 
-await postTable(
-"emergency_relief_items",
-{
+  try{
 
-relief_id:
-reliefId,
+    let url =
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions?select=*";
 
-item_id:
-item.itemId,
 
-quantity:
-item.quantity,
+    if(!isMainHQ()){
 
-unit:
-item.unit ||
-null,
-
-item_name:
-item.name ||
-null,
-
-category:
-item.category ||
-null
-
-}
-);
+      const uuid =
+        await resolveBranchUUID();
 
-const stockOut={
+      if(uuid){
 
-transaction_type:
-"OUT",
+        url +=
+          "&branch_id=eq." +
+          encodeURIComponent(uuid);
 
-quantity:
-item.quantity,
+      }
 
-entered_by:
-issuedBy,
+    }
 
-entered_at:
-new Date(
-reliefDate
-).toISOString(),
 
-expiry_date:
-null,
+    url += "&order=id.desc";
 
-category:
-item.category ||
-null,
 
-issued_by:
-issuedBy,
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          headers:getHeaders()
+        }
+      );
 
-signature:
-signature ||
-null,
 
-unit:
-item.unit ||
-null,
+    if(!response.ok){
 
-transaction:
-"Emergency Relief - Model 22",
+      console.warn(
+        "Transactions loading:",
+        await response.text()
+      );
 
-item_id:
-item.itemId
+      return [];
 
-};
+    }
 
-if(!isMainBranch()){
 
-const uuid =
-getValidBranchUUID();
+    const data =
+      await response.json();
 
-if(uuid){
 
-stockOut.branch_id =
-uuid;
+    return Array.isArray(data)
+      ? data
+      : [];
 
-}
+  }
+  catch(error){
 
-const code =
-getEffectiveBranchCode();
+    console.warn(
+      "Transaction error:",
+      error
+    );
 
-if(code){
+    return [];
 
-stockOut.branch_code =
-code;
+  }
 
 }
-
-}else{
 
-stockOut.branch_id=null;
 
-stockOut.branch_code=
-"MAIN";
+/* =====================================================
+   TRANSACTION TYPE
+===================================================== */
 
-}
+function getTransactionType(t){
 
-await postTable(
-"stock_transactions",
-stockOut
-);
+  return String(
+    t.transaction_type || ""
+  )
+  .trim()
+  .toUpperCase();
 
 }
-
-showSuccess(
-"Relief saved and stock updated successfully."
-);
-
-hideNewRelief();
-
-await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
-
-await loadSummary();
-
-}catch(error){
 
-console.error(
-"SAVE RELIEF ERROR:",
-error
-);
 
-showError(
-"Save Relief failed: " +
-error.message
-);
+/* =====================================================
+   NORMALIZE
+===================================================== */
 
-}finally{
+function normalizeCategory(value){
 
-savingRelief=false;
+  return String(value || "")
+    .trim()
+    .toLowerCase();
 
-button.disabled=false;
-
-button.textContent=
-"Save Relief";
-
-}
-
 }
 
-/* =========================================================
-   LOAD HOUSEHOLDS
-========================================================= */
 
-async function loadHouseholds(){
+/* =====================================================
+   FIND CATEGORY
+===================================================== */
 
-const container =
-document.getElementById(
-"householdList"
-);
+function findCategory(value){
 
-container.innerHTML =
-`
-<div class="loading">
-Loading households...
-</div>
-`;
+  const v =
+    normalizeCategory(value);
 
-try{
 
-await resolveCurrentBranch();
+  if(!v){
+    return null;
+  }
 
-const all =
-await getTable(
-"emergency_households",
-"?select=*&order=id.desc"
-);
 
-households =
-filterBranchData(
-all
-);
+  if(
+    v.includes("daily non-food") ||
+    v.includes("daily non food") ||
+    v.includes("hin taane guyyaa") ||
+    v.includes("daily nonfood")
+  ){
 
-renderHouseholds();
+    return "Daily Non-Food";
 
-populateHouseholdSelect();
+  }
 
-if(!households.length){
 
-container.innerHTML =
-`
-<div class="empty">
+  if(
+    v.includes("non-food kitchen") ||
+    v.includes("non food kitchen") ||
+    v.includes("kitchen") ||
+    v.includes("qopheessan") ||
+    v.includes("ምግብ ዝግጅት")
+  ){
 
-No households found for
+    return "Non-Food Kitchen";
 
-<strong>
-${escapeHtml(
-currentBranchName ||
-getEffectiveBranchCode()
-)}
-</strong>
+  }
 
-<br><br>
 
-You can create a new household using
+  if(
+    v.includes("strategic") ||
+    v.includes("tarsiimawaa") ||
+    v.includes("ስትራቴጂክ")
+  ){
 
-<strong>
-+ New Household
-</strong>
+    return "Strategic Food";
 
-</div>
-`;
+  }
 
-}
-
-}catch(error){
 
-console.error(
-"LOAD HOUSEHOLDS ERROR:",
-error
-);
+  if(
+    v.includes("daily food") ||
+    (
+      v.includes("guyyaa guyyaa") &&
+      !v.includes("hin taane")
+    ) ||
+    v.includes("የዕለት ምግብ")
+  ){
 
-households=[];
+    return "Daily Food";
 
-container.innerHTML =
-`
-<div class="empty">
+  }
 
-<strong>
-Could not load households.
-</strong>
 
-<br><br>
+  if(
+    v.includes("hygiene") ||
+    v.includes("qulqullinaa") ||
+    v.includes("ንጽህና")
+  ){
 
-${escapeHtml(
-error.message
-)}
+    return "Hygiene";
 
-<br><br>
+  }
 
-<button
-type="button"
-class="btn blue"
-onclick="loadHouseholds()">
 
-↻ Try Again
+  if(
+    v.includes("building") ||
+    v.includes("construction") ||
+    v.includes("ijaarsa") ||
+    v.includes("ግንባታ")
+  ){
 
-</button>
+    return "Building";
 
-</div>
-`;
+  }
 
-populateHouseholdSelect();
 
-showError(
-"Households could not be loaded: " +
-error.message
-);
-
-}
+  return null;
 
 }
 
-/* =========================================================
-   HOUSEHOLD SELECT
-========================================================= */
 
-function populateHouseholdSelect(){
+/* =====================================================
+   ITEM NAME
+===================================================== */
 
-const select =
-document.getElementById(
-"reliefHousehold"
-);
+function getItemName(t){
 
-if(!select)
-return;
+  const possibleNames = [
 
-select.innerHTML =
-`
-<option value="">
-Select Household
-</option>
-`;
+    t.transaction,
+    t.item_name,
+    t.itemName,
+    t.name
 
-households.forEach(
-household=>{
+  ];
 
-const option =
-document.createElement(
-"option"
-);
 
-option.value =
-String(
-household.id
-);
+  for(
+    let i = 0;
+    i < possibleNames.length;
+    i++
+  ){
 
-option.textContent =
-household.household_name ||
-household.name ||
-"Household";
+    const value =
+      String(
+        possibleNames[i] || ""
+      ).trim();
 
-select.appendChild(
-option
-);
 
-}
-);
-
-}
-
-/* =========================================================
-   RENDER HOUSEHOLDS
-========================================================= */
+    if(value){
+      return value;
+    }
 
-function renderHouseholds(
-list=households
-){
+  }
 
-const container =
-document.getElementById(
-"householdList"
-);
 
-if(
-!Array.isArray(list) ||
-!list.length
-){
+  return t("unknownItem");
 
-container.innerHTML =
-`
-<div class="empty">
-No households found.
-</div>
-`;
-
-return;
-
 }
-
-container.innerHTML="";
-
-list.forEach(
-household=>{
-
-const card =
-document.createElement(
-"div"
-);
-
-card.className =
-"household-folder";
-
-card.onclick =
-() =>
-openHousehold(
-household.id
-);
-
-card.innerHTML=`
-
-<div class="folder-title">
-
-📁
-
-${escapeHtml(
-household.household_name ||
-household.name ||
-"Household"
-)}
-
-</div>
 
-<div class="folder-line">
 
-<strong>
-Disaster:
-</strong>
+/* =====================================================
+   PREPARE CATEGORY DATA
+===================================================== */
 
-${escapeHtml(
-household.disaster_type ||
-""
-)}
+function prepareCategoryData(transactions){
 
-</div>
+  const data = {};
 
-<div class="folder-line">
 
-<strong>
-Date:
-</strong>
+  CATEGORIES.forEach(
+    function(cat){
 
-${escapeHtml(
-household.disaster_date ||
-""
-)}
+      data[cat.key] = {
 
-</div>
+        items:{},
 
-<div class="folder-line">
+        totalIn:0,
 
-<strong>
-FAN:
-</strong>
+        totalOut:0
 
-${escapeHtml(
-household.fan_number ||
-"-"
-)}
+      };
 
-</div>
+    }
+  );
 
-<div class="folder-line">
 
-<strong>
-Location:
-</strong>
+  transactions.forEach(
+    function(transaction){
 
-${escapeHtml(
-household.specific_location ||
-household.woreda ||
-household.sub_city ||
-household.city ||
-"-"
-)}
+      const categoryKey =
+        findCategory(
+          transaction.category
+        );
 
-</div>
-`;
 
-container.appendChild(
-card
-);
+      if(!categoryKey){
+        return;
+      }
 
-}
-);
 
-}
+      const quantity =
+        Number(
+          transaction.quantity || 0
+        );
 
-/* =========================================================
-   FILTER
-========================================================= */
 
-async function filterHouseholds(){
+      if(
+        !Number.isFinite(quantity)
+      ){
 
-const text =
-document.getElementById(
-"searchText"
-).value
-.trim()
-.toLowerCase();
+        return;
 
-const disaster =
-document.getElementById(
-"filterDisaster"
-).value;
+      }
 
-const date =
-document.getElementById(
-"filterDate"
-).value;
 
-let result =
-households.filter(
-h=>{
+      const type =
+        getTransactionType(transaction);
 
-const name =
-String(
-h.household_name ||
-h.name ||
-""
-).toLowerCase();
 
-const fan =
-String(
-h.fan_number ||
-""
-).toLowerCase();
+      const itemName =
+        getItemName(transaction);
 
-return(
 
-(!text ||
-name.includes(text) ||
-fan.includes(text)) &&
+      if(
+        !data[categoryKey]
+          .items[itemName]
+      ){
 
-(!disaster ||
-h.disaster_type===disaster) &&
+        data[categoryKey]
+          .items[itemName] = {
 
-(!date ||
-h.disaster_date===date)
+            in:0,
+            out:0
 
-);
+          };
 
-}
-);
-
-if(text){
-
-try{
-
-const pattern =
-"%" + text + "%";
-
-const data =
-await getTable(
-"emergency_members",
-"?select=household_id" +
-"&full_name=ilike." +
-encodeURIComponent(
-pattern
-)
-);
-
-const ids =
-data.map(
-m =>
-String(
-m.household_id
-)
-);
-
-result =
-households.filter(
-h=>{
-
-const id =
-String(h.id);
-
-const name =
-String(
-h.household_name ||
-h.name ||
-""
-).toLowerCase();
-
-const fan =
-String(
-h.fan_number ||
-""
-).toLowerCase();
-
-return(
-
-(
-name.includes(text) ||
-fan.includes(text) ||
-ids.includes(id)
-) &&
-
-(!disaster ||
-h.disaster_type===disaster) &&
-
-(!date ||
-h.disaster_date===date)
-
-);
+      }
 
-}
-);
 
-}catch(error){
+      if(type === "IN"){
 
-console.error(
-"MEMBER SEARCH ERROR:",
-error
-);
+        data[categoryKey].totalIn +=
+          quantity;
 
-}
+        data[categoryKey]
+          .items[itemName].in +=
+          quantity;
 
-}
+      }
 
-renderHouseholds(
-result
-);
 
-}
+      if(type === "OUT"){
 
-/* =========================================================
-   OPEN HOUSEHOLD
-========================================================= */
+        data[categoryKey].totalOut +=
+          quantity;
 
-async function openHousehold(
-householdId
-){
+        data[categoryKey]
+          .items[itemName].out +=
+          quantity;
 
-const household =
-households.find(
-h =>
-String(h.id) ===
-String(householdId)
-);
+      }
 
-if(!household){
+    }
+  );
 
-showError(
-"Household not found."
-);
 
-return;
+  dashboardCategoryData =
+    data;
 
 }
-
-document.getElementById(
-"modalHouseholdName"
-).textContent =
-household.household_name ||
-household.name ||
-"Household Details";
-
-document.getElementById(
-"modalContent"
-).innerHTML =
-`
-<div class="loading">
-Loading details...
-</div>
-`;
-
-document.getElementById(
-"detailsModal"
-).style.display="block";
-
-try{
-
-const[
-householdMembers,
-householdReliefs,
-householdDocuments
-]=
-await Promise.all([
-
-getTable(
-"emergency_members",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(
-householdId
-) +
-"&order=id.asc"
-),
-
-getTable(
-"emergency_reliefs",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(
-householdId
-) +
-"&order=id.desc"
-),
-
-getTable(
-"emergency_documents",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(
-householdId
-) +
-"&order=id.asc"
-)
-
-]);
-
-let html="";
-
-/* HOUSEHOLD */
-
-html+=`
-
-<div class="detail-section">
-
-<h3>
-Household Information
-</h3>
-
-<table class="detail-table">
-
-<tr>
-
-<th>
-Household
-</th>
-
-<td>
-${escapeHtml(
-household.household_name ||
-household.name ||
-""
-)}
-</td>
-
-</tr>
-
-<tr>
-
-<th>
-Disaster Type
-</th>
-
-<td>
-${escapeHtml(
-household.disaster_type ||
-""
-)}
-</td>
-
-</tr>
-
-<tr>
-
-<th>
-Disaster Date
-</th>
-
-<td>
-${escapeHtml(
-household.disaster_date ||
-""
-)}
-</td>
-
-</tr>
-
-<tr>
-
-<th>
-City
-</th>
-
-<td>
-${escapeHtml(
-household.city ||
-""
-)}
-</td>
-
-</tr>
-
-<tr>
-
-<th>
-Sub-City
-</th>
-
-<td>
-${escapeHtml(
-household.sub_city ||
-""
-)}
-</td>
-
-</tr>
-
-<tr>
-
-<th>
-Woreda
-</th>
-
-<td>
-${escapeHtml(
-household.woreda ||
-""
-)}
-</td>
 
-</tr>
 
-<tr>
+/* =====================================================
+   RENDER SELECTED CATEGORY
+===================================================== */
 
-<th>
-Specific Location
-</th>
+function renderSelectedCategory(){
 
-<td>
-${escapeHtml(
-household.specific_location ||
-""
-)}
-</td>
+  const select =
+    document.getElementById(
+      "categorySelect"
+    );
 
-</tr>
 
-<tr>
+  const selected =
+    select.value;
 
-<th>
-House Number
-</th>
 
-<td>
-${escapeHtml(
-household.house_number ||
-""
-)}
-</td>
+  const result =
+    document.getElementById(
+      "categoryResult"
+    );
 
-</tr>
 
-<tr>
+  const titleBox =
+    document.getElementById(
+      "selectedCategoryBox"
+    );
 
-<th>
-FAN Number
-</th>
 
-<td>
-${escapeHtml(
-household.fan_number ||
-""
-)}
-</td>
+  if(!selected){
 
-</tr>
+    titleBox.classList.add("hidden");
 
-<tr>
 
-<th>
-Other Information
-</th>
+    result.innerHTML = `
 
-<td>
-${escapeHtml(
-household.other_information ||
-""
-)}
-</td>
+      <div class="no-transaction"
+           data-i18n="pleaseSelectCategory">
+        ${escapeHTML(
+          t("pleaseSelectCategory")
+        )}
+      </div>
 
-</tr>
+    `;
 
-</table>
+    return;
 
-</div>
-`;
+  }
 
-/* MEMBERS */
 
-html+=`
+  const category =
+    CATEGORIES.find(
+      function(cat){
+        return cat.key === selected;
+      }
+    );
 
-<div class="detail-section">
 
-<h3>
-Household Members
-</h3>
-`;
+  const data =
+    dashboardCategoryData[selected];
 
-if(!householdMembers.length){
 
-html+=`
-<div class="empty">
-No members recorded.
-</div>
-`;
+  if(!category || !data){
 
-}else{
+    result.innerHTML = `
 
-html+=`
+      <div class="no-transaction">
+        ${escapeHTML(t("noData"))}
+      </div>
 
-<table class="detail-table">
+    `;
 
-<tr>
+    return;
 
-<th>
-Full Name
-</th>
+  }
 
-<th>
-Relationship
-</th>
 
-<th>
-Sex
-</th>
+  titleBox.classList.remove("hidden");
 
-<th>
-Age
-</th>
 
-<th>
-Other Information
-</th>
+  titleBox.textContent =
+    "🗂️ " + getCategoryName(category);
 
-</tr>
-`;
 
-householdMembers.forEach(
-member=>{
+  const itemNames =
+    Object.keys(data.items)
+      .sort();
 
-html+=`
 
-<tr>
+  if(itemNames.length === 0){
 
-<td>
-${escapeHtml(
-member.full_name ||
-member.name ||
-""
-)}
-</td>
+    result.innerHTML = `
 
-<td>
-${escapeHtml(
-member.relationship ||
-""
-)}
-</td>
+      <div class="no-transaction">
 
-<td>
-${escapeHtml(
-member.sex ||
-""
-)}
-</td>
+        ${escapeHTML(
+          t("noTransaction")
+        )}
 
-<td>
-${escapeHtml(
-member.age ?? ""
-)}
-</td>
+        <br><br>
 
-<td>
-${escapeHtml(
-member.other_information ||
-""
-)}
-</td>
+        🟢 ${escapeHTML(t("in"))}: 0
 
-</tr>
-`;
+        &nbsp;&nbsp;|&nbsp;&nbsp;
 
-}
-);
-
-html+="</table>";
-
-}
-
-html+="</div>";
-
-/* DOCUMENTS */
-
-html+=`
-
-<div class="detail-section">
+        🔴 ${escapeHTML(t("out"))}: 0
 
-<h3>
-Official Documents
-</h3>
-`;
+        &nbsp;&nbsp;|&nbsp;&nbsp;
 
-if(!householdDocuments.length){
+        📊 ${escapeHTML(t("balance"))}: 0
 
-html+=`
-<div class="empty">
-No documents recorded.
-</div>
-`;
+      </div>
 
-}else{
+    `;
 
-html+=`
+    return;
 
-<table class="detail-table">
+  }
 
-<tr>
 
-<th>
-Document Number
-</th>
+  let html = `
 
-<th>
-Date
-</th>
+    <div class="category-table-wrap">
 
-<th>
-Name
-</th>
+      <table class="category-table">
 
-<th>
-File
-</th>
+        <thead>
 
-<th>
-Other Information
-</th>
+          <tr>
 
-</tr>
-`;
+            <th>${escapeHTML(t("item"))}</th>
 
-householdDocuments.forEach(
-doc=>{
+            <th>${escapeHTML(t("in"))}</th>
 
-html+=`
+            <th>${escapeHTML(t("out"))}</th>
 
-<tr>
+            <th>${escapeHTML(t("balance"))}</th>
 
-<td>
-${escapeHtml(
-doc.document_number ||
-""
-)}
-</td>
+          </tr>
 
-<td>
-${escapeHtml(
-doc.document_date ||
-""
-)}
-</td>
+        </thead>
 
-<td>
-${escapeHtml(
-doc.document_name ||
-""
-)}
-</td>
-
-<td>
-${escapeHtml(
-doc.file_name ||
-""
-)}
-</td>
-
-<td>
-${escapeHtml(
-doc.other_information ||
-""
-)}
-</td>
-
-</tr>
-`;
-
-}
-);
-
-html+="</table>";
-
-}
+        <tbody>
 
-html+="</div>";
-
-/* RELIEF */
-
-html+=`
-
-<div class="detail-section">
-
-<h3>
-Relief Records
-</h3>
-`;
-
-if(!householdReliefs.length){
-
-html+=`
-<div class="empty">
-No relief records.
-</div>
-`;
-
-}else{
-
-for(
-const relief
-of householdReliefs
-){
-
-const member =
-householdMembers.find(
-m =>
-String(m.id) ===
-String(
-relief.member_id
-)
-);
-
-html+=`
-
-<div style="
-border:1px solid #ddd;
-padding:14px;
-border-radius:10px;
-margin-bottom:12px;
-background:#faf7f5;
-">
-
-<strong>
-Member:
-</strong>
-
-${escapeHtml(
-member
-?
-(
-member.full_name ||
-member.name ||
-""
-)
-:
-(
-relief.member_id ||
-""
-)
-)}
-
-<br><br>
-
-<strong>
-Relief Date:
-</strong>
-
-${escapeHtml(
-relief.relief_date ||
-""
-)}
-
-<br><br>
-
-<strong>
-Issued By:
-</strong>
-
-${escapeHtml(
-relief.issued_by ||
-""
-)}
-
-<br><br>
-
-<strong>
-Signature:
-</strong>
-
-${escapeHtml(
-relief.signature ||
-""
-)}
-
-<br><br>
-
-<strong>
-Model 22:
-</strong>
-
-${escapeHtml(
-displayModel22(
-relief.model_22
-)
-)}
-
-<br><br>
-
-<strong>
-Model 22 Number:
-</strong>
-
-${escapeHtml(
-relief.model_22_number ||
-""
-)}
-
-<br><br>
-
-<strong>
-Other Information:
-</strong>
-
-${escapeHtml(
-relief.other_information ||
-""
-)}
-
-</div>
-`;
+  `;
 
-}
 
-}
+  itemNames.forEach(
+    function(itemName){
 
-html+="</div>";
+      const item =
+        data.items[itemName];
 
-document.getElementById(
-"modalContent"
-).innerHTML =
-html;
 
-}catch(error){
+      const itemBalance =
+        item.in - item.out;
 
-console.error(
-"OPEN HOUSEHOLD ERROR:",
-error
-);
 
-document.getElementById(
-"modalContent"
-).innerHTML =
-`
+      html += `
 
-<div class="empty">
+        <tr>
 
-Could not load household details.
+          <td>
+            ${escapeHTML(itemName)}
+          </td>
 
-<br><br>
+          <td class="in-number">
+            ${formatNumber(item.in)}
+          </td>
 
-${escapeHtml(
-error.message
-)}
+          <td class="out-number">
+            ${formatNumber(item.out)}
+          </td>
 
-</div>
+          <td class="balance-number">
+            ${formatNumber(itemBalance)}
+          </td>
 
-`;
+        </tr>
 
-}
+      `;
 
-}
+    }
+  );
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
 
-function closeModal(){
+  const totalBalance =
+    data.totalIn -
+    data.totalOut;
 
-document.getElementById(
-"detailsModal"
-).style.display="none";
 
-}
+  html += `
 
-/* =========================================================
-   SUMMARY
-========================================================= */
+        <tr class="category-total-row">
 
-async function loadSummary(){
+          <td>
+            ${escapeHTML(t("total"))}
+          </td>
 
-try{
+          <td class="in-number">
+            ${formatNumber(data.totalIn)}
+          </td>
 
-document.getElementById(
-"totalHouseholds"
-).textContent =
-households.length;
+          <td class="out-number">
+            ${formatNumber(data.totalOut)}
+          </td>
 
-if(!households.length){
+          <td class="balance-number">
+            ${formatNumber(totalBalance)}
+          </td>
 
-document.getElementById(
-"totalMembers"
-).textContent="0";
+        </tr>
 
-document.getElementById(
-"totalReliefs"
-).textContent="0";
+      </tbody>
 
-document.getElementById(
-"totalDocuments"
-).textContent="0";
+    </table>
 
-return;
+  </div>
 
-}
+  `;
 
-const householdIds =
-new Set(
-households.map(
-h =>
-String(h.id)
-)
-);
-
-const[
-allMembers,
-allReliefs,
-allDocuments
-]=
-await Promise.all([
-
-getTable(
-"emergency_members",
-"?select=id,household_id"
-),
-
-getTable(
-"emergency_reliefs",
-"?select=id,household_id"
-),
-
-getTable(
-"emergency_documents",
-"?select=id,household_id"
-)
-
-]);
-
-document.getElementById(
-"totalMembers"
-).textContent =
-
-allMembers.filter(
-m =>
-householdIds.has(
-String(
-m.household_id
-)
-)
-).length;
-
-document.getElementById(
-"totalReliefs"
-).textContent =
-
-allReliefs.filter(
-r =>
-householdIds.has(
-String(
-r.household_id
-)
-)
-).length;
-
-document.getElementById(
-"totalDocuments"
-).textContent =
-
-allDocuments.filter(
-d =>
-householdIds.has(
-String(
-d.household_id
-)
-)
-).length;
-
-}catch(error){
-
-console.error(
-"LOAD SUMMARY ERROR:",
-error
-);
 
-}
+  result.innerHTML = html;
 
 }
-
-/* =========================================================
-   REFRESH
-========================================================= */
 
-async function refreshAll(){
 
-try{
+/* =====================================================
+   FORMAT NUMBER
+===================================================== */
 
-setStatus(
-"Refreshing AAFDRMC data..."
-);
+function formatNumber(value){
 
-await resolveCurrentBranch();
+  return Number(
+    value || 0
+  ).toLocaleString(
+    undefined,
+    {
+      maximumFractionDigits:2
+    }
+  );
 
-await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
-
-await loadSummary();
-
-setStatus("");
-
-showSuccess(
-"Data refreshed successfully."
-);
-
-}catch(error){
-
-console.error(
-"REFRESH ERROR:",
-error
-);
-
-setStatus("");
-
-showError(
-"Refresh failed: " +
-error.message
-);
-
 }
 
-}
 
-/* =========================================================
+/* =====================================================
    ESCAPE HTML
-========================================================= */
+===================================================== */
 
-function escapeHtml(
-value
-){
+function escapeHTML(value){
 
-if(
-value===null ||
-value===undefined
-){
-
-return "";
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
-return String(value)
 
-.replace(
-/&/g,
-"&amp;"
-)
+/* =====================================================
+   SHOW ALL BRANCHES
+===================================================== */
 
-.replace(
-/</g,
-"&lt;"
-)
+function showAllBranches(){
 
-.replace(
-/>/g,
-"&gt;"
-)
+  const grid =
+    document.getElementById("branchGrid");
 
-.replace(
-/"/g,
-"&quot;"
-)
 
-.replace(
-/'/g,
-"&#039;"
-);
+  grid.innerHTML = "";
 
-}
 
-/* =========================================================
-   MODAL CLICK
-========================================================= */
+  BRANCHES.forEach(
+    function(branch){
 
-window.addEventListener(
-"click",
-function(event){
+      const box =
+        document.createElement("div");
 
-const modal =
-document.getElementById(
-"detailsModal"
-);
+      box.className =
+        "branch-box";
 
-if(
-event.target===modal
-){
 
-closeModal();
+      const name =
+        document.createElement("strong");
 
-}
+      name.textContent =
+        "🏢 " + branch.name;
 
-}
-);
 
-/* =========================================================
-   INITIAL LOAD
-========================================================= */
+      const code =
+        document.createElement("small");
 
-async function init(){
+      code.textContent =
+        t("code") + " " + branch.code;
 
-console.log(
-"AAFDRMC RELIEF PAGE STARTING..."
-);
 
-setStatus(
-"Resolving branch..."
-);
+      const button =
+        document.createElement("button");
 
-document.getElementById(
-"branchInfo"
-).textContent =
-"Branch: Resolving...";
+      button.type = "button";
 
-document.getElementById(
-"householdList"
-).innerHTML =
-`
-<div class="loading">
-Resolving branch...
-</div>
-`;
+      button.className =
+        "btn branch-btn";
 
-try{
+      button.textContent =
+        t("openBranch");
 
-await resolveCurrentBranch();
 
-console.log(
-"BRANCH READY:",
-{
-id:currentBranchId,
-code:currentBranchCode,
-name:currentBranchName
-}
-);
+      button.onclick =
+        function(){
 
-setStatus(
-"Loading households and items..."
-);
+          openBranch(branch);
 
-document.getElementById(
-"householdList"
-).innerHTML =
-`
-<div class="loading">
-Loading households...
-</div>
-`;
+        };
 
-await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
 
-await loadSummary();
+      box.appendChild(name);
 
-setStatus("");
+      box.appendChild(code);
 
-console.log(
-"AAFDRMC RELIEF PAGE READY"
-);
+      box.appendChild(button);
 
-}catch(error){
+      grid.appendChild(box);
 
-console.error(
-"INITIALIZATION ERROR:",
-error
-);
-
-setStatus("");
-
-document.getElementById(
-"householdList"
-).innerHTML =
-`
-
-<div class="empty">
-
-<strong>
-AAFDRMC could not load this page.
-</strong>
-
-<br><br>
-
-${escapeHtml(
-error.message
-)}
-
-<br><br>
-
-<button
-type="button"
-class="btn blue"
-onclick="init()">
-
-↻ Try Again
-
-</button>
-
-<br><br>
-
-If the problem continues,
-go back to Dashboard and login again.
-
-</div>
-
-`;
-
-showError(
-"Page initialization failed: " +
-error.message
-);
+    }
+  );
 
 }
 
+
+/* =====================================================
+   OPEN BRANCH
+===================================================== */
+
+function openBranch(branch){
+
+  localStorage.setItem(
+    "selected_branch_id",
+    branch.code
+  );
+
+
+  localStorage.setItem(
+    "selected_branch_name",
+    branch.name
+  );
+
+
+  localStorage.setItem(
+    "selected_branch_code",
+    branch.code
+  );
+
+
+  localStorage.setItem(
+    "selected_branch_uuid",
+    branch.uuid
+  );
+
+
+  window.location.href =
+    "dashboard.html";
+
 }
 
-/* =========================================================
+
+/* =====================================================
+   LOAD DASHBOARD
+===================================================== */
+
+async function loadDashboard(){
+
+  if(!showBranch()){
+    return;
+  }
+
+
+  setupMenu();
+
+  buildCategoryDropdown();
+
+
+  if(isMainUser()){
+
+    showAllBranches();
+
+  }
+
+
+  document.getElementById("totalItems")
+    .textContent = "...";
+
+  document.getElementById("totalIn")
+    .textContent = "...";
+
+  document.getElementById("totalOut")
+    .textContent = "...";
+
+  document.getElementById("balance")
+    .textContent = "...";
+
+
+  try{
+
+    const items =
+      await loadItems();
+
+
+    const transactions =
+      await loadTransactions();
+
+
+    let totalIn = 0;
+
+    let totalOut = 0;
+
+
+    transactions.forEach(
+      function(transaction){
+
+        const quantity =
+          Number(
+            transaction.quantity || 0
+          );
+
+
+        const type =
+          getTransactionType(transaction);
+
+
+        if(type === "IN"){
+
+          totalIn += quantity;
+
+        }
+
+
+        if(type === "OUT"){
+
+          totalOut += quantity;
+
+        }
+
+      }
+    );
+
+
+    const balance =
+      totalIn - totalOut;
+
+
+    document.getElementById("totalItems")
+      .textContent =
+      items.length.toLocaleString();
+
+
+    document.getElementById("totalIn")
+      .textContent =
+      formatNumber(totalIn);
+
+
+    document.getElementById("totalOut")
+      .textContent =
+      formatNumber(totalOut);
+
+
+    document.getElementById("balance")
+      .textContent =
+      formatNumber(balance);
+
+
+    prepareCategoryData(
+      transactions
+    );
+
+
+    document.getElementById(
+      "categorySelect"
+    ).value = "";
+
+
+    renderSelectedCategory();
+
+  }
+  catch(error){
+
+    console.error(
+      "Dashboard loading error:",
+      error
+    );
+
+
+    document.getElementById("totalItems")
+      .textContent = "0";
+
+    document.getElementById("totalIn")
+      .textContent = "0";
+
+    document.getElementById("totalOut")
+      .textContent = "0";
+
+    document.getElementById("balance")
+      .textContent = "0";
+
+
+    showMessage(
+      t("dashboardError") +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("is_logged_in");
+  localStorage.removeItem("selected_branch_id");
+  localStorage.removeItem("selected_branch_name");
+  localStorage.removeItem("selected_branch_code");
+  localStorage.removeItem("selected_branch_uuid");
+  localStorage.removeItem("user_role");
+  localStorage.removeItem("login_user");
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
 window.addEventListener(
-"DOMContentLoaded",
-init
+  "DOMContentLoaded",
+  function(){
+
+    /*
+      Afaan Oromoo default.
+      Yoo afaan duraan filatame jiraate,
+      inni sun itti fufa.
+    */
+
+    const languageSelect =
+      document.getElementById("languageSelect");
+
+    if(languageSelect){
+
+      languageSelect.value =
+        currentLanguage;
+
+    }
+
+
+    applyLanguage();
+
+
+    if(!showBranch()){
+      return;
+    }
+
+
+    setupMenu();
+
+    buildCategoryDropdown();
+
+    loadDashboard();
+
+  }
 );
 
 </script>
