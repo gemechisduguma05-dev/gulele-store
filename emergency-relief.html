@@ -101,6 +101,11 @@ button{cursor:pointer}
   color:white;
 }
 
+.btn-warning{
+  background:#ef6c00;
+  color:white;
+}
+
 .btn-small{
   padding:7px 11px;
   font-size:12px;
@@ -398,6 +403,80 @@ textarea.form-control{
   word-break:break-word;
 }
 
+.folder-section{
+  margin-top:18px;
+  border:1px solid #f0cada;
+  border-radius:13px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.folder-section-title{
+  background:#fff0f5;
+  color:#880e4f;
+  padding:12px 14px;
+  font-weight:bold;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.folder-section-body{
+  padding:12px;
+}
+
+.member-card{
+  background:white;
+  border:1px solid #edc8d7;
+  border-radius:10px;
+  padding:12px;
+}
+
+.member-name{
+  color:#880e4f;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.relief-card{
+  background:white;
+  border:1px solid #edc8d7;
+  border-radius:10px;
+  padding:12px;
+}
+
+.document-card{
+  background:white;
+  border:1px solid #edc8d7;
+  border-radius:10px;
+  padding:12px;
+}
+
+.fan-help{
+  font-size:11px;
+  color:#777;
+}
+
+.fan-valid{
+  border-color:#2e7d32 !important;
+}
+
+.fan-invalid{
+  border-color:#c62828 !important;
+  box-shadow:0 0 0 3px rgba(198,40,40,.10) !important;
+}
+
+.stock-balance{
+  font-size:13px;
+  color:#ad1457;
+  font-weight:bold;
+  background:#fff0f5;
+  border-radius:8px;
+  padding:9px;
+}
+
 .toast{
   position:fixed;
   right:18px;
@@ -557,66 +636,23 @@ textarea.form-control{
   <section class="summary">
 
     <div class="card summary-card">
-
-      <div
-        class="number"
-        id="householdCount"
-      >
-        0
-      </div>
-
-      <div class="label">
-        Households
-      </div>
-
+      <div class="number" id="householdCount">0</div>
+      <div class="label">Households</div>
     </div>
 
-
     <div class="card summary-card">
-
-      <div
-        class="number"
-        id="memberCount"
-      >
-        0
-      </div>
-
-      <div class="label">
-        Members
-      </div>
-
+      <div class="number" id="memberCount">0</div>
+      <div class="label">Members</div>
     </div>
 
-
     <div class="card summary-card">
-
-      <div
-        class="number"
-        id="reliefCount"
-      >
-        0
-      </div>
-
-      <div class="label">
-        Reliefs
-      </div>
-
+      <div class="number" id="reliefCount">0</div>
+      <div class="label">Reliefs</div>
     </div>
 
-
     <div class="card summary-card">
-
-      <div
-        class="number"
-        id="documentCount"
-      >
-        0
-      </div>
-
-      <div class="label">
-        Documents
-      </div>
-
+      <div class="number" id="documentCount">0</div>
+      <div class="label">Documents</div>
     </div>
 
   </section>
@@ -732,29 +768,12 @@ textarea.form-control{
               Select disaster
             </option>
 
-            <option value="Flood">
-              Flood
-            </option>
-
-            <option value="Fire">
-              Fire
-            </option>
-
-            <option value="Drought">
-              Drought
-            </option>
-
-            <option value="Landslide">
-              Landslide
-            </option>
-
-            <option value="Conflict">
-              Conflict
-            </option>
-
-            <option value="Other">
-              Other
-            </option>
+            <option value="Flood">Flood</option>
+            <option value="Fire">Fire</option>
+            <option value="Drought">Drought</option>
+            <option value="Landslide">Landslide</option>
+            <option value="Conflict">Conflict</option>
+            <option value="Other">Other</option>
 
           </select>
 
@@ -779,9 +798,7 @@ textarea.form-control{
 
         <div class="form-group">
 
-          <label>
-            City
-          </label>
+          <label>City</label>
 
           <input
             id="city"
@@ -795,9 +812,7 @@ textarea.form-control{
 
         <div class="form-group">
 
-          <label>
-            Sub-City
-          </label>
+          <label>Sub-City</label>
 
           <input
             id="subCity"
@@ -811,9 +826,7 @@ textarea.form-control{
 
         <div class="form-group">
 
-          <label>
-            Woreda
-          </label>
+          <label>Woreda</label>
 
           <input
             id="woreda"
@@ -827,9 +840,7 @@ textarea.form-control{
 
         <div class="form-group">
 
-          <label>
-            Specific Location
-          </label>
+          <label>Specific Location</label>
 
           <input
             id="specificLocation"
@@ -843,9 +854,7 @@ textarea.form-control{
 
         <div class="form-group">
 
-          <label>
-            House Number
-          </label>
+          <label>House Number</label>
 
           <input
             id="houseNumber"
@@ -867,17 +876,26 @@ textarea.form-control{
             id="fanNumber"
             class="form-control"
             type="text"
-            placeholder="FAN number"
+            inputmode="numeric"
+            maxlength="16"
+            autocomplete="off"
+            placeholder="Enter 16 digit FAN number"
+            oninput="validateFanInput(this)"
           >
+
+          <div
+            id="fanHelp"
+            class="fan-help"
+          >
+            FAN must contain exactly 16 digits if entered.
+          </div>
 
         </div>
 
 
         <div class="form-group full">
 
-          <label>
-            Other Information
-          </label>
+          <label>Other Information</label>
 
           <textarea
             id="otherInfo"
@@ -906,6 +924,196 @@ textarea.form-control{
         onclick="saveHousehold()"
       >
         Save Household
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     ADD MEMBER MODAL
+====================================================== -->
+
+<div
+  class="modal"
+  id="memberModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h3>
+        Add Household Member
+      </h3>
+
+      <button
+        class="close"
+        onclick="closeModal('memberModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+      <input
+        type="hidden"
+        id="memberHouseholdId"
+      >
+
+
+      <div class="form-grid">
+
+        <div class="form-group full">
+
+          <label>
+            Household
+          </label>
+
+          <input
+            id="memberHouseholdName"
+            class="form-control"
+            readonly
+          >
+
+        </div>
+
+
+        <div class="form-group full">
+
+          <label>
+            Member Full Name
+            <span class="required">*</span>
+          </label>
+
+          <input
+            id="memberFullName"
+            class="form-control"
+            type="text"
+            placeholder="Enter member full name"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Relationship
+            <span class="required">*</span>
+          </label>
+
+          <select
+            id="memberRelationship"
+            class="form-control"
+          >
+
+            <option value="">
+              Select relationship
+            </option>
+
+            <option value="Husband">
+              Husband
+            </option>
+
+            <option value="Wife">
+              Wife
+            </option>
+
+            <option value="Child">
+              Child
+            </option>
+
+            <option value="Relative">
+              Relative
+            </option>
+
+            <option value="Domestic Worker">
+              Domestic Worker
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Sex
+            <span class="required">*</span>
+          </label>
+
+          <select
+            id="memberSex"
+            class="form-control"
+          >
+
+            <option value="">
+              Select sex
+            </option>
+
+            <option value="Male">
+              Male
+            </option>
+
+            <option value="Female">
+              Female
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Age
+            <span class="required">*</span>
+          </label>
+
+          <input
+            id="memberAge"
+            class="form-control"
+            type="number"
+            min="0"
+            max="150"
+            step="1"
+            placeholder="Age"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="modal-footer">
+
+      <button
+        class="btn"
+        onclick="closeModal('memberModal')"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="btn btn-success"
+        onclick="saveMember()"
+      >
+        Save Member
       </button>
 
     </div>
@@ -1327,12 +1535,16 @@ async function supabaseFetch(
   let data;
 
   try{
+
     data =
       text
         ? JSON.parse(text)
         : null;
+
   }catch{
+
     data = text;
+
   }
 
 
@@ -1389,18 +1601,24 @@ function showToast(
 
 function openModal(id){
 
-  document
-    .getElementById(id)
-    .classList.add("show");
+  const modal =
+    document.getElementById(id);
+
+  if(modal){
+    modal.classList.add("show");
+  }
 
 }
 
 
 function closeModal(id){
 
-  document
-    .getElementById(id)
-    .classList.remove("show");
+  const modal =
+    document.getElementById(id);
+
+  if(modal){
+    modal.classList.remove("show");
+  }
 
 }
 
@@ -1484,7 +1702,7 @@ const BRANCHES = {
 
   LAM:{
     uuid:
-      "6d9324f2-0120-455a-9161-ed46fb06b61",
+      "6d9324f2-0120-455a-9161-ed46fb06b61d",
     code:"LAM",
     name:"Lami Kura"
   },
@@ -1575,7 +1793,8 @@ function resolveBranch(){
       Object.values(
         BRANCHES
       ).find(
-        b => b.uuid === uuid
+        b =>
+          b.uuid === uuid
       );
 
     if(found){
@@ -1722,13 +1941,6 @@ async function loadAll(){
     "Loading households...";
 
 
-  /*
-    IMPORTANT:
-    emergency_households keessatti
-    created_at / creted_at irratti
-    hin hirkannu.
-  */
-
   await loadHouseholds();
 
 
@@ -1786,7 +1998,6 @@ async function loadAll(){
 
 /* ======================================================
    LOAD HOUSEHOLDS
-   NO TIMESTAMP ORDER
 ====================================================== */
 
 async function loadHouseholds(){
@@ -1813,12 +2024,6 @@ async function loadHouseholds(){
       }
     ) || [];
 
-
-  /*
-    Local sorting only.
-    Database timestamp column
-    hin barbaadu.
-  */
 
   households.sort(
     (a,b)=>{
@@ -2248,12 +2453,10 @@ function renderHouseholdCard(h){
     <div class="household-card">
 
       <div class="household-title">
-
         ${escapeHtml(
           h.household_name ||
           "Unnamed Household"
         )}
-
       </div>
 
 
@@ -2354,6 +2557,14 @@ function renderHouseholdCard(h){
 
 
         <button
+          class="btn btn-warning btn-small"
+          onclick="openMemberModal('${h.id}')"
+        >
+          + Add Member
+        </button>
+
+
+        <button
           class="btn btn-success btn-small"
           onclick="openReliefModal('${h.id}')"
         >
@@ -2391,6 +2602,97 @@ function formatDate(value){
     return String(value);
 
   }
+
+}
+
+
+/* ======================================================
+   FAN VALIDATION
+====================================================== */
+
+function validateFanInput(input){
+
+  let value =
+    String(
+      input.value || ""
+    ).replace(
+      /\D/g,
+      ""
+    );
+
+
+  if(value.length > 16){
+
+    value =
+      value.substring(
+        0,
+        16
+      );
+
+  }
+
+
+  input.value =
+    value;
+
+
+  const help =
+    document.getElementById(
+      "fanHelp"
+    );
+
+
+  input.classList.remove(
+    "fan-valid",
+    "fan-invalid"
+  );
+
+
+  if(!value){
+
+    help.textContent =
+      "FAN must contain exactly 16 digits if entered.";
+
+    help.style.color =
+      "#777";
+
+    return false;
+
+  }
+
+
+  if(
+    /^\d{16}$/.test(
+      value
+    )
+  ){
+
+    input.classList.add(
+      "fan-valid"
+    );
+
+    help.textContent =
+      "✓ FAN number is valid.";
+
+    help.style.color =
+      "#2e7d32";
+
+    return true;
+
+  }
+
+
+  input.classList.add(
+    "fan-invalid"
+  );
+
+  help.textContent =
+    "FAN Number must contain exactly 16 digits.";
+
+  help.style.color =
+    "#c62828";
+
+  return false;
 
 }
 
@@ -2447,6 +2749,26 @@ function openHouseholdModal(){
 
 
   document.getElementById(
+    "fanNumber"
+  ).classList.remove(
+    "fan-valid",
+    "fan-invalid"
+  );
+
+
+  document.getElementById(
+    "fanHelp"
+  ).textContent =
+    "FAN must contain exactly 16 digits if entered.";
+
+
+  document.getElementById(
+    "fanHelp"
+  ).style.color =
+    "#777";
+
+
+  document.getElementById(
     "otherInfo"
   ).value="";
 
@@ -2460,8 +2782,6 @@ function openHouseholdModal(){
 
 /* ======================================================
    SAVE HOUSEHOLD
-   IMPORTANT:
-   No created_at / creted_at field is sent.
 ====================================================== */
 
 async function saveHousehold(){
@@ -2493,6 +2813,12 @@ async function saveHousehold(){
     document.getElementById(
       "disasterDate"
     ).value;
+
+
+  const fanNumber =
+    document.getElementById(
+      "fanNumber"
+    ).value.trim();
 
 
   if(!householdName){
@@ -2528,23 +2854,21 @@ async function saveHousehold(){
   }
 
 
-  /*
-    Database columns used:
-    branch_id
-    branch_code
-    household_name
-    disaster_type
-    disaster_date
-    city
-    sub_city
-    woreda
-    spesifation
-    house_number
-    fun_number
-    other_info
+  if(
+    fanNumber &&
+    !/^\d{16}$/.test(
+      fanNumber
+    )
+  ){
 
-    NO created_at / creted_at
-  */
+    showToast(
+      "FAN Number must contain exactly 16 digits.",
+      "error"
+    );
+
+    return;
+  }
+
 
   const household = {
 
@@ -2589,9 +2913,7 @@ async function saveHousehold(){
       ).value.trim(),
 
     fun_number:
-      document.getElementById(
-        "fanNumber"
-      ).value.trim(),
+      fanNumber,
 
     other_info:
       document.getElementById(
@@ -2658,6 +2980,271 @@ async function saveHousehold(){
       "statusBar"
     ).textContent =
       "Save household failed.";
+
+  }
+
+}
+
+
+/* ======================================================
+   ADD MEMBER MODAL
+====================================================== */
+
+function openMemberModal(
+  householdId
+){
+
+  const h =
+    households.find(
+      x =>
+        x.id ===
+        householdId
+    );
+
+
+  if(!h){
+
+    showToast(
+      "Household not found.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  document.getElementById(
+    "memberHouseholdId"
+  ).value =
+    h.id;
+
+
+  document.getElementById(
+    "memberHouseholdName"
+  ).value =
+    h.household_name ||
+    "";
+
+
+  document.getElementById(
+    "memberFullName"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "memberRelationship"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "memberSex"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "memberAge"
+  ).value =
+    "";
+
+
+  openModal(
+    "memberModal"
+  );
+
+}
+
+
+/* ======================================================
+   SAVE MEMBER
+====================================================== */
+
+async function saveMember(){
+
+  if(!branch){
+
+    showToast(
+      "Branch not found.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const householdId =
+    document.getElementById(
+      "memberHouseholdId"
+    ).value;
+
+
+  const fullName =
+    document.getElementById(
+      "memberFullName"
+    ).value.trim();
+
+
+  const relationship =
+    document.getElementById(
+      "memberRelationship"
+    ).value;
+
+
+  const sex =
+    document.getElementById(
+      "memberSex"
+    ).value;
+
+
+  const ageValue =
+    document.getElementById(
+      "memberAge"
+    ).value;
+
+
+  const age =
+    Number(ageValue);
+
+
+  if(!householdId){
+
+    showToast(
+      "Household is required.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(!fullName){
+
+    showToast(
+      "Member name is required.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(!relationship){
+
+    showToast(
+      "Please select relationship.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(!sex){
+
+    showToast(
+      "Please select sex.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(
+    ageValue === "" ||
+    !Number.isFinite(age) ||
+    age < 0 ||
+    age > 150
+  ){
+
+    showToast(
+      "Please enter a valid age.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const memberPayload = {
+
+    household_id:
+      householdId,
+
+    full_name:
+      fullName,
+
+    relationship:
+      relationship,
+
+    sex:
+      sex,
+
+    age:
+      age
+
+  };
+
+
+  try{
+
+    document.getElementById(
+      "statusBar"
+    ).textContent =
+      "Saving member...";
+
+
+    await supabaseFetch(
+      "emergency_household_members",
+      {
+        method:"POST",
+        body:memberPayload
+      }
+    );
+
+
+    closeModal(
+      "memberModal"
+    );
+
+
+    showToast(
+      "Member saved successfully.",
+      "success"
+    );
+
+
+    await loadMembers();
+
+
+    renderHouseholds();
+    updateSummary();
+
+
+    document.getElementById(
+      "statusBar"
+    ).textContent =
+      "Member saved successfully.";
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    showToast(
+      "Save Member failed: " +
+      error.message,
+      "error"
+    );
+
+
+    document.getElementById(
+      "statusBar"
+    ).textContent =
+      "Save member failed.";
 
   }
 
@@ -2740,27 +3327,21 @@ function viewHousehold(id){
         .map(
           m=>`
 
-            <div class="detail-box">
+            <div class="member-card">
 
-              <div class="label">
-                Member
-              </div>
-
-              <div class="value">
+              <div class="member-name">
                 ${escapeHtml(
                   m.full_name ||
                   "-"
                 )}
               </div>
 
-              <div
-                style="
-                  font-size:12px;
-                  margin-top:5px
-                "
-              >
+              <div style="font-size:12px">
 
-                Relationship:
+                <strong>
+                  Relationship:
+                </strong>
+
                 ${escapeHtml(
                   m.relationship ||
                   "-"
@@ -2768,7 +3349,10 @@ function viewHousehold(id){
 
                 <br>
 
-                Sex:
+                <strong>
+                  Sex:
+                </strong>
+
                 ${escapeHtml(
                   m.sex ||
                   "-"
@@ -2776,7 +3360,10 @@ function viewHousehold(id){
 
                 <br>
 
-                Age:
+                <strong>
+                  Age:
+                </strong>
+
                 ${escapeHtml(
                   m.age ??
                   "-"
@@ -2811,33 +3398,60 @@ function viewHousehold(id){
         .map(
           r=>`
 
-            <div class="detail-box">
+            <div class="relief-card">
 
-              <div class="label">
-                Relief
+              <div class="member-name">
+                Individual Relief
               </div>
 
-              <div class="value">
+              <div style="font-size:12px">
+
+                <strong>
+                  Relief Date:
+                </strong>
+
                 ${formatDate(
-                  r.relief_date ||
-                  r.created_at
+                  r.relief_date
                 )}
-              </div>
 
-              <div
-                style="
-                  font-size:12px;
-                  margin-top:5px
-                "
-              >
+                <br>
 
-                Issued by:
+                <strong>
+                  Issued By:
+                </strong>
+
                 ${escapeHtml(
                   r.issued_by ||
                   "-"
                 )}
 
+                <br>
+
+                <strong>
+                  Member:
+                </strong>
+
+                ${escapeHtml(
+                  getMemberName(
+                    r.member_id
+                  )
+                )}
+
               </div>
+
+              ${
+                r.image_url
+                  ? `
+                    <button
+                      class="btn btn-primary btn-small"
+                      style="margin-top:8px"
+                      onclick="openImage('${escapeHtml(r.image_url)}')"
+                    >
+                      View Document
+                    </button>
+                  `
+                  : ""
+              }
 
             </div>
 
@@ -2866,13 +3480,9 @@ function viewHousehold(id){
         .map(
           d=>`
 
-            <div class="detail-box">
+            <div class="document-card">
 
-              <div class="label">
-                Document
-              </div>
-
-              <div class="value">
+              <div class="member-name">
                 ${escapeHtml(
                   d.document_name ||
                   d.file_name ||
@@ -2908,7 +3518,6 @@ function viewHousehold(id){
   ).innerHTML = `
 
     <div class="detail-grid">
-
 
       <div class="detail-box full">
 
@@ -2960,12 +3569,44 @@ function viewHousehold(id){
       <div class="detail-box">
 
         <div class="label">
-          Location
+          City
         </div>
 
         <div class="value">
           ${escapeHtml(
-            location ||
+            h.city ||
+            "-"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail-box">
+
+        <div class="label">
+          Sub-City
+        </div>
+
+        <div class="value">
+          ${escapeHtml(
+            h.sub_city ||
+            "-"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail-box">
+
+        <div class="label">
+          Woreda
+        </div>
+
+        <div class="value">
+          ${escapeHtml(
+            h.woreda ||
             "-"
           )}
         </div>
@@ -3036,54 +3677,120 @@ function viewHousehold(id){
 
       </div>
 
+    </div>
 
-      <div class="detail-box full">
 
-        <div class="label">
+    <!-- MEMBERS -->
+
+    <div class="folder-section">
+
+      <div class="folder-section-title">
+
+        <span>
           Members (${householdMembers.length})
-        </div>
+        </span>
 
-        <div
-          class="detail-grid"
-          style="margin-top:10px"
+        <button
+          class="btn btn-warning btn-small"
+          onclick="openMemberModal('${h.id}')"
         >
+          + Add Member
+        </button>
+
+      </div>
+
+      <div class="folder-section-body">
+
+        <div class="detail-grid">
+
           ${membersHtml}
+
         </div>
 
       </div>
 
+    </div>
 
-      <div class="detail-box full">
 
-        <div class="label">
+    <!-- RELIEFS -->
+
+    <div class="folder-section">
+
+      <div class="folder-section-title">
+
+        <span>
           Relief Records (${householdReliefs.length})
-        </div>
+        </span>
 
-        <div
-          class="detail-grid"
-          style="margin-top:10px"
+        <button
+          class="btn btn-success btn-small"
+          onclick="closeModal('detailsModal'); openReliefModal('${h.id}')"
         >
+          + Individual Relief
+        </button>
+
+      </div>
+
+      <div class="folder-section-body">
+
+        <div class="detail-grid">
+
           ${reliefHtml}
+
         </div>
 
       </div>
 
+    </div>
 
-      <div class="detail-box full">
 
-        <div class="label">
+    <!-- DOCUMENTS -->
+
+    <div class="folder-section">
+
+      <div class="folder-section-title">
+
+        <span>
           Documents (${householdDocuments.length})
-        </div>
+        </span>
 
-        <div
-          class="detail-grid"
-          style="margin-top:10px"
-        >
+      </div>
+
+      <div class="folder-section-body">
+
+        <div class="detail-grid">
+
           ${documentsHtml}
+
         </div>
 
       </div>
 
+    </div>
+
+
+    <div
+      style="
+        display:flex;
+        gap:8px;
+        flex-wrap:wrap;
+        margin-top:18px
+      "
+    >
+
+      <button
+        class="btn btn-warning"
+        onclick="openMemberModal('${h.id}')"
+      >
+        + Add Member
+      </button>
+
+      <button
+        class="btn btn-success"
+        onclick="closeModal('detailsModal'); openReliefModal('${h.id}')"
+      >
+        + Individual Relief
+      </button>
 
     </div>
 
@@ -3092,6 +3799,35 @@ function viewHousehold(id){
 
   openModal(
     "detailsModal"
+  );
+
+}
+
+
+/* ======================================================
+   MEMBER NAME
+====================================================== */
+
+function getMemberName(
+  memberId
+){
+
+  if(!memberId){
+    return "-";
+  }
+
+
+  const member =
+    members.find(
+      m =>
+        String(m.id) ===
+        String(memberId)
+    );
+
+
+  return (
+    member?.full_name ||
+    "-"
   );
 
 }
@@ -3374,14 +4110,7 @@ function addReliefRow(){
 
       <div class="form-group full">
 
-        <div
-          class="stock-balance"
-          style="
-            font-size:13px;
-            color:#ad1457;
-            font-weight:bold
-          "
-        >
+        <div class="stock-balance">
           Current Stock: -
         </div>
 
@@ -3842,7 +4571,9 @@ async function saveRelief(){
   }
 
 
-  /* Check stock */
+  /* ====================================================
+     CHECK STOCK
+  ==================================================== */
 
   for(
     const selected of selectedItems
@@ -3921,11 +4652,13 @@ async function saveRelief(){
     }
 
 
-    /*
-      Relief master.
-      Model 22 is recorded in
-      Stock OUT below.
-    */
+    /* ==================================================
+       RELIEF MASTER
+
+       Model 22 is used for Stock OUT.
+       It is not added to emergency_reliefs
+       because that column was not confirmed.
+    ================================================== */
 
     const reliefPayload = {
 
@@ -3985,10 +4718,9 @@ async function saveRelief(){
     }
 
 
-    /*
-      Relief items + automatic
-      Stock OUT
-    */
+    /* ==================================================
+       RELIEF ITEMS + AUTOMATIC STOCK OUT
+    ================================================== */
 
     for(
       const selected of selectedItems
@@ -4038,33 +4770,21 @@ async function saveRelief(){
       };
 
 
-      try{
-
-        await supabaseFetch(
-          "emergency_relief_items",
-          {
-            method:"POST",
-            body:
-              reliefItemPayload
-          }
-        );
-
-      }catch(error){
-
-        console.warn(
-          "Relief item save failed:",
-          error
-        );
-
-      }
+      await supabaseFetch(
+        "emergency_relief_items",
+        {
+          method:"POST",
+          body:
+            reliefItemPayload
+        }
+      );
 
 
-      /*
-        AUTOMATIC STOCK OUT
+      /* ================================================
+         AUTOMATIC STOCK OUT
 
-        Model 22 is sent with
-        the Stock OUT transaction.
-      */
+         Model 22 is recorded here.
+      ================================================ */
 
       const stockOutPayload = {
 
