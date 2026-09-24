@@ -7,140 +7,139 @@
 <title>AAFDRMC - Emergency Relief Management</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
   font-family:Arial,sans-serif;
   color:#263238;
   min-height:100vh;
-  background:linear-gradient(135deg,#fff0f6,#f8c8dc,#fce4ec);
+  background:linear-gradient(135deg,#f7f1e8,#eadcc9);
 }
 
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
 
 .header{
-  background:linear-gradient(135deg,#ad1457,#d81b60,#ec407a);
+  background:linear-gradient(135deg,#5d4037,#795548);
   color:white;
-  padding:16px 20px;
-  box-shadow:0 4px 15px rgba(136,14,79,.25);
+  padding:18px 20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.18);
 }
 
 .header-inner{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   display:flex;
   align-items:center;
-  justify-content:space-between;
   gap:15px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
 .logo{
-  width:58px;
-  height:58px;
+  width:65px;
+  height:65px;
   border-radius:50%;
   object-fit:cover;
   background:white;
   padding:3px;
-  border:3px solid rgba(255,255,255,.8);
+  border:2px solid rgba(255,255,255,.7);
 }
 
-.brand h1{
+.header h1{
   margin:0;
-  font-size:22px;
+  font-size:25px;
 }
 
-.brand p{
-  margin:4px 0 0;
+.header p{
+  margin:5px 0 0;
   opacity:.9;
+  font-size:14px;
+}
+
+.container{
+  width:min(1250px,94%);
+  margin:20px auto 40px;
+}
+
+.status-bar{
+  background:white;
+  border-radius:12px;
+  padding:12px 15px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.branch-info{
+  font-weight:bold;
+  color:#5d4037;
+}
+
+.status{
   font-size:13px;
+  color:#607d8b;
 }
 
 .top-actions{
   display:flex;
-  gap:8px;
+  gap:10px;
   flex-wrap:wrap;
+  margin-bottom:18px;
 }
 
 .btn{
   border:0;
-  border-radius:10px;
-  padding:10px 15px;
+  border-radius:9px;
+  padding:11px 16px;
   font-weight:bold;
-  transition:.2s;
-}
-
-.btn:hover{transform:translateY(-1px)}
-
-.btn-primary{
-  background:#ad1457;
   color:white;
+  box-shadow:0 2px 5px rgba(0,0,0,.15);
 }
 
-.btn-secondary{
-  background:white;
-  color:#ad1457;
+.btn:hover{
+  opacity:.92;
 }
 
-.btn-danger{
-  background:#c62828;
-  color:white;
+.btn-brown{
+  background:#6d4c41;
 }
 
-.btn-success{
+.btn-green{
   background:#2e7d32;
-  color:white;
 }
 
-.btn-warning{
+.btn-blue{
+  background:#1565c0;
+}
+
+.btn-orange{
   background:#ef6c00;
-  color:white;
 }
 
-.btn-small{
-  padding:7px 11px;
-  font-size:12px;
+.btn-red{
+  background:#c62828;
 }
 
-.container{
-  width:min(1200px,94%);
-  margin:20px auto;
-}
-
-.branch-bar{
-  background:rgba(255,255,255,.94);
-  border-radius:14px;
-  padding:14px 18px;
-  box-shadow:0 4px 15px rgba(136,14,79,.10);
-  margin-bottom:18px;
-  border-left:5px solid #d81b60;
-}
-
-.branch-title{
-  font-size:13px;
-  color:#777;
-}
-
-.branch-name{
-  color:#ad1457;
-  font-size:20px;
-  font-weight:bold;
-  margin-top:4px;
-}
-
-.status{
-  margin-top:7px;
-  font-size:12px;
-  color:#777;
+.btn-gray{
+  background:#546e7a;
 }
 
 .summary{
@@ -150,416 +149,440 @@ button{cursor:pointer}
   margin-bottom:18px;
 }
 
-.card{
-  background:rgba(255,255,255,.95);
-  border-radius:16px;
+.summary-box{
+  background:white;
+  border-radius:13px;
   padding:18px;
-  box-shadow:0 5px 18px rgba(136,14,79,.12);
-}
-
-.summary-card{
+  box-shadow:0 2px 9px rgba(0,0,0,.09);
   text-align:center;
-  border-top:4px solid #ec407a;
 }
 
-.summary-card .number{
-  font-size:30px;
+.summary-box .number{
+  font-size:28px;
   font-weight:bold;
-  color:#ad1457;
+  color:#5d4037;
 }
 
-.summary-card .label{
-  color:#777;
+.summary-box .label{
   margin-top:5px;
+  color:#607d8b;
   font-size:13px;
 }
 
-.section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-bottom:15px;
-}
-
-.section-head h2{
-  margin:0;
-  color:#880e4f;
-}
-
-.search-box{
-  width:100%;
-  max-width:500px;
-  padding:12px 14px;
-  border:1px solid #e0b3c5;
-  border-radius:10px;
-  outline:none;
+.card{
   background:white;
-}
-
-.search-box:focus,
-.form-control:focus{
-  border-color:#d81b60;
-  box-shadow:0 0 0 3px rgba(216,27,96,.12);
-}
-
-.households{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-
-.household-card{
-  background:white;
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 5px 18px rgba(136,14,79,.12);
-  border-left:5px solid #ec407a;
-}
-
-.household-title{
-  color:#880e4f;
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-.info-row{
-  display:flex;
-  gap:8px;
-  margin:7px 0;
-  font-size:13px;
-}
-
-.info-label{
-  min-width:115px;
-  font-weight:bold;
-  color:#777;
-}
-
-.info-value{
-  color:#263238;
-  word-break:break-word;
-}
-
-.card-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.empty{
-  background:rgba(255,255,255,.88);
-  padding:35px 20px;
-  text-align:center;
-  border-radius:15px;
-  color:#777;
-}
-
-.loading{
-  text-align:center;
-  padding:30px;
-  color:#ad1457;
-  font-weight:bold;
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  z-index:1000;
-  inset:0;
-  background:rgba(74,20,40,.55);
+  border-radius:14px;
   padding:20px;
-  overflow:auto;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,.09);
 }
 
-.modal.show{
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-}
-
-.modal-box{
-  width:min(850px,100%);
-  margin:30px auto;
-  background:white;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 15px 50px rgba(0,0,0,.25);
-}
-
-.modal-header{
-  background:linear-gradient(135deg,#ad1457,#ec407a);
-  color:white;
-  padding:17px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.modal-header h3{
-  margin:0;
-}
-
-.close{
-  border:0;
-  background:rgba(255,255,255,.2);
-  color:white;
-  width:35px;
-  height:35px;
-  border-radius:50%;
+.card h2{
+  margin:0 0 16px;
+  color:#5d4037;
   font-size:20px;
 }
 
-.modal-body{padding:20px}
+.search-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr auto;
+  gap:10px;
+}
 
 .form-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
 }
 
-.form-group{
+.field{
   display:flex;
   flex-direction:column;
   gap:6px;
 }
 
-.form-group.full{grid-column:1/-1}
+.field.full{
+  grid-column:1/-1;
+}
 
-.form-group label{
+.field label{
   font-size:13px;
   font-weight:bold;
-  color:#555;
+  color:#455a64;
 }
 
-.form-control{
+.field input,
+.field select,
+.field textarea{
   width:100%;
-  border:1px solid #d9b6c5;
-  border-radius:9px;
-  padding:11px 12px;
-  outline:none;
+  border:1px solid #cfd8dc;
+  border-radius:8px;
+  padding:10px;
   background:#fff;
+  outline:none;
 }
 
-textarea.form-control{
-  min-height:90px;
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:#795548;
+  box-shadow:0 0 0 2px rgba(121,85,72,.1);
+}
+
+.field textarea{
+  min-height:85px;
   resize:vertical;
 }
 
-.modal-footer{
-  padding:15px 20px;
-  background:#fff5f8;
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  flex-wrap:wrap;
+.section-title{
+  margin:20px 0 10px;
+  padding-bottom:8px;
+  border-bottom:2px solid #eee;
+  color:#6d4c41;
 }
 
-.relief-row{
-  border:1px solid #edc4d3;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:12px;
-  background:#fff8fa;
-}
-
-.relief-row-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+.member-row,
+.document-row,
+.relief-item-row{
+  background:#fafafa;
+  border:1px solid #e0e0e0;
+  border-radius:10px;
+  padding:12px;
   margin-bottom:10px;
 }
 
-.relief-row-head strong{color:#880e4f}
-
-.detail-grid{
+.member-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  grid-template-columns:2fr 1.3fr 1fr .7fr 1.5fr auto;
+  gap:8px;
+  align-items:end;
 }
 
-.detail-box{
-  background:#fff5f8;
-  border-radius:10px;
-  padding:11px;
+.document-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1.5fr 1.5fr 1.5fr auto;
+  gap:8px;
+  align-items:end;
 }
 
-.detail-box.full{grid-column:1/-1}
+.relief-item-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr .9fr 1.4fr 1.5fr auto;
+  gap:8px;
+  align-items:end;
+}
 
-.detail-box .label{
+.mini-field{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.mini-field label{
   font-size:11px;
-  color:#777;
-  margin-bottom:4px;
-}
-
-.detail-box .value{
+  color:#607d8b;
   font-weight:bold;
-  color:#263238;
-  word-break:break-word;
 }
 
-.folder-section{
-  margin-top:18px;
-  border:1px solid #f0cada;
-  border-radius:13px;
+.mini-field input,
+.mini-field select{
+  width:100%;
+  padding:9px;
+  border:1px solid #cfd8dc;
+  border-radius:7px;
+  background:white;
+}
+
+.readonly{
+  background:#eceff1 !important;
+  color:#455a64;
+}
+
+.remove-btn{
+  border:0;
+  background:#c62828;
+  color:white;
+  border-radius:7px;
+  padding:9px 11px;
+  font-weight:bold;
+}
+
+.add-btn{
+  border:0;
+  background:#2e7d32;
+  color:white;
+  border-radius:7px;
+  padding:9px 14px;
+  font-weight:bold;
+}
+
+.stock-info{
+  background:#e3f2fd;
+  color:#1565c0;
+  border-radius:7px;
+  padding:9px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.stock-info.low{
+  background:#fff3e0;
+  color:#e65100;
+}
+
+.stock-info.empty{
+  background:#ffebee;
+  color:#c62828;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.58);
+  z-index:1000;
+  padding:20px;
+  overflow:auto;
+}
+
+.modal.show{
+  display:block;
+}
+
+.modal-content{
+  width:min(1000px,100%);
+  margin:20px auto;
+  background:white;
+  border-radius:15px;
   overflow:hidden;
-  background:#fff;
+  box-shadow:0 10px 40px rgba(0,0,0,.3);
 }
 
-.folder-section-title{
-  background:#fff0f5;
-  color:#880e4f;
-  padding:12px 14px;
-  font-weight:bold;
+.modal-header{
+  background:#6d4c41;
+  color:white;
+  padding:16px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  flex-wrap:wrap;
 }
 
-.folder-section-body{
-  padding:12px;
+.modal-header h2{
+  margin:0;
+  font-size:20px;
 }
 
-.member-card{
-  background:white;
-  border:1px solid #edc8d7;
-  border-radius:10px;
-  padding:12px;
-}
-
-.member-name{
-  color:#880e4f;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-
-.relief-card{
-  background:white;
-  border:1px solid #edc8d7;
-  border-radius:10px;
-  padding:12px;
-}
-
-.document-card{
-  background:white;
-  border:1px solid #edc8d7;
-  border-radius:10px;
-  padding:12px;
-}
-
-.fan-help{
-  font-size:11px;
-  color:#777;
-}
-
-.fan-valid{
-  border-color:#2e7d32 !important;
-}
-
-.fan-invalid{
-  border-color:#c62828 !important;
-  box-shadow:0 0 0 3px rgba(198,40,40,.10) !important;
-}
-
-.stock-balance{
-  font-size:13px;
-  color:#ad1457;
-  font-weight:bold;
-  background:#fff0f5;
-  border-radius:8px;
-  padding:9px;
-}
-
-.toast{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:2000;
-  background:#263238;
+.close-modal{
+  background:transparent;
+  border:0;
   color:white;
-  padding:13px 17px;
-  border-radius:10px;
-  box-shadow:0 5px 20px rgba(0,0,0,.25);
-  display:none;
-  max-width:360px;
+  font-size:28px;
 }
 
-.toast.show{display:block}
-.toast.success{background:#2e7d32}
-.toast.error{background:#c62828}
+.modal-body{
+  padding:20px;
+}
 
-.footer{
-  text-align:center;
-  padding:25px 10px;
-  color:#777;
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.info-box{
+  background:#f5f5f5;
+  border-radius:8px;
+  padding:10px;
+}
+
+.info-box strong{
+  display:block;
+  font-size:11px;
+  color:#78909c;
+  margin-bottom:4px;
+}
+
+.folder-section{
+  margin-top:20px;
+}
+
+.folder-section h3{
+  color:#6d4c41;
+  border-bottom:1px solid #ddd;
+  padding-bottom:7px;
+}
+
+.record{
+  border:1px solid #ddd;
+  border-radius:9px;
+  padding:11px;
+  margin-bottom:8px;
+  background:#fafafa;
+}
+
+.household-list{
+  display:grid;
+  gap:12px;
+}
+
+.household-card{
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.household-main h3{
+  margin:0 0 6px;
+  color:#5d4037;
+}
+
+.household-meta{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
   font-size:12px;
+  color:#607d8b;
 }
 
-.required{color:#c62828}
+.badge{
+  display:inline-block;
+  background:#efebe9;
+  color:#5d4037;
+  padding:4px 8px;
+  border-radius:20px;
+}
 
-@media(max-width:850px){
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#78909c;
+}
+
+.alert{
+  display:none;
+  border-radius:9px;
+  padding:11px 13px;
+  margin-bottom:14px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.alert.show{
+  display:block;
+}
+
+.alert.success{
+  background:#e8f5e9;
+  color:#2e7d32;
+}
+
+.alert.error{
+  background:#ffebee;
+  color:#c62828;
+}
+
+.alert.info{
+  background:#e3f2fd;
+  color:#1565c0;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#78909c;
+}
+
+@media(max-width:950px){
   .summary{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .households{
-    grid-template-columns:1fr;
+  .form-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .search-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .member-grid,
+  .document-grid,
+  .relief-item-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr 1fr;
   }
 }
 
-@media(max-width:600px){
+@media(max-width:650px){
+  .header{
+    padding:14px;
+  }
 
   .header-inner{
     align-items:flex-start;
-    flex-direction:column;
   }
 
-  .top-actions{width:100%}
+  .logo{
+    width:52px;
+    height:52px;
+  }
 
-  .top-actions .btn{flex:1}
+  .header h1{
+    font-size:19px;
+  }
+
+  .container{
+    width:96%;
+    margin-top:12px;
+  }
 
   .summary{
-    grid-template-columns:repeat(2,1fr);
-    gap:9px;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
   }
 
-  .summary-card{
+  .summary-box{
     padding:13px 8px;
   }
 
-  .summary-card .number{
-    font-size:24px;
+  .summary-box .number{
+    font-size:23px;
+  }
+
+  .card{
+    padding:14px;
   }
 
   .form-grid,
-  .detail-grid{
+  .search-grid,
+  .member-grid,
+  .document-grid,
+  .relief-item-grid,
+  .info-grid{
     grid-template-columns:1fr;
   }
 
-  .form-group.full,
-  .detail-box.full{
-    grid-column:auto;
-  }
-
-  .modal{padding:8px}
-
-  .modal-box{margin:10px auto}
-
-  .modal-body{padding:14px}
-
-  .info-row{
+  .household-card{
     flex-direction:column;
-    gap:2px;
+    align-items:stretch;
   }
 
-  .info-label{min-width:0}
+  .top-actions .btn{
+    flex:1;
+  }
 }
 </style>
 </head>
@@ -567,894 +590,265 @@ textarea.form-control{
 <body>
 
 <header class="header">
-
   <div class="header-inner">
-
-    <div class="brand">
-
-      <img
-        src="./1788633150526.jpg"
-        class="logo"
-        alt="AAFDRMC Logo"
-      >
-
-      <div>
-        <h1>AAFDRMC</h1>
-        <p>Emergency Relief Management</p>
-      </div>
-
+    <img src="./1788633150526.jpg" class="logo" alt="AAFDRMC">
+    <div>
+      <h1>AAFDRMC - Emergency Relief Management</h1>
+      <p>Household Emergency Relief Records</p>
     </div>
-
-    <div class="top-actions">
-
-      <button
-        class="btn btn-secondary"
-        onclick="goDashboard()"
-      >
-        Dashboard
-      </button>
-
-      <button
-        class="btn btn-secondary"
-        onclick="loadAll()"
-      >
-        Refresh
-      </button>
-
-    </div>
-
   </div>
-
 </header>
 
+<div class="container">
 
-<main class="container">
-
-  <div class="branch-bar">
-
-    <div class="branch-title">
-      Current Branch
-    </div>
-
-    <div
-      class="branch-name"
-      id="branchName"
-    >
-      Loading branch...
-    </div>
-
-    <div
-      class="status"
-      id="statusBar"
-    >
-      Connecting...
-    </div>
-
+  <div class="status-bar">
+    <div class="branch-info" id="branchInfo">Branch loading...</div>
+    <div class="status" id="statusBar">Ready</div>
   </div>
 
-
-  <section class="summary">
-
-    <div class="card summary-card">
-      <div class="number" id="householdCount">0</div>
-      <div class="label">Households</div>
-    </div>
-
-    <div class="card summary-card">
-      <div class="number" id="memberCount">0</div>
-      <div class="label">Members</div>
-    </div>
-
-    <div class="card summary-card">
-      <div class="number" id="reliefCount">0</div>
-      <div class="label">Reliefs</div>
-    </div>
-
-    <div class="card summary-card">
-      <div class="number" id="documentCount">0</div>
-      <div class="label">Documents</div>
-    </div>
-
-  </section>
-
-
-  <section class="card">
-
-    <div class="section-head">
-
-      <h2>
-        Emergency Households
-      </h2>
-
-      <button
-        class="btn btn-primary"
-        onclick="openHouseholdModal()"
-      >
-        + New Household
-      </button>
-
-    </div>
-
-
-    <input
-      id="searchInput"
-      class="search-box"
-      type="search"
-      placeholder="Search household, member, FAN number or disaster..."
-      oninput="renderHouseholds()"
-    >
-
-
-    <div
-      id="householdsContainer"
-      style="margin-top:18px"
-    >
-      <div class="loading">
-        Loading households...
-      </div>
-    </div>
-
-  </section>
-
-</main>
-
-
-<div class="footer">
-  AAFDRMC Emergency Relief Management System
-</div>
-
-
-<!-- ======================================================
-     NEW HOUSEHOLD MODAL
-====================================================== -->
-
-<div
-  class="modal"
-  id="householdModal"
->
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-
-      <h3>
-        New Emergency Household
-      </h3>
-
-      <button
-        class="close"
-        onclick="closeModal('householdModal')"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="modal-body">
-
-      <div class="form-grid">
-
-        <div class="form-group full">
-
-          <label>
-            Representative / Household Name
-            <span class="required">*</span>
-          </label>
-
-          <input
-            id="hhName"
-            class="form-control"
-            type="text"
-            placeholder="Enter representative or household name"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Disaster Type
-            <span class="required">*</span>
-          </label>
-
-          <select
-            id="disasterType"
-            class="form-control"
-          >
-
-            <option value="">
-              Select disaster
-            </option>
-
-            <option value="Flood">Flood</option>
-            <option value="Fire">Fire</option>
-            <option value="Drought">Drought</option>
-            <option value="Landslide">Landslide</option>
-            <option value="Conflict">Conflict</option>
-            <option value="Other">Other</option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Disaster Date
-            <span class="required">*</span>
-          </label>
-
-          <input
-            id="disasterDate"
-            class="form-control"
-            type="date"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>City</label>
-
-          <input
-            id="city"
-            class="form-control"
-            type="text"
-            placeholder="City"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Sub-City</label>
-
-          <input
-            id="subCity"
-            class="form-control"
-            type="text"
-            placeholder="Sub-city"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Woreda</label>
-
-          <input
-            id="woreda"
-            class="form-control"
-            type="text"
-            placeholder="Woreda"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Specific Location</label>
-
-          <input
-            id="specificLocation"
-            class="form-control"
-            type="text"
-            placeholder="Specific location"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>House Number</label>
-
-          <input
-            id="houseNumber"
-            class="form-control"
-            type="text"
-            placeholder="House number"
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            FAN Number
-          </label>
-
-          <input
-            id="fanNumber"
-            class="form-control"
-            type="text"
-            inputmode="numeric"
-            maxlength="16"
-            autocomplete="off"
-            placeholder="Enter 16 digit FAN number"
-            oninput="validateFanInput(this)"
-          >
-
-          <div
-            id="fanHelp"
-            class="fan-help"
-          >
-            FAN must contain exactly 16 digits if entered.
-          </div>
-
-        </div>
-
-
-        <div class="form-group full">
-
-          <label>Other Information</label>
-
-          <textarea
-            id="otherInfo"
-            class="form-control"
-            placeholder="Other information..."
-          ></textarea>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="modal-footer">
-
-      <button
-        class="btn"
-        onclick="closeModal('householdModal')"
-      >
-        Cancel
-      </button>
-
-      <button
-        class="btn btn-primary"
-        onclick="saveHousehold()"
-      >
-        Save Household
-      </button>
-
-    </div>
-
+  <div id="alertBox" class="alert"></div>
+
+  <div class="top-actions">
+    <button class="btn btn-brown" onclick="goDashboard()">← Back to Dashboard</button>
+    <button class="btn btn-green" onclick="showNewHousehold()">+ New Household</button>
+    <button class="btn btn-blue" onclick="showNewRelief()">+ Individual Relief</button>
+    <button class="btn btn-gray" onclick="refreshAll()">↻ Refresh</button>
   </div>
 
-</div>
-
-
-<!-- ======================================================
-     ADD MEMBER MODAL
-====================================================== -->
-
-<div
-  class="modal"
-  id="memberModal"
->
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-
-      <h3>
-        Add Household Member
-      </h3>
-
-      <button
-        class="close"
-        onclick="closeModal('memberModal')"
-      >
-        ×
-      </button>
-
+  <div class="summary">
+    <div class="summary-box">
+      <div class="number" id="totalHouseholds">0</div>
+      <div class="label">Total Households</div>
     </div>
 
+    <div class="summary-box">
+      <div class="number" id="totalMembers">0</div>
+      <div class="label">Total Members</div>
+    </div>
 
-    <div class="modal-body">
+    <div class="summary-box">
+      <div class="number" id="totalReliefs">0</div>
+      <div class="label">Total Reliefs</div>
+    </div>
+
+    <div class="summary-box">
+      <div class="number" id="totalDocuments">0</div>
+      <div class="label">Total Documents</div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="card">
+    <h2>Search Household</h2>
+
+    <div class="search-grid">
+      <input
+        id="searchText"
+        type="text"
+        placeholder="Household name, member name or FAN number"
+        oninput="filterHouseholds()"
+      >
+
+      <select id="searchDisaster" onchange="filterHouseholds()">
+        <option value="">All Disaster Types</option>
+        <option value="Flood">Flood</option>
+        <option value="Fire">Fire</option>
+        <option value="Drought">Drought</option>
+        <option value="Landslide">Landslide</option>
+        <option value="Conflict">Conflict</option>
+        <option value="Other">Other</option>
+      </select>
 
       <input
-        type="hidden"
-        id="memberHouseholdId"
+        id="searchDate"
+        type="date"
+        onchange="filterHouseholds()"
       >
 
+      <button class="btn btn-gray" onclick="clearSearch()">Clear</button>
+    </div>
+  </div>
 
-      <div class="form-grid">
+  <!-- HOUSEHOLD FORM -->
+  <div class="card hidden" id="householdForm">
+    <h2>New Household</h2>
 
-        <div class="form-group full">
+    <div class="form-grid">
 
-          <label>
-            Household
-          </label>
+      <div class="field">
+        <label>Representative / Household Name *</label>
+        <input id="householdName" type="text">
+      </div>
 
-          <input
-            id="memberHouseholdName"
-            class="form-control"
-            readonly
-          >
+      <div class="field">
+        <label>Disaster Type *</label>
+        <select id="disasterType">
+          <option value="">Select</option>
+          <option value="Flood">Flood</option>
+          <option value="Fire">Fire</option>
+          <option value="Drought">Drought</option>
+          <option value="Landslide">Landslide</option>
+          <option value="Conflict">Conflict</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
 
-        </div>
+      <div class="field">
+        <label>Disaster Date *</label>
+        <input id="disasterDate" type="date">
+      </div>
 
+      <div class="field">
+        <label>City</label>
+        <input id="city" type="text">
+      </div>
 
-        <div class="form-group full">
+      <div class="field">
+        <label>Sub-City</label>
+        <input id="subCity" type="text">
+      </div>
 
-          <label>
-            Member Full Name
-            <span class="required">*</span>
-          </label>
+      <div class="field">
+        <label>Woreda</label>
+        <input id="woreda" type="text">
+      </div>
 
-          <input
-            id="memberFullName"
-            class="form-control"
-            type="text"
-            placeholder="Enter member full name"
-          >
+      <div class="field">
+        <label>Specific Location</label>
+        <input id="specificLocation" type="text">
+      </div>
 
-        </div>
+      <div class="field">
+        <label>House Number</label>
+        <input id="houseNumber" type="text">
+      </div>
 
+      <div class="field">
+        <label>FAN Number</label>
+        <input id="fanNumber" type="text">
+      </div>
 
-        <div class="form-group">
-
-          <label>
-            Relationship
-            <span class="required">*</span>
-          </label>
-
-          <select
-            id="memberRelationship"
-            class="form-control"
-          >
-
-            <option value="">
-              Select relationship
-            </option>
-
-            <option value="Husband">
-              Husband
-            </option>
-
-            <option value="Wife">
-              Wife
-            </option>
-
-            <option value="Child">
-              Child
-            </option>
-
-            <option value="Relative">
-              Relative
-            </option>
-
-            <option value="Domestic Worker">
-              Domestic Worker
-            </option>
-
-            <option value="Other">
-              Other
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Sex
-            <span class="required">*</span>
-          </label>
-
-          <select
-            id="memberSex"
-            class="form-control"
-          >
-
-            <option value="">
-              Select sex
-            </option>
-
-            <option value="Male">
-              Male
-            </option>
-
-            <option value="Female">
-              Female
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Age
-            <span class="required">*</span>
-          </label>
-
-          <input
-            id="memberAge"
-            class="form-control"
-            type="number"
-            min="0"
-            max="150"
-            step="1"
-            placeholder="Age"
-          >
-
-        </div>
-
+      <div class="field full">
+        <label>Other Information</label>
+        <textarea id="householdOther"></textarea>
       </div>
 
     </div>
 
+    <h3 class="section-title">Household Members</h3>
 
-    <div class="modal-footer">
+    <div id="membersContainer"></div>
 
-      <button
-        class="btn"
-        onclick="closeModal('memberModal')"
-      >
-        Cancel
-      </button>
+    <button class="add-btn" onclick="addMember()">+ Add Member</button>
 
-      <button
-        class="btn btn-success"
-        onclick="saveMember()"
-      >
-        Save Member
-      </button>
+    <h3 class="section-title">Official Documents</h3>
+
+    <div id="documentsContainer"></div>
+
+    <button class="add-btn" onclick="addDocument()">+ Add Document</button>
+
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-green" onclick="saveHousehold()">Save Household</button>
+      <button class="btn btn-gray" onclick="hideForms()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- RELIEF FORM -->
+  <div class="card hidden" id="reliefForm">
+    <h2>Individual Emergency Relief</h2>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Household *</label>
+        <select id="reliefHousehold" onchange="loadReliefMembers()">
+          <option value="">Select Household</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Member *</label>
+        <select id="reliefMember">
+          <option value="">Select Member</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Relief Date *</label>
+        <input id="reliefDate" type="datetime-local">
+      </div>
+
+      <div class="field">
+        <label>Issued By *</label>
+        <input id="reliefEnteredBy" type="text">
+      </div>
+
+      <div class="field">
+        <label>Signature</label>
+        <input id="reliefSignature" type="text">
+      </div>
+
+      <!-- MODEL 22 -->
+      <div class="field">
+        <label>Model 22 *</label>
+        <select id="reliefModel22" onchange="toggleModel22Number()">
+          <option value="">Select Model 22</option>
+          <option value="Model 22 Available">Model 22 Available</option>
+        </select>
+      </div>
+
+      <div class="field hidden" id="model22NumberField">
+        <label>Model 22 Number / Code *</label>
+        <input id="reliefModel22Number" type="text">
+      </div>
+
+      <div class="field full">
+        <label>Other Information</label>
+        <textarea id="reliefNotes"></textarea>
+      </div>
 
     </div>
 
+    <h3 class="section-title">Relief Items</h3>
+
+    <div id="reliefItemsContainer"></div>
+
+    <button class="add-btn" onclick="addReliefItem()">+ Add Relief Item</button>
+
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-blue" onclick="saveRelief()">Save Relief & Stock OUT</button>
+      <button class="btn btn-gray" onclick="hideForms()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- HOUSEHOLDS -->
+  <div class="card">
+    <h2>Household Folders</h2>
+    <div id="householdList" class="household-list">
+      <div class="loading">Loading households...</div>
+    </div>
   </div>
 
 </div>
 
-
-<!-- ======================================================
-     HOUSEHOLD DETAILS
-====================================================== -->
-
-<div
-  class="modal"
-  id="detailsModal"
->
-
-  <div class="modal-box">
+<!-- HOUSEHOLD MODAL -->
+<div class="modal" id="householdModal">
+  <div class="modal-content">
 
     <div class="modal-header">
-
-      <h3>
-        Household Details
-      </h3>
-
-      <button
-        class="close"
-        onclick="closeModal('detailsModal')"
-      >
-        ×
-      </button>
-
+      <h2 id="modalTitle">Household Folder</h2>
+      <button class="close-modal" onclick="closeModal()">×</button>
     </div>
 
-
-    <div
-      class="modal-body"
-      id="detailsBody"
-    ></div>
+    <div class="modal-body" id="modalBody"></div>
 
   </div>
-
 </div>
-
-
-<!-- ======================================================
-     RELIEF MODAL
-====================================================== -->
-
-<div
-  class="modal"
-  id="reliefModal"
->
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-
-      <h3>
-        Individual Emergency Relief
-      </h3>
-
-      <button
-        class="close"
-        onclick="closeModal('reliefModal')"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="modal-body">
-
-      <input
-        type="hidden"
-        id="reliefHouseholdId"
-      >
-
-
-      <div class="form-grid">
-
-        <div class="form-group full">
-
-          <label>
-            Household
-          </label>
-
-          <input
-            id="reliefHouseholdName"
-            class="form-control"
-            readonly
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Member
-          </label>
-
-          <select
-            id="reliefMember"
-            class="form-control"
-          >
-
-            <option value="">
-              Select member
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Relief Date
-            <span class="required">*</span>
-          </label>
-
-          <input
-            id="reliefDate"
-            class="form-control"
-            type="date"
-          >
-
-        </div>
-
-
-        <div class="form-group full">
-
-          <label>
-            Issued By
-            <span class="required">*</span>
-          </label>
-
-          <input
-            id="reliefIssuedBy"
-            class="form-control"
-            type="text"
-            placeholder="Person who issued relief"
-          >
-
-        </div>
-
-
-        <div class="form-group full">
-
-          <label>
-            Signature
-          </label>
-
-          <input
-            id="reliefSignature"
-            class="form-control"
-            type="text"
-            placeholder="Signature / name"
-          >
-
-        </div>
-
-
-        <div class="form-group full">
-
-          <label>
-            Model 22
-            <span class="required">*</span>
-          </label>
-
-          <input
-            id="model22Number"
-            class="form-control"
-            type="text"
-            placeholder="Enter Model 22 number"
-          >
-
-        </div>
-
-
-        <div class="form-group full">
-
-          <label>
-            Other Information
-          </label>
-
-          <textarea
-            id="reliefOtherInfo"
-            class="form-control"
-            placeholder="Other relief information..."
-          ></textarea>
-
-        </div>
-
-
-        <div class="form-group full">
-
-          <label>
-            Relief Image / Document
-          </label>
-
-          <input
-            id="reliefImage"
-            class="form-control"
-            type="file"
-            accept="image/*,.pdf"
-          >
-
-        </div>
-
-      </div>
-
-
-      <hr
-        style="
-          margin:20px 0;
-          border:0;
-          border-top:1px solid #efd0dc
-        "
-      >
-
-
-      <div class="section-head">
-
-        <h3
-          style="
-            margin:0;
-            color:#880e4f
-          "
-        >
-          Relief Items
-        </h3>
-
-        <button
-          class="btn btn-success btn-small"
-          onclick="addReliefRow()"
-        >
-          + Add Item
-        </button>
-
-      </div>
-
-
-      <div
-        id="reliefItemsContainer"
-      ></div>
-
-    </div>
-
-
-    <div class="modal-footer">
-
-      <button
-        class="btn"
-        onclick="closeModal('reliefModal')"
-      >
-        Cancel
-      </button>
-
-      <button
-        class="btn btn-primary"
-        onclick="saveRelief()"
-      >
-        Save Relief
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- ======================================================
-     IMAGE MODAL
-====================================================== -->
-
-<div
-  class="modal"
-  id="imageModal"
->
-
-  <div
-    class="modal-box"
-    style="
-      background:transparent;
-      box-shadow:none
-    "
-  >
-
-    <div
-      style="
-        text-align:right;
-        margin-bottom:8px
-      "
-    >
-
-      <button
-        class="close"
-        onclick="closeModal('imageModal')"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <div style="text-align:center">
-
-      <img
-        id="fullImage"
-        style="
-          max-width:95vw;
-          max-height:85vh;
-          border-radius:12px
-        "
-        alt="Relief document"
-      >
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div
-  id="toast"
-  class="toast"
-></div>
-
 
 <script>
-
-/* ======================================================
+/* =========================================================
    SUPABASE
-====================================================== */
+========================================================= */
 
 const SUPABASE_URL =
   "https://sslabegtsxlkafuygmar.supabase.co";
@@ -1462,3064 +856,766 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
-const STORAGE_BUCKET =
-  "relief-images";
-
-
-/* ======================================================
-   DATA
-====================================================== */
-
-let branch = null;
-
-let households = [];
-let members = [];
-let documents = [];
-let reliefs = [];
-let reliefItems = [];
-let items = [];
-
-
-/* ======================================================
-   SUPABASE REST
-====================================================== */
-
-async function supabaseFetch(
-  table,
-  options={}
-){
-
-  const method =
-    options.method || "GET";
-
-  const headers = {
-
-    "apikey":
-      SUPABASE_KEY,
-
-    "Authorization":
-      "Bearer " + SUPABASE_KEY,
-
-    "Content-Type":
-      "application/json",
-
-    "Prefer":
-      options.prefer ||
-      "return=representation"
-
-  };
-
-
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/rest/v1/" +
-      table +
-      (options.query || ""),
-      {
-        method,
-        headers,
-        body:
-          options.body
-            ? JSON.stringify(
-                options.body
-              )
-            : undefined
-      }
-    );
-
-
-  const text =
-    await response.text();
-
-  let data;
-
-  try{
-
-    data =
-      text
-        ? JSON.parse(text)
-        : null;
-
-  }catch{
-
-    data = text;
-
-  }
-
-
-  if(!response.ok){
-
-    throw new Error(
-      data?.message ||
-      data?.hint ||
-      data?.details ||
-      text ||
-      response.statusText
-    );
-
-  }
-
-
-  return data;
-}
-
-
-/* ======================================================
-   TOAST
-====================================================== */
-
-function showToast(
-  message,
-  type=""
-){
-
-  const toast =
-    document.getElementById(
-      "toast"
-    );
-
-  toast.textContent =
-    message;
-
-  toast.className =
-    "toast show " + type;
-
-  setTimeout(
-    ()=>{
-      toast.className =
-        "toast";
-    },
-    4500
-  );
-}
-
-
-/* ======================================================
-   MODALS
-====================================================== */
-
-function openModal(id){
-
-  const modal =
-    document.getElementById(id);
-
-  if(modal){
-    modal.classList.add("show");
-  }
-
-}
-
-
-function closeModal(id){
-
-  const modal =
-    document.getElementById(id);
-
-  if(modal){
-    modal.classList.remove("show");
-  }
-
-}
-
-
-window.addEventListener(
-  "click",
-  function(e){
-
-    document
-      .querySelectorAll(
-        ".modal.show"
-      )
-      .forEach(modal=>{
-
-        if(e.target === modal){
-
-          modal.classList.remove(
-            "show"
-          );
-
-        }
-
-      });
-
-  }
-);
-
-
-/* ======================================================
-   DASHBOARD
-====================================================== */
-
-function goDashboard(){
-
-  window.location.href =
-    "dashboard.html";
-
-}
-
-
-/* ======================================================
-   BRANCHES
-====================================================== */
-
-const BRANCHES = {
-
-  GUL:{
-    uuid:
-      "b7b2ff8c-0be4-4678-a6d3-63c05cdf144c",
-    code:"GUL",
-    name:"Gulele"
-  },
-
-  AKT:{
-    uuid:
-      "9ed31570-9cfb-4706-82ed-049addf493fd",
-    code:"AKT",
-    name:"Addis Katama"
-  },
-
-  KLF:{
-    uuid:
-      "6d51f505-1e5f-4c47-b2a9-ff83029293d4",
-    code:"KLF",
-    name:"Kolfee"
-  },
-
-  NSL:{
-    uuid:
-      "ea8fcf0f-eb72-4b2c-a167-2ad7f380bade",
-    code:"NSL",
-    name:"Nifas Silk Lafto"
-  },
-
-  KIR:{
-    uuid:
-      "06cda455-02cb-4b4b-a84b-b01bf1c28b33",
-    code:"KIR",
-    name:"Kirkos"
-  },
-
-  LAM:{
-    uuid:
-      "6d9324f2-0120-455a-9161-ed46fb06b61d",
-    code:"LAM",
-    name:"Lami Kura"
-  },
-
-  ARA:{
-    uuid:
-      "b0d43ff1-ba2d-4b90-aa65-eab6acec4bdb",
-    code:"ARA",
-    name:"Arada"
-  },
-
-  LID:{
-    uuid:
-      "f26b2605-f4df-4a32-8c61-76131fe7e559",
-    code:"LID",
-    name:"Lideta"
-  },
-
-  BOL:{
-    uuid:
-      "d104e8ab-ed63-4d20-a314-6696abed839a",
-    code:"BOL",
-    name:"Bole"
-  },
-
-  EKA:{
-    uuid:
-      "015d6857-73a2-4b05-8555-4091387a305d",
-    code:"EKA",
-    name:"Ekaa"
-  },
-
-  AKA:{
-    uuid:
-      "ac4f8c9a-8855-42f4-b98f-35d454c8d89e",
-    code:"AKA",
-    name:"Akaki Kality"
-  },
-
-  CTR:{
-    uuid:
-      "96a20750-5ff6-4475-ae03-009cd7688c33",
-    code:"CTR",
-    name:"Center"
-  },
-
-  MAIN:{
-    uuid:
-      "bd1b10ec-43dc-4eb0-ad8c-53a78b80815d",
-    code:"MAIN",
-    name:"Main"
-  }
-
+const API =
+  SUPABASE_URL + "/rest/v1";
+
+const HEADERS = {
+  "apikey": SUPABASE_KEY,
+  "Authorization": "Bearer " + SUPABASE_KEY,
+  "Content-Type": "application/json",
+  "Prefer": "return=representation"
 };
 
 
-/* ======================================================
-   RESOLVE BRANCH
-====================================================== */
+/* =========================================================
+   BRANCHES
+========================================================= */
 
-function resolveBranch(){
+const MAIN_UUID =
+  "bd1b10ec-43dc-4eb0-ad8c-53a78b80815d";
 
-  const code =
-    localStorage.getItem(
-      "selected_branch_code"
-    ) ||
-    localStorage.getItem(
-      "branch_code"
-    );
+const BRANCHES = [
+  {
+    id:"b7b2ff8c-0be4-4678-a6d3-63c05cdf144c",
+    code:"GUL",
+    name:"Gulele"
+  },
+  {
+    id:"9ed31570-9cfb-4706-82ed-049addf493fd",
+    code:"AKT",
+    name:"Addis Katama"
+  },
+  {
+    id:"6d51f505-1e5f-4c47-b2a9-ff83029293d4",
+    code:"KLF",
+    name:"Kolfee"
+  },
+  {
+    id:"ea8fcf0f-eb72-4b2c-a167-2ad7f380bade",
+    code:"NSL",
+    name:"Nifas Silk Lafto"
+  },
+  {
+    id:"06cda455-02cb-4b4b-a84b-b01bf1c28b33",
+    code:"KIR",
+    name:"Kirkos"
+  },
+  {
+    id:"6d9324f2-0120-455a-9161-ed46fbf06b61",
+    code:"LAM",
+    name:"Lami Kura"
+  },
+  {
+    id:"b0d43ff1-ba2d-4b90-aa65-eab6acec4bdb",
+    code:"ARA",
+    name:"Arada"
+  },
+  {
+    id:"f26b2605-f4df-4a32-8c61-76131fe7e559",
+    code:"LID",
+    name:"Lideta"
+  },
+  {
+    id:"d104e8ab-ed63-4d20-a314-6696abed839a",
+    code:"BOL",
+    name:"Bole"
+  },
+  {
+    id:"015d6857-73a2-4b05-8555-4091387a305d",
+    code:"EKA",
+    name:"Ekaa"
+  },
+  {
+    id:"ac4f8c9a-8855-42f4-b98f-35d454c8d89e",
+    code:"AKA",
+    name:"Akaki Kality"
+  },
+  {
+    id:"96a20750-5ff6-4475-ae03-009cd7688c33",
+    code:"CTR",
+    name:"Center"
+  }
+];
 
-  const uuid =
-    localStorage.getItem(
-      "selected_branch_uuid"
-    );
+let currentBranch = {
+  id:null,
+  code:"",
+  name:""
+};
 
-  const name =
-    localStorage.getItem(
-      "selected_branch_name"
-    ) ||
-    localStorage.getItem(
-      "branch_name"
-    );
+let households = [];
+let items = [];
+let currentMembers = [];
 
 
-  if(uuid){
+/* =========================================================
+   HELPERS
+========================================================= */
 
-    const found =
-      Object.values(
-        BRANCHES
-      ).find(
-        b =>
-          b.uuid === uuid
-      );
+function $(id){
+  return document.getElementById(id);
+}
 
-    if(found){
-      return found;
-    }
-
+function escapeHtml(value){
+  if(value === null || value === undefined){
+    return "";
   }
 
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-  if(code){
+function validUUID(value){
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    String(value || "")
+  );
+}
 
-    const key =
-      String(code)
-        .trim()
-        .toUpperCase();
+function showAlert(message,type="info"){
+  const box = $("alertBox");
 
-    if(BRANCHES[key]){
-      return BRANCHES[key];
+  box.className = "alert show " + type;
+  box.textContent = message;
+
+  setTimeout(()=>{
+    box.classList.remove("show");
+  },5000);
+}
+
+function setStatus(message){
+  $("statusBar").textContent = message;
+}
+
+
+/* =========================================================
+   SUPABASE REQUESTS
+========================================================= */
+
+async function getTable(table,query=""){
+  const response = await fetch(
+    API + "/" + table + query,
+    {
+      method:"GET",
+      headers:HEADERS
     }
+  );
 
+  if(!response.ok){
+    const text = await response.text();
+    throw new Error(text || ("GET " + table + " failed"));
   }
 
+  return await response.json();
+}
 
-  if(name){
-
-    const found =
-      Object.values(
-        BRANCHES
-      ).find(
-        b =>
-          b.name.toLowerCase() ===
-          String(name).toLowerCase()
-      );
-
-    if(found){
-      return found;
+async function postTable(table,data){
+  const response = await fetch(
+    API + "/" + table,
+    {
+      method:"POST",
+      headers:HEADERS,
+      body:JSON.stringify(data)
     }
+  );
 
+  if(!response.ok){
+    const text = await response.text();
+    throw new Error(text || ("POST " + table + " failed"));
   }
 
+  return await response.json();
+}
+
+
+/* =========================================================
+   BRANCH RESOLVER
+========================================================= */
+
+function findFixedBranch(){
+  const storedId =
+    localStorage.getItem("selected_branch_uuid") || "";
+
+  const storedCode =
+    localStorage.getItem("selected_branch_code") ||
+    localStorage.getItem("branch_code") ||
+    "";
+
+  const storedName =
+    localStorage.getItem("selected_branch_name") ||
+    localStorage.getItem("branch_name") ||
+    "";
+
+  if(
+    storedCode.toUpperCase() === "MAIN" ||
+    storedName.toLowerCase() === "main" ||
+    storedName.toLowerCase() === "hq"
+  ){
+    return {
+      id:MAIN_UUID,
+      code:"MAIN",
+      name:"Main / HQ"
+    };
+  }
+
+  let branch =
+    BRANCHES.find(b =>
+      b.id === storedId
+    );
+
+  if(branch){
+    return branch;
+  }
+
+  branch =
+    BRANCHES.find(b =>
+      b.code.toLowerCase() === storedCode.toLowerCase()
+    );
+
+  if(branch){
+    return branch;
+  }
+
+  branch =
+    BRANCHES.find(b =>
+      b.name.toLowerCase() === storedName.toLowerCase()
+    );
+
+  if(branch){
+    return branch;
+  }
 
   return null;
 }
 
+async function resolveCurrentBranch(){
 
-/* ======================================================
-   INIT
-====================================================== */
+  const fixed = findFixedBranch();
 
-async function init(){
-
-  try{
-
-    branch =
-      resolveBranch();
-
-
-    if(!branch){
-
-      document.getElementById(
-        "branchName"
-      ).textContent =
-        "Branch not found";
-
-      document.getElementById(
-        "statusBar"
-      ).textContent =
-        "Please login again and select a branch.";
-
-      document.getElementById(
-        "householdsContainer"
-      ).innerHTML =
-        '<div class="empty">' +
-        'Branch information was not found.' +
-        '</div>';
-
-      return;
-    }
-
-
-    document.getElementById(
-      "branchName"
-    ).textContent =
-      branch.name +
-      " (" +
-      branch.code +
-      ")";
-
-
-    await loadAll();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Connection failed: " +
-      error.message;
-
-    showToast(
-      "Connection failed: " +
-      error.message,
-      "error"
-    );
-
+  if(fixed){
+    currentBranch = fixed;
+    updateBranchInfo();
+    return fixed;
   }
 
-}
+  const storedId =
+    localStorage.getItem("selected_branch_uuid") || "";
 
+  if(validUUID(storedId)){
+    currentBranch = {
+      id:storedId,
+      code:
+        localStorage.getItem("selected_branch_code") ||
+        "",
+      name:
+        localStorage.getItem("selected_branch_name") ||
+        "Current Branch"
+    };
 
-/* ======================================================
-   LOAD ALL
-====================================================== */
-
-async function loadAll(){
-
-  if(!branch){
-
-    branch =
-      resolveBranch();
-
+    updateBranchInfo();
+    return currentBranch;
   }
 
-
-  if(!branch){
-
-    throw new Error(
-      "Branch not found."
-    );
-
-  }
-
-
-  const status =
-    document.getElementById(
-      "statusBar"
-    );
-
-
-  status.textContent =
-    "Loading households...";
-
-
-  await loadHouseholds();
-
-
-  renderHouseholds();
-  updateSummary();
-
-
-  status.textContent =
-    "Households loaded. Loading other data...";
-
-
-  const results =
-    await Promise.allSettled([
-
-      loadMembers(),
-      loadReliefs(),
-      loadReliefItems(),
-      loadDocuments(),
-      loadItems()
-
-    ]);
-
-
-  const failed =
-    results.filter(
-      r =>
-        r.status ===
-        "rejected"
-    );
-
-
-  renderHouseholds();
-  updateSummary();
-
-
-  if(failed.length){
-
-    console.warn(
-      "Optional data loading errors:",
-      failed
-    );
-
-    status.textContent =
-      "Connected. Household data loaded.";
-
-  }else{
-
-    status.textContent =
-      "Connected successfully.";
-
-  }
-
-}
-
-
-/* ======================================================
-   LOAD HOUSEHOLDS
-====================================================== */
-
-async function loadHouseholds(){
-
-  if(!branch){
-
-    throw new Error(
-      "Branch not found."
-    );
-
-  }
-
-
-  households =
-    await supabaseFetch(
-      "emergency_households",
-      {
-        query:
-          "?branch_id=eq." +
-          encodeURIComponent(
-            branch.uuid
-          ) +
-          "&select=*"
-      }
-    ) || [];
-
-
-  households.sort(
-    (a,b)=>{
-
-      const da =
-        a?.disaster_date
-          ? new Date(
-              a.disaster_date
-            ).getTime()
-          : 0;
-
-      const db =
-        b?.disaster_date
-          ? new Date(
-              b.disaster_date
-            ).getTime()
-          : 0;
-
-      return db-da;
-
-    }
+  throw new Error(
+    "Branch information not found. Please login again."
   );
-
 }
 
+function updateBranchInfo(){
 
-/* ======================================================
-   MEMBERS
-====================================================== */
+  const text =
+    currentBranch.code === "MAIN"
+      ? "MAIN / HQ — All Branches"
+      : (
+          (currentBranch.code || "") +
+          " — " +
+          (currentBranch.name || "")
+        );
 
-async function loadMembers(){
-
-  try{
-
-    members =
-      await supabaseFetch(
-        "emergency_household_members",
-        {
-          query:
-            "?select=*"
-        }
-      ) || [];
-
-  }catch(error){
-
-    console.warn(
-      "Members loading failed:",
-      error
-    );
-
-    members=[];
-
-  }
-
+  $("branchInfo").textContent =
+    "Current Branch: " + text;
 }
 
-
-/* ======================================================
-   RELIEFS
-====================================================== */
-
-async function loadReliefs(){
-
-  try{
-
-    reliefs =
-      await supabaseFetch(
-        "emergency_reliefs",
-        {
-          query:
-            "?branch_id=eq." +
-            encodeURIComponent(
-              branch.uuid
-            ) +
-            "&select=*"
-        }
-      ) || [];
-
-  }catch(error){
-
-    console.warn(
-      "Reliefs loading failed:",
-      error
-    );
-
-    reliefs=[];
-
-  }
-
-}
-
-
-/* ======================================================
-   RELIEF ITEMS
-====================================================== */
-
-async function loadReliefItems(){
-
-  try{
-
-    reliefItems =
-      await supabaseFetch(
-        "emergency_relief_items",
-        {
-          query:
-            "?select=*"
-        }
-      ) || [];
-
-  }catch(error){
-
-    console.warn(
-      "Relief items loading failed:",
-      error
-    );
-
-    reliefItems=[];
-
-  }
-
-}
-
-
-/* ======================================================
-   DOCUMENTS
-====================================================== */
-
-async function loadDocuments(){
-
-  try{
-
-    documents =
-      await supabaseFetch(
-        "emergency_household_documents",
-        {
-          query:
-            "?select=*"
-        }
-      ) || [];
-
-  }catch(error){
-
-    console.warn(
-      "Documents loading failed:",
-      error
-    );
-
-    documents=[];
-
-  }
-
-}
-
-
-/* ======================================================
-   ITEMS
-====================================================== */
-
-function itemName(item){
-
+function isMainBranch(){
   return (
-    item?.name ||
-    item?.item_name ||
-    item?.itemName ||
-    "Unnamed Item"
+    currentBranch.id === MAIN_UUID ||
+    currentBranch.code === "MAIN"
   );
-
 }
 
+function branchMatches(row){
+
+  if(isMainBranch()){
+    return true;
+  }
+
+  if(!row){
+    return false;
+  }
+
+  const rowBranchId =
+    row.branch_id ||
+    row.branch_uuid ||
+    null;
+
+  const rowBranchCode =
+    row.branch_code ||
+    row.branchCode ||
+    "";
+
+  if(rowBranchId){
+    return String(rowBranchId) === String(currentBranch.id);
+  }
+
+  if(rowBranchCode){
+    return String(rowBranchCode).toLowerCase() ===
+           String(currentBranch.code).toLowerCase();
+  }
+
+  return false;
+}
+
+function filterBranchData(rows){
+  if(isMainBranch()){
+    return rows || [];
+  }
+
+  return (rows || []).filter(branchMatches);
+}
+
+
+/* =========================================================
+   ITEMS
+========================================================= */
 
 async function loadItems(){
 
   try{
 
-    items =
-      await supabaseFetch(
+    const data =
+      await getTable(
         "items",
-        {
-          query:
-            "?branch_id=eq." +
-            encodeURIComponent(
-              branch.uuid
-            ) +
-            "&select=*"
-        }
-      ) || [];
+        "?select=*&order=name.asc"
+      );
 
+    items = filterBranchData(data);
 
-    items.sort(
-      (a,b)=>
-        itemName(a)
-          .localeCompare(
-            itemName(b)
-          )
-    );
+    /*
+      If items table does not contain branch_id/branch_code,
+      use all items because stock_transactions performs
+      the branch isolation.
+    */
+    if(
+      !isMainBranch() &&
+      data.length > 0
+    ){
+
+      const hasBranchFields =
+        data.some(row =>
+          row.branch_id !== undefined ||
+          row.branch_code !== undefined
+        );
+
+      if(!hasBranchFields){
+        items = data;
+      }
+    }
 
   }catch(error){
 
-    console.warn(
-      "Items loading failed:",
+    console.error("loadItems:",error);
+
+    items = [];
+
+    showAlert(
+      "Items could not be loaded: " + error.message,
+      "error"
+    );
+  }
+}
+
+function getItemId(item){
+  return (
+    item.id ??
+    item.item_id ??
+    item.itemId ??
+    ""
+  );
+}
+
+function getItemName(item){
+  return (
+    item.name ??
+    item.item_name ??
+    item.itemName ??
+    ""
+  );
+}
+
+function getItemUnit(item){
+  return (
+    item.unit ??
+    item.item_unit ??
+    ""
+  );
+}
+
+function getItemCategory(item){
+  return (
+    item.category ??
+    item.category_name ??
+    ""
+  );
+}
+
+function findItemById(id){
+
+  return items.find(item =>
+    String(getItemId(item)) === String(id)
+  );
+}
+
+
+/* =========================================================
+   TRANSACTION LOGIC
+========================================================= */
+
+function transactionIsIn(row){
+
+  const type =
+    String(
+      row.transaction_type ||
+      row.type ||
+      ""
+    ).trim().toUpperCase();
+
+  if(type === "IN"){
+    return true;
+  }
+
+  const transaction =
+    String(
+      row.transaction ||
+      ""
+    ).toLowerCase();
+
+  return (
+    transaction.includes("stock in") ||
+    transaction.includes("receipt") ||
+    transaction.includes("receive") ||
+    transaction.includes("model 19") ||
+    transaction.includes("received") ||
+    transaction.includes("entry")
+  );
+}
+
+function transactionIsOut(row){
+
+  const type =
+    String(
+      row.transaction_type ||
+      row.type ||
+      ""
+    ).trim().toUpperCase();
+
+  if(type === "OUT"){
+    return true;
+  }
+
+  const transaction =
+    String(
+      row.transaction ||
+      ""
+    ).toLowerCase();
+
+  return (
+    transaction.includes("stock out") ||
+    transaction.includes("issue") ||
+    transaction.includes("issued") ||
+    transaction.includes("model 22") ||
+    transaction.includes("relief")
+  );
+}
+
+function transactionItemMatches(row,itemId,itemName){
+
+  const rowId =
+    row.item_id ??
+    row.itemId ??
+    "";
+
+  if(
+    rowId !== "" &&
+    rowId !== null &&
+    rowId !== undefined
+  ){
+    return String(rowId) === String(itemId);
+  }
+
+  const transactionName =
+    String(
+      row.item_name ||
+      row.itemName ||
+      ""
+    ).trim().toLowerCase();
+
+  return (
+    transactionName !== "" &&
+    transactionName ===
+      String(itemName || "").trim().toLowerCase()
+  );
+}
+
+async function getItemStockBalance(item){
+
+  const itemId = getItemId(item);
+  const itemName = getItemName(item);
+
+  if(
+    itemId === "" ||
+    itemId === null ||
+    itemId === undefined
+  ){
+    return 0;
+  }
+
+  try{
+
+    const transactions =
+      await getTable(
+        "stock_transactions",
+        "?select=*"
+      );
+
+    const branchTransactions =
+      filterBranchData(transactions);
+
+    let balance = 0;
+
+    for(const row of branchTransactions){
+
+      if(
+        !transactionItemMatches(
+          row,
+          itemId,
+          itemName
+        )
+      ){
+        continue;
+      }
+
+      const quantity =
+        Number(row.quantity || 0);
+
+      if(!Number.isFinite(quantity)){
+        continue;
+      }
+
+      if(transactionIsIn(row)){
+        balance += quantity;
+      }
+      else if(transactionIsOut(row)){
+        balance -= quantity;
+      }
+    }
+
+    return Math.max(0,balance);
+
+  }catch(error){
+
+    console.error(
+      "getItemStockBalance:",
       error
     );
 
-    items=[];
-
+    return 0;
   }
-
 }
 
 
-/* ======================================================
-   SUMMARY
-====================================================== */
+/* =========================================================
+   RELIEF ITEM ROWS
+========================================================= */
 
-function updateSummary(){
+async function populateReliefItemRow(row){
 
-  document.getElementById(
-    "householdCount"
-  ).textContent =
-    households.length;
+  const select =
+    row.querySelector(".relief-item");
 
+  const unit =
+    row.querySelector(".relief-unit");
 
-  document.getElementById(
-    "memberCount"
-  ).textContent =
-    members.filter(
-      m =>
-        households.some(
-          h =>
-            h.id ===
-            m.household_id
-        )
-    ).length;
+  const category =
+    row.querySelector(".relief-category");
 
+  const stockInfo =
+    row.querySelector(".relief-stock");
 
-  document.getElementById(
-    "reliefCount"
-  ).textContent =
-    reliefs.length;
+  select.innerHTML =
+    '<option value="">Select Item</option>';
 
+  items.forEach(item => {
 
-  document.getElementById(
-    "documentCount"
-  ).textContent =
-    documents.filter(
-      d =>
-        households.some(
-          h =>
-            h.id ===
-            d.household_id
-        )
-    ).length;
+    const option =
+      document.createElement("option");
 
+    option.value =
+      getItemId(item);
+
+    option.textContent =
+      getItemName(item);
+
+    select.appendChild(option);
+  });
+
+  select.onchange =
+    async function(){
+
+      const item =
+        findItemById(this.value);
+
+      if(!item){
+
+        unit.value = "";
+        category.value = "";
+        stockInfo.textContent =
+          "Select item";
+        stockInfo.className =
+          "stock-info";
+
+        return;
+      }
+
+      unit.value =
+        getItemUnit(item);
+
+      category.value =
+        getItemCategory(item);
+
+      stockInfo.textContent =
+        "Checking stock...";
+
+      stockInfo.className =
+        "stock-info";
+
+      const balance =
+        await getItemStockBalance(item);
+
+      stockInfo.textContent =
+        "Available Stock: " +
+        balance +
+        " " +
+        getItemUnit(item);
+
+      if(balance <= 0){
+        stockInfo.className =
+          "stock-info empty";
+      }
+      else if(balance < 10){
+        stockInfo.className =
+          "stock-info low";
+      }
+      else{
+        stockInfo.className =
+          "stock-info";
+      }
+    };
 }
 
-
-/* ======================================================
-   SEARCH
-====================================================== */
-
-function householdSearchText(h){
-
-  return [
-
-    h.household_name,
-    h.disaster_type,
-    h.disaster_date,
-    h.city,
-    h.sub_city,
-    h.woreda,
-    h.spesifation,
-    h.house_number,
-    h.fun_number,
-    h.other_info
-
-  ]
-  .filter(Boolean)
-  .join(" ")
-  .toLowerCase();
-
-}
-
-
-/* ======================================================
-   RENDER
-====================================================== */
-
-function renderHouseholds(){
+function addReliefItem(){
 
   const container =
-    document.getElementById(
-      "householdsContainer"
-    );
-
-
-  const search =
-    document.getElementById(
-      "searchInput"
-    ).value
-      .trim()
-      .toLowerCase();
-
-
-  const filtered =
-    households.filter(
-      h=>{
-
-        if(!search){
-          return true;
-        }
-
-
-        const base =
-          householdSearchText(h);
-
-
-        const memberText =
-          members
-            .filter(
-              m =>
-                m.household_id ===
-                h.id
-            )
-            .map(
-              m =>
-                [
-                  m.full_name,
-                  m.relationship,
-                  m.sex,
-                  m.age
-                ]
-                .filter(Boolean)
-                .join(" ")
-            )
-            .join(" ")
-            .toLowerCase();
-
-
-        return (
-          base.includes(search) ||
-          memberText.includes(search)
-        );
-
-      }
-    );
-
-
-  if(!filtered.length){
-
-    container.innerHTML =
-      '<div class="empty">' +
-      (
-        households.length
-          ? "No matching household found."
-          : "No emergency household registered yet."
-      ) +
-      '</div>';
-
-    return;
-  }
-
-
-  container.innerHTML =
-    '<div class="households">' +
-    filtered
-      .map(
-        renderHouseholdCard
-      )
-      .join("") +
-    '</div>';
-
-}
-
-
-/* ======================================================
-   ESCAPE HTML
-====================================================== */
-
-function escapeHtml(value){
-
-  return String(
-    value ?? ""
-  )
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-
-}
-
-
-/* ======================================================
-   HOUSEHOLD CARD
-====================================================== */
-
-function renderHouseholdCard(h){
-
-  const memberCount =
-    members.filter(
-      m =>
-        m.household_id ===
-        h.id
-    ).length;
-
-
-  const reliefCount =
-    reliefs.filter(
-      r =>
-        r.household_id ===
-        h.id
-    ).length;
-
-
-  const location =
-    [
-      h.city,
-      h.sub_city,
-      h.woreda
-    ]
-    .filter(Boolean)
-    .join(" / ");
-
-
-  return `
-
-    <div class="household-card">
-
-      <div class="household-title">
-        ${escapeHtml(
-          h.household_name ||
-          "Unnamed Household"
-        )}
-      </div>
-
-
-      <div class="info-row">
-
-        <div class="info-label">
-          Disaster:
-        </div>
-
-        <div class="info-value">
-          ${escapeHtml(
-            h.disaster_type || "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="info-row">
-
-        <div class="info-label">
-          Date:
-        </div>
-
-        <div class="info-value">
-          ${formatDate(
-            h.disaster_date
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="info-row">
-
-        <div class="info-label">
-          Location:
-        </div>
-
-        <div class="info-value">
-          ${escapeHtml(
-            location || "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="info-row">
-
-        <div class="info-label">
-          FAN:
-        </div>
-
-        <div class="info-value">
-          ${escapeHtml(
-            h.fun_number || "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="info-row">
-
-        <div class="info-label">
-          Members:
-        </div>
-
-        <div class="info-value">
-          ${memberCount}
-        </div>
-
-      </div>
-
-
-      <div class="info-row">
-
-        <div class="info-label">
-          Reliefs:
-        </div>
-
-        <div class="info-value">
-          ${reliefCount}
-        </div>
-
-      </div>
-
-
-      <div class="card-actions">
-
-        <button
-          class="btn btn-primary btn-small"
-          onclick="viewHousehold('${h.id}')"
-        >
-          Details
-        </button>
-
-
-        <button
-          class="btn btn-warning btn-small"
-          onclick="openMemberModal('${h.id}')"
-        >
-          + Add Member
-        </button>
-
-
-        <button
-          class="btn btn-success btn-small"
-          onclick="openReliefModal('${h.id}')"
-        >
-          + Individual Relief
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* ======================================================
-   DATE
-====================================================== */
-
-function formatDate(value){
-
-  if(!value){
-    return "-";
-  }
-
-
-  try{
-
-    return new Date(
-      value
-    ).toLocaleDateString();
-
-  }catch{
-
-    return String(value);
-
-  }
-
-}
-
-
-/* ======================================================
-   FAN VALIDATION
-====================================================== */
-
-function validateFanInput(input){
-
-  let value =
-    String(
-      input.value || ""
-    ).replace(
-      /\D/g,
-      ""
-    );
-
-
-  if(value.length > 16){
-
-    value =
-      value.substring(
-        0,
-        16
-      );
-
-  }
-
-
-  input.value =
-    value;
-
-
-  const help =
-    document.getElementById(
-      "fanHelp"
-    );
-
-
-  input.classList.remove(
-    "fan-valid",
-    "fan-invalid"
-  );
-
-
-  if(!value){
-
-    help.textContent =
-      "FAN must contain exactly 16 digits if entered.";
-
-    help.style.color =
-      "#777";
-
-    return false;
-
-  }
-
-
-  if(
-    /^\d{16}$/.test(
-      value
-    )
-  ){
-
-    input.classList.add(
-      "fan-valid"
-    );
-
-    help.textContent =
-      "✓ FAN number is valid.";
-
-    help.style.color =
-      "#2e7d32";
-
-    return true;
-
-  }
-
-
-  input.classList.add(
-    "fan-invalid"
-  );
-
-  help.textContent =
-    "FAN Number must contain exactly 16 digits.";
-
-  help.style.color =
-    "#c62828";
-
-  return false;
-
-}
-
-
-/* ======================================================
-   OPEN HOUSEHOLD
-====================================================== */
-
-function openHouseholdModal(){
-
-  document.getElementById(
-    "hhName"
-  ).value="";
-
-
-  document.getElementById(
-    "disasterType"
-  ).value="";
-
-
-  document.getElementById(
-    "disasterDate"
-  ).value="";
-
-
-  document.getElementById(
-    "city"
-  ).value="";
-
-
-  document.getElementById(
-    "subCity"
-  ).value="";
-
-
-  document.getElementById(
-    "woreda"
-  ).value="";
-
-
-  document.getElementById(
-    "specificLocation"
-  ).value="";
-
-
-  document.getElementById(
-    "houseNumber"
-  ).value="";
-
-
-  document.getElementById(
-    "fanNumber"
-  ).value="";
-
-
-  document.getElementById(
-    "fanNumber"
-  ).classList.remove(
-    "fan-valid",
-    "fan-invalid"
-  );
-
-
-  document.getElementById(
-    "fanHelp"
-  ).textContent =
-    "FAN must contain exactly 16 digits if entered.";
-
-
-  document.getElementById(
-    "fanHelp"
-  ).style.color =
-    "#777";
-
-
-  document.getElementById(
-    "otherInfo"
-  ).value="";
-
-
-  openModal(
-    "householdModal"
-  );
-
-}
-
-
-/* ======================================================
-   SAVE HOUSEHOLD
-====================================================== */
-
-async function saveHousehold(){
-
-  if(!branch){
-
-    showToast(
-      "Branch not found.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const householdName =
-    document.getElementById(
-      "hhName"
-    ).value.trim();
-
-
-  const disasterType =
-    document.getElementById(
-      "disasterType"
-    ).value;
-
-
-  const disasterDate =
-    document.getElementById(
-      "disasterDate"
-    ).value;
-
-
-  const fanNumber =
-    document.getElementById(
-      "fanNumber"
-    ).value.trim();
-
-
-  if(!householdName){
-
-    showToast(
-      "Household name is required.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!disasterType){
-
-    showToast(
-      "Please select disaster type.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!disasterDate){
-
-    showToast(
-      "Disaster date is required.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(
-    fanNumber &&
-    !/^\d{16}$/.test(
-      fanNumber
-    )
-  ){
-
-    showToast(
-      "FAN Number must contain exactly 16 digits.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const household = {
-
-    branch_id:
-      branch.uuid,
-
-    branch_code:
-      branch.code,
-
-    household_name:
-      householdName,
-
-    disaster_type:
-      disasterType,
-
-    disaster_date:
-      disasterDate,
-
-    city:
-      document.getElementById(
-        "city"
-      ).value.trim(),
-
-    sub_city:
-      document.getElementById(
-        "subCity"
-      ).value.trim(),
-
-    woreda:
-      document.getElementById(
-        "woreda"
-      ).value.trim(),
-
-    spesifation:
-      document.getElementById(
-        "specificLocation"
-      ).value.trim(),
-
-    house_number:
-      document.getElementById(
-        "houseNumber"
-      ).value.trim(),
-
-    fun_number:
-      fanNumber,
-
-    other_info:
-      document.getElementById(
-        "otherInfo"
-      ).value.trim()
-
-  };
-
-
-  try{
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Saving household...";
-
-
-    await supabaseFetch(
-      "emergency_households",
-      {
-        method:"POST",
-        body:household
-      }
-    );
-
-
-    closeModal(
-      "householdModal"
-    );
-
-
-    showToast(
-      "Household saved successfully.",
-      "success"
-    );
-
-
-    await loadHouseholds();
-
-
-    renderHouseholds();
-    updateSummary();
-
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Household saved successfully.";
-
-
-  }catch(error){
-
-    console.error(error);
-
-
-    showToast(
-      "Save Household failed: " +
-      error.message,
-      "error"
-    );
-
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Save household failed.";
-
-  }
-
-}
-
-
-/* ======================================================
-   ADD MEMBER MODAL
-====================================================== */
-
-function openMemberModal(
-  householdId
-){
-
-  const h =
-    households.find(
-      x =>
-        x.id ===
-        householdId
-    );
-
-
-  if(!h){
-
-    showToast(
-      "Household not found.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  document.getElementById(
-    "memberHouseholdId"
-  ).value =
-    h.id;
-
-
-  document.getElementById(
-    "memberHouseholdName"
-  ).value =
-    h.household_name ||
-    "";
-
-
-  document.getElementById(
-    "memberFullName"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "memberRelationship"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "memberSex"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "memberAge"
-  ).value =
-    "";
-
-
-  openModal(
-    "memberModal"
-  );
-
-}
-
-
-/* ======================================================
-   SAVE MEMBER
-====================================================== */
-
-async function saveMember(){
-
-  if(!branch){
-
-    showToast(
-      "Branch not found.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const householdId =
-    document.getElementById(
-      "memberHouseholdId"
-    ).value;
-
-
-  const fullName =
-    document.getElementById(
-      "memberFullName"
-    ).value.trim();
-
-
-  const relationship =
-    document.getElementById(
-      "memberRelationship"
-    ).value;
-
-
-  const sex =
-    document.getElementById(
-      "memberSex"
-    ).value;
-
-
-  const ageValue =
-    document.getElementById(
-      "memberAge"
-    ).value;
-
-
-  const age =
-    Number(ageValue);
-
-
-  if(!householdId){
-
-    showToast(
-      "Household is required.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!fullName){
-
-    showToast(
-      "Member name is required.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!relationship){
-
-    showToast(
-      "Please select relationship.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!sex){
-
-    showToast(
-      "Please select sex.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(
-    ageValue === "" ||
-    !Number.isFinite(age) ||
-    age < 0 ||
-    age > 150
-  ){
-
-    showToast(
-      "Please enter a valid age.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const memberPayload = {
-
-    household_id:
-      householdId,
-
-    full_name:
-      fullName,
-
-    relationship:
-      relationship,
-
-    sex:
-      sex,
-
-    age:
-      age
-
-  };
-
-
-  try{
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Saving member...";
-
-
-    await supabaseFetch(
-      "emergency_household_members",
-      {
-        method:"POST",
-        body:memberPayload
-      }
-    );
-
-
-    closeModal(
-      "memberModal"
-    );
-
-
-    showToast(
-      "Member saved successfully.",
-      "success"
-    );
-
-
-    await loadMembers();
-
-
-    renderHouseholds();
-    updateSummary();
-
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Member saved successfully.";
-
-
-  }catch(error){
-
-    console.error(error);
-
-
-    showToast(
-      "Save Member failed: " +
-      error.message,
-      "error"
-    );
-
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Save member failed.";
-
-  }
-
-}
-
-
-/* ======================================================
-   VIEW HOUSEHOLD
-====================================================== */
-
-function viewHousehold(id){
-
-  const h =
-    households.find(
-      x =>
-        x.id === id
-    );
-
-
-  if(!h){
-
-    showToast(
-      "Household not found.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const householdMembers =
-    members.filter(
-      m =>
-        m.household_id ===
-        h.id
-    );
-
-
-  const householdReliefs =
-    reliefs.filter(
-      r =>
-        r.household_id ===
-        h.id
-    );
-
-
-  const householdDocuments =
-    documents.filter(
-      d =>
-        d.household_id ===
-        h.id
-    );
-
-
-  const location =
-    [
-      h.city,
-      h.sub_city,
-      h.woreda
-    ]
-    .filter(Boolean)
-    .join(" / ");
-
-
-  let membersHtml =
-    "";
-
-
-  if(!householdMembers.length){
-
-    membersHtml =
-      '<div class="empty">' +
-      'No members registered.' +
-      '</div>';
-
-  }else{
-
-    membersHtml =
-      householdMembers
-        .map(
-          m=>`
-
-            <div class="member-card">
-
-              <div class="member-name">
-                ${escapeHtml(
-                  m.full_name ||
-                  "-"
-                )}
-              </div>
-
-              <div style="font-size:12px">
-
-                <strong>
-                  Relationship:
-                </strong>
-
-                ${escapeHtml(
-                  m.relationship ||
-                  "-"
-                )}
-
-                <br>
-
-                <strong>
-                  Sex:
-                </strong>
-
-                ${escapeHtml(
-                  m.sex ||
-                  "-"
-                )}
-
-                <br>
-
-                <strong>
-                  Age:
-                </strong>
-
-                ${escapeHtml(
-                  m.age ??
-                  "-"
-                )}
-
-              </div>
-
-            </div>
-
-          `
-        )
-        .join("");
-
-  }
-
-
-  let reliefHtml =
-    "";
-
-
-  if(!householdReliefs.length){
-
-    reliefHtml =
-      '<div class="empty">' +
-      'No relief records.' +
-      '</div>';
-
-  }else{
-
-    reliefHtml =
-      householdReliefs
-        .map(
-          r=>`
-
-            <div class="relief-card">
-
-              <div class="member-name">
-                Individual Relief
-              </div>
-
-              <div style="font-size:12px">
-
-                <strong>
-                  Relief Date:
-                </strong>
-
-                ${formatDate(
-                  r.relief_date
-                )}
-
-                <br>
-
-                <strong>
-                  Issued By:
-                </strong>
-
-                ${escapeHtml(
-                  r.issued_by ||
-                  "-"
-                )}
-
-                <br>
-
-                <strong>
-                  Member:
-                </strong>
-
-                ${escapeHtml(
-                  getMemberName(
-                    r.member_id
-                  )
-                )}
-
-              </div>
-
-              ${
-                r.image_url
-                  ? `
-                    <button
-                      class="btn btn-primary btn-small"
-                      style="margin-top:8px"
-                      onclick="openImage('${escapeHtml(r.image_url)}')"
-                    >
-                      View Document
-                    </button>
-                  `
-                  : ""
-              }
-
-            </div>
-
-          `
-        )
-        .join("");
-
-  }
-
-
-  let documentsHtml =
-    "";
-
-
-  if(!householdDocuments.length){
-
-    documentsHtml =
-      '<div class="empty">' +
-      'No documents uploaded.' +
-      '</div>';
-
-  }else{
-
-    documentsHtml =
-      householdDocuments
-        .map(
-          d=>`
-
-            <div class="document-card">
-
-              <div class="member-name">
-                ${escapeHtml(
-                  d.document_name ||
-                  d.file_name ||
-                  "Document"
-                )}
-              </div>
-
-              ${
-                d.image_url
-                  ? `
-                    <button
-                      class="btn btn-primary btn-small"
-                      style="margin-top:8px"
-                      onclick="openImage('${escapeHtml(d.image_url)}')"
-                    >
-                      View
-                    </button>
-                  `
-                  : ""
-              }
-
-            </div>
-
-          `
-        )
-        .join("");
-
-  }
-
-
-  document.getElementById(
-    "detailsBody"
-  ).innerHTML = `
-
-    <div class="detail-grid">
-
-      <div class="detail-box full">
-
-        <div class="label">
-          Household Name
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.household_name ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          Disaster Type
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.disaster_type ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          Disaster Date
-        </div>
-
-        <div class="value">
-          ${formatDate(
-            h.disaster_date
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          City
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.city ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          Sub-City
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.sub_city ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          Woreda
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.woreda ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          Specific Location
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.spesifation ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          House Number
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.house_number ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box">
-
-        <div class="label">
-          FAN Number
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.fun_number ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail-box full">
-
-        <div class="label">
-          Other Information
-        </div>
-
-        <div class="value">
-          ${escapeHtml(
-            h.other_info ||
-            "-"
-          )}
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- MEMBERS -->
-
-    <div class="folder-section">
-
-      <div class="folder-section-title">
-
-        <span>
-          Members (${householdMembers.length})
-        </span>
-
-        <button
-          class="btn btn-warning btn-small"
-          onclick="openMemberModal('${h.id}')"
-        >
-          + Add Member
-        </button>
-
-      </div>
-
-      <div class="folder-section-body">
-
-        <div class="detail-grid">
-
-          ${membersHtml}
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- RELIEFS -->
-
-    <div class="folder-section">
-
-      <div class="folder-section-title">
-
-        <span>
-          Relief Records (${householdReliefs.length})
-        </span>
-
-        <button
-          class="btn btn-success btn-small"
-          onclick="closeModal('detailsModal'); openReliefModal('${h.id}')"
-        >
-          + Individual Relief
-        </button>
-
-      </div>
-
-      <div class="folder-section-body">
-
-        <div class="detail-grid">
-
-          ${reliefHtml}
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- DOCUMENTS -->
-
-    <div class="folder-section">
-
-      <div class="folder-section-title">
-
-        <span>
-          Documents (${householdDocuments.length})
-        </span>
-
-      </div>
-
-      <div class="folder-section-body">
-
-        <div class="detail-grid">
-
-          ${documentsHtml}
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      style="
-        display:flex;
-        gap:8px;
-        flex-wrap:wrap;
-        margin-top:18px
-      "
-    >
-
-      <button
-        class="btn btn-warning"
-        onclick="openMemberModal('${h.id}')"
-      >
-        + Add Member
-      </button>
-
-      <button
-        class="btn btn-success"
-        onclick="closeModal('detailsModal'); openReliefModal('${h.id}')"
-      >
-        + Individual Relief
-      </button>
-
-    </div>
-
-  `;
-
-
-  openModal(
-    "detailsModal"
-  );
-
-}
-
-
-/* ======================================================
-   MEMBER NAME
-====================================================== */
-
-function getMemberName(
-  memberId
-){
-
-  if(!memberId){
-    return "-";
-  }
-
-
-  const member =
-    members.find(
-      m =>
-        String(m.id) ===
-        String(memberId)
-    );
-
-
-  return (
-    member?.full_name ||
-    "-"
-  );
-
-}
-
-
-/* ======================================================
-   RELIEF MODAL
-====================================================== */
-
-function openReliefModal(
-  householdId
-){
-
-  const h =
-    households.find(
-      x =>
-        x.id ===
-        householdId
-    );
-
-
-  if(!h){
-
-    showToast(
-      "Household not found.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  document.getElementById(
-    "reliefHouseholdId"
-  ).value =
-    h.id;
-
-
-  document.getElementById(
-    "reliefHouseholdName"
-  ).value =
-    h.household_name ||
-    "";
-
-
-  document.getElementById(
-    "reliefDate"
-  ).value =
-    new Date()
-      .toISOString()
-      .slice(0,10);
-
-
-  document.getElementById(
-    "reliefIssuedBy"
-  ).value =
-    localStorage.getItem(
-      "login_user"
-    ) || "";
-
-
-  document.getElementById(
-    "reliefSignature"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "model22Number"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "reliefOtherInfo"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "reliefImage"
-  ).value =
-    "";
-
-
-  const memberSelect =
-    document.getElementById(
-      "reliefMember"
-    );
-
-
-  const householdMembers =
-    members.filter(
-      m =>
-        m.household_id ===
-        householdId
-    );
-
-
-  memberSelect.innerHTML =
-    '<option value="">Select member</option>' +
-
-    householdMembers
-      .map(
-        m=>`
-
-          <option
-            value="${escapeHtml(m.id)}"
-          >
-
-            ${escapeHtml(
-              m.full_name ||
-              "Member"
-            )}
-
-            ${
-              m.relationship
-                ? " - " +
-                  escapeHtml(
-                    m.relationship
-                  )
-                : ""
-            }
-
-          </option>
-
-        `
-      )
-      .join("");
-
-
-  document.getElementById(
-    "reliefItemsContainer"
-  ).innerHTML =
-    "";
-
-
-  addReliefRow();
-
-
-  openModal(
-    "reliefModal"
-  );
-
-}
-
-
-/* ======================================================
-   ADD RELIEF ROW
-====================================================== */
-
-function addReliefRow(){
-
-  const container =
-    document.getElementById(
-      "reliefItemsContainer"
-    );
-
+    $("reliefItemsContainer");
 
   const row =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   row.className =
-    "relief-row";
-
-
-  const options =
-    items
-      .map(
-        item=>`
-
-          <option
-            value="${escapeHtml(item.id)}"
-          >
-            ${escapeHtml(
-              itemName(item)
-            )}
-          </option>
-
-        `
-      )
-      .join("");
-
+    "relief-item-row";
 
   row.innerHTML = `
+    <div class="relief-item-grid">
 
-    <div class="relief-row-head">
+      <div class="mini-field">
+        <label>Item *</label>
+        <select class="relief-item"></select>
+      </div>
 
-      <strong>
-        Relief Item
-      </strong>
+      <div class="mini-field">
+        <label>Unit</label>
+        <input
+          class="relief-unit readonly"
+          readonly
+        >
+      </div>
+
+      <div class="mini-field">
+        <label>Quantity *</label>
+        <input
+          class="relief-quantity"
+          type="number"
+          min="0.01"
+          step="any"
+          value=""
+        >
+      </div>
+
+      <div class="mini-field">
+        <label>Category</label>
+        <input
+          class="relief-category readonly"
+          readonly
+        >
+      </div>
+
+      <div class="mini-field">
+        <label>Stock</label>
+        <div class="stock-info relief-stock">
+          Select item
+        </div>
+      </div>
 
       <button
         type="button"
-        class="btn btn-danger btn-small"
-        onclick="this.closest('.relief-row').remove()"
+        class="remove-btn"
+        onclick="this.closest('.relief-item-row').remove()"
       >
         Remove
       </button>
 
     </div>
-
-
-    <div class="form-grid">
-
-
-      <div class="form-group">
-
-        <label>
-          Item
-        </label>
-
-        <select
-          class="form-control relief-item-select"
-          onchange="updateReliefItemUnit(this)"
-        >
-
-          <option value="">
-            Select item
-          </option>
-
-          ${options}
-
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Quantity
-        </label>
-
-        <input
-          class="form-control relief-quantity"
-          type="number"
-          min="0.01"
-          step="any"
-          placeholder="Quantity"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Unit
-        </label>
-
-        <input
-          class="form-control relief-unit"
-          type="text"
-          readonly
-          placeholder="Unit"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Category
-        </label>
-
-        <input
-          class="form-control relief-category"
-          type="text"
-          readonly
-          placeholder="Category"
-        >
-
-      </div>
-
-
-      <div class="form-group full">
-
-        <div class="stock-balance">
-          Current Stock: -
-        </div>
-
-      </div>
-
-
-    </div>
-
   `;
 
+  container.appendChild(row);
 
-  container.appendChild(
-    row
-  );
-
+  populateReliefItemRow(row);
 }
 
 
-/* ======================================================
-   UPDATE ITEM
-====================================================== */
-
-async function updateReliefItemUnit(
-  select
-){
-
-  const row =
-    select.closest(
-      ".relief-row"
-    );
-
-
-  const itemId =
-    select.value;
-
-
-  const unitInput =
-    row.querySelector(
-      ".relief-unit"
-    );
-
-
-  const categoryInput =
-    row.querySelector(
-      ".relief-category"
-    );
-
-
-  const balanceBox =
-    row.querySelector(
-      ".stock-balance"
-    );
-
-
-  unitInput.value="";
-  categoryInput.value="";
-
-  balanceBox.textContent =
-    "Current Stock: -";
-
-
-  if(!itemId){
-    return;
-  }
-
-
-  const item =
-    items.find(
-      x =>
-        String(x.id) ===
-        String(itemId)
-    );
-
-
-  if(item){
-
-    unitInput.value =
-      item.unit ||
-      item.item_unit ||
-      "";
-
-    categoryInput.value =
-      item.category ||
-      "";
-
-  }
-
-
-  try{
-
-    const balance =
-      await getStockBalance(
-        itemId
-      );
-
-
-    balanceBox.textContent =
-      "Current Stock: " +
-      balance +
-      " " +
-      (
-        unitInput.value ||
-        ""
-      );
-
-  }catch(error){
-
-    console.warn(error);
-
-    balanceBox.textContent =
-      "Current Stock: unavailable";
-
-  }
-
-}
-
-
-/* ======================================================
-   STOCK BALANCE
-====================================================== */
-
-async function getStockBalance(
-  itemId
-){
-
-  const rows =
-    await supabaseFetch(
-      "stock_transactions",
-      {
-        query:
-          "?branch_id=eq." +
-          encodeURIComponent(
-            branch.uuid
-          ) +
-          "&item_id=eq." +
-          encodeURIComponent(
-            itemId
-          ) +
-          "&select=transaction_type,quantity,transaction"
-      }
-    ) || [];
-
-
-  let balance = 0;
-
-
-  rows.forEach(
-    row=>{
-
-      const type =
-        String(
-          row.transaction_type ||
-          row.transaction ||
-          ""
-        )
-        .toUpperCase();
-
-
-      const quantity =
-        Number(
-          row.quantity || 0
-        );
-
-
-      if(
-        type === "IN" ||
-        type === "STOCK IN" ||
-        type === "STOCK_IN" ||
-        type === "RECEIPT"
-      ){
-
-        balance +=
-          quantity;
-
-      }
-
-
-      else if(
-        type === "OUT" ||
-        type === "STOCK OUT" ||
-        type === "STOCK_OUT" ||
-        type === "ISSUE"
-      ){
-
-        balance -=
-          quantity;
-
-      }
-
-    }
-  );
-
-
-  return Math.max(
-    0,
-    balance
-  );
-
-}
-
-
-/* ======================================================
-   IMAGE UPLOAD
-====================================================== */
-
-async function uploadReliefImage(
-  file
-){
-
-  if(!file){
-    return null;
-  }
-
-
-  const extension =
-    file.name.includes(".")
-      ? file.name
-          .split(".")
-          .pop()
-          .toLowerCase()
-      : "jpg";
-
-
-  const fileName =
-    branch.code +
-    "/" +
-    crypto.randomUUID() +
-    "." +
-    extension;
-
-
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/storage/v1/object/" +
-      STORAGE_BUCKET +
-      "/" +
-      fileName,
-      {
-        method:"POST",
-
-        headers:{
-
-          "apikey":
-            SUPABASE_KEY,
-
-          "Authorization":
-            "Bearer " +
-            SUPABASE_KEY,
-
-          "Content-Type":
-            file.type ||
-            "application/octet-stream"
-
-        },
-
-        body:file
-      }
-    );
-
-
-  const text =
-    await response.text();
-
-
-  if(!response.ok){
-
-    throw new Error(
-      text ||
-      "Image upload failed."
-    );
-
-  }
-
-
-  return (
-    SUPABASE_URL +
-    "/storage/v1/object/public/" +
-    STORAGE_BUCKET +
-    "/" +
-    fileName
-  );
-
-}
-
-
-/* ======================================================
-   SAVE RELIEF
-====================================================== */
-
-async function saveRelief(){
-
-  if(!branch){
-
-    showToast(
-      "Branch not found.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const householdId =
-    document.getElementById(
-      "reliefHouseholdId"
-    ).value;
-
-
-  const memberId =
-    document.getElementById(
-      "reliefMember"
-    ).value;
-
-
-  const reliefDate =
-    document.getElementById(
-      "reliefDate"
-    ).value;
-
-
-  const issuedBy =
-    document.getElementById(
-      "reliefIssuedBy"
-    ).value.trim();
-
-
-  const signature =
-    document.getElementById(
-      "reliefSignature"
-    ).value.trim();
-
-
-  const model22 =
-    document.getElementById(
-      "model22Number"
-    ).value.trim();
-
-
-  const otherInfo =
-    document.getElementById(
-      "reliefOtherInfo"
-    ).value.trim();
-
-
-  if(!householdId){
-
-    showToast(
-      "Household is required.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!reliefDate){
-
-    showToast(
-      "Relief date is required.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!issuedBy){
-
-    showToast(
-      "Issued by is required.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!model22){
-
-    showToast(
-      "Model 22 number is required.",
-      "error"
-    );
-
-    return;
-  }
-
+/* =========================================================
+   READ RELIEF ITEMS
+========================================================= */
+
+function readReliefItems(){
 
   const rows =
     [
       ...document.querySelectorAll(
-        ".relief-row"
+        ".relief-item-row"
       )
     ];
 
+  const grouped = {};
 
-  const selectedItems=[];
-
-
-  for(
-    const row of rows
-  ){
+  for(const row of rows){
 
     const itemId =
       row.querySelector(
-        ".relief-item-select"
+        ".relief-item"
       ).value;
-
 
     const quantity =
       Number(
@@ -4528,436 +1624,1850 @@ async function saveRelief(){
         ).value
       );
 
-
     if(!itemId){
-      continue;
+      throw new Error(
+        "Please select all relief items."
+      );
     }
-
 
     if(
-      !quantity ||
+      !Number.isFinite(quantity) ||
       quantity <= 0
     ){
-
-      showToast(
-        "Please enter valid quantity.",
-        "error"
+      throw new Error(
+        "Please enter a valid quantity."
       );
-
-      return;
     }
 
+    const item =
+      findItemById(itemId);
 
-    selectedItems.push({
+    if(!item){
+      throw new Error(
+        "Selected item was not found."
+      );
+    }
 
-      itemId,
-      quantity
+    if(!grouped[itemId]){
 
-    });
+      grouped[itemId] = {
+        item_id:itemId,
+        item_name:getItemName(item),
+        unit:getItemUnit(item),
+        category:getItemCategory(item),
+        quantity:0
+      };
+    }
 
+    grouped[itemId].quantity += quantity;
   }
 
+  return Object.values(grouped);
+}
 
-  if(
-    !selectedItems.length
-  ){
 
-    showToast(
-      "Add at least one relief item.",
+/* =========================================================
+   HOUSEHOLD FORM
+========================================================= */
+
+function showNewHousehold(){
+
+  hideForms();
+
+  $("householdForm")
+    .classList.remove("hidden");
+
+  clearHouseholdForm();
+
+  addMember();
+  addDocument();
+
+  window.scrollTo({
+    top:$("householdForm").offsetTop - 10,
+    behavior:"smooth"
+  });
+}
+
+function showNewRelief(){
+
+  hideForms();
+
+  $("reliefForm")
+    .classList.remove("hidden");
+
+  $("reliefItemsContainer").innerHTML = "";
+
+  setCurrentDateTime();
+
+  populateHouseholdSelect();
+
+  $("reliefMember").innerHTML =
+    '<option value="">Select Member</option>';
+
+  addReliefItem();
+
+  window.scrollTo({
+    top:$("reliefForm").offsetTop - 10,
+    behavior:"smooth"
+  });
+}
+
+function hideForms(){
+
+  $("householdForm")
+    .classList.add("hidden");
+
+  $("reliefForm")
+    .classList.add("hidden");
+}
+
+function addMember(){
+
+  const container =
+    $("membersContainer");
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "member-row";
+
+  row.innerHTML = `
+    <div class="member-grid">
+
+      <div class="mini-field">
+        <label>Full Name *</label>
+        <input class="member-name" type="text">
+      </div>
+
+      <div class="mini-field">
+        <label>Relationship *</label>
+        <select class="member-relationship">
+          <option value="">Select</option>
+          <option value="Husband">Husband</option>
+          <option value="Wife">Wife</option>
+          <option value="Child">Child</option>
+          <option value="Relative">Relative</option>
+          <option value="Domestic Worker">Domestic Worker</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="mini-field">
+        <label>Sex *</label>
+        <select class="member-sex">
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+
+      <div class="mini-field">
+        <label>Age</label>
+        <input class="member-age" type="number" min="0">
+      </div>
+
+      <div class="mini-field">
+        <label>Other Information</label>
+        <input class="member-other" type="text">
+      </div>
+
+      <button
+        type="button"
+        class="remove-btn"
+        onclick="this.closest('.member-row').remove()"
+      >
+        Remove
+      </button>
+
+    </div>
+  `;
+
+  container.appendChild(row);
+}
+
+function addDocument(){
+
+  const container =
+    $("documentsContainer");
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "document-row";
+
+  row.innerHTML = `
+    <div class="document-grid">
+
+      <div class="mini-field">
+        <label>Document Number</label>
+        <input class="document-number" type="text">
+      </div>
+
+      <div class="mini-field">
+        <label>Document Date</label>
+        <input class="document-date" type="date">
+      </div>
+
+      <div class="mini-field">
+        <label>Document Name</label>
+        <input class="document-name" type="text">
+      </div>
+
+      <div class="mini-field">
+        <label>Scanned File</label>
+        <input
+          class="document-file"
+          type="file"
+          accept="image/*,.pdf"
+        >
+      </div>
+
+      <div class="mini-field">
+        <label>Other Information</label>
+        <input class="document-other" type="text">
+      </div>
+
+      <button
+        type="button"
+        class="remove-btn"
+        onclick="this.closest('.document-row').remove()"
+      >
+        Remove
+      </button>
+
+    </div>
+  `;
+
+  container.appendChild(row);
+}
+
+function clearHouseholdForm(){
+
+  $("householdName").value = "";
+  $("disasterType").value = "";
+  $("disasterDate").value = "";
+  $("city").value = "";
+  $("subCity").value = "";
+  $("woreda").value = "";
+  $("specificLocation").value = "";
+  $("houseNumber").value = "";
+  $("fanNumber").value = "";
+  $("householdOther").value = "";
+
+  $("membersContainer").innerHTML = "";
+  $("documentsContainer").innerHTML = "";
+}
+
+
+/* =========================================================
+   SAVE HOUSEHOLD
+========================================================= */
+
+async function saveHousehold(){
+
+  try{
+
+    if(!currentBranch.id){
+      throw new Error(
+        "Branch is not ready."
+      );
+    }
+
+    const householdName =
+      $("householdName").value.trim();
+
+    const disasterType =
+      $("disasterType").value;
+
+    const disasterDate =
+      $("disasterDate").value;
+
+    if(!householdName){
+      throw new Error(
+        "Household / Representative name is required."
+      );
+    }
+
+    if(!disasterType){
+      throw new Error(
+        "Disaster type is required."
+      );
+    }
+
+    if(!disasterDate){
+      throw new Error(
+        "Disaster date is required."
+      );
+    }
+
+    const memberRows =
+      [
+        ...document.querySelectorAll(
+          ".member-row"
+        )
+      ];
+
+    if(memberRows.length === 0){
+      throw new Error(
+        "Please add at least one household member."
+      );
+    }
+
+    const members = [];
+
+    for(const row of memberRows){
+
+      const fullName =
+        row.querySelector(
+          ".member-name"
+        ).value.trim();
+
+      const relationship =
+        row.querySelector(
+          ".member-relationship"
+        ).value;
+
+      const sex =
+        row.querySelector(
+          ".member-sex"
+        ).value;
+
+      const ageValue =
+        row.querySelector(
+          ".member-age"
+        ).value;
+
+      const age =
+        ageValue === ""
+          ? null
+          : Number(ageValue);
+
+      if(!fullName){
+        throw new Error(
+          "Every member must have a full name."
+        );
+      }
+
+      if(!relationship){
+        throw new Error(
+          "Every member must have a relationship."
+        );
+      }
+
+      if(!sex){
+        throw new Error(
+          "Every member must have sex selected."
+        );
+      }
+
+      members.push({
+        full_name:fullName,
+        relationship:relationship,
+        sex:sex,
+        age:age,
+        other_information:
+          row.querySelector(
+            ".member-other"
+          ).value.trim() || null
+      });
+    }
+
+    setStatus("Saving household...");
+
+    const householdPayload = {
+      household_name:householdName,
+      disaster_type:disasterType,
+      disaster_date:disasterDate,
+      city:$("city").value.trim() || null,
+      sub_city:$("subCity").value.trim() || null,
+      woreda:$("woreda").value.trim() || null,
+      specific_location:
+        $("specificLocation").value.trim() || null,
+      house_number:
+        $("houseNumber").value.trim() || null,
+      fan_number:
+        $("fanNumber").value.trim() || null,
+      other_information:
+        $("householdOther").value.trim() || null,
+      branch_id:currentBranch.id,
+      branch_code:currentBranch.code || null
+    };
+
+    const householdResult =
+      await postTable(
+        "emergency_households",
+        householdPayload
+      );
+
+    if(
+      !householdResult ||
+      !householdResult[0] ||
+      !householdResult[0].id
+    ){
+      throw new Error(
+        "Household was not created."
+      );
+    }
+
+    const householdId =
+      householdResult[0].id;
+
+    for(const member of members){
+
+      await postTable(
+        "emergency_members",
+        {
+          household_id:householdId,
+          full_name:member.full_name,
+          relationship:member.relationship,
+          sex:member.sex,
+          age:member.age,
+          other_information:
+            member.other_information
+        }
+      );
+    }
+
+    const documentRows =
+      [
+        ...document.querySelectorAll(
+          ".document-row"
+        )
+      ];
+
+    for(const row of documentRows){
+
+      const file =
+        row.querySelector(
+          ".document-file"
+        ).files[0];
+
+      await postTable(
+        "emergency_documents",
+        {
+          household_id:householdId,
+          document_number:
+            row.querySelector(
+              ".document-number"
+            ).value.trim() || null,
+
+          document_date:
+            row.querySelector(
+              ".document-date"
+            ).value || null,
+
+          document_name:
+            row.querySelector(
+              ".document-name"
+            ).value.trim() ||
+            (file ? file.name : null),
+
+          file_name:
+            file ? file.name : null,
+
+          other_information:
+            row.querySelector(
+              ".document-other"
+            ).value.trim() || null
+        }
+      );
+    }
+
+    showAlert(
+      "Household saved successfully.",
+      "success"
+    );
+
+    hideForms();
+
+    await refreshAll();
+
+    setStatus("Ready");
+
+  }catch(error){
+
+    console.error(
+      "saveHousehold:",
+      error
+    );
+
+    showAlert(
+      "Save Household failed: " +
+      error.message,
       "error"
     );
+
+    setStatus("Save failed");
+  }
+}
+
+
+/* =========================================================
+   RELIEF MEMBERS
+========================================================= */
+
+async function loadReliefMembers(){
+
+  const householdId =
+    $("reliefHousehold").value;
+
+  const select =
+    $("reliefMember");
+
+  select.innerHTML =
+    '<option value="">Loading members...</option>';
+
+  if(!householdId){
+
+    select.innerHTML =
+      '<option value="">Select Member</option>';
 
     return;
   }
 
-
-  /* ====================================================
-     CHECK STOCK
-  ==================================================== */
-
-  for(
-    const selected of selectedItems
-  ){
-
-    const balance =
-      await getStockBalance(
-        selected.itemId
-      );
-
-
-    if(
-      selected.quantity >
-      balance
-    ){
-
-      const item =
-        items.find(
-          x =>
-            String(x.id) ===
-            String(
-              selected.itemId
-            )
-        );
-
-
-      showToast(
-        "Insufficient stock for " +
-        itemName(item) +
-        ". Current stock: " +
-        balance,
-        "error"
-      );
-
-      return;
-    }
-
-  }
-
-
-  const user =
-    localStorage.getItem(
-      "login_user"
-    ) ||
-    localStorage.getItem(
-      "user_name"
-    ) ||
-    branch.code;
-
-
-  let imageUrl =
-    null;
-
-
   try{
 
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Saving relief...";
+    const members =
+      await getTable(
+        "emergency_members",
+        "?household_id=eq." +
+        encodeURIComponent(householdId) +
+        "&select=*&order=full_name.asc"
+      );
 
+    select.innerHTML =
+      '<option value="">Select Member</option>';
 
-    const file =
-      document.getElementById(
-        "reliefImage"
-      ).files[0];
+    members.forEach(member => {
 
+      const option =
+        document.createElement("option");
 
-    if(file){
+      option.value =
+        member.id;
 
-      imageUrl =
-        await uploadReliefImage(
-          file
+      option.textContent =
+        member.full_name +
+        (
+          member.relationship
+            ? " (" + member.relationship + ")"
+            : ""
         );
 
-    }
-
-
-    /* ==================================================
-       RELIEF MASTER
-
-       Model 22 is used for Stock OUT.
-       It is not added to emergency_reliefs
-       because that column was not confirmed.
-    ================================================== */
-
-    const reliefPayload = {
-
-      household_id:
-        householdId,
-
-      member_id:
-        memberId ||
-        null,
-
-      branch_id:
-        branch.uuid,
-
-      relief_date:
-        reliefDate,
-
-      issued_by:
-        issuedBy,
-
-      signature:
-        signature,
-
-      other_info:
-        otherInfo,
-
-      image_url:
-        imageUrl,
-
-      created_by:
-        user
-
-    };
-
-
-    const result =
-      await supabaseFetch(
-        "emergency_reliefs",
-        {
-          method:"POST",
-          body:reliefPayload
-        }
-      );
-
-
-    const relief =
-      Array.isArray(result)
-        ? result[0]
-        : result;
-
-
-    if(!relief?.id){
-
-      throw new Error(
-        "Relief record was not created."
-      );
-
-    }
-
-
-    /* ==================================================
-       RELIEF ITEMS + AUTOMATIC STOCK OUT
-    ================================================== */
-
-    for(
-      const selected of selectedItems
-    ){
-
-      const item =
-        items.find(
-          x =>
-            String(x.id) ===
-            String(
-              selected.itemId
-            )
-        );
-
-
-      const unit =
-        item?.unit ||
-        item?.item_unit ||
-        "";
-
-
-      const category =
-        item?.category ||
-        "";
-
-
-      const reliefItemPayload = {
-
-        relief_id:
-          relief.id,
-
-        item_id:
-          selected.itemId,
-
-        item_name:
-          itemName(item),
-
-        category:
-          category,
-
-        quantity:
-          selected.quantity,
-
-        unit:
-          unit
-
-      };
-
-
-      await supabaseFetch(
-        "emergency_relief_items",
-        {
-          method:"POST",
-          body:
-            reliefItemPayload
-        }
-      );
-
-
-      /* ================================================
-         AUTOMATIC STOCK OUT
-
-         Model 22 is recorded here.
-      ================================================ */
-
-      const stockOutPayload = {
-
-        transaction_type:
-          "OUT",
-
-        quantity:
-          selected.quantity,
-
-        issued_by:
-          issuedBy,
-
-        entered_at:
-          new Date().toISOString(),
-
-        signature:
-          signature,
-
-        unit:
-          unit,
-
-        category:
-          category,
-
-        transaction:
-          "STOCK OUT",
-
-        branch_id:
-          branch.uuid,
-
-        branch_code:
-          branch.code,
-
-        item_id:
-          selected.itemId,
-
-        relief_id:
-          relief.id,
-
-        source_type:
-          "EMERGENCY_RELIEF",
-
-        model_22:
-          model22
-
-      };
-
-
-      await supabaseFetch(
-        "stock_transactions",
-        {
-          method:"POST",
-          body:
-            stockOutPayload
-        }
-      );
-
-    }
-
-
-    closeModal(
-      "reliefModal"
-    );
-
-
-    showToast(
-      "Relief saved and Stock OUT created successfully.",
-      "success"
-    );
-
-
-    await Promise.allSettled([
-
-      loadReliefs(),
-      loadReliefItems()
-
-    ]);
-
-
-    renderHouseholds();
-    updateSummary();
-
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Relief saved successfully.";
-
+      select.appendChild(option);
+    });
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "loadReliefMembers:",
+      error
+    );
+
+    select.innerHTML =
+      '<option value="">Unable to load members</option>';
+
+    showAlert(
+      "Members could not be loaded: " +
+      error.message,
+      "error"
+    );
+  }
+}
+
+function populateHouseholdSelect(){
+
+  const select =
+    $("reliefHousehold");
+
+  select.innerHTML =
+    '<option value="">Select Household</option>';
+
+  households.forEach(household => {
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      household.id;
+
+    option.textContent =
+      household.household_name ||
+      household.name ||
+      "Household";
+
+    if(household.fan_number){
+      option.textContent +=
+        " — FAN: " +
+        household.fan_number;
+    }
+
+    select.appendChild(option);
+  });
+}
 
 
-    showToast(
+/* =========================================================
+   MODEL 22
+========================================================= */
+
+function toggleModel22Number(){
+
+  const value =
+    $("reliefModel22").value;
+
+  const field =
+    $("model22NumberField");
+
+  const input =
+    $("reliefModel22Number");
+
+  if(value === "Model 22 Available"){
+
+    field.classList.remove("hidden");
+
+    input.required = true;
+
+  }else{
+
+    field.classList.add("hidden");
+
+    input.required = false;
+    input.value = "";
+  }
+}
+
+function normalizeModel22Value(value){
+
+  if(
+    String(value || "").trim() ===
+    "Model 22 Available"
+  ){
+    return "Model 22 Available";
+  }
+
+  return "";
+}
+
+function displayModel22(value){
+
+  if(
+    String(value || "").trim() ===
+    "Model 22 Available"
+  ){
+    return "Model 22 Available";
+  }
+
+  return "";
+}
+
+
+/* =========================================================
+   SAVE RELIEF
+========================================================= */
+
+async function saveRelief(){
+
+  try{
+
+    if(!currentBranch.id){
+      throw new Error(
+        "Branch is not ready."
+      );
+    }
+
+    const householdId =
+      $("reliefHousehold").value;
+
+    const memberId =
+      $("reliefMember").value;
+
+    const reliefDate =
+      $("reliefDate").value;
+
+    const issuedBy =
+      $("reliefEnteredBy").value.trim();
+
+    const signature =
+      $("reliefSignature").value.trim();
+
+    const model22 =
+      normalizeModel22Value(
+        $("reliefModel22").value
+      );
+
+    const model22Number =
+      $("reliefModel22Number")
+        .value
+        .trim();
+
+    if(!validUUID(householdId)){
+      throw new Error(
+        "Please select a valid household."
+      );
+    }
+
+    if(!validUUID(memberId)){
+      throw new Error(
+        "Please select a valid household member."
+      );
+    }
+
+    if(!reliefDate){
+      throw new Error(
+        "Relief date is required."
+      );
+    }
+
+    if(!issuedBy){
+      throw new Error(
+        "Issued By is required."
+      );
+    }
+
+    /*
+      Model 22 is mandatory for Emergency Relief
+      because this action creates Stock OUT.
+    */
+    if(model22 !== "Model 22 Available"){
+      throw new Error(
+        "Model 22 is required for Relief Stock OUT."
+      );
+    }
+
+    if(!model22Number){
+      throw new Error(
+        "Model 22 Number / Code is required."
+      );
+    }
+
+    const reliefItems =
+      readReliefItems();
+
+    if(reliefItems.length === 0){
+      throw new Error(
+        "Please add at least one relief item."
+      );
+    }
+
+    setStatus(
+      "Checking stock balances..."
+    );
+
+    /*
+      Check ALL quantities BEFORE saving anything.
+      This prevents partial relief records.
+    */
+    for(const reliefItem of reliefItems){
+
+      const item =
+        findItemById(
+          reliefItem.item_id
+        );
+
+      if(!item){
+        throw new Error(
+          "Item not found."
+        );
+      }
+
+      const balance =
+        await getItemStockBalance(item);
+
+      if(
+        reliefItem.quantity >
+        balance
+      ){
+
+        throw new Error(
+          reliefItem.item_name +
+          ": requested " +
+          reliefItem.quantity +
+          " " +
+          reliefItem.unit +
+          ", but available stock is " +
+          balance +
+          " " +
+          reliefItem.unit +
+          "."
+        );
+      }
+    }
+
+    setStatus(
+      "Saving relief record..."
+    );
+
+    /*
+      IMPORTANT:
+      emergency_reliefs does NOT receive branch_code.
+      The previous schema error showed that this column
+      does not exist there.
+    */
+    const reliefPayload = {
+      household_id:householdId,
+      member_id:memberId,
+      relief_date:reliefDate,
+      issued_by:issuedBy,
+      signature:signature || null,
+      model_22:model22,
+      model_22_number:model22Number,
+      created_at:new Date().toISOString(),
+      other_information:
+        $("reliefNotes").value.trim() || null
+    };
+
+    const reliefResult =
+      await postTable(
+        "emergency_reliefs",
+        reliefPayload
+      );
+
+    if(
+      !reliefResult ||
+      !reliefResult[0] ||
+      !reliefResult[0].id
+    ){
+      throw new Error(
+        "Relief record was not created."
+      );
+    }
+
+    const reliefId =
+      reliefResult[0].id;
+
+    /*
+      Save relief items.
+    */
+    for(const reliefItem of reliefItems){
+
+      await postTable(
+        "emergency_relief_items",
+        {
+          relief_id:reliefId,
+          item_id:reliefItem.item_id,
+          item_name:reliefItem.item_name,
+          category:reliefItem.category || null,
+          quantity:reliefItem.quantity,
+          unit:reliefItem.unit || null,
+          created_at:new Date().toISOString()
+        }
+      );
+    }
+
+    /*
+      Create STOCK OUT records.
+
+      Model 22 columns are not assumed in
+      stock_transactions because the known schema
+      does not contain model_22/model_22_number.
+
+      Therefore Model 22 number is safely embedded
+      into the existing "transaction" field.
+    */
+    for(const reliefItem of reliefItems){
+
+      const transactionText =
+        "Emergency Relief - Model 22 - " +
+        model22Number;
+
+      const stockOutPayload = {
+        transaction_type:"OUT",
+        quantity:reliefItem.quantity,
+        entered_by:issuedBy,
+        entered_at:reliefDate,
+        expiry_date:null,
+        category:reliefItem.category || null,
+        issued_by:issuedBy,
+        signature:signature || null,
+        unit:reliefItem.unit || null,
+        transaction:transactionText,
+        branch_id:currentBranch.id,
+        branch_code:currentBranch.code || null,
+        item_id:reliefItem.item_id
+      };
+
+      await postTable(
+        "stock_transactions",
+        stockOutPayload
+      );
+    }
+
+    /*
+      Model 22 is intentionally NOT shown in the
+      Relief Details modal after saving.
+      It remains in stock_transactions for Stock Report.
+    */
+
+    showAlert(
+      "Relief saved and Stock OUT updated successfully.",
+      "success"
+    );
+
+    hideForms();
+
+    await refreshAll();
+
+    setStatus("Ready");
+
+  }catch(error){
+
+    console.error(
+      "saveRelief:",
+      error
+    );
+
+    showAlert(
       "Save Relief failed: " +
       error.message,
       "error"
     );
 
-
-    document.getElementById(
-      "statusBar"
-    ).textContent =
-      "Relief save failed.";
-
+    setStatus("Save failed");
   }
-
 }
 
 
-/* ======================================================
-   IMAGE
-====================================================== */
+/* =========================================================
+   DATE/TIME
+========================================================= */
 
-function openImage(url){
+function setCurrentDateTime(){
 
-  if(!url){
+  const now =
+    new Date();
+
+  const local =
+    new Date(
+      now.getTime() -
+      now.getTimezoneOffset() * 60000
+    )
+    .toISOString()
+    .slice(0,16);
+
+  $("reliefDate").value =
+    local;
+}
+
+
+/* =========================================================
+   LOAD HOUSEHOLDS
+========================================================= */
+
+async function loadHouseholds(){
+
+  try{
+
+    setStatus(
+      "Loading households..."
+    );
+
+    const data =
+      await getTable(
+        "emergency_households",
+        "?select=*&order=id.desc"
+      );
+
+    households =
+      filterBranchData(data);
+
+    renderHouseholds();
+
+    populateHouseholdSelect();
+
+  }catch(error){
+
+    console.error(
+      "loadHouseholds:",
+      error
+    );
+
+    households = [];
+
+    $("householdList").innerHTML =
+      '<div class="empty">' +
+      'Could not load households.<br>' +
+      escapeHtml(error.message) +
+      '</div>';
+
+    showAlert(
+      "Households could not be loaded: " +
+      error.message,
+      "error"
+    );
+  }
+}
+
+
+/* =========================================================
+   RENDER HOUSEHOLDS
+========================================================= */
+
+function renderHouseholds(list=households){
+
+  const container =
+    $("householdList");
+
+  if(!list.length){
+
+    container.innerHTML =
+      '<div class="empty">' +
+      'No household records found.' +
+      '</div>';
+
     return;
   }
 
+  container.innerHTML = "";
 
-  document.getElementById(
-    "fullImage"
-  ).src =
-    url;
+  list.forEach(household => {
 
+    const name =
+      household.household_name ||
+      household.name ||
+      "Household";
 
-  openModal(
-    "imageModal"
-  );
+    const disaster =
+      household.disaster_type ||
+      "";
 
+    const fan =
+      household.fan_number ||
+      "";
+
+    const date =
+      household.disaster_date ||
+      "";
+
+    const location = [
+      household.city,
+      household.sub_city,
+      household.woreda
+    ]
+      .filter(Boolean)
+      .join(" / ");
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "household-card";
+
+    card.innerHTML = `
+      <div class="household-main">
+
+        <h3>
+          ${escapeHtml(name)}
+        </h3>
+
+        <div class="household-meta">
+
+          ${
+            disaster
+              ? `<span class="badge">
+                   ${escapeHtml(disaster)}
+                 </span>`
+              : ""
+          }
+
+          ${
+            fan
+              ? `<span class="badge">
+                   FAN: ${escapeHtml(fan)}
+                 </span>`
+              : ""
+          }
+
+          ${
+            date
+              ? `<span class="badge">
+                   ${escapeHtml(date)}
+                 </span>`
+              : ""
+          }
+
+          ${
+            location
+              ? `<span class="badge">
+                   ${escapeHtml(location)}
+                 </span>`
+              : ""
+          }
+
+        </div>
+
+      </div>
+
+      <button
+        class="btn btn-brown"
+        onclick="openHousehold('${household.id}')"
+      >
+        Open Folder
+      </button>
+    `;
+
+    container.appendChild(card);
+  });
 }
 
 
-/* ======================================================
-   ESCAPE KEY
-====================================================== */
+/* =========================================================
+   SEARCH
+========================================================= */
 
-document.addEventListener(
-  "keydown",
-  function(e){
+async function filterHouseholds(){
 
-    if(
-      e.key ===
-      "Escape"
-    ){
+  const text =
+    $("searchText")
+      .value
+      .trim()
+      .toLowerCase();
 
-      document
-        .querySelectorAll(
-          ".modal.show"
-        )
-        .forEach(
-          modal =>
-            modal.classList.remove(
-              "show"
-            )
+  const disaster =
+    $("searchDisaster").value;
+
+  const date =
+    $("searchDate").value;
+
+  let result =
+    households.filter(household => {
+
+      const name =
+        String(
+          household.household_name ||
+          household.name ||
+          ""
+        ).toLowerCase();
+
+      const fan =
+        String(
+          household.fan_number ||
+          ""
+        ).toLowerCase();
+
+      const householdDisaster =
+        String(
+          household.disaster_type ||
+          ""
         );
 
+      const householdDate =
+        String(
+          household.disaster_date ||
+          ""
+        );
+
+      const textMatch =
+        !text ||
+        name.includes(text) ||
+        fan.includes(text);
+
+      const disasterMatch =
+        !disaster ||
+        householdDisaster === disaster;
+
+      const dateMatch =
+        !date ||
+        householdDate === date;
+
+      return (
+        textMatch &&
+        disasterMatch &&
+        dateMatch
+      );
+    });
+
+  /*
+    Search member names too.
+  */
+  if(text){
+
+    try{
+
+      const memberRows =
+        await getTable(
+          "emergency_members",
+          "?select=household_id&full_name=ilike.*" +
+          encodeURIComponent(text) +
+          "*"
+        );
+
+      const memberHouseholdIds =
+        new Set(
+          memberRows.map(
+            row => String(row.household_id)
+          )
+        );
+
+      result =
+        households.filter(household => {
+
+          const name =
+            String(
+              household.household_name ||
+              household.name ||
+              ""
+            ).toLowerCase();
+
+          const fan =
+            String(
+              household.fan_number ||
+              ""
+            ).toLowerCase();
+
+          const householdDisaster =
+            String(
+              household.disaster_type ||
+              ""
+            );
+
+          const householdDate =
+            String(
+              household.disaster_date ||
+              ""
+            );
+
+          const textMatch =
+            name.includes(text) ||
+            fan.includes(text) ||
+            memberHouseholdIds.has(
+              String(household.id)
+            );
+
+          return (
+            textMatch &&
+            (!disaster ||
+              householdDisaster === disaster) &&
+            (!date ||
+              householdDate === date)
+          );
+        });
+
+    }catch(error){
+
+      console.warn(
+        "Member search failed:",
+        error
+      );
+    }
+  }
+
+  renderHouseholds(result);
+}
+
+function clearSearch(){
+
+  $("searchText").value = "";
+  $("searchDisaster").value = "";
+  $("searchDate").value = "";
+
+  renderHouseholds();
+}
+
+
+/* =========================================================
+   OPEN HOUSEHOLD FOLDER
+========================================================= */
+
+async function openHousehold(id){
+
+  try{
+
+    setStatus(
+      "Opening household folder..."
+    );
+
+    const household =
+      households.find(
+        h => String(h.id) === String(id)
+      );
+
+    if(!household){
+      throw new Error(
+        "Household not found."
+      );
     }
 
+    const members =
+      await getTable(
+        "emergency_members",
+        "?household_id=eq." +
+        encodeURIComponent(id) +
+        "&select=*&order=full_name.asc"
+      );
+
+    const documents =
+      await getTable(
+        "emergency_documents",
+        "?household_id=eq." +
+        encodeURIComponent(id) +
+        "&select=*&order=id.desc"
+      );
+
+    const reliefs =
+      await getTable(
+        "emergency_reliefs",
+        "?household_id=eq." +
+        encodeURIComponent(id) +
+        "&select=*&order=id.desc"
+      );
+
+    $("modalTitle").textContent =
+      household.household_name ||
+      household.name ||
+      "Household Folder";
+
+    let html = "";
+
+    html += `
+      <div class="info-grid">
+
+        <div class="info-box">
+          <strong>Household / Representative</strong>
+          ${escapeHtml(
+            household.household_name ||
+            household.name ||
+            ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>Disaster</strong>
+          ${escapeHtml(
+            household.disaster_type || ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>Disaster Date</strong>
+          ${escapeHtml(
+            household.disaster_date || ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>City</strong>
+          ${escapeHtml(
+            household.city || ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>Sub-City</strong>
+          ${escapeHtml(
+            household.sub_city || ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>Woreda</strong>
+          ${escapeHtml(
+            household.woreda || ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>Specific Location</strong>
+          ${escapeHtml(
+            household.specific_location || ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>House Number</strong>
+          ${escapeHtml(
+            household.house_number || ""
+          )}
+        </div>
+
+        <div class="info-box">
+          <strong>FAN Number</strong>
+          ${escapeHtml(
+            household.fan_number || ""
+          )}
+        </div>
+
+      </div>
+    `;
+
+    if(household.other_information){
+
+      html += `
+        <div class="folder-section">
+          <h3>Other Information</h3>
+          <div class="record">
+            ${escapeHtml(
+              household.other_information
+            )}
+          </div>
+        </div>
+      `;
+    }
+
+
+    /* MEMBERS */
+
+    html += `
+      <div class="folder-section">
+        <h3>
+          Members (${members.length})
+        </h3>
+    `;
+
+    if(!members.length){
+
+      html += `
+        <div class="empty">
+          No members found.
+        </div>
+      `;
+
+    }else{
+
+      members.forEach(member => {
+
+        html += `
+          <div class="record">
+
+            <strong>
+              ${escapeHtml(
+                member.full_name || ""
+              )}
+            </strong>
+
+            <div style="margin-top:5px;color:#607d8b;font-size:13px">
+
+              Relationship:
+              ${escapeHtml(
+                member.relationship || ""
+              )}
+
+              &nbsp; | &nbsp;
+
+              Sex:
+              ${escapeHtml(
+                member.sex || ""
+              )}
+
+              &nbsp; | &nbsp;
+
+              Age:
+              ${escapeHtml(
+                member.age ?? ""
+              )}
+
+            </div>
+
+            ${
+              member.other_information
+                ? `<div style="margin-top:5px">
+                     ${escapeHtml(
+                       member.other_information
+                     )}
+                   </div>`
+                : ""
+            }
+
+          </div>
+        `;
+      });
+    }
+
+    html += `</div>`;
+
+
+    /* DOCUMENTS */
+
+    html += `
+      <div class="folder-section">
+        <h3>
+          Official Documents (${documents.length})
+        </h3>
+    `;
+
+    if(!documents.length){
+
+      html += `
+        <div class="empty">
+          No documents found.
+        </div>
+      `;
+
+    }else{
+
+      documents.forEach(doc => {
+
+        html += `
+          <div class="record">
+
+            <strong>
+              ${escapeHtml(
+                doc.document_name ||
+                "Document"
+              )}
+            </strong>
+
+            <div style="margin-top:5px;font-size:13px;color:#607d8b">
+
+              ${
+                doc.document_number
+                  ? "Number: " +
+                    escapeHtml(
+                      doc.document_number
+                    ) +
+                    " | "
+                  : ""
+              }
+
+              ${
+                doc.document_date
+                  ? "Date: " +
+                    escapeHtml(
+                      doc.document_date
+                    ) +
+                    " | "
+                  : ""
+              }
+
+              ${
+                doc.file_name
+                  ? "File: " +
+                    escapeHtml(
+                      doc.file_name
+                    )
+                  : ""
+              }
+
+            </div>
+
+            ${
+              doc.other_information
+                ? `<div style="margin-top:5px">
+                     ${escapeHtml(
+                       doc.other_information
+                     )}
+                   </div>`
+                : ""
+            }
+
+          </div>
+        `;
+      });
+    }
+
+    html += `</div>`;
+
+
+    /* RELIEFS */
+
+    html += `
+      <div class="folder-section">
+        <h3>
+          Relief Records (${reliefs.length})
+        </h3>
+    `;
+
+    if(!reliefs.length){
+
+      html += `
+        <div class="empty">
+          No relief records found.
+        </div>
+      `;
+
+    }else{
+
+      for(const relief of reliefs){
+
+        let memberName = "";
+
+        const member =
+          members.find(
+            m =>
+              String(m.id) ===
+              String(relief.member_id)
+          );
+
+        if(member){
+          memberName =
+            member.full_name || "";
+        }
+
+        /*
+          IMPORTANT:
+          Model 22 and Model 22 Number are
+          deliberately NOT displayed here.
+        */
+
+        html += `
+          <div class="record">
+
+            <strong>
+              Relief Date:
+              ${escapeHtml(
+                relief.relief_date || ""
+              )}
+            </strong>
+
+            <div style="margin-top:5px;font-size:13px">
+
+              Member:
+              ${escapeHtml(memberName)}
+
+              &nbsp; | &nbsp;
+
+              Issued By:
+              ${escapeHtml(
+                relief.issued_by || ""
+              )}
+
+            </div>
+
+            ${
+              relief.signature
+                ? `<div style="margin-top:5px;font-size:13px">
+                     Signature:
+                     ${escapeHtml(
+                       relief.signature
+                     )}
+                   </div>`
+                : ""
+            }
+
+            ${
+              relief.other_information
+                ? `<div style="margin-top:5px">
+                     ${escapeHtml(
+                       relief.other_information
+                     )}
+                   </div>`
+                : ""
+            }
+
+          </div>
+        `;
+      }
+    }
+
+    html += `</div>`;
+
+    $("modalBody").innerHTML =
+      html;
+
+    $("householdModal")
+      .classList.add("show");
+
+    setStatus("Ready");
+
+  }catch(error){
+
+    console.error(
+      "openHousehold:",
+      error
+    );
+
+    showAlert(
+      "Could not open household: " +
+      error.message,
+      "error"
+    );
+
+    setStatus("Error");
   }
-);
+}
+
+function closeModal(){
+
+  $("householdModal")
+    .classList.remove("show");
+}
 
 
-/* ======================================================
-   START
-====================================================== */
+/* =========================================================
+   SUMMARY
+========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  init
-);
+async function loadSummary(){
+
+  try{
+
+    const householdIds =
+      new Set(
+        households.map(
+          h => String(h.id)
+        )
+      );
+
+    $("totalHouseholds")
+      .textContent =
+      households.length;
+
+    const members =
+      await getTable(
+        "emergency_members",
+        "?select=household_id"
+      );
+
+    const reliefs =
+      await getTable(
+        "emergency_reliefs",
+        "?select=household_id"
+      );
+
+    const documents =
+      await getTable(
+        "emergency_documents",
+        "?select=household_id"
+      );
+
+    $("totalMembers")
+      .textContent =
+      members.filter(
+        row =>
+          householdIds.has(
+            String(row.household_id)
+          )
+      ).length;
+
+    $("totalReliefs")
+      .textContent =
+      reliefs.filter(
+        row =>
+          householdIds.has(
+            String(row.household_id)
+          )
+      ).length;
+
+    $("totalDocuments")
+      .textContent =
+      documents.filter(
+        row =>
+          householdIds.has(
+            String(row.household_id)
+          )
+      ).length;
+
+  }catch(error){
+
+    console.error(
+      "loadSummary:",
+      error
+    );
+  }
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+async function refreshAll(){
+
+  try{
+
+    setStatus("Loading...");
+
+    await resolveCurrentBranch();
+
+    await loadItems();
+
+    await loadHouseholds();
+
+    await loadSummary();
+
+    setStatus("Ready");
+
+  }catch(error){
+
+    console.error(
+      "refreshAll:",
+      error
+    );
+
+    $("branchInfo").textContent =
+      "Branch loading failed";
+
+    setStatus(
+      error.message
+    );
+
+    showAlert(
+      error.message,
+      "error"
+    );
+  }
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goDashboard(){
+
+  window.location.href =
+    "dashboard.html";
+}
+
+
+/* =========================================================
+   MODAL CLICK OUTSIDE
+========================================================= */
+
+$("householdModal")
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(event.target === this){
+        closeModal();
+      }
+    }
+  );
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+async function init(){
+
+  try{
+
+    await resolveCurrentBranch();
+
+    await loadItems();
+
+    await loadHouseholds();
+
+    await loadSummary();
+
+    setStatus("Ready");
+
+  }catch(error){
+
+    console.error(
+      "init:",
+      error
+    );
+
+    $("branchInfo").textContent =
+      "Branch loading failed";
+
+    $("statusBar").textContent =
+      error.message;
+
+    showAlert(
+      "Initialization failed: " +
+      error.message,
+      "error"
+    );
+  }
+}
+
+init();
 
 </script>
 
