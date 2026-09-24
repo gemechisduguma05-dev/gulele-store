@@ -1,6 +1,13 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Emergency Relief Management</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AAFDRMC - Emergency Relief Management</title>
+
+<style>
 
 *{
   box-sizing:border-box;
@@ -28,36 +35,6 @@ body{
   background-attachment:fixed;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-
-  background-image:
-    linear-gradient(
-      30deg,
-      rgba(109,76,65,.035) 12%,
-      transparent 12.5%,
-      transparent 87%,
-      rgba(109,76,65,.035) 87.5%
-    ),
-    linear-gradient(
-      150deg,
-      rgba(109,76,65,.035) 12%,
-      transparent 12.5%,
-      transparent 87%,
-      rgba(109,76,65,.035) 87.5%
-    );
-
-  background-size:35px 35px;
-}
-
-/* =========================
-   HEADER
-========================= */
-
 .header{
   position:relative;
   overflow:hidden;
@@ -65,9 +42,9 @@ body::before{
   background:
     linear-gradient(
       135deg,
-      rgba(62,39,35,.96),
-      rgba(109,76,65,.94),
-      rgba(121,85,72,.92)
+      rgba(62,39,35,.97),
+      rgba(109,76,65,.95),
+      rgba(121,85,72,.94)
     );
 
   color:#fff;
@@ -100,7 +77,7 @@ body::before{
   z-index:0;
 }
 
-.header > *{
+.header>*{
   position:relative;
   z-index:1;
 }
@@ -128,10 +105,6 @@ body::before{
   margin:0;
   font-size:26px;
   font-weight:800;
-  letter-spacing:.3px;
-
-  text-shadow:
-    0 2px 5px rgba(0,0,0,.35);
 }
 
 .header p{
@@ -140,19 +113,11 @@ body::before{
   font-size:14px;
 }
 
-/* =========================
-   CONTAINER
-========================= */
-
 .container{
   max-width:1400px;
   margin:auto;
   padding:22px;
 }
-
-/* =========================
-   TOP BAR
-========================= */
 
 .topbar{
   display:flex;
@@ -160,10 +125,6 @@ body::before{
   gap:10px;
   margin-bottom:20px;
 }
-
-/* =========================
-   BUTTONS
-========================= */
 
 .btn{
   border:0;
@@ -187,15 +148,7 @@ body::before{
 }
 
 .btn:hover{
-  opacity:1;
   transform:translateY(-2px);
-
-  box-shadow:
-    0 6px 14px rgba(0,0,0,.18);
-}
-
-.btn:active{
-  transform:translateY(0);
 }
 
 .btn:disabled{
@@ -212,15 +165,11 @@ body::before{
 .red{background:#c62828}
 .add{background:#00897b}
 
-/* =========================
-   CARDS
-========================= */
-
 .card{
   position:relative;
 
   background:
-    rgba(255,255,255,.94);
+    rgba(255,255,255,.95);
 
   border-radius:16px;
 
@@ -232,8 +181,6 @@ body::before{
 
   box-shadow:
     0 5px 22px rgba(62,39,35,.11);
-
-  backdrop-filter:blur(5px);
 }
 
 .card::before{
@@ -267,9 +214,46 @@ body::before{
   color:#5d4037;
 }
 
-/* =========================
-   SUMMARY
-========================= */
+.branch-info{
+  margin-bottom:15px;
+
+  padding:12px 15px;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #efebe9,
+      #e8ddd8
+    );
+
+  color:#5d4037;
+
+  font-weight:bold;
+
+  border-left:
+    5px solid #6d4c41;
+}
+
+.status-bar{
+  display:none;
+
+  margin-bottom:15px;
+
+  padding:12px 15px;
+
+  border-radius:9px;
+
+  background:#fff8e1;
+
+  color:#6d4c41;
+
+  font-weight:bold;
+
+  border-left:
+    5px solid #8d6e63;
+}
 
 .summary{
   display:grid;
@@ -299,35 +283,6 @@ body::before{
 
   box-shadow:
     0 3px 12px rgba(93,64,55,.08);
-
-  overflow:hidden;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease;
-}
-
-.summary-box::after{
-  content:"";
-  position:absolute;
-
-  width:70px;
-  height:70px;
-
-  right:-25px;
-  top:-25px;
-
-  border-radius:50%;
-
-  background:
-    rgba(109,76,65,.07);
-}
-
-.summary-box:hover{
-  transform:translateY(-3px);
-
-  box-shadow:
-    0 7px 18px rgba(93,64,55,.14);
 }
 
 .summary-box strong{
@@ -340,20 +295,12 @@ body::before{
   margin-bottom:6px;
 }
 
-/* =========================
-   SEARCH
-========================= */
-
 .search-grid{
   display:grid;
   grid-template-columns:
     2fr 1fr 1fr;
   gap:12px;
 }
-
-/* =========================
-   INPUTS
-========================= */
 
 input,
 select,
@@ -367,14 +314,9 @@ textarea{
 
   border-radius:9px;
 
-  background:
-    rgba(255,255,255,.97);
+  background:#fff;
 
   font-size:14px;
-
-  transition:
-    border-color .2s,
-    box-shadow .2s;
 }
 
 input:focus,
@@ -393,16 +335,10 @@ textarea{
   resize:vertical;
 }
 
-/* =========================
-   GRID
-========================= */
-
 .grid{
   display:grid;
-
   grid-template-columns:
     repeat(3,1fr);
-
   gap:15px;
 }
 
@@ -423,10 +359,6 @@ textarea{
   grid-column:1/-1;
 }
 
-/* =========================
-   HOUSEHOLD LIST
-========================= */
-
 .household-list{
   display:grid;
 
@@ -436,13 +368,7 @@ textarea{
   gap:15px;
 }
 
-/* =========================
-   HOUSEHOLD FOLDER
-========================= */
-
 .household-folder{
-  position:relative;
-
   background:
     linear-gradient(
       145deg,
@@ -464,44 +390,28 @@ textarea{
 
   transition:
     transform .2s ease,
-    box-shadow .2s ease,
-    border-color .2s ease;
-
-  box-shadow:
-    0 3px 10px rgba(93,64,55,.07);
+    box-shadow .2s ease;
 }
 
 .household-folder:hover{
-  transform:
-    translateY(-4px);
+  transform:translateY(-4px);
 
   box-shadow:
     0 8px 20px rgba(93,64,55,.15);
-
-  border-color:#bca69c;
 }
 
 .folder-title{
   font-weight:bold;
-
   font-size:17px;
-
   color:#5d4037;
-
   margin-bottom:9px;
 }
 
 .folder-line{
   margin:5px 0;
-
   font-size:14px;
-
   color:#455a64;
 }
-
-/* =========================
-   FORM ROWS
-========================= */
 
 .member-row,
 .document-row,
@@ -521,9 +431,6 @@ textarea{
   padding:16px;
 
   margin-bottom:12px;
-
-  box-shadow:
-    0 2px 7px rgba(0,0,0,.04);
 }
 
 .row-grid{
@@ -541,23 +448,13 @@ textarea{
 
 .remove-btn{
   background:#c62828;
-
   color:#fff;
-
   border:0;
-
   padding:8px 12px;
-
   border-radius:7px;
-
   cursor:pointer;
-
   font-weight:bold;
 }
-
-/* =========================
-   STOCK INFO
-========================= */
 
 .stock-info{
   margin-top:10px;
@@ -590,9 +487,29 @@ textarea{
   color:#8d6e63;
 }
 
-/* =========================
-   MODAL
-========================= */
+.readonly{
+  background:#f3f0ee;
+}
+
+.required-note{
+  font-size:12px;
+  color:#c62828;
+  margin-top:5px;
+}
+
+.loading{
+  padding:30px;
+  text-align:center;
+  color:#64748b;
+}
+
+.empty{
+  padding:25px;
+  text-align:center;
+  color:#64748b;
+  background:rgba(255,255,255,.65);
+  border-radius:10px;
+}
 
 .modal{
   display:none;
@@ -609,8 +526,6 @@ textarea{
   overflow:auto;
 
   padding:30px 15px;
-
-  backdrop-filter:blur(3px);
 }
 
 .modal-box{
@@ -655,25 +570,15 @@ textarea{
 
 .close{
   background:none;
-
   border:0;
-
   color:#fff;
-
   font-size:26px;
-
   cursor:pointer;
 }
 
-/* =========================
-   DETAILS
-========================= */
-
 .detail-section{
   padding:18px;
-
-  border-bottom:
-    1px solid #e0d7d2;
+  border-bottom:1px solid #e0d7d2;
 }
 
 .detail-section h3{
@@ -688,13 +593,9 @@ textarea{
 
 .detail-table th,
 .detail-table td{
-  border:
-    1px solid #ddd5d0;
-
+  border:1px solid #ddd5d0;
   padding:9px;
-
   text-align:left;
-
   font-size:13px;
 }
 
@@ -702,10 +603,6 @@ textarea{
   background:#f3eeeb;
   color:#4e342e;
 }
-
-/* =========================
-   MESSAGE
-========================= */
 
 .success-message,
 .error-message{
@@ -737,102 +634,6 @@ textarea{
 .error-message{
   background:#c62828;
 }
-
-/* =========================
-   STATUS
-========================= */
-
-.status-bar{
-  display:none;
-
-  margin-bottom:15px;
-
-  padding:12px 15px;
-
-  border-radius:9px;
-
-  background:#fff8e1;
-
-  color:#6d4c41;
-
-  font-weight:bold;
-
-  border-left:
-    5px solid #8d6e63;
-}
-
-/* =========================
-   BRANCH INFO
-========================= */
-
-.branch-info{
-  margin-bottom:15px;
-
-  padding:12px 15px;
-
-  border-radius:10px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #efebe9,
-      #e8ddd8
-    );
-
-  color:#5d4037;
-
-  font-weight:bold;
-
-  border-left:
-    5px solid #6d4c41;
-
-  box-shadow:
-    0 2px 8px rgba(93,64,55,.08);
-}
-
-.required-note{
-  font-size:12px;
-  color:#c62828;
-  margin-top:5px;
-}
-
-.readonly{
-  background:#f3f0ee;
-}
-
-/* =========================
-   LOADING / EMPTY
-========================= */
-
-.loading{
-  padding:30px;
-
-  text-align:center;
-
-  color:#64748b;
-
-  background:
-    rgba(255,255,255,.55);
-
-  border-radius:10px;
-}
-
-.empty{
-  padding:25px;
-
-  text-align:center;
-
-  color:#64748b;
-
-  background:
-    rgba(255,255,255,.65);
-
-  border-radius:10px;
-}
-
-/* =========================
-   MOBILE
-========================= */
 
 @media(max-width:900px){
 
@@ -885,14 +686,9 @@ textarea{
     font-size:20px;
   }
 
-  .header p{
-    font-size:12px;
-  }
-
   .summary{
     grid-template-columns:
       1fr 1fr;
-
     gap:8px;
   }
 
@@ -930,65 +726,150 @@ textarea{
 
 }
 
-</style></head><body><div class="header"><img
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<img
 src="./1788633150526.jpg"
 class="header-profile"
-alt="AAFDRMC Profile">
+alt="AAFDRMC">
 
 <h1>
 AAFDRMC - Emergency Relief Management
-</h1><p>
+</h1>
+
+<p>
 Household Emergency Relief Records
-</p></div><div class="container"><div id="statusBar" class="status-bar"></div><div id="branchInfo" class="branch-info">
-Branch: Resolving...
-</div><div class="topbar"><a
+</p>
+
+</div>
+
+<div class="container">
+
+<div
+id="statusBar"
+class="status-bar">
+</div>
+
+<div
+id="branchInfo"
+class="branch-info">
+
+Branch: Loading...
+
+</div>
+
+<div class="topbar">
+
+<a
 href="dashboard.html"
 class="btn back">
+
 ← Back to Dashboard
+
 </a>
 
 <button
 type="button"
 class="btn primary"
 onclick="showNewHousehold()">
+
 New Household
+
 </button>
 
 <button
 type="button"
 class="btn purple"
 onclick="showNewRelief()">
+
 Individual Relief
+
 </button>
 
 <button
 type="button"
 class="btn blue"
 onclick="refreshAll()">
+
 ↻ Refresh
+
 </button>
 
-</div><div class="card"><h2>
+</div>
+
+<!-- SUMMARY -->
+
+<div class="card">
+
+<h2>
 Emergency Relief Summary
-</h2><div class="summary"><div class="summary-box">
-<strong id="totalHouseholds">0</strong>
+</h2>
+
+<div class="summary">
+
+<div class="summary-box">
+
+<strong id="totalHouseholds">
+0
+</strong>
+
 Households
-</div><div class="summary-box">
-<strong id="totalMembers">0</strong>
+
+</div>
+
+<div class="summary-box">
+
+<strong id="totalMembers">
+0
+</strong>
+
 Members
-</div><div class="summary-box">
-<strong id="totalReliefs">0</strong>
+
+</div>
+
+<div class="summary-box">
+
+<strong id="totalReliefs">
+0
+</strong>
+
 Relief Records
-</div><div class="summary-box">
-<strong id="totalDocuments">0</strong>
+
+</div>
+
+<div class="summary-box">
+
+<strong id="totalDocuments">
+0
+</strong>
+
 Documents
-</div></div>
-</div><div class="card"><h2>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="card">
+
+<h2>
 Search Households
-</h2><div class="search-grid"><input
+</h2>
+
+<div class="search-grid">
+
+<input
 type="text"
 id="searchText"
-placeholder="Search Household Name, Member Name or FAN Number"
+placeholder="Search Household, Member or FAN"
 oninput="filterHouseholds()">
 
 <select
@@ -997,230 +878,518 @@ onchange="filterHouseholds()">
 
 <option value="">
 All Disaster Types
-</option><option value="Flood">Flood</option>
-<option value="Fire">Fire</option>
-<option value="Drought">Drought</option>
-<option value="Landslide">Landslide</option>
-<option value="Conflict">Conflict</option>
-<option value="Other">Other</option></select><input
+</option>
+
+<option value="Flood">
+Flood
+</option>
+
+<option value="Fire">
+Fire
+</option>
+
+<option value="Drought">
+Drought
+</option>
+
+<option value="Landslide">
+Landslide
+</option>
+
+<option value="Conflict">
+Conflict
+</option>
+
+<option value="Other">
+Other
+</option>
+
+</select>
+
+<input
 type="date"
 id="filterDate"
 onchange="filterHouseholds()">
 
 </div>
-</div><div class="card"><h2>
+
+</div>
+
+<!-- HOUSEHOLDS -->
+
+<div class="card">
+
+<h2>
 Household Folders
-</h2><div
+</h2>
+
+<div
 id="householdList"
-class="household-list"><div class="loading">
-Resolving branch and loading households...
-</div></div>
-</div><div
+class="household-list">
+
+<div class="loading">
+Loading...
+</div>
+
+</div>
+
+</div>
+
+<!-- NEW HOUSEHOLD -->
+
+<div
 class="card"
 id="newHouseholdCard"
-style="display:none"><h2>
+style="display:none">
+
+<h2>
 New Household
-</h2><div class="grid"><div class="field"><label>
-Household Representative / Household Name *
-</label><input
+</h2>
+
+<div class="grid">
+
+<div class="field">
+
+<label>
+Household Name *
+</label>
+
+<input
 id="householdName"
 type="text">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 Disaster Type *
-</label><select id="disasterType"><option value="">
-Select Disaster Type
-</option><option value="Flood">Flood</option>
-<option value="Fire">Fire</option>
-<option value="Drought">Drought</option>
-<option value="Landslide">Landslide</option>
-<option value="Conflict">Conflict</option>
-<option value="Other">Other</option></select></div><div class="field"><label>
+</label>
+
+<select id="disasterType">
+
+<option value="">
+Select Disaster
+</option>
+
+<option value="Flood">
+Flood
+</option>
+
+<option value="Fire">
+Fire
+</option>
+
+<option value="Drought">
+Drought
+</option>
+
+<option value="Landslide">
+Landslide
+</option>
+
+<option value="Conflict">
+Conflict
+</option>
+
+<option value="Other">
+Other
+</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>
 Disaster Date
-</label><input
+</label>
+
+<input
 id="disasterDate"
 type="date">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 City
-</label><input
+</label>
+
+<input
 id="city"
 type="text">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 Sub-City
-</label><input
+</label>
+
+<input
 id="subCity"
 type="text">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 Woreda
-</label><input
+</label>
+
+<input
 id="woreda"
 type="text">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 Specific Location
-</label><input
+</label>
+
+<input
 id="specificLocation"
 type="text">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 House Number
-</label><input
+</label>
+
+<input
 id="houseNumber"
 type="text">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 FAN Number
-</label><input
+</label>
+
+<input
 id="fanNumber"
 type="text">
 
-</div><div class="field full"><label>
+</div>
+
+<div class="field full">
+
+<label>
 Other Information
-</label><textarea id="householdOther"></textarea></div></div><h3>
+</label>
+
+<textarea
+id="householdOther">
+</textarea>
+
+</div>
+
+</div>
+
+<h3>
 Household Members
-</h3><div id="membersContainer"></div><button
+</h3>
+
+<div
+id="membersContainer">
+</div>
+
+<button
 type="button"
 class="btn add"
 onclick="addMember()">
-Add Member
+
++ Add Member
+
 </button>
 
 <h3>
 Official Documents
-</h3><div id="documentsContainer"></div><button
+</h3>
+
+<div
+id="documentsContainer">
+</div>
+
+<button
 type="button"
 class="btn add"
 onclick="addDocument()">
-Add Document
+
++ Add Document
+
 </button>
 
-<div style="margin-top:20px"><button
+<div style="margin-top:20px">
+
+<button
 id="saveHouseholdBtn"
 type="button"
 class="btn green"
 onclick="saveHousehold()">
+
 Save Household
+
 </button>
 
 <button
 type="button"
 class="btn red"
 onclick="hideNewHousehold()">
+
 Cancel
+
 </button>
 
 </div>
-</div><div
+
+</div>
+
+<!-- NEW RELIEF -->
+
+<div
 class="card"
 id="newReliefCard"
-style="display:none"><h2>
+style="display:none">
+
+<h2>
 Individual Relief
-</h2><div class="grid"><div class="field"><label>
+</h2>
+
+<div class="grid">
+
+<div class="field">
+
+<label>
 Household *
-</label><select
+</label>
+
+<select
 id="reliefHousehold"
 onchange="loadReliefMembers()">
 
 <option value="">
 Select Household
-</option></select></div><div class="field"><label>
+</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>
 Member *
-</label><select id="reliefMember"><option value="">
+</label>
+
+<select id="reliefMember">
+
+<option value="">
 Select Member
-</option></select></div><div class="field"><label>
+</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>
 Relief Date *
-</label><input
+</label>
+
+<input
 id="reliefDate"
 type="datetime-local">
 
-</div><div class="field"><label>
+</div>
+
+<div class="field">
+
+<label>
 Issued By *
-</label><input
+</label>
+
+<input
 id="reliefEnteredBy"
 type="text">
 
-</div><div class="field"><label>
-Signature
-</label><input
-id="reliefSignature"
-type="text"
-placeholder="Signature">
+</div>
 
-</div><div class="field"><label>
+<div class="field">
+
+<label>
+Signature
+</label>
+
+<input
+id="reliefSignature"
+type="text">
+
+</div>
+
+<div class="field">
+
+<label>
 Model 22 *
-</label><select
+</label>
+
+<select
 id="reliefModel22"
 onchange="toggleModel22Number()"
 required>
 
 <option value="">
 Select Model 22
-</option><option value="No Model 22">
+</option>
+
+<option value="No Model 22">
 Hin jiru
-</option><option value="Model 22 Available">
+</option>
+
+<option value="Model 22 Available">
 Model 22 qaba
-</option><option value="Verbal">
+</option>
+
+<option value="Verbal">
 Verbal
-</option></select><div class="required-note">
+</option>
+
+</select>
+
+<div class="required-note">
 Model 22 is required.
-</div></div><div
+</div>
+
+</div>
+
+<div
 class="field"
 id="model22NumberField"
-style="display:none"><label>
-Model 22 Number *
-</label><input
-id="reliefModel22Number"
-type="text"
-placeholder="Enter Model 22 number">
+style="display:none">
 
-</div><div class="field full"><label>
+<label>
+Model 22 Number *
+</label>
+
+<input
+id="reliefModel22Number"
+type="text">
+
+</div>
+
+<div class="field full">
+
+<label>
 Other Information
-</label><textarea id="reliefNotes"></textarea></div></div><h3>
+</label>
+
+<textarea
+id="reliefNotes">
+</textarea>
+
+</div>
+
+</div>
+
+<h3>
 Relief Items
-</h3><div id="reliefItemsContainer"></div><button
+</h3>
+
+<div
+id="reliefItemsContainer">
+</div>
+
+<button
 type="button"
 class="btn add"
 onclick="addReliefItem()">
-Add Item
+
++ Add Item
+
 </button>
 
-<div style="margin-top:20px"><button
+<div style="margin-top:20px">
+
+<button
 id="saveReliefBtn"
 type="button"
 class="btn green"
 onclick="saveRelief()">
+
 Save Relief
+
 </button>
 
 <button
 type="button"
 class="btn red"
 onclick="hideNewRelief()">
+
 Cancel
+
 </button>
 
 </div>
-</div></div><div
+
+</div>
+
+</div>
+
+<!-- MODAL -->
+
+<div
 class="modal"
-id="detailsModal"><div class="modal-box"><div class="modal-head"><h2 id="modalHouseholdName">
+id="detailsModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2 id="modalHouseholdName">
 Household Details
-</h2><button
+</h2>
+
+<button
 class="close"
 onclick="closeModal()">
+
 ✕
+
 </button>
 
-</div><div id="modalContent"></div></div>
-</div><div
+</div>
+
+<div id="modalContent">
+</div>
+
+</div>
+
+</div>
+
+<div
 id="successMessage"
 class="success-message">
-</div><div
+</div>
+
+<div
 id="errorMessage"
 class="error-message">
-</div><script>
+</div>
+
+<script>
 
 /* =========================================================
    SUPABASE
@@ -1252,7 +1421,7 @@ return {
 }
 
 /* =========================================================
-   FIXED BRANCH MAP
+   BRANCHES
 ========================================================= */
 
 const BRANCHES = [
@@ -1335,7 +1504,7 @@ const MAIN_UUID =
 "bd1b10ec-43dc-4eb0-ad8c-53a78b80815d";
 
 /* =========================================================
-   BRANCH STATE
+   STATE
 ========================================================= */
 
 let currentBranchId =
@@ -1366,6 +1535,12 @@ localStorage.getItem(
 "login_user"
 ) || "";
 
+let households=[];
+let items=[];
+
+let savingHousehold=false;
+let savingRelief=false;
+
 /* =========================================================
    HELPERS
 ========================================================= */
@@ -1388,19 +1563,6 @@ String(value || "").trim()
 
 }
 
-function getValidBranchUUID(){
-
-const value =
-String(
-currentBranchId || ""
-).trim();
-
-return isValidUUID(value)
-? value
-: "";
-
-}
-
 function isMainBranch(){
 
 return(
@@ -1410,7 +1572,7 @@ normalizeText(currentBranchName)==="MAIN"
 
 }
 
-function getEffectiveBranchCode(){
+function getBranchCode(){
 
 const code =
 normalizeText(currentBranchCode);
@@ -1419,13 +1581,11 @@ if(code){
 return code;
 }
 
-const name =
-normalizeText(currentBranchName);
-
 const found =
 BRANCHES.find(
-branch =>
-normalizeText(branch.name)===name
+b =>
+normalizeText(b.name) ===
+normalizeText(currentBranchName)
 );
 
 return found
@@ -1434,30 +1594,43 @@ return found
 
 }
 
-function findFixedBranch(){
+/* =========================================================
+   BRANCH STATE
+========================================================= */
 
-const code =
-normalizeText(currentBranchCode);
+function saveBranchState(branch){
 
-const name =
-normalizeText(currentBranchName);
+localStorage.setItem(
+"selected_branch_uuid",
+branch.uuid
+);
 
-return BRANCHES.find(
-branch =>
-(
-code &&
-normalizeText(branch.code)===code
-) ||
-(
-name &&
-normalizeText(branch.name)===name
-)
-) || null;
+localStorage.setItem(
+"selected_branch_code",
+branch.code
+);
+
+localStorage.setItem(
+"branch_code",
+branch.code
+);
+
+localStorage.setItem(
+"selected_branch_name",
+branch.name
+);
+
+localStorage.setItem(
+"branch_name",
+branch.name
+);
 
 }
 
 /* =========================================================
-   BRANCH RESOLVER
+   FIXED BRANCH RESOLVER
+   IMPORTANT:
+   DOES NOT QUERY branches TABLE
 ========================================================= */
 
 async function resolveCurrentBranch(){
@@ -1507,283 +1680,156 @@ currentBranchCode =
 currentBranchName =
 "MAIN";
 
-localStorage.setItem(
-"selected_branch_uuid",
-MAIN_UUID
-);
-
-localStorage.setItem(
-"selected_branch_code",
-"MAIN"
-);
-
-localStorage.setItem(
-"branch_code",
-"MAIN"
-);
-
-localStorage.setItem(
-"selected_branch_name",
-"MAIN"
-);
-
-localStorage.setItem(
-"branch_name",
-"MAIN"
-);
-
-updateBranchInfo();
-
-return{
-id:MAIN_UUID,
-code:"MAIN",
-name:"MAIN"
-};
-
-}
-
-/* EXISTING FIXED UUID */
-
-if(
-isValidUUID(currentBranchId)
-){
-
-const saved =
-BRANCHES.find(
-branch =>
-branch.uuid.toLowerCase()===
-currentBranchId.toLowerCase()
-);
-
-if(saved){
-
-currentBranchId =
-saved.uuid;
-
-currentBranchCode =
-saved.code;
-
-currentBranchName =
-saved.name;
-
-saveBranchState(saved);
-
-updateBranchInfo();
-
-return{
-id:saved.uuid,
-code:saved.code,
-name:saved.name
-};
-
-}
-
-updateBranchInfo();
-
-return{
-id:currentBranchId,
-code:getEffectiveBranchCode(),
-name:currentBranchName
-};
-
-}
-
-/* FIXED CODE / NAME */
-
-const fixed =
-findFixedBranch();
-
-if(fixed){
-
-currentBranchId =
-fixed.uuid;
-
-currentBranchCode =
-fixed.code;
-
-currentBranchName =
-fixed.name;
-
-saveBranchState(fixed);
-
-updateBranchInfo();
-
-return{
-id:fixed.uuid,
-code:fixed.code,
-name:fixed.name
-};
-
-}
-
-/* NO BRANCH */
-
-if(
-!currentBranchCode &&
-!currentBranchName
-){
-
-throw new Error(
-"Branch hin filatamne. Mee Dashboard irraa logout godhi, sana booda branch kee irratti login godhi."
-);
-
-}
-
-/* SUPABASE FALLBACK */
-
-try{
-
-const branches =
-await getTable(
-"branches",
-"?select=*"
-);
-
-if(
-!Array.isArray(branches) ||
-!branches.length
-){
-
-throw new Error(
-"No branch records found in branches table."
-);
-
-}
-
-const wantedCode =
-normalizeText(currentBranchCode);
-
-const wantedName =
-normalizeText(currentBranchName);
-
-const found =
-branches.find(
-branch=>{
-
-const code =
-normalizeText(
-branch.branch_code ??
-branch.code ??
-branch.branchCode ??
-""
-);
-
-const name =
-normalizeText(
-branch.branch_name ??
-branch.name ??
-branch.branch ??
-branch.title ??
-""
-);
-
-return(
-(
-wantedCode &&
-code===wantedCode
-) ||
-(
-wantedName &&
-name===wantedName
-)
-);
-
-}
-);
-
-if(!found){
-
-throw new Error(
-"Current branch could not be found."
-);
-
-}
-
-const uuid =
-String(
-found.id ??
-found.branch_id ??
-found.uuid ??
-""
-).trim();
-
-if(
-!isValidUUID(uuid)
-){
-
-throw new Error(
-"Branch UUID sirrii hin argamne."
-);
-
-}
-
-currentBranchId =
-uuid;
-
-currentBranchCode =
-String(
-found.branch_code ??
-found.code ??
-currentBranchCode
-).trim();
-
-currentBranchName =
-String(
-found.branch_name ??
-found.name ??
-currentBranchName
-).trim();
-
 saveBranchState({
-uuid:currentBranchId,
-code:currentBranchCode,
-name:currentBranchName
+
+uuid:MAIN_UUID,
+
+code:"MAIN",
+
+name:"MAIN"
+
 });
 
 updateBranchInfo();
 
 return{
-id:currentBranchId,
-code:currentBranchCode,
-name:currentBranchName
+
+id:MAIN_UUID,
+
+code:"MAIN",
+
+name:"MAIN"
+
 };
 
-}catch(error){
+}
+
+/* UUID */
+
+if(
+isValidUUID(currentBranchId)
+){
+
+const byUUID =
+BRANCHES.find(
+branch =>
+branch.uuid.toLowerCase() ===
+currentBranchId.toLowerCase()
+);
+
+if(byUUID){
+
+currentBranchId =
+byUUID.uuid;
+
+currentBranchCode =
+byUUID.code;
+
+currentBranchName =
+byUUID.name;
+
+saveBranchState(byUUID);
+
+updateBranchInfo();
+
+return{
+
+id:byUUID.uuid,
+
+code:byUUID.code,
+
+name:byUUID.name
+
+};
+
+}
+
+}
+
+/* CODE */
+
+if(currentBranchCode){
+
+const byCode =
+BRANCHES.find(
+branch =>
+normalizeText(branch.code) ===
+normalizeText(currentBranchCode)
+);
+
+if(byCode){
+
+currentBranchId =
+byCode.uuid;
+
+currentBranchCode =
+byCode.code;
+
+currentBranchName =
+byCode.name;
+
+saveBranchState(byCode);
+
+updateBranchInfo();
+
+return{
+
+id:byCode.uuid,
+
+code:byCode.code,
+
+name:byCode.name
+
+};
+
+}
+
+}
+
+/* NAME */
+
+if(currentBranchName){
+
+const byName =
+BRANCHES.find(
+branch =>
+normalizeText(branch.name) ===
+normalizeText(currentBranchName)
+);
+
+if(byName){
+
+currentBranchId =
+byName.uuid;
+
+currentBranchCode =
+byName.code;
+
+currentBranchName =
+byName.name;
+
+saveBranchState(byName);
+
+updateBranchInfo();
+
+return{
+
+id:byName.uuid,
+
+code:byName.code,
+
+name:byName.name
+
+};
+
+}
+
+}
+
+/* NOTHING FOUND */
 
 throw new Error(
-"Branch resolving failed: " +
-error.message
-);
-
-}
-
-}
-
-function saveBranchState(branch){
-
-localStorage.setItem(
-"selected_branch_uuid",
-branch.uuid
-);
-
-localStorage.setItem(
-"selected_branch_code",
-branch.code
-);
-
-localStorage.setItem(
-"branch_code",
-branch.code
-);
-
-localStorage.setItem(
-"selected_branch_name",
-branch.name
-);
-
-localStorage.setItem(
-"branch_name",
-branch.name
+"Branch hin filatamne. Dashboard irraa logout godhiitii deebi'ii login godhi."
 );
 
 }
@@ -1810,31 +1856,23 @@ return;
 
 }
 
-const name =
-currentBranchName ||
-"Unknown Branch";
-
-const code =
-getEffectiveBranchCode();
-
 el.textContent =
-code
+"Branch: " +
+(
+currentBranchName ||
+"Unknown"
+) +
+(
+getBranchCode()
 ?
-"Branch: " + name + " (" + code + ")"
+" (" +
+getBranchCode() +
+")"
 :
-"Branch: " + name;
+""
+);
 
 }
-
-/* =========================================================
-   DATA
-========================================================= */
-
-let households=[];
-let items=[];
-
-let savingHousehold=false;
-let savingRelief=false;
 
 /* =========================================================
    MESSAGES
@@ -1850,14 +1888,13 @@ document.getElementById(
 el.textContent =
 message;
 
-el.style.display =
-"block";
+el.style.display="block";
 
 setTimeout(
 ()=>{
 el.style.display="none";
 },
-3500
+4000
 );
 
 }
@@ -1872,8 +1909,7 @@ document.getElementById(
 el.textContent =
 message;
 
-el.style.display =
-"block";
+el.style.display="block";
 
 setTimeout(
 ()=>{
@@ -1896,7 +1932,6 @@ if(!el)return;
 if(!message){
 
 el.style.display="none";
-el.textContent="";
 
 return;
 
@@ -1947,7 +1982,7 @@ error.name==="AbortError"
 ){
 
 throw new Error(
-"Connection timed out. Please check internet/Supabase."
+"Connection timeout. Internet ykn Supabase connection ilaali."
 );
 
 }
@@ -2013,12 +2048,7 @@ await getResponseError(response)
 
 }
 
-const data =
-await response.json();
-
-return Array.isArray(data)
-? data
-: [];
+return await response.json();
 
 }
 
@@ -2032,11 +2062,17 @@ await fetchWithTimeout(
 API+"/"+table,
 {
 method:"POST",
+
 headers:{
 ...headers(),
-"Prefer":"return=representation"
+
+"Prefer":
+"return=representation"
 },
-body:JSON.stringify(data)
+
+body:
+JSON.stringify(data)
+
 }
 );
 
@@ -2053,98 +2089,8 @@ return await response.json();
 }
 
 /* =========================================================
-   ITEM HELPERS
-========================================================= */
-
-function getItemName(item){
-
-return(
-item?.name ||
-item?.item_name ||
-item?.item ||
-""
-);
-
-}
-
-function getItemUnit(item){
-
-return(
-item?.unit ||
-item?.measurement ||
-item?.safartuu ||
-""
-);
-
-}
-
-function getItemCategory(item){
-
-return(
-item?.category ||
-item?.category_name ||
-""
-);
-
-}
-
-function getItemById(itemId){
-
-return items.find(
-item =>
-String(item.id)===
-String(itemId)
-);
-
-}
-
-/* =========================================================
    BRANCH FILTER
 ========================================================= */
-
-function branchMatches(row){
-
-if(isMainBranch()){
-return true;
-}
-
-const wantedUUID =
-getValidBranchUUID()
-.toLowerCase();
-
-const wantedCode =
-getEffectiveBranchCode()
-.toLowerCase();
-
-const rowUUID =
-String(
-row?.branch_id ?? ""
-).trim().toLowerCase();
-
-const rowCode =
-String(
-row?.branch_code ?? ""
-).trim().toLowerCase();
-
-if(
-wantedUUID &&
-rowUUID &&
-rowUUID===wantedUUID
-){
-return true;
-}
-
-if(
-wantedCode &&
-rowCode &&
-rowCode===wantedCode
-){
-return true;
-}
-
-return false;
-
-}
 
 function filterBranchData(data){
 
@@ -2154,8 +2100,125 @@ return [];
 if(isMainBranch())
 return data;
 
-const hasBranchFields =
-data.some(
+const uuid =
+String(currentBranchId || "")
+.toLowerCase();
+
+const code =
+String(getBranchCode() || "")
+.toLowerCase();
+
+return data.filter(
+row=>{
+
+const rowUUID =
+String(
+row.branch_id || ""
+).toLowerCase();
+
+const rowCode =
+String(
+row.branch_code || ""
+).toLowerCase();
+
+if(
+uuid &&
+rowUUID &&
+rowUUID===uuid
+){
+
+return true;
+
+}
+
+if(
+code &&
+rowCode &&
+rowCode===code
+){
+
+return true;
+
+}
+
+return false;
+
+}
+);
+
+}
+
+/* =========================================================
+   ITEMS
+========================================================= */
+
+function getItemName(item){
+
+return(
+item.name ||
+item.item_name ||
+item.item ||
+""
+);
+
+}
+
+function getItemUnit(item){
+
+return(
+item.unit ||
+item.measurement ||
+item.safartuu ||
+""
+);
+
+}
+
+function getItemCategory(item){
+
+return(
+item.category ||
+item.category_name ||
+""
+);
+
+}
+
+function getItemById(id){
+
+return items.find(
+item =>
+String(item.id)===
+String(id)
+);
+
+}
+
+async function loadItems(){
+
+const all =
+await getTable(
+"items",
+"?select=*"
+);
+
+if(isMainBranch()){
+
+items=all;
+
+return;
+
+}
+
+/*
+If items table has branch fields,
+filter them.
+If it does not, keep items because
+items may be centrally managed.
+*/
+
+const hasBranchColumns =
+all.some(
 row =>
 Object.prototype.hasOwnProperty.call(
 row,
@@ -2167,35 +2230,21 @@ row,
 )
 );
 
-if(!hasBranchFields)
-return data;
-
-return data.filter(
-row =>
-branchMatches(row)
-);
-
-}
-
-/* =========================================================
-   LOAD ITEMS
-========================================================= */
-
-async function loadItems(){
-
-const allItems =
-await getTable(
-"items",
-"?select=*"
-);
+if(hasBranchColumns){
 
 items =
-filterBranchData(allItems);
+filterBranchData(all);
+
+}else{
+
+items=all;
+
+}
 
 }
 
 /* =========================================================
-   TRANSACTION HELPERS
+   TRANSACTION CLASSIFICATION
 ========================================================= */
 
 function normalizeTransactionValue(
@@ -2210,18 +2259,16 @@ return String(value || "")
 
 }
 
-function transactionIsIn(
-transaction
-){
+function transactionIsIn(t){
 
 const type =
 normalizeTransactionValue(
-transaction.transaction_type
+t.transaction_type
 );
 
 const name =
 normalizeTransactionValue(
-transaction.transaction
+t.transaction
 );
 
 return(
@@ -2231,30 +2278,26 @@ type==="STOCK IN" ||
 type==="STOCKIN" ||
 type==="RECEIPT" ||
 type==="RECEIVED" ||
-type==="RECEIVE" ||
 
 name.includes("STOCK IN") ||
 name.includes("STOCKIN") ||
 name.includes("RECEIPT") ||
-name.includes("RECEIVED") ||
-name.includes("RECEIVE")
+name.includes("RECEIVED")
 
 );
 
 }
 
-function transactionIsOut(
-transaction
-){
+function transactionIsOut(t){
 
 const type =
 normalizeTransactionValue(
-transaction.transaction_type
+t.transaction_type
 );
 
 const name =
 normalizeTransactionValue(
-transaction.transaction
+t.transaction
 );
 
 return(
@@ -2296,482 +2339,86 @@ return 0;
 
 }
 
-const selectedItem =
-getItemById(itemId);
-
-if(!selectedItem)
-return 0;
-
-const allTransactions =
+const all =
 await getTable(
 "stock_transactions",
 "?select=*"
 );
 
 const transactions =
-filterBranchData(
-allTransactions
-);
+filterBranchData(all);
+
+const item =
+getItemById(itemId);
 
 let matched =
 transactions.filter(
 t =>
 String(
 t.item_id ?? ""
-).trim()
-===
-String(
-itemId
-).trim()
+) ===
+String(itemId)
 );
 
-/* Fallback by item name */
+if(!matched.length && item){
 
-if(!matched.length){
-
-const selectedName =
-normalizeTransactionValue(
-getItemName(selectedItem)
+const wantedName =
+normalizeText(
+getItemName(item)
 );
-
-if(selectedName){
 
 matched =
 transactions.filter(
 t =>
-normalizeTransactionValue(
+normalizeText(
 t.item_name ||
 t.name ||
 t.item ||
 ""
-)===
-selectedName
+) ===
+wantedName
 );
-
-}
 
 }
 
 let balance=0;
 
-matched.forEach(
-transaction=>{
+for(
+const t of matched
+){
 
 const quantity =
-Number(
-transaction.quantity
-);
+Number(t.quantity);
 
 if(
 !Number.isFinite(quantity)
 )
-return;
+continue;
 
-const amount =
+if(
+transactionIsIn(t)
+){
+
+balance +=
 Math.abs(quantity);
 
-if(
-transactionIsIn(transaction)
-){
-
-balance += amount;
-
 }
 
 if(
-transactionIsOut(transaction)
+transactionIsOut(t)
 ){
 
-balance -= amount;
+balance -=
+Math.abs(quantity);
 
 }
 
 }
-);
-
-balance =
-Math.round(
-balance*100
-)/100;
 
 return Math.max(
 0,
-balance
+Math.round(balance*100)/100
 );
-
-}
-
-/* =========================================================
-   RELIEF STOCK
-========================================================= */
-
-async function updateReliefRowStock(
-row
-){
-
-const select =
-row.querySelector(
-".relief-item-select"
-);
-
-const info =
-row.querySelector(
-".stock-info"
-);
-
-if(!select || !info)
-return;
-
-const itemId =
-String(
-select.value || ""
-).trim();
-
-if(!itemId){
-
-info.textContent =
-"Select an item to check stock.";
-
-info.className =
-"stock-info";
-
-return;
-
-}
-
-info.textContent =
-"Checking current stock...";
-
-info.className =
-"stock-info stock-checking";
-
-try{
-
-const stock =
-await getItemStockBalance(itemId);
-
-if(stock>0){
-
-info.textContent =
-"Current Stock: " + stock;
-
-info.className =
-"stock-info stock-ok";
-
-}else{
-
-info.textContent =
-"Current Stock: 0";
-
-info.className =
-"stock-info stock-low";
-
-}
-
-}catch(error){
-
-console.error(
-"STOCK CHECK ERROR:",
-error
-);
-
-info.textContent =
-"Stock could not be checked.";
-
-info.className =
-"stock-info stock-low";
-
-}
-
-}
-
-/* =========================================================
-   RELIEF ITEM SELECT
-========================================================= */
-
-function populateReliefItemSelect(select){
-
-if(!select)
-return;
-
-select.innerHTML =
-`
-<option value="">
-Select Item
-</option>
-`;
-
-if(!items.length){
-
-select.innerHTML =
-`
-<option value="">
-No Item Found
-</option>
-`;
-
-return;
-
-}
-
-items.forEach(
-item=>{
-
-const option =
-document.createElement("option");
-
-option.value =
-String(item.id);
-
-option.textContent =
-getItemName(item) ||
-"Unnamed Item";
-
-option.dataset.unit =
-getItemUnit(item);
-
-option.dataset.category =
-getItemCategory(item);
-
-select.appendChild(option);
-
-}
-);
-
-}
-
-async function setReliefItemData(select){
-
-const row =
-select.closest(".relief-row");
-
-if(!row)
-return;
-
-const option =
-select.options[
-select.selectedIndex
-];
-
-const unit =
-option?.dataset.unit || "";
-
-const category =
-option?.dataset.category || "";
-
-const unitInput =
-row.querySelector(".relief-item-unit");
-
-const categoryInput =
-row.querySelector(".relief-item-category");
-
-if(unitInput)
-unitInput.value=unit;
-
-if(categoryInput)
-categoryInput.value=category;
-
-await updateReliefRowStock(row);
-
-}
-
-/* =========================================================
-   ADD RELIEF ITEM
-========================================================= */
-
-function addReliefItem(){
-
-const container =
-document.getElementById(
-"reliefItemsContainer"
-);
-
-const row =
-document.createElement("div");
-
-row.className="relief-row";
-
-row.innerHTML=`
-
-<div class="row-grid">
-
-<div>
-
-<label>
-Item *
-</label>
-
-<select
-class="relief-item-select"
-onchange="setReliefItemData(this)">
-
-<option value="">
-Select Item
-</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label>
-Unit
-</label>
-
-<input
-class="relief-item-unit readonly"
-type="text"
-readonly>
-
-</div>
-
-<div>
-
-<label>
-Quantity *
-</label>
-
-<input
-class="relief-item-quantity"
-type="number"
-min="0.01"
-step="0.01"
-inputmode="decimal"
-oninput="checkReliefQuantity(this)">
-
-</div>
-
-<div>
-
-<label>
-Category
-</label>
-
-<input
-class="relief-item-category readonly"
-type="text"
-readonly>
-
-</div>
-
-</div>
-
-<div class="stock-info">
-Select an item to check stock.
-</div>
-
-<div class="row-actions">
-
-<button
-type="button"
-class="remove-btn"
-onclick="removeReliefRow(this)">
-
-Remove Item
-
-</button>
-
-</div>
-`;
-
-container.appendChild(row);
-
-populateReliefItemSelect(
-row.querySelector(
-".relief-item-select"
-)
-);
-
-}
-
-function removeReliefRow(button){
-
-const row =
-button.closest(".relief-row");
-
-if(row)
-row.remove();
-
-}
-
-/* =========================================================
-   QUANTITY CHECK
-========================================================= */
-
-async function checkReliefQuantity(input){
-
-const row =
-input.closest(".relief-row");
-
-if(!row)
-return;
-
-const select =
-row.querySelector(
-".relief-item-select"
-);
-
-if(
-!select ||
-!select.value
-)
-return;
-
-const requested =
-Number(input.value);
-
-if(
-!Number.isFinite(requested) ||
-requested<=0
-)
-return;
-
-try{
-
-const stock =
-await getItemStockBalance(
-select.value
-);
-
-const info =
-row.querySelector(
-".stock-info"
-);
-
-if(!info)
-return;
-
-if(requested>stock){
-
-info.textContent =
-"Current Stock: " +
-stock +
-" — Requested quantity is too high.";
-
-info.className =
-"stock-info stock-low";
-
-}else{
-
-info.textContent =
-"Current Stock: " +
-stock +
-" — Available.";
-
-info.className =
-"stock-info stock-ok";
-
-}
-
-}catch(error){
-
-console.error(
-"QUANTITY CHECK ERROR:",
-error
-);
-
-}
 
 }
 
@@ -2792,8 +2439,7 @@ document.getElementById(
 document.getElementById(
 "newHouseholdCard"
 ).scrollIntoView({
-behavior:"smooth",
-block:"start"
+behavior:"smooth"
 });
 
 }
@@ -2807,308 +2453,7 @@ document.getElementById(
 }
 
 /* =========================================================
-   NEW RELIEF
-========================================================= */
-
-async function showNewRelief(){
-
-const card =
-document.getElementById(
-"newReliefCard"
-);
-
-card.style.display="block";
-
-document.getElementById(
-"newHouseholdCard"
-).style.display="none";
-
-card.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-const householdSelect =
-document.getElementById(
-"reliefHousehold"
-);
-
-householdSelect.innerHTML =
-`
-<option value="">
-Loading households...
-</option>
-`;
-
-document.getElementById(
-"reliefMember"
-).innerHTML =
-`
-<option value="">
-Select Member
-</option>
-`;
-
-try{
-
-await resolveCurrentBranch();
-
-await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
-
-populateHouseholdSelect();
-
-document.getElementById(
-"reliefEnteredBy"
-).value =
-loginUser;
-
-document.getElementById(
-"reliefSignature"
-).value="";
-
-document.getElementById(
-"reliefModel22"
-).value="";
-
-document.getElementById(
-"reliefModel22Number"
-).value="";
-
-toggleModel22Number();
-
-setCurrentDateTime();
-
-document.getElementById(
-"reliefNotes"
-).value="";
-
-document.getElementById(
-"reliefItemsContainer"
-).innerHTML="";
-
-addReliefItem();
-
-if(!households.length){
-
-showError(
-"No households found for this branch."
-);
-
-}
-
-if(!items.length){
-
-showError(
-"No items found for this branch."
-);
-
-}
-
-}catch(error){
-
-console.error(
-"SHOW RELIEF ERROR:",
-error
-);
-
-householdSelect.innerHTML =
-`
-<option value="">
-Could not load households
-</option>
-`;
-
-showError(
-"Relief form could not be prepared: " +
-error.message
-);
-
-}
-
-}
-
-function hideNewRelief(){
-
-document.getElementById(
-"newReliefCard"
-).style.display="none";
-
-}
-
-function setCurrentDateTime(){
-
-const now=new Date();
-
-const local =
-new Date(
-now.getTime() -
-now.getTimezoneOffset()*60000
-)
-.toISOString()
-.slice(0,16);
-
-document.getElementById(
-"reliefDate"
-).value=local;
-
-}
-
-/* =========================================================
-   MODEL 22
-========================================================= */
-
-function toggleModel22Number(){
-
-const model =
-document.getElementById(
-"reliefModel22"
-).value;
-
-const field =
-document.getElementById(
-"model22NumberField"
-);
-
-const number =
-document.getElementById(
-"reliefModel22Number"
-);
-
-if(
-model==="Model 22 Available"
-){
-
-field.style.display="block";
-
-number.required=true;
-
-}else{
-
-field.style.display="none";
-
-number.required=false;
-
-number.value="";
-
-}
-
-}
-
-/* =========================================================
-   LOAD MEMBERS
-========================================================= */
-
-async function loadReliefMembers(){
-
-const householdId =
-String(
-document.getElementById(
-"reliefHousehold"
-).value || ""
-).trim();
-
-const select =
-document.getElementById(
-"reliefMember"
-);
-
-if(!householdId){
-
-select.innerHTML =
-`
-<option value="">
-Select Member
-</option>
-`;
-
-return;
-
-}
-
-select.innerHTML =
-`
-<option value="">
-Loading members...
-</option>
-`;
-
-try{
-
-const data =
-await getTable(
-"emergency_members",
-"?select=*&household_id=eq." +
-encodeURIComponent(householdId) +
-"&order=id.asc"
-);
-
-select.innerHTML =
-`
-<option value="">
-Select Member
-</option>
-`;
-
-if(!data.length){
-
-select.innerHTML =
-`
-<option value="">
-No Member Found
-</option>
-`;
-
-return;
-
-}
-
-data.forEach(
-member=>{
-
-const option =
-document.createElement("option");
-
-option.value =
-String(member.id);
-
-option.textContent =
-member.full_name ||
-member.name ||
-"Member";
-
-select.appendChild(option);
-
-}
-);
-
-}catch(error){
-
-console.error(
-"LOAD MEMBERS ERROR:",
-error
-);
-
-select.innerHTML =
-`
-<option value="">
-Could not load members
-</option>
-`;
-
-showError(
-"Members could not be loaded: " +
-error.message
-);
-
-}
-
-}
-
-/* =========================================================
-   ADD MEMBER
+   MEMBER
 ========================================================= */
 
 function addMember(){
@@ -3121,7 +2466,8 @@ document.getElementById(
 const row =
 document.createElement("div");
 
-row.className="member-row";
+row.className=
+"member-row";
 
 row.innerHTML=`
 
@@ -3197,20 +2543,31 @@ Other Information
 </label>
 
 <textarea
-class="member-other"></textarea></div><div class="row-actions"><button
+class="member-other">
+</textarea>
+
+</div>
+
+<div class="row-actions">
+
+<button
 type="button"
 class="remove-btn"
 onclick="this.closest('.member-row').remove()">
 
 Remove Member
 
-</button></div>
-`;container.appendChild(row);
+</button>
+
+</div>
+`;
+
+container.appendChild(row);
 
 }
 
 /* =========================================================
-ADD DOCUMENT
+   DOCUMENT
 ========================================================= */
 
 function addDocument(){
@@ -3223,52 +2580,96 @@ document.getElementById(
 const row =
 document.createElement("div");
 
-row.className="document-row";
+row.className=
+"document-row";
 
 row.innerHTML=`
 
-<div class="row-grid"><div><label>
+<div class="row-grid">
+
+<div>
+
+<label>
 Document Number
-</label><input
+</label>
+
+<input
 class="document-number"
 type="text">
 
-</div><div><label>
+</div>
+
+<div>
+
+<label>
 Document Date
-</label><input
+</label>
+
+<input
 class="document-date"
 type="date">
 
-</div><div><label>
+</div>
+
+<div>
+
+<label>
 Document Name
-</label><input
+</label>
+
+<input
 class="document-name"
 type="text">
 
-</div><div><label>
-Scanned File / Image
-</label><input
+</div>
+
+<div>
+
+<label>
+File
+</label>
+
+<input
 class="document-file"
 type="file"
-accept="image/*,.pdf">
+accept=".pdf,image/*">
 
-</div></div><div style="margin-top:10px"><label>
+</div>
+
+</div>
+
+<div style="margin-top:10px">
+
+<label>
 Other Information
-</label><textarea
-class="document-other"></textarea></div><div class="row-actions"><button
+</label>
+
+<textarea
+class="document-other">
+</textarea>
+
+</div>
+
+<div class="row-actions">
+
+<button
 type="button"
 class="remove-btn"
 onclick="this.closest('.document-row').remove()">
 
 Remove Document
 
-</button></div>
-`;container.appendChild(row);
+</button>
+
+</div>
+`;
+
+container.appendChild(row);
 
 }
 
 /* =========================================================
-SAVE HOUSEHOLD
+   SAVE HOUSEHOLD
 ========================================================= */
 
 async function saveHousehold(){
@@ -3315,15 +2716,17 @@ savingHousehold=true;
 
 button.disabled=true;
 
-button.textContent="Saving...";
+button.textContent=
+"Saving...";
 
 try{
 
 await resolveCurrentBranch();
 
-const householdData={
+const data={
 
-household_name:name,
+household_name:
+name,
 
 disaster_type:
 disasterType,
@@ -3378,42 +2781,37 @@ null
 
 };
 
-if(!isMainBranch()){
+if(isMainBranch()){
 
-const uuid =
-getValidBranchUUID();
+data.branch_id =
+MAIN_UUID;
 
-if(uuid){
-householdData.branch_id=uuid;
-}
-
-const code =
-getEffectiveBranchCode();
-
-if(code){
-householdData.branch_code=code;
-}
+data.branch_code =
+"MAIN";
 
 }else{
 
-householdData.branch_id=MAIN_UUID;
-householdData.branch_code="MAIN";
+data.branch_id =
+currentBranchId;
+
+data.branch_code =
+getBranchCode();
 
 }
 
 const result =
 await postTable(
 "emergency_households",
-householdData
+data
 );
 
 if(
-!Array.isArray(result) ||
+!result ||
 !result.length
 ){
 
 throw new Error(
-"Household was not created."
+"Household save returned no record."
 );
 
 }
@@ -3444,21 +2842,8 @@ row.querySelector(
 ".member-relationship"
 ).value.trim();
 
-if(!fullName){
-
-throw new Error(
-"Member Full Name is required."
-);
-
-}
-
-if(!relationship){
-
-throw new Error(
-"Member Relationship is required."
-);
-
-}
+if(!fullName)
+continue;
 
 await postTable(
 "emergency_members",
@@ -3471,7 +2856,7 @@ full_name:
 fullName,
 
 relationship:
-relationship,
+relationship || null,
 
 sex:
 row.querySelector(
@@ -3581,9 +2966,9 @@ showSuccess(
 "Household saved successfully."
 );
 
-hideNewHousehold();
-
 clearHouseholdForm();
+
+hideNewHousehold();
 
 await loadHouseholds();
 
@@ -3592,7 +2977,7 @@ await loadSummary();
 }catch(error){
 
 console.error(
-"SAVE HOUSEHOLD ERROR:",
+"SAVE HOUSEHOLD:",
 error
 );
 
@@ -3615,7 +3000,7 @@ button.textContent=
 }
 
 /* =========================================================
-CLEAR HOUSEHOLD
+   CLEAR HOUSEHOLD
 ========================================================= */
 
 function clearHouseholdForm(){
@@ -3657,7 +3042,609 @@ document.getElementById(
 }
 
 /* =========================================================
-READ RELIEF ITEMS
+   NEW RELIEF
+========================================================= */
+
+async function showNewRelief(){
+
+const card =
+document.getElementById(
+"newReliefCard"
+);
+
+card.style.display="block";
+
+document.getElementById(
+"newHouseholdCard"
+).style.display="none";
+
+card.scrollIntoView({
+behavior:"smooth"
+});
+
+try{
+
+await resolveCurrentBranch();
+
+await Promise.all([
+loadItems(),
+loadHouseholds()
+]);
+
+populateHouseholdSelect();
+
+document.getElementById(
+"reliefEnteredBy"
+).value =
+loginUser;
+
+setCurrentDateTime();
+
+document.getElementById(
+"reliefModel22"
+).value="";
+
+document.getElementById(
+"reliefModel22Number"
+).value="";
+
+document.getElementById(
+"reliefNotes"
+).value="";
+
+toggleModel22Number();
+
+document.getElementById(
+"reliefItemsContainer"
+).innerHTML="";
+
+addReliefItem();
+
+}catch(error){
+
+console.error(
+"SHOW RELIEF:",
+error
+);
+
+showError(
+"Relief form failed: " +
+error.message
+);
+
+}
+
+}
+
+function hideNewRelief(){
+
+document.getElementById(
+"newReliefCard"
+).style.display="none";
+
+}
+
+function setCurrentDateTime(){
+
+const now =
+new Date();
+
+const local =
+new Date(
+now.getTime() -
+now.getTimezoneOffset()*60000
+)
+.toISOString()
+.slice(0,16);
+
+document.getElementById(
+"reliefDate"
+).value =
+local;
+
+}
+
+/* =========================================================
+   MODEL 22
+========================================================= */
+
+function toggleModel22Number(){
+
+const value =
+document.getElementById(
+"reliefModel22"
+).value;
+
+const field =
+document.getElementById(
+"model22NumberField"
+);
+
+const input =
+document.getElementById(
+"reliefModel22Number"
+);
+
+if(
+value==="Model 22 Available"
+){
+
+field.style.display="block";
+
+input.required=true;
+
+}else{
+
+field.style.display="none";
+
+input.required=false;
+
+input.value="";
+
+}
+
+}
+
+/* =========================================================
+   LOAD MEMBERS
+========================================================= */
+
+async function loadReliefMembers(){
+
+const householdId =
+document.getElementById(
+"reliefHousehold"
+).value;
+
+const select =
+document.getElementById(
+"reliefMember"
+);
+
+select.innerHTML=
+`
+<option value="">
+Loading...
+</option>
+`;
+
+if(!householdId){
+
+select.innerHTML=
+`
+<option value="">
+Select Member
+</option>
+`;
+
+return;
+
+}
+
+try{
+
+const members =
+await getTable(
+"emergency_members",
+"?select=*&household_id=eq." +
+encodeURIComponent(householdId) +
+"&order=id.asc"
+);
+
+select.innerHTML=
+`
+<option value="">
+Select Member
+</option>
+`;
+
+members.forEach(
+member=>{
+
+const option =
+document.createElement("option");
+
+option.value =
+member.id;
+
+option.textContent =
+member.full_name ||
+member.name ||
+"Member";
+
+select.appendChild(option);
+
+}
+);
+
+}catch(error){
+
+select.innerHTML=
+`
+<option value="">
+Could not load members
+</option>
+`;
+
+showError(
+"Members loading failed: " +
+error.message
+);
+
+}
+
+}
+
+/* =========================================================
+   HOUSEHOLD SELECT
+========================================================= */
+
+function populateHouseholdSelect(){
+
+const select =
+document.getElementById(
+"reliefHousehold"
+);
+
+select.innerHTML=
+`
+<option value="">
+Select Household
+</option>
+`;
+
+households.forEach(
+household=>{
+
+const option =
+document.createElement("option");
+
+option.value =
+household.id;
+
+option.textContent =
+household.household_name ||
+household.name ||
+"Household";
+
+select.appendChild(option);
+
+}
+);
+
+}
+
+/* =========================================================
+   RELIEF ITEM
+========================================================= */
+
+function addReliefItem(){
+
+const container =
+document.getElementById(
+"reliefItemsContainer"
+);
+
+const row =
+document.createElement("div");
+
+row.className=
+"relief-row";
+
+row.innerHTML=`
+
+<div class="row-grid">
+
+<div>
+
+<label>
+Item *
+</label>
+
+<select
+class="relief-item-select"
+onchange="setReliefItemData(this)">
+
+<option value="">
+Select Item
+</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Unit
+</label>
+
+<input
+class="relief-item-unit readonly"
+readonly>
+
+</div>
+
+<div>
+
+<label>
+Quantity *
+</label>
+
+<input
+class="relief-item-quantity"
+type="number"
+min="0.01"
+step="0.01"
+oninput="checkReliefQuantity(this)">
+
+</div>
+
+<div>
+
+<label>
+Category
+</label>
+
+<input
+class="relief-item-category readonly"
+readonly>
+
+</div>
+
+</div>
+
+<div class="stock-info">
+
+Select an item to check stock.
+
+</div>
+
+<div class="row-actions">
+
+<button
+type="button"
+class="remove-btn"
+onclick="removeReliefRow(this)">
+
+Remove Item
+
+</button>
+
+</div>
+`;
+
+container.appendChild(row);
+
+const select =
+row.querySelector(
+".relief-item-select"
+);
+
+items.forEach(
+item=>{
+
+const option =
+document.createElement("option");
+
+option.value =
+item.id;
+
+option.textContent =
+getItemName(item);
+
+option.dataset.unit =
+getItemUnit(item);
+
+option.dataset.category =
+getItemCategory(item);
+
+select.appendChild(option);
+
+}
+);
+
+}
+
+function removeReliefRow(button){
+
+const rows =
+document.querySelectorAll(
+".relief-row"
+);
+
+if(rows.length<=1){
+
+showError(
+"At least one relief item is required."
+);
+
+return;
+
+}
+
+button
+.closest(".relief-row")
+.remove();
+
+}
+
+async function setReliefItemData(
+select
+){
+
+const row =
+select.closest(
+".relief-row"
+);
+
+const option =
+select.options[
+select.selectedIndex
+];
+
+if(!row || !option)
+return;
+
+row.querySelector(
+".relief-item-unit"
+).value =
+option.dataset.unit || "";
+
+row.querySelector(
+".relief-item-category"
+).value =
+option.dataset.category || "";
+
+await updateStockInfo(row);
+
+}
+
+async function updateStockInfo(row){
+
+const select =
+row.querySelector(
+".relief-item-select"
+);
+
+const info =
+row.querySelector(
+".stock-info"
+);
+
+if(
+!select.value
+){
+
+info.textContent =
+"Select an item to check stock.";
+
+info.className=
+"stock-info";
+
+return;
+
+}
+
+info.textContent =
+"Checking current stock...";
+
+info.className=
+"stock-info stock-checking";
+
+try{
+
+const stock =
+await getItemStockBalance(
+select.value
+);
+
+if(stock>0){
+
+info.textContent =
+"Current Stock: " +
+stock;
+
+info.className=
+"stock-info stock-ok";
+
+}else{
+
+info.textContent =
+"Current Stock: 0";
+
+info.className=
+"stock-info stock-low";
+
+}
+
+}catch(error){
+
+info.textContent =
+"Stock check failed.";
+
+info.className=
+"stock-info stock-low";
+
+}
+
+}
+
+async function checkReliefQuantity(
+input
+){
+
+const row =
+input.closest(
+".relief-row"
+);
+
+if(!row)
+return;
+
+const select =
+row.querySelector(
+".relief-item-select"
+);
+
+if(
+!select.value
+)
+return;
+
+const quantity =
+Number(input.value);
+
+if(
+!Number.isFinite(quantity) ||
+quantity<=0
+)
+return;
+
+try{
+
+const stock =
+await getItemStockBalance(
+select.value
+);
+
+const info =
+row.querySelector(
+".stock-info"
+);
+
+if(quantity>stock){
+
+info.textContent =
+"Current Stock: " +
+stock +
+" — Quantity too high.";
+
+info.className=
+"stock-info stock-low";
+
+}else{
+
+info.textContent =
+"Current Stock: " +
+stock +
+" — Available.";
+
+info.className=
+"stock-info stock-ok";
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+/* =========================================================
+   READ RELIEF ITEMS
 ========================================================= */
 
 function readReliefItems(){
@@ -3672,40 +3659,34 @@ document.querySelectorAll(
 if(!rows.length){
 
 throw new Error(
-"Please add at least one relief item."
+"At least one relief item is required."
 );
 
 }
 
-const raw=[];
+const grouped={};
 
 rows.forEach(
 row=>{
 
-const select =
-row.querySelector(
-".relief-item-select"
-);
-
-const quantityInput =
-row.querySelector(
-".relief-item-quantity"
-);
-
 const itemId =
 String(
-select?.value || ""
+row.querySelector(
+".relief-item-select"
+).value || ""
 ).trim();
 
 const quantity =
 Number(
-quantityInput?.value
+row.querySelector(
+".relief-item-quantity"
+).value
 );
 
 if(!itemId){
 
 throw new Error(
-"Please select an Item in every relief row."
+"Please select an item."
 );
 
 }
@@ -3727,16 +3708,18 @@ getItemById(itemId);
 if(!item){
 
 throw new Error(
-"Selected item could not be found."
+"Selected item not found."
 );
 
 }
 
-raw.push({
+if(!grouped[itemId]){
+
+grouped[itemId]={
 
 itemId:itemId,
 
-quantity:quantity,
+quantity:0,
 
 name:getItemName(item),
 
@@ -3744,38 +3727,12 @@ unit:getItemUnit(item),
 
 category:getItemCategory(item)
 
-});
-
-}
-);
-
-const grouped={};
-
-raw.forEach(
-item=>{
-
-if(!grouped[item.itemId]){
-
-grouped[item.itemId]={
-
-itemId:item.itemId,
-
-quantity:0,
-
-name:item.name,
-
-unit:item.unit,
-
-category:item.category
-
 };
 
 }
 
-grouped[
-item.itemId
-].quantity +=
-item.quantity;
+grouped[itemId].quantity +=
+quantity;
 
 }
 );
@@ -3785,59 +3742,46 @@ return Object.values(grouped);
 }
 
 /* =========================================================
-MODEL 22
+   MODEL 22 NORMALIZE
 ========================================================= */
 
-function normalizeModel22Value(value){
-
-const v =
-String(value || "")
-.trim();
-
-if(v==="Hin jiru"){
-return "No Model 22";
-}
-
-if(v==="Model 22 qaba"){
-return "Model 22 Available";
-}
-
-if(
-v==="No Model 22" ||
-v==="Model 22 Available" ||
-v==="Verbal"
+function normalizeModel22Value(
+value
 ){
-return v;
-}
-
-return v;
-
-}
-
-function displayModel22(value){
 
 const v =
 String(value || "")
 .trim();
 
-if(v==="No Model 22"){
-return "Hin jiru";
-}
+if(v==="Hin jiru")
+return "No Model 22";
 
-if(v==="Model 22 Available"){
-return "Model 22 qaba";
-}
-
-if(v==="Verbal"){
-return "Verbal";
-}
+if(v==="Model 22 qaba")
+return "Model 22 Available";
 
 return v;
+
+}
+
+function displayModel22(
+value
+){
+
+if(value==="No Model 22")
+return "Hin jiru";
+
+if(value==="Model 22 Available")
+return "Model 22 qaba";
+
+if(value==="Verbal")
+return "Verbal";
+
+return value || "";
 
 }
 
 /* =========================================================
-SAVE RELIEF
+   SAVE RELIEF
 ========================================================= */
 
 async function saveRelief(){
@@ -3896,24 +3840,20 @@ document.getElementById(
 "reliefNotes"
 ).value.trim();
 
-/* VALIDATION */
-
 if(!householdId){
 
 showError(
-"Please select Household."
+"Household filadhu."
 );
 
 return;
 
 }
 
-if(
-!isValidUUID(householdId)
-){
+if(!isValidUUID(householdId)){
 
 showError(
-"Household ID is not a valid UUID."
+"Household ID UUID sirrii miti."
 );
 
 return;
@@ -3923,19 +3863,17 @@ return;
 if(!memberId){
 
 showError(
-"Please select Member."
+"Member filadhu."
 );
 
 return;
 
 }
 
-if(
-!isValidUUID(memberId)
-){
+if(!isValidUUID(memberId)){
 
 showError(
-"Member ID is not a valid UUID."
+"Member ID UUID sirrii miti."
 );
 
 return;
@@ -3945,7 +3883,7 @@ return;
 if(!reliefDate){
 
 showError(
-"Relief Date is required."
+"Relief Date guuti."
 );
 
 return;
@@ -3955,25 +3893,23 @@ return;
 if(!issuedBy){
 
 showError(
-"Issued By is required."
+"Issued By guuti."
 );
 
 return;
 
 }
 
-const allowedModel22=[
+if(
+![
 "No Model 22",
 "Model 22 Available",
 "Verbal"
-];
-
-if(
-!allowedModel22.includes(model22)
+].includes(model22)
 ){
 
 showError(
-"Model 22 is required."
+"Model 22 dirqama."
 );
 
 return;
@@ -3986,18 +3922,18 @@ model22==="Model 22 Available" &&
 ){
 
 showError(
-"Model 22 Number is required."
+"Model 22 Number guuti."
 );
 
 return;
 
 }
 
-let finalItems;
+let reliefItems;
 
 try{
 
-finalItems =
+reliefItems =
 readReliefItems();
 
 }catch(error){
@@ -4014,39 +3950,43 @@ savingRelief=true;
 
 button.disabled=true;
 
-button.textContent=
-"Checking Stock...";
-
 try{
+
+/* =========================
+   BRANCH
+========================= */
 
 await resolveCurrentBranch();
 
-/* =====================================================
-CHECK STOCK FOR ALL ITEMS
-===================================================== */
+/* =========================
+   STOCK CHECK
+========================= */
+
+button.textContent =
+"Checking Stock...";
 
 for(
-const item of finalItems
+const item of reliefItems
 ){
 
-const currentStock =
+const stock =
 await getItemStockBalance(
 item.itemId
 );
 
 item.currentStock =
-currentStock;
+stock;
 
 if(
-item.quantity>currentStock
+item.quantity>stock
 ){
 
 throw new Error(
-"Insufficient stock for " +
+"Stock gahaa miti: " +
 item.name +
-". Current Stock: " +
-currentStock +
-", Requested: " +
+". Current Stock = " +
+stock +
+", Requested = " +
 item.quantity
 );
 
@@ -4054,9 +3994,9 @@ item.quantity
 
 }
 
-/* =====================================================
-SAVE RELIEF HEADER
-===================================================== */
+/* =========================
+   RELIEF HEADER
+========================= */
 
 button.textContent =
 "Saving Relief...";
@@ -4100,7 +4040,7 @@ notes || null
 
 /*
 IMPORTANT:
-branch_code is NOT sent to emergency_reliefs.
+branch_code hin ergu.
 */
 
 const reliefResult =
@@ -4110,12 +4050,12 @@ reliefData
 );
 
 if(
-!Array.isArray(reliefResult) ||
+!reliefResult ||
 !reliefResult.length
 ){
 
 throw new Error(
-"Relief record was not created."
+"Relief header save hin milkoofne."
 );
 
 }
@@ -4123,12 +4063,12 @@ throw new Error(
 const reliefId =
 reliefResult[0].id;
 
-/* =====================================================
-SAVE RELIEF ITEMS + STOCK OUT
-===================================================== */
+/* =========================
+   RELIEF ITEMS + STOCK OUT
+========================= */
 
 for(
-const item of finalItems
+const item of reliefItems
 ){
 
 await postTable(
@@ -4160,23 +4100,28 @@ item.category || null
 
 const stockOut={
 
-transaction_type:"OUT",
+transaction_type:
+"OUT",
 
-quantity:item.quantity,
+quantity:
+item.quantity,
 
-entered_by:issuedBy,
+entered_by:
+issuedBy,
 
 entered_at:
 new Date(
 reliefDate
 ).toISOString(),
 
-expiry_date:null,
+expiry_date:
+null,
 
 category:
 item.category || null,
 
-issued_by:issuedBy,
+issued_by:
+issuedBy,
 
 signature:
 signature || null,
@@ -4192,40 +4137,21 @@ item.itemId
 
 };
 
-/*
-Branch isolation is preserved
-in stock_transactions.
-*/
-
-if(!isMainBranch()){
-
-const uuid =
-getValidBranchUUID();
-
-if(uuid){
-
-stockOut.branch_id =
-uuid;
-
-}
-
-const code =
-getEffectiveBranchCode();
-
-if(code){
-
-stockOut.branch_code =
-code;
-
-}
-
-}else{
+if(isMainBranch()){
 
 stockOut.branch_id =
 MAIN_UUID;
 
 stockOut.branch_code =
 "MAIN";
+
+}else{
+
+stockOut.branch_id =
+currentBranchId;
+
+stockOut.branch_code =
+getBranchCode();
 
 }
 
@@ -4236,20 +4162,23 @@ stockOut
 
 }
 
-/* =====================================================
-SUCCESS
-===================================================== */
+/* =========================
+   SUCCESS
+========================= */
 
 showSuccess(
-"Relief saved and stock updated successfully."
+"Relief saved successfully. Stock OUT created."
 );
 
 hideNewRelief();
 
-await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
+document.getElementById(
+"reliefItemsContainer"
+).innerHTML="";
+
+await loadItems();
+
+await loadHouseholds();
 
 await loadSummary();
 
@@ -4279,7 +4208,7 @@ button.textContent=
 }
 
 /* =========================================================
-LOAD HOUSEHOLDS
+   LOAD HOUSEHOLDS
 ========================================================= */
 
 async function loadHouseholds(){
@@ -4289,15 +4218,14 @@ document.getElementById(
 "householdList"
 );
 
-container.innerHTML =
+container.innerHTML=
 `
-
 <div class="loading">
 Loading households...
 </div>
-`;try{
+`;
 
-await resolveCurrentBranch();
+try{
 
 const all =
 await getTable(
@@ -4312,42 +4240,22 @@ renderHouseholds();
 
 populateHouseholdSelect();
 
-if(!households.length){
-
-container.innerHTML =
-`
-
-<div class="empty">No households found for
-
-<strong>
-${escapeHtml(
-currentBranchName ||
-getEffectiveBranchCode()
-)}
-</strong><br><br>
-
-You can create a new household using
-
-<strong>
-+ New Household
-</strong></div>
-`;}
-
 }catch(error){
 
 console.error(
-"LOAD HOUSEHOLDS ERROR:",
+"LOAD HOUSEHOLDS:",
 error
 );
 
 households=[];
 
-container.innerHTML =
+container.innerHTML=
 `
+<div class="empty">
 
-<div class="empty"><strong>
 Could not load households.
-</strong><br><br>
+
+<br><br>
 
 ${escapeHtml(
 error.message
@@ -4356,67 +4264,22 @@ error.message
 <br><br>
 
 <button
-type="button"
 class="btn blue"
 onclick="loadHouseholds()">
 
 ↻ Try Again
 
-</button></div>
-`;populateHouseholdSelect();
+</button>
 
-showError(
-"Households could not be loaded: " +
-error.message
-);
+</div>
+`;
 
 }
 
 }
 
 /* =========================================================
-HOUSEHOLD SELECT
-========================================================= */
-
-function populateHouseholdSelect(){
-
-const select =
-document.getElementById(
-"reliefHousehold"
-);
-
-if(!select)
-return;
-
-select.innerHTML =
-`
-
-<option value="">
-Select Household
-</option>
-`;households.forEach(
-household=>{
-
-const option =
-document.createElement("option");
-
-option.value =
-String(household.id);
-
-option.textContent =
-household.household_name ||
-household.name ||
-"Household";
-
-select.appendChild(option);
-
-}
-);
-
-}
-
-/* =========================================================
-RENDER HOUSEHOLDS
+   RENDER HOUSEHOLDS
 ========================================================= */
 
 function renderHouseholds(
@@ -4429,17 +4292,19 @@ document.getElementById(
 );
 
 if(
-!Array.isArray(list) ||
 !list.length
 ){
 
-container.innerHTML =
+container.innerHTML=
 `
-
 <div class="empty">
+
 No households found.
+
 </div>
-`;return;
+`;
+
+return;
 
 }
 
@@ -4451,18 +4316,21 @@ household=>{
 const card =
 document.createElement("div");
 
-card.className =
+card.className=
 "household-folder";
 
 card.onclick =
-() =>
+()=>{
 openHousehold(
 household.id
 );
+};
 
 card.innerHTML=`
 
-<div class="folder-title">📁
+<div class="folder-title">
+
+📁
 
 ${escapeHtml(
 household.household_name ||
@@ -4470,27 +4338,51 @@ household.name ||
 "Household"
 )}
 
-</div><div class="folder-line"><strong>
+</div>
+
+<div class="folder-line">
+
+<strong>
 Disaster:
-</strong>${escapeHtml(
-household.disaster_type || ""
+</strong>
+
+${escapeHtml(
+household.disaster_type || "-"
 )}
 
-</div><div class="folder-line"><strong>
+</div>
+
+<div class="folder-line">
+
+<strong>
 Date:
-</strong>${escapeHtml(
-household.disaster_date || ""
+</strong>
+
+${escapeHtml(
+household.disaster_date || "-"
 )}
 
-</div><div class="folder-line"><strong>
+</div>
+
+<div class="folder-line">
+
+<strong>
 FAN:
-</strong>${escapeHtml(
+</strong>
+
+${escapeHtml(
 household.fan_number || "-"
 )}
 
-</div><div class="folder-line"><strong>
+</div>
+
+<div class="folder-line">
+
+<strong>
 Location:
-</strong>${escapeHtml(
+</strong>
+
+${escapeHtml(
 household.specific_location ||
 household.woreda ||
 household.sub_city ||
@@ -4498,7 +4390,8 @@ household.city ||
 "-"
 )}
 
-</div>`;
+</div>
+`;
 
 container.appendChild(card);
 
@@ -4508,7 +4401,7 @@ container.appendChild(card);
 }
 
 /* =========================================================
-FILTER
+   SEARCH
 ========================================================= */
 
 async function filterHouseholds(){
@@ -4549,15 +4442,21 @@ h.fan_number ||
 
 return(
 
-(!text ||
+(
+!text ||
 name.includes(text) ||
-fan.includes(text)) &&
+fan.includes(text)
+) &&
 
-(!disaster ||
-h.disaster_type===disaster) &&
+(
+!disaster ||
+h.disaster_type===disaster
+) &&
 
-(!date ||
-h.disaster_date===date)
+(
+!date ||
+h.disaster_date===date
+)
 
 );
 
@@ -4568,27 +4467,23 @@ if(text){
 
 try{
 
-const pattern =
-"%" + text + "%";
-
-const data =
+const members =
 await getTable(
 "emergency_members",
 "?select=household_id" +
 "&full_name=ilike." +
-encodeURIComponent(pattern)
+encodeURIComponent(
+"%" + text + "%"
+)
 );
-
-/*
-Only households already loaded
-for the current branch are allowed.
-*/
 
 const ids =
 new Set(
-data.map(
+members.map(
 m =>
-String(m.household_id)
+String(
+m.household_id
+)
 )
 );
 
@@ -4620,11 +4515,15 @@ fan.includes(text) ||
 ids.has(id)
 ) &&
 
-(!disaster ||
-h.disaster_type===disaster) &&
+(
+!disaster ||
+h.disaster_type===disaster
+) &&
 
-(!date ||
-h.disaster_date===date)
+(
+!date ||
+h.disaster_date===date
+)
 
 );
 
@@ -4634,7 +4533,7 @@ h.disaster_date===date)
 }catch(error){
 
 console.error(
-"MEMBER SEARCH ERROR:",
+"SEARCH MEMBERS:",
 error
 );
 
@@ -4647,7 +4546,7 @@ renderHouseholds(result);
 }
 
 /* =========================================================
-OPEN HOUSEHOLD
+   OPEN HOUSEHOLD
 ========================================================= */
 
 async function openHousehold(
@@ -4676,54 +4575,53 @@ document.getElementById(
 ).textContent =
 household.household_name ||
 household.name ||
-"Household Details";
+"Household";
 
 document.getElementById(
 "modalContent"
-).innerHTML =
+).innerHTML=
 `
-
 <div class="loading">
 Loading details...
 </div>
-`;document.getElementById(
+`;
+
+document.getElementById(
 "detailsModal"
-).style.display="block";
+).style.display=
+"block";
 
 try{
 
-const[
-householdMembers,
-householdReliefs,
-householdDocuments
-]=
-await Promise.all([
-
-getTable(
+const members =
+await getTable(
 "emergency_members",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(householdId) +
+"?select=*&household_id=eq." +
+encodeURIComponent(
+householdId
+) +
 "&order=id.asc"
-),
+);
 
-getTable(
+const reliefs =
+await getTable(
 "emergency_reliefs",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(householdId) +
+"?select=*&household_id=eq." +
+encodeURIComponent(
+householdId
+) +
 "&order=id.desc"
-),
+);
 
-getTable(
+const documents =
+await getTable(
 "emergency_documents",
-"?select=*" +
-"&household_id=eq." +
-encodeURIComponent(householdId) +
+"?select=*&household_id=eq." +
+encodeURIComponent(
+householdId
+) +
 "&order=id.asc"
-)
-
-]);
+);
 
 let html="";
 
@@ -4731,9 +4629,15 @@ let html="";
 
 html+=`
 
-<div class="detail-section"><h3>
+<div class="detail-section">
+
+<h3>
 Household Information
-</h3><table class="detail-table"><tr>
+</h3>
+
+<table class="detail-table">
+
+<tr>
 <th>Household</th>
 <td>
 ${escapeHtml(
@@ -4742,210 +4646,299 @@ household.name ||
 ""
 )}
 </td>
-</tr><tr>
-<th>Disaster Type</th>
+</tr>
+
+<tr>
+<th>Disaster</th>
 <td>
 ${escapeHtml(
 household.disaster_type || ""
 )}
 </td>
-</tr><tr>
+</tr>
+
+<tr>
 <th>Disaster Date</th>
 <td>
 ${escapeHtml(
 household.disaster_date || ""
 )}
 </td>
-</tr><tr>
+</tr>
+
+<tr>
 <th>City</th>
 <td>
 ${escapeHtml(
 household.city || ""
 )}
 </td>
-</tr><tr>
+</tr>
+
+<tr>
 <th>Sub-City</th>
 <td>
 ${escapeHtml(
 household.sub_city || ""
 )}
 </td>
-</tr><tr>
+</tr>
+
+<tr>
 <th>Woreda</th>
 <td>
 ${escapeHtml(
 household.woreda || ""
 )}
 </td>
-</tr><tr>
+</tr>
+
+<tr>
 <th>Specific Location</th>
 <td>
 ${escapeHtml(
 household.specific_location || ""
 )}
 </td>
-</tr><tr>
+</tr>
+
+<tr>
 <th>House Number</th>
 <td>
 ${escapeHtml(
 household.house_number || ""
 )}
 </td>
-</tr><tr>
-<th>FAN Number</th>
+</tr>
+
+<tr>
+<th>FAN</th>
 <td>
 ${escapeHtml(
 household.fan_number || ""
 )}
 </td>
-</tr><tr>
+</tr>
+
+<tr>
 <th>Other Information</th>
 <td>
 ${escapeHtml(
 household.other_information || ""
 )}
 </td>
-</tr></table></div>
-`;/* MEMBERS */
+</tr>
+
+</table>
+
+</div>
+`;
+
+/* MEMBERS */
 
 html+=`
 
-<div class="detail-section"><h3>
+<div class="detail-section">
+
+<h3>
 Household Members
 </h3>
-`;if(!householdMembers.length){
+`;
 
-html+=`
+if(!members.length){
 
+html+=
+`
 <div class="empty">
 No members recorded.
 </div>
-`;}else{
+`;
+
+}else{
 
 html+=`
 
-<table class="detail-table"><tr><th>Full Name</th>
+<table class="detail-table">
+
+<tr>
+
+<th>Full Name</th>
 <th>Relationship</th>
 <th>Sex</th>
 <th>Age</th>
-<th>Other Information</th></tr>
-`;householdMembers.forEach(
+<th>Other</th>
+
+</tr>
+`;
+
+members.forEach(
 member=>{
 
 html+=`
 
-<tr><td>
+<tr>
+
+<td>
 ${escapeHtml(
 member.full_name ||
 member.name ||
 ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 member.relationship || ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 member.sex || ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 member.age ?? ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 member.other_information || ""
 )}
-</td></tr>
-`;}
+</td>
+
+</tr>
+`;
+
+}
 );
 
-html+="</table>";
+html+=
+"</table>";
 
 }
 
-html+="</div>";
+html+=
+"</div>";
 
 /* DOCUMENTS */
 
 html+=`
 
-<div class="detail-section"><h3>
+<div class="detail-section">
+
+<h3>
 Official Documents
 </h3>
-`;if(!householdDocuments.length){
+`;
 
-html+=`
+if(!documents.length){
 
+html+=
+`
 <div class="empty">
 No documents recorded.
 </div>
-`;}else{
+`;
+
+}else{
 
 html+=`
 
-<table class="detail-table"><tr><th>Document Number</th>
+<table class="detail-table">
+
+<tr>
+
+<th>Number</th>
 <th>Date</th>
 <th>Name</th>
 <th>File</th>
-<th>Other Information</th></tr>
-`;householdDocuments.forEach(
+<th>Other</th>
+
+</tr>
+`;
+
+documents.forEach(
 doc=>{
 
 html+=`
 
-<tr><td>
+<tr>
+
+<td>
 ${escapeHtml(
 doc.document_number || ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 doc.document_date || ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 doc.document_name || ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 doc.file_name || ""
 )}
-</td><td>
+</td>
+
+<td>
 ${escapeHtml(
 doc.other_information || ""
 )}
-</td></tr>
-`;}
+</td>
+
+</tr>
+`;
+
+}
 );
 
-html+="</table>";
+html+=
+"</table>";
 
 }
 
-html+="</div>";
+html+=
+"</div>";
 
 /* RELIEF */
 
 html+=`
 
-<div class="detail-section"><h3>
+<div class="detail-section">
+
+<h3>
 Relief Records
 </h3>
-`;if(!householdReliefs.length){
+`;
 
-html+=`
+if(!reliefs.length){
 
+html+=
+`
 <div class="empty">
 No relief records.
 </div>
-`;}else{
+`;
 
-for(
-const relief of householdReliefs
-){
+}else{
+
+reliefs.forEach(
+relief=>{
 
 const member =
-householdMembers.find(
+members.find(
 m =>
 String(m.id)===
 String(relief.member_id)
@@ -4959,7 +4952,11 @@ padding:14px;
 border-radius:10px;
 margin-bottom:12px;
 background:#faf7f5;
-"><strong>Member:</strong>
+">
+
+<strong>
+Member:
+</strong>
 
 ${escapeHtml(
 member
@@ -4970,15 +4967,14 @@ member.name ||
 ""
 )
 :
-(
-relief.member_id ||
 ""
-)
 )}
 
 <br><br>
 
-<strong>Relief Date:</strong>
+<strong>
+Relief Date:
+</strong>
 
 ${escapeHtml(
 relief.relief_date || ""
@@ -4986,7 +4982,9 @@ relief.relief_date || ""
 
 <br><br>
 
-<strong>Issued By:</strong>
+<strong>
+Issued By:
+</strong>
 
 ${escapeHtml(
 relief.issued_by || ""
@@ -4994,7 +4992,9 @@ relief.issued_by || ""
 
 <br><br>
 
-<strong>Signature:</strong>
+<strong>
+Signature:
+</strong>
 
 ${escapeHtml(
 relief.signature || ""
@@ -5002,7 +5002,9 @@ relief.signature || ""
 
 <br><br>
 
-<strong>Model 22:</strong>
+<strong>
+Model 22:
+</strong>
 
 ${escapeHtml(
 displayModel22(
@@ -5012,7 +5014,9 @@ relief.model_22
 
 <br><br>
 
-<strong>Model 22 Number:</strong>
+<strong>
+Model 22 Number:
+</strong>
 
 ${escapeHtml(
 relief.model_22_number || ""
@@ -5020,36 +5024,44 @@ relief.model_22_number || ""
 
 <br><br>
 
-<strong>Other Information:</strong>
+<strong>
+Other Information:
+</strong>
 
 ${escapeHtml(
 relief.other_information || ""
 )}
 
 </div>
-`;}
+`;
+
+}
+);
 
 }
 
-html+="</div>";
+html+=
+"</div>";
 
 document.getElementById(
 "modalContent"
-).innerHTML=html;
+).innerHTML =
+html;
 
 }catch(error){
 
 console.error(
-"OPEN HOUSEHOLD ERROR:",
+"OPEN HOUSEHOLD:",
 error
 );
 
 document.getElementById(
 "modalContent"
-).innerHTML =
+).innerHTML=
 `
+<div class="empty">
 
-<div class="empty">Could not load household details.
+Could not load details.
 
 <br><br>
 
@@ -5057,26 +5069,46 @@ ${escapeHtml(
 error.message
 )}
 
-</div>`;
+</div>
+`;
 
 }
 
 }
 
 /* =========================================================
-CLOSE MODAL
+   CLOSE MODAL
 ========================================================= */
 
 function closeModal(){
 
 document.getElementById(
 "detailsModal"
-).style.display="none";
+).style.display=
+"none";
 
 }
 
+window.addEventListener(
+"click",
+function(event){
+
+const modal =
+document.getElementById(
+"detailsModal"
+);
+
+if(event.target===modal){
+
+closeModal();
+
+}
+
+}
+);
+
 /* =========================================================
-SUMMARY
+   SUMMARY
 ========================================================= */
 
 async function loadSummary(){
@@ -5106,43 +5138,38 @@ return;
 
 }
 
-const householdIds =
+const ids =
 new Set(
 households.map(
-h => String(h.id)
+h =>
+String(h.id)
 )
 );
 
-const[
-allMembers,
-allReliefs,
-allDocuments
-]=
-await Promise.all([
-
-getTable(
+const members =
+await getTable(
 "emergency_members",
 "?select=id,household_id"
-),
+);
 
-getTable(
+const reliefs =
+await getTable(
 "emergency_reliefs",
 "?select=id,household_id"
-),
+);
 
-getTable(
+const documents =
+await getTable(
 "emergency_documents",
 "?select=id,household_id"
-)
-
-]);
+);
 
 document.getElementById(
 "totalMembers"
 ).textContent =
-allMembers.filter(
+members.filter(
 m =>
-householdIds.has(
+ids.has(
 String(m.household_id)
 )
 ).length;
@@ -5150,9 +5177,9 @@ String(m.household_id)
 document.getElementById(
 "totalReliefs"
 ).textContent =
-allReliefs.filter(
+reliefs.filter(
 r =>
-householdIds.has(
+ids.has(
 String(r.household_id)
 )
 ).length;
@@ -5160,9 +5187,9 @@ String(r.household_id)
 document.getElementById(
 "totalDocuments"
 ).textContent =
-allDocuments.filter(
+documents.filter(
 d =>
-householdIds.has(
+ids.has(
 String(d.household_id)
 )
 ).length;
@@ -5170,7 +5197,7 @@ String(d.household_id)
 }catch(error){
 
 console.error(
-"LOAD SUMMARY ERROR:",
+"SUMMARY ERROR:",
 error
 );
 
@@ -5179,7 +5206,7 @@ error
 }
 
 /* =========================================================
-REFRESH
+   REFRESH
 ========================================================= */
 
 async function refreshAll(){
@@ -5187,15 +5214,14 @@ async function refreshAll(){
 try{
 
 setStatus(
-"Refreshing AAFDRMC data..."
+"Refreshing..."
 );
 
 await resolveCurrentBranch();
 
-await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
+await loadItems();
+
+await loadHouseholds();
 
 await loadSummary();
 
@@ -5206,11 +5232,6 @@ showSuccess(
 );
 
 }catch(error){
-
-console.error(
-"REFRESH ERROR:",
-error
-);
 
 setStatus("");
 
@@ -5224,7 +5245,7 @@ error.message
 }
 
 /* =========================================================
-ESCAPE HTML
+   ESCAPE
 ========================================================= */
 
 function escapeHtml(value){
@@ -5239,66 +5260,37 @@ return "";
 }
 
 return String(value)
-.replace(/&/g,"&")
-.replace(/</g,"<")
-.replace(/>/g,">")
-.replace(/"/g,""")
-.replace(/'/g,"'");
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
 
 }
 
 /* =========================================================
-MODAL CLICK
-========================================================= */
-
-window.addEventListener(
-"click",
-function(event){
-
-const modal =
-document.getElementById(
-"detailsModal"
-);
-
-if(
-event.target===modal
-){
-
-closeModal();
-
-}
-
-}
-);
-
-/* =========================================================
-INITIAL LOAD
+   INITIALIZATION
 ========================================================= */
 
 async function init(){
 
 console.log(
-"AAFDRMC RELIEF PAGE STARTING..."
+"AAFDRMC Emergency Relief starting..."
 );
 
-setStatus(
-"Resolving branch..."
-);
+try{
 
-document.getElementById(
-"branchInfo"
-).textContent =
-"Branch: Resolving...";
-
-document.getElementById(
-"householdList"
-).innerHTML =
-`
-
-<div class="loading">
-Resolving branch...
-</div>
-`;try{
+/*
+IMPORTANT:
+Branch is resolved ONLY from
+localStorage + fixed branch map.
+No branches-table request.
+*/
 
 const branch =
 await resolveCurrentBranch();
@@ -5312,25 +5304,16 @@ setStatus(
 "Loading households and items..."
 );
 
-document.getElementById(
-"householdList"
-).innerHTML =
-`
+await loadItems();
 
-<div class="loading">
-Loading households...
-</div>
-`;await Promise.all([
-loadItems(),
-loadHouseholds()
-]);
+await loadHouseholds();
 
 await loadSummary();
 
 setStatus("");
 
 console.log(
-"AAFDRMC RELIEF PAGE READY"
+"AAFDRMC Emergency Relief READY."
 );
 
 }catch(error){
@@ -5345,16 +5328,20 @@ setStatus("");
 document.getElementById(
 "branchInfo"
 ).textContent =
-"Branch: Could not resolve";
+"Branch: Not Selected";
 
 document.getElementById(
 "householdList"
-).innerHTML =
+).innerHTML=
 `
 
-<div class="empty"><strong>
-AAFDRMC could not load this page.
-</strong><br><br>
+<div class="empty">
+
+<strong>
+Branch hin argamne.
+</strong>
+
+<br><br>
 
 ${escapeHtml(
 error.message
@@ -5362,22 +5349,19 @@ error.message
 
 <br><br>
 
-<button
-type="button"
-class="btn blue"
-onclick="init()">
+<a
+href="index.html"
+class="btn blue">
 
-↻ Try Again
+← Gara Login
 
-</button><br><br>
-
-If the problem continues,
-go back to Dashboard and login again.
+</a>
 
 </div>
-`;showError(
-"Page initialization failed: " +
-error.message
+`;
+
+showError(
+"Branch hin argamne. Login page irraa deebi'ii login godhi."
 );
 
 }
@@ -5385,7 +5369,7 @@ error.message
 }
 
 /* =========================================================
-START
+   START
 ========================================================= */
 
 window.addEventListener(
@@ -5394,5 +5378,6 @@ init
 );
 
 </script>
+
 </body>
 </html>
