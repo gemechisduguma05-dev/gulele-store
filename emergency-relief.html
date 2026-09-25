@@ -17,11 +17,11 @@
 <style>
 
 *{
-  box-sizing:border-box;
+  box-sizing:border-box
 }
 
 html{
-  scroll-behavior:smooth;
+  scroll-behavior:smooth
 }
 
 body{
@@ -29,15 +29,13 @@ body{
   font-family:Arial,sans-serif;
   color:#263238;
   min-height:100vh;
-
   background:linear-gradient(
     135deg,
     #ffe4ec,
     #ffd1dc,
     #fff0f4
-  );
+  )
 }
-
 
 /* =========================================================
    HEADER
@@ -50,82 +48,73 @@ header{
     #d81b60,
     #ec407a
   );
-
   color:white;
-
   padding:15px 16px;
-
-  box-shadow:
-    0 4px 14px rgba(0,0,0,.18);
+  box-shadow:0 4px 14px rgba(0,0,0,.18)
 }
 
 .header-inner{
   max-width:1200px;
   margin:auto;
-
+  position:relative;
+  min-height:72px;
   display:flex;
   justify-content:center;
   align-items:center;
-
-  width:100%;
 }
 
 .brand{
-  width:100%;
-
   display:flex;
   justify-content:center;
   align-items:center;
-
   gap:12px;
-
-  text-align:center;
+  min-width:0;
+  text-align:left
 }
 
 .brand-logo{
   width:60px;
   height:60px;
-
   object-fit:cover;
-
   border-radius:50%;
-
   border:3px solid white;
-
   background:white;
-
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.25);
-
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
   flex-shrink:0;
-
   display:block;
-
-  pointer-events:none;
+  pointer-events:none
 }
 
 .brand-text{
-  min-width:0;
-
-  text-align:center;
+  min-width:0
 }
 
 .brand-text h1{
   margin:0;
-
   font-size:23px;
-
-  line-height:1.2;
+  line-height:1.2
 }
 
 .brand-text p{
   margin:5px 0 0;
-
   font-size:13px;
-
-  opacity:.9;
+  opacity:.9
 }
 
+.user-box{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  text-align:right;
+  font-size:13px;
+  line-height:1.5
+}
+
+.user-name{
+  font-weight:bold;
+  font-size:14px
+}
 
 /* =========================================================
    TOP NAV
@@ -133,39 +122,25 @@ header{
 
 .top-nav{
   max-width:1200px;
-
   margin:12px auto 0;
-
   display:flex;
-
-  justify-content:center;
-
   gap:8px;
-
-  flex-wrap:wrap;
+  flex-wrap:wrap
 }
 
 .nav-btn{
   background:rgba(255,255,255,.18);
-
   color:white;
-
-  border:
-    1px solid rgba(255,255,255,.35);
-
+  border:1px solid rgba(255,255,255,.35);
   border-radius:9px;
-
   padding:9px 12px;
-
   font-weight:bold;
-
-  cursor:pointer;
+  cursor:pointer
 }
 
 .nav-btn:hover{
-  background:rgba(255,255,255,.3);
+  background:rgba(255,255,255,.3)
 }
-
 
 /* =========================================================
    MENU
@@ -173,65 +148,132 @@ header{
 
 .menu-panel{
   display:none;
-
   position:fixed;
-
   z-index:2000;
-
   top:74px;
-
   right:15px;
-
   width:250px;
-
   background:white;
-
   border-radius:14px;
-
-  box-shadow:
-    0 8px 30px rgba(0,0,0,.25);
-
-  overflow:hidden;
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+  overflow:hidden
 }
 
 .menu-panel.show{
-  display:block;
+  display:block
 }
 
 .menu-title{
   padding:14px;
-
   color:#880e4f;
-
   font-weight:bold;
-
-  border-bottom:
-    1px solid #eee;
+  border-bottom:1px solid #eee
 }
 
 .menu-item{
   width:100%;
-
   text-align:left;
-
   border-radius:0;
-
   background:white;
-
   color:#37474f;
-
   padding:13px 15px;
-
-  border-bottom:
-    1px solid #f1f1f1;
+  border-bottom:1px solid #f1f1f1
 }
 
 .menu-item:hover{
   background:#fff0f4;
-
-  color:#ad1457;
+  color:#ad1457
 }
 
+/* =========================================================
+   PROFILE MODAL
+   Kept for existing profile functions,
+   but Profile button is removed from header.
+========================================================= */
+
+.profile-modal{
+  display:none;
+  position:fixed;
+  z-index:3000;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  padding:15px
+}
+
+.profile-modal.show{
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+
+.profile-box{
+  width:min(430px,100%);
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.35)
+}
+
+.profile-top{
+  background:linear-gradient(
+    135deg,
+    #ad1457,
+    #ec407a
+  );
+  color:white;
+  text-align:center;
+  padding:25px 15px
+}
+
+.profile-photo{
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid white;
+  box-shadow:0 4px 15px rgba(0,0,0,.25);
+  background:white
+}
+
+.profile-top h2{
+  margin:12px 0 4px;
+  font-size:20px
+}
+
+.profile-top p{
+  margin:0;
+  opacity:.9;
+  font-size:13px
+}
+
+.profile-body{
+  padding:18px
+}
+
+.profile-info{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 0;
+  border-bottom:1px solid #eee;
+  font-size:14px
+}
+
+.profile-info span{
+  color:#78909c
+}
+
+.profile-info strong{
+  text-align:right;
+  word-break:break-word
+}
+
+.profile-close{
+  margin-top:16px;
+  width:100%;
+  background:#ad1457;
+  color:white
+}
 
 /* =========================================================
    MAIN
@@ -239,47 +281,32 @@ header{
 
 main{
   max-width:1200px;
-
   margin:auto;
-
-  padding:18px;
+  padding:18px
 }
 
 .status-bar{
   background:white;
-
   border-radius:12px;
-
   padding:12px 15px;
-
   margin-bottom:15px;
-
-  box-shadow:
-    0 3px 10px rgba(0,0,0,.08);
-
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
   display:flex;
-
   justify-content:space-between;
-
   gap:10px;
-
   flex-wrap:wrap;
-
-  font-size:13px;
+  font-size:13px
 }
 
 .status-ok{
   color:#087f5b;
-
-  font-weight:bold;
+  font-weight:bold
 }
 
 .status-error{
   color:#c62828;
-
-  font-weight:bold;
+  font-weight:bold
 }
-
 
 /* =========================================================
    SUMMARY
@@ -287,42 +314,29 @@ main{
 
 .summary{
   display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
+  grid-template-columns:repeat(4,1fr);
   gap:12px;
-
-  margin-bottom:18px;
+  margin-bottom:18px
 }
 
 .summary-card{
   background:white;
-
   border-radius:15px;
-
   padding:16px;
-
   text-align:center;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.09);
+  box-shadow:0 3px 12px rgba(0,0,0,.09)
 }
 
 .summary-card strong{
   display:block;
-
   font-size:27px;
-
-  color:#ad1457;
+  color:#ad1457
 }
 
 .summary-card span{
   font-size:13px;
-
-  color:#607d8b;
+  color:#607d8b
 }
-
 
 /* =========================================================
    TOOLBAR
@@ -330,29 +344,19 @@ main{
 
 .toolbar{
   background:white;
-
   border-radius:15px;
-
   padding:14px;
-
   margin-bottom:15px;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.09);
-
+  box-shadow:0 3px 12px rgba(0,0,0,.09);
   display:flex;
-
   gap:10px;
-
-  flex-wrap:wrap;
+  flex-wrap:wrap
 }
 
 .toolbar input{
   flex:1;
-
-  min-width:220px;
+  min-width:220px
 }
-
 
 /* =========================================================
    BUTTONS
@@ -360,50 +364,40 @@ main{
 
 button{
   border:0;
-
   border-radius:9px;
-
   padding:11px 15px;
-
   cursor:pointer;
-
-  font-weight:bold;
+  font-weight:bold
 }
 
 button:hover{
-  opacity:.9;
+  opacity:.9
 }
 
 .btn-primary{
   background:#ad1457;
-
-  color:white;
+  color:white
 }
 
 .btn-secondary{
   background:#f8bbd0;
-
-  color:#880e4f;
+  color:#880e4f
 }
 
 .btn-success{
   background:#2e7d32;
-
-  color:white;
+  color:white
 }
 
 .btn-danger{
   background:#c62828;
-
-  color:white;
+  color:white
 }
 
 .btn-dark{
   background:#37474f;
-
-  color:white;
+  color:white
 }
-
 
 /* =========================================================
    SECTIONS
@@ -411,78 +405,55 @@ button:hover{
 
 .section{
   background:white;
-
   border-radius:16px;
-
   padding:18px;
-
   margin-bottom:18px;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.09);
+  box-shadow:0 3px 12px rgba(0,0,0,.09)
 }
 
 .section h2{
   margin-top:0;
-
   color:#880e4f;
-
-  font-size:19px;
+  font-size:19px
 }
 
 .folder-list{
   display:flex;
-
   flex-direction:column;
-
-  gap:9px;
+  gap:9px
 }
 
 .folder{
   background:#fff5f8;
-
-  border:
-    1px solid #f8bbd0;
-
+  border:1px solid #f8bbd0;
   border-radius:11px;
-
   padding:14px;
-
   cursor:pointer;
-
   display:flex;
-
   align-items:center;
-
   gap:10px;
-
-  transition:.2s;
+  transition:.2s
 }
 
 .folder:hover{
   background:#fce4ec;
-
-  transform:translateY(-1px);
+  transform:translateY(-1px)
 }
 
 .folder-icon{
-  font-size:23px;
+  font-size:23px
 }
 
 .folder-name{
   font-weight:bold;
-
-  color:#880e4f;
+  color:#880e4f
 }
 
 .empty{
   text-align:center;
-
   padding:25px;
-
-  color:#78909c;
+  color:#78909c
 }
-
 
 /* =========================================================
    FORMS
@@ -490,136 +461,98 @@ button:hover{
 
 .form-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:13px;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px
 }
 
 .form-group{
   display:flex;
-
   flex-direction:column;
-
-  gap:6px;
+  gap:6px
 }
 
 .form-group.full{
-  grid-column:1/-1;
+  grid-column:1/-1
 }
 
 label{
   font-size:13px;
-
   font-weight:bold;
-
-  color:#455a64;
+  color:#455a64
 }
 
 input,
 select,
 textarea{
   width:100%;
-
   padding:11px;
-
-  border:
-    1px solid #cfd8dc;
-
+  border:1px solid #cfd8dc;
   border-radius:8px;
-
   font:inherit;
-
-  background:white;
+  background:white
 }
 
 textarea{
   min-height:80px;
-
-  resize:vertical;
+  resize:vertical
 }
 
 input:focus,
 select:focus,
 textarea:focus{
   outline:none;
-
   border-color:#ec407a;
-
-  box-shadow:
-    0 0 0 2px
-    rgba(236,64,122,.12);
+  box-shadow:0 0 0 2px rgba(236,64,122,.12)
 }
 
 .member-row,
 .document-row,
 .relief-item-row{
-  border:
-    1px solid #f3c0d0;
-
+  border:1px solid #f3c0d0;
   background:#fff8fa;
-
   border-radius:12px;
-
   padding:12px;
-
-  margin-bottom:10px;
+  margin-bottom:10px
 }
 
 .row-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:10px;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px
 }
 
 .row-grid.three{
-  grid-template-columns:
-    repeat(3,1fr);
+  grid-template-columns:repeat(3,1fr)
 }
 
 .row-grid.four{
-  grid-template-columns:
-    repeat(4,1fr);
+  grid-template-columns:repeat(4,1fr)
 }
 
 .row-actions{
   margin-top:10px;
-
   display:flex;
-
-  justify-content:flex-end;
+  justify-content:flex-end
 }
 
 .readonly{
-  background:#eceff1;
+  background:#eceff1
 }
 
 .stock-info{
   margin-top:7px;
-
   padding:8px;
-
   border-radius:7px;
-
   background:#e8f5e9;
-
   color:#2e7d32;
-
   font-size:12px;
-
-  font-weight:bold;
+  font-weight:bold
 }
 
 .no-stock{
   background:#ffebee;
-
-  color:#c62828;
+  color:#c62828
 }
-
 
 /* =========================================================
    HOUSEHOLD MODAL
@@ -627,33 +560,21 @@ textarea:focus{
 
 .modal{
   display:none;
-
   position:fixed;
-
   z-index:1000;
-
   inset:0;
-
   background:rgba(0,0,0,.55);
-
   padding:15px;
-
-  overflow:auto;
+  overflow:auto
 }
 
 .modal-box{
   max-width:950px;
-
   margin:20px auto;
-
   background:white;
-
   border-radius:17px;
-
   overflow:hidden;
-
-  box-shadow:
-    0 10px 35px rgba(0,0,0,.3);
+  box-shadow:0 10px 35px rgba(0,0,0,.3)
 }
 
 .modal-header{
@@ -662,139 +583,98 @@ textarea:focus{
     #ad1457,
     #ec407a
   );
-
   color:white;
-
   padding:16px;
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
-  gap:10px;
+  gap:10px
 }
 
 .modal-header h2{
   margin:0;
-
-  font-size:19px;
+  font-size:19px
 }
 
 .close{
   background:white;
-
   color:#ad1457;
-
   border-radius:50%;
-
   width:36px;
-
   height:36px;
-
   padding:0;
-
-  font-size:20px;
+  font-size:20px
 }
 
 .modal-body{
-  padding:18px;
+  padding:18px
 }
 
 .info-card{
-  border:
-    1px solid #f3c0d0;
-
+  border:1px solid #f3c0d0;
   background:#fff8fa;
-
   border-radius:12px;
-
   padding:13px;
-
-  margin-bottom:14px;
+  margin-bottom:14px
 }
 
 .info-card h3{
   margin:0 0 10px;
-
   color:#880e4f;
-
-  font-size:16px;
+  font-size:16px
 }
 
 .info-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:9px;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px
 }
 
 .info-item{
   background:white;
-
   padding:9px;
-
-  border-radius:7px;
+  border-radius:7px
 }
 
 .info-item small{
   display:block;
-
   color:#78909c;
-
-  font-size:11px;
+  font-size:11px
 }
 
 .info-item strong{
   display:block;
-
   margin-top:3px;
-
-  word-break:break-word;
+  word-break:break-word
 }
 
 .member-card,
 .relief-card,
 .document-card{
   background:white;
-
-  border:
-    1px solid #eee;
-
+  border:1px solid #eee;
   border-radius:9px;
-
   padding:10px;
-
-  margin-bottom:8px;
+  margin-bottom:8px
 }
 
 .relief-item{
   padding:7px 9px;
-
   background:#f5f5f5;
-
   border-radius:7px;
-
   margin-top:5px;
-
-  font-size:13px;
+  font-size:13px
 }
 
 .loading{
   text-align:center;
-
   padding:20px;
-
-  color:#78909c;
+  color:#78909c
 }
 
 .hidden{
-  display:none!important;
+  display:none!important
 }
-
 
 /* =========================================================
    RESPONSIVE
@@ -803,8 +683,7 @@ textarea:focus{
 @media(max-width:800px){
 
   .summary{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr)
   }
 
   .form-grid,
@@ -812,7 +691,28 @@ textarea:focus{
   .row-grid,
   .row-grid.three,
   .row-grid.four{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
+  }
+
+  .header-inner{
+    position:relative;
+    min-height:auto;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .brand{
+    justify-content:center;
+    text-align:center;
+  }
+
+  .user-box{
+    position:static;
+    transform:none;
+    text-align:center;
+    width:100%;
+    margin-top:5px;
   }
 
 }
@@ -820,48 +720,45 @@ textarea:focus{
 @media(max-width:480px){
 
   main{
-    padding:10px;
+    padding:10px
   }
 
   .summary{
-    gap:8px;
+    gap:8px
   }
 
   .summary-card{
-    padding:12px 7px;
+    padding:12px 7px
   }
 
   .summary-card strong{
-    font-size:22px;
+    font-size:22px
   }
 
   .toolbar{
-    padding:10px;
+    padding:10px
   }
 
   .toolbar button{
-    width:100%;
+    width:100%
   }
 
   .top-nav{
     display:grid;
-
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns:1fr 1fr
   }
 
   .nav-btn{
-    width:100%;
+    width:100%
   }
 
   .brand-logo{
     width:54px;
-
-    height:54px;
+    height:54px
   }
 
   .brand-text h1{
-    font-size:20px;
+    font-size:20px
   }
 
 }
@@ -870,13 +767,7 @@ textarea:focus{
 
 </head>
 
-
 <body>
-
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
 
 <header>
 
@@ -905,36 +796,40 @@ textarea:focus{
 
     </div>
 
-  </div>
+    <div class="user-box">
 
+      <div
+        class="user-name"
+        id="userProfile">
+        User loading...
+      </div>
+
+      <div id="branchInfo">
+        Branch loading...
+      </div>
+
+    </div>
+
+  </div>
 
   <div class="top-nav">
 
     <button
       class="nav-btn"
       onclick="goDashboard()">
-
       ← Dashboard
-
     </button>
-
 
     <button
       class="nav-btn"
       onclick="toggleMenu()">
-
       ☰ Menu
-
     </button>
 
   </div>
 
 </header>
 
-
-<!-- =========================================================
-     MENU
-========================================================= -->
 
 <div
   id="menuPanel"
@@ -944,69 +839,108 @@ textarea:focus{
     AAFDRMC Menu
   </div>
 
-
   <button
     class="menu-item"
     onclick="goDashboard()">
-
     🏠 Dashboard
-
   </button>
-
 
   <button
     class="menu-item"
     onclick="goItems()">
-
     📦 Items
-
   </button>
-
 
   <button
     class="menu-item"
     onclick="goStock()">
-
     📥 Stock IN / 📤 Stock OUT
-
   </button>
-
 
   <button
     class="menu-item"
     onclick="goReports()">
-
     📊 Stock Report
-
   </button>
-
 
   <button
     class="menu-item"
     onclick="goRelief()">
-
     🚑 Relief Report
-
   </button>
-
 
   <button
     class="menu-item"
     onclick="goSettings()">
-
     ⚙️ Settings
-
   </button>
 
 </div>
 
 
-<!-- =========================================================
-     MAIN
-========================================================= -->
+<div
+  id="profileModal"
+  class="profile-modal"
+  onclick="closeProfileOutside(event)">
+
+  <div class="profile-box">
+
+    <div class="profile-top">
+
+      <img
+        id="profilePhoto"
+        class="profile-photo"
+        src="./1788633150526.jpg"
+        alt="Profile Picture"
+        onerror="this.style.display='none'"
+      >
+
+      <h2 id="profileName">
+        User
+      </h2>
+
+      <p id="profileRole">
+        User
+      </p>
+
+    </div>
+
+    <div class="profile-body">
+
+      <div class="profile-info">
+        <span>Username</span>
+        <strong id="profileUsername">-</strong>
+      </div>
+
+      <div class="profile-info">
+        <span>Role</span>
+        <strong id="profileRoleValue">-</strong>
+      </div>
+
+      <div class="profile-info">
+        <span>Branch</span>
+        <strong id="profileBranch">-</strong>
+      </div>
+
+      <div class="profile-info">
+        <span>Branch Code</span>
+        <strong id="profileBranchCode">-</strong>
+      </div>
+
+      <button
+        class="profile-close"
+        onclick="closeProfile()">
+        Close Profile
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 
 <main>
-
 
   <div class="status-bar">
 
@@ -1019,70 +953,30 @@ textarea:focus{
   </div>
 
 
-  <!-- =======================================================
-       SUMMARY
-  ======================================================== -->
-
   <div class="summary">
 
-
     <div class="summary-card">
-
-      <strong id="householdCount">
-        0
-      </strong>
-
-      <span>
-        Households
-      </span>
-
+      <strong id="householdCount">0</strong>
+      <span>Households</span>
     </div>
 
-
     <div class="summary-card">
-
-      <strong id="memberCount">
-        0
-      </strong>
-
-      <span>
-        Members
-      </span>
-
+      <strong id="memberCount">0</strong>
+      <span>Members</span>
     </div>
 
-
     <div class="summary-card">
-
-      <strong id="reliefCount">
-        0
-      </strong>
-
-      <span>
-        Reliefs
-      </span>
-
+      <strong id="reliefCount">0</strong>
+      <span>Reliefs</span>
     </div>
 
-
     <div class="summary-card">
-
-      <strong id="documentCount">
-        0
-      </strong>
-
-      <span>
-        Documents
-      </span>
-
+      <strong id="documentCount">0</strong>
+      <span>Documents</span>
     </div>
 
   </div>
 
-
-  <!-- =======================================================
-       TOOLBAR
-  ======================================================== -->
 
   <div class="toolbar">
 
@@ -1093,46 +987,32 @@ textarea:focus{
       oninput="filterHouseholds()"
     >
 
-
     <button
       class="btn-primary"
       onclick="openHouseholdForm()">
-
       + New Household
-
     </button>
-
 
     <button
       class="btn-success"
       onclick="openReliefForm()">
-
       + Individual Relief
-
     </button>
-
 
     <button
       class="btn-secondary"
       onclick="refreshAll()">
-
       ↻ Refresh
-
     </button>
 
   </div>
 
-
-  <!-- =======================================================
-       HOUSEHOLD LIST
-  ======================================================== -->
 
   <div class="section">
 
     <h2>
       Household Folders
     </h2>
-
 
     <div
       id="householdList"
@@ -1147,10 +1027,6 @@ textarea:focus{
   </div>
 
 
-  <!-- =======================================================
-       HOUSEHOLD FORM
-  ======================================================== -->
-
   <div
     id="householdSection"
     class="section hidden">
@@ -1159,14 +1035,11 @@ textarea:focus{
       New Household
     </h2>
 
-
     <form
       id="householdForm"
       onsubmit="saveHousehold(event)">
 
-
       <div class="form-grid">
-
 
         <div class="form-group">
 
@@ -1195,29 +1068,12 @@ textarea:focus{
               Select
             </option>
 
-            <option>
-              Flood
-            </option>
-
-            <option>
-              Fire
-            </option>
-
-            <option>
-              Drought
-            </option>
-
-            <option>
-              Landslide
-            </option>
-
-            <option>
-              Conflict
-            </option>
-
-            <option>
-              Other
-            </option>
+            <option>Flood</option>
+            <option>Fire</option>
+            <option>Drought</option>
+            <option>Landslide</option>
+            <option>Conflict</option>
+            <option>Other</option>
 
           </select>
 
@@ -1239,57 +1095,32 @@ textarea:focus{
 
 
         <div class="form-group">
-
-          <label>
-            City
-          </label>
-
+          <label>City</label>
           <input id="city">
-
         </div>
 
 
         <div class="form-group">
-
-          <label>
-            Sub-City
-          </label>
-
+          <label>Sub-City</label>
           <input id="subCity">
-
         </div>
 
 
         <div class="form-group">
-
-          <label>
-            Woreda
-          </label>
-
+          <label>Woreda</label>
           <input id="woreda">
-
         </div>
 
 
         <div class="form-group">
-
-          <label>
-            Specific Location
-          </label>
-
+          <label>Specific Location</label>
           <input id="specificLocation">
-
         </div>
 
 
         <div class="form-group">
-
-          <label>
-            House Number
-          </label>
-
+          <label>House Number</label>
           <input id="houseNumber">
-
         </div>
 
 
@@ -1305,8 +1136,7 @@ textarea:focus{
             maxlength="16"
             minlength="16"
             pattern="[0-9]{16}"
-            placeholder="Optional - exactly 16 digits"
-          >
+            placeholder="Optional - exactly 16 digits">
 
         </div>
 
@@ -1327,47 +1157,33 @@ textarea:focus{
 
       <hr>
 
-
       <h3>
         Members
       </h3>
 
-
-      <div
-        id="membersContainer">
-      </div>
-
+      <div id="membersContainer"></div>
 
       <button
         type="button"
         class="btn-secondary"
         onclick="addMemberRow()">
-
         + Add Member
-
       </button>
 
 
       <hr>
 
-
       <h3>
         Documents
       </h3>
 
-
-      <div
-        id="documentsContainer">
-      </div>
-
+      <div id="documentsContainer"></div>
 
       <button
         type="button"
         class="btn-secondary"
         onclick="addDocumentRow()">
-
         + Add Document
-
       </button>
 
 
@@ -1379,23 +1195,17 @@ textarea:focus{
           flex-wrap:wrap
         ">
 
-
         <button
           type="submit"
           class="btn-primary">
-
           Save Household
-
         </button>
-
 
         <button
           type="button"
           class="btn-dark"
           onclick="closeHouseholdForm()">
-
           Cancel
-
         </button>
 
       </div>
@@ -1413,19 +1223,15 @@ textarea:focus{
     id="reliefSection"
     class="section hidden">
 
-
     <h2>
       Individual Emergency Relief
     </h2>
-
 
     <form
       id="reliefForm"
       onsubmit="saveRelief(event)">
 
-
       <div class="form-grid">
-
 
         <div class="form-group">
 
@@ -1563,24 +1369,17 @@ textarea:focus{
 
       <hr>
 
-
       <h3>
         Relief Items
       </h3>
 
-
-      <div
-        id="reliefItemsContainer">
-      </div>
-
+      <div id="reliefItemsContainer"></div>
 
       <button
         type="button"
         class="btn-secondary"
         onclick="addReliefItem()">
-
         + Add Item
-
       </button>
 
 
@@ -1592,23 +1391,17 @@ textarea:focus{
           flex-wrap:wrap
         ">
 
-
         <button
           type="submit"
           class="btn-success">
-
           Save Relief & Stock OUT
-
         </button>
-
 
         <button
           type="button"
           class="btn-dark"
           onclick="closeReliefForm()">
-
           Cancel
-
         </button>
 
       </div>
@@ -1620,18 +1413,12 @@ textarea:focus{
 </main>
 
 
-<!-- =========================================================
-     HOUSEHOLD MODAL
-========================================================= -->
-
 <div
   id="householdModal"
   class="modal"
   onclick="closeModalOutside(event)">
 
-
   <div class="modal-box">
-
 
     <div class="modal-header">
 
@@ -1639,17 +1426,13 @@ textarea:focus{
         Household Profile
       </h2>
 
-
       <button
         class="close"
         onclick="closeHouseholdModal()">
-
         ×
-
       </button>
 
     </div>
-
 
     <div
       id="modalBody"
@@ -1683,18 +1466,14 @@ const REST_URL =
 
 
 /* =========================================================
-   USER / BRANCH
+   USER PROFILE
 ========================================================= */
 
-let currentUser = null;
-
-let currentRole = null;
-
-let branchId = null;
-
-let branchCode = null;
-
-let branchName = null;
+let currentUser=null;
+let currentRole=null;
+let branchId=null;
+let branchCode=null;
+let branchName=null;
 
 
 function getStoredValue(keys){
@@ -1705,9 +1484,9 @@ function getStoredValue(keys){
       localStorage.getItem(key);
 
     if(
-      value !== null &&
-      value !== undefined &&
-      String(value).trim() !== ""
+      value!==null &&
+      value!==undefined &&
+      String(value).trim()!==""
     ){
 
       return String(value).trim();
@@ -1731,13 +1510,11 @@ function loadUserProfile(){
       "email"
     ]);
 
-
   currentRole =
     getStoredValue([
       "user_role",
       "role"
     ]);
-
 
   branchId =
     getStoredValue([
@@ -1745,19 +1522,154 @@ function loadUserProfile(){
       "selected_branch_id"
     ]);
 
-
   branchCode =
     getStoredValue([
       "selected_branch_code",
       "branch_code"
     ]);
 
-
   branchName =
     getStoredValue([
       "selected_branch_name",
       "branch_name"
     ]);
+
+
+  const profile =
+    document.getElementById(
+      "userProfile"
+    );
+
+  const branch =
+    document.getElementById(
+      "branchInfo"
+    );
+
+
+  if(profile){
+
+    profile.textContent =
+      currentUser
+        ? currentUser+
+          (
+            currentRole
+              ? " ("+currentRole+")"
+              : ""
+          )
+        : "User";
+
+  }
+
+
+  if(branch){
+
+    branch.textContent =
+      branchName||branchCode
+        ? (
+            branchName||"Branch"
+          )+
+          (
+            branchCode
+              ? " • "+branchCode
+              : ""
+          )
+        : "Branch not selected";
+
+  }
+
+
+  updateProfileModal();
+
+}
+
+
+function updateProfileModal(){
+
+  const photo =
+    document.getElementById(
+      "profilePhoto"
+    );
+
+  if(photo){
+
+    photo.src=
+      "./1788633150526.jpg";
+
+  }
+
+
+  const name =
+    document.getElementById(
+      "profileName"
+    );
+
+  const username =
+    document.getElementById(
+      "profileUsername"
+    );
+
+  const role =
+    document.getElementById(
+      "profileRole"
+    );
+
+  const roleValue =
+    document.getElementById(
+      "profileRoleValue"
+    );
+
+  const branch =
+    document.getElementById(
+      "profileBranch"
+    );
+
+  const code =
+    document.getElementById(
+      "profileBranchCode"
+    );
+
+
+  if(name){
+
+    name.textContent=
+      currentUser||"User";
+
+  }
+
+  if(username){
+
+    username.textContent=
+      currentUser||"-";
+
+  }
+
+  if(role){
+
+    role.textContent=
+      currentRole||"User";
+
+  }
+
+  if(roleValue){
+
+    roleValue.textContent=
+      currentRole||"-";
+
+  }
+
+  if(branch){
+
+    branch.textContent=
+      branchName||"-";
+
+  }
+
+  if(code){
+
+    code.textContent=
+      branchCode||"-";
+
+  }
 
 }
 
@@ -1783,7 +1695,7 @@ function goDashboard(){
 
   closeMenu();
 
-  window.location.href =
+  window.location.href=
     "dashboard.html";
 
 }
@@ -1793,7 +1705,7 @@ function goItems(){
 
   closeMenu();
 
-  window.location.href =
+  window.location.href=
     "items.html";
 
 }
@@ -1803,7 +1715,7 @@ function goStock(){
 
   closeMenu();
 
-  window.location.href =
+  window.location.href=
     "stock.html";
 
 }
@@ -1813,7 +1725,7 @@ function goReports(){
 
   closeMenu();
 
-  window.location.href =
+  window.location.href=
     "reports.html";
 
 }
@@ -1823,7 +1735,7 @@ function goRelief(){
 
   closeMenu();
 
-  window.location.href =
+  window.location.href=
     "emergency-relief.html";
 
 }
@@ -1833,7 +1745,7 @@ function goSettings(){
 
   closeMenu();
 
-  window.location.href =
+  window.location.href=
     "settings.html";
 
 }
@@ -1850,9 +1762,13 @@ function toggleMenu(){
       "menuPanel"
     );
 
-  menu.classList.toggle(
-    "show"
-  );
+  if(menu){
+
+    menu.classList.toggle(
+      "show"
+    );
+
+  }
 
 }
 
@@ -1907,6 +1823,65 @@ document.addEventListener(
 
 
 /* =========================================================
+   PROFILE MODAL
+========================================================= */
+
+function openProfile(){
+
+  closeMenu();
+
+  loadUserProfile();
+
+  const modal =
+    document.getElementById(
+      "profileModal"
+    );
+
+  if(modal){
+
+    modal.classList.add("show");
+
+  }
+
+}
+
+
+function closeProfile(){
+
+  const modal =
+    document.getElementById(
+      "profileModal"
+    );
+
+  if(modal){
+
+    modal.classList.remove("show");
+
+  }
+
+}
+
+
+function closeProfileOutside(event){
+
+  const modal =
+    document.getElementById(
+      "profileModal"
+    );
+
+  if(
+    modal &&
+    event.target===modal
+  ){
+
+    closeProfile();
+
+  }
+
+}
+
+
+/* =========================================================
    API
 ========================================================= */
 
@@ -1919,22 +1894,22 @@ async function apiRequest(
     method="GET",
     query="",
     body=null
-  } = options;
+  }=options;
 
 
-  const headers = {
+  const headers={
 
     "apikey":
       SUPABASE_KEY,
 
     "Authorization":
-      "Bearer " + SUPABASE_KEY,
+      "Bearer "+SUPABASE_KEY,
 
     "Content-Type":
       "application/json",
 
     "Prefer":
-      method === "POST"
+      method==="POST"
         ? "return=representation"
         : "return=minimal"
 
@@ -1943,12 +1918,12 @@ async function apiRequest(
 
   const response =
     await fetch(
-      REST_URL + "/" + table + query,
+      REST_URL+"/"+table+query,
       {
         method,
         headers,
         body:
-          body === null
+          body===null
             ? undefined
             : JSON.stringify(body)
       }
@@ -1959,19 +1934,19 @@ async function apiRequest(
     await response.text();
 
 
-  let data = null;
+  let data=null;
 
 
   try{
 
-    data =
+    data=
       text
         ? JSON.parse(text)
         : null;
 
   }catch{
 
-    data = text;
+    data=text;
 
   }
 
@@ -1979,14 +1954,12 @@ async function apiRequest(
   if(!response.ok){
 
     throw new Error(
-      table +
-      ": " +
-      response.status +
-      " " +
+      table+": "+
+      response.status+" "+
       (
-        data?.message ||
-        data?.error ||
-        text ||
+        data?.message||
+        data?.error||
+        text||
         "Request failed"
       )
     );
@@ -2035,37 +2008,10 @@ async function insertTable(
    DATA
 ========================================================= */
 
-let householdsCache = [];
-
-let itemsCache = [];
-
-let stockBalanceCache = {};
-
-let memberSearchCache = [];
-
-
-/* =========================================================
-   DECIMAL QUANTITY HELPER
-========================================================= */
-
-function normalizeQuantity(value){
-
-  const number =
-    Number(value);
-
-  if(
-    !Number.isFinite(number)
-  ){
-
-    return NaN;
-
-  }
-
-  return Math.round(
-    number * 100
-  ) / 100;
-
-}
+let householdsCache=[];
+let itemsCache=[];
+let stockBalanceCache={};
+let memberSearchCache=[];
 
 
 /* =========================================================
@@ -2083,9 +2029,8 @@ async function refreshAll(){
     );
 
 
-  status.className = "";
-
-  status.textContent =
+  status.className="";
+  status.textContent=
     "Loading...";
 
 
@@ -2105,17 +2050,17 @@ async function refreshAll(){
     ]);
 
 
-    status.textContent =
+    status.textContent=
       "Connected • Data loaded";
 
-    status.className =
+    status.className=
       "status-ok";
 
 
     document.getElementById(
       "lastUpdated"
-    ).textContent =
-      "Updated: " +
+    ).textContent=
+      "Updated: "+
       new Date().toLocaleString();
 
 
@@ -2123,11 +2068,10 @@ async function refreshAll(){
 
     console.error(error);
 
-
-    status.textContent =
+    status.textContent=
       error.message;
 
-    status.className =
+    status.className=
       "status-error";
 
   }
@@ -2154,13 +2098,9 @@ async function loadHouseholds(){
     );
 
 
-  if(
-    !Array.isArray(
-      householdsCache
-    )
-  ){
+  if(!Array.isArray(householdsCache)){
 
-    householdsCache = [];
+    householdsCache=[];
 
   }
 
@@ -2192,7 +2132,7 @@ async function loadMemberSearchCache(){
       error
     );
 
-    memberSearchCache = [];
+    memberSearchCache=[];
 
   }
 
@@ -2209,7 +2149,7 @@ function renderHouseholds(list){
 
   if(!list.length){
 
-    container.innerHTML = `
+    container.innerHTML=`
 
       <div class="empty">
         No household folders found.
@@ -2223,41 +2163,39 @@ function renderHouseholds(list){
 
 
   container.innerHTML =
-    list.map(
-      h => {
+    list.map(h=>{
 
-        const name =
-          escapeHtml(
-            h.household_name ||
-            h.representative_name ||
-            "Unnamed Household"
-          );
+      const name =
+        escapeHtml(
+          h.household_name||
+          h.representative_name||
+          "Unnamed Household"
+        );
 
 
-        return `
+      return `
 
-          <div
-            class="folder"
-            onclick="openHousehold('${h.id}')">
+        <div
+          class="folder"
+          onclick="openHousehold('${h.id}')">
 
-            <span class="folder-icon">
-              📁
-            </span>
+          <span class="folder-icon">
+            📁
+          </span>
 
-            <span class="folder-name">
-              ${name}
-            </span>
+          <span class="folder-name">
+            ${name}
+          </span>
 
-            <span style="margin-left:auto">
-              ›
-            </span>
+          <span style="margin-left:auto">
+            ›
+          </span>
 
-          </div>
+        </div>
 
-        `;
+      `;
 
-      }
-    ).join("");
+    }).join("");
 
 }
 
@@ -2290,22 +2228,22 @@ async function filterHouseholds(){
 
 
   memberSearchCache.forEach(
-    member => {
+    member=>{
 
       const fullName =
         String(
-          member.full_name || ""
+          member.full_name||""
         ).toLowerCase();
 
 
       const fan =
         String(
-          member.fan_number || ""
+          member.fan_number||""
         ).toLowerCase();
 
 
       if(
-        fullName.includes(search) ||
+        fullName.includes(search)||
         fan.includes(search)
       ){
 
@@ -2323,45 +2261,45 @@ async function filterHouseholds(){
 
   const filtered =
     householdsCache.filter(
-      h => {
+      h=>{
 
         const name =
           String(
-            h.household_name ||
-            h.representative_name ||
+            h.household_name||
+            h.representative_name||
             ""
           ).toLowerCase();
 
 
         const fan =
           String(
-            h.fan_number ||
-            h.household_fan_number ||
+            h.fan_number||
+            h.household_fan_number||
             ""
           ).toLowerCase();
 
 
         const disaster =
           String(
-            h.disaster_type || ""
+            h.disaster_type||""
           ).toLowerCase();
 
 
         const date =
           String(
-            h.disaster_date || ""
+            h.disaster_date||""
           ).toLowerCase();
 
 
-        return (
+        return(
 
-          name.includes(search) ||
+          name.includes(search)||
 
-          fan.includes(search) ||
+          fan.includes(search)||
 
-          disaster.includes(search) ||
+          disaster.includes(search)||
 
-          date.includes(search) ||
+          date.includes(search)||
 
           matchingHouseholdIds.has(
             String(h.id)
@@ -2398,26 +2336,24 @@ async function updateSummary(){
 
   const householdIds =
     households.map(
-      h => h.id
+      h=>h.id
     );
 
 
-  let members = [];
-
-  let reliefs = [];
-
-  let documents = [];
+  let members=[];
+  let reliefs=[];
+  let documents=[];
 
 
   if(householdIds.length){
 
     const idList =
-      "(" +
+      "("+
       householdIds
         .map(
-          id => `"${id}"`
+          id=>`"${id}"`
         )
-        .join(",") +
+        .join(",")+
       ")";
 
 
@@ -2476,25 +2412,25 @@ async function updateSummary(){
 
   document.getElementById(
     "householdCount"
-  ).textContent =
+  ).textContent=
     households.length;
 
 
   document.getElementById(
     "memberCount"
-  ).textContent =
+  ).textContent=
     members.length;
 
 
   document.getElementById(
     "reliefCount"
-  ).textContent =
+  ).textContent=
     reliefs.length;
 
 
   document.getElementById(
     "documentCount"
-  ).textContent =
+  ).textContent=
     documents.length;
 
 }
@@ -2513,9 +2449,7 @@ function openHouseholdForm(){
     .getElementById(
       "householdSection"
     )
-    .classList.remove(
-      "hidden"
-    );
+    .classList.remove("hidden");
 
 
   document
@@ -2561,9 +2495,7 @@ function closeHouseholdForm(){
     .getElementById(
       "householdSection"
     )
-    .classList.add(
-      "hidden"
-    );
+    .classList.add("hidden");
 
 }
 
@@ -2582,11 +2514,11 @@ function addMemberRow(){
     );
 
 
-  row.className =
+  row.className=
     "member-row";
 
 
-  row.innerHTML = `
+  row.innerHTML=`
 
     <div class="row-grid three">
 
@@ -2617,29 +2549,12 @@ function addMemberRow(){
             Select
           </option>
 
-          <option>
-            Husband
-          </option>
-
-          <option>
-            Wife
-          </option>
-
-          <option>
-            Child
-          </option>
-
-          <option>
-            Relative
-          </option>
-
-          <option>
-            Domestic Worker
-          </option>
-
-          <option>
-            Other
-          </option>
+          <option>Husband</option>
+          <option>Wife</option>
+          <option>Child</option>
+          <option>Relative</option>
+          <option>Domestic Worker</option>
+          <option>Other</option>
 
         </select>
 
@@ -2660,13 +2575,8 @@ function addMemberRow(){
             Select
           </option>
 
-          <option>
-            Male
-          </option>
-
-          <option>
-            Female
-          </option>
+          <option>Male</option>
+          <option>Female</option>
 
         </select>
 
@@ -2755,11 +2665,11 @@ function addDocumentRow(){
     );
 
 
-  row.className =
+  row.className=
     "document-row";
 
 
-  row.innerHTML = `
+  row.innerHTML=`
 
     <div class="row-grid">
 
@@ -2905,7 +2815,7 @@ async function saveHousehold(event){
 
     const members =
       memberRows.map(
-        row => {
+        row=>{
 
           const fan =
             row
@@ -2917,9 +2827,7 @@ async function saveHousehold(event){
 
 
           if(
-            !/^[0-9]{16}$/.test(
-              fan
-            )
+            !/^[0-9]{16}$/.test(fan)
           ){
 
             throw new Error(
@@ -2929,7 +2837,7 @@ async function saveHousehold(event){
           }
 
 
-          return {
+          return{
 
             full_name:
               row
@@ -2971,7 +2879,7 @@ async function saveHousehold(event){
                   ".member-other"
                 )
                 .value
-                .trim() ||
+                .trim()||
               null
 
           };
@@ -2980,7 +2888,7 @@ async function saveHousehold(event){
       );
 
 
-    const householdPayload = {
+    const householdPayload={
 
       household_name:
         document
@@ -3010,7 +2918,7 @@ async function saveHousehold(event){
             "city"
           )
           .value
-          .trim() ||
+          .trim()||
         null,
 
       sub_city:
@@ -3019,7 +2927,7 @@ async function saveHousehold(event){
             "subCity"
           )
           .value
-          .trim() ||
+          .trim()||
         null,
 
       woreda:
@@ -3028,7 +2936,7 @@ async function saveHousehold(event){
             "woreda"
           )
           .value
-          .trim() ||
+          .trim()||
         null,
 
       specific_location:
@@ -3037,7 +2945,7 @@ async function saveHousehold(event){
             "specificLocation"
           )
           .value
-          .trim() ||
+          .trim()||
         null,
 
       house_number:
@@ -3046,11 +2954,11 @@ async function saveHousehold(event){
             "houseNumber"
           )
           .value
-          .trim() ||
+          .trim()||
         null,
 
       fan_number:
-        householdFan ||
+        householdFan||
         null,
 
       other_information:
@@ -3059,14 +2967,14 @@ async function saveHousehold(event){
             "householdOther"
           )
           .value
-          .trim() ||
+          .trim()||
         null,
 
       branch_id:
         branchId,
 
       branch_code:
-        branchCode ||
+        branchCode||
         null
 
     };
@@ -3086,7 +2994,7 @@ async function saveHousehold(event){
 
 
     if(
-      !household ||
+      !household||
       !household.id
     ){
 
@@ -3106,7 +3014,6 @@ async function saveHousehold(event){
         "emergency_members",
         {
           ...member,
-
           household_id:
             household.id
         }
@@ -3148,22 +3055,22 @@ async function saveHousehold(event){
             ".document-number"
           )
           .value
-          .trim() ||
+          .trim()||
 
         row
           .querySelector(
             ".document-date"
           )
-          .value ||
+          .value||
 
         row
           .querySelector(
             ".document-name"
           )
           .value
-          .trim() ||
+          .trim()||
 
-        fileName ||
+        fileName||
 
         row
           .querySelector(
@@ -3189,7 +3096,7 @@ async function saveHousehold(event){
                 ".document-number"
               )
               .value
-              .trim() ||
+              .trim()||
             null,
 
           document_date:
@@ -3197,7 +3104,7 @@ async function saveHousehold(event){
               .querySelector(
                 ".document-date"
               )
-              .value ||
+              .value||
             null,
 
           document_name:
@@ -3206,7 +3113,7 @@ async function saveHousehold(event){
                 ".document-name"
               )
               .value
-              .trim() ||
+              .trim()||
             null,
 
           file_name:
@@ -3218,7 +3125,7 @@ async function saveHousehold(event){
                 ".document-other"
               )
               .value
-              .trim() ||
+              .trim()||
             null
 
         }
@@ -3241,12 +3148,12 @@ async function saveHousehold(event){
 
     document.getElementById(
       "membersContainer"
-    ).innerHTML = "";
+    ).innerHTML="";
 
 
     document.getElementById(
       "documentsContainer"
-    ).innerHTML = "";
+    ).innerHTML="";
 
 
     closeHouseholdForm();
@@ -3269,7 +3176,7 @@ async function saveHousehold(event){
 
 
     alert(
-      "Save failed:\n" +
+      "Save failed:\n"+
       error.message
     );
 
@@ -3305,80 +3212,67 @@ async function loadItems(){
       );
 
 
-    stockBalanceCache = {};
+    stockBalanceCache={};
 
 
     for(
       const transaction
-      of (transactions || [])
+      of (transactions||[])
     ){
 
       const itemId =
         String(
-          transaction.item_id || ""
+          transaction.item_id||""
         );
 
 
       if(!itemId)continue;
 
 
-      if(
-        !stockBalanceCache[itemId]
-      ){
+      if(!stockBalanceCache[itemId]){
 
-        stockBalanceCache[itemId] = 0;
+        stockBalanceCache[itemId]=0;
 
       }
 
 
       const quantity =
-        normalizeQuantity(
-          transaction.quantity || 0
+        Number(
+          transaction.quantity||0
         );
-
-
-      if(
-        !Number.isFinite(quantity)
-      ){
-
-        continue;
-
-      }
 
 
       const type =
         String(
-          transaction.transaction_type || ""
+          transaction.transaction_type||""
         )
         .trim()
         .toUpperCase();
 
 
       const isIn =
-        type === "IN" ||
-        type.includes("STOCK IN") ||
-        type.includes("RECEIPT") ||
-        type.includes("ENTRY") ||
-        type.includes("RECEIVED") ||
+        type==="IN"||
+        type.includes("STOCK IN")||
+        type.includes("RECEIPT")||
+        type.includes("ENTRY")||
+        type.includes("RECEIVED")||
         type.includes("RECEIVE");
 
 
       const isOut =
-        type === "OUT" ||
-        type.includes("STOCK OUT") ||
-        type.includes("ISSUE") ||
+        type==="OUT"||
+        type.includes("STOCK OUT")||
+        type.includes("ISSUE")||
         type.includes("ISSUED");
 
 
       if(isIn){
 
-        stockBalanceCache[itemId] +=
-          quantity;
+        stockBalanceCache[itemId]+=quantity;
 
       }else if(isOut){
 
-        stockBalanceCache[itemId] -=
-          quantity;
+        stockBalanceCache[itemId]-=quantity;
 
       }
 
@@ -3386,32 +3280,32 @@ async function loadItems(){
 
 
     itemsCache =
-      (allItems || [])
+      (allItems||[])
         .map(
-          item => {
+          item=>{
 
             const itemId =
               String(
-                item.id || ""
+                item.id||""
               );
 
 
             const balance =
-              normalizeQuantity(
-                stockBalanceCache[itemId] || 0
+              Number(
+                stockBalanceCache[itemId]||0
               );
 
 
-            return {
+            return{
 
               ...item,
 
               current_stock:
                 Math.max(
                   0,
-                  Number.isFinite(balance)
-                    ? balance
-                    : 0
+                  Math.round(
+                    balance*100
+                  )/100
                 )
 
             };
@@ -3422,7 +3316,7 @@ async function loadItems(){
           item =>
             Number(
               item.current_stock
-            ) > 0
+            )>=0.01
         );
 
 
@@ -3433,9 +3327,7 @@ async function loadItems(){
       error
     );
 
-
-    itemsCache = [];
-
+    itemsCache=[];
 
     throw error;
 
@@ -3462,8 +3354,13 @@ async function getItemStockBalance(
     )
   ){
 
-    return normalizeQuantity(
-      stockBalanceCache[key] || 0
+    return Math.max(
+      0,
+      Math.round(
+        Number(
+          stockBalanceCache[key]||0
+        )*100
+      )/100
     );
 
   }
@@ -3480,74 +3377,67 @@ async function getItemStockBalance(
     );
 
 
-  let balance = 0;
+  let balance=0;
 
 
   for(
     const transaction
-    of (transactions || [])
+    of (transactions||[])
   ){
 
     const type =
       String(
-        transaction.transaction_type || ""
+        transaction.transaction_type||""
       )
       .trim()
       .toUpperCase();
 
 
     const quantity =
-      normalizeQuantity(
-        transaction.quantity || 0
+      Number(
+        transaction.quantity||0
       );
 
 
-    if(
-      !Number.isFinite(quantity)
-    ){
-
-      continue;
-
-    }
-
-
     const isIn =
-      type === "IN" ||
-      type.includes("STOCK IN") ||
-      type.includes("RECEIPT") ||
-      type.includes("ENTRY") ||
-      type.includes("RECEIVED") ||
+      type==="IN"||
+      type.includes("STOCK IN")||
+      type.includes("RECEIPT")||
+      type.includes("ENTRY")||
+      type.includes("RECEIVED")||
       type.includes("RECEIVE");
 
 
     const isOut =
-      type === "OUT" ||
-      type.includes("STOCK OUT") ||
-      type.includes("ISSUE") ||
+      type==="OUT"||
+      type.includes("STOCK OUT")||
+      type.includes("ISSUE")||
       type.includes("ISSUED");
 
 
     if(isIn){
 
-      balance += quantity;
+      balance+=quantity;
 
     }else if(isOut){
 
-      balance -= quantity;
+      balance-=quantity;
 
     }
 
   }
 
 
-  balance =
+  balance=
     Math.max(
       0,
-      normalizeQuantity(balance)
+      Math.round(
+        balance*100
+      )/100
     );
 
 
-  stockBalanceCache[key] =
+  stockBalanceCache[key]=
     balance;
 
 
@@ -3569,9 +3459,7 @@ function openReliefForm(){
     .getElementById(
       "reliefSection"
     )
-    .classList.remove(
-      "hidden"
-    );
+    .classList.remove("hidden");
 
 
   document
@@ -3615,7 +3503,6 @@ function openReliefForm(){
 
   loadIssuedByFromProfile();
 
-
   toggleModel22Number();
 
 }
@@ -3627,9 +3514,7 @@ function closeReliefForm(){
     .getElementById(
       "reliefSection"
     )
-    .classList.add(
-      "hidden"
-    );
+    .classList.add("hidden");
 
 }
 
@@ -3643,11 +3528,11 @@ function loadIssuedByFromProfile(){
 
 
   if(
-    !issued.value.trim() &&
+    !issued.value.trim()&&
     currentUser
   ){
 
-    issued.value =
+    issued.value=
       currentUser;
 
   }
@@ -3663,7 +3548,7 @@ function populateReliefHouseholds(){
     );
 
 
-  select.innerHTML = `
+  select.innerHTML=`
 
     <option value="">
       Select Household
@@ -3673,7 +3558,7 @@ function populateReliefHouseholds(){
 
 
   householdsCache.forEach(
-    h => {
+    h=>{
 
       const option =
         document.createElement(
@@ -3681,13 +3566,13 @@ function populateReliefHouseholds(){
         );
 
 
-      option.value =
+      option.value=
         h.id;
 
 
       option.textContent =
-        h.household_name ||
-        h.representative_name ||
+        h.household_name||
+        h.representative_name||
         "Unnamed Household";
 
 
@@ -3715,7 +3600,7 @@ async function loadReliefMembers(){
     );
 
 
-  select.innerHTML = `
+  select.innerHTML=`
 
     <option value="">
       Loading members...
@@ -3726,7 +3611,7 @@ async function loadReliefMembers(){
 
   if(!householdId){
 
-    select.innerHTML = `
+    select.innerHTML=`
 
       <option value="">
         Select Member
@@ -3753,7 +3638,7 @@ async function loadReliefMembers(){
       );
 
 
-    select.innerHTML = `
+    select.innerHTML=`
 
       <option value="">
         Select Member
@@ -3762,8 +3647,8 @@ async function loadReliefMembers(){
     `;
 
 
-    (members || []).forEach(
-      member => {
+    (members||[]).forEach(
+      member=>{
 
         const option =
           document.createElement(
@@ -3771,15 +3656,15 @@ async function loadReliefMembers(){
           );
 
 
-        option.value =
+        option.value=
           member.id;
 
 
         option.textContent =
-          member.full_name +
-          " — FAN: " +
+          member.full_name+
+          " — FAN: "+
           (
-            member.fan_number || ""
+            member.fan_number||""
           );
 
 
@@ -3796,7 +3681,7 @@ async function loadReliefMembers(){
     console.error(error);
 
 
-    select.innerHTML = `
+    select.innerHTML=`
 
       <option value="">
         Could not load members
@@ -3838,14 +3723,13 @@ function addReliefItem(){
     );
 
 
-  row.className =
+  row.className=
     "relief-item-row";
 
 
-  row.innerHTML = `
+  row.innerHTML=`
 
     <div class="row-grid four">
-
 
       <div class="form-group">
 
@@ -3906,8 +3790,7 @@ function addReliefItem(){
           step="0.01"
           inputmode="decimal"
           required
-          oninput="validateReliefQuantity(this)"
-        >
+          oninput="validateReliefQuantity(this)">
 
         <div class="stock-info">
           Select an item to see available stock.
@@ -3948,7 +3831,7 @@ function addReliefItem(){
 
 function populateItemSelect(select){
 
-  select.innerHTML = `
+  select.innerHTML=`
 
     <option value="">
       Select Stock Item
@@ -3958,7 +3841,7 @@ function populateItemSelect(select){
 
 
   itemsCache.forEach(
-    item => {
+    item=>{
 
       const option =
         document.createElement(
@@ -3966,43 +3849,45 @@ function populateItemSelect(select){
         );
 
 
-      option.value =
+      option.value=
         item.id;
 
 
       const name =
-        item.item_name ||
-        item.name ||
-        item.item ||
+        item.item_name||
+        item.name||
+        item.item||
         "Unnamed Item";
 
 
       const unit =
-        item.unit || "";
+        item.unit||"";
 
 
       const stock =
-        normalizeQuantity(
-          item.current_stock || 0
-        );
+        Math.round(
+          Number(
+            item.current_stock||0
+          )*100
+        )/100;
 
 
       option.textContent =
-        name +
-        " — Stock: " +
-        stock +
+        name+
+        " — Stock: "+
+        stock+
         (
           unit
-            ? " " + unit
+            ? " "+unit
             : ""
         );
 
 
       option.dataset.category =
-        item.category || "";
+        item.category||"";
 
 
-      option.dataset.unit =
+      option.dataset.unit=
         unit;
 
 
@@ -4059,26 +3944,24 @@ function updateReliefItemInfo(select){
 
 
   if(
-    !option ||
+    !option||
     !select.value
   ){
 
-    category.value = "";
-
-    unit.value = "";
-
-    quantity.value = "";
+    category.value="";
+    unit.value="";
+    quantity.value="";
 
     quantity.removeAttribute(
       "max"
     );
 
 
-    stockInfo.textContent =
+    stockInfo.textContent=
       "Select an item to see available stock.";
 
 
-    stockInfo.className =
+    stockInfo.className=
       "stock-info";
 
 
@@ -4088,39 +3971,41 @@ function updateReliefItemInfo(select){
 
 
   const stock =
-    normalizeQuantity(
-      option.dataset.stock || 0
-    );
+    Math.round(
+      Number(
+        option.dataset.stock||0
+      )*100
+    )/100;
 
 
-  category.value =
-    option.dataset.category || "";
+  category.value=
+    option.dataset.category||"";
 
 
-  unit.value =
-    option.dataset.unit || "";
+  unit.value=
+    option.dataset.unit||"";
 
 
-  quantity.max =
+  quantity.max=
     stock;
 
 
-  quantity.placeholder =
-    "Max " + stock;
+  quantity.placeholder=
+    "Max "+stock;
 
 
-  stockInfo.textContent =
-    "Available Stock: " +
-    stock +
+  stockInfo.textContent=
+    "Available Stock: "+
+    stock+
     (
       option.dataset.unit
-        ? " " + option.dataset.unit
+        ? " "+option.dataset.unit
         : ""
     );
 
 
-  stockInfo.className =
-    stock >= 0.01
+  stockInfo.className=
+    stock>=0.01
       ? "stock-info"
       : "stock-info no-stock";
 
@@ -4147,8 +4032,14 @@ function validateReliefQuantity(input){
     ];
 
 
+  const stockInfo =
+    row.querySelector(
+      ".stock-info"
+    );
+
+
   if(
-    !option ||
+    !option||
     !select.value
   ){
 
@@ -4158,59 +4049,53 @@ function validateReliefQuantity(input){
 
 
   const stock =
-    normalizeQuantity(
-      option.dataset.stock || 0
-    );
+    Math.round(
+      Number(
+        option.dataset.stock||0
+      )*100
+    )/100;
 
 
   const quantity =
-    normalizeQuantity(
-      input.value || 0
-    );
-
-
-  const stockInfo =
-    row.querySelector(
-      ".stock-info"
+    Number(
+      input.value||0
     );
 
 
   if(
-    !Number.isFinite(quantity) ||
-    quantity < 0.01
+    !Number.isFinite(quantity)||
+    quantity<0.01
   ){
 
-    stockInfo.textContent =
-      "Minimum quantity is 0.01.";
+    stockInfo.textContent=
+      "Quantity must be at least 0.01.";
 
-
-    stockInfo.className =
+    stockInfo.className=
       "stock-info no-stock";
-
 
     return;
 
   }
 
 
-  if(quantity > stock){
+  if(quantity>stock){
 
-    stockInfo.textContent =
-      "Quantity cannot exceed available stock: " +
+    stockInfo.textContent=
+      "Quantity cannot exceed available stock: "+
       stock;
 
 
-    stockInfo.className =
+    stockInfo.className=
       "stock-info no-stock";
 
   }else{
 
-    stockInfo.textContent =
-      "Available Stock: " +
+    stockInfo.textContent=
+      "Available Stock: "+
       stock;
 
 
-    stockInfo.className =
+    stockInfo.className=
       "stock-info";
 
   }
@@ -4220,14 +4105,8 @@ function validateReliefQuantity(input){
 
 /* =========================================================
    MODEL 22
-   DATABASE VALUE:
-   "Model 22 Available"
-
-   USER UI:
-   "Model 22 Number"
-
+   REQUIRED FOR STOCK OUT.
    NUMBER IS REQUIRED.
-   VERBAL IS NOT ALLOWED.
 ========================================================= */
 
 function toggleModel22Number(){
@@ -4237,12 +4116,10 @@ function toggleModel22Number(){
       "model22"
     );
 
-
   const group =
     document.getElementById(
       "model22NumberGroup"
     );
-
 
   const input =
     document.getElementById(
@@ -4251,8 +4128,8 @@ function toggleModel22Number(){
 
 
   if(
-    !select ||
-    !group ||
+    !select||
+    !group||
     !input
   ){
 
@@ -4263,23 +4140,21 @@ function toggleModel22Number(){
 
   const value =
     String(
-      select.value || ""
+      select.value||""
     ).trim();
 
 
   if(
-    value ===
-    "Model 22 Available"
+    value==="Model 22 Available"
   ){
 
     group.classList.remove(
       "hidden"
     );
 
+    input.required=true;
 
-    input.required = true;
-
-    input.disabled = false;
+    input.disabled=false;
 
   }else{
 
@@ -4287,12 +4162,11 @@ function toggleModel22Number(){
       "hidden"
     );
 
+    input.required=false;
 
-    input.required = false;
+    input.disabled=true;
 
-    input.disabled = true;
-
-    input.value = "";
+    input.value="";
 
   }
 
@@ -4405,12 +4279,11 @@ async function saveRelief(event){
 
 
     /* =====================================================
-       MODEL 22
+       MODEL 22 CHECK
     ===================================================== */
 
     if(
-      model22 !==
-      "Model 22 Available"
+      model22!=="Model 22 Available"
     ){
 
       throw new Error(
@@ -4446,7 +4319,7 @@ async function saveRelief(event){
     }
 
 
-    const reliefItems = [];
+    const reliefItems=[];
 
 
     for(
@@ -4466,14 +4339,19 @@ async function saveRelief(event){
         );
 
 
-      const itemId =
+      const itemId=
         select.value;
 
 
+      const rawQuantity =
+        quantityInput.value
+          .trim();
+
+
       const quantity =
-        normalizeQuantity(
-          quantityInput.value
-        );
+        Math.round(
+          Number(rawQuantity)*100
+        )/100;
 
 
       if(!itemId){
@@ -4486,8 +4364,8 @@ async function saveRelief(event){
 
 
       if(
-        !Number.isFinite(quantity) ||
-        quantity < 0.01
+        !Number.isFinite(quantity)||
+        quantity<0.01
       ){
 
         throw new Error(
@@ -4500,7 +4378,7 @@ async function saveRelief(event){
       const item =
         itemsCache.find(
           x =>
-            String(x.id) ===
+            String(x.id)===
             String(itemId)
         );
 
@@ -4515,23 +4393,23 @@ async function saveRelief(event){
 
 
       const currentBalance =
-        normalizeQuantity(
-          await getItemStockBalance(
-            itemId
-          )
-        );
+        Math.round(
+          (
+            await getItemStockBalance(
+              itemId
+            )
+          )*100
+        )/100;
 
 
-      if(
-        currentBalance < 0.01
-      ){
+      if(currentBalance<0.01){
 
         throw new Error(
           (
-            item.item_name ||
-            item.name ||
+            item.item_name||
+            item.name||
             "Item"
-          ) +
+          )+
           " has no available stock."
         );
 
@@ -4539,20 +4417,19 @@ async function saveRelief(event){
 
 
       if(
-        currentBalance <
-        quantity
+        currentBalance<quantity
       ){
 
         throw new Error(
           (
-            item.item_name ||
-            item.name ||
+            item.item_name||
+            item.name||
             "Item"
-          ) +
-          " available stock is " +
-          currentBalance +
-          ", but requested quantity is " +
-          quantity +
+          )+
+          " available stock is "+
+          currentBalance+
+          ", but requested quantity is "+
+          quantity+
           "."
         );
 
@@ -4565,20 +4442,20 @@ async function saveRelief(event){
           item.id,
 
         item_name:
-          item.item_name ||
-          item.name ||
-          item.item ||
+          item.item_name||
+          item.name||
+          item.item||
           "Unnamed Item",
 
         category:
-          item.category ||
+          item.category||
           null,
 
         quantity:
           quantity,
 
         unit:
-          item.unit ||
+          item.unit||
           null
 
       });
@@ -4588,17 +4465,11 @@ async function saveRelief(event){
 
     /* =====================================================
        RELIEF HEADER
-
-       Model 22 is stored as:
-       "Model 22 Available"
-
-       Model 22 number is stored separately.
-
-       It is intentionally NOT shown
-       in household profile.
+       Model 22 is saved as "Model 22 Available".
+       Model 22 is NOT rendered in household profile.
     ===================================================== */
 
-    const reliefPayload = {
+    const reliefPayload={
 
       household_id:
         householdId,
@@ -4630,7 +4501,7 @@ async function saveRelief(event){
             "reliefOther"
           )
           .value
-          .trim() ||
+          .trim()||
         null
 
     };
@@ -4650,7 +4521,7 @@ async function saveRelief(event){
 
 
     if(
-      !relief ||
+      !relief||
       !relief.id
     ){
 
@@ -4703,6 +4574,7 @@ async function saveRelief(event){
 
     /* =====================================================
        AUTOMATIC STOCK OUT
+       Model 22 number is stored in transaction text.
     ===================================================== */
 
     for(
@@ -4742,14 +4614,14 @@ async function saveRelief(event){
             item.unit,
 
           transaction:
-            "Emergency Relief - Model 22 - " +
+            "Emergency Relief - Model 22 - "+
             model22Number,
 
           branch_id:
             branchId,
 
           branch_code:
-            branchCode ||
+            branchCode||
             null,
 
           item_id:
@@ -4762,9 +4634,9 @@ async function saveRelief(event){
 
 
     alert(
-      "Emergency Relief saved successfully.\n\n" +
-      "Stock OUT was also recorded.\n" +
-      "Model 22 Number: " +
+      "Emergency Relief saved successfully.\n\n"+
+      "Stock OUT was also recorded.\n"+
+      "Model 22 Number: "+
       model22Number
     );
 
@@ -4778,12 +4650,12 @@ async function saveRelief(event){
 
     document.getElementById(
       "reliefItemsContainer"
-    ).innerHTML = "";
+    ).innerHTML="";
 
 
     document.getElementById(
       "reliefMember"
-    ).innerHTML = `
+    ).innerHTML=`
 
       <option value="">
         Select Member
@@ -4815,7 +4687,7 @@ async function saveRelief(event){
 
 
     alert(
-      "Relief save failed:\n" +
+      "Relief save failed:\n"+
       error.message
     );
 
@@ -4844,11 +4716,11 @@ async function openHousehold(
     );
 
 
-  modal.style.display =
+  modal.style.display=
     "block";
 
 
-  body.innerHTML = `
+  body.innerHTML=`
 
     <div class="loading">
       Loading household profile...
@@ -4862,7 +4734,7 @@ async function openHousehold(
     const household =
       householdsCache.find(
         h =>
-          String(h.id) ===
+          String(h.id)===
           String(householdId)
       );
 
@@ -4879,8 +4751,8 @@ async function openHousehold(
     document.getElementById(
       "modalTitle"
     ).textContent =
-      household.household_name ||
-      household.representative_name ||
+      household.household_name||
+      household.representative_name||
       "Household Profile";
 
 
@@ -4920,18 +4792,18 @@ async function openHousehold(
       );
 
 
-    let reliefItems = [];
+    let reliefItems=[];
 
 
     if(reliefs.length){
 
       const reliefIds =
-        "(" +
+        "("+
         reliefs
           .map(
-            r => `"${r.id}"`
+            r=>`"${r.id}"`
           )
-          .join(",") +
+          .join(",")+
         ")";
 
 
@@ -4948,14 +4820,12 @@ async function openHousehold(
     }
 
 
-    let html = "";
+    let html="";
 
 
-    /* =====================================================
-       HOUSEHOLD
-    ===================================================== */
+    /* HOUSEHOLD */
 
-    html += `
+    html+=`
 
       <div class="info-card">
 
@@ -4967,7 +4837,7 @@ async function openHousehold(
 
           ${info(
             "Representative / Household",
-            household.household_name ||
+            household.household_name||
             household.representative_name
           )}
 
@@ -5008,7 +4878,7 @@ async function openHousehold(
 
           ${info(
             "Household FAN",
-            household.fan_number ||
+            household.fan_number||
             household.household_fan_number
           )}
 
@@ -5024,11 +4894,9 @@ async function openHousehold(
     `;
 
 
-    /* =====================================================
-       MEMBERS
-    ===================================================== */
+    /* MEMBERS */
 
-    html += `
+    html+=`
 
       <div class="info-card">
 
@@ -5041,7 +4909,7 @@ async function openHousehold(
 
     if(!members.length){
 
-      html += `
+      html+=`
 
         <div class="empty">
           No members found.
@@ -5052,9 +4920,9 @@ async function openHousehold(
     }else{
 
       members.forEach(
-        member => {
+        member=>{
 
-          html += `
+          html+=`
 
             <div class="member-card">
 
@@ -5102,17 +4970,14 @@ async function openHousehold(
     }
 
 
-    html += `
+    html+=`
       </div>
     `;
 
 
-    /* =====================================================
-       RELIEFS
-       MODEL 22 INTENTIONALLY NOT DISPLAYED
-    ===================================================== */
+    /* RELIEFS */
 
-    html += `
+    html+=`
 
       <div class="info-card">
 
@@ -5125,7 +4990,7 @@ async function openHousehold(
 
     if(!reliefs.length){
 
-      html += `
+      html+=`
 
         <div class="empty">
           No relief records found.
@@ -5136,12 +5001,12 @@ async function openHousehold(
     }else{
 
       reliefs.forEach(
-        relief => {
+        relief=>{
 
           const member =
             members.find(
               m =>
-                String(m.id) ===
+                String(m.id)===
                 String(
                   relief.member_id
                 )
@@ -5153,14 +5018,12 @@ async function openHousehold(
               item =>
                 String(
                   item.relief_id
-                ) ===
-                String(
-                  relief.id
-                )
+                )===
+                String(relief.id)
             );
 
 
-          html += `
+          html+=`
 
             <div class="relief-card">
 
@@ -5209,25 +5072,25 @@ async function openHousehold(
                       ${
                         relatedItems
                           .map(
-                            item => `
+                            item=>`
 
                               <div class="relief-item">
 
                                 ${escapeHtml(
-                                  item.item_name ||
+                                  item.item_name||
                                   "Item"
                                 )}
 
                                 —
 
-                                ${normalizeQuantity(
-                                  item.quantity || 0
+                                ${Number(
+                                  item.quantity||0
                                 )}
 
                                 ${
                                   item.unit
                                     ? escapeHtml(
-                                        " " +
+                                        " "+
                                         item.unit
                                       )
                                     : ""
@@ -5235,7 +5098,7 @@ async function openHousehold(
 
                                 ${
                                   item.category
-                                    ? " • " +
+                                    ? " • "+
                                       escapeHtml(
                                         item.category
                                       )
@@ -5265,16 +5128,14 @@ async function openHousehold(
     }
 
 
-    html += `
+    html+=`
       </div>
     `;
 
 
-    /* =====================================================
-       DOCUMENTS
-    ===================================================== */
+    /* DOCUMENTS */
 
-    html += `
+    html+=`
 
       <div class="info-card">
 
@@ -5287,7 +5148,7 @@ async function openHousehold(
 
     if(!documents.length){
 
-      html += `
+      html+=`
 
         <div class="empty">
           No documents found.
@@ -5298,9 +5159,9 @@ async function openHousehold(
     }else{
 
       documents.forEach(
-        documentRecord => {
+        documentRecord=>{
 
-          html += `
+          html+=`
 
             <div class="document-card">
 
@@ -5343,12 +5204,12 @@ async function openHousehold(
     }
 
 
-    html += `
+    html+=`
       </div>
     `;
 
 
-    body.innerHTML =
+    body.innerHTML=
       html;
 
 
@@ -5357,7 +5218,7 @@ async function openHousehold(
     console.error(error);
 
 
-    body.innerHTML = `
+    body.innerHTML=`
 
       <div class="empty">
 
@@ -5378,9 +5239,17 @@ async function openHousehold(
 }
 
 
-/* =========================================================
-   INFO HELPER
-========================================================= */
+/*
+  IMPORTANT:
+
+  Model 22 and Model 22 Number are intentionally
+  NOT displayed inside Household Profile.
+
+  They remain part of the emergency_reliefs database
+  record and the Model 22 number is also written into
+  the Stock OUT transaction.
+*/
+
 
 function info(
   label,
@@ -5388,9 +5257,9 @@ function info(
 ){
 
   const safeValue =
-    value === null ||
-    value === undefined ||
-    value === ""
+    value===null||
+    value===undefined||
+    value===""
       ? "-"
       : escapeHtml(
           String(value)
@@ -5426,7 +5295,7 @@ function closeHouseholdModal(){
     .getElementById(
       "householdModal"
     )
-    .style.display =
+    .style.display=
       "none";
 
 }
@@ -5435,7 +5304,7 @@ function closeHouseholdModal(){
 function closeModalOutside(event){
 
   if(
-    event.target ===
+    event.target===
     document.getElementById(
       "householdModal"
     )
@@ -5530,4 +5399,5 @@ document.addEventListener(
 </script>
 
 </body>
+
 </html>
