@@ -187,8 +187,6 @@ header{
 
 /* =========================================================
    PROFILE MODAL
-   Kept for existing profile functions,
-   but Profile button is removed from header.
 ========================================================= */
 
 .profile-modal{
@@ -554,6 +552,19 @@ textarea:focus{
   color:#c62828
 }
 
+.evidence-box{
+  border:1px dashed #ec407a;
+  background:#fff5f8;
+  border-radius:10px;
+  padding:12px;
+}
+
+.evidence-help{
+  color:#78909c;
+  font-size:12px;
+  line-height:1.5;
+}
+
 /* =========================================================
    HOUSEHOLD MODAL
 ========================================================= */
@@ -664,6 +675,41 @@ textarea:focus{
   border-radius:7px;
   margin-top:5px;
   font-size:13px
+}
+
+.document-preview{
+  margin-top:12px;
+  padding:10px;
+  border-radius:9px;
+  background:#fff5f8;
+  border:1px solid #f8bbd0;
+}
+
+.document-preview img{
+  display:block;
+  width:100%;
+  max-width:430px;
+  max-height:350px;
+  object-fit:contain;
+  border-radius:8px;
+  background:white;
+  border:1px solid #eee;
+}
+
+.document-link{
+  display:inline-block;
+  margin-top:5px;
+  padding:9px 12px;
+  border-radius:8px;
+  background:#ad1457;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:13px;
+}
+
+.document-link:hover{
+  opacity:.9;
 }
 
 .loading{
@@ -1364,6 +1410,34 @@ textarea:focus{
 
         </div>
 
+
+        <!-- ===================================================
+             RELIEF EVIDENCE
+        ==================================================== -->
+
+        <div class="form-group full">
+
+          <div class="evidence-box">
+
+            <label>
+              Relief Evidence / Ragaa (Image / PDF)
+            </label>
+
+            <input
+              id="reliefEvidenceFile"
+              type="file"
+              accept="image/*,.pdf">
+
+            <div class="evidence-help">
+              Ragaan Individual Relief kana waliin walqabatu
+              Household Folder → Documents keessatti ni kuufama.
+              Image ykn PDF filachuu dandeessa.
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
 
@@ -1463,6 +1537,10 @@ const SUPABASE_KEY =
 
 const REST_URL =
   SUPABASE_URL + "/rest/v1";
+
+/* EXISTING PUBLIC STORAGE BUCKET */
+const RELIEF_DOCUMENT_BUCKET =
+  "relief-images";
 
 
 /* =========================================================
@@ -1683,6 +1761,154 @@ function requireBranch(){
     );
 
   }
+
+}
+
+
+/* =========================================================
+   STORAGE / EVIDENCE
+========================================================= */
+
+function getReliefFileUrl(path){
+
+  if(!path){
+    return "";
+  }
+
+  const encodedPath =
+    String(path)
+      .split("/")
+      .map(
+        part =>
+          encodeURIComponent(part)
+      )
+      .join("/");
+
+  return (
+    SUPABASE_URL+
+    "/storage/v1/object/public/"+
+    RELIEF_DOCUMENT_BUCKET+
+    "/"+
+    encodedPath
+  );
+
+}
+
+
+async function uploadReliefDocument(
+  file,
+  householdId
+){
+
+  if(!file){
+    return null;
+  }
+
+  requireBranch();
+
+
+  const safeName =
+    file.name
+      .replace(
+        /[^a-zA-Z0-9._-]/g,
+        "_"
+      );
+
+
+  const uniqueName =
+    Date.now()+
+    "_"+
+    Math.random()
+      .toString(36)
+      .substring(2,9)+
+    "_"+
+    safeName;
+
+
+  const filePath =
+    String(branchId)+
+    "/"+
+    String(householdId)+
+    "/"+
+    uniqueName;
+
+
+  const encodedPath =
+    filePath
+      .split("/")
+      .map(
+        part =>
+          encodeURIComponent(part)
+      )
+      .join("/");
+
+
+  const uploadUrl =
+    SUPABASE_URL+
+    "/storage/v1/object/"+
+    RELIEF_DOCUMENT_BUCKET+
+    "/"+
+    encodedPath;
+
+
+  const response =
+    await fetch(
+      uploadUrl,
+      {
+        method:"POST",
+
+        headers:{
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer "+SUPABASE_KEY,
+
+          "Content-Type":
+            file.type||
+            "application/octet-stream",
+
+          "x-upsert":
+            "false"
+        },
+
+        body:file
+      }
+    );
+
+
+  const responseText =
+    await response.text();
+
+
+  if(!response.ok){
+
+    throw new Error(
+      "Evidence upload failed: "+
+      responseText
+    );
+
+  }
+
+
+  return{
+
+    file_name:
+      file.name,
+
+    file_path:
+      filePath,
+
+    file_url:
+      getReliefFileUrl(
+        filePath
+      ),
+
+    file_type:
+      file.type||
+      null
+
+  };
 
 }
 
@@ -2349,11 +2575,7 @@ async function updateSummary(){
 
     const idList =
       "("+
-      householdIds
-        .map(
-          id=>`"${id}"`
-        )
-        .join(",")+
+      householdIds.join(",")+
       ")";
 
 
@@ -3022,6 +3244,10 @@ async function saveHousehold(event){
     }
 
 
+    /* =====================================================
+       HOUSEHOLD DOCUMENTS + FILE UPLOAD
+    ===================================================== */
+
     const documentRows =
       Array.from(
         document.querySelectorAll(
@@ -3041,11 +3267,17 @@ async function saveHousehold(event){
         );
 
 
-      const fileName =
+      const file =
         fileInput &&
         fileInput.files &&
         fileInput.files.length
-          ? fileInput.files[0].name
+          ? fileInput.files[0]
+          : null;
+
+
+      const fileName =
+        file
+          ? file.name
           : null;
 
 
@@ -3083,6 +3315,20 @@ async function saveHousehold(event){
       if(!hasData)continue;
 
 
+      let uploadedFile=null;
+
+
+      if(file){
+
+        uploadedFile =
+          await uploadReliefDocument(
+            file,
+            household.id
+          );
+
+      }
+
+
       await insertTable(
         "emergency_documents",
         {
@@ -3118,6 +3364,21 @@ async function saveHousehold(event){
 
           file_name:
             fileName,
+
+          file_path:
+            uploadedFile
+              ? uploadedFile.file_path
+              : null,
+
+          file_url:
+            uploadedFile
+              ? uploadedFile.file_url
+              : null,
+
+          file_type:
+            uploadedFile
+              ? uploadedFile.file_type
+              : null,
 
           other_information:
             row
@@ -4105,8 +4366,6 @@ function validateReliefQuantity(input){
 
 /* =========================================================
    MODEL 22
-   REQUIRED FOR STOCK OUT.
-   NUMBER IS REQUIRED.
 ========================================================= */
 
 function toggleModel22Number(){
@@ -4233,6 +4492,20 @@ async function saveRelief(event){
       .trim();
 
 
+    const evidenceInput =
+      document.getElementById(
+        "reliefEvidenceFile"
+      );
+
+
+    const evidenceFile =
+      evidenceInput &&
+      evidenceInput.files &&
+      evidenceInput.files.length
+        ? evidenceInput.files[0]
+        : null;
+
+
     if(!householdId){
 
       throw new Error(
@@ -4278,9 +4551,7 @@ async function saveRelief(event){
     }
 
 
-    /* =====================================================
-       MODEL 22 CHECK
-    ===================================================== */
+    /* MODEL 22 */
 
     if(
       model22!=="Model 22 Available"
@@ -4465,8 +4736,6 @@ async function saveRelief(event){
 
     /* =====================================================
        RELIEF HEADER
-       Model 22 is saved as "Model 22 Available".
-       Model 22 is NOT rendered in household profile.
     ===================================================== */
 
     const reliefPayload={
@@ -4574,7 +4843,6 @@ async function saveRelief(event){
 
     /* =====================================================
        AUTOMATIC STOCK OUT
-       Model 22 number is stored in transaction text.
     ===================================================== */
 
     for(
@@ -4633,9 +4901,66 @@ async function saveRelief(event){
     }
 
 
+    /* =====================================================
+       RELIEF EVIDENCE UPLOAD
+       Saved ONLY as a Household Document.
+       Model 22 remains hidden from profile.
+    ===================================================== */
+
+    if(evidenceFile){
+
+      const uploadedEvidence =
+        await uploadReliefDocument(
+          evidenceFile,
+          householdId
+        );
+
+
+      await insertTable(
+        "emergency_documents",
+        {
+
+          household_id:
+            householdId,
+
+          document_number:
+            null,
+
+          document_date:
+            reliefDate,
+
+          document_name:
+            "Relief Evidence",
+
+          file_name:
+            uploadedEvidence.file_name,
+
+          file_path:
+            uploadedEvidence.file_path,
+
+          file_url:
+            uploadedEvidence.file_url,
+
+          file_type:
+            uploadedEvidence.file_type,
+
+          other_information:
+            "Individual Relief Evidence"
+
+        }
+      );
+
+    }
+
+
     alert(
       "Emergency Relief saved successfully.\n\n"+
       "Stock OUT was also recorded.\n"+
+      (
+        evidenceFile
+          ? "Relief Evidence was uploaded successfully.\n"
+          : ""
+      )+
       "Model 22 Number: "+
       model22Number
     );
@@ -4801,7 +5126,7 @@ async function openHousehold(
         "("+
         reliefs
           .map(
-            r=>`"${r.id}"`
+            r=>r.id
           )
           .join(",")+
         ")";
@@ -4823,7 +5148,9 @@ async function openHousehold(
     let html="";
 
 
-    /* HOUSEHOLD */
+    /* =====================================================
+       HOUSEHOLD
+    ===================================================== */
 
     html+=`
 
@@ -4894,7 +5221,9 @@ async function openHousehold(
     `;
 
 
-    /* MEMBERS */
+    /* =====================================================
+       MEMBERS
+    ===================================================== */
 
     html+=`
 
@@ -4975,7 +5304,11 @@ async function openHousehold(
     `;
 
 
-    /* RELIEFS */
+    /* =====================================================
+       RELIEFS
+       IMPORTANT:
+       Model 22 + Model 22 Number are NOT DISPLAYED.
+    ===================================================== */
 
     html+=`
 
@@ -5133,7 +5466,10 @@ async function openHousehold(
     `;
 
 
-    /* DOCUMENTS */
+    /* =====================================================
+       DOCUMENTS
+       IMAGE PREVIEW + PDF OPEN LINK
+    ===================================================== */
 
     html+=`
 
@@ -5160,6 +5496,131 @@ async function openHousehold(
 
       documents.forEach(
         documentRecord=>{
+
+          const fileUrl =
+            documentRecord.file_url||
+            getReliefFileUrl(
+              documentRecord.file_path
+            );
+
+
+          const fileType =
+            String(
+              documentRecord.file_type||
+              ""
+            ).toLowerCase();
+
+
+          let preview="";
+
+
+          if(
+            fileUrl &&
+            fileType.startsWith(
+              "image/"
+            )
+          ){
+
+            preview=`
+
+              <div class="document-preview">
+
+                <strong>
+                  Image Preview
+                </strong>
+
+                <br><br>
+
+                <img
+                  src="${escapeHtml(fileUrl)}"
+                  alt="${escapeHtml(
+                    documentRecord.file_name||
+                    "Document"
+                  )}"
+                  loading="lazy"
+                  onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='block';
+                  "
+                >
+
+                <div
+                  style="
+                    display:none;
+                    color:#c62828;
+                    margin-top:8px
+                  ">
+                  Image could not be displayed.
+                  Use Open File below.
+                </div>
+
+                <a
+                  class="document-link"
+                  href="${escapeHtml(fileUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  Open Image
+                </a>
+
+              </div>
+
+            `;
+
+          }else if(
+            fileUrl &&
+            (
+              fileType==="application/pdf"||
+              String(
+                documentRecord.file_name||
+                ""
+              ).toLowerCase().endsWith(
+                ".pdf"
+              )
+            )
+          ){
+
+            preview=`
+
+              <div class="document-preview">
+
+                <strong>
+                  PDF Document
+                </strong>
+
+                <br>
+
+                <a
+                  class="document-link"
+                  href="${escapeHtml(fileUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  📄 Open PDF
+                </a>
+
+              </div>
+
+            `;
+
+          }else if(fileUrl){
+
+            preview=`
+
+              <div class="document-preview">
+
+                <a
+                  class="document-link"
+                  href="${escapeHtml(fileUrl)}"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  📎 Open Evidence
+                </a>
+
+              </div>
+
+            `;
+
+          }
+
 
           html+=`
 
@@ -5193,6 +5654,8 @@ async function openHousehold(
                 )}
 
               </div>
+
+              ${preview}
 
             </div>
 
