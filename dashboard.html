@@ -20,9 +20,9 @@ body{
   background:
     linear-gradient(
       135deg,
-      #0d47a1 0%,
-      #1565c0 45%,
-      #1976d2 100%
+      #062b6f 0%,
+      #0d47a1 45%,
+      #1565c0 100%
     );
 }
 
@@ -33,12 +33,12 @@ body::before{
   background:
     radial-gradient(
       circle at 15% 15%,
-      rgba(255,255,255,.14),
+      rgba(255,255,255,.12),
       transparent 30%
     ),
     radial-gradient(
       circle at 85% 85%,
-      rgba(255,255,255,.10),
+      rgba(255,255,255,.08),
       transparent 32%
     );
   z-index:-2;
@@ -64,13 +64,13 @@ header,
 /* ================= HEADER ================= */
 
 header{
-  background:rgba(8,45,107,.94);
+  background:rgba(5,34,82,.96);
   color:white;
   padding:22px 15px;
   text-align:center;
 
   box-shadow:
-    0 5px 20px rgba(0,0,0,.28);
+    0 8px 28px rgba(0,0,0,.38);
 
   backdrop-filter:blur(8px);
 }
@@ -110,7 +110,7 @@ header h1{
   border:3px solid #ffffff;
 
   box-shadow:
-    0 4px 14px rgba(0,0,0,.35);
+    0 5px 16px rgba(0,0,0,.40);
 
   background:#ffffff;
 }
@@ -140,7 +140,7 @@ header h1{
   font-weight:bold;
 
   box-shadow:
-    0 3px 8px rgba(0,0,0,.18);
+    0 4px 10px rgba(0,0,0,.24);
 }
 
 /* ================= CONTAINER ================= */
@@ -164,7 +164,7 @@ header h1{
   margin-bottom:20px;
 
   box-shadow:
-    0 6px 20px rgba(0,0,0,.18);
+    0 8px 24px rgba(0,0,0,.24);
 
   border:1px solid rgba(255,255,255,.70);
 
@@ -184,32 +184,33 @@ header h1{
 }
 
 /* =========================================================
-   DASHBOARD MENU
-   DESIGN UPDATED FROM HOUSEHOLD STYLE
-   FUNCTIONALITY UNCHANGED
+   CIRCULAR DASHBOARD MENU
    ========================================================= */
 
 .menu-grid{
   display:grid;
 
-  grid-template-columns:
-    repeat(3,minmax(145px,1fr));
+  grid-template-columns:repeat(3,120px);
 
-  gap:18px;
+  justify-content:center;
+  align-items:center;
 
-  padding:5px;
+  gap:20px;
+
+  padding:10px 5px;
 }
 
 .btn{
-  min-height:125px;
+  width:120px;
+  height:120px;
 
-  border:1px solid rgba(255,255,255,.70);
+  border:0;
 
-  border-radius:22px;
+  border-radius:50%;
 
   color:white;
 
-  font-size:14px;
+  font-size:13px;
 
   font-weight:bold;
 
@@ -227,59 +228,89 @@ header h1{
 
   justify-content:center;
 
-  padding:18px 12px;
+  padding:10px;
 
-  line-height:1.3;
+  line-height:1.2;
 
   box-shadow:
-    0 6px 18px rgba(0,0,0,.18);
+    0 8px 18px rgba(0,0,0,.30),
+    0 3px 7px rgba(0,0,0,.18),
+    inset 0 1px 2px rgba(255,255,255,.16);
 
   transition:
-    transform .20s ease,
-    box-shadow .20s ease,
-    opacity .20s ease;
-
-  backdrop-filter:blur(5px);
+    transform .18s ease,
+    opacity .18s ease,
+    box-shadow .18s ease;
 }
 
 .btn:hover{
   opacity:.98;
 
   transform:
-    translateY(-5px);
+    translateY(-4px)
+    scale(1.04);
 
   box-shadow:
-    0 11px 24px rgba(0,0,0,.25);
+    0 12px 25px rgba(0,0,0,.34),
+    0 4px 9px rgba(0,0,0,.18),
+    inset 0 1px 2px rgba(255,255,255,.18);
 }
 
 .btn:active{
-  transform:
-    translateY(-1px)
-    scale(.97);
+  transform:scale(.93);
 }
 
-.btn span:first-child{
+/* =========================================================
+   SMALL ICON RING
+   Icon qofaa isaa keessatti circle xiqqaa qaba.
+   Halluun ring keessaa hin babal'atu.
+   ========================================================= */
+
+.menu-icon{
+  width:42px;
+  height:42px;
+
+  min-width:42px;
+  min-height:42px;
+
+  border-radius:50%;
+
   display:flex;
 
   align-items:center;
   justify-content:center;
 
-  width:58px;
-  height:58px;
+  background:rgba(0,0,0,.12);
 
-  margin-bottom:10px;
-
-  border-radius:18px;
-
-  background:rgba(255,255,255,.18);
-
-  border:
-    1px solid rgba(255,255,255,.28);
-
-  font-size:30px !important;
+  border:1px solid rgba(255,255,255,.24);
 
   box-shadow:
-    inset 0 1px 2px rgba(255,255,255,.20);
+    0 2px 5px rgba(0,0,0,.20),
+    inset 0 1px 2px rgba(255,255,255,.10);
+
+  font-size:21px;
+
+  line-height:1;
+
+  margin-bottom:7px;
+
+  overflow:hidden;
+
+  flex-shrink:0;
+}
+
+.menu-label{
+  display:block;
+
+  max-width:96px;
+
+  font-size:12px;
+
+  font-weight:bold;
+
+  line-height:1.15;
+
+  text-align:center;
 }
 
 /* ================= MENU COLORS ================= */
@@ -287,72 +318,72 @@ header h1{
 .items{
   background:
     linear-gradient(
-      135deg,
-      #2e7d32,
-      #43a047
+      145deg,
+      #246b2a,
+      #388e3c
     );
 }
 
 .stock{
   background:
     linear-gradient(
-      135deg,
-      #c62828,
-      #e53935
+      145deg,
+      #a91f1f,
+      #d32f2f
     );
 }
 
 .report{
   background:
     linear-gradient(
-      135deg,
-      #ef6c00,
-      #fb8c00
+      145deg,
+      #d95f02,
+      #ef6c00
     );
 }
 
 .relief{
   background:
     linear-gradient(
-      135deg,
-      #00897b,
-      #00a896
+      145deg,
+      #00796b,
+      #008f80
     );
 }
 
 .settings{
   background:
     linear-gradient(
-      135deg,
-      #3949ab,
-      #5c6bc0
+      145deg,
+      #303f9f,
+      #4b5fc4
     );
 }
 
 .menu{
   background:
     linear-gradient(
-      135deg,
-      #1565c0,
-      #1e88e5
+      145deg,
+      #0d47a1,
+      #1976d2
     );
 }
 
 .branch-btn{
   background:
     linear-gradient(
-      135deg,
-      #1565c0,
-      #42a5f5
+      145deg,
+      #0d47a1,
+      #2196f3
     );
 }
 
 .view-only-btn{
   background:
     linear-gradient(
-      135deg,
-      #546e7a,
-      #78909c
+      145deg,
+      #455a64,
+      #607d8b
     );
 }
 
@@ -433,7 +464,7 @@ header h1{
     );
 
   box-shadow:
-    0 6px 18px rgba(0,0,0,.20);
+    0 8px 20px rgba(0,0,0,.24);
 
   border:
     2px solid rgba(255,255,255,.9);
@@ -653,7 +684,7 @@ header h1{
   padding:16px;
 
   box-shadow:
-    0 4px 10px rgba(0,0,0,.10);
+    0 5px 13px rgba(0,0,0,.14);
 
   text-align:center;
 }
@@ -765,7 +796,7 @@ header h1{
   cursor:pointer;
 
   box-shadow:
-    0 5px 12px rgba(0,0,0,.22);
+    0 7px 16px rgba(0,0,0,.28);
 
   transition:.2s;
 }
@@ -781,8 +812,8 @@ header h1{
   background:
     linear-gradient(
       135deg,
-      #1565c0,
-      #42a5f5
+      #0d47a1,
+      #1976d2
     );
 }
 
@@ -790,8 +821,8 @@ header h1{
   background:
     linear-gradient(
       135deg,
-      #0d47a1,
-      #1976d2
+      #062b6f,
+      #1565c0
     );
 }
 
@@ -799,8 +830,8 @@ header h1{
   background:
     linear-gradient(
       135deg,
-      #b71c1c,
-      #e53935
+      #8e1515,
+      #d32f2f
     );
 }
 
@@ -827,15 +858,35 @@ header h1{
 
   .menu-grid{
     grid-template-columns:
-      repeat(2,1fr);
+      repeat(2,100px);
 
     gap:15px;
   }
 
   .menu-grid .btn{
-    min-height:115px;
+    width:100px;
 
-    font-size:13px;
+    height:100px;
+
+    font-size:12px;
+
+    padding:8px;
+  }
+
+  .menu-icon{
+    width:38px;
+    height:38px;
+
+    min-width:38px;
+    min-height:38px;
+
+    font-size:19px;
+
+    margin-bottom:6px;
+  }
+
+  .menu-label{
+    font-size:11px;
   }
 
 }
@@ -887,33 +938,35 @@ header h1{
 
   .menu-grid{
     grid-template-columns:
-      repeat(2,1fr);
+      repeat(2,100px);
 
-    gap:13px;
-
-    padding:2px;
+    gap:14px;
   }
 
   .menu-grid .btn{
-    min-height:110px;
+    width:100px;
+
+    height:100px;
 
     font-size:12px;
 
-    padding:12px 7px;
-
-    border-radius:20px;
+    padding:8px;
   }
 
-  .menu-grid .btn span:first-child{
-    width:50px;
+  .menu-icon{
+    width:36px;
+    height:36px;
 
-    height:50px;
+    min-width:36px;
+    min-height:36px;
 
-    margin-bottom:8px;
+    font-size:18px;
 
-    font-size:26px !important;
+    margin-bottom:6px;
+  }
 
-    border-radius:15px;
+  .menu-label{
+    font-size:10.5px;
   }
 
   .title{
@@ -973,29 +1026,35 @@ header h1{
 
   .menu-grid{
     grid-template-columns:
-      repeat(2,1fr);
+      repeat(2,92px);
 
-    gap:10px;
+    gap:12px;
   }
 
   .menu-grid .btn{
-    min-height:96px;
+    width:92px;
+
+    height:92px;
 
     font-size:11px;
 
-    padding:8px 5px;
-
-    border-radius:18px;
+    padding:7px;
   }
 
-  .menu-grid .btn span:first-child{
-    width:43px;
+  .menu-icon{
+    width:32px;
+    height:32px;
 
-    height:43px;
+    min-width:32px;
+    min-height:32px;
 
-    font-size:23px !important;
+    font-size:16px;
 
-    margin-bottom:6px;
+    margin-bottom:5px;
+  }
+
+  .menu-label{
+    font-size:9.5px;
   }
 
 }
@@ -1100,80 +1159,116 @@ href="items.html"
 class="btn items"
 id="itemsButton">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 📦
-</span><span data-i18n="items">
+</span><span
+class="menu-label"
+data-i18n="items">
 Items
-</span></a><a
+</span>
+
+</a><a
 href="stock.html"
 class="btn stock"
 id="stockButton">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 📥
-</span><span data-i18n="stockInOut">
+</span><span
+class="menu-label"
+data-i18n="stockInOut">
 Stock IN / OUT
-</span></a><a
+</span>
+
+</a><a
 href="reports.html"
 class="btn report">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 📊
-</span><span data-i18n="stockReport">
+</span><span
+class="menu-label"
+data-i18n="stockReport">
 Stock Report
-</span></a><a
+</span>
+
+</a><a
 href="emergency-relief.html"
 class="btn relief"
 id="reliefButton">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 🚑
-</span><span data-i18n="reliefReport">
+</span><span
+class="menu-label"
+data-i18n="reliefReport">
 Relief Report
-</span></a><a
+</span>
+
+</a><a
 href="settings.html"
 class="btn settings"
 id="settingsButton">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 ⚙️
-</span><span data-i18n="settings">
+</span><span
+class="menu-label"
+data-i18n="settings">
 Settings
-</span></a><a
+</span>
+
+</a><a
 href="index.html"
 class="btn menu">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 ⬅️
-</span><span data-i18n="mainMenu">
+</span><span
+class="menu-label"
+data-i18n="mainMenu">
 Main Menu
-</span></a></div><!-- ================= MAIN HQ MENU ================= --><div
+</span>
+
+</a></div><!-- ================= MAIN HQ MENU ================= --><div
   id="mainMenu"
   class="menu-grid hidden"><a
 href="reports.html"
 class="btn report">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 📊
-</span><span data-i18n="allBranchesReport">
+</span><span
+class="menu-label"
+data-i18n="allBranchesReport">
 All Branches Report
-</span></a><a
+</span>
+
+</a><a
 href="settings.html"
 class="btn settings">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 ⚙️
-</span><span data-i18n="settings">
+</span><span
+class="menu-label"
+data-i18n="settings">
 Settings
-</span></a><a
+</span>
+
+</a><a
 href="index.html"
 class="btn menu">
 
-<span style="font-size:28px;">
+<span class="menu-icon">
 ⬅️
-</span><span data-i18n="mainMenu">
+</span><span
+class="menu-label"
+data-i18n="mainMenu">
 Main Menu
-</span></a></div></div><!-- ================= SUMMARY ================= --><div class="summary"><div class="summary-card"><span data-i18n="totalItems">
+</span>
+
+</a></div></div><!-- ================= SUMMARY ================= --><div class="summary"><div class="summary-card"><span data-i18n="totalItems">
 📦 Total Items
 </span><strong id="totalItems">
 0
@@ -1841,14 +1936,16 @@ const itemsButton =
 document.getElementById("itemsButton");
 
 itemsButton.innerHTML =
-'<span style="font-size:28px;">👁️</span>'+
+'<span class="menu-icon">👁️</span>'+
+'<span class="menu-label">'+
 (
 currentLanguage==="am"
 ? "እቃዎችን ይመልከቱ"
 : currentLanguage==="en"
 ? "View Items"
 : "Meeshaalee Ilaali"
-);
+)+
+'</span>';
 
 itemsButton.className=
 "btn view-only-btn";
@@ -1858,14 +1955,16 @@ const stockButton =
 document.getElementById("stockButton");
 
 stockButton.innerHTML =
-'<span style="font-size:28px;">👁️</span>'+
+'<span class="menu-icon">👁️</span>'+
+'<span class="menu-label">'+
 (
 currentLanguage==="am"
 ? "Stock ይመልከቱ"
 : currentLanguage==="en"
 ? "View Stock"
 : "Stock Ilaali"
-);
+)+
+'</span>';
 
 stockButton.className=
 "btn view-only-btn";
@@ -1894,16 +1993,20 @@ reliefButton.classList.remove("hidden");
 }
 
 document.getElementById("itemsButton").innerHTML=
-'<span style="font-size:28px;">📦</span>'+
-t("items");
+'<span class="menu-icon">📦</span>'+
+'<span class="menu-label">'+
+t("items")+
+'</span>';
 
 document.getElementById("itemsButton").className=
 "btn items";
 
 
 document.getElementById("stockButton").innerHTML=
-'<span style="font-size:28px;">📥</span>'+
-t("stockInOut");
+'<span class="menu-icon">📥</span>'+
+'<span class="menu-label">'+
+t("stockInOut")+
+'</span>';
 
 document.getElementById("stockButton").className=
 "btn stock";
