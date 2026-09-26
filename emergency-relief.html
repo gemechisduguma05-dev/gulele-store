@@ -1,9 +1,18 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta
-name="viewport"
-content="width=device-width,initial-scale=1.0"
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>AADLM - Emergency Relief Management</title>
+
+<style>
 
 /* =========================================================
    EXISTING CSS
@@ -755,544 +764,624 @@ textarea:focus{
 
 }
 
-</style></head><body><header>  <div class="header-inner"><div class="brand">
+</style>
 
-  <img
-    class="brand-logo"
-    src="./1788633150526.jpg"
-    alt="AADLM Logo"
-    onerror="this.style.display='none'"
-  >
+</head>
 
-  <div class="brand-text">
+<body>
 
-    <h1>AADLM</h1>
+<header>
 
-    <p>
-      Emergency Relief Management
-    </p>
+  <div class="header-inner">
+
+    <div class="brand">
+
+      <img
+        class="brand-logo"
+        src="./1788633150526.jpg"
+        alt="AADLM Logo"
+        onerror="this.style.display='none'"
+      >
+
+      <div class="brand-text">
+
+        <h1>AADLM</h1>
+
+        <p>
+          Emergency Relief Management
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="user-box">
+
+      <div
+        class="user-name"
+        id="userProfile">
+        User loading...
+      </div>
+
+      <div id="branchInfo">
+        Branch loading...
+      </div>
+
+    </div>
 
   </div>
 
-</div>
+  <div class="top-nav">
 
-<div class="user-box">
+    <button
+      class="nav-btn"
+      onclick="goDashboard()">
+      ← Dashboard
+    </button>
 
-  <div
-    class="user-name"
-    id="userProfile">
-    User loading...
+    <button
+      class="nav-btn"
+      onclick="toggleMenu()">
+      ☰ Menu
+    </button>
+
   </div>
 
-  <div id="branchInfo">
-    Branch loading...
-  </div>
+</header>
 
-</div>
+<div id="menuPanel" class="menu-panel">
 
-  </div>  <div class="top-nav"><button
-  class="nav-btn"
-  onclick="goDashboard()">
-  ← Dashboard
-</button>
-
-<button
-  class="nav-btn"
-  onclick="toggleMenu()">
-  ☰ Menu
-</button>
-
-  </div></header><div id="menuPanel" class="menu-panel">  <div class="menu-title">
+  <div class="menu-title">
     AADLM Menu
-  </div>  <button class="menu-item" onclick="goDashboard()">
+  </div>
+
+  <button class="menu-item" onclick="goDashboard()">
     🏠 Dashboard
-  </button>  <button class="menu-item" onclick="goItems()">
+  </button>
+
+  <button class="menu-item" onclick="goItems()">
     📦 Items
-  </button>  <button class="menu-item" onclick="goStock()">
+  </button>
+
+  <button class="menu-item" onclick="goStock()">
     📥 Stock IN / 📤 Stock OUT
-  </button>  <button class="menu-item" onclick="goReports()">
+  </button>
+
+  <button class="menu-item" onclick="goReports()">
     📊 Stock Report
-  </button>  <button class="menu-item" onclick="goRelief()">
+  </button>
+
+  <button class="menu-item" onclick="goRelief()">
     🚑 Relief Report
-  </button>  <button class="menu-item" onclick="goSettings()">
+  </button>
+
+  <button class="menu-item" onclick="goSettings()">
     ⚙️ Settings
-  </button></div><div
-  id="profileModal"
-  class="profile-modal"
-  onclick="closeProfileOutside(event)">  <div class="profile-box"><div class="profile-top">
-
-  <img
-    id="profilePhoto"
-    class="profile-photo"
-    src="./1788633150526.jpg"
-    alt="AADLM Logo"
-    onerror="this.style.display='none'"
-  >
-
-  <h2 id="profileName">
-    User
-  </h2>
-
-  <p id="profileRole">
-    User
-  </p>
-
-</div>
-
-<div class="profile-body">
-
-  <div class="profile-info">
-    <span>Username</span>
-    <strong id="profileUsername">-</strong>
-  </div>
-
-  <div class="profile-info">
-    <span>Role</span>
-    <strong id="profileRoleValue">-</strong>
-  </div>
-
-  <div class="profile-info">
-    <span>Branch</span>
-    <strong id="profileBranch">-</strong>
-  </div>
-
-  <div class="profile-info">
-    <span>Branch Code</span>
-    <strong id="profileBranchCode">-</strong>
-  </div>
-
-  <button
-    class="profile-close"
-    onclick="closeProfile()">
-    Close Profile
   </button>
 
 </div>
-
-  </div></div><main>  <div class="status-bar"><div id="statusText">
-  Connecting...
-</div>
-
-<div id="lastUpdated"></div>
-
-  </div>  <div class="summary"><div class="summary-card">
-  <strong id="householdCount">0</strong>
-  <span>Households</span>
-</div>
-
-<div class="summary-card">
-  <strong id="memberCount">0</strong>
-  <span>Members</span>
-</div>
-
-<div class="summary-card">
-  <strong id="reliefCount">0</strong>
-  <span>Reliefs</span>
-</div>
-
-<div class="summary-card">
-  <strong id="documentCount">0</strong>
-  <span>Documents</span>
-</div>
-
-  </div>  <div class="toolbar"><input
-  id="searchInput"
-  type="search"
-  placeholder="Household, member or 16-digit FAN"
-  oninput="filterHouseholds()"
->
-
-<button
-  class="btn-primary"
-  onclick="openHouseholdForm()">
-  + New Household
-</button>
-
-<button
-  class="btn-success"
-  onclick="openReliefForm()">
-  + Individual Relief
-</button>
-
-<button
-  class="btn-secondary"
-  onclick="refreshAll()">
-  ↻ Refresh
-</button>
-
-  </div>  <div class="section"><h2>
-  Household Folders
-</h2>
 
 <div
-  id="householdList"
-  class="folder-list">
+  id="profileModal"
+  class="profile-modal"
+  onclick="closeProfileOutside(event)">
 
-  <div class="loading">
-    Loading households...
+  <div class="profile-box">
+
+    <div class="profile-top">
+
+      <img
+        id="profilePhoto"
+        class="profile-photo"
+        src="./1788633150526.jpg"
+        alt="AADLM Logo"
+        onerror="this.style.display='none'"
+      >
+
+      <h2 id="profileName">
+        User
+      </h2>
+
+      <p id="profileRole">
+        User
+      </p>
+
+    </div>
+
+    <div class="profile-body">
+
+      <div class="profile-info">
+        <span>Username</span>
+        <strong id="profileUsername">-</strong>
+      </div>
+
+      <div class="profile-info">
+        <span>Role</span>
+        <strong id="profileRoleValue">-</strong>
+      </div>
+
+      <div class="profile-info">
+        <span>Branch</span>
+        <strong id="profileBranch">-</strong>
+      </div>
+
+      <div class="profile-info">
+        <span>Branch Code</span>
+        <strong id="profileBranchCode">-</strong>
+      </div>
+
+      <button
+        class="profile-close"
+        onclick="closeProfile()">
+        Close Profile
+      </button>
+
+    </div>
+
   </div>
 
 </div>
 
-  </div>  <div
-    id="householdSection"
-    class="section hidden"><h2>
-  New Household
-</h2>
+<main>
 
-<form
-  id="householdForm"
-  onsubmit="saveHousehold(event)">
+  <div class="status-bar">
 
-  <div class="form-grid">
-
-    <div class="form-group">
-
-      <label>
-        Representative / Household Name *
-      </label>
-
-      <input
-        id="householdName"
-        required>
-
+    <div id="statusText">
+      Connecting...
     </div>
 
-    <div class="form-group">
+    <div id="lastUpdated"></div>
 
-      <label>
-        Disaster Type *
-      </label>
+  </div>
 
-      <select
-        id="disasterType"
-        required>
+  <div class="summary">
 
-        <option value="">
-          Select
-        </option>
-
-        <option>Flood</option>
-        <option>Fire</option>
-        <option>Drought</option>
-        <option>Landslide</option>
-        <option>Conflict</option>
-        <option>Other</option>
-
-      </select>
-
+    <div class="summary-card">
+      <strong id="householdCount">0</strong>
+      <span>Households</span>
     </div>
 
-    <div class="form-group">
-
-      <label>
-        Disaster Date *
-      </label>
-
-      <input
-        id="disasterDate"
-        type="date"
-        required>
-
+    <div class="summary-card">
+      <strong id="memberCount">0</strong>
+      <span>Members</span>
     </div>
 
-    <div class="form-group">
-      <label>City</label>
-      <input id="city">
+    <div class="summary-card">
+      <strong id="reliefCount">0</strong>
+      <span>Reliefs</span>
     </div>
 
-    <div class="form-group">
-      <label>Sub-City</label>
-      <input id="subCity">
-    </div>
-
-    <div class="form-group">
-      <label>Woreda</label>
-      <input id="woreda">
-    </div>
-
-    <div class="form-group">
-      <label>Specific Location</label>
-      <input id="specificLocation">
-    </div>
-
-    <div class="form-group">
-      <label>House Number</label>
-      <input id="houseNumber">
-    </div>
-
-    <div class="form-group">
-
-      <label>
-        Phone Number
-      </label>
-
-      <input
-        id="householdPhone"
-        type="tel"
-        inputmode="tel"
-        maxlength="20"
-        placeholder="Household phone number"
-        autocomplete="off">
-
-    </div>
-
-    <div class="form-group full">
-
-      <label>
-        Other Information
-      </label>
-
-      <textarea
-        id="householdOther"></textarea>
-
+    <div class="summary-card">
+      <strong id="documentCount">0</strong>
+      <span>Documents</span>
     </div>
 
   </div>
 
-  <hr>
+  <div class="toolbar">
 
-  <h3>Members</h3>
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Household, member or 16-digit FAN"
+      oninput="filterHouseholds()"
+    >
 
-  <div id="membersContainer"></div>
+    <button
+      class="btn-primary"
+      onclick="openHouseholdForm()">
+      + New Household
+    </button>
 
-  <button
-    type="button"
-    class="btn-secondary"
-    onclick="addMemberRow()">
-    + Add Member
-  </button>
+    <button
+      class="btn-success"
+      onclick="openReliefForm()">
+      + Individual Relief
+    </button>
 
-  <hr>
+    <button
+      class="btn-secondary"
+      onclick="refreshAll()">
+      ↻ Refresh
+    </button>
 
-  <h3>
-    Household Evidence / Documents
-  </h3>
+  </div>
 
-  <div id="documentsContainer"></div>
+  <div class="section">
 
-  <button
-    type="button"
-    class="btn-secondary"
-    onclick="addDocumentRow()">
-    + Add Evidence / Document
-  </button>
+    <h2>
+      Household Folders
+    </h2>
+
+    <div
+      id="householdList"
+      class="folder-list">
+
+      <div class="loading">
+        Loading households...
+      </div>
+
+    </div>
+
+  </div>
 
   <div
-    style="
-      margin-top:18px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap
-    ">
+    id="householdSection"
+    class="section hidden">
 
-    <button
-      type="submit"
-      class="btn-primary">
-      Save Household
-    </button>
+    <h2>
+      New Household
+    </h2>
 
-    <button
-      type="button"
-      class="btn-dark"
-      onclick="closeHouseholdForm()">
-      Cancel
-    </button>
+    <form
+      id="householdForm"
+      onsubmit="saveHousehold(event)">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>
+            Representative / Household Name *
+          </label>
+
+          <input
+            id="householdName"
+            required>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>
+            Disaster Type *
+          </label>
+
+          <select
+            id="disasterType"
+            required>
+
+            <option value="">
+              Select
+            </option>
+
+            <option>Flood</option>
+            <option>Fire</option>
+            <option>Drought</option>
+            <option>Landslide</option>
+            <option>Conflict</option>
+            <option>Other</option>
+
+          </select>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>
+            Disaster Date *
+          </label>
+
+          <input
+            id="disasterDate"
+            type="date"
+            required>
+
+        </div>
+
+        <div class="form-group">
+          <label>City</label>
+          <input id="city">
+        </div>
+
+        <div class="form-group">
+          <label>Sub-City</label>
+          <input id="subCity">
+        </div>
+
+        <div class="form-group">
+          <label>Woreda</label>
+          <input id="woreda">
+        </div>
+
+        <div class="form-group">
+          <label>Specific Location</label>
+          <input id="specificLocation">
+        </div>
+
+        <div class="form-group">
+          <label>House Number</label>
+          <input id="houseNumber">
+        </div>
+
+        <div class="form-group">
+
+          <label>
+            Phone Number
+          </label>
+
+          <input
+            id="householdPhone"
+            type="tel"
+            inputmode="tel"
+            maxlength="20"
+            placeholder="Household phone number"
+            autocomplete="off">
+
+        </div>
+
+        <div class="form-group full">
+
+          <label>
+            Other Information
+          </label>
+
+          <textarea
+            id="householdOther"></textarea>
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <h3>Members</h3>
+
+      <div id="membersContainer"></div>
+
+      <button
+        type="button"
+        class="btn-secondary"
+        onclick="addMemberRow()">
+        + Add Member
+      </button>
+
+      <hr>
+
+      <h3>
+        Household Evidence / Documents
+      </h3>
+
+      <div id="documentsContainer"></div>
+
+      <button
+        type="button"
+        class="btn-secondary"
+        onclick="addDocumentRow()">
+        + Add Evidence / Document
+      </button>
+
+      <div
+        style="
+          margin-top:18px;
+          display:flex;
+          gap:10px;
+          flex-wrap:wrap
+        ">
+
+        <button
+          type="submit"
+          class="btn-primary">
+          Save Household
+        </button>
+
+        <button
+          type="button"
+          class="btn-dark"
+          onclick="closeHouseholdForm()">
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
 
   </div>
 
-</form>
-
-  </div>  <div
+  <div
     id="reliefSection"
-    class="section hidden"><h2>
-  Individual Emergency Relief
-</h2>
+    class="section hidden">
 
-<form
-  id="reliefForm"
-  onsubmit="saveRelief(event)">
+    <h2>
+      Individual Emergency Relief
+    </h2>
 
-  <div class="form-grid">
+    <form
+      id="reliefForm"
+      onsubmit="saveRelief(event)">
 
-    <div class="form-group">
+      <div class="form-grid">
 
-      <label>Household *</label>
+        <div class="form-group">
 
-      <select
-        id="reliefHousehold"
-        required
-        onchange="loadReliefMembers()">
+          <label>Household *</label>
 
-        <option value="">
-          Select Household
-        </option>
+          <select
+            id="reliefHousehold"
+            required
+            onchange="loadReliefMembers()">
 
-      </select>
+            <option value="">
+              Select Household
+            </option>
 
-    </div>
+          </select>
 
-    <div class="form-group">
+        </div>
 
-      <label>Member *</label>
+        <div class="form-group">
 
-      <select
-        id="reliefMember"
-        required>
+          <label>Member *</label>
 
-        <option value="">
-          Select Member
-        </option>
+          <select
+            id="reliefMember"
+            required>
 
-      </select>
+            <option value="">
+              Select Member
+            </option>
 
-    </div>
+          </select>
 
-    <div class="form-group">
+        </div>
 
-      <label>Relief Date *</label>
+        <div class="form-group">
 
-      <input
-        id="reliefDate"
-        type="date"
-        required>
+          <label>Relief Date *</label>
 
-    </div>
+          <input
+            id="reliefDate"
+            type="date"
+            required>
 
-    <div class="form-group">
+        </div>
 
-      <label>Issued By *</label>
+        <div class="form-group">
 
-      <input
-        id="issuedBy"
-        required>
+          <label>Issued By *</label>
 
-    </div>
+          <input
+            id="issuedBy"
+            required>
 
-    <div class="form-group">
+        </div>
 
-      <label>Signature *</label>
+        <div class="form-group">
 
-      <input
-        id="reliefSignature"
-        required>
+          <label>Signature *</label>
 
-    </div>
+          <input
+            id="reliefSignature"
+            required>
 
-    <div class="form-group">
+        </div>
 
-      <label>Model 22 *</label>
+        <div class="form-group">
 
-      <select
-        id="model22"
-        required
-        onchange="toggleModel22Number()">
+          <label>Model 22 *</label>
 
-        <option value="">
-          Select
-        </option>
+          <select
+            id="model22"
+            required
+            onchange="toggleModel22Number()">
 
-        <option value="Model 22 Available">
-          Model 22 Number
-        </option>
+            <option value="">
+              Select
+            </option>
 
-      </select>
+            <option value="Model 22 Available">
+              Model 22 Number
+            </option>
+
+          </select>
+
+        </div>
+
+        <div
+          class="form-group hidden"
+          id="model22NumberGroup">
+
+          <label>
+            Model 22 Number / Code *
+          </label>
+
+          <input
+            id="model22Number"
+            autocomplete="off">
+
+        </div>
+
+        <div class="form-group full">
+
+          <label>
+            Other Information
+          </label>
+
+          <textarea
+            id="reliefOther"></textarea>
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <h3>Relief Items</h3>
+
+      <div id="reliefItemsContainer"></div>
+
+      <button
+        type="button"
+        class="btn-secondary"
+        onclick="addReliefItem()">
+        + Add Item
+      </button>
+
+      <div
+        style="
+          margin-top:18px;
+          display:flex;
+          gap:10px;
+          flex-wrap:wrap
+        ">
+
+        <button
+          type="submit"
+          class="btn-success">
+          Save Relief & Stock OUT
+        </button>
+
+        <button
+          type="button"
+          class="btn-dark"
+          onclick="closeReliefForm()">
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</main>
+
+<div
+  id="householdModal"
+  class="modal"
+  onclick="closeModalOutside(event)">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2 id="modalTitle">
+        Household Profile
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeHouseholdModal()">
+        ×
+      </button>
 
     </div>
 
     <div
-      class="form-group hidden"
-      id="model22NumberGroup">
+      id="modalBody"
+      class="modal-body">
 
-      <label>
-        Model 22 Number / Code *
-      </label>
-
-      <input
-        id="model22Number"
-        autocomplete="off">
-
-    </div>
-
-    <div class="form-group full">
-
-      <label>
-        Other Information
-      </label>
-
-      <textarea
-        id="reliefOther"></textarea>
+      <div class="loading">
+        Loading...
+      </div>
 
     </div>
 
   </div>
 
-  <hr>
-
-  <h3>Relief Items</h3>
-
-  <div id="reliefItemsContainer"></div>
-
-  <button
-    type="button"
-    class="btn-secondary"
-    onclick="addReliefItem()">
-    + Add Item
-  </button>
-
-  <div
-    style="
-      margin-top:18px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap
-    ">
-
-    <button
-      type="submit"
-      class="btn-success">
-      Save Relief & Stock OUT
-    </button>
-
-    <button
-      type="button"
-      class="btn-dark"
-      onclick="closeReliefForm()">
-      Cancel
-    </button>
-
-  </div>
-
-</form>
-
-  </div></main><div
-  id="householdModal"
-  class="modal"
-  onclick="closeModalOutside(event)">  <div class="modal-box"><div class="modal-header">
-
-  <h2 id="modalTitle">
-    Household Profile
-  </h2>
-
-  <button
-    class="close"
-    onclick="closeHouseholdModal()">
-    ×
-  </button>
-
 </div>
 
-<div
-  id="modalBody"
-  class="modal-body">
-
-  <div class="loading">
-    Loading...
-  </div>
-
-</div>
-
-  </div></div><script>
+<script>
 
 /* =========================================================
    SUPABASE
@@ -2518,11 +2607,6 @@ async function saveHousehold(event){
 
       }
 
-      /* FIX:
-         Prevent duplicate FAN numbers inside the same
-         household before sending the data.
-      */
-
       if(fanSet.has(fan)){
 
         throw new Error(
@@ -2573,11 +2657,6 @@ async function saveHousehold(event){
 
     }
 
-
-    /* Check FAN numbers already registered
-       before inserting this household.
-    */
-
     const existingFanRows =
       await getTable(
         "emergency_members",
@@ -2611,7 +2690,6 @@ async function saveHousehold(event){
       }
 
     }
-
 
     const householdPayload={
 
@@ -2689,7 +2767,6 @@ async function saveHousehold(event){
 
     };
 
-
     const saved =
       await insertTable(
         "emergency_households",
@@ -2712,7 +2789,6 @@ async function saveHousehold(event){
 
     }
 
-
     for(
       const member
       of members
@@ -2728,7 +2804,6 @@ async function saveHousehold(event){
       );
 
     }
-
 
     const documentRows =
       Array.from(
@@ -3828,13 +3903,6 @@ async function saveRelief(event){
 
     const reliefItems=[];
 
-    /*
-      FIX:
-      Same item may be entered in more than one row.
-      Combine it before checking stock so that total
-      requested quantity cannot exceed actual balance.
-    */
-
     const requestedByItem={};
 
     for(
@@ -3905,7 +3973,6 @@ async function saveRelief(event){
 
     }
 
-
     for(
       const itemId
       of Object.keys(requestedByItem)
@@ -3967,7 +4034,6 @@ async function saveRelief(event){
 
     }
 
-
     for(
       const row
       of rows
@@ -4026,7 +4092,6 @@ async function saveRelief(event){
 
     }
 
-
     const reliefPayload={
 
       household_id:
@@ -4064,7 +4129,6 @@ async function saveRelief(event){
 
     };
 
-
     const savedRelief =
       await insertTable(
         "emergency_reliefs",
@@ -4086,7 +4150,6 @@ async function saveRelief(event){
       );
 
     }
-
 
     for(
       const item
@@ -4122,7 +4185,6 @@ async function saveRelief(event){
       );
 
     }
-
 
     for(
       const item
@@ -4179,14 +4241,12 @@ async function saveRelief(event){
 
     }
 
-
     alert(
       "Emergency Relief saved successfully.\n\n"+
       "Stock OUT was also recorded.\n"+
       "Model 22 Number: "+
       model22Number
     );
-
 
     document
       .getElementById(
@@ -4347,7 +4407,6 @@ async function openHousehold(
 
     let html="";
 
-
     html+=`
 
       <div class="info-card">
@@ -4414,7 +4473,6 @@ async function openHousehold(
       </div>
 
     `;
-
 
     html+=`
 
@@ -4491,7 +4549,6 @@ async function openHousehold(
     html+=`
       </div>
     `;
-
 
     html+=`
 
@@ -4642,7 +4699,6 @@ async function openHousehold(
     html+=`
       </div>
     `;
-
 
     html+=`
 
@@ -4983,5 +5039,7 @@ document.addEventListener(
   }
 );
 
-</script></body>
+</script>
+
+</body>
 </html>
