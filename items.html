@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AADLM - Item Management</title>
-
-<style>
+<!DOCTYPE html><html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AADLM - Item Management</title><style>
 
 *{
   box-sizing:border-box;
@@ -294,334 +287,276 @@ th{
 
 }
 
-</style>
+</style></head><body><!-- ================= HEADER ================= --><div class="header">  <div class="header-left"><div class="logo">
+  AF
+</div>
 
-</head>
+<div>
 
-<body>
-
-<!-- ================= HEADER ================= -->
-
-<div class="header">
-
-  <div class="header-left">
-
-    <div class="logo">
-      AF
-    </div>
-
-    <div>
-
-      <div class="title">
-        AAFDRMC - Item Management
-      </div>
-
-      <div class="branch-badge" id="branchBadge">
-        Loading branch...
-      </div>
-
-    </div>
-
+  <div class="title">
+    AADLM - Item Management
   </div>
 
-  <div class="header-right">
+  <div class="branch-badge" id="branchBadge">
+    Loading branch...
+  </div>
 
-    <button
-      class="btn-dashboard"
-      onclick="goDashboard()">
-      Dashboard
-    </button>
+</div>
 
-    <button
-      class="btn-refresh"
-      onclick="loadItems()">
-      Refresh
-    </button>
+  </div>  <div class="header-right"><button
+  class="btn-dashboard"
+  onclick="goDashboard()">
+  Dashboard
+</button>
 
+<button
+  class="btn-refresh"
+  onclick="loadItems()">
+  Refresh
+</button>
+
+  </div></div><!-- ================= MAIN ================= --><div class="container">  <div id="message"></div>  <!-- ================= CARDS ================= -->  <div class="cards"><div class="card">
+
+  <h3>Total Items</h3>
+
+  <div
+    class="number"
+    id="totalItems">
+    0
   </div>
 
 </div>
 
 
-<!-- ================= MAIN ================= -->
+<div class="card">
 
-<div class="container">
-
-  <div id="message"></div>
-
-
-  <!-- ================= CARDS ================= -->
-
-  <div class="cards">
-
-    <div class="card">
-
-      <h3>Total Items</h3>
-
-      <div
-        class="number"
-        id="totalItems">
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3>Categories</h3>
-
-      <div
-        class="number"
-        id="totalCategories">
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3>Units</h3>
-
-      <div
-        class="number"
-        id="totalUnits">
-        0
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ================= ADD / EDIT FORM ================= -->
+  <h3>Categories</h3>
 
   <div
-    class="form-card"
-    id="formCard">
-
-    <h2
-      class="form-title"
-      id="formTitle">
-      Add New Item
-    </h2>
-
-
-    <div class="form-grid">
-
-
-      <!-- ITEM NAME -->
-
-      <div class="form-group">
-
-        <label for="itemName">
-          Item Name
-        </label>
-
-        <input
-          type="text"
-          id="itemName"
-          placeholder="Enter item name">
-
-      </div>
-
-
-      <!-- CATEGORY - ENGLISH ONLY -->
-
-      <div class="form-group">
-
-        <label for="category">
-          Category
-        </label>
-
-        <select id="category">
-
-          <option value="">
-            Select Category
-          </option>
-
-          <option value="Strategic Food Items">
-            Strategic Food Items
-          </option>
-
-          <option value="Daily Food Items">
-            Daily Food Items
-          </option>
-
-          <option value="Daily Non-Food Items">
-            Daily Non-Food Items
-          </option>
-
-          <option value="Non-Food Kitchen Items">
-            Non-Food Kitchen Items
-          </option>
-
-          <option value="Non-Food Hygiene Items">
-            Non-Food Hygiene Items
-          </option>
-
-          <option value="Building / Construction Items">
-            Building / Construction Items
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- UNIT -->
-
-      <div class="form-group">
-
-        <label for="unit">
-          Unit / Measurement
-        </label>
-
-        <select id="unit">
-
-          <option value="">
-            Select Unit
-          </option>
-
-          <option value="Kg">
-            Kg
-          </option>
-
-          <option value="Quintal">
-            Quintal
-          </option>
-
-          <option value="Ton">
-            Ton
-          </option>
-
-          <option value="Liter">
-            Liter
-          </option>
-
-          <option value="Piece">
-            Piece
-          </option>
-
-          <option value="Box">
-            Box
-          </option>
-
-          <option value="Bag">
-            Bag
-          </option>
-
-          <option value="Carton">
-            Carton
-          </option>
-
-          <option value="Meter">
-            Meter
-          </option>
-
-          <option value="Set">
-            Set
-          </option>
-
-          <option value="Other">
-            Other
-          </option>
-
-        </select>
-
-      </div>
-
-    </div>
-
-
-    <div class="form-actions">
-
-      <button
-        class="btn-save"
-        id="saveButton"
-        onclick="saveItem()">
-        Save Item
-      </button>
-
-      <button
-        class="btn-cancel hidden"
-        id="cancelButton"
-        onclick="cancelEdit()">
-        Cancel
-      </button>
-
-    </div>
-
+    class="number"
+    id="totalCategories">
+    0
   </div>
 
+</div>
 
-  <!-- ================= SEARCH ================= -->
 
-  <div class="search-card">
+<div class="card">
+
+  <h3>Units</h3>
+
+  <div
+    class="number"
+    id="totalUnits">
+    0
+  </div>
+
+</div>
+
+  </div>  <!-- ================= ADD / EDIT FORM ================= -->  <div
+    class="form-card"
+    id="formCard"><h2
+  class="form-title"
+  id="formTitle">
+  Add New Item
+</h2>
+
+
+<div class="form-grid">
+
+
+  <!-- ITEM NAME -->
+
+  <div class="form-group">
+
+    <label for="itemName">
+      Item Name
+    </label>
 
     <input
       type="text"
-      id="searchInput"
-      placeholder="Search item..."
-      oninput="filterItems()">
+      id="itemName"
+      placeholder="Enter item name">
 
   </div>
 
 
-  <!-- ================= TABLE ================= -->
+  <!-- CATEGORY - ENGLISH ONLY -->
 
-  <div class="table-card">
+  <div class="form-group">
 
-    <div id="loading">
-      Loading items...
-    </div>
+    <label for="category">
+      Category
+    </label>
+
+    <select id="category">
+
+      <option value="">
+        Select Category
+      </option>
+
+      <option value="Strategic Food Items">
+        Strategic Food Items
+      </option>
+
+      <option value="Daily Food Items">
+        Daily Food Items
+      </option>
+
+      <option value="Daily Non-Food Items">
+        Daily Non-Food Items
+      </option>
+
+      <option value="Non-Food Kitchen Items">
+        Non-Food Kitchen Items
+      </option>
+
+      <option value="Non-Food Hygiene Items">
+        Non-Food Hygiene Items
+      </option>
+
+      <option value="Building / Construction Items">
+        Building / Construction Items
+      </option>
+
+    </select>
+
+  </div>
 
 
-    <table
-      id="itemsTable"
-      class="hidden">
+  <!-- UNIT -->
 
-      <thead>
+  <div class="form-group">
 
-        <tr>
+    <label for="unit">
+      Unit / Measurement
+    </label>
 
-          <th>
-            #
-          </th>
+    <select id="unit">
 
-          <th>
-            Item Name
-          </th>
+      <option value="">
+        Select Unit
+      </option>
 
-          <th>
-            Category
-          </th>
+      <option value="Kg">
+        Kg
+      </option>
 
-          <th>
-            Unit
-          </th>
+      <option value="Quintal">
+        Quintal
+      </option>
 
-          <th id="actionHeader">
-            Action
-          </th>
+      <option value="Ton">
+        Ton
+      </option>
 
-        </tr>
+      <option value="Liter">
+        Liter
+      </option>
 
-      </thead>
+      <option value="Piece">
+        Piece
+      </option>
 
+      <option value="Box">
+        Box
+      </option>
 
-      <tbody id="itemsBody">
-      </tbody>
+      <option value="Bag">
+        Bag
+      </option>
 
-    </table>
+      <option value="Carton">
+        Carton
+      </option>
+
+      <option value="Meter">
+        Meter
+      </option>
+
+      <option value="Set">
+        Set
+      </option>
+
+      <option value="Other">
+        Other
+      </option>
+
+    </select>
 
   </div>
 
 </div>
 
 
-<script>
+<div class="form-actions">
+
+  <button
+    class="btn-save"
+    id="saveButton"
+    onclick="saveItem()">
+    Save Item
+  </button>
+
+  <button
+    class="btn-cancel hidden"
+    id="cancelButton"
+    onclick="cancelEdit()">
+    Cancel
+  </button>
+
+</div>
+
+  </div>  <!-- ================= SEARCH ================= -->  <div class="search-card"><input
+  type="text"
+  id="searchInput"
+  placeholder="Search item..."
+  oninput="filterItems()">
+
+  </div>  <!-- ================= TABLE ================= -->  <div class="table-card"><div id="loading">
+  Loading items...
+</div>
+
+
+<table
+  id="itemsTable"
+  class="hidden">
+
+  <thead>
+
+    <tr>
+
+      <th>
+        #
+      </th>
+
+      <th>
+        Item Name
+      </th>
+
+      <th>
+        Category
+      </th>
+
+      <th>
+        Unit
+      </th>
+
+      <th id="actionHeader">
+        Action
+      </th>
+
+    </tr>
+
+  </thead>
+
+
+  <tbody id="itemsBody">
+  </tbody>
+
+</table>
+
+  </div></div><script>
 
 /* =========================================================
    SUPABASE CONFIG
@@ -2198,7 +2133,5 @@ document.addEventListener(
   }
 );
 
-</script>
-
-</body>
+</script></body>
 </html>
