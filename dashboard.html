@@ -1,18 +1,25 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
 name="viewport"
 content="width=device-width,initial-scale=1.0"
-
-«»
+>
 
 <meta
 name="theme-color"
 content="#0d47a1"
-
-«»
+>
 
 <title>
   AADLM - Dashboard
-</title><style>
+</title>
+
+<style>
 
 *{
   box-sizing:border-box;
@@ -313,7 +320,6 @@ header h1{
 
 /* =====================================================
    ICON
-   WHITE RING ONLY
 ===================================================== */
 
 .menu-icon{
@@ -351,7 +357,6 @@ header h1{
 
 /* =====================================================
    LABEL
-   TEXT ONLY - BIGGER
 ===================================================== */
 
 .menu-label{
@@ -611,105 +616,140 @@ header h1{
   padding:20px;
 }
 
-</style></head><body><header>  <h1>
-    AAFDRMC - STOCK MANAGEMENT
-  </h1>  <div
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>
+    AADLM - STOCK MANAGEMENT
+  </h1>
+
+  <div
     class="branch"
     id="branchName"
   >
     🏢 Gulele
-  </div>  <div class="profile-area"><img
-  src="./1788633150526.jpg"
-  class="profile-picture"
-  alt="AAFDRMC"
-  onerror="this.style.display='none';"
->
+  </div>
 
-<div
-  class="profile-name"
-  id="loginUserDisplay"
->
-  User
-</div>
+  <div class="profile-area">
 
-<div
-  class="mode-badge"
-  id="modeBadge"
->
-  Branch User
-</div>
+    <img
+      src="./1788633150526.jpg"
+      class="profile-picture"
+      alt="AADLM"
+      onerror="this.style.display='none';"
+    >
 
-  </div></header><div class="container">  <!-- HIDDEN BRANCH INFORMATION -->  <div class="card hidden"><div class="info">
+    <div
+      class="profile-name"
+      id="loginUserDisplay"
+    >
+      User
+    </div>
 
-  <span data-i18n="currentBranchLabel">
-    🏢 Current Branch:
-  </span>
+    <div
+      class="mode-badge"
+      id="modeBadge"
+    >
+      Branch User
+    </div>
 
-  <br>
+  </div>
 
-  <strong id="currentBranch">
-    Loading...
-  </strong>
+</header>
 
-  <br><br>
+<div class="container">
 
-  <span data-i18n="branchCodeLabel">
-    Branch Code:
-  </span>
+  <div class="card hidden">
 
-  <strong id="currentCode">
-    —
-  </strong>
+    <div class="info">
 
-</div>
+      <span data-i18n="currentBranchLabel">
+        🏢 Current Branch:
+      </span>
 
-  </div>  <!-- STATUS -->  <div
+      <br>
+
+      <strong id="currentBranch">
+        Loading...
+      </strong>
+
+      <br><br>
+
+      <span data-i18n="branchCodeLabel">
+        Branch Code:
+      </span>
+
+      <strong id="currentCode">
+        —
+      </strong>
+
+    </div>
+
+  </div>
+
+  <div
     class="status-bar loading"
     id="statusBar"
   >
     Loading dashboard...
-  </div>  <!-- MENU -->  <div
+  </div>
+
+  <div
     class="menu-grid"
     id="menuGrid"
   >
-  </div>  <!-- MAIN HQ BRANCH SECTION -->  <div
+  </div>
+
+  <div
     class="branch-section hidden"
     id="mainBranchSection"
-  ><div class="section-title">
-  All Branches
+  >
+
+    <div class="section-title">
+      All Branches
+    </div>
+
+    <div
+      class="branch-grid"
+      id="branchGrid"
+    >
+    </div>
+
+  </div>
+
 </div>
 
-<div
-  class="branch-grid"
-  id="branchGrid"
->
+<div class="bottom-controls">
+
+  <button
+    class="bottom-button"
+    onclick="refreshDashboard()"
+  >
+    ↻ Refresh
+  </button>
+
+  <button
+    class="bottom-button"
+    onclick="goDashboard()"
+  >
+    ⌂ Dashboard
+  </button>
+
+  <button
+    class="bottom-button logout"
+    onclick="logout()"
+  >
+    ⇥ Logout
+  </button>
+
 </div>
 
-  </div></div><!-- BOTTOM CONTROLS --><div class="bottom-controls"><button
-class="bottom-button"
-onclick="refreshDashboard()"
-
-«»
-
-↻ Refresh
-
-  </button><button
-class="bottom-button"
-onclick="goDashboard()"
-
-«»
-
-⌂ Dashboard
-
-  </button><button
-class="bottom-button logout"
-onclick="logout()"
-
-«»
-
-⇥ Logout
-
-  </button></div><script>
+<script>
 
 /* =====================================================
    SUPABASE
@@ -1278,8 +1318,6 @@ function setupMenu(){
   }
 
 
-  /* ITEM */
-
   addMenu(
     menu,
     "items",
@@ -1288,8 +1326,6 @@ function setupMenu(){
     "items.html"
   );
 
-
-  /* STOCK */
 
   addMenu(
     menu,
@@ -1300,8 +1336,6 @@ function setupMenu(){
   );
 
 
-  /* STOCK REPORT */
-
   addMenu(
     menu,
     "report",
@@ -1310,8 +1344,6 @@ function setupMenu(){
     "reports.html"
   );
 
-
-  /* RELIEF REPORT */
 
   addMenu(
     menu,
@@ -1322,8 +1354,6 @@ function setupMenu(){
   );
 
 
-  /* SETTINGS */
-
   addMenu(
     menu,
     "settings",
@@ -1332,8 +1362,6 @@ function setupMenu(){
     "settings.html"
   );
 
-
-  /* MAIN MENU */
 
   addMenu(
     menu,
@@ -2045,5 +2073,6 @@ document.addEventListener(
 );
 
 </script>
+
 </body>
 </html>
