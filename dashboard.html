@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AAFDRMC - Dashboard</title>
-
-<style>
+<!DOCTYPE html><html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AAFDRMC - Dashboard</title><style>
 
 *{
   box-sizing:border-box;
@@ -190,32 +183,33 @@ header h1{
   text-align:center;
 }
 
-/* ================= CIRCULAR DASHBOARD MENU ================= */
+/* =========================================================
+   DASHBOARD MENU
+   DESIGN UPDATED FROM HOUSEHOLD STYLE
+   FUNCTIONALITY UNCHANGED
+   ========================================================= */
 
 .menu-grid{
   display:grid;
 
-  grid-template-columns:repeat(3,120px);
-
-  justify-content:center;
-  align-items:center;
+  grid-template-columns:
+    repeat(3,minmax(145px,1fr));
 
   gap:18px;
 
-  padding:10px 5px;
+  padding:5px;
 }
 
 .btn{
-  width:120px;
-  height:120px;
+  min-height:125px;
 
-  border:0;
+  border:1px solid rgba(255,255,255,.70);
 
-  border-radius:50%;
+  border-radius:22px;
 
   color:white;
 
-  font-size:13px;
+  font-size:14px;
 
   font-weight:bold;
 
@@ -233,34 +227,59 @@ header h1{
 
   justify-content:center;
 
-  padding:10px;
+  padding:18px 12px;
 
-  line-height:1.2;
+  line-height:1.3;
 
   box-shadow:
-    0 6px 14px rgba(0,0,0,.24),
-    inset 0 1px 2px rgba(255,255,255,.25);
+    0 6px 18px rgba(0,0,0,.18);
 
   transition:
-    transform .18s ease,
-    opacity .18s ease,
-    box-shadow .18s ease;
+    transform .20s ease,
+    box-shadow .20s ease,
+    opacity .20s ease;
+
+  backdrop-filter:blur(5px);
 }
 
 .btn:hover{
-  opacity:.97;
+  opacity:.98;
 
   transform:
-    translateY(-4px)
-    scale(1.04);
+    translateY(-5px);
 
   box-shadow:
-    0 9px 20px rgba(0,0,0,.28),
-    inset 0 1px 2px rgba(255,255,255,.25);
+    0 11px 24px rgba(0,0,0,.25);
 }
 
 .btn:active{
-  transform:scale(.93);
+  transform:
+    translateY(-1px)
+    scale(.97);
+}
+
+.btn span:first-child{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:58px;
+  height:58px;
+
+  margin-bottom:10px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.18);
+
+  border:
+    1px solid rgba(255,255,255,.28);
+
+  font-size:30px !important;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.20);
 }
 
 /* ================= MENU COLORS ================= */
@@ -808,19 +827,15 @@ header h1{
 
   .menu-grid{
     grid-template-columns:
-      repeat(2,100px);
+      repeat(2,1fr);
 
     gap:15px;
   }
 
   .menu-grid .btn{
-    width:100px;
+    min-height:115px;
 
-    height:100px;
-
-    font-size:12px;
-
-    padding:8px;
+    font-size:13px;
   }
 
 }
@@ -872,23 +887,33 @@ header h1{
 
   .menu-grid{
     grid-template-columns:
-      repeat(2,100px);
+      repeat(2,1fr);
 
-    gap:14px;
+    gap:13px;
+
+    padding:2px;
   }
 
   .menu-grid .btn{
-    width:100px;
-
-    height:100px;
+    min-height:110px;
 
     font-size:12px;
 
-    padding:8px;
+    padding:12px 7px;
+
+    border-radius:20px;
   }
 
   .menu-grid .btn span:first-child{
-    font-size:27px !important;
+    width:50px;
+
+    height:50px;
+
+    margin-bottom:8px;
+
+    font-size:26px !important;
+
+    border-radius:15px;
   }
 
   .title{
@@ -948,23 +973,29 @@ header h1{
 
   .menu-grid{
     grid-template-columns:
-      repeat(2,92px);
+      repeat(2,1fr);
 
-    gap:12px;
+    gap:10px;
   }
 
   .menu-grid .btn{
-    width:92px;
-
-    height:92px;
+    min-height:96px;
 
     font-size:11px;
 
-    padding:7px;
+    padding:8px 5px;
+
+    border-radius:18px;
   }
 
   .menu-grid .btn span:first-child{
-    font-size:24px !important;
+    width:43px;
+
+    height:43px;
+
+    font-size:23px !important;
+
+    margin-bottom:6px;
   }
 
 }
@@ -993,84 +1024,36 @@ header h1{
   margin:auto;
 }
 
-</style>
-</head>
-
-<body>
-
-<header>
-
-<h1 data-i18n="appTitle">
+</style></head><body><header><h1 data-i18n="appTitle">
 AAFDRMC - STOCK MANAGEMENT
-</h1>
-
-<div id="branchName" class="branch">
+</h1><div id="branchName" class="branch">
 Loading Branch...
-</div>
-
-<div class="profile-area">
-
-<img
-  src="./1788633150526.jpg"
-  class="profile-picture"
-  alt="AAFDRMC Profile">
+</div><div class="profile-area"><img
+src="./1788633150526.jpg"
+class="profile-picture"
+alt="AAFDRMC Profile">
 
 <div class="profile-name">
 AAFDRMC User
-</div>
-
-</div>
-
-<div
+</div></div><div
   id="modeBadge"
   class="mode-badge">
-</div>
-
-</header>
-
-
-<div class="container">
-
-<div
+</div></header><div class="container"><div
   id="message"
   class="message">
-</div>
-
-
-<div class="card">
-
-<div class="info">
-
-<span data-i18n="currentBranchLabel">
+</div><div class="card"><div class="info"><span data-i18n="currentBranchLabel">
 🏢 Current Branch:
-</span>
-
-<br>
-
-<strong id="currentBranch">
+</span><br><strong id="currentBranch">
 Loading...
-</strong>
-
-<br><br>
+</strong><br><br>
 
 <span data-i18n="branchCodeLabel">
 Branch Code:
-</span>
-
-<strong id="currentCode">
+</span><strong id="currentCode">
 —
-</strong>
-
-</div>
-
-</div>
-
-
-<div
+</strong></div></div><div
   id="mainNote"
-  class="main-note hidden">
-
-🏢
+  class="main-note hidden">🏢
 <strong data-i18n="mainViewOnly">
 Main / HQ - View Only
 </strong>
@@ -1079,431 +1062,200 @@ Main / HQ - View Only
 
 <span data-i18n="mainNoteText">
 Main irraa branch tokko filattee Item, Stock fi Report ilaaluu dandeessa.
-</span>
-
-<br><br>
+</span><br><br>
 
 <span data-i18n="mainCannot">
 Main irraa:
-</span>
-
-<br>
-
-❌
+</span><br>❌
 <span data-i18n="itemAdd">
 Item Add
 </span>
 
-<br>
-
-❌
+<br>❌
 <span data-i18n="itemEdit">
 Item Edit
 </span>
 
-<br>
-
-❌
+<br>❌
 <span data-i18n="itemDelete">
 Item Delete
 </span>
 
-<br>
+<br>❌ Stock IN
 
-❌ Stock IN
-
-<br>
-
-❌ Stock OUT
+<br>❌ Stock OUT
 
 <br><br>
 
 <span data-i18n="mainCannotEnd">
 hin danda'amu.
-</span>
-
-</div>
-
-
-<!-- ================= MENU ================= -->
-
-<div class="card">
-
-<div
+</span></div><!-- ================= MENU ================= --><div class="card"><div
   class="title"
-  data-i18n="dashboardMenu">
+  data-i18n="dashboardMenu">📊 Dashboard Menu
 
-📊 Dashboard Menu
-
-</div>
-
-
-<div
+</div><div
   id="branchMenu"
-  class="menu-grid">
-
-<a
-  href="items.html"
-  class="btn items"
-  id="itemsButton">
+  class="menu-grid"><a
+href="items.html"
+class="btn items"
+id="itemsButton">
 
 <span style="font-size:28px;">
 📦
-</span>
-
-<span data-i18n="items">
+</span><span data-i18n="items">
 Items
-</span>
-
-</a>
-
-
-<a
-  href="stock.html"
-  class="btn stock"
-  id="stockButton">
+</span></a><a
+href="stock.html"
+class="btn stock"
+id="stockButton">
 
 <span style="font-size:28px;">
 📥
-</span>
-
-<span data-i18n="stockInOut">
+</span><span data-i18n="stockInOut">
 Stock IN / OUT
-</span>
-
-</a>
-
-
-<a
-  href="reports.html"
-  class="btn report">
+</span></a><a
+href="reports.html"
+class="btn report">
 
 <span style="font-size:28px;">
 📊
-</span>
-
-<span data-i18n="stockReport">
+</span><span data-i18n="stockReport">
 Stock Report
-</span>
-
-</a>
-
-
-<a
-  href="emergency-relief.html"
-  class="btn relief"
-  id="reliefButton">
+</span></a><a
+href="emergency-relief.html"
+class="btn relief"
+id="reliefButton">
 
 <span style="font-size:28px;">
 🚑
-</span>
-
-<span data-i18n="reliefReport">
+</span><span data-i18n="reliefReport">
 Relief Report
-</span>
-
-</a>
-
-
-<a
-  href="settings.html"
-  class="btn settings"
-  id="settingsButton">
+</span></a><a
+href="settings.html"
+class="btn settings"
+id="settingsButton">
 
 <span style="font-size:28px;">
 ⚙️
-</span>
-
-<span data-i18n="settings">
+</span><span data-i18n="settings">
 Settings
-</span>
-
-</a>
-
-
-<a
-  href="index.html"
-  class="btn menu">
+</span></a><a
+href="index.html"
+class="btn menu">
 
 <span style="font-size:28px;">
 ⬅️
-</span>
-
-<span data-i18n="mainMenu">
+</span><span data-i18n="mainMenu">
 Main Menu
-</span>
-
-</a>
-
-</div>
-
-
-<!-- ================= MAIN HQ MENU ================= -->
-
-<div
+</span></a></div><!-- ================= MAIN HQ MENU ================= --><div
   id="mainMenu"
-  class="menu-grid hidden">
-
-<a
-  href="reports.html"
-  class="btn report">
+  class="menu-grid hidden"><a
+href="reports.html"
+class="btn report">
 
 <span style="font-size:28px;">
 📊
-</span>
-
-<span data-i18n="allBranchesReport">
+</span><span data-i18n="allBranchesReport">
 All Branches Report
-</span>
-
-</a>
-
-
-<a
-  href="settings.html"
-  class="btn settings">
+</span></a><a
+href="settings.html"
+class="btn settings">
 
 <span style="font-size:28px;">
 ⚙️
-</span>
-
-<span data-i18n="settings">
+</span><span data-i18n="settings">
 Settings
-</span>
-
-</a>
-
-
-<a
-  href="index.html"
-  class="btn menu">
+</span></a><a
+href="index.html"
+class="btn menu">
 
 <span style="font-size:28px;">
 ⬅️
-</span>
-
-<span data-i18n="mainMenu">
+</span><span data-i18n="mainMenu">
 Main Menu
-</span>
-
-</a>
-
-</div>
-
-</div>
-
-
-<!-- ================= SUMMARY ================= -->
-
-<div class="summary">
-
-<div class="summary-card">
-
-<span data-i18n="totalItems">
+</span></a></div></div><!-- ================= SUMMARY ================= --><div class="summary"><div class="summary-card"><span data-i18n="totalItems">
 📦 Total Items
-</span>
-
-<strong id="totalItems">
+</span><strong id="totalItems">
 0
-</strong>
-
-</div>
-
-
-<div class="summary-card">
-
-<span data-i18n="stockIn">
+</strong></div><div class="summary-card"><span data-i18n="stockIn">
 🟢 Stock IN
-</span>
-
-<strong id="totalIn">
+</span><strong id="totalIn">
 0
-</strong>
-
-</div>
-
-
-<div class="summary-card">
-
-<span data-i18n="stockOut">
+</strong></div><div class="summary-card"><span data-i18n="stockOut">
 🔴 Stock OUT
-</span>
-
-<strong id="totalOut">
+</span><strong id="totalOut">
 0
-</strong>
-
-</div>
-
-
-<div class="summary-card">
-
-<span data-i18n="currentBalance">
+</strong></div><div class="summary-card"><span data-i18n="currentBalance">
 📊 Current Balance
-</span>
-
-<strong id="balance">
+</span><strong id="balance">
 0
-</strong>
-
-</div>
-
-</div>
-
-
-<!-- ================= CATEGORY ================= -->
-
-<div class="card">
-
-<div
+</strong></div></div><!-- ================= CATEGORY ================= --><div class="card"><div
   class="title"
-  data-i18n="categoryTitle">
+  data-i18n="categoryTitle">🗂️ Item Transaction Total by Category
 
-🗂️ Item Transaction Total by Category
-
-</div>
-
-
-<div class="category-selector">
-
-<label
-  for="categorySelect"
-  data-i18n="selectCategory">
+</div><div class="category-selector"><label
+for="categorySelect"
+data-i18n="selectCategory">
 
 Select Category
 
-</label>
-
-<select
-  id="categorySelect"
-  onchange="renderSelectedCategory()">
+</label><select
+id="categorySelect"
+onchange="renderSelectedCategory()">
 
 <option
   value=""
-  data-i18n="selectCategoryOption">
+  data-i18n="selectCategoryOption">-- Select Category --
 
--- Select Category --
-
-</option>
-
-</select>
-
-</div>
-
-
-<div
+</option></select></div><div
   id="selectedCategoryBox"
   class="selected-category hidden">
-</div>
-
-
-<div id="categoryResult">
-
-<div
+</div><div id="categoryResult"><div
   class="no-transaction"
-  data-i18n="pleaseSelectCategory">
+  data-i18n="pleaseSelectCategory">Please select a category.
 
-Please select a category.
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ================= ALL BRANCHES ================= -->
-
-<div
+</div></div></div><!-- ================= ALL BRANCHES ================= --><div
   id="allBranchesCard"
-  class="card hidden">
-
-<div
+  class="card hidden"><div
   class="title"
-  data-i18n="aafdrmcBranches">
+  data-i18n="aafdrmcBranches">🏢 AAFDRMC Branches
 
-🏢 AAFDRMC Branches
+</div><div class="info"><span data-i18n="mainBranchesInfo">Main irraa branches 12 hunda ilaaluun ni danda'ama.
 
-</div>
+</span><br><br>
 
+<span data-i18n="selectBranchInfo">Branch tokko filadhu. Branch sana keessatti odeeffannoo isaa ilaaluu dandeessa.
 
-<div class="info">
-
-<span data-i18n="mainBranchesInfo">
-
-Main irraa branches 12 hunda ilaaluun ni danda'ama.
-
-</span>
-
-<br><br>
-
-<span data-i18n="selectBranchInfo">
-
-Branch tokko filadhu. Branch sana keessatti odeeffannoo isaa ilaaluu dandeessa.
-
-</span>
-
-</div>
-
-
-<div
+</span></div><div
   class="branch-grid"
   id="branchGrid">
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ================= BOTTOM ================= -->
-
-<div class="bottom-controls">
-
-<button
-  type="button"
-  class="bottom-btn refresh-bottom"
-  onclick="loadDashboard()">
+</div></div></div><!-- ================= BOTTOM ================= --><div class="bottom-controls"><button
+type="button"
+class="bottom-btn refresh-bottom"
+onclick="loadDashboard()">
 
 🔄
 
 <span data-i18n="refresh">
 Refresh
-</span>
-
-</button>
-
-
-<a
-  href="dashboard.html"
-  class="bottom-btn dashboard-bottom">
+</span></button><a
+href="dashboard.html"
+class="bottom-btn dashboard-bottom">
 
 🏠
 
 <span data-i18n="backDashboard">
 Back to Dashboard
-</span>
-
-</a>
-
-
-<button
-  type="button"
-  class="bottom-btn logout-bottom"
-  onclick="logout()">
+</span></a><button
+type="button"
+class="bottom-btn logout-bottom"
+onclick="logout()">
 
 🚪
 
 <span data-i18n="logout">
 Logout
-</span>
-
-</button>
-
-</div>
-
-
-<script>
+</span></button></div><script>
 
 /* ================= SUPABASE ================= */
 
@@ -3193,7 +2945,5 @@ loadDashboard();
 
 });
 
-</script>
-
-</body>
+</script></body>
 </html>
