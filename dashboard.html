@@ -4,13 +4,7 @@ content="width=device-width,initial-scale=1.0"
 
 «»
 
-<meta
-name="theme-color"
-content="#0d47a1"
-
-«»
-
-<title>
+<meta name="theme-color" content="#0d47a1"><title>
   AAFDRMC - Dashboard
 </title><style>
 
@@ -41,7 +35,7 @@ body{
 }
 
 /* =====================================================
-HEADER
+   HEADER
 ===================================================== */
 
 header{
@@ -106,7 +100,7 @@ header h1{
 }
 
 /* =====================================================
-PAGE
+   PAGE
 ===================================================== */
 
 .container{
@@ -115,7 +109,7 @@ PAGE
 }
 
 /* =====================================================
-HIDDEN BRANCH CARD
+   HIDDEN BRANCH CARD
 ===================================================== */
 
 .hidden{
@@ -140,7 +134,7 @@ HIDDEN BRANCH CARD
 }
 
 /* =====================================================
-STATUS
+   STATUS
 ===================================================== */
 
 .status-bar{
@@ -167,7 +161,7 @@ STATUS
 }
 
 /* =====================================================
-MENU GRID
+   MENU GRID
 ===================================================== */
 
 .menu-grid{
@@ -182,7 +176,7 @@ MENU GRID
 }
 
 /* =====================================================
-MENU BUTTON
+   MENU BUTTON
 ===================================================== */
 
 .menu-button{
@@ -248,7 +242,7 @@ MENU BUTTON
 }
 
 /* =====================================================
-THREE-COLOR BUTTONS
+   THREE-COLOR BUTTONS
 ===================================================== */
 
 .items{
@@ -312,8 +306,8 @@ THREE-COLOR BUTTONS
 }
 
 /* =====================================================
-ICON
-WHITE RING ONLY
+   ICON
+   WHITE RING ONLY
 ===================================================== */
 
 .menu-icon{
@@ -350,21 +344,21 @@ WHITE RING ONLY
 }
 
 /* =====================================================
-LABEL
+   LABEL
 ===================================================== */
 
 .menu-label{
   color:#ffffff;
-  font-size:13px;
-  font-weight:800;
-  line-height:1.2;
+  font-size:11px;
+  font-weight:bold;
+  line-height:1.15;
   text-align:center;
   position:relative;
   z-index:2;
 }
 
 /* =====================================================
-MAIN BRANCH VIEW
+   MAIN BRANCH VIEW
 ===================================================== */
 
 .branch-section{
@@ -428,7 +422,7 @@ MAIN BRANCH VIEW
 }
 
 /* =====================================================
-BOTTOM CONTROLS
+   BOTTOM CONTROLS
 ===================================================== */
 
 .bottom-controls{
@@ -482,7 +476,7 @@ BOTTOM CONTROLS
 }
 
 /* =====================================================
-MOBILE
+   MOBILE
 ===================================================== */
 
 @media(max-width:600px){
@@ -535,8 +529,7 @@ MOBILE
   }
 
   .menu-label{
-    font-size:12px;
-    font-weight:800;
+    font-size:10px;
   }
 
   .branch-grid{
@@ -581,7 +574,7 @@ MOBILE
 }
 
 /* =====================================================
-DESKTOP
+   DESKTOP
 ===================================================== */
 
 @media(min-width:900px){
@@ -700,7 +693,7 @@ onclick="goDashboard()"
 ⌂ Dashboard
 
   </button><button
-class="bottom-button"
+class="bottom-button logout"
 onclick="logout()"
 
 «»
@@ -710,7 +703,7 @@ onclick="logout()"
   </button></div><script>
 
 /* =====================================================
-SUPABASE
+   SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -722,8 +715,9 @@ const SUPABASE_KEY =
 const REST_URL =
   SUPABASE_URL + "/rest/v1";
 
+
 /* =====================================================
-BRANCHES
+   BRANCHES
 ===================================================== */
 
 const MAIN_BRANCH_ID =
@@ -805,8 +799,9 @@ const BRANCHES = [
 
 ];
 
+
 /* =====================================================
-CATEGORIES
+   CATEGORIES
 ===================================================== */
 
 const CATEGORIES = [
@@ -820,12 +815,14 @@ const CATEGORIES = [
 
 ];
 
+
 /* =====================================================
-LANGUAGE
+   LANGUAGE
 ===================================================== */
 
 let currentLanguage =
   localStorage.getItem("language") || "om";
+
 
 const TRANSLATIONS = {
 
@@ -918,6 +915,7 @@ const TRANSLATIONS = {
 
 };
 
+
 function t(key){
 
   return (
@@ -931,8 +929,9 @@ function t(key){
 
 }
 
+
 /* =====================================================
-SUPABASE FETCH
+   SUPABASE FETCH
 ===================================================== */
 
 async function supabaseFetch(
@@ -984,8 +983,9 @@ async function supabaseFetch(
 
 }
 
+
 /* =====================================================
-AUTH / LOCAL STORAGE
+   AUTH / LOCAL STORAGE
 ===================================================== */
 
 const isLoggedIn =
@@ -1003,6 +1003,7 @@ const loginUser =
     "login_user"
   ) || "User";
 
+
 let selectedBranchUuid =
   localStorage.getItem(
     "selected_branch_uuid"
@@ -1017,6 +1018,7 @@ let selectedBranchName =
   localStorage.getItem(
     "selected_branch_name"
   );
+
 
 if(!selectedBranchUuid){
 
@@ -1045,8 +1047,9 @@ if(!selectedBranchName){
 
 }
 
+
 /* =====================================================
-LOGIN CHECK
+   LOGIN CHECK
 ===================================================== */
 
 if(
@@ -1059,8 +1062,9 @@ if(
 
 }
 
+
 /* =====================================================
-USER DISPLAY
+   USER DISPLAY
 ===================================================== */
 
 document.getElementById(
@@ -1068,8 +1072,9 @@ document.getElementById(
 ).textContent =
   loginUser;
 
+
 /* =====================================================
-MAIN USER CHECK
+   MAIN USER CHECK
 ===================================================== */
 
 const isMain =
@@ -1079,8 +1084,9 @@ const isMain =
     selectedBranchCode || ""
   ).toUpperCase() === "MAIN";
 
+
 /* =====================================================
-BRANCH FIND
+   BRANCH FIND
 ===================================================== */
 
 function findBranch(){
@@ -1135,8 +1141,9 @@ function findBranch(){
 
 }
 
+
 /* =====================================================
-CURRENT BRANCH
+   CURRENT BRANCH
 ===================================================== */
 
 const currentBranchData =
@@ -1151,8 +1158,9 @@ const branchName =
 const branchCode =
   currentBranchData.code;
 
+
 /* =====================================================
-SHOW BRANCH
+   SHOW BRANCH
 ===================================================== */
 
 function showBranch(){
@@ -1191,8 +1199,9 @@ function showBranch(){
 
 }
 
+
 /* =====================================================
-STATUS
+   STATUS
 ===================================================== */
 
 function setStatus(
@@ -1214,8 +1223,9 @@ function setStatus(
 
 }
 
+
 /* =====================================================
-MENU
+   MENU
 ===================================================== */
 
 function setupMenu(){
@@ -1226,6 +1236,7 @@ function setupMenu(){
     );
 
   menu.innerHTML = "";
+
 
   if(isMain){
 
@@ -1257,6 +1268,9 @@ function setupMenu(){
 
   }
 
+
+  /* ITEM */
+
   addMenu(
     menu,
     "items",
@@ -1264,6 +1278,9 @@ function setupMenu(){
     t("items"),
     "items.html"
   );
+
+
+  /* STOCK */
 
   addMenu(
     menu,
@@ -1273,6 +1290,9 @@ function setupMenu(){
     "stock.html"
   );
 
+
+  /* STOCK REPORT */
+
   addMenu(
     menu,
     "report",
@@ -1280,6 +1300,9 @@ function setupMenu(){
     t("report"),
     "reports.html"
   );
+
+
+  /* RELIEF REPORT */
 
   addMenu(
     menu,
@@ -1289,6 +1312,9 @@ function setupMenu(){
     "emergency-relief.html"
   );
 
+
+  /* SETTINGS */
+
   addMenu(
     menu,
     "settings",
@@ -1296,6 +1322,9 @@ function setupMenu(){
     t("settings"),
     "settings.html"
   );
+
+
+  /* MAIN MENU */
 
   addMenu(
     menu,
@@ -1307,8 +1336,9 @@ function setupMenu(){
 
 }
 
+
 /* =====================================================
-ADD MENU
+   ADD MENU
 ===================================================== */
 
 function addMenu(
@@ -1331,6 +1361,7 @@ function addMenu(
   link.href =
     href;
 
+
   link.innerHTML = `
 
     <span class="menu-icon">
@@ -1343,14 +1374,16 @@ function addMenu(
 
   `;
 
+
   container.appendChild(
     link
   );
 
 }
 
+
 /* =====================================================
-MAIN BRANCH SECTION
+   MAIN BRANCH SECTION
 ===================================================== */
 
 function showMainBranches(){
@@ -1370,9 +1403,11 @@ function showMainBranches(){
 
   }
 
+
   section.classList.remove(
     "hidden"
   );
+
 
   const grid =
     document.getElementById(
@@ -1380,6 +1415,7 @@ function showMainBranches(){
     );
 
   grid.innerHTML = "";
+
 
   BRANCHES.forEach(
     branch => {
@@ -1391,6 +1427,7 @@ function showMainBranches(){
 
       card.className =
         "branch-card";
+
 
       card.innerHTML = `
 
@@ -1417,6 +1454,7 @@ function showMainBranches(){
 
       `;
 
+
       grid.appendChild(
         card
       );
@@ -1426,8 +1464,9 @@ function showMainBranches(){
 
 }
 
+
 /* =====================================================
-OPEN BRANCH
+   OPEN BRANCH
 ===================================================== */
 
 function openBranch(
@@ -1471,8 +1510,9 @@ function openBranch(
 
 }
 
+
 /* =====================================================
-LOAD ITEMS
+   LOAD ITEMS
 ===================================================== */
 
 async function loadItems(){
@@ -1480,6 +1520,7 @@ async function loadItems(){
   try{
 
     let items = [];
+
 
     if(isMain){
 
@@ -1504,6 +1545,7 @@ async function loadItems(){
         );
 
     }
+
 
     return items || [];
 
@@ -1520,8 +1562,9 @@ async function loadItems(){
 
 }
 
+
 /* =====================================================
-LOAD TRANSACTIONS
+   LOAD TRANSACTIONS
 ===================================================== */
 
 async function loadTransactions(){
@@ -1529,6 +1572,7 @@ async function loadTransactions(){
   try{
 
     let transactions = [];
+
 
     if(isMain){
 
@@ -1554,6 +1598,7 @@ async function loadTransactions(){
 
     }
 
+
     return transactions || [];
 
   }catch(error){
@@ -1569,8 +1614,9 @@ async function loadTransactions(){
 
 }
 
+
 /* =====================================================
-CATEGORY DATA
+   CATEGORY DATA
 ===================================================== */
 
 function prepareCategoryData(
@@ -1579,6 +1625,7 @@ function prepareCategoryData(
 ){
 
   const result = {};
+
 
   CATEGORIES.forEach(
     category => {
@@ -1592,12 +1639,14 @@ function prepareCategoryData(
     }
   );
 
+
   items.forEach(
     item => {
 
       const category =
         item.category ||
         "Daily Food Items";
+
 
       if(
         !result[category]
@@ -1610,6 +1659,7 @@ function prepareCategoryData(
         };
 
       }
+
 
       result[category]
         .items
@@ -1618,12 +1668,14 @@ function prepareCategoryData(
     }
   );
 
+
   transactions.forEach(
     tx => {
 
       const category =
         tx.category ||
         "Daily Food Items";
+
 
       if(
         !result[category]
@@ -1637,10 +1689,12 @@ function prepareCategoryData(
 
       }
 
+
       const quantity =
         Number(
           tx.quantity
         ) || 0;
+
 
       const type =
         String(
@@ -1648,6 +1702,7 @@ function prepareCategoryData(
           tx.transaction ||
           ""
         ).toUpperCase();
+
 
       if(
         type.includes("IN") ||
@@ -1658,6 +1713,7 @@ function prepareCategoryData(
           .stockIn += quantity;
 
       }
+
 
       if(
         type.includes("OUT") ||
@@ -1672,12 +1728,14 @@ function prepareCategoryData(
     }
   );
 
+
   return result;
 
 }
 
+
 /* =====================================================
-SELECTED CATEGORY
+   SELECTED CATEGORY
 ===================================================== */
 
 function renderSelectedCategory(
@@ -1688,8 +1746,9 @@ function renderSelectedCategory(
 
 }
 
+
 /* =====================================================
-SHOW ALL BRANCHES
+   SHOW ALL BRANCHES
 ===================================================== */
 
 async function showAllBranches(){
@@ -1699,6 +1758,7 @@ async function showAllBranches(){
     return;
 
   }
+
 
   try{
 
@@ -1729,9 +1789,9 @@ async function showAllBranches(){
 
 }
 
+
 /* =====================================================
-ESCAPE HTML
-FIXED
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHtml(
@@ -1759,13 +1819,14 @@ function escapeHtml(
   )
   .replace(
     /'/g,
-    "&#39;"
+    "&#039;"
   );
 
 }
 
+
 /* =====================================================
-REFRESH
+   REFRESH
 ===================================================== */
 
 async function refreshDashboard(){
@@ -1774,6 +1835,7 @@ async function refreshDashboard(){
     t("loading"),
     "loading"
   );
+
 
   try{
 
@@ -1794,8 +1856,9 @@ async function refreshDashboard(){
 
 }
 
+
 /* =====================================================
-DASHBOARD
+   DASHBOARD
 ===================================================== */
 
 async function loadDashboard(){
@@ -1805,24 +1868,29 @@ async function loadDashboard(){
     "loading"
   );
 
+
   showBranch();
 
   setupMenu();
 
   showMainBranches();
 
+
   try{
 
     const items =
       await loadItems();
 
+
     const transactions =
       await loadTransactions();
+
 
     prepareCategoryData(
       items,
       transactions
     );
+
 
     if(isMain){
 
@@ -1830,10 +1898,12 @@ async function loadDashboard(){
 
     }
 
+
     setStatus(
       t("loaded"),
       "success"
     );
+
 
   }catch(error){
 
@@ -1841,6 +1911,7 @@ async function loadDashboard(){
       "Dashboard error:",
       error
     );
+
 
     setStatus(
       t("error"),
@@ -1851,8 +1922,9 @@ async function loadDashboard(){
 
 }
 
+
 /* =====================================================
-GO DASHBOARD
+   GO DASHBOARD
 ===================================================== */
 
 function goDashboard(){
@@ -1862,8 +1934,9 @@ function goDashboard(){
 
 }
 
+
 /* =====================================================
-LOGOUT
+   LOGOUT
 ===================================================== */
 
 function logout(){
@@ -1884,6 +1957,7 @@ function logout(){
 
   ];
 
+
   keys.forEach(
     key =>
       localStorage.removeItem(
@@ -1891,13 +1965,15 @@ function logout(){
       )
   );
 
+
   window.location.href =
     "index.html";
 
 }
 
+
 /* =====================================================
-LANGUAGE APPLY
+   LANGUAGE APPLY
 ===================================================== */
 
 function applyLanguage(){
@@ -1912,21 +1988,25 @@ function applyLanguage(){
           "data-i18n"
         );
 
+
       element.textContent =
         t(key);
 
     }
   );
 
+
   document.querySelector(
     ".bottom-button:nth-child(1)"
   ).textContent =
     t("refresh");
 
+
   document.querySelector(
     ".bottom-button:nth-child(2)"
   ).textContent =
     t("dashboard");
+
 
   document.querySelector(
     ".bottom-button:nth-child(3)"
@@ -1935,8 +2015,9 @@ function applyLanguage(){
 
 }
 
+
 /* =====================================================
-START
+   START
 ===================================================== */
 
 document.addEventListener(
