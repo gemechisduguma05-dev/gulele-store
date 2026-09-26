@@ -1,0 +1,4935 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
+
+<title>
+  AAFDRMC - Individual Relief
+</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#263238;
+  min-height:100vh;
+  background:#f4f7fb;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+  background:
+    linear-gradient(
+      135deg,
+      #d81b60,
+      #ad1457,
+      #880e4f
+    );
+
+  color:white;
+
+  padding:12px 15px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+  box-shadow:
+    0 4px 15px rgba(0,0,0,.20);
+
+  position:sticky;
+
+  top:0;
+
+  z-index:1000;
+}
+
+.header-left{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  min-width:0;
+}
+
+.logo{
+
+  width:52px;
+
+  height:52px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  background:white;
+
+  border:3px solid rgba(255,255,255,.8);
+
+  flex-shrink:0;
+}
+
+.title-box{
+
+  min-width:0;
+}
+
+.title-box h1{
+
+  margin:0;
+
+  font-size:19px;
+
+  font-weight:700;
+}
+
+.title-box p{
+
+  margin:3px 0 0;
+
+  font-size:12px;
+
+  opacity:.9;
+}
+
+.profile-button{
+
+  border:0;
+
+  background:
+    rgba(255,255,255,.15);
+
+  color:white;
+
+  border-radius:25px;
+
+  padding:8px 12px;
+
+  cursor:pointer;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  white-space:nowrap;
+}
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.top-nav{
+
+  display:flex;
+
+  gap:8px;
+
+  padding:10px;
+
+  background:white;
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.08);
+
+  position:sticky;
+
+  top:76px;
+
+  z-index:900;
+
+  overflow-x:auto;
+}
+
+.nav-btn{
+
+  border:0;
+
+  padding:9px 13px;
+
+  border-radius:20px;
+
+  background:#f1f5f9;
+
+  color:#37474f;
+
+  cursor:pointer;
+
+  white-space:nowrap;
+
+  font-weight:600;
+}
+
+.nav-btn:hover{
+
+  background:#fce4ec;
+
+  color:#ad1457;
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+
+  width:min(1200px,94%);
+
+  margin:20px auto;
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(145px,1fr));
+
+  gap:12px;
+
+  margin-bottom:18px;
+}
+
+.menu-card{
+
+  border:0;
+
+  min-height:100px;
+
+  border-radius:22px;
+
+  background:white;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.09);
+
+  cursor:pointer;
+
+  padding:15px;
+
+  transition:.2s;
+
+  font-weight:700;
+
+  color:#37474f;
+}
+
+.menu-card:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.14);
+}
+
+.menu-icon{
+
+  width:48px;
+
+  height:48px;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  margin:auto auto 8px;
+
+  background:#fce4ec;
+
+  color:#ad1457;
+
+  font-size:23px;
+}
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:12px;
+
+  margin-bottom:18px;
+}
+
+.summary-card{
+
+  background:white;
+
+  border-radius:16px;
+
+  padding:16px;
+
+  box-shadow:
+    0 4px 15px rgba(0,0,0,.08);
+
+  text-align:center;
+}
+
+.summary-card .number{
+
+  font-size:28px;
+
+  font-weight:800;
+
+  color:#ad1457;
+}
+
+.summary-card .label{
+
+  font-size:13px;
+
+  color:#607d8b;
+
+  margin-top:4px;
+}
+
+/* =====================================================
+   TOOLBAR
+===================================================== */
+
+.toolbar{
+
+  background:white;
+
+  padding:14px;
+
+  border-radius:16px;
+
+  box-shadow:
+    0 4px 15px rgba(0,0,0,.08);
+
+  display:flex;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+
+  margin-bottom:18px;
+}
+
+.search-box{
+
+  flex:1;
+
+  min-width:220px;
+
+  padding:12px 14px;
+
+  border:1px solid #cfd8dc;
+
+  border-radius:12px;
+
+  outline:none;
+
+  font-size:14px;
+}
+
+.search-box:focus{
+
+  border-color:#d81b60;
+
+  box-shadow:
+    0 0 0 3px rgba(216,27,96,.10);
+}
+
+.btn{
+
+  border:0;
+
+  border-radius:12px;
+
+  padding:11px 15px;
+
+  cursor:pointer;
+
+  font-weight:700;
+}
+
+.btn-primary{
+
+  background:#d81b60;
+
+  color:white;
+}
+
+.btn-secondary{
+
+  background:#eceff1;
+
+  color:#37474f;
+}
+
+.btn-success{
+
+  background:#2e7d32;
+
+  color:white;
+}
+
+.btn-danger{
+
+  background:#c62828;
+
+  color:white;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card{
+
+  background:white;
+
+  border-radius:18px;
+
+  padding:18px;
+
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.08);
+
+  margin-bottom:18px;
+}
+
+.card h2,
+.card h3{
+
+  margin-top:0;
+
+  color:#37474f;
+}
+
+/* =====================================================
+   RELIEF LIST
+===================================================== */
+
+.relief-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(290px,1fr));
+
+  gap:14px;
+}
+
+.relief-card{
+
+  background:white;
+
+  border:1px solid #eceff1;
+
+  border-radius:16px;
+
+  padding:15px;
+
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.06);
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.relief-card:hover{
+
+  transform:translateY(-2px);
+
+  border-color:#f48fb1;
+}
+
+.relief-title{
+
+  font-size:17px;
+
+  font-weight:800;
+
+  color:#ad1457;
+
+  margin-bottom:8px;
+}
+
+.relief-line{
+
+  font-size:13px;
+
+  margin:5px 0;
+
+  color:#546e7a;
+}
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:12px;
+}
+
+.form-group{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:6px;
+}
+
+.form-group.full{
+
+  grid-column:1/-1;
+}
+
+label{
+
+  font-size:13px;
+
+  font-weight:700;
+
+  color:#455a64;
+}
+
+input,
+select,
+textarea{
+
+  width:100%;
+
+  padding:11px 12px;
+
+  border:1px solid #cfd8dc;
+
+  border-radius:10px;
+
+  outline:none;
+
+  font-size:14px;
+
+  background:white;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+  border-color:#d81b60;
+
+  box-shadow:
+    0 0 0 3px rgba(216,27,96,.08);
+}
+
+textarea{
+
+  min-height:90px;
+
+  resize:vertical;
+}
+
+/* =====================================================
+   RELIEF ITEM ROW
+===================================================== */
+
+.relief-item-row{
+
+  background:#fafafa;
+
+  border:1px solid #eceff1;
+
+  border-radius:14px;
+
+  padding:13px;
+
+  margin-bottom:10px;
+}
+
+.stock-info{
+
+  background:#e3f2fd;
+
+  color:#1565c0;
+
+  padding:10px;
+
+  border-radius:9px;
+
+  font-size:13px;
+
+  font-weight:700;
+}
+
+.row-actions{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-top:10px;
+}
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status{
+
+  margin-bottom:15px;
+
+  padding:11px 14px;
+
+  border-radius:10px;
+
+  display:none;
+
+  font-size:13px;
+
+  font-weight:600;
+}
+
+.status.success{
+
+  display:block;
+
+  background:#e8f5e9;
+
+  color:#2e7d32;
+}
+
+.status.error{
+
+  display:block;
+
+  background:#ffebee;
+
+  color:#c62828;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
+
+  display:none;
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(0,0,0,.55);
+
+  z-index:2000;
+
+  padding:20px;
+
+  overflow:auto;
+}
+
+.modal-content{
+
+  background:white;
+
+  width:min(1000px,100%);
+
+  margin:20px auto;
+
+  border-radius:20px;
+
+  padding:20px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.25);
+}
+
+.modal-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:15px;
+}
+
+.close-btn{
+
+  width:38px;
+
+  height:38px;
+
+  border:0;
+
+  border-radius:50%;
+
+  background:#eceff1;
+
+  cursor:pointer;
+
+  font-size:20px;
+}
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.info-card{
+
+  background:#fafafa;
+
+  border:1px solid #eceff1;
+
+  border-radius:14px;
+
+  padding:15px;
+
+  margin-bottom:14px;
+}
+
+.info-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+}
+
+.info-item{
+
+  padding:10px;
+
+  background:white;
+
+  border-radius:10px;
+
+  border:1px solid #eeeeee;
+}
+
+.info-label{
+
+  font-size:11px;
+
+  color:#78909c;
+
+  margin-bottom:3px;
+}
+
+.info-value{
+
+  font-size:14px;
+
+  font-weight:600;
+
+  color:#37474f;
+}
+
+.empty{
+
+  text-align:center;
+
+  padding:25px;
+
+  color:#78909c;
+}
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile-photo{
+
+  width:90px;
+
+  height:90px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  display:block;
+
+  margin:5px auto 12px;
+
+  border:4px solid #f8bbd0;
+}
+
+.profile-center{
+
+  text-align:center;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:700px){
+
+  .form-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .info-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .title-box h1{
+
+    font-size:15px;
+  }
+
+  .title-box p{
+
+    font-size:10px;
+  }
+
+  .profile-button span{
+
+    display:none;
+  }
+}
+
+@media(max-width:430px){
+
+  .container{
+
+    width:96%;
+  }
+
+  .header{
+
+    padding:9px;
+  }
+
+  .logo{
+
+    width:44px;
+
+    height:44px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+  <div class="header-left">
+
+    <img
+      src="./1788633150526.jpg"
+      class="logo"
+      alt="AAFDRMC"
+    >
+
+    <div class="title-box">
+
+      <h1>
+        AAFDRMC
+      </h1>
+
+      <p>
+        Individual Emergency Relief
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <button
+    class="profile-button"
+    onclick="openProfile()"
+  >
+
+    👤
+
+    <span id="headerUser">
+      User
+    </span>
+
+  </button>
+
+</header>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="top-nav">
+
+  <button
+    class="nav-btn"
+    onclick="goDashboard()"
+  >
+    🏠 Dashboard
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="goHousehold()"
+  >
+    👨‍👩‍👧 Household
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="goRelief()"
+  >
+    🚑 Individual Relief
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="goItems()"
+  >
+    📦 Items
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="goStock()"
+  >
+    📥📤 Stock IN/OUT
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="goReports()"
+  >
+    📊 Stock Report
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="goSettings()"
+  >
+    ⚙️ Settings
+  </button>
+
+</nav>
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     MENU
+===================================================== -->
+
+<div class="menu-grid">
+
+  <button
+    class="menu-card"
+    onclick="goDashboard()"
+  >
+
+    <div class="menu-icon">
+      🏠
+    </div>
+
+    Dashboard
+
+  </button>
+
+
+  <button
+    class="menu-card"
+    onclick="goHousehold()"
+  >
+
+    <div class="menu-icon">
+      👨‍👩‍👧
+    </div>
+
+    Household
+
+  </button>
+
+
+  <button
+    class="menu-card"
+    onclick="openReliefForm()"
+  >
+
+    <div class="menu-icon">
+      🚑
+    </div>
+
+    Individual Relief
+
+  </button>
+
+
+  <button
+    class="menu-card"
+    onclick="goItems()"
+  >
+
+    <div class="menu-icon">
+      📦
+    </div>
+
+    Items
+
+  </button>
+
+
+  <button
+    class="menu-card"
+    onclick="goStock()"
+  >
+
+    <div class="menu-icon">
+      📥
+    </div>
+
+    Stock IN/OUT
+
+  </button>
+
+
+  <button
+    class="menu-card"
+    onclick="goReports()"
+  >
+
+    <div class="menu-icon">
+      📊
+    </div>
+
+    Stock Report
+
+  </button>
+
+
+  <button
+    class="menu-card"
+    onclick="goSettings()"
+  >
+
+    <div class="menu-icon">
+      ⚙️
+    </div>
+
+    Settings
+
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     STATUS
+===================================================== -->
+
+<div
+  id="statusBar"
+  class="status"
+></div>
+
+
+<!-- =====================================================
+     SUMMARY
+===================================================== -->
+
+<div class="summary-grid">
+
+  <div class="summary-card">
+
+    <div
+      class="number"
+      id="reliefCount"
+    >
+      0
+    </div>
+
+    <div class="label">
+      Individual Reliefs
+    </div>
+
+  </div>
+
+
+  <div class="summary-card">
+
+    <div
+      class="number"
+      id="itemCount"
+    >
+      0
+    </div>
+
+    <div class="label">
+      Relief Items
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOOLBAR
+===================================================== -->
+
+<div class="toolbar">
+
+  <input
+    id="searchInput"
+    class="search-box"
+    type="search"
+    placeholder="Search household, member or FAN"
+    oninput="filterReliefs()"
+  >
+
+  <button
+    class="btn btn-primary"
+    onclick="openReliefForm()"
+  >
+    ＋ Individual Relief
+  </button>
+
+  <button
+    class="btn btn-secondary"
+    onclick="refreshAll()"
+  >
+    🔄 Refresh
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     RELIEF FORM
+===================================================== -->
+
+<section
+  id="reliefFormSection"
+  class="card"
+  style="display:none"
+>
+
+  <div
+    style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:15px;
+    "
+  >
+
+    <h2>
+      Individual Relief
+    </h2>
+
+    <button
+      class="btn btn-secondary"
+      onclick="closeReliefForm()"
+    >
+      Close
+    </button>
+
+  </div>
+
+
+  <div class="form-grid">
+
+
+    <!-- HOUSEHOLD -->
+
+    <div class="form-group">
+
+      <label>
+        Household *
+      </label>
+
+      <select
+        id="reliefHousehold"
+        onchange="loadReliefMembers()"
+      >
+
+        <option value="">
+          Select household
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- MEMBER -->
+
+    <div class="form-group">
+
+      <label>
+        Member *
+      </label>
+
+      <select id="reliefMember">
+
+        <option value="">
+          Select household first
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- DATE -->
+
+    <div class="form-group">
+
+      <label>
+        Relief Date *
+      </label>
+
+      <input
+        id="reliefDate"
+        type="date"
+      >
+
+    </div>
+
+
+    <!-- ISSUED BY -->
+
+    <div class="form-group">
+
+      <label>
+        Issued By *
+      </label>
+
+      <input
+        id="issuedBy"
+        type="text"
+        placeholder="Issued by"
+      >
+
+    </div>
+
+
+    <!-- SIGNATURE -->
+
+    <div class="form-group full">
+
+      <label>
+        Signature *
+      </label>
+
+      <input
+        id="reliefSignature"
+        type="text"
+        placeholder="Signature / name"
+      >
+
+    </div>
+
+
+    <!-- MODEL 22 -->
+
+    <div class="form-group">
+
+      <label>
+        Model 22 *
+      </label>
+
+      <select
+        id="model22"
+        onchange="toggleModel22Number()"
+      >
+
+        <option value="">
+          Select Model 22
+        </option>
+
+        <option value="AVAILABLE">
+          Model 22 Available
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- MODEL 22 NUMBER -->
+
+    <div
+      class="form-group"
+      id="model22NumberGroup"
+      style="display:none"
+    >
+
+      <label>
+        Model 22 Number *
+      </label>
+
+      <input
+        id="model22Number"
+        type="text"
+        placeholder="Enter Model 22 number"
+      >
+
+    </div>
+
+
+    <!-- OTHER -->
+
+    <div class="form-group full">
+
+      <label>
+        Other Information
+      </label>
+
+      <textarea
+        id="reliefOther"
+        placeholder="Additional relief information"
+      ></textarea>
+
+    </div>
+
+  </div>
+
+
+  <!-- ===================================================
+       RELIEF ITEMS
+  ==================================================== -->
+
+  <div
+    style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin:22px 0 10px;
+    "
+  >
+
+    <h3>
+      Relief Items
+    </h3>
+
+    <button
+      class="btn btn-secondary"
+      onclick="addReliefItem()"
+    >
+      ＋ Add Item
+    </button>
+
+  </div>
+
+
+  <div id="reliefItemsContainer"></div>
+
+
+  <!-- ===================================================
+       EVIDENCE
+  ==================================================== -->
+
+  <div class="form-group">
+
+    <label>
+      Relief Evidence / Ragaa
+    </label>
+
+    <input
+      id="reliefEvidence"
+      type="file"
+      accept="image/*,.pdf"
+    >
+
+    <small>
+      Optional image or PDF evidence.
+    </small>
+
+  </div>
+
+
+  <div
+    style="
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    "
+  >
+
+    <button
+      class="btn btn-secondary"
+      onclick="closeReliefForm()"
+    >
+      Cancel
+    </button>
+
+    <button
+      class="btn btn-success"
+      onclick="saveRelief()"
+    >
+      💾 Save Individual Relief
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     RELIEF LIST
+===================================================== -->
+
+<div class="card">
+
+  <h2>
+    Individual Relief Records
+  </h2>
+
+  <div
+    id="reliefList"
+    class="relief-grid"
+  >
+
+    <div class="empty">
+      Loading relief records...
+    </div>
+
+  </div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     PROFILE MODAL
+===================================================== -->
+
+<div
+  id="profileModal"
+  class="modal"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        User Profile
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeProfile()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="profile-center">
+
+      <img
+        src="./1788633150526.jpg"
+        class="profile-photo"
+        alt="Profile"
+      >
+
+      <h3 id="profileUser">
+        User
+      </h3>
+
+    </div>
+
+
+    <div class="info-grid">
+
+      <div class="info-item">
+
+        <div class="info-label">
+          Role
+        </div>
+
+        <div
+          class="info-value"
+          id="profileRole"
+        >
+          -
+        </div>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <div class="info-label">
+          Branch
+        </div>
+
+        <div
+          class="info-value"
+          id="profileBranch"
+        >
+          -
+        </div>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <div class="info-label">
+          Branch Code
+        </div>
+
+        <div
+          class="info-value"
+          id="profileBranchCode"
+        >
+          -
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     RELIEF PROFILE MODAL
+     IMPORTANT:
+     Model 22 + Model 22 Number are NOT DISPLAYED.
+===================================================== -->
+
+<div
+  id="reliefModal"
+  class="modal"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        Individual Relief Profile
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeReliefModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div id="reliefProfileContent">
+
+      Loading...
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+  "https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
+
+const REST_URL =
+  SUPABASE_URL + "/rest/v1";
+
+const RELIEF_DOCUMENT_BUCKET =
+  "relief-images";
+
+
+/* =====================================================
+   USER / BRANCH
+===================================================== */
+
+const branchId =
+  localStorage.getItem(
+    "selected_branch_uuid"
+  ) ||
+  localStorage.getItem(
+    "selected_branch_id"
+  ) ||
+  "";
+
+const branchCode =
+  localStorage.getItem(
+    "selected_branch_code"
+  ) ||
+  localStorage.getItem(
+    "branch_code"
+  ) ||
+  "";
+
+const branchName =
+  localStorage.getItem(
+    "selected_branch_name"
+  ) ||
+  localStorage.getItem(
+    "branch_name"
+  ) ||
+  "";
+
+const userName =
+  localStorage.getItem(
+    "login_user"
+  ) ||
+  localStorage.getItem(
+    "username"
+  ) ||
+  localStorage.getItem(
+    "user_name"
+  ) ||
+  localStorage.getItem(
+    "email"
+  ) ||
+  "User";
+
+const userRole =
+  localStorage.getItem(
+    "user_role"
+  ) ||
+  localStorage.getItem(
+    "role"
+  ) ||
+  "";
+
+
+/* =====================================================
+   CACHE
+===================================================== */
+
+let householdsCache = [];
+
+let membersCache = [];
+
+let itemsCache = [];
+
+let stockBalanceCache = {};
+
+let reliefsCache = [];
+
+let reliefItemsCache = [];
+
+
+/* =====================================================
+   BRANCH
+===================================================== */
+
+function requireBranch(){
+
+  if(!branchId){
+
+    throw new Error(
+      "Branch is not selected. Please login again."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   API
+===================================================== */
+
+async function apiRequest(
+  url,
+  options={}
+){
+
+  const headers = {
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Authorization":
+      "Bearer " +
+      SUPABASE_KEY,
+
+    "Content-Type":
+      "application/json",
+
+    ...(options.headers || {})
+
+  };
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        ...options,
+        headers
+      }
+    );
+
+
+  const text =
+    await response.text();
+
+
+  let data = null;
+
+
+  try{
+
+    data =
+      text
+        ? JSON.parse(text)
+        : null;
+
+  }catch{
+
+    data = text;
+
+  }
+
+
+  if(!response.ok){
+
+    const message =
+      data?.message ||
+      data?.details ||
+      data?.hint ||
+      data?.error_description ||
+      data?.error ||
+      text ||
+      response.statusText;
+
+
+    throw new Error(
+      String(message)
+    );
+
+  }
+
+
+  return data;
+
+}
+
+
+async function getTable(
+  table,
+  query=""
+){
+
+  return await apiRequest(
+    REST_URL +
+    "/" +
+    table +
+    query
+  );
+
+}
+
+
+async function insertTable(
+  table,
+  payload
+){
+
+  return await apiRequest(
+    REST_URL +
+    "/" +
+    table,
+    {
+      method:"POST",
+
+      headers:{
+        "Prefer":
+          "return=representation"
+      },
+
+      body:
+        JSON.stringify(payload)
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(
+  message,
+  type="success"
+){
+
+  const bar =
+    document.getElementById(
+      "statusBar"
+    );
+
+
+  bar.textContent =
+    message;
+
+
+  bar.className =
+    "status " +
+    type;
+
+}
+
+
+function clearStatus(){
+
+  const bar =
+    document.getElementById(
+      "statusBar"
+    );
+
+
+  bar.textContent =
+    "";
+
+
+  bar.className =
+    "status";
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function goDashboard(){
+
+  location.href =
+    "dashboard.html";
+
+}
+
+
+function goHousehold(){
+
+  location.href =
+    "household.html";
+
+}
+
+
+function goRelief(){
+
+  location.href =
+    "individual-relief.html";
+
+}
+
+
+function goItems(){
+
+  location.href =
+    "items.html";
+
+}
+
+
+function goStock(){
+
+  location.href =
+    "stock.html";
+
+}
+
+
+function goReports(){
+
+  location.href =
+    "reports.html";
+
+}
+
+
+function goSettings(){
+
+  location.href =
+    "settings.html";
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function loadProfile(){
+
+  document.getElementById(
+    "headerUser"
+  ).textContent =
+    userName;
+
+  document.getElementById(
+    "profileUser"
+  ).textContent =
+    userName;
+
+  document.getElementById(
+    "profileRole"
+  ).textContent =
+    userRole || "-";
+
+  document.getElementById(
+    "profileBranch"
+  ).textContent =
+    branchName || "-";
+
+  document.getElementById(
+    "profileBranchCode"
+  ).textContent =
+    branchCode || "-";
+
+}
+
+
+function openProfile(){
+
+  document.getElementById(
+    "profileModal"
+  ).style.display =
+    "block";
+
+}
+
+
+function closeProfile(){
+
+  document.getElementById(
+    "profileModal"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   RELIEF FORM
+===================================================== */
+
+async function openReliefForm(){
+
+  try{
+
+    requireBranch();
+
+    clearStatus();
+
+
+    document.getElementById(
+      "reliefFormSection"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
+      "reliefFormSection"
+    ).scrollIntoView({
+      behavior:"smooth"
+    });
+
+
+    await loadHouseholds();
+
+    await loadItems();
+
+
+    populateReliefHouseholds();
+
+
+    document.getElementById(
+      "reliefDate"
+    ).value =
+      new Date()
+        .toISOString()
+        .slice(
+          0,
+          10
+        );
+
+
+    document.getElementById(
+      "issuedBy"
+    ).value =
+      userName;
+
+
+    document.getElementById(
+      "model22"
+    ).value =
+      "";
+
+
+    document.getElementById(
+      "model22Number"
+    ).value =
+      "";
+
+
+    document.getElementById(
+      "model22NumberGroup"
+    ).style.display =
+      "none";
+
+
+    document.getElementById(
+      "reliefItemsContainer"
+    ).innerHTML =
+      "";
+
+
+    addReliefItem();
+
+
+  }catch(error){
+
+    showStatus(
+      error.message ||
+      "Unable to open relief form.",
+      "error"
+    );
+
+  }
+
+}
+
+
+function closeReliefForm(){
+
+  document.getElementById(
+    "reliefFormSection"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   LOAD HOUSEHOLDS
+===================================================== */
+
+async function loadHouseholds(){
+
+  requireBranch();
+
+
+  householdsCache =
+    await getTable(
+      "emergency_households",
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchId
+      ) +
+      "&order=created_at.desc"
+    ) || [];
+
+
+  return householdsCache;
+
+}
+
+
+/* =====================================================
+   LOAD MEMBERS
+===================================================== */
+
+async function loadMembers(
+  householdId
+){
+
+  if(!householdId){
+
+    membersCache = [];
+
+    return [];
+
+  }
+
+
+  membersCache =
+    await getTable(
+      "emergency_members",
+      "?select=*" +
+      "&household_id=eq." +
+      encodeURIComponent(
+        householdId
+      ) +
+      "&order=created_at.asc"
+    ) || [];
+
+
+  return membersCache;
+
+}
+
+
+/* =====================================================
+   POPULATE HOUSEHOLDS
+===================================================== */
+
+function populateReliefHouseholds(){
+
+  const select =
+    document.getElementById(
+      "reliefHousehold"
+    );
+
+
+  select.innerHTML = `
+
+    <option value="">
+      Select household
+    </option>
+
+  `;
+
+
+  householdsCache.forEach(
+    household => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        household.id;
+
+
+      option.textContent =
+
+        (
+          household.household_name ||
+          household.representative_name ||
+          "Household"
+        ) +
+
+        " — " +
+
+        (
+          household.disaster_type ||
+          "-"
+        ) +
+
+        " — " +
+
+        (
+          household.disaster_date ||
+          "-"
+        );
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   LOAD RELIEF MEMBERS
+===================================================== */
+
+async function loadReliefMembers(){
+
+  const householdId =
+    document.getElementById(
+      "reliefHousehold"
+    ).value;
+
+
+  const memberSelect =
+    document.getElementById(
+      "reliefMember"
+    );
+
+
+  memberSelect.innerHTML = `
+
+    <option value="">
+      Loading members...
+    </option>
+
+  `;
+
+
+  if(!householdId){
+
+    memberSelect.innerHTML = `
+
+      <option value="">
+        Select household first
+      </option>
+
+    `;
+
+    return;
+
+  }
+
+
+  try{
+
+    const members =
+      await loadMembers(
+        householdId
+      );
+
+
+    memberSelect.innerHTML = `
+
+      <option value="">
+        Select member
+      </option>
+
+    `;
+
+
+    members.forEach(
+      member => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          member.id;
+
+
+        option.textContent =
+
+          (
+            member.full_name ||
+            "Member"
+          ) +
+
+          " — FAN: " +
+
+          (
+            member.fan_number ||
+            "-"
+          );
+
+
+        memberSelect.appendChild(
+          option
+        );
+
+      }
+    );
+
+
+    if(!members.length){
+
+      memberSelect.innerHTML = `
+
+        <option value="">
+          No members found
+        </option>
+
+      `;
+
+    }
+
+
+  }catch(error){
+
+    memberSelect.innerHTML = `
+
+      <option value="">
+        Failed to load members
+      </option>
+
+    `;
+
+
+    throw error;
+
+  }
+
+}
+
+
+/* =====================================================
+   LOAD ITEMS + STOCK
+===================================================== */
+
+async function loadItems(){
+
+  requireBranch();
+
+
+  const items =
+    await getTable(
+      "items",
+      "?select=*"
+    );
+
+
+  const transactions =
+    await getTable(
+      "stock_transactions",
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchId
+      )
+    );
+
+
+  const balances = {};
+
+
+  (transactions || [])
+    .forEach(
+      transaction => {
+
+        const itemId =
+          transaction.item_id;
+
+
+        if(!itemId){
+
+          return;
+
+        }
+
+
+        const quantity =
+          Number(
+            transaction.quantity
+          ) || 0;
+
+
+        const type =
+          String(
+            transaction.transaction_type ||
+            transaction.transaction ||
+            ""
+          )
+            .toUpperCase()
+            .trim();
+
+
+        if(
+          !balances[itemId]
+        ){
+
+          balances[itemId] =
+            0;
+
+        }
+
+
+        const isIn =
+
+          type === "IN" ||
+
+          type.includes(
+            "STOCK IN"
+          ) ||
+
+          type.includes(
+            "RECEIPT"
+          ) ||
+
+          type.includes(
+            "ENTRY"
+          ) ||
+
+          type.includes(
+            "RECEIVED"
+          ) ||
+
+          type.includes(
+            "RECEIVE"
+          );
+
+
+        const isOut =
+
+          type === "OUT" ||
+
+          type.includes(
+            "STOCK OUT"
+          ) ||
+
+          type.includes(
+            "ISSUE"
+          ) ||
+
+          type.includes(
+            "ISSUED"
+          );
+
+
+        if(isIn){
+
+          balances[itemId] +=
+            quantity;
+
+        }
+
+
+        if(isOut){
+
+          balances[itemId] -=
+            quantity;
+
+        }
+
+      }
+    );
+
+
+  stockBalanceCache =
+    balances;
+
+
+  itemsCache =
+    (items || [])
+      .filter(
+        item =>
+          Number(
+            balances[item.id] || 0
+          ) > 0
+      );
+
+
+  return itemsCache;
+
+}
+
+
+/* =====================================================
+   GET ITEM BALANCE
+===================================================== */
+
+async function getItemStockBalance(
+  itemId
+){
+
+  if(
+    stockBalanceCache[
+      itemId
+    ] !== undefined
+  ){
+
+    return Number(
+      stockBalanceCache[
+        itemId
+      ]
+    ) || 0;
+
+  }
+
+
+  const transactions =
+    await getTable(
+      "stock_transactions",
+      "?select=transaction_type,transaction,quantity" +
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchId
+      ) +
+      "&item_id=eq." +
+      encodeURIComponent(
+        itemId
+      )
+    );
+
+
+  let balance = 0;
+
+
+  (transactions || [])
+    .forEach(
+      transaction => {
+
+        const qty =
+          Number(
+            transaction.quantity
+          ) || 0;
+
+
+        const type =
+          String(
+            transaction.transaction_type ||
+            transaction.transaction ||
+            ""
+          )
+            .toUpperCase()
+            .trim();
+
+
+        const isIn =
+
+          type === "IN" ||
+
+          type.includes(
+            "STOCK IN"
+          ) ||
+
+          type.includes(
+            "RECEIPT"
+          ) ||
+
+          type.includes(
+            "ENTRY"
+          ) ||
+
+          type.includes(
+            "RECEIVED"
+          );
+
+
+        const isOut =
+
+          type === "OUT" ||
+
+          type.includes(
+            "STOCK OUT"
+          ) ||
+
+          type.includes(
+            "ISSUE"
+          ) ||
+
+          type.includes(
+            "ISSUED"
+          );
+
+
+        if(isIn){
+
+          balance += qty;
+
+        }
+
+
+        if(isOut){
+
+          balance -= qty;
+
+        }
+
+      }
+    );
+
+
+  stockBalanceCache[
+    itemId
+  ] =
+    balance;
+
+
+  return balance;
+
+}
+
+
+/* =====================================================
+   ADD RELIEF ITEM
+===================================================== */
+
+function addReliefItem(){
+
+  const container =
+    document.getElementById(
+      "reliefItemsContainer"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  row.className =
+    "relief-item-row";
+
+
+  row.innerHTML = `
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label>
+          Item *
+        </label>
+
+        <select
+          class="relief-item"
+          onchange="updateReliefItemInfo(this)"
+        >
+
+          <option value="">
+            Select item
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Quantity *
+        </label>
+
+        <input
+          class="relief-quantity"
+          type="number"
+          min="0.01"
+          step="0.01"
+          placeholder="Quantity"
+          oninput="validateReliefQuantity(this)"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Unit
+        </label>
+
+        <input
+          class="relief-unit"
+          type="text"
+          readonly
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Category
+        </label>
+
+        <input
+          class="relief-category"
+          type="text"
+          readonly
+        >
+
+      </div>
+
+
+      <div
+        class="stock-info"
+        style="grid-column:1/-1"
+      >
+
+        Current Stock:
+
+        <span class="relief-stock">
+          -
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="row-actions">
+
+      <button
+        type="button"
+        class="btn btn-danger"
+        onclick="this.closest('.relief-item-row').remove()"
+      >
+        Remove Item
+      </button>
+
+    </div>
+
+  `;
+
+
+  container.appendChild(
+    row
+  );
+
+
+  const select =
+    row.querySelector(
+      ".relief-item"
+    );
+
+
+  populateItemSelect(
+    select
+  );
+
+}
+
+
+/* =====================================================
+   POPULATE ITEM SELECT
+===================================================== */
+
+function populateItemSelect(
+  select
+){
+
+  select.innerHTML = `
+
+    <option value="">
+      Select item
+    </option>
+
+  `;
+
+
+  itemsCache.forEach(
+    item => {
+
+      const balance =
+        Number(
+          stockBalanceCache[
+            item.id
+          ] || 0
+        );
+
+
+      if(balance <= 0){
+
+        return;
+
+      }
+
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        item.id;
+
+
+      option.textContent =
+
+        (
+          item.item_name ||
+          item.name ||
+          "Item"
+        ) +
+
+        " — Stock: " +
+
+        formatNumber(
+          balance
+        );
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
+
+  if(
+    !select.options.length ||
+    select.options.length === 1
+  ){
+
+    select.innerHTML = `
+
+      <option value="">
+        No stock available
+      </option>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   UPDATE ITEM INFO
+===================================================== */
+
+async function updateReliefItemInfo(
+  select
+){
+
+  const row =
+    select.closest(
+      ".relief-item-row"
+    );
+
+
+  const itemId =
+    select.value;
+
+
+  const unit =
+    row.querySelector(
+      ".relief-unit"
+    );
+
+
+  const category =
+    row.querySelector(
+      ".relief-category"
+    );
+
+
+  const stock =
+    row.querySelector(
+      ".relief-stock"
+    );
+
+
+  if(!itemId){
+
+    unit.value =
+      "";
+
+    category.value =
+      "";
+
+    stock.textContent =
+      "-";
+
+    return;
+
+  }
+
+
+  const item =
+    itemsCache.find(
+      item =>
+        String(item.id) ===
+        String(itemId)
+    );
+
+
+  if(!item){
+
+    return;
+
+  }
+
+
+  unit.value =
+    item.unit ||
+    "";
+
+
+  category.value =
+    item.category ||
+    "";
+
+
+  const balance =
+    await getItemStockBalance(
+      itemId
+    );
+
+
+  stock.textContent =
+    formatNumber(
+      balance
+    );
+
+}
+
+
+/* =====================================================
+   VALIDATE QUANTITY
+===================================================== */
+
+async function validateReliefQuantity(
+  input
+){
+
+  const row =
+    input.closest(
+      ".relief-item-row"
+    );
+
+
+  const itemId =
+    row.querySelector(
+      ".relief-item"
+    ).value;
+
+
+  if(!itemId){
+
+    return;
+
+  }
+
+
+  const quantity =
+    Number(
+      input.value
+    ) || 0;
+
+
+  const balance =
+    await getItemStockBalance(
+      itemId
+    );
+
+
+  if(
+    quantity > balance
+  ){
+
+    input.setCustomValidity(
+      "Quantity exceeds current stock."
+    );
+
+    input.style.borderColor =
+      "#c62828";
+
+  }else{
+
+    input.setCustomValidity(
+      ""
+    );
+
+    input.style.borderColor =
+      "";
+
+  }
+
+}
+
+
+/* =====================================================
+   MODEL 22 NUMBER
+===================================================== */
+
+function toggleModel22Number(){
+
+  const model =
+    document.getElementById(
+      "model22"
+    ).value;
+
+
+  const group =
+    document.getElementById(
+      "model22NumberGroup"
+    );
+
+
+  const input =
+    document.getElementById(
+      "model22Number"
+    );
+
+
+  if(
+    model === "AVAILABLE"
+  ){
+
+    group.style.display =
+      "flex";
+
+    input.required =
+      true;
+
+  }else{
+
+    group.style.display =
+      "none";
+
+    input.required =
+      false;
+
+    input.value =
+      "";
+
+  }
+
+}
+
+
+/* =====================================================
+   SAVE RELIEF
+===================================================== */
+
+async function saveRelief(){
+
+  try{
+
+    requireBranch();
+
+    clearStatus();
+
+
+    /* ================================================
+       BASIC VALIDATION
+    ================================================= */
+
+    const householdId =
+      document.getElementById(
+        "reliefHousehold"
+      ).value;
+
+
+    const memberId =
+      document.getElementById(
+        "reliefMember"
+      ).value;
+
+
+    const reliefDate =
+      document.getElementById(
+        "reliefDate"
+      ).value;
+
+
+    const issuedBy =
+      document.getElementById(
+        "issuedBy"
+      ).value.trim();
+
+
+    const signature =
+      document.getElementById(
+        "reliefSignature"
+      ).value.trim();
+
+
+    const model22 =
+      document.getElementById(
+        "model22"
+      ).value;
+
+
+    const model22Number =
+      document.getElementById(
+        "model22Number"
+      ).value.trim();
+
+
+    const otherInformation =
+      document.getElementById(
+        "reliefOther"
+      ).value.trim()
+      || null;
+
+
+    if(!householdId){
+
+      throw new Error(
+        "Household is required."
+      );
+
+    }
+
+
+    if(!memberId){
+
+      throw new Error(
+        "Member is required."
+      );
+
+    }
+
+
+    if(!reliefDate){
+
+      throw new Error(
+        "Relief Date is required."
+      );
+
+    }
+
+
+    if(!issuedBy){
+
+      throw new Error(
+        "Issued By is required."
+      );
+
+    }
+
+
+    if(!signature){
+
+      throw new Error(
+        "Signature is required."
+      );
+
+    }
+
+
+    if(
+      model22 !==
+      "AVAILABLE"
+    ){
+
+      throw new Error(
+        "Model 22 is required for Individual Relief."
+      );
+
+    }
+
+
+    if(!model22Number){
+
+      throw new Error(
+        "Model 22 Number is required."
+      );
+
+    }
+
+
+    /* ================================================
+       VERIFY MEMBER BELONGS TO HOUSEHOLD
+    ================================================= */
+
+    const memberRows =
+      await getTable(
+        "emergency_members",
+        "?select=id,household_id,full_name,fan_number" +
+        "&id=eq." +
+        encodeURIComponent(
+          memberId
+        ) +
+        "&household_id=eq." +
+        encodeURIComponent(
+          householdId
+        ) +
+        "&limit=1"
+      );
+
+
+    if(
+      !memberRows.length
+    ){
+
+      throw new Error(
+        "Selected member does not belong to the selected household."
+      );
+
+    }
+
+
+    /* ================================================
+       RELIEF ITEMS
+    ================================================= */
+
+    const rows =
+      Array.from(
+        document.querySelectorAll(
+          ".relief-item-row"
+        )
+      );
+
+
+    if(!rows.length){
+
+      throw new Error(
+        "At least one relief item is required."
+      );
+
+    }
+
+
+    const reliefItems = [];
+
+
+    for(
+      const row of rows
+    ){
+
+      const itemId =
+        row.querySelector(
+          ".relief-item"
+        ).value;
+
+
+      const quantity =
+        Number(
+          row.querySelector(
+            ".relief-quantity"
+          ).value
+        ) || 0;
+
+
+      if(!itemId){
+
+        throw new Error(
+          "Please select an item."
+        );
+
+      }
+
+
+      if(
+        quantity <= 0
+      ){
+
+        throw new Error(
+          "Relief quantity must be greater than zero."
+        );
+
+      }
+
+
+      const balance =
+        await getItemStockBalance(
+          itemId
+        );
+
+
+      if(
+        quantity > balance
+      ){
+
+        const item =
+          itemsCache.find(
+            x =>
+              String(x.id) ===
+              String(itemId)
+          );
+
+
+        throw new Error(
+
+          "Insufficient stock for " +
+
+          (
+            item?.item_name ||
+            item?.name ||
+            "selected item"
+          ) +
+
+          ". Current stock: " +
+
+          formatNumber(
+            balance
+          )
+
+        );
+
+      }
+
+
+      const item =
+        itemsCache.find(
+          x =>
+            String(x.id) ===
+            String(itemId)
+        );
+
+
+      if(!item){
+
+        throw new Error(
+          "Selected item was not found."
+        );
+
+      }
+
+
+      reliefItems.push({
+
+        item_id:
+          item.id,
+
+        item_name:
+          item.item_name ||
+          item.name ||
+          null,
+
+        category:
+          item.category ||
+          null,
+
+        unit:
+          item.unit ||
+          null,
+
+        quantity:
+          quantity
+
+      });
+
+    }
+
+
+    /* ================================================
+       PREVENT SAME ITEM OVER-ISSUE
+       WHEN ITEM APPEARS MORE THAN ONCE
+    ================================================= */
+
+    const totalByItem = {};
+
+
+    reliefItems.forEach(
+      item => {
+
+        if(
+          !totalByItem[
+            item.item_id
+          ]
+        ){
+
+          totalByItem[
+            item.item_id
+          ] =
+            0;
+
+        }
+
+
+        totalByItem[
+          item.item_id
+        ] +=
+          item.quantity;
+
+      }
+    );
+
+
+    for(
+      const itemId in totalByItem
+    ){
+
+      const balance =
+        await getItemStockBalance(
+          itemId
+        );
+
+
+      if(
+        totalByItem[itemId] >
+        balance
+      ){
+
+        const item =
+          itemsCache.find(
+            x =>
+              String(x.id) ===
+              String(itemId)
+          );
+
+
+        throw new Error(
+
+          "Total quantity for " +
+
+          (
+            item?.item_name ||
+            item?.name ||
+            "item"
+          ) +
+
+          " exceeds current stock."
+
+        );
+
+      }
+
+    }
+
+
+    /* ================================================
+       INSERT RELIEF
+    ================================================= */
+
+    const reliefPayload = {
+
+      household_id:
+        householdId,
+
+      member_id:
+        memberId,
+
+      branch_id:
+        branchId,
+
+      branch_code:
+        branchCode ||
+        null,
+
+      relief_date:
+        reliefDate,
+
+      issued_by:
+        issuedBy,
+
+      signature:
+        signature,
+
+      model_22:
+        "Model 22 Available",
+
+      model_22_number:
+        model22Number,
+
+      other_information:
+        otherInformation,
+
+      created_at:
+        new Date().toISOString()
+
+    };
+
+
+    const reliefRows =
+      await insertTable(
+        "emergency_reliefs",
+        reliefPayload
+      );
+
+
+    if(
+      !reliefRows ||
+      !reliefRows.length
+    ){
+
+      throw new Error(
+        "Individual Relief was not created."
+      );
+
+    }
+
+
+    const relief =
+      reliefRows[0];
+
+
+    const reliefId =
+      relief.id;
+
+
+    /* ================================================
+       INSERT RELIEF ITEMS
+    ================================================= */
+
+    const reliefItemPayload =
+      reliefItems.map(
+        item => ({
+
+          relief_id:
+            reliefId,
+
+          household_id:
+            householdId,
+
+          member_id:
+            memberId,
+
+          item_id:
+            item.item_id,
+
+          item_name:
+            item.item_name,
+
+          category:
+            item.category,
+
+          unit:
+            item.unit,
+
+          quantity:
+            item.quantity,
+
+          created_at:
+            new Date().toISOString()
+
+        })
+      );
+
+
+    await insertTable(
+      "emergency_relief_items",
+      reliefItemPayload
+    );
+
+
+    /* ================================================
+       AUTOMATIC STOCK OUT
+       MODEL 22 IS RECORDED HERE
+    ================================================= */
+
+    const stockOutPayload =
+      reliefItems.map(
+        item => ({
+
+          transaction_type:
+            "OUT",
+
+          quantity:
+            item.quantity,
+
+          entered_by:
+            null,
+
+          entered_at:
+            new Date().toISOString(),
+
+          expiry_date:
+            null,
+
+          category:
+            item.category,
+
+          issued_by:
+            issuedBy,
+
+          signature:
+            signature,
+
+          unit:
+            item.unit,
+
+          transaction:
+            "Emergency Relief - Model 22 - " +
+            model22Number,
+
+          branch_id:
+            branchId,
+
+          branch_code:
+            branchCode ||
+            null,
+
+          item_id:
+            item.item_id,
+
+          relief_id:
+            reliefId,
+
+          source_type:
+            "EMERGENCY_RELIEF"
+
+        })
+      );
+
+
+    /*
+      If your current stock_transactions table
+      does not yet contain relief_id/source_type,
+      the fallback below retries without those
+      two optional columns.
+    */
+
+    try{
+
+      await insertTable(
+        "stock_transactions",
+        stockOutPayload
+      );
+
+    }catch(stockError){
+
+      const fallbackPayload =
+        reliefItems.map(
+          item => ({
+
+            transaction_type:
+              "OUT",
+
+            quantity:
+              item.quantity,
+
+            entered_by:
+              null,
+
+            entered_at:
+              new Date().toISOString(),
+
+            expiry_date:
+              null,
+
+            category:
+              item.category,
+
+            issued_by:
+              issuedBy,
+
+            signature:
+              signature,
+
+            unit:
+              item.unit,
+
+            transaction:
+              "Emergency Relief - Model 22 - " +
+              model22Number,
+
+            branch_id:
+              branchId,
+
+            branch_code:
+              branchCode ||
+              null,
+
+            item_id:
+              item.item_id
+
+          })
+        );
+
+
+      await insertTable(
+        "stock_transactions",
+        fallbackPayload
+      );
+
+    }
+
+
+    /* ================================================
+       EVIDENCE
+       SAVED AS HOUSEHOLD DOCUMENT
+    ================================================= */
+
+    const evidenceInput =
+      document.getElementById(
+        "reliefEvidence"
+      );
+
+
+    if(
+      evidenceInput &&
+      evidenceInput.files &&
+      evidenceInput.files.length
+    ){
+
+      const file =
+        evidenceInput.files[0];
+
+
+      const uploaded =
+        await uploadReliefDocument(
+          file,
+          householdId
+        );
+
+
+      await insertTable(
+        "emergency_documents",
+        {
+
+          household_id:
+            householdId,
+
+          document_name:
+            "Individual Relief Evidence",
+
+          file_name:
+            uploaded.file_name,
+
+          file_path:
+            uploaded.file_path,
+
+          file_url:
+            uploaded.file_url,
+
+          file_type:
+            uploaded.file_type,
+
+          file_size:
+            uploaded.file_size,
+
+          other_information:
+            "Evidence for Individual Relief " +
+            reliefId,
+
+          created_at:
+            new Date().toISOString()
+
+        }
+      );
+
+    }
+
+
+    /* ================================================
+       SUCCESS
+    ================================================= */
+
+    showStatus(
+
+      "Individual Relief saved successfully. " +
+      "Stock OUT was recorded with Model 22 No. " +
+      model22Number,
+
+      "success"
+
+    );
+
+
+    closeReliefForm();
+
+
+    await refreshAll();
+
+
+    setTimeout(
+      () => {
+
+        openRelief(
+          reliefId
+        );
+
+      },
+      300
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "SAVE RELIEF ERROR:",
+      error
+    );
+
+
+    showStatus(
+      error.message ||
+      "Failed to save Individual Relief.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   UPLOAD RELIEF DOCUMENT
+===================================================== */
+
+async function uploadReliefDocument(
+  file,
+  householdId
+){
+
+  const safeName =
+    file.name
+      .replace(
+        /[^a-zA-Z0-9._-]/g,
+        "_"
+      );
+
+
+  const uniqueName =
+    Date.now() +
+    "_" +
+    Math.random()
+      .toString(36)
+      .slice(2,8) +
+    "_" +
+    safeName;
+
+
+  const path =
+    branchId +
+    "/" +
+    householdId +
+    "/" +
+    uniqueName;
+
+
+  const uploadUrl =
+    SUPABASE_URL +
+    "/storage/v1/object/" +
+    RELIEF_DOCUMENT_BUCKET +
+    "/" +
+    path;
+
+
+  const response =
+    await fetch(
+      uploadUrl,
+      {
+
+        method:"POST",
+
+        headers:{
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " +
+            SUPABASE_KEY,
+
+          "Content-Type":
+            file.type ||
+            "application/octet-stream",
+
+          "x-upsert":
+            "false"
+
+        },
+
+        body:file
+
+      }
+    );
+
+
+  const text =
+    await response.text();
+
+
+  if(!response.ok){
+
+    throw new Error(
+      "Evidence upload failed: " +
+      text
+    );
+
+  }
+
+
+  const publicUrl =
+    SUPABASE_URL +
+    "/storage/v1/object/public/" +
+    RELIEF_DOCUMENT_BUCKET +
+    "/" +
+    path;
+
+
+  return {
+
+    file_name:
+      file.name,
+
+    file_path:
+      path,
+
+    file_url:
+      publicUrl,
+
+    file_type:
+      file.type ||
+      null,
+
+    file_size:
+      file.size ||
+      null
+
+  };
+
+}
+
+
+/* =====================================================
+   LOAD RELIEFS
+===================================================== */
+
+async function loadReliefs(){
+
+  requireBranch();
+
+
+  reliefsCache =
+    await getTable(
+      "emergency_reliefs",
+      "?select=*" +
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchId
+      ) +
+      "&order=created_at.desc"
+    ) || [];
+
+
+  if(
+    reliefsCache.length
+  ){
+
+    const ids =
+      reliefsCache
+        .map(
+          x => x.id
+        )
+        .filter(Boolean);
+
+
+    reliefItemsCache =
+      await getTable(
+        "emergency_relief_items",
+        "?select=*" +
+        "&relief_id=in.(" +
+        ids.join(",") +
+        ")"
+      ) || [];
+
+  }else{
+
+    reliefItemsCache =
+      [];
+
+  }
+
+
+  await renderReliefs();
+
+}
+
+
+/* =====================================================
+   RENDER RELIEFS
+===================================================== */
+
+async function renderReliefs(){
+
+  const container =
+    document.getElementById(
+      "reliefList"
+    );
+
+
+  if(!reliefsCache.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        No Individual Relief records found.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const householdIds =
+    [
+      ...new Set(
+        reliefsCache
+          .map(
+            relief =>
+              relief.household_id
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  const memberIds =
+    [
+      ...new Set(
+        reliefsCache
+          .map(
+            relief =>
+              relief.member_id
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  let households = [];
+
+  let members = [];
+
+
+  if(
+    householdIds.length
+  ){
+
+    households =
+      await getTable(
+        "emergency_households",
+        "?select=id,household_name,representative_name" +
+        "&id=in.(" +
+        householdIds.join(",") +
+        ")"
+      ) || [];
+
+  }
+
+
+  if(
+    memberIds.length
+  ){
+
+    members =
+      await getTable(
+        "emergency_members",
+        "?select=id,full_name,fan_number" +
+        "&id=in.(" +
+        memberIds.join(",") +
+        ")"
+      ) || [];
+
+  }
+
+
+  const householdMap =
+    Object.fromEntries(
+      households.map(
+        x => [
+          String(x.id),
+          x
+        ]
+      )
+    );
+
+
+  const memberMap =
+    Object.fromEntries(
+      members.map(
+        x => [
+          String(x.id),
+          x
+        ]
+      )
+    );
+
+
+  container.innerHTML =
+    reliefsCache
+      .map(
+        relief => {
+
+          const household =
+            householdMap[
+              String(
+                relief.household_id
+              )
+            ] || {};
+
+
+          const member =
+            memberMap[
+              String(
+                relief.member_id
+              )
+            ] || {};
+
+
+          const items =
+            reliefItemsCache.filter(
+              item =>
+                String(
+                  item.relief_id
+                ) ===
+                String(
+                  relief.id
+                )
+            );
+
+
+          const totalItems =
+            items.reduce(
+              (
+                total,
+                item
+              ) =>
+                total +
+                (
+                  Number(
+                    item.quantity
+                  ) || 0
+                ),
+              0
+            );
+
+
+          return `
+
+            <div
+              class="relief-card"
+              onclick="openRelief('${relief.id}')"
+            >
+
+              <div class="relief-title">
+
+                ${escapeHtml(
+                  member.full_name ||
+                  "Individual Relief"
+                )}
+
+              </div>
+
+
+              <div class="relief-line">
+
+                <strong>Household:</strong>
+
+                ${escapeHtml(
+                  household.household_name ||
+                  household.representative_name ||
+                  "-"
+                )}
+
+              </div>
+
+
+              <div class="relief-line">
+
+                <strong>FAN:</strong>
+
+                ${escapeHtml(
+                  member.fan_number ||
+                  "-"
+                )}
+
+              </div>
+
+
+              <div class="relief-line">
+
+                <strong>Relief Date:</strong>
+
+                ${escapeHtml(
+                  relief.relief_date ||
+                  "-"
+                )}
+
+              </div>
+
+
+              <div class="relief-line">
+
+                <strong>Issued By:</strong>
+
+                ${escapeHtml(
+                  relief.issued_by ||
+                  "-"
+                )}
+
+              </div>
+
+
+              <div class="relief-line">
+
+                <strong>Items:</strong>
+
+                ${items.length}
+
+                &nbsp; | &nbsp;
+
+                <strong>Qty:</strong>
+
+                ${formatNumber(
+                  totalItems
+                )}
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =====================================================
+   SEARCH RELIEFS
+===================================================== */
+
+async function filterReliefs(){
+
+  const search =
+    document.getElementById(
+      "searchInput"
+    ).value
+      .trim()
+      .toLowerCase();
+
+
+  if(!search){
+
+    await renderReliefs();
+
+    return;
+
+  }
+
+
+  const householdIds =
+    [
+      ...new Set(
+        reliefsCache
+          .map(
+            x =>
+              x.household_id
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  const memberIds =
+    [
+      ...new Set(
+        reliefsCache
+          .map(
+            x =>
+              x.member_id
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  let households = [];
+
+  let members = [];
+
+
+  if(
+    householdIds.length
+  ){
+
+    households =
+      await getTable(
+        "emergency_households",
+        "?select=id,household_name,representative_name" +
+        "&id=in.(" +
+        householdIds.join(",") +
+        ")"
+      ) || [];
+
+  }
+
+
+  if(
+    memberIds.length
+  ){
+
+    members =
+      await getTable(
+        "emergency_members",
+        "?select=id,full_name,fan_number" +
+        "&id=in.(" +
+        memberIds.join(",") +
+        ")"
+      ) || [];
+
+  }
+
+
+  const householdMap =
+    Object.fromEntries(
+      households.map(
+        x => [
+          String(x.id),
+          x
+        ]
+      )
+    );
+
+
+  const memberMap =
+    Object.fromEntries(
+      members.map(
+        x => [
+          String(x.id),
+          x
+        ]
+      )
+    );
+
+
+  const filtered =
+    reliefsCache.filter(
+      relief => {
+
+        const household =
+          householdMap[
+            String(
+              relief.household_id
+            )
+          ] || {};
+
+
+        const member =
+          memberMap[
+            String(
+              relief.member_id
+            )
+          ] || {};
+
+
+        return (
+
+          String(
+            household.household_name ||
+            household.representative_name ||
+            ""
+          )
+            .toLowerCase()
+            .includes(search)
+
+          ||
+
+          String(
+            member.full_name ||
+            ""
+          )
+            .toLowerCase()
+            .includes(search)
+
+          ||
+
+          String(
+            member.fan_number ||
+            ""
+          )
+            .toLowerCase()
+            .includes(search)
+
+          ||
+
+          String(
+            relief.relief_date ||
+            ""
+          )
+            .toLowerCase()
+            .includes(search)
+
+        );
+
+      }
+    );
+
+
+  const original =
+    reliefsCache;
+
+
+  reliefsCache =
+    filtered;
+
+
+  await renderReliefs();
+
+
+  reliefsCache =
+    original;
+
+}
+
+
+/* =====================================================
+   OPEN RELIEF PROFILE
+===================================================== */
+
+async function openRelief(
+  reliefId
+){
+
+  try{
+
+    requireBranch();
+
+
+    const reliefRows =
+      await getTable(
+        "emergency_reliefs",
+        "?select=*" +
+        "&id=eq." +
+        encodeURIComponent(
+          reliefId
+        ) +
+        "&branch_id=eq." +
+        encodeURIComponent(
+          branchId
+        ) +
+        "&limit=1"
+      );
+
+
+    if(
+      !reliefRows.length
+    ){
+
+      throw new Error(
+        "Relief record not found."
+      );
+
+    }
+
+
+    const relief =
+      reliefRows[0];
+
+
+    const memberRows =
+      await getTable(
+        "emergency_members",
+        "?select=*" +
+        "&id=eq." +
+        encodeURIComponent(
+          relief.member_id
+        ) +
+        "&limit=1"
+      );
+
+
+    const householdRows =
+      await getTable(
+        "emergency_households",
+        "?select=*" +
+        "&id=eq." +
+        encodeURIComponent(
+          relief.household_id
+        ) +
+        "&limit=1"
+      );
+
+
+    const items =
+      await getTable(
+        "emergency_relief_items",
+        "?select=*" +
+        "&relief_id=eq." +
+        encodeURIComponent(
+          reliefId
+        )
+      ) || [];
+
+
+    const member =
+      memberRows[0] ||
+      {};
+
+
+    const household =
+      householdRows[0] ||
+      {};
+
+
+    let html = "";
+
+
+    /* ================================================
+       RELIEF INFORMATION
+       IMPORTANT:
+       MODEL 22 IS NOT SHOWN HERE
+    ================================================= */
+
+    html += `
+
+      <div class="info-card">
+
+        <h3>
+          Individual Relief Information
+        </h3>
+
+        <div class="info-grid">
+
+          ${info(
+            "Household",
+            household.household_name ||
+            household.representative_name
+          )}
+
+          ${info(
+            "Member",
+            member.full_name
+          )}
+
+          ${info(
+            "Member FAN",
+            member.fan_number
+          )}
+
+          ${info(
+            "Relief Date",
+            relief.relief_date
+          )}
+
+          ${info(
+            "Issued By",
+            relief.issued_by
+          )}
+
+          ${info(
+            "Signature",
+            relief.signature
+          )}
+
+          ${info(
+            "Other Information",
+            relief.other_information
+          )}
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    /* ================================================
+       ITEMS
+    ================================================= */
+
+    html += `
+
+      <div class="info-card">
+
+        <h3>
+          Relief Items (${items.length})
+        </h3>
+
+    `;
+
+
+    if(!items.length){
+
+      html += `
+
+        <div class="empty">
+          No relief items found.
+        </div>
+
+      `;
+
+    }else{
+
+      items.forEach(
+        item => {
+
+          html += `
+
+            <div
+              class="info-card"
+              style="margin-bottom:10px"
+            >
+
+              <div class="info-grid">
+
+                ${info(
+                  "Item",
+                  item.item_name
+                )}
+
+                ${info(
+                  "Category",
+                  item.category
+                )}
+
+                ${info(
+                  "Quantity",
+                  item.quantity
+                )}
+
+                ${info(
+                  "Unit",
+                  item.unit
+                )}
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      );
+
+    }
+
+
+    html += `
+
+      </div>
+
+    `;
+
+
+    document.getElementById(
+      "reliefProfileContent"
+    ).innerHTML =
+      html;
+
+
+    document.getElementById(
+      "reliefModal"
+    ).style.display =
+      "block";
+
+
+  }catch(error){
+
+    console.error(
+      "OPEN RELIEF ERROR:",
+      error
+    );
+
+
+    alert(
+      error.message ||
+      "Unable to open relief record."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   INFO
+===================================================== */
+
+function info(
+  label,
+  value
+){
+
+  return `
+
+    <div class="info-item">
+
+      <div class="info-label">
+
+        ${escapeHtml(
+          label
+        )}
+
+      </div>
+
+      <div class="info-value">
+
+        ${escapeHtml(
+          value === null ||
+          value === undefined ||
+          value === ""
+            ? "-"
+            : String(value)
+        )}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHtml(
+  value
+){
+
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   NUMBER FORMAT
+===================================================== */
+
+function formatNumber(
+  value
+){
+
+  const number =
+    Number(value) || 0;
+
+
+  if(
+    Number.isInteger(
+      number
+    )
+  ){
+
+    return String(
+      number
+    );
+
+  }
+
+
+  return number.toFixed(2);
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeReliefModal(){
+
+  document.getElementById(
+    "reliefModal"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+async function refreshAll(){
+
+  try{
+
+    requireBranch();
+
+    clearStatus();
+
+
+    document.getElementById(
+      "reliefList"
+    ).innerHTML = `
+
+      <div class="empty">
+        Loading relief records...
+      </div>
+
+    `;
+
+
+    await loadItems();
+
+    await loadReliefs();
+
+
+    document.getElementById(
+      "reliefCount"
+    ).textContent =
+      reliefsCache.length;
+
+
+    document.getElementById(
+      "itemCount"
+    ).textContent =
+      reliefItemsCache.length;
+
+
+  }catch(error){
+
+    console.error(
+      "REFRESH ERROR:",
+      error
+    );
+
+
+    document.getElementById(
+      "reliefList"
+    ).innerHTML = `
+
+      <div class="empty">
+
+        ${escapeHtml(
+          error.message ||
+          "Failed to load relief records."
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   OUTSIDE CLICK
+===================================================== */
+
+window.addEventListener(
+  "click",
+  function(event){
+
+    const profile =
+      document.getElementById(
+        "profileModal"
+      );
+
+
+    const relief =
+      document.getElementById(
+        "reliefModal"
+      );
+
+
+    if(
+      event.target === profile
+    ){
+
+      closeProfile();
+
+    }
+
+
+    if(
+      event.target === relief
+    ){
+
+      closeReliefModal();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async function(){
+
+    loadProfile();
+
+    await refreshAll();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
