@@ -1911,12 +1911,30 @@ function addMemberRow(){
           inputmode="numeric"
           maxlength="16"
           placeholder="16-digit FAN number"
+          oninput="this.value=this.value.replace(/\\D/g,'').slice(0,16)"
         >
 
       </div>
 
 
       <div class="form-group">
+
+        <label>
+          Phone Number
+        </label>
+
+        <input
+          class="member-phone"
+          type="tel"
+          inputmode="tel"
+          maxlength="20"
+          placeholder="Member phone number"
+        >
+
+      </div>
+
+
+      <div class="form-group full">
 
         <label>
           Other Information
@@ -2315,6 +2333,14 @@ async function saveHousehold(){
           );
 
 
+      const phone =
+        row.querySelector(
+          ".member-phone"
+        ).value.trim()
+        ||
+        null;
+
+
       const other =
         row.querySelector(
           ".member-other"
@@ -2388,6 +2414,9 @@ async function saveHousehold(){
 
         fan_number:
           fan,
+
+        phone_number:
+          phone,
 
         other_information:
           other
@@ -2595,6 +2624,9 @@ async function saveHousehold(){
           fan_number:
             member.fan_number,
 
+          phone_number:
+            member.phone_number,
+
           other_information:
             member.other_information,
 
@@ -2605,10 +2637,40 @@ async function saveHousehold(){
       );
 
 
-    await insertTable(
-      "emergency_members",
-      memberPayload
-    );
+    try{
+
+      await insertTable(
+        "emergency_members",
+        memberPayload
+      );
+
+    }catch(memberError){
+
+      const message =
+        String(
+          memberError?.message ||
+          ""
+        );
+
+
+      if(
+        message.includes("duplicate key") ||
+        message.includes(
+          "emergency_members_fan_number_unique"
+        ) ||
+        message.includes("23505")
+      ){
+
+        throw new Error(
+          "One of the FAN Numbers is already registered. Duplicate FAN Number is not allowed."
+        );
+
+      }
+
+
+      throw memberError;
+
+    }
 
 
     /* ================================================
@@ -2820,7 +2882,7 @@ async function loadMemberSearchCache(){
   const data =
     await getTable(
       "emergency_members",
-      "?select=household_id,full_name,fan_number"
+      "?select=household_id,full_name,fan_number,phone_number"
     );
 
 
@@ -2911,9 +2973,17 @@ function filterHouseholds(){
                 ).toLowerCase();
 
 
+              const memberPhone =
+                String(
+                  member.phone_number ||
+                  ""
+                ).toLowerCase();
+
+
               return (
                 memberName.includes(search) ||
-                memberFan.includes(search)
+                memberFan.includes(search) ||
+                memberPhone.includes(search)
               );
 
             }
@@ -3389,6 +3459,11 @@ async function openHousehold(
                 ${info(
                   "FAN Number",
                   member.fan_number
+                )}
+
+                ${info(
+                  "Phone Number",
+                  member.phone_number
                 )}
 
                 ${info(
