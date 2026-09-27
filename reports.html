@@ -411,34 +411,18 @@ td{
 </header>
 
 
+<!-- =====================================================
+     ONLY REPORTS + BACK TO MENU
+===================================================== -->
+
 <nav>
-
-  <a href="dashboard.html">
-    🏠 Dashboard
-  </a>
-
-  <a href="items.html">
-    📦 Items
-  </a>
-
-  <a href="stock.html">
-    🔄 Stock In / Out
-  </a>
 
   <a href="reports.html">
     📊 Reports
   </a>
 
-  <a href="settings.html">
-    ⚙️ Settings
-  </a>
-
-  <a
-    href="#"
-    class="logout"
-    onclick="logoutUser();return false;"
-  >
-    🚪 Logout
+  <a href="dashboard.html">
+    ↩️ Back to Menu
   </a>
 
 </nav>
@@ -726,12 +710,6 @@ const SUPABASE_URL =
   "https://sslabegtsxlkafuygmar.supabase.co";
 
 
-/*
-  IMPORTANT:
-  This is the same publishable key used by
-  the working file supplied by the user.
-*/
-
 const SUPABASE_KEY =
   "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
@@ -823,6 +801,13 @@ let reportGroups = [];
 
 
 /* =====================================================
+   ITEM MAP
+===================================================== */
+
+let itemMap = {};
+
+
+/* =====================================================
    HEADERS
 ===================================================== */
 
@@ -844,14 +829,6 @@ function getHeaders(){
       "access_token"
     );
 
-
-  /*
-    Do NOT use sb_publishable_ key
-    as Bearer token.
-
-    If a real access token exists,
-    use it.
-  */
 
   if(
     token &&
@@ -891,11 +868,6 @@ function isUUID(value){
 
 async function findBranchUUID(){
 
-  /*
-    First use selected_branch_uuid
-    if it is a real UUID.
-  */
-
   if(
     selectedBranchUUID &&
     isUUID(selectedBranchUUID)
@@ -906,20 +878,12 @@ async function findBranchUUID(){
   }
 
 
-  /*
-    Main / HQ does not need branch UUID.
-  */
-
   if(isMainHQ){
 
     return null;
 
   }
 
-
-  /*
-    Load branches.
-  */
 
   const response =
     await fetch(
@@ -1378,10 +1342,6 @@ function getType(
   }
 
 
-  /*
-    Emergency Relief is always OUT.
-  */
-
   const transactionText =
     String(
       transaction.transaction ||
@@ -1411,53 +1371,142 @@ function getType(
 
 
 /* =====================================================
+   LOAD ITEMS
+===================================================== */
+
+async function loadItems(){
+
+  itemMap = {};
+
+
+  try{
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/items?select=*",
+        {
+          headers:getHeaders()
+        }
+      );
+
+
+    if(!response.ok){
+
+      console.warn(
+        "Items could not be loaded:",
+        await response.text()
+      );
+
+      return;
+
+    }
+
+
+    const items =
+      await response.json();
+
+
+    items.forEach(
+      item => {
+
+        if(
+          item.id === undefined ||
+          item.id === null
+        ){
+
+          return;
+
+        }
+
+
+        itemMap[
+          String(item.id)
+        ] = {
+
+          name:
+            item.item_name ||
+            item.name ||
+            item.item ||
+            "Unknown Item",
+
+          category:
+            item.category ||
+            "",
+
+          unit:
+            item.unit ||
+            ""
+
+        };
+
+      }
+    );
+
+  }
+  catch(error){
+
+    console.warn(
+      "Items loading warning:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
    ITEM NAME
+   IMPORTANT:
+   item_id -> items table -> item name
 ===================================================== */
 
 function getItemName(
   transaction
 ){
 
+  const itemId =
+    transaction.item_id;
+
+
   /*
-    If item_name exists,
-    use it first.
+    FIRST:
+    Get item name from items table.
   */
 
   if(
-    transaction.item_name
+    itemId !== undefined &&
+    itemId !== null &&
+    itemId !== ""
   ){
 
-    return transaction.item_name;
-
-  }
-
-
-  if(
-    transaction.itemName
-  ){
-
-    return transaction.itemName;
-
-  }
+    const item =
+      itemMap[
+        String(itemId)
+      ];
 
 
-  if(
-    transaction.name
-  ){
+    if(
+      item &&
+      item.name
+    ){
 
-    return transaction.name;
+      return item.name;
+
+    }
 
   }
 
 
   /*
-    IMPORTANT:
-    transaction field may contain
-    reason/model text, so only use it
-    as last fallback.
+    FALLBACK ONLY.
   */
 
   return (
+    transaction.item_name ||
+    transaction.itemName ||
+    transaction.name ||
     transaction.item ||
     "—"
   );
@@ -1466,17 +1515,95 @@ function getItemName(
 
 
 /* =====================================================
+   ITEM CATEGORY
+===================================================== */
+
+function getItemCategory(
+  transaction
+){
+
+  const itemId =
+    transaction.item_id;
+
+
+  if(
+    itemId !== undefined &&
+    itemId !== null &&
+    itemId !== ""
+  ){
+
+    const item =
+      itemMap[
+        String(itemId)
+      ];
+
+
+    if(
+      item &&
+      item.category
+    ){
+
+      return item.category;
+
+    }
+
+  }
+
+
+  return (
+    transaction.category ||
+    "—"
+  );
+
+}
+
+
+/* =====================================================
+   ITEM UNIT
+===================================================== */
+
+function getItemUnit(
+  transaction
+){
+
+  const itemId =
+    transaction.item_id;
+
+
+  if(
+    itemId !== undefined &&
+    itemId !== null &&
+    itemId !== ""
+  ){
+
+    const item =
+      itemMap[
+        String(itemId)
+      ];
+
+
+    if(
+      item &&
+      item.unit
+    ){
+
+      return item.unit;
+
+    }
+
+  }
+
+
+  return (
+    transaction.unit ||
+    "—"
+  );
+
+}
+
+
+/* =====================================================
    MODEL INFO
-
-   Supports both real columns and
-   the existing transaction text.
-
-   Examples:
-
-   Model 19 - 12345
-   Model 19: 12345
-   Model 22 - 98765
-   Emergency Relief - Model 22 - 98765
 ===================================================== */
 
 function getModelInfo(
@@ -1553,7 +1680,7 @@ function getModelInfo(
 
 
   /*
-    Emergency Relief special case.
+    Emergency Relief.
   */
 
   if(!model22){
@@ -1573,10 +1700,6 @@ function getModelInfo(
 
   }
 
-
-  /*
-    Detect model labels even if no number exists.
-  */
 
   const hasModel19 =
     /model\s*19/i.test(text);
@@ -1608,7 +1731,7 @@ function getModelInfo(
 
 
 /* =====================================================
-   MODEL 22 NUMBER ONLY
+   MODEL 22 NUMBER
 ===================================================== */
 
 function getModel22Number(
@@ -1638,18 +1761,6 @@ function getModel22Number(
 
 /* =====================================================
    DESCRIPTION / TRANSACTION REASON
-
-   Important:
-   Reason must remain visible.
-
-   Examples:
-
-   Emergency Relief
-   Donation
-   Received from warehouse
-   Damaged stock
-   Transfer
-   Other reason
 ===================================================== */
 
 function getDescription(
@@ -1665,11 +1776,6 @@ function getDescription(
     )
     .trim();
 
-
-  /*
-    If no separate description column exists,
-    use transaction column.
-  */
 
   if(!text){
 
@@ -1730,8 +1836,7 @@ function getDescription(
 
 
   /*
-    Remove ONLY Model 19/22 metadata,
-    not the actual reason.
+    Remove only Model 19 metadata.
   */
 
   text =
@@ -1740,6 +1845,10 @@ function getDescription(
       ""
     );
 
+
+  /*
+    Remove only Model 22 metadata.
+  */
 
   text =
     text.replace(
@@ -1755,11 +1864,6 @@ function getDescription(
     )
     .trim();
 
-
-  /*
-    If after removing model information
-    something meaningful remains, use it.
-  */
 
   if(text){
 
@@ -1813,7 +1917,7 @@ function getDescription(
 
 
 /* =====================================================
-   BRANCH NAME
+   BRANCH
 ===================================================== */
 
 function getTransactionBranch(
@@ -1861,22 +1965,17 @@ function groupTransactions(
 
   const groups = {};
 
+
   data.forEach(
     transaction => {
 
-      /*
-        Same item_id = same item.
-
-        This means:
-        Pasta IN 10
-        Pasta IN 20
-        Pasta OUT 5
-
-        becomes ONE summary row.
-      */
-
       let key;
 
+
+      /*
+        item_id is the primary key
+        for grouping.
+      */
 
       if(
         transaction.item_id !==
@@ -1924,12 +2023,14 @@ function groupTransactions(
             ),
 
           category:
-            transaction.category ||
-            "—",
+            getItemCategory(
+              transaction
+            ),
 
           unit:
-            transaction.unit ||
-            "—",
+            getItemUnit(
+              transaction
+            ),
 
           totalIn:0,
 
@@ -2031,14 +2132,6 @@ function renderSummary(
   groups.forEach(
     (group,index) => {
 
-      /*
-        Latest transaction is shown
-        in the summary columns.
-
-        ALL transactions are available
-        through Detail.
-      */
-
       const latest =
         group.transactions[0];
 
@@ -2124,12 +2217,15 @@ function renderSummary(
         <tr class="${rowClass}">
 
           <td>
+
             <strong>
               ${escapeHTML(
                 group.itemName
               )}
             </strong>
+
           </td>
+
 
           <td>
             ${escapeHTML(
@@ -2137,29 +2233,37 @@ function renderSummary(
             )}
           </td>
 
+
           <td>
             ${escapeHTML(
               group.unit
             )}
           </td>
 
+
           <td>
             ${group.totalIn}
           </td>
+
 
           <td>
             ${group.totalOut}
           </td>
 
+
           <td>
+
             <strong>
               ${balance}
             </strong>
+
           </td>
+
 
           <td>
             ${typeHTML}
           </td>
+
 
           <td>
             ${toNumber(
@@ -2167,11 +2271,13 @@ function renderSummary(
             )}
           </td>
 
+
           <td>
             ${escapeHTML(
               formatDate(date)
             )}
           </td>
+
 
           <td>
             ${escapeHTML(
@@ -2180,6 +2286,7 @@ function renderSummary(
             )}
           </td>
 
+
           <td>
             ${escapeHTML(
               latest.issued_by ||
@@ -2187,11 +2294,13 @@ function renderSummary(
             )}
           </td>
 
+
           <td class="${expiryClass}">
             ${escapeHTML(
               expiry || "—"
             )}
           </td>
+
 
           <td>
             ${escapeHTML(
@@ -2200,7 +2309,9 @@ function renderSummary(
             )}
           </td>
 
+
           <td class="model-cell">
+
             ${
               type === "IN"
                 ? escapeHTML(
@@ -2209,9 +2320,12 @@ function renderSummary(
                   )
                 : ""
             }
+
           </td>
 
+
           <td class="model-cell">
+
             ${
               type === "OUT"
                 ? escapeHTML(
@@ -2220,9 +2334,12 @@ function renderSummary(
                   )
                 : ""
             }
+
           </td>
 
+
           <td class="model-cell">
+
             ${
               type === "OUT"
                 ? escapeHTML(
@@ -2231,7 +2348,9 @@ function renderSummary(
                   )
                 : ""
             }
+
           </td>
+
 
           <td>
             ${escapeHTML(
@@ -2241,12 +2360,16 @@ function renderSummary(
             )}
           </td>
 
+
           <td class="reason-cell">
+
             ${escapeHTML(
               description ||
               "—"
             )}
+
           </td>
+
 
           <td>
 
@@ -2298,10 +2421,6 @@ function showDetails(
     "📋 Detail - " +
     group.itemName;
 
-
-  /*
-    Summary inside modal.
-  */
 
   document.getElementById(
     "detailSummary"
@@ -2517,33 +2636,40 @@ function showDetails(
             ${position + 1}
           </td>
 
+
           <td>
+
             <strong>
               ${escapeHTML(
                 group.itemName
               )}
             </strong>
+
           </td>
+
 
           <td>
             ${escapeHTML(
-              transaction.category ||
-              group.category ||
-              "—"
+              getItemCategory(
+                transaction
+              )
             )}
           </td>
 
+
           <td>
             ${escapeHTML(
-              transaction.unit ||
-              group.unit ||
-              "—"
+              getItemUnit(
+                transaction
+              )
             )}
           </td>
+
 
           <td>
             ${typeHTML}
           </td>
+
 
           <td>
             ${toNumber(
@@ -2551,11 +2677,13 @@ function showDetails(
             )}
           </td>
 
+
           <td>
             ${escapeHTML(
               formatDate(date)
             )}
           </td>
+
 
           <td>
             ${escapeHTML(
@@ -2564,6 +2692,7 @@ function showDetails(
             )}
           </td>
 
+
           <td>
             ${escapeHTML(
               transaction.issued_by ||
@@ -2571,11 +2700,13 @@ function showDetails(
             )}
           </td>
 
+
           <td class="${expiryClass}">
             ${escapeHTML(
               expiry || "—"
             )}
           </td>
+
 
           <td>
             ${escapeHTML(
@@ -2583,6 +2714,7 @@ function showDetails(
               "—"
             )}
           </td>
+
 
           <td class="model-cell">
 
@@ -2597,6 +2729,7 @@ function showDetails(
 
           </td>
 
+
           <td class="model-cell">
 
             ${
@@ -2609,6 +2742,7 @@ function showDetails(
             }
 
           </td>
+
 
           <td class="model-cell">
 
@@ -2623,6 +2757,7 @@ function showDetails(
 
           </td>
 
+
           <td>
             ${escapeHTML(
               getTransactionBranch(
@@ -2631,11 +2766,14 @@ function showDetails(
             )}
           </td>
 
+
           <td class="reason-cell">
+
             ${escapeHTML(
               description ||
               "—"
             )}
+
           </td>
 
         </tr>
@@ -2736,7 +2874,7 @@ async function loadReport(){
   try{
 
     /*
-      Find branch UUID.
+      Branch UUID.
     */
 
     const branchUUID =
@@ -2744,7 +2882,7 @@ async function loadReport(){
 
 
     /*
-      Build API URL.
+      Stock transactions.
     */
 
     let url =
@@ -2755,11 +2893,8 @@ async function loadReport(){
 
 
     /*
-      Main HQ:
-      all branches.
-
-      Operational branch:
-      only own branch.
+      Main = all branches.
+      Branch = own branch only.
     */
 
     if(!isMainHQ){
@@ -2785,10 +2920,6 @@ async function loadReport(){
 
     }
 
-
-    /*
-      Fetch.
-    */
 
     const response =
       await fetch(
@@ -2914,7 +3045,8 @@ async function loadReport(){
 
 
           /*
-            ITEM
+            ITEM NAME
+            This now uses item_id -> items table.
           */
 
           if(itemSearch){
@@ -3177,61 +3309,21 @@ function clearFilters(){
 
 
 /* =====================================================
-   LOGOUT
-===================================================== */
-
-function logoutUser(){
-
-  localStorage.removeItem(
-    "access_token"
-  );
-
-  localStorage.removeItem(
-    "refresh_token"
-  );
-
-  localStorage.removeItem(
-    "is_logged_in"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_id"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_uuid"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_name"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_code"
-  );
-
-  localStorage.removeItem(
-    "user_role"
-  );
-
-  localStorage.removeItem(
-    "login_user"
-  );
-
-
-  window.location.href =
-    "index.html";
-
-}
-
-
-/* =====================================================
    START
 ===================================================== */
 
 showBranchInfo();
 
-loadReport();
+
+/*
+  IMPORTANT:
+  Items are loaded FIRST.
+  Then stock transactions are loaded.
+*/
+
+loadItems().then(
+  () => loadReport()
+);
 
 </script>
 
