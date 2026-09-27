@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,7 +10,7 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>AADLM - Stock Report</title>
+<title>AADLM - Reports</title>
 
 <style>
 
@@ -21,340 +22,376 @@ body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f1f5f9;
-  color:#263238;
+  color:#1e293b;
 }
 
 header{
-  background:linear-gradient(135deg,#0d47a1,#1976d2,#42a5f5);
-  color:#fff;
-  padding:18px;
+  background:#5b341f;
+  color:white;
+  padding:20px;
   text-align:center;
-  box-shadow:0 3px 10px rgba(0,0,0,.18);
 }
 
 header h1{
   margin:0;
-  font-size:24px;
 }
 
 header p{
-  margin:7px 0 0;
-  font-size:14px;
+  margin:6px 0 0;
 }
 
-.nav{
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  flex-wrap:wrap;
+nav{
+  background:white;
   padding:12px;
-  background:#fff;
-  box-shadow:0 2px 7px rgba(0,0,0,.08);
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.10);
 }
 
-.nav button{
-  border:0;
+nav a{
+  text-decoration:none;
   padding:10px 15px;
-  border-radius:8px;
-  background:#1976d2;
-  color:#fff;
-  cursor:pointer;
+  border-radius:7px;
+  background:#eadfd6;
+  color:#3f2415;
   font-weight:bold;
 }
 
-.nav button:hover{
-  background:#0d47a1;
+nav a:hover{
+  background:#d8c7ba;
 }
 
 .container{
+  width:95%;
   max-width:1500px;
-  margin:auto;
-  padding:15px;
+  margin:25px auto;
 }
 
-.branch-box{
-  background:#fff;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+.box{
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.10);
 }
 
-.branch-box strong{
-  color:#0d47a1;
+.box h2{
+  text-align:center;
+  margin-top:0;
+}
+
+.branch-info{
+  text-align:center;
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#7c2d12;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:20px;
+  font-weight:bold;
 }
 
 .filters{
-  background:#fff;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.filters-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
+  gap:12px;
 }
 
-.filters label{
-  display:block;
-  font-size:13px;
-  font-weight:bold;
-  margin-bottom:5px;
-}
-
-.filters input,
-.filters select{
+input,
+select{
   width:100%;
-  padding:10px;
-  border:1px solid #cfd8dc;
+  padding:12px;
+  border:1px solid #cbd5e1;
   border-radius:7px;
-  background:#fff;
+  font-size:15px;
 }
 
-.filter-buttons{
-  margin-top:12px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  border:0;
-  padding:10px 16px;
+button{
+  padding:12px;
+  border:none;
   border-radius:7px;
   cursor:pointer;
+  font-size:15px;
   font-weight:bold;
 }
 
-.btn-primary{
-  background:#1976d2;
-  color:#fff;
+.filter-btn{
+  background:#5b341f;
+  color:white;
 }
 
-.btn-secondary{
-  background:#607d8b;
-  color:#fff;
+.clear-btn{
+  background:#64748b;
+  color:white;
 }
 
-.cards{
+.summary{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-  gap:12px;
-  margin-bottom:15px;
-}
-
-.card{
-  background:#fff;
-  border-radius:10px;
-  padding:16px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.card-title{
-  font-size:13px;
-  color:#607d8b;
-  margin-bottom:7px;
-}
-
-.card-value{
-  font-size:24px;
-  font-weight:bold;
-  color:#0d47a1;
-}
-
-.table-box{
-  background:#fff;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  overflow:hidden;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
   margin-bottom:20px;
 }
 
-.table-title{
-  padding:14px;
-  font-size:18px;
+.card{
+  background:white;
+  padding:18px;
+  border-radius:10px;
+  text-align:center;
   font-weight:bold;
-  color:#0d47a1;
-  border-bottom:1px solid #eceff1;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-.table-scroll{
+.card strong{
+  display:block;
+  font-size:24px;
+  margin-top:8px;
+}
+
+.table-container{
+  width:100%;
   overflow-x:auto;
 }
 
 table{
   width:100%;
+  min-width:1900px;
   border-collapse:collapse;
-  min-width:1400px;
-}
-
-th,
-td{
-  border:1px solid #e0e0e0;
-  padding:9px;
-  font-size:12px;
-  text-align:left;
-  vertical-align:top;
 }
 
 th{
-  background:#e3f2fd;
-  color:#0d47a1;
-  font-weight:bold;
+  background:#5b341f;
+  color:white;
+  padding:12px 10px;
   white-space:nowrap;
 }
 
-tr:nth-child(even){
-  background:#fafafa;
+td{
+  padding:10px;
+  text-align:center;
+  border-bottom:1px solid #ddd;
+  white-space:nowrap;
+  vertical-align:middle;
 }
 
+.in-row{
+  background:#dcfce7 !important;
+}
+
+.out-row{
+  background:#fee2e2 !important;
+}
+
+/* =====================================================
+   EX DATE COLORS
+===================================================== */
+
+.expiry-red{
+  color:#dc2626 !important;
+  font-weight:bold;
+}
+
+.expiry-yellow{
+  color:#ca8a04 !important;
+  font-weight:bold;
+}
+
+.expiry-green{
+  color:#16a34a !important;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+}
+
+.loading{
+  text-align:center;
+  padding:25px;
+  font-weight:bold;
+}
+
+.logout{
+  background:#dc2626 !important;
+  color:white !important;
+}
+
+.main-view{
+  background:#dbeafe;
+  color:#1e40af;
+  padding:10px;
+  border-radius:8px;
+  text-align:center;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+/* =====================================================
+   DETAIL BUTTON
+===================================================== */
+
 .detail-btn{
-  border:0;
-  background:#1976d2;
-  color:#fff;
-  padding:7px 12px;
+  background:#5b341f;
+  color:white;
+  padding:8px 14px;
   border-radius:6px;
   cursor:pointer;
   font-weight:bold;
 }
 
 .detail-btn:hover{
-  background:#0d47a1;
+  background:#3f2415;
 }
 
-.empty{
-  padding:30px;
-  text-align:center;
-  color:#78909c;
-}
-
-.loading{
-  padding:30px;
-  text-align:center;
-  color:#1976d2;
-  font-weight:bold;
-}
-
-.error{
-  padding:15px;
-  background:#ffebee;
-  color:#c62828;
-  border-radius:8px;
-  margin-bottom:15px;
-}
-
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:5px;
-  font-size:11px;
-  font-weight:bold;
-}
-
-.badge-in{
-  background:#e8f5e9;
-  color:#2e7d32;
-}
-
-.badge-out{
-  background:#ffebee;
-  color:#c62828;
-}
+/* =====================================================
+   DETAIL MODAL
+===================================================== */
 
 .modal{
   display:none;
   position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
   z-index:9999;
+  inset:0;
+  background:rgba(0,0,0,.60);
   padding:20px;
   overflow:auto;
 }
 
 .modal-content{
-  max-width:1450px;
+  width:100%;
+  max-width:1500px;
   margin:20px auto;
-  background:#fff;
+  background:white;
   border-radius:12px;
   overflow:hidden;
-  box-shadow:0 5px 30px rgba(0,0,0,.3);
+  box-shadow:0 5px 30px rgba(0,0,0,.30);
 }
 
 .modal-header{
-  background:linear-gradient(135deg,#0d47a1,#1976d2);
-  color:#fff;
-  padding:15px;
+  background:#5b341f;
+  color:white;
+  padding:16px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
 }
 
 .modal-header h2{
   margin:0;
-  font-size:19px;
+  font-size:20px;
 }
 
 .close-btn{
-  border:0;
-  background:#fff;
-  color:#0d47a1;
-  width:35px;
-  height:35px;
+  background:white;
+  color:#5b341f;
+  width:38px;
+  height:38px;
+  padding:0;
   border-radius:50%;
-  cursor:pointer;
-  font-size:20px;
-  font-weight:bold;
+  font-size:24px;
+  line-height:38px;
+}
+
+.detail-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:10px;
+  padding:15px;
+  background:#f8fafc;
+}
+
+.detail-card{
+  background:white;
+  border:1px solid #e2e8f0;
+  border-radius:8px;
+  padding:12px;
+  text-align:center;
+}
+
+.detail-card small{
+  display:block;
+  color:#64748b;
+  margin-bottom:5px;
+}
+
+.detail-card strong{
+  color:#5b341f;
+  font-size:18px;
 }
 
 .modal-body{
   padding:15px;
 }
 
-.detail-info{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-  margin-bottom:15px;
+.detail-table{
+  min-width:2100px;
 }
 
-.detail-info div{
-  background:#f5f7fa;
-  padding:10px;
-  border-radius:7px;
+.reason-cell{
+  white-space:normal !important;
+  min-width:220px;
+  max-width:350px;
 }
 
-.detail-info strong{
-  display:block;
+.model-cell{
+  white-space:normal !important;
+  min-width:150px;
+}
+
+.badge-in{
+  display:inline-block;
+  background:#16a34a;
+  color:white;
+  padding:5px 9px;
+  border-radius:5px;
   font-size:12px;
-  color:#607d8b;
-  margin-bottom:4px;
-}
-
-.detail-info span{
   font-weight:bold;
 }
 
-@media(max-width:700px){
+.badge-out{
+  display:inline-block;
+  background:#dc2626;
+  color:white;
+  padding:5px 9px;
+  border-radius:5px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+
+  header{
+    padding:15px;
+  }
 
   header h1{
-    font-size:20px;
+    font-size:22px;
   }
 
   .container{
-    padding:8px;
+    width:97%;
+    margin:15px auto;
   }
 
-  .filters{
-    padding:10px;
+  .box{
+    padding:14px;
   }
 
-  th,
-  td{
-    font-size:11px;
+  nav a{
+    padding:9px 11px;
+    font-size:13px;
+  }
+
+  .modal{
+    padding:5px;
+  }
+
+  .modal-content{
+    margin:5px auto;
   }
 
 }
@@ -367,1257 +404,200 @@ tr:nth-child(even){
 
 <header>
 
-  <h1>AADLM - Stock Report</h1>
+  <h1>🏢 AADLM</h1>
 
-  <p>
-    Stock IN / Stock OUT / Emergency Relief Report
-  </p>
+  <p>Stock Management System</p>
 
 </header>
 
-<div class="nav">
 
-  <button onclick="goDashboard()">
-    Back to Menu
-  </button>
+<nav>
 
-</div>
+  <a href="dashboard.html">
+    🏠 Dashboard
+  </a>
+
+  <a href="items.html">
+    📦 Items
+  </a>
+
+  <a href="stock.html">
+    🔄 Stock In / Out
+  </a>
+
+  <a href="reports.html">
+    📊 Reports
+  </a>
+
+  <a href="settings.html">
+    ⚙️ Settings
+  </a>
+
+  <a
+    href="#"
+    class="logout"
+    onclick="logoutUser();return false;"
+  >
+    🚪 Logout
+  </a>
+
+</nav>
+
 
 <div class="container">
 
-  <div class="branch-box">
 
-    Branch:
-    <strong id="branchName">Loading...</strong>
-
+  <div
+    id="branchInfo"
+    class="branch-info"
+  >
+    Loading branch...
   </div>
 
-  <div id="errorBox"></div>
 
-  <div class="filters">
+  <div
+    id="mainViewMessage"
+    class="main-view"
+    style="display:none;"
+  >
+    👁️ Main / HQ View Mode — Report is view-only.
+  </div>
 
-    <div class="filters-grid">
 
-      <div>
-        <label>From Date</label>
-        <input
-          type="date"
-          id="fromDate"
-        >
-      </div>
+  <!-- =================================================
+       FILTER
+  ================================================== -->
 
-      <div>
-        <label>To Date</label>
-        <input
-          type="date"
-          id="toDate"
-        >
-      </div>
+  <div class="box">
 
-      <div>
-        <label>Entered / Issued By</label>
-        <input
-          type="text"
-          id="personFilter"
-          placeholder="Search name"
-        >
-      </div>
+    <h2>🔎 Report Filter</h2>
 
-      <div>
-        <label>Item Name</label>
-        <input
-          type="text"
-          id="itemFilter"
-          placeholder="Search item"
-        >
-      </div>
+    <div class="filters">
 
-      <div>
-        <label>Transaction Type</label>
+      <input
+        id="dateFilter"
+        type="date"
+      >
 
-        <select id="typeFilter">
+      <input
+        id="enteredByFilter"
+        placeholder="Entered / Issued By"
+      >
 
-          <option value="">
-            All
-          </option>
+      <input
+        id="itemFilter"
+        placeholder="Item Name"
+      >
 
-          <option value="IN">
-            Stock IN
-          </option>
+      <select id="typeFilter">
 
-          <option value="OUT">
-            Stock OUT
-          </option>
+        <option value="">
+          All Transactions
+        </option>
 
-        </select>
+        <option value="IN">
+          📥 Stock In
+        </option>
 
-      </div>
+        <option value="OUT">
+          📤 Stock Out
+        </option>
 
-    </div>
+      </select>
 
-    <div class="filter-buttons">
 
       <button
-        class="btn btn-primary"
-        onclick="applyFilters()"
+        class="filter-btn"
+        onclick="loadReport()"
       >
-        Apply
+        🔎 Filter
       </button>
 
+
       <button
-        class="btn btn-secondary"
+        class="clear-btn"
         onclick="clearFilters()"
       >
-        Clear
+        🔄 Clear
       </button>
 
     </div>
 
   </div>
 
-  <div class="cards">
+
+  <!-- =================================================
+       SUMMARY
+  ================================================== -->
+
+  <div class="summary">
 
     <div class="card">
 
-      <div class="card-title">
-        Total Stock IN
-      </div>
+      📥 Total IN
 
-      <div
-        class="card-value"
-        id="totalIn"
-      >
+      <strong id="reportIn">
         0
-      </div>
+      </strong>
 
     </div>
 
+
     <div class="card">
 
-      <div class="card-title">
-        Total Stock OUT
-      </div>
+      📤 Total OUT
 
-      <div
-        class="card-value"
-        id="totalOut"
-      >
+      <strong id="reportOut">
         0
-      </div>
+      </strong>
 
     </div>
 
+
     <div class="card">
 
-      <div class="card-title">
-        Transactions
-      </div>
+      📊 Transactions
 
-      <div
-        class="card-value"
-        id="totalTransactions"
-      >
+      <strong id="reportTransactions">
         0
-      </div>
+      </strong>
 
     </div>
 
+
     <div class="card">
 
-      <div class="card-title">
-        Items
-      </div>
+      📦 Items
 
-      <div
-        class="card-value"
-        id="totalItems"
-      >
+      <strong id="reportItems">
         0
-      </div>
+      </strong>
 
     </div>
 
+
     <div class="card">
 
-      <div class="card-title">
-        Current Balance
-      </div>
+      ⚖️ Balance
 
-      <div
-        class="card-value"
-        id="currentBalance"
-      >
+      <strong id="reportBalance">
         0
-      </div>
+      </strong>
 
     </div>
 
   </div>
 
-  <div class="table-box">
 
-    <div class="table-title">
-      Stock Summary
-    </div>
+  <!-- =================================================
+       REPORT TABLE
+  ================================================== -->
 
-    <div
-      id="summaryArea"
-      class="loading"
-    >
-      Loading...
-    </div>
+  <div class="box">
 
-  </div>
+    <h2>📋 Stock Report</h2>
 
-</div>
-
-
-<!-- DETAIL MODAL -->
-
-<div
-  id="detailModal"
-  class="modal"
-  onclick="closeModalOutside(event)"
->
-
-  <div class="modal-content">
-
-    <div class="modal-header">
-
-      <h2 id="detailTitle">
-        Transaction Details
-      </h2>
-
-      <button
-        class="close-btn"
-        onclick="closeDetail()"
-      >
-        ×
-      </button>
-
-    </div>
-
-    <div
-      id="detailBody"
-      class="modal-body"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
-const SUPABASE_URL =
-  "https://sslabegtsxlkafuygmar.supabase.co";
-
-const SUPABASE_KEY =
-  localStorage.getItem("supabase_anon_key") ||
-  localStorage.getItem("SUPABASE_ANON_KEY") ||
-  "";
-
-const API =
-  SUPABASE_URL + "/rest/v1";
-
-
-/* =====================================================
-   STATE
-===================================================== */
-
-let allTransactions = [];
-
-let filteredTransactions = [];
-
-let itemMap = {};
-
-let branchMap = {};
-
-let branchInfo = {
-
-  uuid:
-    localStorage.getItem("selected_branch_uuid") ||
-    localStorage.getItem("selected_branch_id") ||
-    "",
-
-  code:
-    localStorage.getItem("selected_branch_code") ||
-    localStorage.getItem("branch_code") ||
-    "",
-
-  name:
-    localStorage.getItem("selected_branch_name") ||
-    localStorage.getItem("branch_name") ||
-    "",
-
-  role:
-    localStorage.getItem("user_role") || ""
-
-};
-
-
-/* =====================================================
-   HEADERS
-===================================================== */
-
-function headers(){
-
-  return {
-
-    "apikey":SUPABASE_KEY,
-
-    "Authorization":
-      "Bearer " + SUPABASE_KEY,
-
-    "Content-Type":
-      "application/json"
-
-  };
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function esc(value){
-
-  if(value === null ||
-     value === undefined){
-
-    return "";
-
-  }
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   NUMBER
-===================================================== */
-
-function num(value){
-
-  const n =
-    Number(value);
-
-  return Number.isFinite(n)
-    ? n
-    : 0;
-
-}
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function formatDate(value){
-
-  if(!value){
-    return "";
-  }
-
-  const d =
-    new Date(value);
-
-  if(Number.isNaN(d.getTime())){
-    return value;
-  }
-
-  return d.toLocaleString();
-
-}
-
-
-/* =====================================================
-   TRANSACTION TYPE
-===================================================== */
-
-function getType(row){
-
-  const raw =
-    String(
-      row.transaction_type ||
-      row.type ||
-      ""
-    )
-    .trim()
-    .toUpperCase();
-
-  if(
-    raw === "IN" ||
-    raw === "STOCK IN" ||
-    raw === "STOCK_IN" ||
-    raw === "RECEIVE" ||
-    raw === "RECEIVED"
-  ){
-
-    return "IN";
-
-  }
-
-  if(
-    raw === "OUT" ||
-    raw === "STOCK OUT" ||
-    raw === "STOCK_OUT" ||
-    raw === "ISSUE" ||
-    raw === "ISSUED"
-  ){
-
-    return "OUT";
-
-  }
-
-  const transaction =
-    String(
-      row.transaction || ""
-    ).toUpperCase();
-
-  if(
-    transaction.includes("STOCK IN") ||
-    transaction.includes("STOCK_IN") ||
-    transaction.includes("RECEIVE")
-  ){
-
-    return "IN";
-
-  }
-
-  if(
-    transaction.includes("STOCK OUT") ||
-    transaction.includes("STOCK_OUT") ||
-    transaction.includes("ISSUE") ||
-    transaction.includes("RELIEF")
-  ){
-
-    return "OUT";
-
-  }
-
-  return raw || "";
-
-}
-
-
-/* =====================================================
-   ITEM
-===================================================== */
-
-function getItemInfo(row){
-
-  const id =
-    row.item_id;
-
-  if(
-    id !== null &&
-    id !== undefined &&
-    itemMap[String(id)]
-  ){
-
-    return itemMap[String(id)];
-
-  }
-
-  return {
-
-    name:
-      row.item_name ||
-      row.item ||
-      "Unknown Item",
-
-    category:
-      row.category ||
-      "",
-
-    unit:
-      row.unit ||
-      ""
-
-  };
-
-}
-
-
-/* =====================================================
-   BRANCH
-===================================================== */
-
-function getBranchInfo(row){
-
-  const id =
-    row.branch_id;
-
-  if(
-    id !== null &&
-    id !== undefined &&
-    branchMap[String(id)]
-  ){
-
-    return branchMap[String(id)];
-
-  }
-
-  return {
-
-    name:
-      row.branch_name ||
-      row.branch_code ||
-      "",
-
-    code:
-      row.branch_code ||
-      ""
-
-  };
-
-}
-
-
-/* =====================================================
-   MODEL INFORMATION
-   Supports:
-   - model_19
-   - model19
-   - model_19_number
-   - model22
-   - model_22
-   - Model 19 - ...
-   - Model 22 - ...
-===================================================== */
-
-function getModelInfo(row){
-
-  let model19 =
-    row.model_19 ??
-    row.model19 ??
-    row.model_19_number ??
-    row.model19_number ??
-    "";
-
-  let model22 =
-    row.model_22 ??
-    row.model22 ??
-    row.model_22_number ??
-    row.model22_number ??
-    "";
-
-  const text =
-    String(
-      row.transaction ||
-      ""
-    ).trim();
-
-  if(!model19){
-
-    const m19 =
-      text.match(
-        /model\s*19\s*(?:number|no\.?|#)?\s*[-:#]?\s*([A-Za-z0-9\/_.-]+)/i
-      );
-
-    if(m19){
-      model19 =
-        m19[1];
-    }
-
-  }
-
-  if(!model22){
-
-    const m22 =
-      text.match(
-        /model\s*22\s*(?:number|no\.?|#)?\s*[-:#]?\s*([A-Za-z0-9\/_.-]+)/i
-      );
-
-    if(m22){
-      model22 =
-        m22[1];
-    }
-
-  }
-
-  /*
-    Emergency Relief example:
-    Emergency Relief - Model 22 - 12345
-  */
-
-  if(!model22){
-
-    const relief =
-      text.match(
-        /emergency\s*relief\s*[-–—:]?\s*model\s*22\s*[-–—:#]?\s*([A-Za-z0-9\/_.-]+)/i
-      );
-
-    if(relief){
-      model22 =
-        relief[1];
-    }
-
-  }
-
-  /*
-    If transaction only says "Model 22"
-    without a number, show Model 22
-    but leave number empty.
-  */
-
-  const hasModel19 =
-    /model\s*19/i.test(text);
-
-  const hasModel22 =
-    /model\s*22/i.test(text);
-
-  return {
-
-    model19:
-      model19
-        ? String(model19)
-        : hasModel19
-          ? "Model 19"
-          : "",
-
-    model22:
-      model22
-        ? String(model22)
-        : hasModel22
-          ? "Model 22"
-          : ""
-
-  };
-
-}
-
-
-/* =====================================================
-   DESCRIPTION / TRANSACTION REASON
-
-   IMPORTANT:
-   Do NOT remove the reason.
-   Model information is removed only when it is
-   clearly model metadata.
-===================================================== */
-
-function getDescription(row){
-
-  let text =
-    String(
-      row.description ||
-      row.reason ||
-      row.details ||
-      row.transaction ||
-      ""
-    ).trim();
-
-  if(!text){
-    return "";
-  }
-
-  /*
-    Keep meaningful transaction text.
-
-    Remove only explicit model labels/numbers.
-  */
-
-  text =
-    text.replace(
-      /model\s*19\s*(?:number|no\.?|#)?\s*[-:#]?\s*[A-Za-z0-9\/_.-]+/gi,
-      ""
-    );
-
-  text =
-    text.replace(
-      /model\s*22\s*(?:number|no\.?|#)?\s*[-:#]?\s*[A-Za-z0-9\/_.-]+/gi,
-      ""
-    );
-
-  text =
-    text.replace(
-      /\s{2,}/g,
-      " "
-    )
-    .replace(
-      /\s*[-–—]\s*$/g,
-      ""
-    )
-    .trim();
-
-  /*
-    If stripping model metadata leaves nothing,
-    use a useful default based on transaction type.
-  */
-
-  if(!text){
-
-    const type =
-      getType(row);
-
-    if(type === "IN"){
-      return "Stock IN";
-    }
-
-    if(type === "OUT"){
-
-      if(
-        String(row.transaction || "")
-          .toLowerCase()
-          .includes("relief")
-      ){
-
-        return "Emergency Relief";
-
-      }
-
-      return "Stock OUT";
-
-    }
-
-  }
-
-  return text;
-
-}
-
-
-/* =====================================================
-   LOAD ITEMS
-===================================================== */
-
-async function loadItemMap(){
-
-  itemMap = {};
-
-  const isMain =
-    String(branchInfo.role)
-      .toLowerCase()
-      .includes("main") ||
-    String(branchInfo.code)
-      .toUpperCase() === "MAIN";
-
-  let url =
-    API + "/items?select=*";
-
-  if(
-    !isMain &&
-    branchInfo.uuid
-  ){
-
-    url +=
-      "&branch_id=eq." +
-      encodeURIComponent(
-        branchInfo.uuid
-      );
-
-  }
-
-  const res =
-    await fetch(
-      url,
-      {
-        headers:headers()
-      }
-    );
-
-  if(!res.ok){
-
-    throw new Error(
-      "Items loading failed: " +
-      await res.text()
-    );
-
-  }
-
-  const data =
-    await res.json();
-
-  data.forEach(item=>{
-
-    const key =
-      item.id;
-
-    itemMap[String(key)] = {
-
-      name:
-        item.item_name ||
-        item.name ||
-        item.item ||
-        "Unknown Item",
-
-      category:
-        item.category ||
-        "",
-
-      unit:
-        item.unit ||
-        ""
-
-    };
-
-  });
-
-}
-
-
-/* =====================================================
-   LOAD BRANCHES
-===================================================== */
-
-async function loadBranchMap(){
-
-  branchMap = {};
-
-  const res =
-    await fetch(
-      API +
-      "/branches?select=*",
-      {
-        headers:headers()
-      }
-    );
-
-  if(!res.ok){
-
-    return;
-
-  }
-
-  const data =
-    await res.json();
-
-  data.forEach(branch=>{
-
-    const id =
-      branch.id ||
-      branch.uuid;
-
-    if(id === undefined ||
-       id === null){
-
-      return;
-
-    }
-
-    branchMap[String(id)] = {
-
-      name:
-        branch.branch_name ||
-        branch.name ||
-        branch.branch ||
-        "",
-
-      code:
-        branch.branch_code ||
-        branch.code ||
-        ""
-
-    };
-
-  });
-
-}
-
-
-/* =====================================================
-   LOAD TRANSACTIONS
-===================================================== */
-
-async function loadTransactions(){
-
-  let url =
-    API +
-    "/stock_transactions?select=*&order=id.desc";
-
-  const isMain =
-    String(branchInfo.role)
-      .toLowerCase()
-      .includes("main") ||
-    String(branchInfo.code)
-      .toUpperCase() === "MAIN";
-
-  /*
-    Main:
-    all branches
-
-    Branch:
-    only selected branch
-  */
-
-  if(
-    !isMain &&
-    branchInfo.uuid
-  ){
-
-    url +=
-      "&branch_id=eq." +
-      encodeURIComponent(
-        branchInfo.uuid
-      );
-
-  }
-
-  const res =
-    await fetch(
-      url,
-      {
-        headers:headers()
-      }
-    );
-
-  if(!res.ok){
-
-    throw new Error(
-      "Stock transactions loading failed: " +
-      await res.text()
-    );
-
-  }
-
-  allTransactions =
-    await res.json();
-
-}
-
-
-/* =====================================================
-   FILTER
-===================================================== */
-
-function applyFilters(){
-
-  const from =
-    document
-      .getElementById("fromDate")
-      .value;
-
-  const to =
-    document
-      .getElementById("toDate")
-      .value;
-
-  const person =
-    document
-      .getElementById("personFilter")
-      .value
-      .trim()
-      .toLowerCase();
-
-  const itemSearch =
-    document
-      .getElementById("itemFilter")
-      .value
-      .trim()
-      .toLowerCase();
-
-  const type =
-    document
-      .getElementById("typeFilter")
-      .value
-      .toUpperCase();
-
-  filteredTransactions =
-    allTransactions.filter(row=>{
-
-      const transactionType =
-        getType(row);
-
-      const itemInfo =
-        getItemInfo(row);
-
-      const itemName =
-        String(
-          itemInfo.name || ""
-        ).toLowerCase();
-
-      const enteredBy =
-        String(
-          row.entered_by || ""
-        ).toLowerCase();
-
-      const issuedBy =
-        String(
-          row.issued_by || ""
-        ).toLowerCase();
-
-      const dateValue =
-        row.entered_at ||
-        row.created_at ||
-        row.date ||
-        "";
-
-      let dateOK = true;
-
-      if(dateValue){
-
-        const d =
-          new Date(dateValue);
-
-        if(from){
-
-          const f =
-            new Date(
-              from + "T00:00:00"
-            );
-
-          if(d < f){
-            dateOK = false;
-          }
-
-        }
-
-        if(to){
-
-          const t =
-            new Date(
-              to + "T23:59:59"
-            );
-
-          if(d > t){
-            dateOK = false;
-          }
-
-        }
-
-      }
-
-      const personOK =
-        !person ||
-        enteredBy.includes(person) ||
-        issuedBy.includes(person);
-
-      const itemOK =
-        !itemSearch ||
-        itemName.includes(itemSearch);
-
-      const typeOK =
-        !type ||
-        transactionType === type;
-
-      return (
-        dateOK &&
-        personOK &&
-        itemOK &&
-        typeOK
-      );
-
-    });
-
-  renderReport();
-
-}
-
-
-/* =====================================================
-   CLEAR FILTER
-===================================================== */
-
-function clearFilters(){
-
-  document
-    .getElementById("fromDate")
-    .value = "";
-
-  document
-    .getElementById("toDate")
-    .value = "";
-
-  document
-    .getElementById("personFilter")
-    .value = "";
-
-  document
-    .getElementById("itemFilter")
-    .value = "";
-
-  document
-    .getElementById("typeFilter")
-    .value = "";
-
-  filteredTransactions =
-    [...allTransactions];
-
-  renderReport();
-
-}
-
-
-/* =====================================================
-   GROUP BY ITEM
-===================================================== */
-
-function groupByItem(rows){
-
-  const groups = {};
-
-  rows.forEach(row=>{
-
-    const itemInfo =
-      getItemInfo(row);
-
-    /*
-      Prefer item_id.
-      This allows repeated Pasta transactions
-      to be combined into ONE summary row.
-    */
-
-    const key =
-      row.item_id !== null &&
-      row.item_id !== undefined
-        ? "id:" + row.item_id
-        : "name:" +
-          String(
-            itemInfo.name || ""
-          )
-          .trim()
-          .toLowerCase();
-
-    if(!groups[key]){
-
-      groups[key] = {
-
-        itemId:
-          row.item_id || "",
-
-        itemName:
-          itemInfo.name || "",
-
-        category:
-          itemInfo.category ||
-          row.category ||
-          "",
-
-        unit:
-          itemInfo.unit ||
-          row.unit ||
-          "",
-
-        transactions:[],
-
-        totalIn:0,
-
-        totalOut:0
-
-      };
-
-    }
-
-    const type =
-      getType(row);
-
-    const quantity =
-      num(row.quantity);
-
-    groups[key]
-      .transactions
-      .push(row);
-
-    if(type === "IN"){
-
-      groups[key].totalIn +=
-        quantity;
-
-    }
-
-    if(type === "OUT"){
-
-      groups[key].totalOut +=
-        quantity;
-
-    }
-
-  });
-
-  return Object.values(groups);
-
-}
-
-
-/* =====================================================
-   RENDER REPORT
-===================================================== */
-
-function renderReport(){
-
-  const rows =
-    filteredTransactions;
-
-  let totalIn = 0;
-
-  let totalOut = 0;
-
-  rows.forEach(row=>{
-
-    const type =
-      getType(row);
-
-    const quantity =
-      num(row.quantity);
-
-    if(type === "IN"){
-      totalIn += quantity;
-    }
-
-    if(type === "OUT"){
-      totalOut += quantity;
-    }
-
-  });
-
-  const groups =
-    groupByItem(rows);
-
-  document
-    .getElementById("totalIn")
-    .textContent =
-      totalIn;
-
-  document
-    .getElementById("totalOut")
-    .textContent =
-      totalOut;
-
-  document
-    .getElementById("totalTransactions")
-    .textContent =
-      rows.length;
-
-  document
-    .getElementById("totalItems")
-    .textContent =
-      groups.length;
-
-  document
-    .getElementById("currentBalance")
-    .textContent =
-      totalIn - totalOut;
-
-  if(!groups.length){
-
-    document
-      .getElementById("summaryArea")
-      .innerHTML = `
-        <div class="empty">
-          No stock transactions found.
-        </div>
-      `;
-
-    return;
-
-  }
-
-  let html = `
-
-    <div class="table-scroll">
+    <div class="table-container">
 
       <table>
 
@@ -1667,186 +647,19 @@ function renderReport(){
 
         </thead>
 
-        <tbody>
 
-  `;
+        <tbody id="reportList">
 
-  groups.forEach((group,index)=>{
+          <tr>
 
-    /*
-      Latest transaction is used for the summary
-      transaction columns.
+            <td
+              colspan="19"
+              class="loading"
+            >
+              Loading report...
+            </td>
 
-      All transactions remain available through Detail.
-    */
-
-    const latest =
-      group.transactions[0];
-
-    const latestType =
-      getType(latest);
-
-    const latestModel =
-      getModelInfo(latest);
-
-    const latestItem =
-      getItemInfo(latest);
-
-    const latestBranch =
-      getBranchInfo(latest);
-
-    const latestDescription =
-      getDescription(latest);
-
-    const latestQuantity =
-      num(latest.quantity);
-
-    const balance =
-      group.totalIn -
-      group.totalOut;
-
-    html += `
-
-      <tr>
-
-        <td>
-          ${esc(group.itemName)}
-        </td>
-
-        <td>
-          ${esc(group.category)}
-        </td>
-
-        <td>
-          ${esc(group.unit)}
-        </td>
-
-        <td>
-          ${group.totalIn}
-        </td>
-
-        <td>
-          ${group.totalOut}
-        </td>
-
-        <td>
-          <strong>
-            ${balance}
-          </strong>
-        </td>
-
-        <td>
-
-          <span
-            class="badge ${
-              latestType === "IN"
-                ? "badge-in"
-                : "badge-out"
-            }"
-          >
-            ${esc(latestType)}
-          </span>
-
-        </td>
-
-        <td>
-          ${latestQuantity}
-        </td>
-
-        <td>
-          ${esc(
-            formatDate(
-              latest.entered_at ||
-              latest.created_at ||
-              latest.date
-            )
-          )}
-        </td>
-
-        <td>
-          ${esc(
-            latest.entered_by || ""
-          )}
-        </td>
-
-        <td>
-          ${esc(
-            latest.issued_by || ""
-          )}
-        </td>
-
-        <td>
-          ${esc(
-            latest.expiry_date || ""
-          )}
-        </td>
-
-        <td>
-          ${esc(
-            latest.signature || ""
-          )}
-        </td>
-
-        <td>
-          ${
-            latestType === "IN"
-              ? esc(latestModel.model19)
-              : ""
-          }
-        </td>
-
-        <td>
-          ${
-            latestType === "OUT"
-              ? esc(latestModel.model22)
-              : ""
-          }
-        </td>
-
-        <td>
-          ${
-            latestType === "OUT"
-              ? esc(
-                  latestModel.model22 &&
-                  latestModel.model22 !==
-                    "Model 22"
-                    ? latestModel.model22
-                    : ""
-                )
-              : ""
-          }
-        </td>
-
-        <td>
-          ${esc(
-            latestBranch.name ||
-            latestBranch.code ||
-            ""
-          )}
-        </td>
-
-        <td>
-          ${esc(latestDescription)}
-        </td>
-
-        <td>
-
-          <button
-            class="detail-btn"
-            onclick="showDetails(${index})"
-          >
-            Detail
-          </button>
-
-        </td>
-
-      </tr>
-
-    `;
-
-  });
-
-  html += `
+          </tr>
 
         </tbody>
 
@@ -1854,118 +667,1734 @@ function renderReport(){
 
     </div>
 
-  `;
+  </div>
 
-  document
-    .getElementById("summaryArea")
-    .innerHTML =
-      html;
+</div>
 
-  /*
-    Save current groups so Detail can access them.
-  */
 
-  window.reportGroups =
-    groups;
+<!-- ===================================================
+     DETAIL MODAL
+==================================================== -->
+
+<div
+  id="detailModal"
+  class="modal"
+  onclick="closeOutside(event)"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2 id="detailTitle">
+        Transaction Details
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeDetail()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      id="detailSummary"
+      class="detail-summary"
+    ></div>
+
+
+    <div
+      id="detailBody"
+      class="modal-body"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+  "https://sslabegtsxlkafuygmar.supabase.co";
+
+
+/*
+  IMPORTANT:
+  This is the same publishable key used by
+  the working file supplied by the user.
+*/
+
+const SUPABASE_KEY =
+  "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const isLoggedIn =
+  localStorage.getItem(
+    "is_logged_in"
+  );
+
+const accessToken =
+  localStorage.getItem(
+    "access_token"
+  );
+
+
+if(
+  isLoggedIn !== "true" &&
+  !accessToken
+){
+
+  window.location.href =
+    "index.html";
 
 }
 
 
 /* =====================================================
-   SHOW DETAIL
+   CURRENT BRANCH
 ===================================================== */
 
-function showDetails(index){
+const selectedBranchId =
+  localStorage.getItem(
+    "selected_branch_id"
+  ) || "";
 
-  const groups =
-    window.reportGroups || [];
 
-  const group =
-    groups[index];
+const selectedBranchUUID =
+  localStorage.getItem(
+    "selected_branch_uuid"
+  ) || "";
 
-  if(!group){
-    return;
+
+const selectedBranchName =
+  localStorage.getItem(
+    "selected_branch_name"
+  ) || "";
+
+
+const selectedBranchCode =
+  localStorage.getItem(
+    "selected_branch_code"
+  ) || "";
+
+
+const userRole =
+  localStorage.getItem(
+    "user_role"
+  ) || "";
+
+
+/* =====================================================
+   MAIN CHECK
+===================================================== */
+
+const isMain =
+  userRole.toLowerCase() === "main";
+
+
+const isMainHQ =
+  isMain &&
+  (
+    selectedBranchCode
+      .toUpperCase() === "MAIN" ||
+
+    selectedBranchId
+      .toUpperCase() === "MAIN"
+  );
+
+
+/* =====================================================
+   REPORT GROUPS
+===================================================== */
+
+let reportGroups = [];
+
+
+/* =====================================================
+   HEADERS
+===================================================== */
+
+function getHeaders(){
+
+  const headers = {
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Content-Type":
+      "application/json"
+
+  };
+
+
+  const token =
+    localStorage.getItem(
+      "access_token"
+    );
+
+
+  /*
+    Do NOT use sb_publishable_ key
+    as Bearer token.
+
+    If a real access token exists,
+    use it.
+  */
+
+  if(
+    token &&
+    !token.startsWith(
+      "sb_publishable_"
+    )
+  ){
+
+    headers["Authorization"] =
+      "Bearer " + token;
+
   }
 
-  document
-    .getElementById("detailTitle")
-    .textContent =
-      "Detail - " +
-      group.itemName;
 
-  let html = `
+  return headers;
 
-    <div class="detail-info">
+}
 
-      <div>
 
-        <strong>Item Name</strong>
+/* =====================================================
+   UUID CHECK
+===================================================== */
 
-        <span>
-          ${esc(group.itemName)}
-        </span>
+function isUUID(value){
 
-      </div>
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    .test(
+      String(value || "")
+    );
 
-      <div>
+}
 
-        <strong>Category</strong>
 
-        <span>
-          ${esc(group.category)}
-        </span>
+/* =====================================================
+   BRANCH UUID
+===================================================== */
 
-      </div>
+async function findBranchUUID(){
 
-      <div>
+  /*
+    First use selected_branch_uuid
+    if it is a real UUID.
+  */
 
-        <strong>Unit</strong>
+  if(
+    selectedBranchUUID &&
+    isUUID(selectedBranchUUID)
+  ){
 
-        <span>
-          ${esc(group.unit)}
-        </span>
+    return selectedBranchUUID;
 
-      </div>
+  }
 
-      <div>
 
-        <strong>Total Stock IN</strong>
+  /*
+    Main / HQ does not need branch UUID.
+  */
 
-        <span>
-          ${group.totalIn}
-        </span>
+  if(isMainHQ){
 
-      </div>
+    return null;
 
-      <div>
+  }
 
-        <strong>Total Stock OUT</strong>
 
-        <span>
-          ${group.totalOut}
-        </span>
+  /*
+    Load branches.
+  */
 
-      </div>
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/branches?select=*",
+      {
+        headers:getHeaders()
+      }
+    );
 
-      <div>
 
-        <strong>Current Balance</strong>
+  if(!response.ok){
 
-        <span>
-          ${group.totalIn - group.totalOut}
-        </span>
+    throw new Error(
+      "Branches Error: " +
+      await response.text()
+    );
 
-      </div>
+  }
+
+
+  const branches =
+    await response.json();
+
+
+  const wantedCode =
+    String(
+      selectedBranchCode ||
+      selectedBranchId ||
+      ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  const wantedName =
+    String(
+      selectedBranchName ||
+      ""
+    )
+    .trim()
+    .toLowerCase();
+
+
+  const codeFields = [
+
+    "code",
+    "branch_code",
+    "branchCode",
+    "branchcode",
+    "branch_id_code",
+    "short_code"
+
+  ];
+
+
+  const nameFields = [
+
+    "name",
+    "branch_name",
+    "branch",
+    "branchName",
+    "title",
+    "branch_title",
+    "office_name",
+    "office"
+
+  ];
+
+
+  let found = null;
+
+
+  for(
+    const branch of branches
+  ){
+
+    if(
+      !branch.id ||
+      !isUUID(branch.id)
+    ){
+
+      continue;
+
+    }
+
+
+    let codeMatch = false;
+
+    let nameMatch = false;
+
+
+    for(
+      const field of codeFields
+    ){
+
+      const value =
+        String(
+          branch[field] || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(
+        value &&
+        wantedCode &&
+        value === wantedCode
+      ){
+
+        codeMatch = true;
+
+      }
+
+    }
+
+
+    for(
+      const field of nameFields
+    ){
+
+      const value =
+        String(
+          branch[field] || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(
+        value &&
+        wantedName &&
+        value === wantedName
+      ){
+
+        nameMatch = true;
+
+      }
+
+    }
+
+
+    if(
+      codeMatch ||
+      nameMatch
+    ){
+
+      found = branch;
+
+      break;
+
+    }
+
+  }
+
+
+  if(!found){
+
+    throw new Error(
+      "Branch UUID hin argamne: " +
+      (
+        selectedBranchName ||
+        selectedBranchCode
+      )
+    );
+
+  }
+
+
+  localStorage.setItem(
+    "selected_branch_uuid",
+    found.id
+  );
+
+
+  return found.id;
+
+}
+
+
+/* =====================================================
+   BRANCH DISPLAY
+===================================================== */
+
+function showBranchInfo(){
+
+  const box =
+    document.getElementById(
+      "branchInfo"
+    );
+
+
+  if(isMainHQ){
+
+    box.textContent =
+      "🏢 MAIN / HQ — All Branches Report";
+
+    document.getElementById(
+      "mainViewMessage"
+    ).style.display =
+      "block";
+
+    return;
+
+  }
+
+
+  box.textContent =
+    "🏢 Branch: " +
+    (
+      selectedBranchName ||
+      selectedBranchCode ||
+      "Selected Branch"
+    );
+
+
+  if(isMain){
+
+    document.getElementById(
+      "mainViewMessage"
+    ).style.display =
+      "block";
+
+  }
+
+}
+
+
+/* =====================================================
+   HTML SAFE
+===================================================== */
+
+function escapeHTML(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+/* =====================================================
+   NUMBER
+===================================================== */
+
+function toNumber(value){
+
+  const number =
+    Number(value);
+
+  return Number.isFinite(number)
+    ? number
+    : 0;
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(value){
+
+  if(!value){
+
+    return "—";
+
+  }
+
+
+  const d =
+    new Date(value);
+
+
+  if(
+    isNaN(
+      d.getTime()
+    )
+  ){
+
+    return String(value);
+
+  }
+
+
+  return d.toLocaleString();
+
+}
+
+
+/* =====================================================
+   DATE ONLY
+===================================================== */
+
+function dateOnly(value){
+
+  if(!value){
+
+    return "";
+
+  }
+
+
+  return String(value)
+    .substring(0,10);
+
+}
+
+
+/* =====================================================
+   EX DATE COLOR
+===================================================== */
+
+function getExpiryClass(
+  expiryDate
+){
+
+  if(
+    !expiryDate ||
+    expiryDate === "—"
+  ){
+
+    return "";
+
+  }
+
+
+  const expiryText =
+    String(expiryDate)
+      .substring(0,10);
+
+
+  const expiry =
+    new Date(
+      expiryText +
+      "T00:00:00"
+    );
+
+
+  if(
+    isNaN(
+      expiry.getTime()
+    )
+  ){
+
+    return "";
+
+  }
+
+
+  const today =
+    new Date();
+
+
+  today.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+
+  if(
+    expiry <= today
+  ){
+
+    return "expiry-red";
+
+  }
+
+
+  const fourMonths =
+    new Date(today);
+
+
+  fourMonths.setMonth(
+    fourMonths.getMonth() + 4
+  );
+
+
+  if(
+    expiry <= fourMonths
+  ){
+
+    return "expiry-yellow";
+
+  }
+
+
+  return "expiry-green";
+
+}
+
+
+/* =====================================================
+   TRANSACTION TYPE
+===================================================== */
+
+function getType(
+  transaction
+){
+
+  const raw =
+    String(
+      transaction.transaction_type ||
+      transaction.type ||
+      ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+  if(
+    raw === "IN" ||
+    raw === "STOCK IN" ||
+    raw === "STOCK_IN" ||
+    raw === "RECEIVE" ||
+    raw === "RECEIVED"
+  ){
+
+    return "IN";
+
+  }
+
+
+  if(
+    raw === "OUT" ||
+    raw === "STOCK OUT" ||
+    raw === "STOCK_OUT" ||
+    raw === "ISSUE" ||
+    raw === "ISSUED"
+  ){
+
+    return "OUT";
+
+  }
+
+
+  /*
+    Emergency Relief is always OUT.
+  */
+
+  const transactionText =
+    String(
+      transaction.transaction ||
+      transaction.description ||
+      ""
+    )
+    .toLowerCase();
+
+
+  if(
+    transactionText.includes(
+      "emergency relief"
+    ) ||
+    transactionText.includes(
+      "model 22"
+    )
+  ){
+
+    return "OUT";
+
+  }
+
+
+  return raw;
+
+}
+
+
+/* =====================================================
+   ITEM NAME
+===================================================== */
+
+function getItemName(
+  transaction
+){
+
+  /*
+    If item_name exists,
+    use it first.
+  */
+
+  if(
+    transaction.item_name
+  ){
+
+    return transaction.item_name;
+
+  }
+
+
+  if(
+    transaction.itemName
+  ){
+
+    return transaction.itemName;
+
+  }
+
+
+  if(
+    transaction.name
+  ){
+
+    return transaction.name;
+
+  }
+
+
+  /*
+    IMPORTANT:
+    transaction field may contain
+    reason/model text, so only use it
+    as last fallback.
+  */
+
+  return (
+    transaction.item ||
+    "—"
+  );
+
+}
+
+
+/* =====================================================
+   MODEL INFO
+
+   Supports both real columns and
+   the existing transaction text.
+
+   Examples:
+
+   Model 19 - 12345
+   Model 19: 12345
+   Model 22 - 98765
+   Emergency Relief - Model 22 - 98765
+===================================================== */
+
+function getModelInfo(
+  transaction
+){
+
+  let model19 =
+    transaction.model_19 ??
+    transaction.model19 ??
+    transaction.model_19_number ??
+    transaction.model19_number ??
+    "";
+
+
+  let model22 =
+    transaction.model_22 ??
+    transaction.model22 ??
+    transaction.model_22_number ??
+    transaction.model22_number ??
+    "";
+
+
+  const text =
+    String(
+      transaction.transaction ||
+      transaction.description ||
+      ""
+    )
+    .trim();
+
+
+  /*
+    MODEL 19
+  */
+
+  if(!model19){
+
+    const match19 =
+      text.match(
+        /model\s*19(?:\s*(?:number|no\.?|#))?\s*[-:#]?\s*([A-Za-z0-9][A-Za-z0-9\/_.-]*)/i
+      );
+
+
+    if(match19){
+
+      model19 =
+        match19[1];
+
+    }
+
+  }
+
+
+  /*
+    MODEL 22
+  */
+
+  if(!model22){
+
+    const match22 =
+      text.match(
+        /model\s*22(?:\s*(?:number|no\.?|#))?\s*[-:#]?\s*([A-Za-z0-9][A-Za-z0-9\/_.-]*)/i
+      );
+
+
+    if(match22){
+
+      model22 =
+        match22[1];
+
+    }
+
+  }
+
+
+  /*
+    Emergency Relief special case.
+  */
+
+  if(!model22){
+
+    const reliefMatch =
+      text.match(
+        /emergency\s*relief\s*[-–—:]?\s*model\s*22\s*[-–—:#]?\s*([A-Za-z0-9][A-Za-z0-9\/_.-]*)/i
+      );
+
+
+    if(reliefMatch){
+
+      model22 =
+        reliefMatch[1];
+
+    }
+
+  }
+
+
+  /*
+    Detect model labels even if no number exists.
+  */
+
+  const hasModel19 =
+    /model\s*19/i.test(text);
+
+
+  const hasModel22 =
+    /model\s*22/i.test(text);
+
+
+  return {
+
+    model19:
+      model19
+        ? String(model19)
+        : hasModel19
+          ? "Model 19"
+          : "",
+
+    model22:
+      model22
+        ? String(model22)
+        : hasModel22
+          ? "Model 22"
+          : ""
+
+  };
+
+}
+
+
+/* =====================================================
+   MODEL 22 NUMBER ONLY
+===================================================== */
+
+function getModel22Number(
+  transaction
+){
+
+  const model =
+    getModelInfo(
+      transaction
+    );
+
+
+  if(
+    !model.model22 ||
+    model.model22 === "Model 22"
+  ){
+
+    return "";
+
+  }
+
+
+  return model.model22;
+
+}
+
+
+/* =====================================================
+   DESCRIPTION / TRANSACTION REASON
+
+   Important:
+   Reason must remain visible.
+
+   Examples:
+
+   Emergency Relief
+   Donation
+   Received from warehouse
+   Damaged stock
+   Transfer
+   Other reason
+===================================================== */
+
+function getDescription(
+  transaction
+){
+
+  let text =
+    String(
+      transaction.description ||
+      transaction.reason ||
+      transaction.details ||
+      ""
+    )
+    .trim();
+
+
+  /*
+    If no separate description column exists,
+    use transaction column.
+  */
+
+  if(!text){
+
+    text =
+      String(
+        transaction.transaction ||
+        ""
+      )
+      .trim();
+
+  }
+
+
+  if(!text){
+
+    const type =
+      getType(
+        transaction
+      );
+
+
+    if(type === "IN"){
+
+      return "Stock IN";
+
+    }
+
+
+    if(type === "OUT"){
+
+      const raw =
+        String(
+          transaction.transaction ||
+          ""
+        )
+        .toLowerCase();
+
+
+      if(
+        raw.includes(
+          "emergency relief"
+        )
+      ){
+
+        return "Emergency Relief";
+
+      }
+
+
+      return "Stock OUT";
+
+    }
+
+
+    return "";
+
+  }
+
+
+  /*
+    Remove ONLY Model 19/22 metadata,
+    not the actual reason.
+  */
+
+  text =
+    text.replace(
+      /model\s*19(?:\s*(?:number|no\.?|#))?\s*[-:#]?\s*[A-Za-z0-9][A-Za-z0-9\/_.-]*/gi,
+      ""
+    );
+
+
+  text =
+    text.replace(
+      /model\s*22(?:\s*(?:number|no\.?|#))?\s*[-:#]?\s*[A-Za-z0-9][A-Za-z0-9\/_.-]*/gi,
+      ""
+    );
+
+
+  text =
+    text.replace(
+      /\s{2,}/g,
+      " "
+    )
+    .trim();
+
+
+  /*
+    If after removing model information
+    something meaningful remains, use it.
+  */
+
+  if(text){
+
+    return text;
+
+  }
+
+
+  const type =
+    getType(
+      transaction
+    );
+
+
+  if(type === "IN"){
+
+    return "Stock IN";
+
+  }
+
+
+  if(type === "OUT"){
+
+    const raw =
+      String(
+        transaction.transaction ||
+        ""
+      )
+      .toLowerCase();
+
+
+    if(
+      raw.includes(
+        "emergency relief"
+      )
+    ){
+
+      return "Emergency Relief";
+
+    }
+
+
+    return "Stock OUT";
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =====================================================
+   BRANCH NAME
+===================================================== */
+
+function getTransactionBranch(
+  transaction
+){
+
+  return (
+    transaction.branch_name ||
+    transaction.branch ||
+    transaction.branch_code ||
+    selectedBranchName ||
+    selectedBranchCode ||
+    "—"
+  );
+
+}
+
+
+/* =====================================================
+   TRANSACTION DATE
+===================================================== */
+
+function getTransactionDate(
+  transaction
+){
+
+  return (
+    transaction.entered_at ||
+    transaction.created_at ||
+    transaction.date ||
+    transaction.transaction_date ||
+    ""
+  );
+
+}
+
+
+/* =====================================================
+   GROUP TRANSACTIONS BY ITEM
+===================================================== */
+
+function groupTransactions(
+  data
+){
+
+  const groups = {};
+
+  data.forEach(
+    transaction => {
+
+      /*
+        Same item_id = same item.
+
+        This means:
+        Pasta IN 10
+        Pasta IN 20
+        Pasta OUT 5
+
+        becomes ONE summary row.
+      */
+
+      let key;
+
+
+      if(
+        transaction.item_id !==
+          undefined &&
+        transaction.item_id !==
+          null &&
+        transaction.item_id !== ""
+      ){
+
+        key =
+          "ID:" +
+          String(
+            transaction.item_id
+          );
+
+      }
+      else{
+
+        key =
+          "NAME:" +
+          String(
+            getItemName(
+              transaction
+            )
+          )
+          .trim()
+          .toLowerCase();
+
+      }
+
+
+      if(
+        !groups[key]
+      ){
+
+        groups[key] = {
+
+          itemId:
+            transaction.item_id ||
+            "",
+
+          itemName:
+            getItemName(
+              transaction
+            ),
+
+          category:
+            transaction.category ||
+            "—",
+
+          unit:
+            transaction.unit ||
+            "—",
+
+          totalIn:0,
+
+          totalOut:0,
+
+          transactions:[]
+
+        };
+
+      }
+
+
+      const type =
+        getType(
+          transaction
+        );
+
+
+      const quantity =
+        toNumber(
+          transaction.quantity
+        );
+
+
+      if(type === "IN"){
+
+        groups[key].totalIn +=
+          quantity;
+
+      }
+
+
+      if(type === "OUT"){
+
+        groups[key].totalOut +=
+          quantity;
+
+      }
+
+
+      groups[key]
+        .transactions
+        .push(
+          transaction
+        );
+
+    }
+  );
+
+
+  return Object.values(
+    groups
+  );
+
+}
+
+
+/* =====================================================
+   RENDER SUMMARY
+===================================================== */
+
+function renderSummary(
+  groups
+){
+
+  const list =
+    document.getElementById(
+      "reportList"
+    );
+
+
+  if(
+    !groups.length
+  ){
+
+    list.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="19"
+          class="empty"
+        >
+          📭 No stock transactions found.
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  groups.forEach(
+    (group,index) => {
+
+      /*
+        Latest transaction is shown
+        in the summary columns.
+
+        ALL transactions are available
+        through Detail.
+      */
+
+      const latest =
+        group.transactions[0];
+
+
+      const type =
+        getType(
+          latest
+        );
+
+
+      const model =
+        getModelInfo(
+          latest
+        );
+
+
+      const model22Number =
+        getModel22Number(
+          latest
+        );
+
+
+      const description =
+        getDescription(
+          latest
+        );
+
+
+      const date =
+        getTransactionDate(
+          latest
+        );
+
+
+      const expiry =
+        latest.expiry_date ||
+        "";
+
+
+      const expiryClass =
+        getExpiryClass(
+          expiry
+        );
+
+
+      const balance =
+        group.totalIn -
+        group.totalOut;
+
+
+      const rowClass =
+        type === "IN"
+          ? "in-row"
+          : type === "OUT"
+            ? "out-row"
+            : "";
+
+
+      const typeHTML =
+        type === "IN"
+
+          ? `
+            <span class="badge-in">
+              📥 IN
+            </span>
+          `
+
+          : type === "OUT"
+
+            ? `
+              <span class="badge-out">
+                📤 OUT
+              </span>
+            `
+
+            : escapeHTML(
+                type || "—"
+              );
+
+
+      html += `
+
+        <tr class="${rowClass}">
+
+          <td>
+            <strong>
+              ${escapeHTML(
+                group.itemName
+              )}
+            </strong>
+          </td>
+
+          <td>
+            ${escapeHTML(
+              group.category
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              group.unit
+            )}
+          </td>
+
+          <td>
+            ${group.totalIn}
+          </td>
+
+          <td>
+            ${group.totalOut}
+          </td>
+
+          <td>
+            <strong>
+              ${balance}
+            </strong>
+          </td>
+
+          <td>
+            ${typeHTML}
+          </td>
+
+          <td>
+            ${toNumber(
+              latest.quantity
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              formatDate(date)
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              latest.entered_by ||
+              "—"
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              latest.issued_by ||
+              "—"
+            )}
+          </td>
+
+          <td class="${expiryClass}">
+            ${escapeHTML(
+              expiry || "—"
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              latest.signature ||
+              "—"
+            )}
+          </td>
+
+          <td class="model-cell">
+            ${
+              type === "IN"
+                ? escapeHTML(
+                    model.model19 ||
+                    ""
+                  )
+                : ""
+            }
+          </td>
+
+          <td class="model-cell">
+            ${
+              type === "OUT"
+                ? escapeHTML(
+                    model.model22 ||
+                    ""
+                  )
+                : ""
+            }
+          </td>
+
+          <td class="model-cell">
+            ${
+              type === "OUT"
+                ? escapeHTML(
+                    model22Number ||
+                    ""
+                  )
+                : ""
+            }
+          </td>
+
+          <td>
+            ${escapeHTML(
+              getTransactionBranch(
+                latest
+              )
+            )}
+          </td>
+
+          <td class="reason-cell">
+            ${escapeHTML(
+              description ||
+              "—"
+            )}
+          </td>
+
+          <td>
+
+            <button
+              class="detail-btn"
+              onclick="showDetails(${index})"
+            >
+              Detail
+            </button>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+  );
+
+
+  list.innerHTML =
+    html;
+
+}
+
+
+/* =====================================================
+   SHOW DETAILS
+===================================================== */
+
+function showDetails(
+  index
+){
+
+  const group =
+    reportGroups[index];
+
+
+  if(!group){
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "detailTitle"
+  ).textContent =
+    "📋 Detail - " +
+    group.itemName;
+
+
+  /*
+    Summary inside modal.
+  */
+
+  document.getElementById(
+    "detailSummary"
+  ).innerHTML = `
+
+    <div class="detail-card">
+
+      <small>Item Name</small>
+
+      <strong>
+        ${escapeHTML(
+          group.itemName
+        )}
+      </strong>
 
     </div>
 
-    <div class="table-scroll">
 
-      <table>
+    <div class="detail-card">
+
+      <small>Category</small>
+
+      <strong>
+        ${escapeHTML(
+          group.category
+        )}
+      </strong>
+
+    </div>
+
+
+    <div class="detail-card">
+
+      <small>Unit</small>
+
+      <strong>
+        ${escapeHTML(
+          group.unit
+        )}
+      </strong>
+
+    </div>
+
+
+    <div class="detail-card">
+
+      <small>Total Stock IN</small>
+
+      <strong>
+        ${group.totalIn}
+      </strong>
+
+    </div>
+
+
+    <div class="detail-card">
+
+      <small>Total Stock OUT</small>
+
+      <strong>
+        ${group.totalOut}
+      </strong>
+
+    </div>
+
+
+    <div class="detail-card">
+
+      <small>Current Balance</small>
+
+      <strong>
+        ${
+          group.totalIn -
+          group.totalOut
+        }
+      </strong>
+
+    </div>
+
+  `;
+
+
+  let html = `
+
+    <div class="table-container">
+
+      <table class="detail-table">
 
         <thead>
 
           <tr>
+
+            <th>#</th>
 
             <th>Item Name</th>
 
@@ -1997,8 +2426,6 @@ function showDetails(index){
 
             <th>Transaction / Description</th>
 
-            <th>Detail</th>
-
           </tr>
 
         </thead>
@@ -2007,171 +2434,217 @@ function showDetails(index){
 
   `;
 
-  group.transactions.forEach(row=>{
 
-    const type =
-      getType(row);
+  group.transactions.forEach(
+    (transaction,position) => {
 
-    const model =
-      getModelInfo(row);
+      const type =
+        getType(
+          transaction
+        );
 
-    const item =
-      getItemInfo(row);
 
-    const branch =
-      getBranchInfo(row);
+      const model =
+        getModelInfo(
+          transaction
+        );
 
-    const description =
-      getDescription(row);
 
-    /*
-      Model 22 number is separated from
-      the general Model 22 label.
-    */
+      const model22Number =
+        getModel22Number(
+          transaction
+        );
 
-    let model22Number = "";
 
-    if(
-      type === "OUT" &&
-      model.model22 &&
-      model.model22 !== "Model 22"
-    ){
+      const description =
+        getDescription(
+          transaction
+        );
 
-      model22Number =
-        model.model22;
 
-    }
+      const expiry =
+        transaction.expiry_date ||
+        "";
 
-    /*
-      For Model 19, the value may be:
-      Model 19
-      or Model 19 number.
-    */
 
-    let model19Display = "";
+      const expiryClass =
+        getExpiryClass(
+          expiry
+        );
 
-    if(type === "IN"){
 
-      model19Display =
-        model.model19 || "";
+      const date =
+        getTransactionDate(
+          transaction
+        );
 
-    }
 
-    html += `
+      const rowClass =
+        type === "IN"
+          ? "in-row"
+          : type === "OUT"
+            ? "out-row"
+            : "";
 
-      <tr>
 
-        <td>
-          ${esc(item.name)}
-        </td>
+      const typeHTML =
+        type === "IN"
 
-        <td>
-          ${esc(
-            item.category ||
-            row.category ||
-            ""
-          )}
-        </td>
+          ? `
+            <span class="badge-in">
+              📥 IN
+            </span>
+          `
 
-        <td>
-          ${esc(
-            item.unit ||
-            row.unit ||
-            ""
-          )}
-        </td>
+          : type === "OUT"
 
-        <td>
+            ? `
+              <span class="badge-out">
+                📤 OUT
+              </span>
+            `
 
-          <span
-            class="badge ${
+            : escapeHTML(
+                type || "—"
+              );
+
+
+      html += `
+
+        <tr class="${rowClass}">
+
+          <td>
+            ${position + 1}
+          </td>
+
+          <td>
+            <strong>
+              ${escapeHTML(
+                group.itemName
+              )}
+            </strong>
+          </td>
+
+          <td>
+            ${escapeHTML(
+              transaction.category ||
+              group.category ||
+              "—"
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              transaction.unit ||
+              group.unit ||
+              "—"
+            )}
+          </td>
+
+          <td>
+            ${typeHTML}
+          </td>
+
+          <td>
+            ${toNumber(
+              transaction.quantity
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              formatDate(date)
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              transaction.entered_by ||
+              "—"
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              transaction.issued_by ||
+              "—"
+            )}
+          </td>
+
+          <td class="${expiryClass}">
+            ${escapeHTML(
+              expiry || "—"
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              transaction.signature ||
+              "—"
+            )}
+          </td>
+
+          <td class="model-cell">
+
+            ${
               type === "IN"
-                ? "badge-in"
-                : "badge-out"
-            }"
-          >
-            ${esc(type)}
-          </span>
+                ? escapeHTML(
+                    model.model19 ||
+                    ""
+                  )
+                : ""
+            }
 
-        </td>
+          </td>
 
-        <td>
-          ${num(row.quantity)}
-        </td>
+          <td class="model-cell">
 
-        <td>
-          ${esc(
-            formatDate(
-              row.entered_at ||
-              row.created_at ||
-              row.date
-            )
-          )}
-        </td>
+            ${
+              type === "OUT"
+                ? escapeHTML(
+                    model.model22 ||
+                    ""
+                  )
+                : ""
+            }
 
-        <td>
-          ${esc(
-            row.entered_by || ""
-          )}
-        </td>
+          </td>
 
-        <td>
-          ${esc(
-            row.issued_by || ""
-          )}
-        </td>
+          <td class="model-cell">
 
-        <td>
-          ${esc(
-            row.expiry_date || ""
-          )}
-        </td>
+            ${
+              type === "OUT"
+                ? escapeHTML(
+                    model22Number ||
+                    ""
+                  )
+                : ""
+            }
 
-        <td>
-          ${esc(
-            row.signature || ""
-          )}
-        </td>
+          </td>
 
-        <td>
-          ${esc(model19Display)}
-        </td>
+          <td>
+            ${escapeHTML(
+              getTransactionBranch(
+                transaction
+              )
+            )}
+          </td>
 
-        <td>
-          ${
-            type === "OUT"
-              ? esc(
-                  model.model22 || ""
-                )
-              : ""
-          }
-        </td>
+          <td class="reason-cell">
+            ${escapeHTML(
+              description ||
+              "—"
+            )}
+          </td>
 
-        <td>
-          ${esc(model22Number)}
-        </td>
+        </tr>
 
-        <td>
-          ${esc(
-            branch.name ||
-            branch.code ||
-            ""
-          )}
-        </td>
+      `;
 
-        <td>
-          ${esc(description)}
-        </td>
+    }
+  );
 
-        <td>
-          ${esc(description)}
-        </td>
-
-      </tr>
-
-    `;
-
-  });
 
   html += `
 
@@ -2183,15 +2656,17 @@ function showDetails(index){
 
   `;
 
-  document
-    .getElementById("detailBody")
-    .innerHTML =
-      html;
 
-  document
-    .getElementById("detailModal")
-    .style.display =
-      "block";
+  document.getElementById(
+    "detailBody"
+  ).innerHTML =
+    html;
+
+
+  document.getElementById(
+    "detailModal"
+  ).style.display =
+    "block";
 
 }
 
@@ -2202,19 +2677,21 @@ function showDetails(index){
 
 function closeDetail(){
 
-  document
-    .getElementById("detailModal")
-    .style.display =
-      "none";
+  document.getElementById(
+    "detailModal"
+  ).style.display =
+    "none";
 
 }
 
 
 /* =====================================================
-   CLOSE OUTSIDE
+   CLOSE MODAL OUTSIDE
 ===================================================== */
 
-function closeModalOutside(event){
+function closeOutside(
+  event
+){
 
   if(
     event.target.id ===
@@ -2229,75 +2706,521 @@ function closeModalOutside(event){
 
 
 /* =====================================================
-   DASHBOARD
+   LOAD REPORT
 ===================================================== */
 
-function goDashboard(){
+async function loadReport(){
 
-  window.location.href =
-    "./dashboard.html";
+  const list =
+    document.getElementById(
+      "reportList"
+    );
+
+
+  list.innerHTML = `
+
+    <tr>
+
+      <td
+        colspan="19"
+        class="loading"
+      >
+        ⏳ Loading report...
+      </td>
+
+    </tr>
+
+  `;
+
+
+  try{
+
+    /*
+      Find branch UUID.
+    */
+
+    const branchUUID =
+      await findBranchUUID();
+
+
+    /*
+      Build API URL.
+    */
+
+    let url =
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions" +
+      "?select=*" +
+      "&order=id.desc";
+
+
+    /*
+      Main HQ:
+      all branches.
+
+      Operational branch:
+      only own branch.
+    */
+
+    if(!isMainHQ){
+
+      if(!branchUUID){
+
+        throw new Error(
+          "Branch UUID hin jiru."
+        );
+
+      }
+
+
+      url =
+        SUPABASE_URL +
+        "/rest/v1/stock_transactions" +
+        "?select=*" +
+        "&branch_id=eq." +
+        encodeURIComponent(
+          branchUUID
+        ) +
+        "&order=id.desc";
+
+    }
+
+
+    /*
+      Fetch.
+    */
+
+    const response =
+      await fetch(
+        url,
+        {
+          headers:
+            getHeaders()
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    let data =
+      await response.json();
+
+
+    /* =================================================
+       FILTER
+    ================================================= */
+
+    const date =
+      document.getElementById(
+        "dateFilter"
+      ).value;
+
+
+    const enteredBy =
+      document.getElementById(
+        "enteredByFilter"
+      ).value
+      .trim()
+      .toLowerCase();
+
+
+    const itemSearch =
+      document.getElementById(
+        "itemFilter"
+      ).value
+      .trim()
+      .toLowerCase();
+
+
+    const type =
+      document.getElementById(
+        "typeFilter"
+      ).value;
+
+
+    data =
+      data.filter(
+        transaction => {
+
+          /*
+            DATE
+          */
+
+          if(date){
+
+            const transactionDate =
+              dateOnly(
+                getTransactionDate(
+                  transaction
+                )
+              );
+
+
+            if(
+              transactionDate !==
+              date
+            ){
+
+              return false;
+
+            }
+
+          }
+
+
+          /*
+            ENTERED / ISSUED BY
+          */
+
+          if(enteredBy){
+
+            const entered =
+              String(
+                transaction.entered_by ||
+                ""
+              )
+              .toLowerCase();
+
+
+            const issued =
+              String(
+                transaction.issued_by ||
+                ""
+              )
+              .toLowerCase();
+
+
+            if(
+              !entered.includes(
+                enteredBy
+              ) &&
+              !issued.includes(
+                enteredBy
+              )
+            ){
+
+              return false;
+
+            }
+
+          }
+
+
+          /*
+            ITEM
+          */
+
+          if(itemSearch){
+
+            const itemName =
+              String(
+                getItemName(
+                  transaction
+                ) || ""
+              )
+              .toLowerCase();
+
+
+            if(
+              !itemName.includes(
+                itemSearch
+              )
+            ){
+
+              return false;
+
+            }
+
+          }
+
+
+          /*
+            TYPE
+          */
+
+          if(type){
+
+            const transactionType =
+              getType(
+                transaction
+              );
+
+
+            if(
+              transactionType !==
+              type
+            ){
+
+              return false;
+
+            }
+
+          }
+
+
+          return true;
+
+        }
+      );
+
+
+    /* =================================================
+       GROUP
+    ================================================= */
+
+    reportGroups =
+      groupTransactions(
+        data
+      );
+
+
+    /* =================================================
+       SUMMARY TOTALS
+    ================================================= */
+
+    let totalIn = 0;
+
+    let totalOut = 0;
+
+
+    data.forEach(
+      transaction => {
+
+        const type =
+          getType(
+            transaction
+          );
+
+
+        const quantity =
+          toNumber(
+            transaction.quantity
+          );
+
+
+        if(
+          type === "IN"
+        ){
+
+          totalIn +=
+            quantity;
+
+        }
+
+
+        if(
+          type === "OUT"
+        ){
+
+          totalOut +=
+            quantity;
+
+        }
+
+      }
+    );
+
+
+    const balance =
+      totalIn -
+      totalOut;
+
+
+    document.getElementById(
+      "reportIn"
+    ).textContent =
+      totalIn;
+
+
+    document.getElementById(
+      "reportOut"
+    ).textContent =
+      totalOut;
+
+
+    document.getElementById(
+      "reportTransactions"
+    ).textContent =
+      data.length;
+
+
+    document.getElementById(
+      "reportItems"
+    ).textContent =
+      reportGroups.length;
+
+
+    document.getElementById(
+      "reportBalance"
+    ).textContent =
+      balance;
+
+
+    /* =================================================
+       RENDER
+    ================================================= */
+
+    renderSummary(
+      reportGroups
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "REPORT ERROR:",
+      error
+    );
+
+
+    reportGroups = [];
+
+
+    list.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="19"
+          class="empty"
+        >
+
+          ❌ Report Error
+
+          <br><br>
+
+          ${escapeHTML(
+            error.message
+          )}
+
+        </td>
+
+      </tr>
+
+    `;
+
+
+    document.getElementById(
+      "reportIn"
+    ).textContent =
+      "0";
+
+
+    document.getElementById(
+      "reportOut"
+    ).textContent =
+      "0";
+
+
+    document.getElementById(
+      "reportTransactions"
+    ).textContent =
+      "0";
+
+
+    document.getElementById(
+      "reportItems"
+    ).textContent =
+      "0";
+
+
+    document.getElementById(
+      "reportBalance"
+    ).textContent =
+      "0";
+
+  }
 
 }
 
 
 /* =====================================================
-   LOAD EVERYTHING
+   CLEAR FILTERS
 ===================================================== */
 
-async function init(){
+function clearFilters(){
 
-  try{
+  document.getElementById(
+    "dateFilter"
+  ).value =
+    "";
 
-    document
-      .getElementById("branchName")
-      .textContent =
-        branchInfo.name ||
-        branchInfo.code ||
-        "Main";
 
-    await loadBranchMap();
+  document.getElementById(
+    "enteredByFilter"
+  ).value =
+    "";
 
-    await loadItemMap();
 
-    await loadTransactions();
+  document.getElementById(
+    "itemFilter"
+  ).value =
+    "";
 
-    filteredTransactions =
-      [...allTransactions];
 
-    renderReport();
+  document.getElementById(
+    "typeFilter"
+  ).value =
+    "";
 
-  }catch(error){
 
-    console.error(error);
+  loadReport();
 
-    document
-      .getElementById("errorBox")
-      .innerHTML = `
+}
 
-        <div class="error">
 
-          ${esc(
-            error.message ||
-            "Report loading failed."
-          )}
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-        </div>
+function logoutUser(){
 
-      `;
+  localStorage.removeItem(
+    "access_token"
+  );
 
-    document
-      .getElementById("summaryArea")
-      .innerHTML = `
+  localStorage.removeItem(
+    "refresh_token"
+  );
 
-        <div class="empty">
+  localStorage.removeItem(
+    "is_logged_in"
+  );
 
-          Report could not be loaded.
+  localStorage.removeItem(
+    "selected_branch_id"
+  );
 
-        </div>
+  localStorage.removeItem(
+    "selected_branch_uuid"
+  );
 
-      `;
+  localStorage.removeItem(
+    "selected_branch_name"
+  );
 
-  }
+  localStorage.removeItem(
+    "selected_branch_code"
+  );
+
+  localStorage.removeItem(
+    "user_role"
+  );
+
+  localStorage.removeItem(
+    "login_user"
+  );
+
+
+  window.location.href =
+    "index.html";
 
 }
 
@@ -2306,7 +3229,9 @@ async function init(){
    START
 ===================================================== */
 
-init();
+showBranchInfo();
+
+loadReport();
 
 </script>
 
