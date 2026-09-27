@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>AADLM - Stock Report</title>
 
@@ -18,321 +21,340 @@ body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f1f5f9;
-  color:#1e293b;
+  color:#263238;
 }
 
 header{
-  background:#5b341f;
-  color:white;
-  padding:20px;
+  background:linear-gradient(135deg,#0d47a1,#1976d2,#42a5f5);
+  color:#fff;
+  padding:18px;
   text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.18);
 }
 
 header h1{
   margin:0;
+  font-size:24px;
 }
 
 header p{
-  margin:6px 0 0;
+  margin:7px 0 0;
+  font-size:14px;
 }
 
-nav{
-  background:white;
-  padding:12px;
+.nav{
   display:flex;
+  gap:8px;
   justify-content:center;
-  gap:10px;
   flex-wrap:wrap;
-  box-shadow:0 2px 8px rgba(0,0,0,.10);
+  padding:12px;
+  background:#fff;
+  box-shadow:0 2px 7px rgba(0,0,0,.08);
 }
 
-nav a{
-  text-decoration:none;
+.nav button{
+  border:0;
   padding:10px 15px;
-  border-radius:7px;
-  background:#eadfd6;
-  color:#3f2415;
+  border-radius:8px;
+  background:#1976d2;
+  color:#fff;
+  cursor:pointer;
   font-weight:bold;
 }
 
-nav a:hover{
-  background:#d8c7ba;
+.nav button:hover{
+  background:#0d47a1;
 }
 
 .container{
-  width:95%;
-  max-width:1600px;
-  margin:25px auto;
+  max-width:1500px;
+  margin:auto;
+  padding:15px;
 }
 
-.box{
-  background:white;
-  padding:20px;
-  margin-bottom:20px;
-  border-radius:12px;
-  box-shadow:0 3px 12px rgba(0,0,0,.10);
-}
-
-.box h2{
-  text-align:center;
-  margin-top:0;
-}
-
-.branch-info{
-  text-align:center;
-  background:#fff7ed;
-  border:1px solid #fed7aa;
-  color:#7c2d12;
-  padding:12px;
-  border-radius:8px;
-  margin-bottom:20px;
-  font-weight:bold;
-}
-
-.main-view{
-  background:#dbeafe;
-  color:#1e40af;
-  padding:10px;
-  border-radius:8px;
-  text-align:center;
+.branch-box{
+  background:#fff;
+  padding:14px;
+  border-radius:10px;
   margin-bottom:15px;
-  font-weight:bold;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.branch-box strong{
+  color:#0d47a1;
 }
 
 .filters{
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.filters-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
+  gap:10px;
 }
 
-input,
-select{
+.filters label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.filters input,
+.filters select{
   width:100%;
-  padding:12px;
-  border:1px solid #cbd5e1;
+  padding:10px;
+  border:1px solid #cfd8dc;
   border-radius:7px;
-  font-size:15px;
+  background:#fff;
 }
 
-button{
-  padding:12px;
-  border:none;
+.filter-buttons{
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:0;
+  padding:10px 16px;
   border-radius:7px;
   cursor:pointer;
-  font-size:15px;
   font-weight:bold;
 }
 
-.filter-btn{
-  background:#5b341f;
-  color:white;
+.btn-primary{
+  background:#1976d2;
+  color:#fff;
 }
 
-.clear-btn{
-  background:#64748b;
-  color:white;
+.btn-secondary{
+  background:#607d8b;
+  color:#fff;
 }
 
-.summary{
+.cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:15px;
-  margin-bottom:20px;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:12px;
+  margin-bottom:15px;
 }
 
 .card{
-  background:white;
-  padding:18px;
+  background:#fff;
   border-radius:10px;
-  text-align:center;
-  font-weight:bold;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  padding:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.card strong{
-  display:block;
+.card-title{
+  font-size:13px;
+  color:#607d8b;
+  margin-bottom:7px;
+}
+
+.card-value{
   font-size:24px;
-  margin-top:8px;
+  font-weight:bold;
+  color:#0d47a1;
 }
 
-.table-container{
-  width:100%;
+.table-box{
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  overflow:hidden;
+  margin-bottom:20px;
+}
+
+.table-title{
+  padding:14px;
+  font-size:18px;
+  font-weight:bold;
+  color:#0d47a1;
+  border-bottom:1px solid #eceff1;
+}
+
+.table-scroll{
   overflow-x:auto;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
+  min-width:1400px;
 }
 
-.summary-table{
-  min-width:1250px;
-}
-
-.detail-table{
-  min-width:1800px;
+th,
+td{
+  border:1px solid #e0e0e0;
+  padding:9px;
+  font-size:12px;
+  text-align:left;
+  vertical-align:top;
 }
 
 th{
-  background:#5b341f;
-  color:white;
-  padding:12px 10px;
-  white-space:nowrap;
-  border:1px solid #70452c;
-}
-
-td{
-  padding:10px;
-  text-align:center;
-  border-bottom:1px solid #ddd;
+  background:#e3f2fd;
+  color:#0d47a1;
+  font-weight:bold;
   white-space:nowrap;
 }
 
-.summary-row{
-  background:white;
-}
-
-.summary-row:hover{
-  background:#faf7f5;
-}
-
-.detail-row{
-  display:none;
-  background:#f8fafc;
-}
-
-.detail-row.show{
-  display:table-row;
-}
-
-.detail-cell{
-  padding:18px;
-  text-align:left;
-  white-space:normal;
-}
-
-.detail-wrapper{
-  width:100%;
-  overflow-x:auto;
-}
-
-.detail-title{
-  margin:0 0 12px;
-  color:#5b341f;
-  font-size:18px;
+tr:nth-child(even){
+  background:#fafafa;
 }
 
 .detail-btn{
-  background:#5b341f;
-  color:white;
-  padding:8px 14px;
+  border:0;
+  background:#1976d2;
+  color:#fff;
+  padding:7px 12px;
   border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
 .detail-btn:hover{
-  background:#3f2415;
-}
-
-.in-badge{
-  display:inline-block;
-  background:#dcfce7;
-  color:#166534;
-  padding:5px 9px;
-  border-radius:5px;
-  font-weight:bold;
-}
-
-.out-badge{
-  display:inline-block;
-  background:#fee2e2;
-  color:#991b1b;
-  padding:5px 9px;
-  border-radius:5px;
-  font-weight:bold;
-}
-
-.in-row{
-  background:#dcfce7 !important;
-}
-
-.out-row{
-  background:#fee2e2 !important;
-}
-
-.expiry-red{
-  color:#dc2626 !important;
-  font-weight:bold;
-}
-
-.expiry-yellow{
-  color:#ca8a04 !important;
-  font-weight:bold;
-}
-
-.expiry-green{
-  color:#16a34a !important;
-  font-weight:bold;
+  background:#0d47a1;
 }
 
 .empty{
+  padding:30px;
   text-align:center;
-  padding:25px;
-  color:#64748b;
+  color:#78909c;
 }
 
 .loading{
+  padding:30px;
   text-align:center;
-  padding:25px;
+  color:#1976d2;
   font-weight:bold;
 }
 
-.logout{
-  background:#dc2626 !important;
-  color:white !important;
+.error{
+  padding:15px;
+  background:#ffebee;
+  color:#c62828;
+  border-radius:8px;
+  margin-bottom:15px;
 }
 
-.balance-positive{
-  color:#15803d;
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:5px;
+  font-size:11px;
   font-weight:bold;
 }
 
-.balance-zero{
-  color:#64748b;
+.badge-in{
+  background:#e8f5e9;
+  color:#2e7d32;
+}
+
+.badge-out{
+  background:#ffebee;
+  color:#c62828;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:9999;
+  padding:20px;
+  overflow:auto;
+}
+
+.modal-content{
+  max-width:1450px;
+  margin:20px auto;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 5px 30px rgba(0,0,0,.3);
+}
+
+.modal-header{
+  background:linear-gradient(135deg,#0d47a1,#1976d2);
+  color:#fff;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.modal-header h2{
+  margin:0;
+  font-size:19px;
+}
+
+.close-btn{
+  border:0;
+  background:#fff;
+  color:#0d47a1;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:20px;
   font-weight:bold;
 }
 
-.balance-negative{
-  color:#dc2626;
+.modal-body{
+  padding:15px;
+}
+
+.detail-info{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.detail-info div{
+  background:#f5f7fa;
+  padding:10px;
+  border-radius:7px;
+}
+
+.detail-info strong{
+  display:block;
+  font-size:12px;
+  color:#607d8b;
+  margin-bottom:4px;
+}
+
+.detail-info span{
   font-weight:bold;
 }
 
-.description-cell{
-  white-space:normal !important;
-  min-width:220px;
-}
-
-@media(max-width:600px){
-
-  header{
-    padding:15px;
-  }
+@media(max-width:700px){
 
   header h1{
-    font-size:22px;
+    font-size:20px;
   }
 
   .container{
-    width:97%;
-    margin:15px auto;
+    padding:8px;
   }
 
-  .box{
-    padding:14px;
+  .filters{
+    padding:10px;
   }
 
-  nav a{
-    padding:9px 11px;
-    font-size:13px;
+  th,
+  td{
+    font-size:11px;
   }
 
 }
@@ -343,163 +365,1261 @@ td{
 
 <body>
 
-
 <header>
 
-  <h1>🏢 AADLM</h1>
+  <h1>AADLM - Stock Report</h1>
 
-  <p>Stock Management System</p>
+  <p>
+    Stock IN / Stock OUT / Emergency Relief Report
+  </p>
 
 </header>
 
+<div class="nav">
 
-<nav>
+  <button onclick="goDashboard()">
+    Back to Menu
+  </button>
 
-  <a href="dashboard.html">
-    🏠 Dashboard
-  </a>
-
-  <a href="items.html">
-    📦 Items
-  </a>
-
-  <a href="stock.html">
-    🔄 Stock In / Out
-  </a>
-
-  <a href="reports.html">
-    📊 Stock Report
-  </a>
-
-  <a href="settings.html">
-    ⚙️ Settings
-  </a>
-
-  <a href="#" class="logout" onclick="logoutUser()">
-    🚪 Logout
-  </a>
-
-</nav>
-
+</div>
 
 <div class="container">
 
+  <div class="branch-box">
 
-  <div id="branchInfo" class="branch-info">
-    Loading branch...
+    Branch:
+    <strong id="branchName">Loading...</strong>
+
   </div>
 
+  <div id="errorBox"></div>
 
-  <div
-    id="mainViewMessage"
-    class="main-view"
-    style="display:none;"
-  >
-    👁️ Main / HQ View Mode — Report is view-only.
-  </div>
+  <div class="filters">
 
+    <div class="filters-grid">
 
-  <!-- FILTER -->
+      <div>
+        <label>From Date</label>
+        <input
+          type="date"
+          id="fromDate"
+        >
+      </div>
 
-  <div class="box">
+      <div>
+        <label>To Date</label>
+        <input
+          type="date"
+          id="toDate"
+        >
+      </div>
 
-    <h2>🔎 Report Filter</h2>
+      <div>
+        <label>Entered / Issued By</label>
+        <input
+          type="text"
+          id="personFilter"
+          placeholder="Search name"
+        >
+      </div>
 
-    <div class="filters">
+      <div>
+        <label>Item Name</label>
+        <input
+          type="text"
+          id="itemFilter"
+          placeholder="Search item"
+        >
+      </div>
 
-      <input
-        id="dateFilter"
-        type="date"
-      >
+      <div>
+        <label>Transaction Type</label>
 
-      <input
-        id="enteredByFilter"
-        placeholder="Entered By"
-      >
+        <select id="typeFilter">
 
-      <input
-        id="itemFilter"
-        placeholder="Item Name"
-      >
+          <option value="">
+            All
+          </option>
 
-      <select id="typeFilter">
+          <option value="IN">
+            Stock IN
+          </option>
 
-        <option value="">
-          All Transactions
-        </option>
+          <option value="OUT">
+            Stock OUT
+          </option>
 
-        <option value="IN">
-          📥 Stock In
-        </option>
+        </select>
 
-        <option value="OUT">
-          📤 Stock Out
-        </option>
+      </div>
 
-      </select>
+    </div>
 
+    <div class="filter-buttons">
 
       <button
-        class="filter-btn"
-        onclick="loadReport()"
+        class="btn btn-primary"
+        onclick="applyFilters()"
       >
-        🔎 Filter
+        Apply
       </button>
 
-
       <button
-        class="clear-btn"
+        class="btn btn-secondary"
         onclick="clearFilters()"
       >
-        🔄 Clear
+        Clear
       </button>
 
     </div>
 
   </div>
 
-
-  <!-- SUMMARY CARDS -->
-
-  <div class="summary">
+  <div class="cards">
 
     <div class="card">
-      📥 Total IN
-      <strong id="reportIn">0</strong>
+
+      <div class="card-title">
+        Total Stock IN
+      </div>
+
+      <div
+        class="card-value"
+        id="totalIn"
+      >
+        0
+      </div>
+
     </div>
 
     <div class="card">
-      📤 Total OUT
-      <strong id="reportOut">0</strong>
+
+      <div class="card-title">
+        Total Stock OUT
+      </div>
+
+      <div
+        class="card-value"
+        id="totalOut"
+      >
+        0
+      </div>
+
     </div>
 
     <div class="card">
-      📋 Transactions
-      <strong id="reportTransactions">0</strong>
+
+      <div class="card-title">
+        Transactions
+      </div>
+
+      <div
+        class="card-value"
+        id="totalTransactions"
+      >
+        0
+      </div>
+
     </div>
 
     <div class="card">
-      📦 Items
-      <strong id="reportItems">0</strong>
+
+      <div class="card-title">
+        Items
+      </div>
+
+      <div
+        class="card-value"
+        id="totalItems"
+      >
+        0
+      </div>
+
     </div>
 
     <div class="card">
-      ⚖️ Balance
-      <strong id="reportBalance">0</strong>
+
+      <div class="card-title">
+        Current Balance
+      </div>
+
+      <div
+        class="card-value"
+        id="currentBalance"
+      >
+        0
+      </div>
+
     </div>
 
   </div>
 
+  <div class="table-box">
 
-  <!-- STOCK REPORT -->
+    <div class="table-title">
+      Stock Summary
+    </div>
 
-  <div class="box">
+    <div
+      id="summaryArea"
+      class="loading"
+    >
+      Loading...
+    </div>
 
-    <h2>📊 Complete Stock Report</h2>
+  </div>
 
-    <div class="table-container">
+</div>
 
-      <table class="summary-table">
+
+<!-- DETAIL MODAL -->
+
+<div
+  id="detailModal"
+  class="modal"
+  onclick="closeModalOutside(event)"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2 id="detailTitle">
+        Transaction Details
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeDetail()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      id="detailBody"
+      class="modal-body"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+  "https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+  localStorage.getItem("supabase_anon_key") ||
+  localStorage.getItem("SUPABASE_ANON_KEY") ||
+  "";
+
+const API =
+  SUPABASE_URL + "/rest/v1";
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let allTransactions = [];
+
+let filteredTransactions = [];
+
+let itemMap = {};
+
+let branchMap = {};
+
+let branchInfo = {
+
+  uuid:
+    localStorage.getItem("selected_branch_uuid") ||
+    localStorage.getItem("selected_branch_id") ||
+    "",
+
+  code:
+    localStorage.getItem("selected_branch_code") ||
+    localStorage.getItem("branch_code") ||
+    "",
+
+  name:
+    localStorage.getItem("selected_branch_name") ||
+    localStorage.getItem("branch_name") ||
+    "",
+
+  role:
+    localStorage.getItem("user_role") || ""
+
+};
+
+
+/* =====================================================
+   HEADERS
+===================================================== */
+
+function headers(){
+
+  return {
+
+    "apikey":SUPABASE_KEY,
+
+    "Authorization":
+      "Bearer " + SUPABASE_KEY,
+
+    "Content-Type":
+      "application/json"
+
+  };
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function esc(value){
+
+  if(value === null ||
+     value === undefined){
+
+    return "";
+
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   NUMBER
+===================================================== */
+
+function num(value){
+
+  const n =
+    Number(value);
+
+  return Number.isFinite(n)
+    ? n
+    : 0;
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  const d =
+    new Date(value);
+
+  if(Number.isNaN(d.getTime())){
+    return value;
+  }
+
+  return d.toLocaleString();
+
+}
+
+
+/* =====================================================
+   TRANSACTION TYPE
+===================================================== */
+
+function getType(row){
+
+  const raw =
+    String(
+      row.transaction_type ||
+      row.type ||
+      ""
+    )
+    .trim()
+    .toUpperCase();
+
+  if(
+    raw === "IN" ||
+    raw === "STOCK IN" ||
+    raw === "STOCK_IN" ||
+    raw === "RECEIVE" ||
+    raw === "RECEIVED"
+  ){
+
+    return "IN";
+
+  }
+
+  if(
+    raw === "OUT" ||
+    raw === "STOCK OUT" ||
+    raw === "STOCK_OUT" ||
+    raw === "ISSUE" ||
+    raw === "ISSUED"
+  ){
+
+    return "OUT";
+
+  }
+
+  const transaction =
+    String(
+      row.transaction || ""
+    ).toUpperCase();
+
+  if(
+    transaction.includes("STOCK IN") ||
+    transaction.includes("STOCK_IN") ||
+    transaction.includes("RECEIVE")
+  ){
+
+    return "IN";
+
+  }
+
+  if(
+    transaction.includes("STOCK OUT") ||
+    transaction.includes("STOCK_OUT") ||
+    transaction.includes("ISSUE") ||
+    transaction.includes("RELIEF")
+  ){
+
+    return "OUT";
+
+  }
+
+  return raw || "";
+
+}
+
+
+/* =====================================================
+   ITEM
+===================================================== */
+
+function getItemInfo(row){
+
+  const id =
+    row.item_id;
+
+  if(
+    id !== null &&
+    id !== undefined &&
+    itemMap[String(id)]
+  ){
+
+    return itemMap[String(id)];
+
+  }
+
+  return {
+
+    name:
+      row.item_name ||
+      row.item ||
+      "Unknown Item",
+
+    category:
+      row.category ||
+      "",
+
+    unit:
+      row.unit ||
+      ""
+
+  };
+
+}
+
+
+/* =====================================================
+   BRANCH
+===================================================== */
+
+function getBranchInfo(row){
+
+  const id =
+    row.branch_id;
+
+  if(
+    id !== null &&
+    id !== undefined &&
+    branchMap[String(id)]
+  ){
+
+    return branchMap[String(id)];
+
+  }
+
+  return {
+
+    name:
+      row.branch_name ||
+      row.branch_code ||
+      "",
+
+    code:
+      row.branch_code ||
+      ""
+
+  };
+
+}
+
+
+/* =====================================================
+   MODEL INFORMATION
+   Supports:
+   - model_19
+   - model19
+   - model_19_number
+   - model22
+   - model_22
+   - Model 19 - ...
+   - Model 22 - ...
+===================================================== */
+
+function getModelInfo(row){
+
+  let model19 =
+    row.model_19 ??
+    row.model19 ??
+    row.model_19_number ??
+    row.model19_number ??
+    "";
+
+  let model22 =
+    row.model_22 ??
+    row.model22 ??
+    row.model_22_number ??
+    row.model22_number ??
+    "";
+
+  const text =
+    String(
+      row.transaction ||
+      ""
+    ).trim();
+
+  if(!model19){
+
+    const m19 =
+      text.match(
+        /model\s*19\s*(?:number|no\.?|#)?\s*[-:#]?\s*([A-Za-z0-9\/_.-]+)/i
+      );
+
+    if(m19){
+      model19 =
+        m19[1];
+    }
+
+  }
+
+  if(!model22){
+
+    const m22 =
+      text.match(
+        /model\s*22\s*(?:number|no\.?|#)?\s*[-:#]?\s*([A-Za-z0-9\/_.-]+)/i
+      );
+
+    if(m22){
+      model22 =
+        m22[1];
+    }
+
+  }
+
+  /*
+    Emergency Relief example:
+    Emergency Relief - Model 22 - 12345
+  */
+
+  if(!model22){
+
+    const relief =
+      text.match(
+        /emergency\s*relief\s*[-–—:]?\s*model\s*22\s*[-–—:#]?\s*([A-Za-z0-9\/_.-]+)/i
+      );
+
+    if(relief){
+      model22 =
+        relief[1];
+    }
+
+  }
+
+  /*
+    If transaction only says "Model 22"
+    without a number, show Model 22
+    but leave number empty.
+  */
+
+  const hasModel19 =
+    /model\s*19/i.test(text);
+
+  const hasModel22 =
+    /model\s*22/i.test(text);
+
+  return {
+
+    model19:
+      model19
+        ? String(model19)
+        : hasModel19
+          ? "Model 19"
+          : "",
+
+    model22:
+      model22
+        ? String(model22)
+        : hasModel22
+          ? "Model 22"
+          : ""
+
+  };
+
+}
+
+
+/* =====================================================
+   DESCRIPTION / TRANSACTION REASON
+
+   IMPORTANT:
+   Do NOT remove the reason.
+   Model information is removed only when it is
+   clearly model metadata.
+===================================================== */
+
+function getDescription(row){
+
+  let text =
+    String(
+      row.description ||
+      row.reason ||
+      row.details ||
+      row.transaction ||
+      ""
+    ).trim();
+
+  if(!text){
+    return "";
+  }
+
+  /*
+    Keep meaningful transaction text.
+
+    Remove only explicit model labels/numbers.
+  */
+
+  text =
+    text.replace(
+      /model\s*19\s*(?:number|no\.?|#)?\s*[-:#]?\s*[A-Za-z0-9\/_.-]+/gi,
+      ""
+    );
+
+  text =
+    text.replace(
+      /model\s*22\s*(?:number|no\.?|#)?\s*[-:#]?\s*[A-Za-z0-9\/_.-]+/gi,
+      ""
+    );
+
+  text =
+    text.replace(
+      /\s{2,}/g,
+      " "
+    )
+    .replace(
+      /\s*[-–—]\s*$/g,
+      ""
+    )
+    .trim();
+
+  /*
+    If stripping model metadata leaves nothing,
+    use a useful default based on transaction type.
+  */
+
+  if(!text){
+
+    const type =
+      getType(row);
+
+    if(type === "IN"){
+      return "Stock IN";
+    }
+
+    if(type === "OUT"){
+
+      if(
+        String(row.transaction || "")
+          .toLowerCase()
+          .includes("relief")
+      ){
+
+        return "Emergency Relief";
+
+      }
+
+      return "Stock OUT";
+
+    }
+
+  }
+
+  return text;
+
+}
+
+
+/* =====================================================
+   LOAD ITEMS
+===================================================== */
+
+async function loadItemMap(){
+
+  itemMap = {};
+
+  const isMain =
+    String(branchInfo.role)
+      .toLowerCase()
+      .includes("main") ||
+    String(branchInfo.code)
+      .toUpperCase() === "MAIN";
+
+  let url =
+    API + "/items?select=*";
+
+  if(
+    !isMain &&
+    branchInfo.uuid
+  ){
+
+    url +=
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchInfo.uuid
+      );
+
+  }
+
+  const res =
+    await fetch(
+      url,
+      {
+        headers:headers()
+      }
+    );
+
+  if(!res.ok){
+
+    throw new Error(
+      "Items loading failed: " +
+      await res.text()
+    );
+
+  }
+
+  const data =
+    await res.json();
+
+  data.forEach(item=>{
+
+    const key =
+      item.id;
+
+    itemMap[String(key)] = {
+
+      name:
+        item.item_name ||
+        item.name ||
+        item.item ||
+        "Unknown Item",
+
+      category:
+        item.category ||
+        "",
+
+      unit:
+        item.unit ||
+        ""
+
+    };
+
+  });
+
+}
+
+
+/* =====================================================
+   LOAD BRANCHES
+===================================================== */
+
+async function loadBranchMap(){
+
+  branchMap = {};
+
+  const res =
+    await fetch(
+      API +
+      "/branches?select=*",
+      {
+        headers:headers()
+      }
+    );
+
+  if(!res.ok){
+
+    return;
+
+  }
+
+  const data =
+    await res.json();
+
+  data.forEach(branch=>{
+
+    const id =
+      branch.id ||
+      branch.uuid;
+
+    if(id === undefined ||
+       id === null){
+
+      return;
+
+    }
+
+    branchMap[String(id)] = {
+
+      name:
+        branch.branch_name ||
+        branch.name ||
+        branch.branch ||
+        "",
+
+      code:
+        branch.branch_code ||
+        branch.code ||
+        ""
+
+    };
+
+  });
+
+}
+
+
+/* =====================================================
+   LOAD TRANSACTIONS
+===================================================== */
+
+async function loadTransactions(){
+
+  let url =
+    API +
+    "/stock_transactions?select=*&order=id.desc";
+
+  const isMain =
+    String(branchInfo.role)
+      .toLowerCase()
+      .includes("main") ||
+    String(branchInfo.code)
+      .toUpperCase() === "MAIN";
+
+  /*
+    Main:
+    all branches
+
+    Branch:
+    only selected branch
+  */
+
+  if(
+    !isMain &&
+    branchInfo.uuid
+  ){
+
+    url +=
+      "&branch_id=eq." +
+      encodeURIComponent(
+        branchInfo.uuid
+      );
+
+  }
+
+  const res =
+    await fetch(
+      url,
+      {
+        headers:headers()
+      }
+    );
+
+  if(!res.ok){
+
+    throw new Error(
+      "Stock transactions loading failed: " +
+      await res.text()
+    );
+
+  }
+
+  allTransactions =
+    await res.json();
+
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+function applyFilters(){
+
+  const from =
+    document
+      .getElementById("fromDate")
+      .value;
+
+  const to =
+    document
+      .getElementById("toDate")
+      .value;
+
+  const person =
+    document
+      .getElementById("personFilter")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const itemSearch =
+    document
+      .getElementById("itemFilter")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const type =
+    document
+      .getElementById("typeFilter")
+      .value
+      .toUpperCase();
+
+  filteredTransactions =
+    allTransactions.filter(row=>{
+
+      const transactionType =
+        getType(row);
+
+      const itemInfo =
+        getItemInfo(row);
+
+      const itemName =
+        String(
+          itemInfo.name || ""
+        ).toLowerCase();
+
+      const enteredBy =
+        String(
+          row.entered_by || ""
+        ).toLowerCase();
+
+      const issuedBy =
+        String(
+          row.issued_by || ""
+        ).toLowerCase();
+
+      const dateValue =
+        row.entered_at ||
+        row.created_at ||
+        row.date ||
+        "";
+
+      let dateOK = true;
+
+      if(dateValue){
+
+        const d =
+          new Date(dateValue);
+
+        if(from){
+
+          const f =
+            new Date(
+              from + "T00:00:00"
+            );
+
+          if(d < f){
+            dateOK = false;
+          }
+
+        }
+
+        if(to){
+
+          const t =
+            new Date(
+              to + "T23:59:59"
+            );
+
+          if(d > t){
+            dateOK = false;
+          }
+
+        }
+
+      }
+
+      const personOK =
+        !person ||
+        enteredBy.includes(person) ||
+        issuedBy.includes(person);
+
+      const itemOK =
+        !itemSearch ||
+        itemName.includes(itemSearch);
+
+      const typeOK =
+        !type ||
+        transactionType === type;
+
+      return (
+        dateOK &&
+        personOK &&
+        itemOK &&
+        typeOK
+      );
+
+    });
+
+  renderReport();
+
+}
+
+
+/* =====================================================
+   CLEAR FILTER
+===================================================== */
+
+function clearFilters(){
+
+  document
+    .getElementById("fromDate")
+    .value = "";
+
+  document
+    .getElementById("toDate")
+    .value = "";
+
+  document
+    .getElementById("personFilter")
+    .value = "";
+
+  document
+    .getElementById("itemFilter")
+    .value = "";
+
+  document
+    .getElementById("typeFilter")
+    .value = "";
+
+  filteredTransactions =
+    [...allTransactions];
+
+  renderReport();
+
+}
+
+
+/* =====================================================
+   GROUP BY ITEM
+===================================================== */
+
+function groupByItem(rows){
+
+  const groups = {};
+
+  rows.forEach(row=>{
+
+    const itemInfo =
+      getItemInfo(row);
+
+    /*
+      Prefer item_id.
+      This allows repeated Pasta transactions
+      to be combined into ONE summary row.
+    */
+
+    const key =
+      row.item_id !== null &&
+      row.item_id !== undefined
+        ? "id:" + row.item_id
+        : "name:" +
+          String(
+            itemInfo.name || ""
+          )
+          .trim()
+          .toLowerCase();
+
+    if(!groups[key]){
+
+      groups[key] = {
+
+        itemId:
+          row.item_id || "",
+
+        itemName:
+          itemInfo.name || "",
+
+        category:
+          itemInfo.category ||
+          row.category ||
+          "",
+
+        unit:
+          itemInfo.unit ||
+          row.unit ||
+          "",
+
+        transactions:[],
+
+        totalIn:0,
+
+        totalOut:0
+
+      };
+
+    }
+
+    const type =
+      getType(row);
+
+    const quantity =
+      num(row.quantity);
+
+    groups[key]
+      .transactions
+      .push(row);
+
+    if(type === "IN"){
+
+      groups[key].totalIn +=
+        quantity;
+
+    }
+
+    if(type === "OUT"){
+
+      groups[key].totalOut +=
+        quantity;
+
+    }
+
+  });
+
+  return Object.values(groups);
+
+}
+
+
+/* =====================================================
+   RENDER REPORT
+===================================================== */
+
+function renderReport(){
+
+  const rows =
+    filteredTransactions;
+
+  let totalIn = 0;
+
+  let totalOut = 0;
+
+  rows.forEach(row=>{
+
+    const type =
+      getType(row);
+
+    const quantity =
+      num(row.quantity);
+
+    if(type === "IN"){
+      totalIn += quantity;
+    }
+
+    if(type === "OUT"){
+      totalOut += quantity;
+    }
+
+  });
+
+  const groups =
+    groupByItem(rows);
+
+  document
+    .getElementById("totalIn")
+    .textContent =
+      totalIn;
+
+  document
+    .getElementById("totalOut")
+    .textContent =
+      totalOut;
+
+  document
+    .getElementById("totalTransactions")
+    .textContent =
+      rows.length;
+
+  document
+    .getElementById("totalItems")
+    .textContent =
+      groups.length;
+
+  document
+    .getElementById("currentBalance")
+    .textContent =
+      totalIn - totalOut;
+
+  if(!groups.length){
+
+    document
+      .getElementById("summaryArea")
+      .innerHTML = `
+        <div class="empty">
+          No stock transactions found.
+        </div>
+      `;
+
+    return;
+
+  }
+
+  let html = `
+
+    <div class="table-scroll">
+
+      <table>
 
         <thead>
 
@@ -539,7 +1659,7 @@ td{
 
             <th>Branch</th>
 
-            <th>Transaction/Description</th>
+            <th>Transaction / Description</th>
 
             <th>Detail</th>
 
@@ -547,2296 +1667,176 @@ td{
 
         </thead>
 
-
-        <tbody id="reportList">
-
-          <tr>
-
-            <td
-              colspan="19"
-              class="loading"
-            >
-              Loading report...
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-
-</div>
-
-
-<script>
-
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
-const SUPABASE_URL =
-  "https://sslabegtsxlkafuygmar.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-const isLoggedIn =
-  localStorage.getItem("is_logged_in");
-
-const accessToken =
-  localStorage.getItem("access_token");
-
-
-if(
-  isLoggedIn !== "true" &&
-  !accessToken
-){
-
-  window.location.href =
-    "index.html";
-
-}
-
-
-/* =====================================================
-   CURRENT BRANCH
-===================================================== */
-
-const selectedBranchId =
-  localStorage.getItem(
-    "selected_branch_id"
-  ) || "";
-
-const selectedBranchName =
-  localStorage.getItem(
-    "selected_branch_name"
-  ) || "";
-
-const selectedBranchCode =
-  localStorage.getItem(
-    "selected_branch_code"
-  ) || "";
-
-const userRole =
-  localStorage.getItem(
-    "user_role"
-  ) || "";
-
-
-const isMain =
-  userRole.toLowerCase() === "main";
-
-
-const isMainHQ =
-  isMain &&
-  (
-    selectedBranchCode.toUpperCase() === "MAIN" ||
-    selectedBranchId.toUpperCase() === "MAIN"
-  );
-
-
-/* =====================================================
-   HEADERS
-===================================================== */
-
-function getHeaders(){
-
-  const headers = {
-
-    "apikey":
-      SUPABASE_KEY,
-
-    "Content-Type":
-      "application/json"
-
-  };
-
-
-  const token =
-    localStorage.getItem(
-      "access_token"
-    );
-
-
-  if(
-    token &&
-    !token.startsWith(
-      "sb_publishable_"
-    )
-  ){
-
-    headers["Authorization"] =
-      "Bearer " + token;
-
-  }
-
-
-  return headers;
-
-}
-
-
-/* =====================================================
-   UUID CHECK
-===================================================== */
-
-function isUUID(value){
-
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    .test(
-      String(value || "")
-    );
-
-}
-
-
-/* =====================================================
-   FIND BRANCH UUID
-===================================================== */
-
-async function findBranchUUID(){
-
-  const savedUUID =
-    localStorage.getItem(
-      "selected_branch_uuid"
-    );
-
-
-  if(
-    savedUUID &&
-    isUUID(savedUUID)
-  ){
-
-    return savedUUID;
-
-  }
-
-
-  if(isMainHQ){
-
-    return null;
-
-  }
-
-
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/rest/v1/branches?select=*",
-      {
-        headers:
-          getHeaders()
-      }
-    );
-
-
-  if(!response.ok){
-
-    throw new Error(
-      "Branches Error: " +
-      await response.text()
-    );
-
-  }
-
-
-  const branches =
-    await response.json();
-
-
-  const wantedCode =
-    String(
-      selectedBranchCode ||
-      selectedBranchId ||
-      ""
-    )
-    .trim()
-    .toLowerCase();
-
-
-  const wantedName =
-    String(
-      selectedBranchName ||
-      ""
-    )
-    .trim()
-    .toLowerCase();
-
-
-  const codeFields = [
-
-    "code",
-    "branch_code",
-    "branchCode",
-    "branchcode",
-    "branch_id_code",
-    "short_code"
-
-  ];
-
-
-  const nameFields = [
-
-    "name",
-    "branch_name",
-    "branch",
-    "branchName",
-    "title",
-    "branch_title",
-    "office_name",
-    "office"
-
-  ];
-
-
-  let found = null;
-
-
-  for(
-    const branch of branches
-  ){
-
-    if(
-      !branch.id ||
-      !isUUID(branch.id)
-    ){
-
-      continue;
-
-    }
-
-
-    let codeMatch =
-      false;
-
-    let nameMatch =
-      false;
-
-
-    for(
-      const field of codeFields
-    ){
-
-      const value =
-        String(
-          branch[field] || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      if(
-        value &&
-        wantedCode &&
-        value === wantedCode
-      ){
-
-        codeMatch = true;
-
-      }
-
-    }
-
-
-    for(
-      const field of nameFields
-    ){
-
-      const value =
-        String(
-          branch[field] || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      if(
-        value &&
-        wantedName &&
-        value === wantedName
-      ){
-
-        nameMatch = true;
-
-      }
-
-    }
-
-
-    if(
-      codeMatch ||
-      nameMatch
-    ){
-
-      found = branch;
-      break;
-
-    }
-
-  }
-
-
-  if(!found){
-
-    throw new Error(
-      "Branch UUID hin argamne: " +
-      (
-        selectedBranchName ||
-        selectedBranchCode
-      )
-    );
-
-  }
-
-
-  localStorage.setItem(
-    "selected_branch_uuid",
-    found.id
-  );
-
-
-  return found.id;
-
-}
-
-
-/* =====================================================
-   BRANCH DISPLAY
-===================================================== */
-
-function showBranchInfo(){
-
-  const box =
-    document.getElementById(
-      "branchInfo"
-    );
-
-
-  if(isMainHQ){
-
-    box.textContent =
-      "🏢 MAIN / HQ — All Branches Report";
-
-
-    document.getElementById(
-      "mainViewMessage"
-    ).style.display =
-      "block";
-
-
-    return;
-
-  }
-
-
-  box.textContent =
-    "🏢 Branch: " +
-    (
-      selectedBranchName ||
-      selectedBranchCode ||
-      "Selected Branch"
-    );
-
-
-  if(isMain){
-
-    document.getElementById(
-      "mainViewMessage"
-    ).style.display =
-      "block";
-
-  }
-
-}
-
-
-/* =====================================================
-   HTML SAFE
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(
-    value ?? ""
-  )
-  .replace(
-    /&/g,
-    "&amp;"
-  )
-  .replace(
-    /</g,
-    "&lt;"
-  )
-  .replace(
-    />/g,
-    "&gt;"
-  )
-  .replace(
-    /"/g,
-    "&quot;"
-  )
-  .replace(
-    /'/g,
-    "&#039;"
-  );
-
-}
-
-
-/* =====================================================
-   FORMAT DATE
-===================================================== */
-
-function formatDate(value){
-
-  if(!value){
-
-    return "—";
-
-  }
-
-
-  const d =
-    new Date(value);
-
-
-  if(
-    isNaN(
-      d.getTime()
-    )
-  ){
-
-    return String(value);
-
-  }
-
-
-  return d.toLocaleString();
-
-}
-
-
-/* =====================================================
-   EXPIRY CLASS
-===================================================== */
-
-function getExpiryClass(
-  expiryDate
-){
-
-  if(
-    !expiryDate ||
-    expiryDate === "—"
-  ){
-
-    return "";
-
-  }
-
-
-  const expiryText =
-    String(expiryDate)
-      .substring(0,10);
-
-
-  const expiry =
-    new Date(
-      expiryText +
-      "T00:00:00"
-    );
-
-
-  if(
-    isNaN(
-      expiry.getTime()
-    )
-  ){
-
-    return "";
-
-  }
-
-
-  const today =
-    new Date();
-
-
-  today.setHours(
-    0,
-    0,
-    0,
-    0
-  );
-
-
-  if(
-    expiry <= today
-  ){
-
-    return "expiry-red";
-
-  }
-
-
-  const fourMonths =
-    new Date(today);
-
-
-  fourMonths.setMonth(
-    fourMonths.getMonth() +
-    4
-  );
-
-
-  if(
-    expiry <= fourMonths
-  ){
-
-    return "expiry-yellow";
-
-  }
-
-
-  return "expiry-green";
-
-}
-
-
-/* =====================================================
-   ITEM MAP
-===================================================== */
-
-async function loadItemMap(){
-
-  const itemMap = {};
-
-
-  let url =
-    SUPABASE_URL +
-    "/rest/v1/items?select=*";
-
-
-  if(!isMainHQ){
-
-    const branchUUID =
-      await findBranchUUID();
-
-
-    if(branchUUID){
-
-      url +=
-        "&branch_id=eq." +
-        encodeURIComponent(
-          branchUUID
-        );
-
-    }
-
-  }
-
-
-  const response =
-    await fetch(
-      url,
-      {
-        headers:
-          getHeaders()
-      }
-    );
-
-
-  if(!response.ok){
-
-    throw new Error(
-      "Items Error: " +
-      await response.text()
-    );
-
-  }
-
-
-  const items =
-    await response.json();
-
-
-  for(
-    const item of items
-  ){
-
-    if(
-      item.id !== null &&
-      item.id !== undefined
-    ){
-
-      itemMap[
-        String(item.id)
-      ] = {
-
-        name:
-          String(
-            item.name ||
-            item.item_name ||
-            item.itemName ||
-            "—"
-          ).trim(),
-
-        category:
-          String(
-            item.category ||
-            "—"
-          ).trim(),
-
-        unit:
-          String(
-            item.unit ||
-            "—"
-          ).trim(),
-
-        branch_id:
-          item.branch_id || ""
-
-      };
-
-    }
-
-  }
-
-
-  return itemMap;
-
-}
-
-
-/* =====================================================
-   ITEM NAME
-===================================================== */
-
-function getItemInfo(
-  transaction,
-  itemMap
-){
-
-  const itemId =
-    transaction.item_id;
-
-
-  if(
-    itemId !== null &&
-    itemId !== undefined &&
-    String(itemId).trim() !== ""
-  ){
-
-    const mapped =
-      itemMap[
-        String(itemId)
-      ];
-
-
-    if(mapped){
-
-      return mapped;
-
-    }
-
-  }
-
-
-  return {
-
-    name:
-      String(
-        transaction.item_name ||
-        transaction.itemName ||
-        transaction.name ||
-        "—"
-      ).trim(),
-
-    category:
-      String(
-        transaction.category ||
-        "—"
-      ).trim(),
-
-    unit:
-      String(
-        transaction.unit ||
-        "—"
-      ).trim(),
-
-    branch_id:
-      transaction.branch_id ||
-      ""
-
-  };
-
-}
-
-
-/* =====================================================
-   TRANSACTION TYPE
-===================================================== */
-
-function getType(transaction){
-
-  return String(
-    transaction.transaction_type ||
-    ""
-  )
-  .trim()
-  .toUpperCase();
-
-}
-
-
-/* =====================================================
-   MODEL INFORMATION
-===================================================== */
-
-function getModelInfo(
-  transaction
-){
-
-  const transactionText =
-    String(
-      transaction.transaction ||
-      transaction.description ||
-      transaction.transaction_description ||
-      ""
-    ).trim();
-
-
-  const model19 =
-    String(
-      transaction.model_19 ||
-      transaction.model19 ||
-      transaction.model19_number ||
-      transaction.model_19_number ||
-      ""
-    ).trim();
-
-
-  const model22 =
-    String(
-      transaction.model_22 ||
-      transaction.model22 ||
-      ""
-    ).trim();
-
-
-  const model22Number =
-    String(
-      transaction.model_22_number ||
-      transaction.model22_number ||
-      transaction.model_22_code ||
-      transaction.model22_code ||
-      transaction.model_22_no ||
-      transaction.model22_no ||
-      ""
-    ).trim();
-
-
-  let found19 =
-    model19;
-
-  let found22 =
-    model22;
-
-  let found22Number =
-    model22Number;
-
-
-  /*
-    Current database can store Model 22
-    inside transaction text, for example:
-
-    Emergency Relief - Model 22 - 12345
-  */
-
-  const model22Match =
-    transactionText.match(
-      /model\s*22\s*[-:#]?\s*([A-Za-z0-9\/_-]*)/i
-    );
-
-
-  if(
-    !found22 &&
-    model22Match
-  ){
-
-    found22 =
-      "Model 22";
-
-  }
-
-
-  if(
-    !found22Number &&
-    model22Match &&
-    model22Match[1]
-  ){
-
-    found22Number =
-      model22Match[1];
-
-  }
-
-
-  /*
-    Model 19 may also be stored
-    in transaction description.
-  */
-
-  const model19Match =
-    transactionText.match(
-      /model\s*19\s*[-:#]?\s*([A-Za-z0-9\/_-]*)/i
-    );
-
-
-  if(
-    !found19 &&
-    model19Match
-  ){
-
-    found19 =
-      model19Match[1]
-        ? "Model 19 - " +
-          model19Match[1]
-        : "Model 19";
-
-  }
-
-
-  /*
-    For OUT, Model 22 is required.
-    For IN, Model 19 is expected.
-  */
-
-  const type =
-    getType(transaction);
-
-
-  if(
-    type === "IN" &&
-    !found19
-  ){
-
-    if(
-      /model\s*19/i.test(
-        transactionText
-      )
-    ){
-
-      found19 =
-        "Model 19";
-
-    }
-
-  }
-
-
-  if(
-    type === "OUT" &&
-    !found22
-  ){
-
-    if(
-      /model\s*22/i.test(
-        transactionText
-      )
-    ){
-
-      found22 =
-        "Model 22";
-
-    }
-
-  }
-
-
-  return {
-
-    model19:
-      found19 || "—",
-
-    model22:
-      found22 || "—",
-
-    model22Number:
-      found22Number || "—",
-
-    transactionText
-
-  };
-
-}
-
-
-/* =====================================================
-   DESCRIPTION
-===================================================== */
-
-function getDescription(
-  transaction,
-  modelInfo
-){
-
-  const explicitDescription =
-    String(
-      transaction.description ||
-      transaction.transaction_description ||
-      transaction.reason ||
-      transaction.notes ||
-      ""
-    ).trim();
-
-
-  if(explicitDescription){
-
-    return explicitDescription;
-
-  }
-
-
-  const transactionText =
-    modelInfo.transactionText;
-
-
-  if(!transactionText){
-
-    return "—";
-
-  }
-
-
-  /*
-    Remove only model information from
-    description when possible.
-  */
-
-  let description =
-    transactionText
-      .replace(
-        /model\s*19\s*[-:#]?\s*[A-Za-z0-9\/_-]*/gi,
-        ""
-      )
-      .replace(
-        /model\s*22\s*[-:#]?\s*[A-Za-z0-9\/_-]*/gi,
-        ""
-      )
-      .replace(
-        /\s*[-–—]\s*/g,
-        " "
-      )
-      .trim();
-
-
-  if(!description){
-
-    if(
-      /emergency\s*relief/i.test(
-        transactionText
-      )
-    ){
-
-      return "Emergency Relief";
-
-    }
-
-
-    if(
-      getType(transaction) === "IN"
-    ){
-
-      return "Stock IN";
-
-    }
-
-
-    if(
-      getType(transaction) === "OUT"
-    ){
-
-      return "Stock OUT";
-
-    }
-
-  }
-
-
-  return description || "—";
-
-}
-
-
-/* =====================================================
-   BRANCH NAME
-===================================================== */
-
-async function loadBranchMap(){
-
-  const branchMap = {};
-
-
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/rest/v1/branches?select=*",
-      {
-        headers:
-          getHeaders()
-      }
-    );
-
-
-  if(!response.ok){
-
-    return branchMap;
-
-  }
-
-
-  const branches =
-    await response.json();
-
-
-  for(
-    const branch of branches
-  ){
-
-    if(
-      branch.id
-    ){
-
-      branchMap[
-        String(branch.id)
-      ] =
-        String(
-          branch.name ||
-          branch.branch_name ||
-          branch.code ||
-          branch.branch_code ||
-          "—"
-        );
-
-    }
-
-  }
-
-
-  return branchMap;
-
-}
-
-
-/* =====================================================
-   GET BRANCH
-===================================================== */
-
-function getBranchName(
-  transaction,
-  branchMap
-){
-
-  const direct =
-    String(
-      transaction.branch_name ||
-      transaction.branchName ||
-      ""
-    ).trim();
-
-
-  if(direct){
-
-    return direct;
-
-  }
-
-
-  const branchId =
-    transaction.branch_id;
-
-
-  if(
-    branchId &&
-    branchMap[
-      String(branchId)
-    ]
-  ){
-
-    return branchMap[
-      String(branchId)
-    ];
-
-  }
-
-
-  if(
-    transaction.branch_code
-  ){
-
-    return String(
-      transaction.branch_code
-    );
-
-  }
-
-
-  if(
-    isMainHQ
-  ){
-
-    return "MAIN / HQ";
-
-  }
-
-
-  return (
-    selectedBranchName ||
-    selectedBranchCode ||
-    "—"
-  );
-
-}
-
-
-/* =====================================================
-   LOAD REPORT
-===================================================== */
-
-async function loadReport(){
-
-  const list =
-    document.getElementById(
-      "reportList"
-    );
-
-
-  list.innerHTML = `
-
-    <tr>
-
-      <td
-        colspan="19"
-        class="loading"
-      >
-        ⏳ Loading report...
-      </td>
-
-    </tr>
+        <tbody>
 
   `;
 
+  groups.forEach((group,index)=>{
 
-  try{
+    /*
+      Latest transaction is used for the summary
+      transaction columns.
 
-    /* ================================================
-       BRANCH
-    ================================================ */
+      All transactions remain available through Detail.
+    */
 
-    const branchUUID =
-      await findBranchUUID();
+    const latest =
+      group.transactions[0];
 
+    const latestType =
+      getType(latest);
 
-    /* ================================================
-       TRANSACTION URL
-    ================================================ */
+    const latestModel =
+      getModelInfo(latest);
 
-    let url =
-      SUPABASE_URL +
-      "/rest/v1/stock_transactions?select=*&order=id.desc";
+    const latestItem =
+      getItemInfo(latest);
 
+    const latestBranch =
+      getBranchInfo(latest);
 
-    if(!isMainHQ){
+    const latestDescription =
+      getDescription(latest);
 
-      if(!branchUUID){
-
-        throw new Error(
-          "Branch UUID hin jiru."
-        );
-
-      }
-
-
-      url =
-        SUPABASE_URL +
-        "/rest/v1/stock_transactions" +
-        "?select=*" +
-        "&branch_id=eq." +
-        encodeURIComponent(
-          branchUUID
-        ) +
-        "&order=id.desc";
-
-    }
-
-
-    /* ================================================
-       FETCH
-    ================================================ */
-
-    const response =
-      await fetch(
-        url,
-        {
-          headers:
-            getHeaders()
-        }
-      );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        await response.text()
-      );
-
-    }
-
-
-    let data =
-      await response.json();
-
-
-    /* ================================================
-       MAPS
-    ================================================ */
-
-    const itemMap =
-      await loadItemMap();
-
-
-    const branchMap =
-      await loadBranchMap();
-
-
-    /* ================================================
-       FILTERS
-    ================================================ */
-
-    const date =
-      document.getElementById(
-        "dateFilter"
-      ).value;
-
-
-    const enteredBy =
-      document.getElementById(
-        "enteredByFilter"
-      ).value
-      .trim()
-      .toLowerCase();
-
-
-    const itemFilter =
-      document.getElementById(
-        "itemFilter"
-      ).value
-      .trim()
-      .toLowerCase();
-
-
-    const type =
-      document.getElementById(
-        "typeFilter"
-      ).value;
-
-
-    /* ================================================
-       FILTER DATA
-    ================================================ */
-
-    data =
-      data.filter(
-        transaction => {
-
-          const itemInfo =
-            getItemInfo(
-              transaction,
-              itemMap
-            );
-
-
-          if(date){
-
-            const rawDate =
-              transaction.entered_at ||
-              transaction.created_at ||
-              transaction.date ||
-              "";
-
-
-            const transactionDate =
-              String(rawDate)
-                .substring(0,10);
-
-
-            if(
-              transactionDate !== date
-            ){
-
-              return false;
-
-            }
-
-          }
-
-
-          if(enteredBy){
-
-            const entered =
-              String(
-                transaction.entered_by ||
-                ""
-              )
-              .toLowerCase();
-
-
-            const issued =
-              String(
-                transaction.issued_by ||
-                ""
-              )
-              .toLowerCase();
-
-
-            if(
-              !entered.includes(
-                enteredBy
-              ) &&
-              !issued.includes(
-                enteredBy
-              )
-            ){
-
-              return false;
-
-            }
-
-          }
-
-
-          if(itemFilter){
-
-            const name =
-              String(
-                itemInfo.name ||
-                ""
-              ).toLowerCase();
-
-
-            if(
-              !name.includes(
-                itemFilter
-              )
-            ){
-
-              return false;
-
-            }
-
-          }
-
-
-          const transactionType =
-            getType(
-              transaction
-            );
-
-
-          if(
-            type &&
-            transactionType !== type
-          ){
-
-            return false;
-
-          }
-
-
-          return true;
-
-        }
-      );
-
-
-    /* ================================================
-       SUMMARY
-    ================================================ */
-
-    let totalIn = 0;
-    let totalOut = 0;
-
-
-    const itemGroups = {};
-
-
-    for(
-      const transaction of data
-    ){
-
-      const quantity =
-        Number(
-          transaction.quantity ||
-          0
-        );
-
-
-      const transactionType =
-        getType(
-          transaction
-        );
-
-
-      if(
-        transactionType === "IN"
-      ){
-
-        totalIn +=
-          quantity;
-
-      }
-
-
-      if(
-        transactionType === "OUT"
-      ){
-
-        totalOut +=
-          quantity;
-
-      }
-
-
-      const itemInfo =
-        getItemInfo(
-          transaction,
-          itemMap
-        );
-
-
-      const itemKey =
-        String(
-          transaction.item_id ||
-          itemInfo.name
-        );
-
-
-      if(
-        !itemGroups[itemKey]
-      ){
-
-        itemGroups[itemKey] = {
-
-          itemId:
-            transaction.item_id ||
-            "",
-
-          name:
-            itemInfo.name,
-
-          category:
-            itemInfo.category,
-
-          unit:
-            itemInfo.unit,
-
-          branch:
-            getBranchName(
-              transaction,
-              branchMap
-            ),
-
-          totalIn:
-            0,
-
-          totalOut:
-            0,
-
-          transactions:
-            []
-
-        };
-
-      }
-
-
-      if(
-        transactionType === "IN"
-      ){
-
-        itemGroups[
-          itemKey
-        ].totalIn +=
-          quantity;
-
-      }
-
-
-      if(
-        transactionType === "OUT"
-      ){
-
-        itemGroups[
-          itemKey
-        ].totalOut +=
-          quantity;
-
-      }
-
-
-      itemGroups[
-        itemKey
-      ].transactions.push(
-        transaction
-      );
-
-    }
-
+    const latestQuantity =
+      num(latest.quantity);
 
     const balance =
-      totalIn -
-      totalOut;
+      group.totalIn -
+      group.totalOut;
 
-
-    document.getElementById(
-      "reportIn"
-    ).textContent =
-      totalIn;
-
-
-    document.getElementById(
-      "reportOut"
-    ).textContent =
-      totalOut;
-
-
-    document.getElementById(
-      "reportTransactions"
-    ).textContent =
-      data.length;
-
-
-    document.getElementById(
-      "reportItems"
-    ).textContent =
-      Object.keys(
-        itemGroups
-      ).length;
-
-
-    document.getElementById(
-      "reportBalance"
-    ).textContent =
-      balance;
-
-
-    /* ================================================
-       EMPTY
-    ================================================ */
-
-    if(
-      data.length === 0
-    ){
-
-      list.innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="19"
-            class="empty"
-          >
-
-            📭 No stock transactions found.
-
-          </td>
-
-        </tr>
-
-      `;
-
-      return;
-
-    }
-
-
-    /* ================================================
-       BUILD SUMMARY
-    ================================================ */
-
-    list.innerHTML = "";
-
-
-    let index = 0;
-
-
-    for(
-      const key of Object.keys(
-        itemGroups
-      )
-    ){
-
-      const group =
-        itemGroups[key];
-
-
-      const groupBalance =
-        group.totalIn -
-        group.totalOut;
-
-
-      const balanceClass =
-        groupBalance > 0
-          ? "balance-positive"
-          : groupBalance < 0
-            ? "balance-negative"
-            : "balance-zero";
-
-
-      const detailId =
-        "detail_" +
-        index;
-
-
-      /*
-        Transaction Type summary
-      */
-
-      let typeSummary =
-        "—";
-
-
-      const hasIN =
-        group.transactions.some(
-          t =>
-            getType(t) === "IN"
-        );
-
-
-      const hasOUT =
-        group.transactions.some(
-          t =>
-            getType(t) === "OUT"
-        );
-
-
-      if(
-        hasIN &&
-        hasOUT
-      ){
-
-        typeSummary =
-          "IN / OUT";
-
-      }
-      else if(hasIN){
-
-        typeSummary =
-          "IN";
-
-      }
-      else if(hasOUT){
-
-        typeSummary =
-          "OUT";
-
-      }
-
-
-      /*
-        Last transaction information
-      */
-
-      const latest =
-        group.transactions[0] ||
-        {};
-
-
-      const latestType =
-        getType(
-          latest
-        );
-
-
-      const latestQuantity =
-        latest.quantity ??
-        "—";
-
-
-      const latestDate =
-        latest.entered_at ||
-        latest.created_at ||
-        latest.date ||
-        "";
-
-
-      const latestEntered =
-        latest.entered_by ||
-        "—";
-
-
-      const latestIssued =
-        latest.issued_by ||
-        "—";
-
-
-      const latestExpiry =
-        latest.expiry_date ||
-        "—";
-
-
-      const latestSignature =
-        latest.signature ||
-        "—";
-
-
-      const latestModel =
-        getModelInfo(
-          latest
-        );
-
-
-      const latestDescription =
-        getDescription(
-          latest,
-          latestModel
-        );
-
-
-      const latestBranch =
-        getBranchName(
-          latest,
-          branchMap
-        );
-
-
-      const latestTransactionLabel =
-        latestType === "IN"
-          ? `<span class="in-badge">📥 IN</span>`
-          : latestType === "OUT"
-            ? `<span class="out-badge">📤 OUT</span>`
-            : "—";
-
-
-      const latestExpiryClass =
-        getExpiryClass(
-          latestExpiry
-        );
-
-
-      list.innerHTML += `
-
-        <!-- SUMMARY ROW -->
-
-        <tr class="summary-row">
-
-          <td>
-
-            <strong>
-              ${escapeHTML(
-                group.name
-              )}
-            </strong>
-
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              group.category
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              group.unit
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              group.totalIn
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              group.totalOut
-            )}
-          </td>
-
-
-          <td class="${balanceClass}">
-            ${escapeHTML(
-              groupBalance
-            )}
-          </td>
-
-
-          <td>
-            ${typeSummary}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestQuantity
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              formatDate(
-                latestDate
-              )
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestEntered
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestIssued
-            )}
-          </td>
-
-
-          <td class="${latestExpiryClass}">
-            ${escapeHTML(
-              latestExpiry
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestSignature
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestModel.model19
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestModel.model22
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestModel.model22Number
-            )}
-          </td>
-
-
-          <td>
-            ${escapeHTML(
-              latestBranch
-            )}
-          </td>
-
-
-          <td class="description-cell">
-            ${escapeHTML(
-              latestDescription
-            )}
-          </td>
-
-
-          <td>
-
-            <button
-              class="detail-btn"
-              onclick="toggleDetail('${detailId}', this)"
-            >
-              🔍 Detail
-            </button>
-
-          </td>
-
-        </tr>
-
-
-        <!-- DETAIL ROW -->
-
-        <tr
-          id="${detailId}"
-          class="detail-row"
-        >
-
-          <td
-            colspan="19"
-            class="detail-cell"
-          >
-
-            <h3 class="detail-title">
-
-              📋 Transaction Details —
-              ${escapeHTML(
-                group.name
-              )}
-
-            </h3>
-
-
-            <div class="detail-wrapper">
-
-              <table class="detail-table">
-
-                <thead>
-
-                  <tr>
-
-                    <th>Item Name</th>
-
-                    <th>Category</th>
-
-                    <th>Unit</th>
-
-                    <th>Total Stock IN</th>
-
-                    <th>Total Stock OUT</th>
-
-                    <th>Current Balance</th>
-
-                    <th>Transaction Type</th>
-
-                    <th>Quantity</th>
-
-                    <th>Date & Time</th>
-
-                    <th>Entered By</th>
-
-                    <th>Issued By</th>
-
-                    <th>Expiry Date</th>
-
-                    <th>Signature</th>
-
-                    <th>Model 19</th>
-
-                    <th>Model 22</th>
-
-                    <th>Model 22 Number/Code</th>
-
-                    <th>Branch</th>
-
-                    <th>Transaction/Description</th>
-
-                  </tr>
-
-                </thead>
-
-
-                <tbody>
-
-      `;
-
-
-      /*
-        Every transaction for this item
-      */
-
-      for(
-        const transaction of
-          group.transactions
-      ){
-
-        const transactionType =
-          getType(
-            transaction
-          );
-
-
-        const quantity =
-          transaction.quantity ??
-          0;
-
-
-        const dateValue =
-          transaction.entered_at ||
-          transaction.created_at ||
-          transaction.date ||
-          "";
-
-
-        const enteredBy =
-          transaction.entered_by ||
-          "—";
-
-
-        const issuedBy =
-          transaction.issued_by ||
-          "—";
-
-
-        const expiryDate =
-          transaction.expiry_date ||
-          "—";
-
-
-        const signature =
-          transaction.signature ||
-          "—";
-
-
-        const modelInfo =
-          getModelInfo(
-            transaction
-          );
-
-
-        const description =
-          getDescription(
-            transaction,
-            modelInfo
-          );
-
-
-        const branch =
-          getBranchName(
-            transaction,
-            branchMap
-          );
-
-
-        const transactionLabel =
-          transactionType === "IN"
-            ? `<span class="in-badge">📥 IN</span>`
-            : transactionType === "OUT"
-              ? `<span class="out-badge">📤 OUT</span>`
-              : escapeHTML(
-                  transactionType ||
-                  "—"
-                );
-
-
-        const rowClass =
-          transactionType === "IN"
-            ? "in-row"
-            : transactionType === "OUT"
-              ? "out-row"
-              : "";
-
-
-        const expiryClass =
-          getExpiryClass(
-            expiryDate
-          );
-
-
-        list.innerHTML += `
-
-          <tr
-            class="${rowClass}"
-          >
-
-            <td>
-              ${escapeHTML(
-                group.name
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                group.category
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                group.unit
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                group.totalIn
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                group.totalOut
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                groupBalance
-              )}
-            </td>
-
-
-            <td>
-              ${transactionLabel}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                quantity
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                formatDate(
-                  dateValue
-                )
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                enteredBy
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                issuedBy
-              )}
-            </td>
-
-
-            <td
-              class="${expiryClass}"
-            >
-              ${escapeHTML(
-                expiryDate
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                signature
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                modelInfo.model19
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                modelInfo.model22
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                modelInfo.model22Number
-              )}
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                branch
-              )}
-            </td>
-
-
-            <td class="description-cell">
-              ${escapeHTML(
-                description
-              )}
-            </td>
-
-          </tr>
-
-        `;
-
-      }
-
-
-      list.innerHTML += `
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </td>
-
-        </tr>
-
-      `;
-
-
-      index++;
-
-    }
-
-  }
-  catch(error){
-
-    console.error(
-      "REPORT ERROR:",
-      error
-    );
-
-
-    list.innerHTML = `
+    html += `
 
       <tr>
 
-        <td
-          colspan="19"
-          class="empty"
-        >
+        <td>
+          ${esc(group.itemName)}
+        </td>
 
-          ❌ Report Error:
+        <td>
+          ${esc(group.category)}
+        </td>
 
-          <br><br>
+        <td>
+          ${esc(group.unit)}
+        </td>
 
-          ${escapeHTML(
-            error.message
+        <td>
+          ${group.totalIn}
+        </td>
+
+        <td>
+          ${group.totalOut}
+        </td>
+
+        <td>
+          <strong>
+            ${balance}
+          </strong>
+        </td>
+
+        <td>
+
+          <span
+            class="badge ${
+              latestType === "IN"
+                ? "badge-in"
+                : "badge-out"
+            }"
+          >
+            ${esc(latestType)}
+          </span>
+
+        </td>
+
+        <td>
+          ${latestQuantity}
+        </td>
+
+        <td>
+          ${esc(
+            formatDate(
+              latest.entered_at ||
+              latest.created_at ||
+              latest.date
+            )
           )}
+        </td>
+
+        <td>
+          ${esc(
+            latest.entered_by || ""
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            latest.issued_by || ""
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            latest.expiry_date || ""
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            latest.signature || ""
+          )}
+        </td>
+
+        <td>
+          ${
+            latestType === "IN"
+              ? esc(latestModel.model19)
+              : ""
+          }
+        </td>
+
+        <td>
+          ${
+            latestType === "OUT"
+              ? esc(latestModel.model22)
+              : ""
+          }
+        </td>
+
+        <td>
+          ${
+            latestType === "OUT"
+              ? esc(
+                  latestModel.model22 &&
+                  latestModel.model22 !==
+                    "Model 22"
+                    ? latestModel.model22
+                    : ""
+                )
+              : ""
+          }
+        </td>
+
+        <td>
+          ${esc(
+            latestBranch.name ||
+            latestBranch.code ||
+            ""
+          )}
+        </td>
+
+        <td>
+          ${esc(latestDescription)}
+        </td>
+
+        <td>
+
+          <button
+            class="detail-btn"
+            onclick="showDetails(${index})"
+          >
+            Detail
+          </button>
 
         </td>
 
@@ -2844,57 +1844,384 @@ async function loadReport(){
 
     `;
 
-  }
+  });
+
+  html += `
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("summaryArea")
+    .innerHTML =
+      html;
+
+  /*
+    Save current groups so Detail can access them.
+  */
+
+  window.reportGroups =
+    groups;
 
 }
 
 
 /* =====================================================
-   TOGGLE DETAIL
+   SHOW DETAIL
 ===================================================== */
 
-function toggleDetail(
-  detailId,
-  button
-){
+function showDetails(index){
 
-  const row =
-    document.getElementById(
-      detailId
-    );
+  const groups =
+    window.reportGroups || [];
 
+  const group =
+    groups[index];
 
-  if(!row){
-
+  if(!group){
     return;
-
   }
 
+  document
+    .getElementById("detailTitle")
+    .textContent =
+      "Detail - " +
+      group.itemName;
 
-  const isOpen =
-    row.classList.contains(
-      "show"
-    );
+  let html = `
+
+    <div class="detail-info">
+
+      <div>
+
+        <strong>Item Name</strong>
+
+        <span>
+          ${esc(group.itemName)}
+        </span>
+
+      </div>
+
+      <div>
+
+        <strong>Category</strong>
+
+        <span>
+          ${esc(group.category)}
+        </span>
+
+      </div>
+
+      <div>
+
+        <strong>Unit</strong>
+
+        <span>
+          ${esc(group.unit)}
+        </span>
+
+      </div>
+
+      <div>
+
+        <strong>Total Stock IN</strong>
+
+        <span>
+          ${group.totalIn}
+        </span>
+
+      </div>
+
+      <div>
+
+        <strong>Total Stock OUT</strong>
+
+        <span>
+          ${group.totalOut}
+        </span>
+
+      </div>
+
+      <div>
+
+        <strong>Current Balance</strong>
+
+        <span>
+          ${group.totalIn - group.totalOut}
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="table-scroll">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Item Name</th>
+
+            <th>Category</th>
+
+            <th>Unit</th>
+
+            <th>Transaction Type</th>
+
+            <th>Quantity</th>
+
+            <th>Date & Time</th>
+
+            <th>Entered By</th>
+
+            <th>Issued By</th>
+
+            <th>Expiry Date</th>
+
+            <th>Signature</th>
+
+            <th>Model 19</th>
+
+            <th>Model 22</th>
+
+            <th>Model 22 Number/Code</th>
+
+            <th>Branch</th>
+
+            <th>Transaction / Description</th>
+
+            <th>Detail</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+  `;
+
+  group.transactions.forEach(row=>{
+
+    const type =
+      getType(row);
+
+    const model =
+      getModelInfo(row);
+
+    const item =
+      getItemInfo(row);
+
+    const branch =
+      getBranchInfo(row);
+
+    const description =
+      getDescription(row);
+
+    /*
+      Model 22 number is separated from
+      the general Model 22 label.
+    */
+
+    let model22Number = "";
+
+    if(
+      type === "OUT" &&
+      model.model22 &&
+      model.model22 !== "Model 22"
+    ){
+
+      model22Number =
+        model.model22;
+
+    }
+
+    /*
+      For Model 19, the value may be:
+      Model 19
+      or Model 19 number.
+    */
+
+    let model19Display = "";
+
+    if(type === "IN"){
+
+      model19Display =
+        model.model19 || "";
+
+    }
+
+    html += `
+
+      <tr>
+
+        <td>
+          ${esc(item.name)}
+        </td>
+
+        <td>
+          ${esc(
+            item.category ||
+            row.category ||
+            ""
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            item.unit ||
+            row.unit ||
+            ""
+          )}
+        </td>
+
+        <td>
+
+          <span
+            class="badge ${
+              type === "IN"
+                ? "badge-in"
+                : "badge-out"
+            }"
+          >
+            ${esc(type)}
+          </span>
+
+        </td>
+
+        <td>
+          ${num(row.quantity)}
+        </td>
+
+        <td>
+          ${esc(
+            formatDate(
+              row.entered_at ||
+              row.created_at ||
+              row.date
+            )
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            row.entered_by || ""
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            row.issued_by || ""
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            row.expiry_date || ""
+          )}
+        </td>
+
+        <td>
+          ${esc(
+            row.signature || ""
+          )}
+        </td>
+
+        <td>
+          ${esc(model19Display)}
+        </td>
+
+        <td>
+          ${
+            type === "OUT"
+              ? esc(
+                  model.model22 || ""
+                )
+              : ""
+          }
+        </td>
+
+        <td>
+          ${esc(model22Number)}
+        </td>
+
+        <td>
+          ${esc(
+            branch.name ||
+            branch.code ||
+            ""
+          )}
+        </td>
+
+        <td>
+          ${esc(description)}
+        </td>
+
+        <td>
+          ${esc(description)}
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+  html += `
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("detailBody")
+    .innerHTML =
+      html;
+
+  document
+    .getElementById("detailModal")
+    .style.display =
+      "block";
+
+}
 
 
-  if(isOpen){
+/* =====================================================
+   CLOSE DETAIL
+===================================================== */
 
-    row.classList.remove(
-      "show"
-    );
+function closeDetail(){
 
-    button.textContent =
-      "🔍 Detail";
+  document
+    .getElementById("detailModal")
+    .style.display =
+      "none";
 
-  }
-  else{
+}
 
-    row.classList.add(
-      "show"
-    );
 
-    button.textContent =
-      "🔽 Hide Detail";
+/* =====================================================
+   CLOSE OUTSIDE
+===================================================== */
+
+function closeModalOutside(event){
+
+  if(
+    event.target.id ===
+    "detailModal"
+  ){
+
+    closeDetail();
 
   }
 
@@ -2902,81 +2229,75 @@ function toggleDetail(
 
 
 /* =====================================================
-   CLEAR FILTERS
+   DASHBOARD
 ===================================================== */
 
-function clearFilters(){
-
-  document.getElementById(
-    "dateFilter"
-  ).value = "";
-
-
-  document.getElementById(
-    "enteredByFilter"
-  ).value = "";
-
-
-  document.getElementById(
-    "itemFilter"
-  ).value = "";
-
-
-  document.getElementById(
-    "typeFilter"
-  ).value = "";
-
-
-  loadReport();
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logoutUser(){
-
-  localStorage.removeItem(
-    "access_token"
-  );
-
-  localStorage.removeItem(
-    "refresh_token"
-  );
-
-  localStorage.removeItem(
-    "is_logged_in"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_id"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_name"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_code"
-  );
-
-  localStorage.removeItem(
-    "selected_branch_uuid"
-  );
-
-  localStorage.removeItem(
-    "user_role"
-  );
-
-  localStorage.removeItem(
-    "login_user"
-  );
-
+function goDashboard(){
 
   window.location.href =
-    "index.html";
+    "./dashboard.html";
+
+}
+
+
+/* =====================================================
+   LOAD EVERYTHING
+===================================================== */
+
+async function init(){
+
+  try{
+
+    document
+      .getElementById("branchName")
+      .textContent =
+        branchInfo.name ||
+        branchInfo.code ||
+        "Main";
+
+    await loadBranchMap();
+
+    await loadItemMap();
+
+    await loadTransactions();
+
+    filteredTransactions =
+      [...allTransactions];
+
+    renderReport();
+
+  }catch(error){
+
+    console.error(error);
+
+    document
+      .getElementById("errorBox")
+      .innerHTML = `
+
+        <div class="error">
+
+          ${esc(
+            error.message ||
+            "Report loading failed."
+          )}
+
+        </div>
+
+      `;
+
+    document
+      .getElementById("summaryArea")
+      .innerHTML = `
+
+        <div class="empty">
+
+          Report could not be loaded.
+
+        </div>
+
+      `;
+
+  }
 
 }
 
@@ -2985,10 +2306,7 @@ function logoutUser(){
    START
 ===================================================== */
 
-showBranchInfo();
-
-loadReport();
-
+init();
 
 </script>
 
