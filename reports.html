@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AADLM - Reports</title>
+<title>AADLM - Stock Report</title>
 
 <style>
 
@@ -61,7 +61,7 @@ nav a:hover{
 
 .container{
   width:95%;
-  max-width:1500px;
+  max-width:1600px;
   margin:25px auto;
 }
 
@@ -86,6 +86,16 @@ nav a:hover{
   padding:12px;
   border-radius:8px;
   margin-bottom:20px;
+  font-weight:bold;
+}
+
+.main-view{
+  background:#dbeafe;
+  color:#1e40af;
+  padding:10px;
+  border-radius:8px;
+  text-align:center;
+  margin-bottom:15px;
   font-weight:bold;
 }
 
@@ -152,8 +162,15 @@ button{
 
 table{
   width:100%;
-  min-width:1250px;
   border-collapse:collapse;
+}
+
+.summary-table{
+  min-width:1250px;
+}
+
+.detail-table{
+  min-width:1800px;
 }
 
 th{
@@ -161,6 +178,7 @@ th{
   color:white;
   padding:12px 10px;
   white-space:nowrap;
+  border:1px solid #70452c;
 }
 
 td{
@@ -168,6 +186,69 @@ td{
   text-align:center;
   border-bottom:1px solid #ddd;
   white-space:nowrap;
+}
+
+.summary-row{
+  background:white;
+}
+
+.summary-row:hover{
+  background:#faf7f5;
+}
+
+.detail-row{
+  display:none;
+  background:#f8fafc;
+}
+
+.detail-row.show{
+  display:table-row;
+}
+
+.detail-cell{
+  padding:18px;
+  text-align:left;
+  white-space:normal;
+}
+
+.detail-wrapper{
+  width:100%;
+  overflow-x:auto;
+}
+
+.detail-title{
+  margin:0 0 12px;
+  color:#5b341f;
+  font-size:18px;
+}
+
+.detail-btn{
+  background:#5b341f;
+  color:white;
+  padding:8px 14px;
+  border-radius:6px;
+}
+
+.detail-btn:hover{
+  background:#3f2415;
+}
+
+.in-badge{
+  display:inline-block;
+  background:#dcfce7;
+  color:#166534;
+  padding:5px 9px;
+  border-radius:5px;
+  font-weight:bold;
+}
+
+.out-badge{
+  display:inline-block;
+  background:#fee2e2;
+  color:#991b1b;
+  padding:5px 9px;
+  border-radius:5px;
+  font-weight:bold;
 }
 
 .in-row{
@@ -210,14 +291,24 @@ td{
   color:white !important;
 }
 
-.main-view{
-  background:#dbeafe;
-  color:#1e40af;
-  padding:10px;
-  border-radius:8px;
-  text-align:center;
-  margin-bottom:15px;
+.balance-positive{
+  color:#15803d;
   font-weight:bold;
+}
+
+.balance-zero{
+  color:#64748b;
+  font-weight:bold;
+}
+
+.balance-negative{
+  color:#dc2626;
+  font-weight:bold;
+}
+
+.description-cell{
+  white-space:normal !important;
+  min-width:220px;
 }
 
 @media(max-width:600px){
@@ -252,9 +343,10 @@ td{
 
 <body>
 
+
 <header>
 
-  <h1>🏢 AAFDRMC</h1>
+  <h1>🏢 AADLM</h1>
 
   <p>Stock Management System</p>
 
@@ -276,7 +368,7 @@ td{
   </a>
 
   <a href="reports.html">
-    📊 Reports
+    📊 Stock Report
   </a>
 
   <a href="settings.html">
@@ -292,15 +384,22 @@ td{
 
 <div class="container">
 
+
   <div id="branchInfo" class="branch-info">
     Loading branch...
   </div>
 
 
-  <div id="mainViewMessage" class="main-view" style="display:none;">
+  <div
+    id="mainViewMessage"
+    class="main-view"
+    style="display:none;"
+  >
     👁️ Main / HQ View Mode — Report is view-only.
   </div>
 
+
+  <!-- FILTER -->
 
   <div class="box">
 
@@ -316,6 +415,11 @@ td{
       <input
         id="enteredByFilter"
         placeholder="Entered By"
+      >
+
+      <input
+        id="itemFilter"
+        placeholder="Item Name"
       >
 
       <select id="typeFilter">
@@ -355,6 +459,8 @@ td{
   </div>
 
 
+  <!-- SUMMARY CARDS -->
+
   <div class="summary">
 
     <div class="card">
@@ -368,8 +474,13 @@ td{
     </div>
 
     <div class="card">
-      📊 Transactions
+      📋 Transactions
       <strong id="reportTransactions">0</strong>
+    </div>
+
+    <div class="card">
+      📦 Items
+      <strong id="reportItems">0</strong>
     </div>
 
     <div class="card">
@@ -380,38 +491,71 @@ td{
   </div>
 
 
+  <!-- STOCK REPORT -->
+
   <div class="box">
 
-    <h2>📋 Stock Report</h2>
+    <h2>📊 Complete Stock Report</h2>
 
     <div class="table-container">
 
-      <table>
+      <table class="summary-table">
 
         <thead>
 
           <tr>
 
             <th>Item Name</th>
+
             <th>Category</th>
-            <th>Transaction</th>
-            <th>Quantity</th>
+
             <th>Unit</th>
-            <th>Date</th>
+
+            <th>Total Stock IN</th>
+
+            <th>Total Stock OUT</th>
+
+            <th>Current Balance</th>
+
+            <th>Transaction Type</th>
+
+            <th>Quantity</th>
+
+            <th>Date & Time</th>
+
             <th>Entered By</th>
+
             <th>Issued By</th>
-            <th>EX Date</th>
+
+            <th>Expiry Date</th>
+
             <th>Signature</th>
+
+            <th>Model 19</th>
+
+            <th>Model 22</th>
+
+            <th>Model 22 Number/Code</th>
+
+            <th>Branch</th>
+
+            <th>Transaction/Description</th>
+
+            <th>Detail</th>
 
           </tr>
 
         </thead>
 
+
         <tbody id="reportList">
 
           <tr>
 
-            <td colspan="10" class="loading">
+            <td
+              colspan="19"
+              class="loading"
+            >
               Loading report...
             </td>
 
@@ -425,10 +569,12 @@ td{
 
   </div>
 
+
 </div>
 
 
 <script>
+
 
 /* =====================================================
    SUPABASE
@@ -457,7 +603,8 @@ if(
   !accessToken
 ){
 
-  window.location.href = "index.html";
+  window.location.href =
+    "index.html";
 
 }
 
@@ -467,24 +614,29 @@ if(
 ===================================================== */
 
 const selectedBranchId =
-  localStorage.getItem("selected_branch_id") || "";
+  localStorage.getItem(
+    "selected_branch_id"
+  ) || "";
 
 const selectedBranchName =
-  localStorage.getItem("selected_branch_name") || "";
+  localStorage.getItem(
+    "selected_branch_name"
+  ) || "";
 
 const selectedBranchCode =
-  localStorage.getItem("selected_branch_code") || "";
+  localStorage.getItem(
+    "selected_branch_code"
+  ) || "";
 
 const userRole =
-  localStorage.getItem("user_role") || "";
+  localStorage.getItem(
+    "user_role"
+  ) || "";
 
-
-/* =====================================================
-   MAIN CHECK
-===================================================== */
 
 const isMain =
   userRole.toLowerCase() === "main";
+
 
 const isMainHQ =
   isMain &&
@@ -502,25 +654,33 @@ function getHeaders(){
 
   const headers = {
 
-    "apikey": SUPABASE_KEY,
+    "apikey":
+      SUPABASE_KEY,
 
     "Content-Type":
       "application/json"
 
   };
 
+
   const token =
-    localStorage.getItem("access_token");
+    localStorage.getItem(
+      "access_token"
+    );
+
 
   if(
     token &&
-    !token.startsWith("sb_publishable_")
+    !token.startsWith(
+      "sb_publishable_"
+    )
   ){
 
     headers["Authorization"] =
       "Bearer " + token;
 
   }
+
 
   return headers;
 
@@ -534,19 +694,24 @@ function getHeaders(){
 function isUUID(value){
 
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    .test(String(value || ""));
+    .test(
+      String(value || "")
+    );
 
 }
 
 
 /* =====================================================
-   BRANCH UUID
+   FIND BRANCH UUID
 ===================================================== */
 
 async function findBranchUUID(){
 
   const savedUUID =
-    localStorage.getItem("selected_branch_uuid");
+    localStorage.getItem(
+      "selected_branch_uuid"
+    );
+
 
   if(
     savedUUID &&
@@ -570,7 +735,8 @@ async function findBranchUUID(){
       SUPABASE_URL +
       "/rest/v1/branches?select=*",
       {
-        headers:getHeaders()
+        headers:
+          getHeaders()
       }
     );
 
@@ -609,16 +775,19 @@ async function findBranchUUID(){
 
 
   const codeFields = [
+
     "code",
     "branch_code",
     "branchCode",
     "branchcode",
     "branch_id_code",
     "short_code"
+
   ];
 
 
   const nameFields = [
+
     "name",
     "branch_name",
     "branch",
@@ -627,13 +796,16 @@ async function findBranchUUID(){
     "branch_title",
     "office_name",
     "office"
+
   ];
 
 
   let found = null;
 
 
-  for(const branch of branches){
+  for(
+    const branch of branches
+  ){
 
     if(
       !branch.id ||
@@ -645,11 +817,16 @@ async function findBranchUUID(){
     }
 
 
-    let codeMatch = false;
-    let nameMatch = false;
+    let codeMatch =
+      false;
+
+    let nameMatch =
+      false;
 
 
-    for(const field of codeFields){
+    for(
+      const field of codeFields
+    ){
 
       const value =
         String(
@@ -672,7 +849,9 @@ async function findBranchUUID(){
     }
 
 
-    for(const field of nameFields){
+    for(
+      const field of nameFields
+    ){
 
       const value =
         String(
@@ -749,9 +928,12 @@ function showBranchInfo(){
     box.textContent =
       "🏢 MAIN / HQ — All Branches Report";
 
+
     document.getElementById(
       "mainViewMessage"
-    ).style.display = "block";
+    ).style.display =
+      "block";
+
 
     return;
 
@@ -771,7 +953,8 @@ function showBranchInfo(){
 
     document.getElementById(
       "mainViewMessage"
-    ).style.display = "block";
+    ).style.display =
+      "block";
 
   }
 
@@ -787,11 +970,26 @@ function escapeHTML(value){
   return String(
     value ?? ""
   )
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
@@ -803,11 +1001,15 @@ function escapeHTML(value){
 function formatDate(value){
 
   if(!value){
+
     return "—";
+
   }
+
 
   const d =
     new Date(value);
+
 
   if(
     isNaN(
@@ -819,16 +1021,19 @@ function formatDate(value){
 
   }
 
+
   return d.toLocaleString();
 
 }
 
 
 /* =====================================================
-   EX DATE COLOR
+   EXPIRY CLASS
 ===================================================== */
 
-function getExpiryClass(expiryDate){
+function getExpiryClass(
+  expiryDate
+){
 
   if(
     !expiryDate ||
@@ -847,7 +1052,8 @@ function getExpiryClass(expiryDate){
 
   const expiry =
     new Date(
-      expiryText + "T00:00:00"
+      expiryText +
+      "T00:00:00"
     );
 
 
@@ -865,8 +1071,12 @@ function getExpiryClass(expiryDate){
   const today =
     new Date();
 
+
   today.setHours(
-    0,0,0,0
+    0,
+    0,
+    0,
+    0
   );
 
 
@@ -882,8 +1092,10 @@ function getExpiryClass(expiryDate){
   const fourMonths =
     new Date(today);
 
+
   fourMonths.setMonth(
-    fourMonths.getMonth() + 4
+    fourMonths.getMonth() +
+    4
   );
 
 
@@ -903,28 +1115,23 @@ function getExpiryClass(expiryDate){
 
 /* =====================================================
    ITEM MAP
-   FIX:
-   item_id -> items.id -> items.name
 ===================================================== */
 
 async function loadItemMap(){
 
   const itemMap = {};
 
+
   let url =
     SUPABASE_URL +
-    "/rest/v1/items?select=id,name,branch_id";
+    "/rest/v1/items?select=*";
 
-
-  /*
-    Operational branch:
-    only current branch items.
-  */
 
   if(!isMainHQ){
 
     const branchUUID =
       await findBranchUUID();
+
 
     if(branchUUID){
 
@@ -943,7 +1150,8 @@ async function loadItemMap(){
     await fetch(
       url,
       {
-        headers:getHeaders()
+        headers:
+          getHeaders()
       }
     );
 
@@ -973,13 +1181,32 @@ async function loadItemMap(){
 
       itemMap[
         String(item.id)
-      ] =
-        String(
-          item.name ||
-          item.item_name ||
-          item.itemName ||
-          "—"
-        ).trim();
+      ] = {
+
+        name:
+          String(
+            item.name ||
+            item.item_name ||
+            item.itemName ||
+            "—"
+          ).trim(),
+
+        category:
+          String(
+            item.category ||
+            "—"
+          ).trim(),
+
+        unit:
+          String(
+            item.unit ||
+            "—"
+          ).trim(),
+
+        branch_id:
+          item.branch_id || ""
+
+      };
 
     }
 
@@ -992,44 +1219,13 @@ async function loadItemMap(){
 
 
 /* =====================================================
-   GET ITEM NAME
-   IMPORTANT FIX
-
-   Emergency Relief / Model 22
-   IS NOT the item name.
-
-   Priority:
-   1. item_name
-   2. itemName
-   3. item_id -> items table
-   4. name
-   5. safe fallback
+   ITEM NAME
 ===================================================== */
 
-function getItemName(
+function getItemInfo(
   transaction,
   itemMap
 ){
-
-  const directItemName =
-    String(
-      transaction.item_name ||
-      transaction.itemName ||
-      ""
-    ).trim();
-
-
-  if(
-    directItemName &&
-    !/emergency relief|model 22/i.test(
-      directItemName
-    )
-  ){
-
-    return directItemName;
-
-  }
-
 
   const itemId =
     transaction.item_id;
@@ -1041,75 +1237,54 @@ function getItemName(
     String(itemId).trim() !== ""
   ){
 
-    const mappedName =
+    const mapped =
       itemMap[
         String(itemId)
       ];
 
 
-    if(
-      mappedName &&
-      mappedName !== "—"
-    ){
+    if(mapped){
 
-      return mappedName;
+      return mapped;
 
     }
 
   }
 
 
-  const normalName =
-    String(
-      transaction.name ||
+  return {
+
+    name:
+      String(
+        transaction.item_name ||
+        transaction.itemName ||
+        transaction.name ||
+        "—"
+      ).trim(),
+
+    category:
+      String(
+        transaction.category ||
+        "—"
+      ).trim(),
+
+    unit:
+      String(
+        transaction.unit ||
+        "—"
+      ).trim(),
+
+    branch_id:
+      transaction.branch_id ||
       ""
-    ).trim();
 
-
-  if(
-    normalName &&
-    !/emergency relief|model 22/i.test(
-      normalName
-    )
-  ){
-
-    return normalName;
-
-  }
-
-
-  /*
-    NEVER use:
-    Emergency Relief - Model 22
-    as Item Name.
-  */
-
-  const transactionLabel =
-    String(
-      transaction.transaction ||
-      ""
-    ).trim();
-
-
-  if(
-    transactionLabel &&
-    !/emergency relief|model 22|stock in|stock out/i.test(
-      transactionLabel
-    )
-  ){
-
-    return transactionLabel;
-
-  }
-
-
-  return "—";
+  };
 
 }
 
 
 /* =====================================================
-   GET TRANSACTION TYPE
+   TRANSACTION TYPE
 ===================================================== */
 
 function getType(transaction){
@@ -1120,6 +1295,417 @@ function getType(transaction){
   )
   .trim()
   .toUpperCase();
+
+}
+
+
+/* =====================================================
+   MODEL INFORMATION
+===================================================== */
+
+function getModelInfo(
+  transaction
+){
+
+  const transactionText =
+    String(
+      transaction.transaction ||
+      transaction.description ||
+      transaction.transaction_description ||
+      ""
+    ).trim();
+
+
+  const model19 =
+    String(
+      transaction.model_19 ||
+      transaction.model19 ||
+      transaction.model19_number ||
+      transaction.model_19_number ||
+      ""
+    ).trim();
+
+
+  const model22 =
+    String(
+      transaction.model_22 ||
+      transaction.model22 ||
+      ""
+    ).trim();
+
+
+  const model22Number =
+    String(
+      transaction.model_22_number ||
+      transaction.model22_number ||
+      transaction.model_22_code ||
+      transaction.model22_code ||
+      transaction.model_22_no ||
+      transaction.model22_no ||
+      ""
+    ).trim();
+
+
+  let found19 =
+    model19;
+
+  let found22 =
+    model22;
+
+  let found22Number =
+    model22Number;
+
+
+  /*
+    Current database can store Model 22
+    inside transaction text, for example:
+
+    Emergency Relief - Model 22 - 12345
+  */
+
+  const model22Match =
+    transactionText.match(
+      /model\s*22\s*[-:#]?\s*([A-Za-z0-9\/_-]*)/i
+    );
+
+
+  if(
+    !found22 &&
+    model22Match
+  ){
+
+    found22 =
+      "Model 22";
+
+  }
+
+
+  if(
+    !found22Number &&
+    model22Match &&
+    model22Match[1]
+  ){
+
+    found22Number =
+      model22Match[1];
+
+  }
+
+
+  /*
+    Model 19 may also be stored
+    in transaction description.
+  */
+
+  const model19Match =
+    transactionText.match(
+      /model\s*19\s*[-:#]?\s*([A-Za-z0-9\/_-]*)/i
+    );
+
+
+  if(
+    !found19 &&
+    model19Match
+  ){
+
+    found19 =
+      model19Match[1]
+        ? "Model 19 - " +
+          model19Match[1]
+        : "Model 19";
+
+  }
+
+
+  /*
+    For OUT, Model 22 is required.
+    For IN, Model 19 is expected.
+  */
+
+  const type =
+    getType(transaction);
+
+
+  if(
+    type === "IN" &&
+    !found19
+  ){
+
+    if(
+      /model\s*19/i.test(
+        transactionText
+      )
+    ){
+
+      found19 =
+        "Model 19";
+
+    }
+
+  }
+
+
+  if(
+    type === "OUT" &&
+    !found22
+  ){
+
+    if(
+      /model\s*22/i.test(
+        transactionText
+      )
+    ){
+
+      found22 =
+        "Model 22";
+
+    }
+
+  }
+
+
+  return {
+
+    model19:
+      found19 || "—",
+
+    model22:
+      found22 || "—",
+
+    model22Number:
+      found22Number || "—",
+
+    transactionText
+
+  };
+
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+function getDescription(
+  transaction,
+  modelInfo
+){
+
+  const explicitDescription =
+    String(
+      transaction.description ||
+      transaction.transaction_description ||
+      transaction.reason ||
+      transaction.notes ||
+      ""
+    ).trim();
+
+
+  if(explicitDescription){
+
+    return explicitDescription;
+
+  }
+
+
+  const transactionText =
+    modelInfo.transactionText;
+
+
+  if(!transactionText){
+
+    return "—";
+
+  }
+
+
+  /*
+    Remove only model information from
+    description when possible.
+  */
+
+  let description =
+    transactionText
+      .replace(
+        /model\s*19\s*[-:#]?\s*[A-Za-z0-9\/_-]*/gi,
+        ""
+      )
+      .replace(
+        /model\s*22\s*[-:#]?\s*[A-Za-z0-9\/_-]*/gi,
+        ""
+      )
+      .replace(
+        /\s*[-–—]\s*/g,
+        " "
+      )
+      .trim();
+
+
+  if(!description){
+
+    if(
+      /emergency\s*relief/i.test(
+        transactionText
+      )
+    ){
+
+      return "Emergency Relief";
+
+    }
+
+
+    if(
+      getType(transaction) === "IN"
+    ){
+
+      return "Stock IN";
+
+    }
+
+
+    if(
+      getType(transaction) === "OUT"
+    ){
+
+      return "Stock OUT";
+
+    }
+
+  }
+
+
+  return description || "—";
+
+}
+
+
+/* =====================================================
+   BRANCH NAME
+===================================================== */
+
+async function loadBranchMap(){
+
+  const branchMap = {};
+
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/branches?select=*",
+      {
+        headers:
+          getHeaders()
+      }
+    );
+
+
+  if(!response.ok){
+
+    return branchMap;
+
+  }
+
+
+  const branches =
+    await response.json();
+
+
+  for(
+    const branch of branches
+  ){
+
+    if(
+      branch.id
+    ){
+
+      branchMap[
+        String(branch.id)
+      ] =
+        String(
+          branch.name ||
+          branch.branch_name ||
+          branch.code ||
+          branch.branch_code ||
+          "—"
+        );
+
+    }
+
+  }
+
+
+  return branchMap;
+
+}
+
+
+/* =====================================================
+   GET BRANCH
+===================================================== */
+
+function getBranchName(
+  transaction,
+  branchMap
+){
+
+  const direct =
+    String(
+      transaction.branch_name ||
+      transaction.branchName ||
+      ""
+    ).trim();
+
+
+  if(direct){
+
+    return direct;
+
+  }
+
+
+  const branchId =
+    transaction.branch_id;
+
+
+  if(
+    branchId &&
+    branchMap[
+      String(branchId)
+    ]
+  ){
+
+    return branchMap[
+      String(branchId)
+    ];
+
+  }
+
+
+  if(
+    transaction.branch_code
+  ){
+
+    return String(
+      transaction.branch_code
+    );
+
+  }
+
+
+  if(
+    isMainHQ
+  ){
+
+    return "MAIN / HQ";
+
+  }
+
+
+  return (
+    selectedBranchName ||
+    selectedBranchCode ||
+    "—"
+  );
 
 }
 
@@ -1137,27 +1723,34 @@ async function loadReport(){
 
 
   list.innerHTML = `
+
     <tr>
-      <td colspan="10" class="loading">
+
+      <td
+        colspan="19"
+        class="loading"
+      >
         ⏳ Loading report...
       </td>
+
     </tr>
+
   `;
 
 
   try{
 
-    /* ============================
-       GET BRANCH UUID
-    ============================ */
+    /* ================================================
+       BRANCH
+    ================================================ */
 
     const branchUUID =
       await findBranchUUID();
 
 
-    /* ============================
-       BUILD URL
-    ============================ */
+    /* ================================================
+       TRANSACTION URL
+    ================================================ */
 
     let url =
       SUPABASE_URL +
@@ -1188,15 +1781,16 @@ async function loadReport(){
     }
 
 
-    /* ============================
-       FETCH TRANSACTIONS
-    ============================ */
+    /* ================================================
+       FETCH
+    ================================================ */
 
     const response =
       await fetch(
         url,
         {
-          headers:getHeaders()
+          headers:
+            getHeaders()
         }
       );
 
@@ -1214,17 +1808,21 @@ async function loadReport(){
       await response.json();
 
 
-    /* ============================
-       LOAD ITEM MAP
-    ============================ */
+    /* ================================================
+       MAPS
+    ================================================ */
 
     const itemMap =
       await loadItemMap();
 
 
-    /* ============================
-       FILTER VALUES
-    ============================ */
+    const branchMap =
+      await loadBranchMap();
+
+
+    /* ================================================
+       FILTERS
+    ================================================ */
 
     const date =
       document.getElementById(
@@ -1240,33 +1838,47 @@ async function loadReport(){
       .toLowerCase();
 
 
+    const itemFilter =
+      document.getElementById(
+        "itemFilter"
+      ).value
+      .trim()
+      .toLowerCase();
+
+
     const type =
       document.getElementById(
         "typeFilter"
       ).value;
 
 
-    /* ============================
+    /* ================================================
        FILTER DATA
-    ============================ */
+    ================================================ */
 
     data =
       data.filter(
         transaction => {
+
+          const itemInfo =
+            getItemInfo(
+              transaction,
+              itemMap
+            );
+
 
           if(date){
 
             const rawDate =
               transaction.entered_at ||
               transaction.created_at ||
+              transaction.date ||
               "";
 
 
             const transactionDate =
-              rawDate
-                ? String(rawDate)
-                    .substring(0,10)
-                : "";
+              String(rawDate)
+                .substring(0,10);
 
 
             if(
@@ -1282,7 +1894,7 @@ async function loadReport(){
 
           if(enteredBy){
 
-            const name =
+            const entered =
               String(
                 transaction.entered_by ||
                 ""
@@ -1290,8 +1902,19 @@ async function loadReport(){
               .toLowerCase();
 
 
+            const issued =
+              String(
+                transaction.issued_by ||
+                ""
+              )
+              .toLowerCase();
+
+
             if(
-              !name.includes(
+              !entered.includes(
+                enteredBy
+              ) &&
+              !issued.includes(
                 enteredBy
               )
             ){
@@ -1303,8 +1926,32 @@ async function loadReport(){
           }
 
 
+          if(itemFilter){
+
+            const name =
+              String(
+                itemInfo.name ||
+                ""
+              ).toLowerCase();
+
+
+            if(
+              !name.includes(
+                itemFilter
+              )
+            ){
+
+              return false;
+
+            }
+
+          }
+
+
           const transactionType =
-            getType(transaction);
+            getType(
+              transaction
+            );
 
 
           if(
@@ -1323,12 +1970,15 @@ async function loadReport(){
       );
 
 
-    /* ============================
+    /* ================================================
        SUMMARY
-    ============================ */
+    ================================================ */
 
     let totalIn = 0;
     let totalOut = 0;
+
+
+    const itemGroups = {};
 
 
     for(
@@ -1337,19 +1987,23 @@ async function loadReport(){
 
       const quantity =
         Number(
-          transaction.quantity || 0
+          transaction.quantity ||
+          0
         );
 
 
       const transactionType =
-        getType(transaction);
+        getType(
+          transaction
+        );
 
 
       if(
         transactionType === "IN"
       ){
 
-        totalIn += quantity;
+        totalIn +=
+          quantity;
 
       }
 
@@ -1358,15 +2012,101 @@ async function loadReport(){
         transactionType === "OUT"
       ){
 
-        totalOut += quantity;
+        totalOut +=
+          quantity;
 
       }
+
+
+      const itemInfo =
+        getItemInfo(
+          transaction,
+          itemMap
+        );
+
+
+      const itemKey =
+        String(
+          transaction.item_id ||
+          itemInfo.name
+        );
+
+
+      if(
+        !itemGroups[itemKey]
+      ){
+
+        itemGroups[itemKey] = {
+
+          itemId:
+            transaction.item_id ||
+            "",
+
+          name:
+            itemInfo.name,
+
+          category:
+            itemInfo.category,
+
+          unit:
+            itemInfo.unit,
+
+          branch:
+            getBranchName(
+              transaction,
+              branchMap
+            ),
+
+          totalIn:
+            0,
+
+          totalOut:
+            0,
+
+          transactions:
+            []
+
+        };
+
+      }
+
+
+      if(
+        transactionType === "IN"
+      ){
+
+        itemGroups[
+          itemKey
+        ].totalIn +=
+          quantity;
+
+      }
+
+
+      if(
+        transactionType === "OUT"
+      ){
+
+        itemGroups[
+          itemKey
+        ].totalOut +=
+          quantity;
+
+      }
+
+
+      itemGroups[
+        itemKey
+      ].transactions.push(
+        transaction
+      );
 
     }
 
 
     const balance =
-      totalIn - totalOut;
+      totalIn -
+      totalOut;
 
 
     document.getElementById(
@@ -1388,25 +2128,42 @@ async function loadReport(){
 
 
     document.getElementById(
+      "reportItems"
+    ).textContent =
+      Object.keys(
+        itemGroups
+      ).length;
+
+
+    document.getElementById(
       "reportBalance"
     ).textContent =
       balance;
 
 
-    /* ============================
+    /* ================================================
        EMPTY
-    ============================ */
+    ================================================ */
 
     if(
       data.length === 0
     ){
 
       list.innerHTML = `
+
         <tr>
-          <td colspan="10" class="empty">
+
+          <td
+            colspan="19"
+            class="empty"
+          >
+
             📭 No stock transactions found.
+
           </td>
+
         </tr>
+
       `;
 
       return;
@@ -1414,144 +2171,644 @@ async function loadReport(){
     }
 
 
-    /* ============================
-       TABLE
-    ============================ */
+    /* ================================================
+       BUILD SUMMARY
+    ================================================ */
 
     list.innerHTML = "";
 
 
+    let index = 0;
+
+
     for(
-      const transaction of data
+      const key of Object.keys(
+        itemGroups
+      )
     ){
 
-      const transactionType =
-        getType(transaction);
+      const group =
+        itemGroups[key];
 
 
-      const itemName =
-        getItemName(
-          transaction,
-          itemMap
+      const groupBalance =
+        group.totalIn -
+        group.totalOut;
+
+
+      const balanceClass =
+        groupBalance > 0
+          ? "balance-positive"
+          : groupBalance < 0
+            ? "balance-negative"
+            : "balance-zero";
+
+
+      const detailId =
+        "detail_" +
+        index;
+
+
+      /*
+        Transaction Type summary
+      */
+
+      let typeSummary =
+        "—";
+
+
+      const hasIN =
+        group.transactions.some(
+          t =>
+            getType(t) === "IN"
         );
 
 
-      const category =
-        transaction.category ||
+      const hasOUT =
+        group.transactions.some(
+          t =>
+            getType(t) === "OUT"
+        );
+
+
+      if(
+        hasIN &&
+        hasOUT
+      ){
+
+        typeSummary =
+          "IN / OUT";
+
+      }
+      else if(hasIN){
+
+        typeSummary =
+          "IN";
+
+      }
+      else if(hasOUT){
+
+        typeSummary =
+          "OUT";
+
+      }
+
+
+      /*
+        Last transaction information
+      */
+
+      const latest =
+        group.transactions[0] ||
+        {};
+
+
+      const latestType =
+        getType(
+          latest
+        );
+
+
+      const latestQuantity =
+        latest.quantity ??
         "—";
 
 
-      const quantity =
-        transaction.quantity ?? 0;
-
-
-      const unit =
-        transaction.unit ||
-        "—";
-
-
-      const enteredBy =
-        transaction.entered_by ||
-        "—";
-
-
-      const issuedBy =
-        transaction.issued_by ||
-        "—";
-
-
-      const expiryDate =
-        transaction.expiry_date ||
-        "—";
-
-
-      const signature =
-        transaction.signature ||
-        "—";
-
-
-      const dateValue =
-        transaction.entered_at ||
-        transaction.created_at ||
-        transaction.date ||
+      const latestDate =
+        latest.entered_at ||
+        latest.created_at ||
+        latest.date ||
         "";
 
 
-      const rowClass =
-        transactionType === "IN"
-          ? "in-row"
-          : transactionType === "OUT"
-            ? "out-row"
-            : "";
+      const latestEntered =
+        latest.entered_by ||
+        "—";
 
 
-      const transactionLabel =
-        transactionType === "IN"
-          ? "📥 IN"
-          : transactionType === "OUT"
-            ? "📤 OUT"
-            : escapeHTML(
-                transactionType || "—"
-              );
+      const latestIssued =
+        latest.issued_by ||
+        "—";
 
 
-      const expiryClass =
+      const latestExpiry =
+        latest.expiry_date ||
+        "—";
+
+
+      const latestSignature =
+        latest.signature ||
+        "—";
+
+
+      const latestModel =
+        getModelInfo(
+          latest
+        );
+
+
+      const latestDescription =
+        getDescription(
+          latest,
+          latestModel
+        );
+
+
+      const latestBranch =
+        getBranchName(
+          latest,
+          branchMap
+        );
+
+
+      const latestTransactionLabel =
+        latestType === "IN"
+          ? `<span class="in-badge">📥 IN</span>`
+          : latestType === "OUT"
+            ? `<span class="out-badge">📤 OUT</span>`
+            : "—";
+
+
+      const latestExpiryClass =
         getExpiryClass(
-          expiryDate
+          latestExpiry
         );
 
 
       list.innerHTML += `
 
-        <tr class="${rowClass}">
+        <!-- SUMMARY ROW -->
+
+        <tr class="summary-row">
 
           <td>
+
             <strong>
-              ${escapeHTML(itemName)}
+              ${escapeHTML(
+                group.name
+              )}
             </strong>
+
           </td>
 
-          <td>
-            ${escapeHTML(category)}
-          </td>
-
-          <td>
-            ${transactionLabel}
-          </td>
-
-          <td>
-            ${escapeHTML(quantity)}
-          </td>
-
-          <td>
-            ${escapeHTML(unit)}
-          </td>
 
           <td>
             ${escapeHTML(
-              formatDate(dateValue)
+              group.category
             )}
           </td>
 
-          <td>
-            ${escapeHTML(enteredBy)}
-          </td>
 
           <td>
-            ${escapeHTML(issuedBy)}
+            ${escapeHTML(
+              group.unit
+            )}
           </td>
 
-          <td class="${expiryClass}">
-            ${escapeHTML(expiryDate)}
-          </td>
 
           <td>
-            ${escapeHTML(signature)}
+            ${escapeHTML(
+              group.totalIn
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              group.totalOut
+            )}
+          </td>
+
+
+          <td class="${balanceClass}">
+            ${escapeHTML(
+              groupBalance
+            )}
+          </td>
+
+
+          <td>
+            ${typeSummary}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestQuantity
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              formatDate(
+                latestDate
+              )
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestEntered
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestIssued
+            )}
+          </td>
+
+
+          <td class="${latestExpiryClass}">
+            ${escapeHTML(
+              latestExpiry
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestSignature
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestModel.model19
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestModel.model22
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestModel.model22Number
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              latestBranch
+            )}
+          </td>
+
+
+          <td class="description-cell">
+            ${escapeHTML(
+              latestDescription
+            )}
+          </td>
+
+
+          <td>
+
+            <button
+              class="detail-btn"
+              onclick="toggleDetail('${detailId}', this)"
+            >
+              🔍 Detail
+            </button>
+
+          </td>
+
+        </tr>
+
+
+        <!-- DETAIL ROW -->
+
+        <tr
+          id="${detailId}"
+          class="detail-row"
+        >
+
+          <td
+            colspan="19"
+            class="detail-cell"
+          >
+
+            <h3 class="detail-title">
+
+              📋 Transaction Details —
+              ${escapeHTML(
+                group.name
+              )}
+
+            </h3>
+
+
+            <div class="detail-wrapper">
+
+              <table class="detail-table">
+
+                <thead>
+
+                  <tr>
+
+                    <th>Item Name</th>
+
+                    <th>Category</th>
+
+                    <th>Unit</th>
+
+                    <th>Total Stock IN</th>
+
+                    <th>Total Stock OUT</th>
+
+                    <th>Current Balance</th>
+
+                    <th>Transaction Type</th>
+
+                    <th>Quantity</th>
+
+                    <th>Date & Time</th>
+
+                    <th>Entered By</th>
+
+                    <th>Issued By</th>
+
+                    <th>Expiry Date</th>
+
+                    <th>Signature</th>
+
+                    <th>Model 19</th>
+
+                    <th>Model 22</th>
+
+                    <th>Model 22 Number/Code</th>
+
+                    <th>Branch</th>
+
+                    <th>Transaction/Description</th>
+
+                  </tr>
+
+                </thead>
+
+
+                <tbody>
+
+      `;
+
+
+      /*
+        Every transaction for this item
+      */
+
+      for(
+        const transaction of
+          group.transactions
+      ){
+
+        const transactionType =
+          getType(
+            transaction
+          );
+
+
+        const quantity =
+          transaction.quantity ??
+          0;
+
+
+        const dateValue =
+          transaction.entered_at ||
+          transaction.created_at ||
+          transaction.date ||
+          "";
+
+
+        const enteredBy =
+          transaction.entered_by ||
+          "—";
+
+
+        const issuedBy =
+          transaction.issued_by ||
+          "—";
+
+
+        const expiryDate =
+          transaction.expiry_date ||
+          "—";
+
+
+        const signature =
+          transaction.signature ||
+          "—";
+
+
+        const modelInfo =
+          getModelInfo(
+            transaction
+          );
+
+
+        const description =
+          getDescription(
+            transaction,
+            modelInfo
+          );
+
+
+        const branch =
+          getBranchName(
+            transaction,
+            branchMap
+          );
+
+
+        const transactionLabel =
+          transactionType === "IN"
+            ? `<span class="in-badge">📥 IN</span>`
+            : transactionType === "OUT"
+              ? `<span class="out-badge">📤 OUT</span>`
+              : escapeHTML(
+                  transactionType ||
+                  "—"
+                );
+
+
+        const rowClass =
+          transactionType === "IN"
+            ? "in-row"
+            : transactionType === "OUT"
+              ? "out-row"
+              : "";
+
+
+        const expiryClass =
+          getExpiryClass(
+            expiryDate
+          );
+
+
+        list.innerHTML += `
+
+          <tr
+            class="${rowClass}"
+          >
+
+            <td>
+              ${escapeHTML(
+                group.name
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                group.category
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                group.unit
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                group.totalIn
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                group.totalOut
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                groupBalance
+              )}
+            </td>
+
+
+            <td>
+              ${transactionLabel}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                quantity
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                formatDate(
+                  dateValue
+                )
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                enteredBy
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                issuedBy
+              )}
+            </td>
+
+
+            <td
+              class="${expiryClass}"
+            >
+              ${escapeHTML(
+                expiryDate
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                signature
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                modelInfo.model19
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                modelInfo.model22
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                modelInfo.model22Number
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                branch
+              )}
+            </td>
+
+
+            <td class="description-cell">
+              ${escapeHTML(
+                description
+              )}
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+
+
+      list.innerHTML += `
+
+                </tbody>
+
+              </table>
+
+            </div>
+
           </td>
 
         </tr>
 
       `;
+
+
+      index++;
 
     }
 
@@ -1569,7 +2826,7 @@ async function loadReport(){
       <tr>
 
         <td
-          colspan="10"
+          colspan="19"
           class="empty"
         >
 
@@ -1593,6 +2850,58 @@ async function loadReport(){
 
 
 /* =====================================================
+   TOGGLE DETAIL
+===================================================== */
+
+function toggleDetail(
+  detailId,
+  button
+){
+
+  const row =
+    document.getElementById(
+      detailId
+    );
+
+
+  if(!row){
+
+    return;
+
+  }
+
+
+  const isOpen =
+    row.classList.contains(
+      "show"
+    );
+
+
+  if(isOpen){
+
+    row.classList.remove(
+      "show"
+    );
+
+    button.textContent =
+      "🔍 Detail";
+
+  }
+  else{
+
+    row.classList.add(
+      "show"
+    );
+
+    button.textContent =
+      "🔽 Hide Detail";
+
+  }
+
+}
+
+
+/* =====================================================
    CLEAR FILTERS
 ===================================================== */
 
@@ -1605,6 +2914,11 @@ function clearFilters(){
 
   document.getElementById(
     "enteredByFilter"
+  ).value = "";
+
+
+  document.getElementById(
+    "itemFilter"
   ).value = "";
 
 
@@ -1674,6 +2988,7 @@ function logoutUser(){
 showBranchInfo();
 
 loadReport();
+
 
 </script>
 
