@@ -106,6 +106,11 @@ button:hover{
   color:white;
 }
 
+.btn-orange{
+  background:#ef6c00;
+  color:white;
+}
+
 /* ================= MESSAGE ================= */
 
 .message{
@@ -349,6 +354,21 @@ tr:hover td{
   font-size:12px;
 }
 
+.edit-btn{
+  background:#ef6c00;
+  color:white;
+  padding:6px 9px;
+  border-radius:6px;
+  font-size:11px;
+  margin-top:5px;
+}
+
+.price-cell{
+  font-weight:bold;
+  color:#2e7d32;
+  white-space:nowrap;
+}
+
 /* ================= DETAILS ================= */
 
 .details-row{
@@ -363,7 +383,7 @@ tr:hover td{
 }
 
 .details-box table{
-  min-width:1250px;
+  min-width:1400px;
 }
 
 .details-box th{
@@ -375,10 +395,33 @@ tr:hover td{
   font-size:11px;
 }
 
-.price-cell{
-  font-weight:bold;
-  color:#2e7d32;
-  white-space:nowrap;
+/* ================= EDIT BOX ================= */
+
+.edit-box{
+  display:none;
+  background:white;
+  border:2px solid #ffe0b2;
+  border-radius:10px;
+  padding:15px;
+  margin-top:10px;
+}
+
+.edit-box h3{
+  margin-top:0;
+  color:#e65100;
+}
+
+.edit-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.edit-actions{
+  margin-top:14px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
 /* ================= LOADING ================= */
@@ -441,6 +484,10 @@ tr:hover td{
     grid-template-columns:1fr;
   }
 
+  .edit-grid{
+    grid-template-columns:1fr;
+  }
+
   .form-group.full{
     grid-column:auto;
   }
@@ -456,8 +503,6 @@ tr:hover td{
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header class="header">
 
   <img
@@ -467,7 +512,7 @@ tr:hover td{
   >
 
   <div>
-    <h1>AAFDRMC - STOCK MANAGEMENT</h1>
+    <h1>AADLM - STOCK MANAGEMENT</h1>
     <small id="branchInfo">Loading branch...</small>
   </div>
 
@@ -475,8 +520,6 @@ tr:hover td{
 
 
 <div class="container">
-
-  <!-- ================= BUTTONS ================= -->
 
   <div class="top-buttons">
 
@@ -503,12 +546,8 @@ tr:hover td{
   </div>
 
 
-  <!-- ================= MESSAGE ================= -->
-
   <div id="message" class="message"></div>
 
-
-  <!-- ================= SUMMARY ================= -->
 
   <div class="summary">
 
@@ -534,8 +573,6 @@ tr:hover td{
 
   </div>
 
-
-  <!-- ================= FORMS ================= -->
 
   <div class="forms">
 
@@ -604,8 +641,6 @@ tr:hover td{
         </div>
 
 
-        <!-- ================= UNIT PRICE ================= -->
-
         <div class="form-group price-box">
 
           <label>Unit Price *</label>
@@ -621,8 +656,6 @@ tr:hover td{
 
         </div>
 
-
-        <!-- ================= TOTAL PRICE ================= -->
 
         <div class="form-group price-box">
 
@@ -688,8 +721,6 @@ tr:hover td{
 
         </div>
 
-
-        <!-- MODEL 19 -->
 
         <div class="form-group full model-box">
 
@@ -871,8 +902,6 @@ tr:hover td{
         </div>
 
 
-        <!-- MODEL 22 -->
-
         <div class="form-group full model-box">
 
           <label>
@@ -940,17 +969,11 @@ tr:hover td{
           <tr>
 
             <th>No</th>
-
             <th>Item</th>
-
             <th>Unit</th>
-
             <th>Stock IN</th>
-
             <th>Stock OUT</th>
-
             <th>Balance</th>
-
             <th>Details</th>
 
           </tr>
@@ -982,7 +1005,7 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-   CURRENT BRANCH
+   BRANCHES
 ========================================================= */
 
 const BRANCHES = {
@@ -1078,9 +1101,7 @@ let CURRENT_BRANCH_NAME =
   localStorage.getItem("selected_branch_name") || "Main";
 
 
-if(
-  BRANCHES[CURRENT_BRANCH_CODE]
-){
+if(BRANCHES[CURRENT_BRANCH_CODE]){
 
   CURRENT_BRANCH_UUID =
     BRANCHES[CURRENT_BRANCH_CODE].id;
@@ -1111,30 +1132,23 @@ let TRANSACTIONS = [];
    API
 ========================================================= */
 
-async function apiFetch(
-  path,
-  options={}
-){
+async function apiFetch(path,options={}){
 
   const response =
     await fetch(
-      SUPABASE_URL +
-      path,
+      SUPABASE_URL + path,
       {
-
         ...options,
 
         headers:{
           apikey:SUPABASE_KEY,
-          Authorization:
-            "Bearer " + SUPABASE_KEY,
-          "Content-Type":
-            "application/json",
+          Authorization:"Bearer " + SUPABASE_KEY,
+          "Content-Type":"application/json",
           ...(options.headers || {})
         }
-
       }
     );
+
 
   const text =
     await response.text();
@@ -1144,9 +1158,11 @@ async function apiFetch(
   try{
     data =
       text ? JSON.parse(text) : null;
-  }catch(e){
+  }
+  catch(e){
     data = text;
   }
+
 
   if(!response.ok){
 
@@ -1160,7 +1176,9 @@ async function apiFetch(
 
   }
 
+
   return data;
+
 }
 
 
@@ -1168,10 +1186,7 @@ async function apiFetch(
    MESSAGE
 ========================================================= */
 
-function showMessage(
-  message,
-  type="success"
-){
+function showMessage(message,type="success"){
 
   const box =
     document.getElementById("message");
@@ -1205,6 +1220,7 @@ function setDefaultDateTimes(){
     .toISOString()
     .slice(0,16);
 
+
   document.getElementById(
     "inDateTime"
   ).value = local;
@@ -1229,6 +1245,7 @@ function calculateInTotal(){
       ).value
     ) || 0;
 
+
   const unitPrice =
     Number(
       document.getElementById(
@@ -1236,8 +1253,10 @@ function calculateInTotal(){
       ).value
     ) || 0;
 
+
   const total =
     quantity * unitPrice;
+
 
   document.getElementById(
     "inTotalPrice"
@@ -1250,7 +1269,7 @@ function calculateInTotal(){
 
 
 /* =========================================================
-   BRANCH FILTER
+   BRANCH
 ========================================================= */
 
 function isMainBranch(){
@@ -1266,21 +1285,26 @@ function branchMatches(row){
     return true;
   }
 
+
   const rowBranchId =
     String(row.branch_id || "").trim();
+
 
   const rowBranchCode =
     String(row.branch_code || "")
       .trim()
       .toUpperCase();
 
+
   const currentId =
     String(CURRENT_BRANCH_UUID || "").trim();
+
 
   const currentCode =
     String(CURRENT_BRANCH_CODE || "")
       .trim()
       .toUpperCase();
+
 
   return (
     (currentId && rowBranchId === currentId) ||
@@ -1301,18 +1325,23 @@ async function loadItems(){
       "/rest/v1/items?select=*&order=name.asc"
     );
 
-  ITEMS = Array.isArray(data)
-    ? data
-    : [];
+
+  ITEMS =
+    Array.isArray(data)
+      ? data
+      : [];
+
 
   if(!isMainBranch()){
 
     ITEMS =
-      ITEMS.filter(item =>
-        branchMatches(item)
+      ITEMS.filter(
+        item =>
+          branchMatches(item)
       );
 
   }
+
 
   fillItemSelects();
 
@@ -1331,11 +1360,13 @@ function fillItemSelects(){
   const outSelect =
     document.getElementById("outItem");
 
+
   inSelect.innerHTML =
     `<option value="">-- Select Item --</option>`;
 
   outSelect.innerHTML =
     `<option value="">-- Select Item --</option>`;
+
 
   ITEMS.forEach(item => {
 
@@ -1351,11 +1382,15 @@ function fillItemSelects(){
     const unit =
       item.unit || "";
 
+
     const text =
       name +
-      (category
-        ? " — " + category
-        : "");
+      (
+        category
+          ? " — " + category
+          : ""
+      );
+
 
     const option1 =
       document.createElement("option");
@@ -1400,10 +1435,12 @@ async function loadTransactions(){
       "/rest/v1/stock_transactions?select=*&order=id.desc"
     );
 
+
   TRANSACTIONS =
     Array.isArray(data)
-      ? data.filter(row =>
-          branchMatches(row)
+      ? data.filter(
+          row =>
+            branchMatches(row)
         )
       : [];
 
@@ -1438,6 +1475,7 @@ function transactionIsIn(row){
     )
     .toUpperCase();
 
+
   return (
     type === "IN" ||
     type === "STOCK IN" ||
@@ -1459,6 +1497,7 @@ function transactionIsOut(row){
     )
     .toUpperCase();
 
+
   return (
     type === "OUT" ||
     type === "STOCK OUT" ||
@@ -1475,10 +1514,7 @@ function transactionIsOut(row){
    ITEM MATCH
 ========================================================= */
 
-function transactionMatchesItem(
-  row,
-  item
-){
+function transactionMatchesItem(row,item){
 
   if(
     row.item_id != null &&
@@ -1496,6 +1532,7 @@ function transactionMatchesItem(
 
   }
 
+
   const rowName =
     String(
       row.transaction || ""
@@ -1503,12 +1540,14 @@ function transactionMatchesItem(
     .trim()
     .toLowerCase();
 
+
   const itemName =
     String(
       item.name || ""
     )
     .trim()
     .toLowerCase();
+
 
   return (
     rowName !== "" &&
@@ -1528,6 +1567,7 @@ function getItemTotals(item){
   let stockIn = 0;
   let stockOut = 0;
 
+
   TRANSACTIONS.forEach(row => {
 
     if(
@@ -1541,8 +1581,10 @@ function getItemTotals(item){
 
     }
 
+
     const qty =
       Number(row.quantity) || 0;
+
 
     if(transactionIsIn(row)){
 
@@ -1557,11 +1599,15 @@ function getItemTotals(item){
 
   });
 
+
   return {
+
     stockIn,
     stockOut,
+
     balance:
       stockIn - stockOut
+
   };
 
 }
@@ -1580,8 +1626,10 @@ function itemChanged(type){
         : "outItem"
     );
 
+
   const item =
     findItem(select.value);
+
 
   if(!item){
 
@@ -1642,8 +1690,10 @@ function itemChanged(type){
     ).value =
       item.category || "";
 
+
     const totals =
       getItemTotals(item);
+
 
     document.getElementById(
       "outCurrentStock"
@@ -1668,12 +1718,14 @@ async function saveStock(type){
     const isIN =
       type === "IN";
 
+
     const itemId =
       document.getElementById(
         isIN
           ? "inItem"
           : "outItem"
       ).value;
+
 
     if(!itemId){
 
@@ -1689,6 +1741,7 @@ async function saveStock(type){
 
     const item =
       findItem(itemId);
+
 
     if(!item){
 
@@ -1789,9 +1842,7 @@ async function saveStock(type){
       }
 
 
-      if(
-        modelType === "NUMBER"
-      ){
+      if(modelType === "NUMBER"){
 
         const number =
           document.getElementById(
@@ -1816,9 +1867,7 @@ async function saveStock(type){
           number;
 
       }
-      else if(
-        modelType === "VERBAL"
-      ){
+      else{
 
         model19 =
           "Verbal";
@@ -1858,8 +1907,6 @@ async function saveStock(type){
         number;
 
 
-      /* ================= CHECK BALANCE ================= */
-
       const totals =
         getItemTotals(item);
 
@@ -1884,7 +1931,7 @@ async function saveStock(type){
     }
 
 
-    /* ================= COMMON FIELDS ================= */
+    /* ================= COMMON ================= */
 
     const enteredBy =
       document.getElementById(
@@ -1974,6 +2021,7 @@ async function saveStock(type){
           : "OUT",
 
       quantity:
+
         quantity,
 
       entered_by:
@@ -2022,8 +2070,6 @@ async function saveStock(type){
       model_22:
         model22,
 
-      /* ================= PRICE ================= */
-
       unit_price:
         unitPrice,
 
@@ -2032,8 +2078,6 @@ async function saveStock(type){
 
     };
 
-
-    /* ================= SAVE ================= */
 
     await apiFetch(
       "/rest/v1/stock_transactions",
@@ -2081,6 +2125,7 @@ async function saveStock(type){
       error
     );
 
+
     showMessage(
       "Save failed: " +
       error.message,
@@ -2102,6 +2147,7 @@ function renderReport(){
     document.getElementById(
       "reportBody"
     );
+
 
   body.innerHTML = "";
 
@@ -2127,6 +2173,7 @@ function renderReport(){
 
       const totals =
         getItemTotals(item);
+
 
       const tr =
         document.createElement("tr");
@@ -2204,9 +2251,11 @@ function renderReport(){
       const detailsTr =
         document.createElement("tr");
 
+
       detailsTr.id =
         "details-" +
         item.id;
+
 
       detailsTr.className =
         "details-row";
@@ -2214,6 +2263,7 @@ function renderReport(){
 
       const detailsTd =
         document.createElement("td");
+
 
       detailsTd.colSpan = 7;
 
@@ -2225,6 +2275,7 @@ function renderReport(){
       detailsTr.appendChild(
         detailsTd
       );
+
 
       body.appendChild(
         detailsTr
@@ -2282,30 +2333,19 @@ function createDetailsHtml(item){
             <tr>
 
               <th>No</th>
-
               <th>Transaction</th>
-
               <th>Quantity</th>
-
               <th>Unit</th>
-
               <th>Unit Price</th>
-
               <th>Total Price</th>
-
               <th>Date and Time</th>
-
               <th>Entered By</th>
-
               <th>Issued By</th>
-
               <th>Expiry Date</th>
-
               <th>Signature</th>
-
               <th>Model 19</th>
-
               <th>Model 22</th>
+              <th>Edit</th>
 
             </tr>
 
@@ -2321,6 +2361,7 @@ function createDetailsHtml(item){
 
       const isIn =
         transactionIsIn(row);
+
 
       const transactionLabel =
         isIn
@@ -2440,6 +2481,31 @@ function createDetailsHtml(item){
             )}
           </td>
 
+          <td>
+
+            <button
+              class="edit-btn"
+              onclick="showEditTransaction('${row.id}')"
+            >
+              Edit
+            </button>
+
+          </td>
+
+        </tr>
+
+
+        <tr
+          id="edit-row-${row.id}"
+          style="display:none;"
+        >
+
+          <td colspan="14">
+
+            ${createEditHtml(row,isIn)}
+
+          </td>
+
         </tr>
 
       `;
@@ -2467,6 +2533,899 @@ function createDetailsHtml(item){
 
 
 /* =========================================================
+   CREATE EDIT FORM
+========================================================= */
+
+function createEditHtml(row,isIn){
+
+  const quantity =
+    Number(row.quantity) || 0;
+
+
+  const unitPrice =
+    row.unit_price != null
+      ? Number(row.unit_price)
+      : 0;
+
+
+  const totalPrice =
+    quantity * unitPrice;
+
+
+  let localDateTime = "";
+
+
+  if(row.entered_at){
+
+    const d =
+      new Date(row.entered_at);
+
+
+    if(!Number.isNaN(d.getTime())){
+
+      const local =
+        new Date(
+          d.getTime() -
+          d.getTimezoneOffset()*60000
+        )
+        .toISOString()
+        .slice(0,16);
+
+
+      localDateTime = local;
+
+    }
+
+  }
+
+
+  let model19Type = "";
+
+  let model19Number = "";
+
+
+  if(
+    row.model_19 &&
+    String(row.model_19)
+      .toLowerCase() === "verbal"
+  ){
+
+    model19Type = "VERBAL";
+
+  }
+  else if(row.model_19){
+
+    model19Type = "NUMBER";
+
+    model19Number =
+      String(row.model_19)
+        .replace(
+          /^Model 19:\s*/i,
+          ""
+        );
+
+  }
+
+
+  let model22Number = "";
+
+
+  if(row.model_22){
+
+    model22Number =
+      String(row.model_22)
+        .replace(
+          /^Model 22:\s*/i,
+          ""
+        );
+
+  }
+
+
+  return `
+
+    <div class="edit-box"
+         id="edit-box-${row.id}"
+         style="display:block;">
+
+      <h3>
+        Edit ${isIn ? "Stock IN" : "Stock OUT"}
+      </h3>
+
+      <div class="edit-grid">
+
+        <div class="form-group">
+
+          <label>Quantity *</label>
+
+          <input
+            id="edit-quantity-${row.id}"
+            type="number"
+            min="0.01"
+            step="any"
+            value="${escapeAttr(quantity)}"
+            oninput="calculateEditTotal('${row.id}')"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Unit Price ${isIn ? "*" : ""}</label>
+
+          <input
+            id="edit-unit-price-${row.id}"
+            type="number"
+            min="0"
+            step="0.01"
+            value="${isIn ? escapeAttr(unitPrice) : ""}"
+            ${isIn ? "" : "disabled"}
+            oninput="calculateEditTotal('${row.id}')"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Total Price</label>
+
+          <input
+            id="edit-total-price-${row.id}"
+            type="number"
+            readonly
+            value="${isIn ? escapeAttr(totalPrice.toFixed(2)) : ""}"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Guyyaa fi Sa'aatii *</label>
+
+          <input
+            id="edit-date-${row.id}"
+            type="datetime-local"
+            value="${escapeAttr(localDateTime)}"
+          >
+
+        </div>
+
+
+        ${
+          isIn
+          ? `
+
+          <div class="form-group">
+
+            <label>Nama galche *</label>
+
+            <input
+              id="edit-entered-by-${row.id}"
+              type="text"
+              value="${escapeAttr(row.entered_by || "")}"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Expiry Date</label>
+
+            <input
+              id="edit-expiry-${row.id}"
+              type="date"
+              value="${escapeAttr(row.expiry_date || "")}"
+            >
+
+          </div>
+
+          `
+          :
+          `
+
+          <div class="form-group">
+
+            <label>Nama baase *</label>
+
+            <input
+              id="edit-issued-by-${row.id}"
+              type="text"
+              value="${escapeAttr(row.issued_by || "")}"
+            >
+
+          </div>
+
+          `
+        }
+
+
+        <div class="form-group">
+
+          <label>Mallattoo / Signature</label>
+
+          <input
+            id="edit-signature-${row.id}"
+            type="text"
+            value="${escapeAttr(row.signature || "")}"
+          >
+
+        </div>
+
+
+        ${
+          isIn
+          ? `
+
+          <div class="form-group">
+
+            <label>Model 19 / Verbal *</label>
+
+            <select
+              id="edit-model19-${row.id}"
+              onchange="toggleEditModel19('${row.id}')"
+            >
+
+              <option value="">-- Select --</option>
+
+              <option
+                value="NUMBER"
+                ${model19Type === "NUMBER" ? "selected" : ""}
+              >
+                Model 19
+              </option>
+
+              <option
+                value="VERBAL"
+                ${model19Type === "VERBAL" ? "selected" : ""}
+              >
+                Verbal
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div
+            class="form-group"
+            id="edit-model19-number-box-${row.id}"
+            style="display:${
+              model19Type === "NUMBER"
+                ? "flex"
+                : "none"
+            };"
+          >
+
+            <label>Model 19 Number</label>
+
+            <input
+              id="edit-model19-number-${row.id}"
+              type="text"
+              value="${escapeAttr(model19Number)}"
+            >
+
+          </div>
+
+          `
+          :
+          `
+
+          <div class="form-group">
+
+            <label>Model 22 Number *</label>
+
+            <input
+              id="edit-model22-${row.id}"
+              type="text"
+              value="${escapeAttr(model22Number)}"
+            >
+
+          </div>
+
+          `
+        }
+
+      </div>
+
+
+      <div class="edit-actions">
+
+        <button
+          class="btn-green"
+          onclick="updateTransaction('${row.id}','${isIn ? "IN" : "OUT"}')"
+        >
+          Save Changes
+        </button>
+
+        <button
+          class="btn-gray"
+          onclick="cancelEdit('${row.id}')"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SHOW EDIT
+========================================================= */
+
+function showEditTransaction(id){
+
+  const row =
+    document.getElementById(
+      "edit-row-" + id
+    );
+
+
+  if(!row){
+    return;
+  }
+
+
+  row.style.display =
+    "table-row";
+
+
+  row.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+}
+
+
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
+
+function cancelEdit(id){
+
+  const row =
+    document.getElementById(
+      "edit-row-" + id
+    );
+
+
+  if(row){
+
+    row.style.display =
+      "none";
+
+  }
+
+}
+
+
+/* =========================================================
+   EDIT TOTAL PRICE
+========================================================= */
+
+function calculateEditTotal(id){
+
+  const quantity =
+    Number(
+      document.getElementById(
+        "edit-quantity-" + id
+      ).value
+    ) || 0;
+
+
+  const unitPrice =
+    Number(
+      document.getElementById(
+        "edit-unit-price-" + id
+      ).value
+    ) || 0;
+
+
+  const total =
+    quantity * unitPrice;
+
+
+  const totalInput =
+    document.getElementById(
+      "edit-total-price-" + id
+    );
+
+
+  if(totalInput){
+
+    totalInput.value =
+      total.toFixed(2);
+
+  }
+
+}
+
+
+/* =========================================================
+   MODEL 19 EDIT FIELD
+========================================================= */
+
+function toggleEditModel19(id){
+
+  const select =
+    document.getElementById(
+      "edit-model19-" + id
+    );
+
+
+  const box =
+    document.getElementById(
+      "edit-model19-number-box-" + id
+    );
+
+
+  const input =
+    document.getElementById(
+      "edit-model19-number-" + id
+    );
+
+
+  if(
+    !select ||
+    !box ||
+    !input
+  ){
+
+    return;
+
+  }
+
+
+  if(select.value === "NUMBER"){
+
+    box.style.display =
+      "flex";
+
+  }
+  else{
+
+    box.style.display =
+      "none";
+
+    input.value = "";
+
+  }
+
+}
+
+
+/* =========================================================
+   UPDATE TRANSACTION
+========================================================= */
+
+async function updateTransaction(id,type){
+
+  try{
+
+    const isIN =
+      type === "IN";
+
+
+    const oldRow =
+      TRANSACTIONS.find(
+        row =>
+          String(row.id) === String(id)
+      );
+
+
+    if(!oldRow){
+
+      showMessage(
+        "Transaction hin argamne.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    /* ================= QUANTITY ================= */
+
+    const quantity =
+      Number(
+        document.getElementById(
+          "edit-quantity-" + id
+        ).value
+      );
+
+
+    if(
+      !quantity ||
+      quantity <= 0
+    ){
+
+      showMessage(
+        "Quantity sirriitti galchi.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    /* ================= PRICE ================= */
+
+    let unitPrice = null;
+    let totalPrice = null;
+
+
+    if(isIN){
+
+      unitPrice =
+        Number(
+          document.getElementById(
+            "edit-unit-price-" + id
+          ).value
+        );
+
+
+      if(
+        Number.isNaN(unitPrice) ||
+        unitPrice < 0
+      ){
+
+        showMessage(
+          "Unit Price sirriitti galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      totalPrice =
+        quantity * unitPrice;
+
+    }
+
+
+    /* ================= DATE ================= */
+
+    const dateTime =
+      document.getElementById(
+        "edit-date-" + id
+      ).value;
+
+
+    if(!dateTime){
+
+      showMessage(
+        "Guyyaa fi sa'aatii galchi.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    /* ================= FIELDS ================= */
+
+    let patch = {
+
+      quantity:
+        quantity,
+
+      entered_at:
+        new Date(dateTime)
+          .toISOString(),
+
+      unit_price:
+        unitPrice,
+
+      total_price:
+        totalPrice
+
+    };
+
+
+    if(isIN){
+
+      const enteredBy =
+        document.getElementById(
+          "edit-entered-by-" + id
+        ).value.trim();
+
+
+      if(!enteredBy){
+
+        showMessage(
+          "Nama galche galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const expiry =
+        document.getElementById(
+          "edit-expiry-" + id
+        ).value || null;
+
+
+      const signature =
+        document.getElementById(
+          "edit-signature-" + id
+        ).value.trim() || null;
+
+
+      const modelType =
+        document.getElementById(
+          "edit-model19-" + id
+        ).value;
+
+
+      if(!modelType){
+
+        showMessage(
+          "Model 19 ykn Verbal keessaa tokko filadhu.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      let model19 = null;
+
+
+      if(modelType === "VERBAL"){
+
+        model19 =
+          "Verbal";
+
+      }
+      else{
+
+        const number =
+          document.getElementById(
+            "edit-model19-number-" + id
+          ).value.trim();
+
+
+        if(!number){
+
+          showMessage(
+            "Model 19 Number galchi.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        model19 =
+          "Model 19: " +
+          number;
+
+      }
+
+
+      patch.entered_by =
+        enteredBy;
+
+      patch.issued_by =
+        null;
+
+      patch.expiry_date =
+        expiry;
+
+      patch.signature =
+        signature;
+
+      patch.model_19 =
+        model19;
+
+    }
+    else{
+
+      const issuedBy =
+        document.getElementById(
+          "edit-issued-by-" + id
+        ).value.trim();
+
+
+      if(!issuedBy){
+
+        showMessage(
+          "Nama baase galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const signature =
+        document.getElementById(
+          "edit-signature-" + id
+        ).value.trim() || null;
+
+
+      const model22Number =
+        document.getElementById(
+          "edit-model22-" + id
+        ).value.trim();
+
+
+      if(!model22Number){
+
+        showMessage(
+          "Model 22 Number galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      /*
+        Re-check OUT balance.
+
+        Old quantity is removed from the calculation
+        before checking the new quantity.
+      */
+
+      let availableBalance = 0;
+
+
+      TRANSACTIONS.forEach(row => {
+
+        if(
+          String(row.id) === String(id)
+        ){
+
+          return;
+
+        }
+
+
+        if(
+          !transactionMatchesItem(
+            row,
+            findItem(oldRow.item_id)
+          )
+        ){
+
+          return;
+
+        }
+
+
+        const q =
+          Number(row.quantity) || 0;
+
+
+        if(transactionIsIn(row)){
+
+          availableBalance += q;
+
+        }
+        else if(transactionIsOut(row)){
+
+          availableBalance -= q;
+
+        }
+
+      });
+
+
+      if(quantity > availableBalance){
+
+        showMessage(
+          "Stock gahaa hin jiru. Available Stock: " +
+          formatNumber(
+            availableBalance
+          ),
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      patch.entered_by =
+        null;
+
+      patch.issued_by =
+        issuedBy;
+
+      patch.expiry_date =
+        null;
+
+      patch.signature =
+        signature;
+
+      patch.model_19 =
+        null;
+
+      patch.model_22 =
+        "Model 22: " +
+        model22Number;
+
+      /*
+        OUT does not receive a new price.
+        Keep the existing price fields unchanged.
+      */
+
+      delete patch.unit_price;
+      delete patch.total_price;
+
+    }
+
+
+    /* ================= UPDATE ================= */
+
+    await apiFetch(
+      "/rest/v1/stock_transactions?id=eq." +
+      encodeURIComponent(id),
+      {
+        method:"PATCH",
+
+        headers:{
+          Prefer:
+            "return=representation"
+        },
+
+        body:
+          JSON.stringify(patch)
+      }
+    );
+
+
+    showMessage(
+      "Transaction successfully updated.",
+      "success"
+    );
+
+
+    await loadAll();
+
+  }
+  catch(error){
+
+    console.error(
+      "Update transaction error:",
+      error
+    );
+
+
+    showMessage(
+      "Update failed: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
    DETAILS TOGGLE
 ========================================================= */
 
@@ -2477,9 +3436,11 @@ function toggleDetails(itemId){
       "details-" + itemId
     );
 
+
   if(!row){
     return;
   }
+
 
   row.style.display =
     row.style.display === "table-row"
@@ -2557,7 +3518,8 @@ async function loadAll(){
 
   document.getElementById(
     "reportLoading"
-  ).style.display = "block";
+  ).style.display =
+    "block";
 
 
   try{
@@ -2570,9 +3532,11 @@ async function loadAll(){
 
     renderReport();
 
+
     document.getElementById(
       "reportLoading"
-    ).style.display = "none";
+    ).style.display =
+      "none";
 
   }
   catch(error){
@@ -2585,7 +3549,8 @@ async function loadAll(){
 
     document.getElementById(
       "reportLoading"
-    ).style.display = "none";
+    ).style.display =
+      "none";
 
 
     showMessage(
@@ -2626,7 +3591,7 @@ function showStockOut(){
 
 
 /* =========================================================
-   MODEL 19 FIELD
+   MODEL 19
 ========================================================= */
 
 document.getElementById(
@@ -2640,6 +3605,7 @@ document.getElementById(
         "inModel19NumberBox"
       );
 
+
     const input =
       document.getElementById(
         "inModel19Number"
@@ -2651,7 +3617,8 @@ document.getElementById(
       box.style.display =
         "block";
 
-      input.required = true;
+      input.required =
+        true;
 
     }
     else{
@@ -2659,7 +3626,8 @@ document.getElementById(
       box.style.display =
         "none";
 
-      input.required = false;
+      input.required =
+        false;
 
       input.value = "";
 
@@ -2721,7 +3689,9 @@ function clearStockIn(){
 
   document.getElementById(
     "inModel19NumberBox"
-  ).style.display = "none";
+  ).style.display =
+    "none";
+
 
   setDefaultDateTimes();
 
@@ -2780,6 +3750,7 @@ function formatNumber(value){
   const num =
     Number(value) || 0;
 
+
   if(
     Number.isInteger(num)
   ){
@@ -2787,6 +3758,7 @@ function formatNumber(value){
     return String(num);
 
   }
+
 
   return num.toFixed(2);
 
@@ -2802,6 +3774,7 @@ function formatPrice(value){
   const num =
     Number(value);
 
+
   if(
     Number.isNaN(num)
   ){
@@ -2809,6 +3782,7 @@ function formatPrice(value){
     return "-";
 
   }
+
 
   return num.toFixed(2);
 
@@ -2825,8 +3799,10 @@ function formatDateTime(value){
     return "";
   }
 
+
   const date =
     new Date(value);
+
 
   if(
     Number.isNaN(
@@ -2837,6 +3813,7 @@ function formatDateTime(value){
     return String(value);
 
   }
+
 
   return date.toLocaleString();
 
@@ -2869,6 +3846,33 @@ function escapeHtml(value){
     .replace(
       /'/g,
       "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttr(value){
+
+  return String(value ?? "")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
     );
 
 }
