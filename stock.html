@@ -243,6 +243,20 @@ input[readonly]{
   margin-top:8px;
 }
 
+/* ================= PRICE ================= */
+
+.price-box{
+  background:#fff8e1;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ffe082;
+}
+
+.price-total{
+  font-weight:bold;
+  color:#2e7d32;
+}
+
 /* ================= SECTION ================= */
 
 .section-title{
@@ -349,7 +363,7 @@ tr:hover td{
 }
 
 .details-box table{
-  min-width:900px;
+  min-width:1250px;
 }
 
 .details-box th{
@@ -359,6 +373,12 @@ tr:hover td{
 
 .details-box td{
   font-size:11px;
+}
+
+.price-cell{
+  font-weight:bold;
+  color:#2e7d32;
+  white-space:nowrap;
 }
 
 /* ================= LOADING ================= */
@@ -578,6 +598,42 @@ tr:hover td{
             min="0.01"
             step="any"
             placeholder="Enter quantity"
+            oninput="calculateInTotal()"
+          >
+
+        </div>
+
+
+        <!-- ================= UNIT PRICE ================= -->
+
+        <div class="form-group price-box">
+
+          <label>Unit Price *</label>
+
+          <input
+            id="inUnitPrice"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Enter unit price"
+            oninput="calculateInTotal()"
+          >
+
+        </div>
+
+
+        <!-- ================= TOTAL PRICE ================= -->
+
+        <div class="form-group price-box">
+
+          <label>Total Price</label>
+
+          <input
+            id="inTotalPrice"
+            class="price-total"
+            type="number"
+            readonly
+            placeholder="0.00"
           >
 
         </div>
@@ -1161,6 +1217,39 @@ function setDefaultDateTimes(){
 
 
 /* =========================================================
+   PRICE CALCULATION
+========================================================= */
+
+function calculateInTotal(){
+
+  const quantity =
+    Number(
+      document.getElementById(
+        "inQuantity"
+      ).value
+    ) || 0;
+
+  const unitPrice =
+    Number(
+      document.getElementById(
+        "inUnitPrice"
+      ).value
+    ) || 0;
+
+  const total =
+    quantity * unitPrice;
+
+  document.getElementById(
+    "inTotalPrice"
+  ).value =
+    total > 0
+      ? total.toFixed(2)
+      : "";
+
+}
+
+
+/* =========================================================
    BRANCH FILTER
 ========================================================= */
 
@@ -1638,6 +1727,43 @@ async function saveStock(type){
     }
 
 
+    /* ================= PRICE ================= */
+
+    let unitPrice = null;
+    let totalPrice = null;
+
+
+    if(isIN){
+
+      unitPrice =
+        Number(
+          document.getElementById(
+            "inUnitPrice"
+          ).value
+        );
+
+
+      if(
+        Number.isNaN(unitPrice) ||
+        unitPrice < 0
+      ){
+
+        showMessage(
+          "Unit Price sirriitti galchi.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      totalPrice =
+        quantity * unitPrice;
+
+    }
+
+
     /* ================= MODEL 19 ================= */
 
     let model19 = null;
@@ -1894,7 +2020,15 @@ async function saveStock(type){
         model19,
 
       model_22:
-        model22
+        model22,
+
+      /* ================= PRICE ================= */
+
+      unit_price:
+        unitPrice,
+
+      total_price:
+        totalPrice
 
     };
 
@@ -2155,6 +2289,10 @@ function createDetailsHtml(item){
 
               <th>Unit</th>
 
+              <th>Unit Price</th>
+
+              <th>Total Price</th>
+
               <th>Date and Time</th>
 
               <th>Entered By</th>
@@ -2190,6 +2328,26 @@ function createDetailsHtml(item){
           : "Stock OUT";
 
 
+      const rowUnitPrice =
+        row.unit_price != null
+          ? Number(row.unit_price)
+          : null;
+
+
+      const rowTotalPrice =
+        row.total_price != null
+          ? Number(row.total_price)
+          : (
+              isIn &&
+              rowUnitPrice != null
+                ? (
+                    Number(row.quantity || 0) *
+                    rowUnitPrice
+                  )
+                : null
+            );
+
+
       html += `
 
         <tr>
@@ -2222,6 +2380,22 @@ function createDetailsHtml(item){
             ${escapeHtml(
               row.unit || item.unit || ""
             )}
+          </td>
+
+          <td class="price-cell">
+            ${
+              rowUnitPrice != null
+                ? formatPrice(rowUnitPrice)
+                : "-"
+            }
+          </td>
+
+          <td class="price-cell">
+            ${
+              rowTotalPrice != null
+                ? formatPrice(rowTotalPrice)
+                : "-"
+            }
           </td>
 
           <td>
@@ -2518,6 +2692,14 @@ function clearStockIn(){
   ).value = "";
 
   document.getElementById(
+    "inUnitPrice"
+  ).value = "";
+
+  document.getElementById(
+    "inTotalPrice"
+  ).value = "";
+
+  document.getElementById(
     "inEnteredBy"
   ).value = "";
 
@@ -2603,6 +2785,28 @@ function formatNumber(value){
   ){
 
     return String(num);
+
+  }
+
+  return num.toFixed(2);
+
+}
+
+
+/* =========================================================
+   FORMAT PRICE
+========================================================= */
+
+function formatPrice(value){
+
+  const num =
+    Number(value);
+
+  if(
+    Number.isNaN(num)
+  ){
+
+    return "-";
 
   }
 
