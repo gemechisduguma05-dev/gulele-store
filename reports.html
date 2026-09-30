@@ -409,6 +409,12 @@ td{
   color:#475569;
 }
 
+.total-price-box{
+  background:#f0fdf4;
+  color:#166534;
+  font-weight:bold;
+}
+
 .edit-actions{
   display:flex;
   gap:10px;
@@ -534,7 +540,7 @@ td{
 
   <div class="box">
 
-    <h2>🔎 Report Filter</h2>
+    <h2>🔎 Report Filters</h2>
 
     <div class="filters">
 
@@ -560,11 +566,11 @@ td{
         </option>
 
         <option value="IN">
-          📥 Stock In
+          📥 Stock IN
         </option>
 
         <option value="OUT">
-          📤 Stock Out
+          📤 Stock OUT
         </option>
 
       </select>
@@ -677,6 +683,11 @@ td{
 
 </div>
 
+
+<!-- =====================================================
+     DETAIL MODAL
+===================================================== -->
+
 <div
   id="detailModal"
   class="modal"
@@ -714,6 +725,11 @@ td{
 
 </div>
 
+
+<!-- =====================================================
+     EDIT MODAL
+===================================================== -->
+
 <div
   id="editModal"
   class="modal"
@@ -745,26 +761,40 @@ td{
           Item
         </strong>
 
+        <br><br>
+
+        Only the following fields can be edited:
+
         <br>
 
-        Quantity, Received Date/Time and
-        Expiry Date qofa edit gochuu dandeessa.
-
+        • Quantity
         <br>
+        • Received Date & Time
+        <br>
+        • Expiry Date
+        <br>
+        • Unit Price
 
-        Edited By fi Edited At ofumaan galmaa'u.
+        <br><br>
+
+        <strong>
+          Edited By and Edited At are recorded automatically.
+        </strong>
 
       </div>
+
 
       <div
         id="editError"
         class="edit-error"
       ></div>
 
+
       <div
         id="editSuccess"
         class="edit-success"
       ></div>
+
 
       <div class="form-group">
 
@@ -777,14 +807,16 @@ td{
           type="number"
           min="0"
           step="any"
+          oninput="calculateEditTotalPrice()"
         >
 
       </div>
 
+
       <div class="form-group">
 
         <label>
-          Guyyaa Galee / Received Date & Time
+          Received Date & Time
         </label>
 
         <input
@@ -793,6 +825,7 @@ td{
         >
 
       </div>
+
 
       <div class="form-group">
 
@@ -807,6 +840,40 @@ td{
 
       </div>
 
+
+      <div class="form-group">
+
+        <label>
+          Unit Price
+        </label>
+
+        <input
+          id="editUnitPrice"
+          type="number"
+          min="0"
+          step="any"
+          oninput="calculateEditTotalPrice()"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Total Price
+        </label>
+
+        <input
+          id="editTotalPrice"
+          class="readonly-box total-price-box"
+          type="number"
+          readonly
+        >
+
+      </div>
+
+
       <div class="form-group">
 
         <label>
@@ -820,6 +887,7 @@ td{
         >
 
       </div>
+
 
       <div class="edit-actions">
 
@@ -845,6 +913,7 @@ td{
   </div>
 
 </div>
+
 
 <script>
 
@@ -1147,7 +1216,7 @@ async function findBranchUUID(){
   if(!found){
 
     throw new Error(
-      "Branch UUID hin argamne: " +
+      "Branch UUID could not be found for: " +
       (
         selectedBranchName ||
         selectedBranchCode
@@ -1246,6 +1315,16 @@ function toNumber(value){
 ===================================================== */
 
 function formatPrice(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+
+    return "—";
+
+  }
 
   const number =
     Number(value);
@@ -1960,12 +2039,28 @@ function getTransactionBranch(transaction){
 
 function getTransactionDate(transaction){
 
+  const type =
+    getType(transaction);
+
+  if(type === "OUT"){
+
+    return (
+      transaction.issued_at ||
+      transaction.created_at ||
+      transaction.date ||
+      transaction.transaction_date ||
+      transaction.entered_at ||
+      ""
+    );
+
+  }
+
   return (
     transaction.entered_at ||
     transaction.created_at ||
-    transaction.issued_at ||
     transaction.date ||
     transaction.transaction_date ||
+    transaction.issued_at ||
     ""
   );
 
@@ -1974,7 +2069,6 @@ function getTransactionDate(transaction){
 
 /* =====================================================
    BRANCH MATCH
-   IMPORTANT FIX
 ===================================================== */
 
 function transactionBelongsToCurrentBranch(
@@ -2023,10 +2117,6 @@ function transactionBelongsToCurrentBranch(
     .trim()
     .toUpperCase();
 
-  /*
-    Branch UUID matches
-  */
-
   if(
     currentUUID &&
     txBranchId &&
@@ -2037,10 +2127,6 @@ function transactionBelongsToCurrentBranch(
 
   }
 
-  /*
-    Branch code matches
-  */
-
   if(
     currentCode &&
     txBranchCode &&
@@ -2050,11 +2136,6 @@ function transactionBelongsToCurrentBranch(
     return true;
 
   }
-
-  /*
-    Some old MAIN transactions
-    may have MAIN as branch code.
-  */
 
   if(
     currentCode === "MAIN" &&
@@ -2186,12 +2267,6 @@ function renderReport(groups){
 
           📭 No stock transactions found.
 
-          <br><br>
-
-          Yoo Stock Management keessatti
-          save goote ta'e, branch code/UUID
-          kee ilaalaa.
-
         </td>
 
       </tr>
@@ -2270,7 +2345,14 @@ function renderReport(groups){
 
       const totalPrice =
         type === "IN"
-          ? latest.total_price
+          ? (
+              latest.total_price !== null &&
+              latest.total_price !== undefined &&
+              latest.total_price !== ""
+                ? latest.total_price
+                : toNumber(latest.quantity) *
+                  toNumber(latest.unit_price)
+            )
           : "";
 
       html += `
@@ -2439,7 +2521,7 @@ function showDetails(index){
   document.getElementById(
     "detailTitle"
   ).textContent =
-    "📋 Detail - " +
+    "📋 Details - " +
     group.itemName;
 
   document.getElementById(
@@ -2585,6 +2667,18 @@ function showDetails(index){
 
             : escapeHTML(type || "—");
 
+
+      const calculatedTotalPrice =
+        (
+          transaction.total_price !== null &&
+          transaction.total_price !== undefined &&
+          transaction.total_price !== ""
+        )
+          ? transaction.total_price
+          : toNumber(transaction.quantity) *
+            toNumber(transaction.unit_price);
+
+
       const editButton =
         (
           type === "IN" &&
@@ -2607,6 +2701,7 @@ function showDetails(index){
           `
 
           : "";
+
 
       html += `
 
@@ -2656,7 +2751,7 @@ function showDetails(index){
             ${
               type === "IN"
                 ? formatPrice(
-                    transaction.total_price
+                    calculatedTotalPrice
                   )
                 : "—"
             }
@@ -2808,7 +2903,7 @@ function openEditModalById(transactionId){
   if(!transaction){
 
     showEditError(
-      "Transaction hin argamne."
+      "Transaction could not be found."
     );
 
     return;
@@ -2837,7 +2932,7 @@ function openEditModal(transaction){
   ){
 
     alert(
-      "Stock IN qofa edit gochuu dandeessa."
+      "Only Stock IN transactions can be edited."
     );
 
     return;
@@ -2847,7 +2942,7 @@ function openEditModal(transaction){
   if(isMain){
 
     alert(
-      "Main / HQ view-only dha. Edit gochuun hin danda'amu."
+      "Main / HQ is view-only. Editing is not allowed."
     );
 
     return;
@@ -2857,15 +2952,21 @@ function openEditModal(transaction){
   editingTransaction =
     transaction;
 
+
   document.getElementById(
     "editItemName"
   ).textContent =
     getItemName(transaction);
 
+
   document.getElementById(
     "editQuantity"
   ).value =
-    toNumber(transaction.quantity);
+    transaction.quantity !== null &&
+    transaction.quantity !== undefined
+      ? transaction.quantity
+      : "";
+
 
   document.getElementById(
     "editReceivedAt"
@@ -2874,6 +2975,7 @@ function openEditModal(transaction){
       getTransactionDate(transaction)
     );
 
+
   document.getElementById(
     "editExpiryDate"
   ).value =
@@ -2881,17 +2983,71 @@ function openEditModal(transaction){
       transaction.expiry_date
     );
 
+
+  document.getElementById(
+    "editUnitPrice"
+  ).value =
+    transaction.unit_price !== null &&
+    transaction.unit_price !== undefined
+      ? transaction.unit_price
+      : "";
+
+
   document.getElementById(
     "editEditedBy"
   ).value =
     currentLoginUser;
 
+
+  calculateEditTotalPrice();
+
   hideEditMessages();
+
 
   document.getElementById(
     "editModal"
   ).style.display =
     "block";
+
+}
+
+
+/* =====================================================
+   CALCULATE EDIT TOTAL PRICE
+===================================================== */
+
+function calculateEditTotalPrice(){
+
+  const quantity =
+    Number(
+      document.getElementById(
+        "editQuantity"
+      ).value
+    );
+
+  const unitPrice =
+    Number(
+      document.getElementById(
+        "editUnitPrice"
+      ).value
+    );
+
+  const total =
+    (
+      Number.isFinite(quantity)
+        ? quantity
+        : 0
+    ) *
+    (
+      Number.isFinite(unitPrice)
+        ? unitPrice
+        : 0
+    );
+
+  document.getElementById(
+    "editTotalPrice"
+  ).value =
+    total.toFixed(2);
 
 }
 
@@ -2905,7 +3061,7 @@ async function saveStockInEdit(){
   if(!editingTransaction){
 
     showEditError(
-      "Transaction filatame hin jiru."
+      "No transaction is selected."
     );
 
     return;
@@ -2915,30 +3071,45 @@ async function saveStockInEdit(){
   if(isMain){
 
     showEditError(
-      "Main / HQ view-only dha."
+      "Main / HQ is view-only."
     );
 
     return;
 
   }
 
+
   const quantityValue =
     document.getElementById(
       "editQuantity"
     ).value;
+
 
   const receivedValue =
     document.getElementById(
       "editReceivedAt"
     ).value;
 
+
   const expiryValue =
     document.getElementById(
       "editExpiryDate"
     ).value;
 
+
+  const unitPriceValue =
+    document.getElementById(
+      "editUnitPrice"
+    ).value;
+
+
   const editedBy =
     currentLoginUser;
+
+
+  /* ===================================================
+     VALIDATE QUANTITY
+  =================================================== */
 
   if(
     quantityValue === "" ||
@@ -2949,25 +3120,53 @@ async function saveStockInEdit(){
   ){
 
     showEditError(
-      "Quantity sirrii galchi."
+      "Please enter a valid quantity."
     );
 
     return;
 
   }
+
+
+  /* ===================================================
+     VALIDATE RECEIVED DATE
+  =================================================== */
 
   if(!receivedValue){
 
     showEditError(
-      "Guyyaa Galee / Received Date & Time filadhu."
+      "Please select Received Date & Time."
     );
 
     return;
 
   }
 
+
+  /* ===================================================
+     VALIDATE PRICE
+  =================================================== */
+
+  if(
+    unitPriceValue === "" ||
+    !Number.isFinite(
+      Number(unitPriceValue)
+    ) ||
+    Number(unitPriceValue) < 0
+  ){
+
+    showEditError(
+      "Please enter a valid Unit Price."
+    );
+
+    return;
+
+  }
+
+
   const transactionId =
     editingTransaction.id;
+
 
   if(
     transactionId === undefined ||
@@ -2976,30 +3175,36 @@ async function saveStockInEdit(){
   ){
 
     showEditError(
-      "Transaction ID hin argamne."
+      "Transaction ID was not found."
     );
 
     return;
 
   }
 
+
   const saveButton =
     document.getElementById(
       "saveEditButton"
     );
 
+
   saveButton.disabled =
     true;
+
 
   saveButton.textContent =
     "⏳ Saving...";
 
+
   hideEditMessages();
+
 
   try{
 
     const receivedDate =
       new Date(receivedValue);
+
 
     if(
       isNaN(
@@ -3008,29 +3213,64 @@ async function saveStockInEdit(){
     ){
 
       throw new Error(
-        "Received Date & Time sirrii miti."
+        "Received Date & Time is invalid."
       );
 
     }
+
+
+    const quantity =
+      Number(quantityValue);
+
+
+    const unitPrice =
+      Number(unitPriceValue);
+
+
+    const totalPrice =
+      quantity *
+      unitPrice;
+
 
     const expiryDate =
       expiryValue
         ? expiryValue
         : null;
 
+
     const editedAt =
       new Date().toISOString();
+
+
+    /* =================================================
+       UPDATE DATA
+
+       Only these editable values are changed:
+       Quantity
+       Received Date & Time
+       Expiry Date
+       Unit Price
+       Total Price
+
+       Edited By and Edited At are automatic.
+    ================================================= */
 
     const updateData = {
 
       quantity:
-        Number(quantityValue),
+        quantity,
 
       entered_at:
         receivedDate.toISOString(),
 
       expiry_date:
         expiryDate,
+
+      unit_price:
+        unitPrice,
+
+      total_price:
+        totalPrice,
 
       edited_by:
         editedBy,
@@ -3040,6 +3280,7 @@ async function saveStockInEdit(){
 
     };
 
+
     const url =
       SUPABASE_URL +
       "/rest/v1/stock_transactions" +
@@ -3047,6 +3288,7 @@ async function saveStockInEdit(){
       encodeURIComponent(
         transactionId
       );
+
 
     const response =
       await fetch(
@@ -3060,6 +3302,7 @@ async function saveStockInEdit(){
         }
       );
 
+
     if(!response.ok){
 
       const errorText =
@@ -3067,23 +3310,55 @@ async function saveStockInEdit(){
 
       throw new Error(
         errorText ||
-        "Stock IN edit save gochuu hin dandeenye."
+        "Stock IN edit could not be saved."
       );
 
     }
 
+
     showEditSuccess(
-      "✅ Stock IN sirriitti edit ta'e."
+      "✅ Stock IN updated successfully."
     );
+
+
+    /*
+      Save the new values locally too,
+      so the detail view uses the latest data.
+    */
+
+    editingTransaction.quantity =
+      quantity;
+
+    editingTransaction.entered_at =
+      receivedDate.toISOString();
+
+    editingTransaction.expiry_date =
+      expiryDate;
+
+    editingTransaction.unit_price =
+      unitPrice;
+
+    editingTransaction.total_price =
+      totalPrice;
+
+    editingTransaction.edited_by =
+      editedBy;
+
+    editingTransaction.edited_at =
+      editedAt;
+
 
     await loadReport();
 
-    closeEditModal();
 
     const updatedItemName =
       getItemName(
         editingTransaction
       );
+
+
+    closeEditModal();
+
 
     const updatedGroupIndex =
       reportGroups.findIndex(
@@ -3091,6 +3366,7 @@ async function saveStockInEdit(){
           group.itemName ===
           updatedItemName
       );
+
 
     if(
       updatedGroupIndex >= 0
@@ -3111,7 +3387,7 @@ async function saveStockInEdit(){
     );
 
     showEditError(
-      "❌ Save hin milkoofne: " +
+      "❌ Save failed: " +
       error.message
     );
 
@@ -3153,6 +3429,7 @@ function showEditError(message){
 
 }
 
+
 function showEditSuccess(message){
 
   const box =
@@ -3172,6 +3449,7 @@ function showEditSuccess(message){
     "none";
 
 }
+
 
 function hideEditMessages(){
 
@@ -3206,6 +3484,7 @@ function closeEditModal(){
 
 }
 
+
 function closeEditOutside(event){
 
   if(
@@ -3233,6 +3512,7 @@ function closeDetail(){
 
 }
 
+
 function closeOutside(event){
 
   if(
@@ -3249,9 +3529,6 @@ function closeOutside(event){
 
 /* =====================================================
    LOAD REPORT
-   IMPORTANT FIX:
-   FETCH ALL TRANSACTIONS FIRST,
-   THEN FILTER BY UUID OR CODE.
 ===================================================== */
 
 async function loadReport(){
@@ -3260,6 +3537,7 @@ async function loadReport(){
     document.getElementById(
       "reportList"
     );
+
 
   list.innerHTML = `
 
@@ -3276,18 +3554,16 @@ async function loadReport(){
 
   `;
 
+
   try{
 
     const branchUUID =
       await findBranchUUID();
 
-    /*
-      IMPORTANT:
-      Do NOT filter branch_id inside
-      the Supabase URL.
 
-      We read all transactions first,
-      then check branch_id OR branch_code.
+    /*
+      Fetch all transactions first.
+      Branch is filtered using UUID OR branch code.
     */
 
     const response =
@@ -3301,6 +3577,7 @@ async function loadReport(){
         }
       );
 
+
     if(!response.ok){
 
       throw new Error(
@@ -3309,8 +3586,10 @@ async function loadReport(){
 
     }
 
+
     const fetchedTransactions =
       await response.json();
+
 
     if(
       !Array.isArray(
@@ -3319,22 +3598,15 @@ async function loadReport(){
     ){
 
       throw new Error(
-        "Stock transactions data sirrii miti."
+        "Stock transaction data is invalid."
       );
 
     }
 
-    /*
-      Keep complete database data
-      for Edit operation.
-    */
 
     allTransactions =
       fetchedTransactions;
 
-    /*
-      BRANCH FILTER
-    */
 
     let data =
       fetchedTransactions.filter(
@@ -3344,6 +3616,7 @@ async function loadReport(){
             branchUUID
           )
       );
+
 
     console.log(
       "REPORT DEBUG:",
@@ -3369,6 +3642,7 @@ async function loadReport(){
         "dateFilter"
       ).value;
 
+
     const enteredBy =
       document.getElementById(
         "enteredByFilter"
@@ -3376,12 +3650,14 @@ async function loadReport(){
       .trim()
       .toLowerCase();
 
+
     const itemSearch =
       document.getElementById(
         "itemFilter"
       ).value
       .trim()
       .toLowerCase();
+
 
     const type =
       document.getElementById(
@@ -3393,6 +3669,7 @@ async function loadReport(){
       data.filter(
         transaction => {
 
+
           if(date){
 
             const transactionDate =
@@ -3401,6 +3678,7 @@ async function loadReport(){
                   transaction
                 )
               );
+
 
             if(
               transactionDate !==
@@ -3413,6 +3691,7 @@ async function loadReport(){
 
           }
 
+
           if(enteredBy){
 
             const entered =
@@ -3422,6 +3701,7 @@ async function loadReport(){
               )
               .toLowerCase();
 
+
             const issued =
               String(
                 transaction.issued_by ||
@@ -3429,12 +3709,14 @@ async function loadReport(){
               )
               .toLowerCase();
 
+
             const edited =
               String(
                 transaction.edited_by ||
                 ""
               )
               .toLowerCase();
+
 
             if(
               !entered.includes(enteredBy) &&
@@ -3448,6 +3730,7 @@ async function loadReport(){
 
           }
 
+
           if(itemSearch){
 
             const itemName =
@@ -3455,6 +3738,7 @@ async function loadReport(){
                 getItemName(transaction)
               )
               .toLowerCase();
+
 
             if(
               !itemName.includes(
@@ -3468,6 +3752,7 @@ async function loadReport(){
 
           }
 
+
           if(type){
 
             if(
@@ -3480,6 +3765,7 @@ async function loadReport(){
             }
 
           }
+
 
           return true;
 
@@ -3503,16 +3789,19 @@ async function loadReport(){
 
     let totalOut = 0;
 
+
     data.forEach(
       transaction => {
 
         const transactionType =
           getType(transaction);
 
+
         const quantity =
           toNumber(
             transaction.quantity
           );
+
 
         if(
           transactionType === "IN"
@@ -3522,6 +3811,7 @@ async function loadReport(){
             quantity;
 
         }
+
 
         if(
           transactionType === "OUT"
@@ -3535,29 +3825,35 @@ async function loadReport(){
       }
     );
 
+
     const balance =
       totalIn -
       totalOut;
+
 
     document.getElementById(
       "reportIn"
     ).textContent =
       totalIn;
 
+
     document.getElementById(
       "reportOut"
     ).textContent =
       totalOut;
+
 
     document.getElementById(
       "reportTransactions"
     ).textContent =
       data.length;
 
+
     document.getElementById(
       "reportItems"
     ).textContent =
       reportGroups.length;
+
 
     document.getElementById(
       "reportBalance"
@@ -3581,7 +3877,9 @@ async function loadReport(){
       error
     );
 
+
     reportGroups = [];
+
 
     list.innerHTML = `
 
@@ -3606,25 +3904,30 @@ async function loadReport(){
 
     `;
 
+
     document.getElementById(
       "reportIn"
     ).textContent =
       "0";
+
 
     document.getElementById(
       "reportOut"
     ).textContent =
       "0";
 
+
     document.getElementById(
       "reportTransactions"
     ).textContent =
       "0";
 
+
     document.getElementById(
       "reportItems"
     ).textContent =
       "0";
+
 
     document.getElementById(
       "reportBalance"
@@ -3647,20 +3950,24 @@ function clearFilters(){
   ).value =
     "";
 
+
   document.getElementById(
     "enteredByFilter"
   ).value =
     "";
+
 
   document.getElementById(
     "itemFilter"
   ).value =
     "";
 
+
   document.getElementById(
     "typeFilter"
   ).value =
     "";
+
 
   loadReport();
 
@@ -3673,14 +3980,10 @@ function clearFilters(){
 
 showBranchInfo();
 
+
 (async function(){
 
   try{
-
-    /*
-      Items must be loaded first
-      because report uses item_id.
-    */
 
     await loadItems();
 
@@ -3694,10 +3997,12 @@ showBranchInfo();
       error
     );
 
+
     const list =
       document.getElementById(
         "reportList"
       );
+
 
     list.innerHTML = `
 
