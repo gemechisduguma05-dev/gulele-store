@@ -183,10 +183,6 @@ td{
   background:#fee2e2 !important;
 }
 
-/* =====================================================
-   EX DATE COLORS
-===================================================== */
-
 .expiry-red{
   color:#dc2626 !important;
   font-weight:bold;
@@ -229,10 +225,6 @@ td{
   font-weight:bold;
 }
 
-/* =====================================================
-   DETAIL BUTTON
-===================================================== */
-
 .detail-btn{
   background:#5b341f;
   color:white;
@@ -244,6 +236,27 @@ td{
 
 .detail-btn:hover{
   background:#3f2415;
+}
+
+/* =====================================================
+   EDIT BUTTON
+===================================================== */
+
+.edit-btn{
+  background:#2563eb;
+  color:white;
+  padding:7px 12px;
+  border-radius:6px;
+  font-size:13px;
+}
+
+.edit-btn:hover{
+  background:#1d4ed8;
+}
+
+.edit-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 /* =====================================================
@@ -328,7 +341,7 @@ td{
 }
 
 .detail-table{
-  min-width:2100px;
+  min-width:2200px;
 }
 
 .reason-cell{
@@ -362,6 +375,90 @@ td{
   font-weight:bold;
 }
 
+/* =====================================================
+   EDIT MODAL
+===================================================== */
+
+.edit-modal-content{
+  max-width:650px;
+}
+
+.edit-form{
+  padding:20px;
+}
+
+.edit-info{
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  color:#166534;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:18px;
+  line-height:1.5;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+  color:#334155;
+}
+
+.form-group input{
+  width:100%;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  font-size:16px;
+}
+
+.readonly-box{
+  background:#f8fafc;
+  color:#475569;
+}
+
+.edit-actions{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.save-edit-btn{
+  background:#16a34a;
+  color:white;
+}
+
+.cancel-edit-btn{
+  background:#64748b;
+  color:white;
+}
+
+.edit-error{
+  display:none;
+  background:#fee2e2;
+  color:#991b1b;
+  border:1px solid #fecaca;
+  padding:12px;
+  border-radius:7px;
+  margin-bottom:15px;
+}
+
+.edit-success{
+  display:none;
+  background:#dcfce7;
+  color:#166534;
+  border:1px solid #bbf7d0;
+  padding:12px;
+  border-radius:7px;
+  margin-bottom:15px;
+}
+
 @media(max-width:600px){
 
   header{
@@ -392,6 +489,14 @@ td{
 
   .modal-content{
     margin:5px auto;
+  }
+
+  .edit-form{
+    padding:14px;
+  }
+
+  .edit-actions button{
+    width:100%;
   }
 
 }
@@ -700,6 +805,152 @@ td{
 </div>
 
 
+<!-- ===================================================
+     EDIT STOCK IN MODAL
+==================================================== -->
+
+<div
+  id="editModal"
+  class="modal"
+  onclick="closeEditOutside(event)"
+>
+
+  <div class="modal-content edit-modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        ✏️ Edit Stock IN
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeEditModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="edit-form">
+
+      <div class="edit-info">
+
+        <strong id="editItemName">
+          Item
+        </strong>
+
+        <br>
+
+        Quantity, Received Date/Time and
+        Expiry Date qofa edit gochuu dandeessa.
+
+        <br>
+
+        Edited By fi Edited At ofumaan galmaa'u.
+
+      </div>
+
+
+      <div
+        id="editError"
+        class="edit-error"
+      ></div>
+
+
+      <div
+        id="editSuccess"
+        class="edit-success"
+      ></div>
+
+
+      <div class="form-group">
+
+        <label>
+          Quantity
+        </label>
+
+        <input
+          id="editQuantity"
+          type="number"
+          min="0"
+          step="any"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Guyyaa Galee / Received Date & Time
+        </label>
+
+        <input
+          id="editReceivedAt"
+          type="datetime-local"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Expiry Date
+        </label>
+
+        <input
+          id="editExpiryDate"
+          type="date"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Edited By
+        </label>
+
+        <input
+          id="editEditedBy"
+          class="readonly-box"
+          readonly
+        >
+
+      </div>
+
+
+      <div class="edit-actions">
+
+        <button
+          class="cancel-edit-btn"
+          onclick="closeEditModal()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          id="saveEditButton"
+          class="save-edit-btn"
+          onclick="saveStockInEdit()"
+        >
+          💾 Save Changes
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
 
 /* =====================================================
@@ -738,6 +989,23 @@ if(
     "index.html";
 
 }
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentLoginUser =
+  localStorage.getItem(
+    "login_user"
+  ) ||
+  localStorage.getItem(
+    "username"
+  ) ||
+  localStorage.getItem(
+    "user_email"
+  ) ||
+  "Unknown User";
 
 
 /* =====================================================
@@ -808,6 +1076,13 @@ let itemMap = {};
 
 
 /* =====================================================
+   CURRENT EDIT TRANSACTION
+===================================================== */
+
+let editingTransaction = null;
+
+
+/* =====================================================
    HEADERS
 ===================================================== */
 
@@ -819,7 +1094,10 @@ function getHeaders(){
       SUPABASE_KEY,
 
     "Content-Type":
-      "application/json"
+      "application/json",
+
+    "Prefer":
+      "return=representation"
 
   };
 
@@ -1214,6 +1492,55 @@ function dateOnly(value){
 
 
 /* =====================================================
+   DATETIME LOCAL VALUE
+===================================================== */
+
+function toDateTimeLocalValue(value){
+
+  if(!value){
+
+    return "";
+
+  }
+
+
+  const d =
+    new Date(value);
+
+
+  if(
+    isNaN(
+      d.getTime()
+    )
+  ){
+
+    return "";
+
+  }
+
+
+  const pad =
+    number =>
+      String(number)
+        .padStart(2,"0");
+
+
+  return (
+    d.getFullYear() +
+    "-" +
+    pad(d.getMonth()+1) +
+    "-" +
+    pad(d.getDate()) +
+    "T" +
+    pad(d.getHours()) +
+    ":" +
+    pad(d.getMinutes())
+  );
+
+}
+
+
+/* =====================================================
    EX DATE COLOR
 ===================================================== */
 
@@ -1458,8 +1785,6 @@ async function loadItems(){
 
 /* =====================================================
    ITEM NAME
-   IMPORTANT:
-   item_id -> items table -> item name
 ===================================================== */
 
 function getItemName(
@@ -1469,11 +1794,6 @@ function getItemName(
   const itemId =
     transaction.item_id;
 
-
-  /*
-    FIRST:
-    Get item name from items table.
-  */
 
   if(
     itemId !== undefined &&
@@ -1498,10 +1818,6 @@ function getItemName(
 
   }
 
-
-  /*
-    FALLBACK ONLY.
-  */
 
   return (
     transaction.item_name ||
@@ -1635,10 +1951,6 @@ function getModelInfo(
     .trim();
 
 
-  /*
-    MODEL 19
-  */
-
   if(!model19){
 
     const match19 =
@@ -1657,10 +1969,6 @@ function getModelInfo(
   }
 
 
-  /*
-    MODEL 22
-  */
-
   if(!model22){
 
     const match22 =
@@ -1678,10 +1986,6 @@ function getModelInfo(
 
   }
 
-
-  /*
-    Emergency Relief.
-  */
 
   if(!model22){
 
@@ -1760,7 +2064,7 @@ function getModel22Number(
 
 
 /* =====================================================
-   DESCRIPTION / TRANSACTION REASON
+   DESCRIPTION
 ===================================================== */
 
 function getDescription(
@@ -1835,20 +2139,12 @@ function getDescription(
   }
 
 
-  /*
-    Remove only Model 19 metadata.
-  */
-
   text =
     text.replace(
       /model\s*19(?:\s*(?:number|no\.?|#))?\s*[-:#]?\s*[A-Za-z0-9][A-Za-z0-9\/_.-]*/gi,
       ""
     );
 
-
-  /*
-    Remove only Model 22 metadata.
-  */
 
   text =
     text.replace(
@@ -1956,7 +2252,7 @@ function getTransactionDate(
 
 
 /* =====================================================
-   GROUP TRANSACTIONS BY ITEM
+   GROUP TRANSACTIONS
 ===================================================== */
 
 function groupTransactions(
@@ -1971,11 +2267,6 @@ function groupTransactions(
 
       let key;
 
-
-      /*
-        item_id is the primary key
-        for grouping.
-      */
 
       if(
         transaction.item_id !==
@@ -2545,6 +2836,16 @@ function showDetails(
 
             <th>Transaction / Description</th>
 
+            <th>Edited By</th>
+
+            <th>Edited At</th>
+
+            ${
+              isMain
+                ? ""
+                : "<th>Edit</th>"
+            }
+
           </tr>
 
         </thead>
@@ -2626,6 +2927,28 @@ function showDetails(
             : escapeHTML(
                 type || "—"
               );
+
+
+      const editButton =
+        (
+          type === "IN" &&
+          !isMain &&
+          transaction.id !== undefined &&
+          transaction.id !== null
+        )
+
+          ? `
+
+            <button
+              class="edit-btn"
+              onclick="openEditModal(${indexOfTransactionInGroup(group, transaction)})"
+            >
+              ✏️ Edit
+            </button>
+
+          `
+
+          : "";
 
 
       html += `
@@ -2776,6 +3099,36 @@ function showDetails(
 
           </td>
 
+
+          <td>
+            ${escapeHTML(
+              transaction.edited_by ||
+              "—"
+            )}
+          </td>
+
+
+          <td>
+            ${escapeHTML(
+              transaction.edited_at
+                ? formatDate(
+                    transaction.edited_at
+                  )
+                : "—"
+            )}
+          </td>
+
+
+          ${
+            isMain
+              ? ""
+              : `
+                <td>
+                  ${editButton}
+                </td>
+              `
+          }
+
         </tr>
 
       `;
@@ -2805,6 +3158,648 @@ function showDetails(
     "detailModal"
   ).style.display =
     "block";
+
+}
+
+
+/* =====================================================
+   FIND TRANSACTION POSITION
+===================================================== */
+
+function indexOfTransactionInGroup(
+  group,
+  transaction
+){
+
+  return group.transactions.indexOf(
+    transaction
+  );
+
+}
+
+
+/* =====================================================
+   OPEN EDIT MODAL
+===================================================== */
+
+function openEditModal(
+  transactionIndex
+){
+
+  /*
+    Find the transaction by searching
+    all report groups.
+  */
+
+  let transaction = null;
+
+
+  for(
+    const group of reportGroups
+  ){
+
+    if(
+      transactionIndex >= 0 &&
+      transactionIndex <
+        group.transactions.length
+    ){
+
+      /*
+        The index belongs to the group
+        currently displayed only when
+        showDetails() called it.
+
+        Therefore use the currently
+        opened detail title to identify
+        the group.
+      */
+
+      const title =
+        document.getElementById(
+          "detailTitle"
+        ).textContent;
+
+
+      const itemName =
+        title.replace(
+          "📋 Detail - ",
+          ""
+        ).trim();
+
+
+      if(
+        group.itemName === itemName
+      ){
+
+        transaction =
+          group.transactions[
+            transactionIndex
+          ];
+
+        break;
+
+      }
+
+    }
+
+  }
+
+
+  if(!transaction){
+
+    showEditError(
+      "Transaction hin argamne."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    getType(
+      transaction
+    ) !== "IN"
+  ){
+
+    showEditError(
+      "Stock IN qofa edit gochuu dandeessa."
+    );
+
+    return;
+
+  }
+
+
+  if(isMain){
+
+    alert(
+      "Main / HQ view-only dha. Edit gochuun hin danda'amu."
+    );
+
+    return;
+
+  }
+
+
+  editingTransaction =
+    transaction;
+
+
+  document.getElementById(
+    "editItemName"
+  ).textContent =
+    getItemName(
+      transaction
+    );
+
+
+  document.getElementById(
+    "editQuantity"
+  ).value =
+    toNumber(
+      transaction.quantity
+    );
+
+
+  document.getElementById(
+    "editReceivedAt"
+  ).value =
+    toDateTimeLocalValue(
+      getTransactionDate(
+        transaction
+      )
+    );
+
+
+  document.getElementById(
+    "editExpiryDate"
+  ).value =
+    dateOnly(
+      transaction.expiry_date
+    );
+
+
+  document.getElementById(
+    "editEditedBy"
+  ).value =
+    currentLoginUser;
+
+
+  hideEditMessages();
+
+
+  document.getElementById(
+    "editModal"
+  ).style.display =
+    "block";
+
+}
+
+
+/* =====================================================
+   SAVE STOCK IN EDIT
+===================================================== */
+
+async function saveStockInEdit(){
+
+  if(!editingTransaction){
+
+    showEditError(
+      "Transaction filatame hin jiru."
+    );
+
+    return;
+
+  }
+
+
+  if(isMain){
+
+    showEditError(
+      "Main / HQ view-only dha."
+    );
+
+    return;
+
+  }
+
+
+  const quantityValue =
+    document.getElementById(
+      "editQuantity"
+    ).value;
+
+
+  const receivedValue =
+    document.getElementById(
+      "editReceivedAt"
+    ).value;
+
+
+  const expiryValue =
+    document.getElementById(
+      "editExpiryDate"
+    ).value;
+
+
+  const editedBy =
+    currentLoginUser;
+
+
+  /* =================================================
+     VALIDATION
+  ================================================= */
+
+  if(
+    quantityValue === "" ||
+    !Number.isFinite(
+      Number(quantityValue)
+    ) ||
+    Number(quantityValue) < 0
+  ){
+
+    showEditError(
+      "Quantity sirrii galchi."
+    );
+
+    return;
+
+  }
+
+
+  if(!receivedValue){
+
+    showEditError(
+      "Guyyaa Galee / Received Date & Time filadhu."
+    );
+
+    return;
+
+  }
+
+
+  if(!editedBy){
+
+    showEditError(
+      "Edited By user argamuu hin dandeenye."
+    );
+
+    return;
+
+  }
+
+
+  const transactionId =
+    editingTransaction.id;
+
+
+  if(
+    transactionId === undefined ||
+    transactionId === null ||
+    transactionId === ""
+  ){
+
+    showEditError(
+      "Transaction ID hin argamne."
+    );
+
+    return;
+
+  }
+
+
+  const saveButton =
+    document.getElementById(
+      "saveEditButton"
+    );
+
+
+  saveButton.disabled =
+    true;
+
+
+  saveButton.textContent =
+    "⏳ Saving...";
+
+
+  hideEditMessages();
+
+
+  try{
+
+    /*
+      datetime-local irraa
+      ISO timestamp uuma.
+    */
+
+    const receivedDate =
+      new Date(
+        receivedValue
+      );
+
+
+    if(
+      isNaN(
+        receivedDate.getTime()
+      )
+    ){
+
+      throw new Error(
+        "Received Date & Time sirrii miti."
+      );
+
+    }
+
+
+    /*
+      Expiry date:
+      empty yoo ta'e null.
+    */
+
+    const expiryDate =
+      expiryValue
+        ? expiryValue
+        : null;
+
+
+    /*
+      edited_at:
+      yeroo ammaa.
+    */
+
+    const editedAt =
+      new Date()
+        .toISOString();
+
+
+    /*
+      PATCH only fields that
+      should be editable.
+    */
+
+    const updateData = {
+
+      quantity:
+        Number(
+          quantityValue
+        ),
+
+      entered_at:
+        receivedDate
+          .toISOString(),
+
+      expiry_date:
+        expiryDate,
+
+      edited_by:
+        editedBy,
+
+      edited_at:
+        editedAt
+
+    };
+
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/stock_transactions" +
+      "?id=eq." +
+      encodeURIComponent(
+        transactionId
+      );
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"PATCH",
+          headers:getHeaders(),
+          body:JSON.stringify(
+            updateData
+          )
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+
+      throw new Error(
+        errorText ||
+        "Stock IN edit save gochuu hin dandeenye."
+      );
+
+    }
+
+
+    showEditSuccess(
+      "✅ Stock IN sirriitti edit ta'e."
+    );
+
+
+    /*
+      Local transaction update.
+      This makes the UI immediately
+      reflect the new data.
+    */
+
+    editingTransaction.quantity =
+      Number(
+        quantityValue
+      );
+
+
+    editingTransaction.entered_at =
+      receivedDate.toISOString();
+
+
+    editingTransaction.expiry_date =
+      expiryDate;
+
+
+    editingTransaction.edited_by =
+      editedBy;
+
+
+    editingTransaction.edited_at =
+      editedAt;
+
+
+    /*
+      Refresh the report from Supabase
+      after successful update.
+    */
+
+    await loadReport();
+
+
+    /*
+      Reopen detail for the same item
+      after report reload.
+    */
+
+    const updatedItemName =
+      getItemName(
+        editingTransaction
+      );
+
+
+    closeEditModal();
+
+
+    /*
+      Find updated group.
+    */
+
+    const updatedGroupIndex =
+      reportGroups.findIndex(
+        group =>
+          group.itemName ===
+          updatedItemName
+      );
+
+
+    if(
+      updatedGroupIndex >= 0
+    ){
+
+      showDetails(
+        updatedGroupIndex
+      );
+
+    }
+
+
+  }
+  catch(error){
+
+    console.error(
+      "STOCK IN EDIT ERROR:",
+      error
+    );
+
+
+    showEditError(
+      "❌ Save hin milkoofne: " +
+      error.message
+    );
+
+  }
+  finally{
+
+    saveButton.disabled =
+      false;
+
+    saveButton.textContent =
+      "💾 Save Changes";
+
+  }
+
+}
+
+
+/* =====================================================
+   EDIT ERROR
+===================================================== */
+
+function showEditError(
+  message
+){
+
+  const box =
+    document.getElementById(
+      "editError"
+    );
+
+
+  box.textContent =
+    message;
+
+
+  box.style.display =
+    "block";
+
+
+  document.getElementById(
+    "editSuccess"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   EDIT SUCCESS
+===================================================== */
+
+function showEditSuccess(
+  message
+){
+
+  const box =
+    document.getElementById(
+      "editSuccess"
+    );
+
+
+  box.textContent =
+    message;
+
+
+  box.style.display =
+    "block";
+
+
+  document.getElementById(
+    "editError"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   HIDE EDIT MESSAGES
+===================================================== */
+
+function hideEditMessages(){
+
+  document.getElementById(
+    "editError"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "editSuccess"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   CLOSE EDIT MODAL
+===================================================== */
+
+function closeEditModal(){
+
+  document.getElementById(
+    "editModal"
+  ).style.display =
+    "none";
+
+
+  editingTransaction =
+    null;
+
+
+  hideEditMessages();
+
+}
+
+
+/* =====================================================
+   CLOSE EDIT OUTSIDE
+===================================================== */
+
+function closeEditOutside(
+  event
+){
+
+  if(
+    event.target.id ===
+    "editModal"
+  ){
+
+    closeEditModal();
+
+  }
 
 }
 
@@ -2873,17 +3868,9 @@ async function loadReport(){
 
   try{
 
-    /*
-      Branch UUID.
-    */
-
     const branchUUID =
       await findBranchUUID();
 
-
-    /*
-      Stock transactions.
-    */
 
     let url =
       SUPABASE_URL +
@@ -2891,11 +3878,6 @@ async function loadReport(){
       "?select=*" +
       "&order=id.desc";
 
-
-    /*
-      Main = all branches.
-      Branch = own branch only.
-    */
 
     if(!isMainHQ){
 
@@ -2980,10 +3962,6 @@ async function loadReport(){
       data.filter(
         transaction => {
 
-          /*
-            DATE
-          */
-
           if(date){
 
             const transactionDate =
@@ -3006,10 +3984,6 @@ async function loadReport(){
           }
 
 
-          /*
-            ENTERED / ISSUED BY
-          */
-
           if(enteredBy){
 
             const entered =
@@ -3028,11 +4002,22 @@ async function loadReport(){
               .toLowerCase();
 
 
+            const edited =
+              String(
+                transaction.edited_by ||
+                ""
+              )
+              .toLowerCase();
+
+
             if(
               !entered.includes(
                 enteredBy
               ) &&
               !issued.includes(
+                enteredBy
+              ) &&
+              !edited.includes(
                 enteredBy
               )
             ){
@@ -3043,11 +4028,6 @@ async function loadReport(){
 
           }
 
-
-          /*
-            ITEM NAME
-            This now uses item_id -> items table.
-          */
 
           if(itemSearch){
 
@@ -3072,10 +4052,6 @@ async function loadReport(){
 
           }
 
-
-          /*
-            TYPE
-          */
 
           if(type){
 
@@ -3195,10 +4171,6 @@ async function loadReport(){
       balance;
 
 
-    /* =================================================
-       RENDER
-    ================================================= */
-
     renderSummary(
       reportGroups
     );
@@ -3316,9 +4288,8 @@ showBranchInfo();
 
 
 /*
-  IMPORTANT:
-  Items are loaded FIRST.
-  Then stock transactions are loaded.
+  Items FIRST.
+  Then transactions.
 */
 
 loadItems().then(
