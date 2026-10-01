@@ -149,6 +149,31 @@ button{
   margin-top:8px;
 }
 
+/* =====================================================
+   CATEGORY SUMMARY
+===================================================== */
+
+.category-table{
+  min-width:850px;
+}
+
+.category-table th{
+  background:#5b341f;
+}
+
+.category-table td{
+  font-weight:bold;
+}
+
+.category-total-price{
+  color:#166534;
+  font-weight:bold;
+}
+
+.category-balance{
+  font-weight:bold;
+}
+
 .table-container{
   width:100%;
   overflow-x:auto;
@@ -621,6 +646,55 @@ td{
     </div>
 
   </div>
+
+
+  <!-- =================================================
+       CATEGORY SUMMARY
+  ================================================== -->
+
+  <div class="box">
+
+    <h2>📂 Category Summary</h2>
+
+    <div class="table-container">
+
+      <table class="category-table">
+
+        <thead>
+
+          <tr>
+
+            <th>Category</th>
+            <th>Total Stock IN</th>
+            <th>Total Stock OUT</th>
+            <th>Current Balance</th>
+            <th>Total Price</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="categorySummaryList">
+
+          <tr>
+
+            <td
+              colspan="5"
+              class="loading"
+            >
+              Loading category summary...
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
 
   <div class="box">
 
@@ -1343,6 +1417,50 @@ function formatPrice(value){
       minimumFractionDigits:2,
       maximumFractionDigits:2
     }
+  );
+
+}
+
+
+/* =====================================================
+   GET TRANSACTION TOTAL PRICE
+   Stock IN only
+===================================================== */
+
+function getTransactionTotalPrice(transaction){
+
+  if(
+    getType(transaction) !== "IN"
+  ){
+
+    return 0;
+
+  }
+
+  if(
+    transaction.total_price !== null &&
+    transaction.total_price !== undefined &&
+    transaction.total_price !== ""
+  ){
+
+    const savedTotal =
+      Number(
+        transaction.total_price
+      );
+
+    if(
+      Number.isFinite(savedTotal)
+    ){
+
+      return savedTotal;
+
+    }
+
+  }
+
+  return (
+    toNumber(transaction.quantity) *
+    toNumber(transaction.unit_price)
   );
 
 }
@@ -2246,6 +2364,189 @@ function groupTransactions(data){
 
 
 /* =====================================================
+   CATEGORY SUMMARY
+===================================================== */
+
+function buildCategorySummary(data){
+
+  const categories = {};
+
+  data.forEach(
+    transaction => {
+
+      const category =
+        String(
+          getItemCategory(transaction) ||
+          "—"
+        ).trim() || "—";
+
+      if(!categories[category]){
+
+        categories[category] = {
+
+          totalIn:0,
+
+          totalOut:0,
+
+          totalPrice:0
+
+        };
+
+      }
+
+      const type =
+        getType(transaction);
+
+      const quantity =
+        toNumber(
+          transaction.quantity
+        );
+
+      if(type === "IN"){
+
+        categories[category].totalIn +=
+          quantity;
+
+        categories[category].totalPrice +=
+          getTransactionTotalPrice(
+            transaction
+          );
+
+      }
+
+      if(type === "OUT"){
+
+        categories[category].totalOut +=
+          quantity;
+
+      }
+
+    }
+  );
+
+  return Object.entries(categories)
+    .map(
+      ([category,value]) => ({
+
+        category:
+
+          category,
+
+        totalIn:
+
+          value.totalIn,
+
+        totalOut:
+
+          value.totalOut,
+
+        balance:
+
+          value.totalIn -
+          value.totalOut,
+
+        totalPrice:
+
+          value.totalPrice
+
+      })
+    )
+    .sort(
+      (a,b) =>
+        a.category.localeCompare(
+          b.category
+        )
+    );
+
+}
+
+
+/* =====================================================
+   RENDER CATEGORY SUMMARY
+===================================================== */
+
+function renderCategorySummary(data){
+
+  const list =
+    document.getElementById(
+      "categorySummaryList"
+    );
+
+  const categories =
+    buildCategorySummary(data);
+
+  if(!categories.length){
+
+    list.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="5"
+          class="empty"
+        >
+
+          📭 No category transactions found.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+  let html = "";
+
+  categories.forEach(
+    category => {
+
+      html += `
+
+        <tr>
+
+          <td>
+            <strong>
+              ${escapeHTML(
+                category.category
+              )}
+            </strong>
+          </td>
+
+          <td>
+            ${category.totalIn}
+          </td>
+
+          <td>
+            ${category.totalOut}
+          </td>
+
+          <td class="category-balance">
+            ${category.balance}
+          </td>
+
+          <td class="category-total-price">
+            ${formatPrice(
+              category.totalPrice
+            )}
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+  );
+
+  list.innerHTML =
+    html;
+
+}
+
+
+/* =====================================================
    RENDER REPORT
 ===================================================== */
 
@@ -2345,13 +2646,8 @@ function renderReport(groups){
 
       const totalPrice =
         type === "IN"
-          ? (
-              latest.total_price !== null &&
-              latest.total_price !== undefined &&
-              latest.total_price !== ""
-                ? latest.total_price
-                : toNumber(latest.quantity) *
-                  toNumber(latest.unit_price)
+          ? getTransactionTotalPrice(
+              latest
             )
           : "";
 
@@ -2669,14 +2965,9 @@ function showDetails(index){
 
 
       const calculatedTotalPrice =
-        (
-          transaction.total_price !== null &&
-          transaction.total_price !== undefined &&
-          transaction.total_price !== ""
-        )
-          ? transaction.total_price
-          : toNumber(transaction.quantity) *
-            toNumber(transaction.unit_price);
+        getTransactionTotalPrice(
+          transaction
+        );
 
 
       const editButton =
@@ -3107,10 +3398,6 @@ async function saveStockInEdit(){
     currentLoginUser;
 
 
-  /* ===================================================
-     VALIDATE QUANTITY
-  =================================================== */
-
   if(
     quantityValue === "" ||
     !Number.isFinite(
@@ -3128,10 +3415,6 @@ async function saveStockInEdit(){
   }
 
 
-  /* ===================================================
-     VALIDATE RECEIVED DATE
-  =================================================== */
-
   if(!receivedValue){
 
     showEditError(
@@ -3142,10 +3425,6 @@ async function saveStockInEdit(){
 
   }
 
-
-  /* ===================================================
-     VALIDATE PRICE
-  =================================================== */
 
   if(
     unitPriceValue === "" ||
@@ -3242,19 +3521,6 @@ async function saveStockInEdit(){
       new Date().toISOString();
 
 
-    /* =================================================
-       UPDATE DATA
-
-       Only these editable values are changed:
-       Quantity
-       Received Date & Time
-       Expiry Date
-       Unit Price
-       Total Price
-
-       Edited By and Edited At are automatic.
-    ================================================= */
-
     const updateData = {
 
       quantity:
@@ -3320,11 +3586,6 @@ async function saveStockInEdit(){
       "✅ Stock IN updated successfully."
     );
 
-
-    /*
-      Save the new values locally too,
-      so the detail view uses the latest data.
-    */
 
     editingTransaction.quantity =
       quantity;
@@ -3538,6 +3799,11 @@ async function loadReport(){
       "reportList"
     );
 
+  const categoryList =
+    document.getElementById(
+      "categorySummaryList"
+    );
+
 
   list.innerHTML = `
 
@@ -3555,16 +3821,27 @@ async function loadReport(){
   `;
 
 
+  categoryList.innerHTML = `
+
+    <tr>
+
+      <td
+        colspan="5"
+        class="loading"
+      >
+        ⏳ Loading category summary...
+      </td>
+
+    </tr>
+
+  `;
+
+
   try{
 
     const branchUUID =
       await findBranchUUID();
 
-
-    /*
-      Fetch all transactions first.
-      Branch is filtered using UUID OR branch code.
-    */
 
     const response =
       await fetch(
@@ -3862,6 +4139,15 @@ async function loadReport(){
 
 
     /* =================================================
+       CATEGORY SUMMARY
+    ================================================= */
+
+    renderCategorySummary(
+      data
+    );
+
+
+    /* =================================================
        RENDER
     ================================================= */
 
@@ -3891,6 +4177,30 @@ async function loadReport(){
         >
 
           ❌ Report Error
+
+          <br><br>
+
+          ${escapeHTML(
+            error.message
+          )}
+
+        </td>
+
+      </tr>
+
+    `;
+
+
+    categoryList.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="5"
+          class="empty"
+        >
+
+          ❌ Category Summary Error
 
           <br><br>
 
@@ -4003,6 +4313,11 @@ showBranchInfo();
         "reportList"
       );
 
+    const categoryList =
+      document.getElementById(
+        "categorySummaryList"
+      );
+
 
     list.innerHTML = `
 
@@ -4010,6 +4325,26 @@ showBranchInfo();
 
         <td
           colspan="21"
+          class="empty"
+        >
+
+          ❌ ${escapeHTML(
+            error.message
+          )}
+
+        </td>
+
+      </tr>
+
+    `;
+
+
+    categoryList.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="5"
           class="empty"
         >
 
