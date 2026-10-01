@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>AADLM - Public Information</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
+}
+
+header{
+  background:linear-gradient(135deg,#0d47a1,#1565c0,#ec407a);
+  color:white;
+  padding:18px 16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+
+.header-inner{
+  max-width:1250px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand img{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  object-fit:cover;
+  background:white;
+  border:3px solid rgba(255,255,255,.8);
+}
+
+.brand h1{
+  margin:0;
+  font-size:23px;
+}
+
+.brand p{
+  margin:4px 0 0;
+  font-size:13px;
+  opacity:.92;
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+button,
+a.btn{
+  border:none;
+  text-decoration:none;
+  cursor:pointer;
+  padding:11px 15px;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.login-btn{
+  background:white;
+  color:#0d47a1;
+}
+
+.refresh-btn{
+  background:rgba(255,255,255,.18);
+  color:white;
+  border:1px solid rgba(255,255,255,.4);
+}
+
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:20px 14px 40px;
+}
+
+.intro{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(15,23,42,.07);
+}
+
+.intro h2{
+  margin:0 0 7px;
+  color:#0d47a1;
+}
+
+.intro p{
+  margin:0;
+  color:#64748b;
+  line-height:1.5;
+}
+
+.loading{
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  text-align:center;
+  color:#64748b;
+  box-shadow:0 2px 10px rgba(15,23,42,.07);
+}
+
+.error{
+  background:#fff1f2;
+  color:#be123c;
+  border:1px solid #fecdd3;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:18px;
+  display:none;
+}
+
+.section{
+  margin-top:22px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.section-title h2{
+  margin:0;
+  font-size:20px;
+  color:#0f172a;
+}
+
+.section-title span{
+  font-size:12px;
+  color:#64748b;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.card{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 2px 10px rgba(15,23,42,.07);
+  border-left:5px solid #0d47a1;
+}
+
+.card.pink{
+  border-left-color:#ec407a;
+}
+
+.card.green{
+  border-left-color:#16a34a;
+}
+
+.card.orange{
+  border-left-color:#f59e0b;
+}
+
+.card-label{
+  color:#64748b;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.card-value{
+  font-size:27px;
+  font-weight:bold;
+  color:#0f172a;
+}
+
+.card-small{
+  margin-top:6px;
+  color:#94a3b8;
+  font-size:12px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  background:white;
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(15,23,42,.07);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
+}
+
+th,
+td{
+  padding:12px 13px;
+  border-bottom:1px solid #e2e8f0;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  background:#0d47a1;
+  color:white;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+tr:last-child td{
+  border-bottom:none;
+}
+
+tr:hover td{
+  background:#f8fafc;
+}
+
+.number{
+  text-align:right;
+  white-space:nowrap;
+}
+
+.total-row td{
+  font-weight:bold;
+  background:#f8fafc;
+}
+
+.empty{
+  padding:22px;
+  text-align:center;
+  color:#64748b;
+}
+
+.relief-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.relief-card{
+  background:white;
+  border-radius:14px;
+  padding:17px;
+  box-shadow:0 2px 10px rgba(15,23,42,.07);
+  border-top:4px solid #ec407a;
+}
+
+.relief-card strong{
+  display:block;
+  font-size:25px;
+  color:#0f172a;
+  margin-bottom:5px;
+}
+
+.relief-card span{
+  color:#64748b;
+  font-size:13px;
+}
+
+.footer{
+  margin-top:35px;
+  text-align:center;
+  color:#64748b;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.updated{
+  margin-top:8px;
+  font-size:11px;
+  color:#94a3b8;
+}
+
+@media(max-width:900px){
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .relief-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:600px){
+
+  header{
+    padding:14px 12px;
+  }
+
+  .header-inner{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .brand h1{
+    font-size:19px;
+  }
+
+  .brand img{
+    width:48px;
+    height:48px;
+  }
+
+  .header-actions{
+    width:100%;
+  }
+
+  .header-actions button,
+  .header-actions a{
+    flex:1;
+    text-align:center;
+  }
+
+  .container{
+    padding:14px 10px 30px;
+  }
+
+  .cards,
+  .relief-grid{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .card,
+  .relief-card{
+    padding:13px;
+  }
+
+  .card-value{
+    font-size:21px;
+  }
+
+  .section-title h2{
+    font-size:17px;
+  }
+
+}
+
+@media(max-width:380px){
+
+  .cards,
+  .relief-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <div class="header-inner">
+
+    <div class="brand">
+
+      <img
+        src="./1788633150526.jpg"
+        alt="AADLM Logo"
+        onerror="this.style.display='none'"
+      >
+
+      <div>
+
+        <h1>AADLM</h1>
+
+        <p>
+          Addis Ababa Disaster Logistic Management
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+      <button
+        class="refresh-btn"
+        onclick="loadPublicData()"
+      >
+        ↻ Refresh
+      </button>
+
+      <a
+        class="btn login-btn"
+        href="./index.html"
+      >
+        🔐 Management Login
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+  <div class="intro">
+
+    <h2>Public Information</h2>
+
+    <p>
+      This page provides read-only information about
+      AADLM stock, stock value, branches, categories
+      and emergency relief activities.
+    </p>
+
+  </div>
+
+
+  <div
+    id="errorBox"
+    class="error"
+  ></div>
+
+
+  <div
+    id="loading"
+    class="loading"
+  >
+    Loading public information...
+  </div>
+
+
+  <div id="content" style="display:none;">
+
+
+    <!-- =========================================
+         OVERALL STOCK
+    ========================================== -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>📦 Overall Stock</h2>
+
+        <span>
+          Current balance across operational branches
+        </span>
+
+      </div>
+
+
+      <div class="cards">
+
+        <div class="card">
+
+          <div class="card-label">
+            Total Stock Balance
+          </div>
+
+          <div
+            class="card-value"
+            id="totalStock"
+          >
+            0
+          </div>
+
+          <div class="card-small">
+            Quantity
+          </div>
+
+        </div>
+
+
+        <div class="card pink">
+
+          <div class="card-label">
+            Price Balance
+          </div>
+
+          <div
+            class="card-value"
+            id="totalPrice"
+          >
+            0.00
+          </div>
+
+          <div class="card-small">
+            Recorded Stock IN value
+          </div>
+
+        </div>
+
+
+        <div class="card green">
+
+          <div class="card-label">
+            Total Stock IN
+          </div>
+
+          <div
+            class="card-value"
+            id="totalIn"
+          >
+            0
+          </div>
+
+          <div class="card-small">
+            Quantity received
+          </div>
+
+        </div>
+
+
+        <div class="card orange">
+
+          <div class="card-label">
+            Total Stock OUT
+          </div>
+
+          <div
+            class="card-value"
+            id="totalOut"
+          >
+            0
+          </div>
+
+          <div class="card-small">
+            Quantity issued
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         BRANCH STOCK
+    ========================================== -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>🏢 Stock Balance by Branch</h2>
+
+        <span>
+          Branch-by-branch stock
+        </span>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Branch</th>
+
+              <th>Code</th>
+
+              <th class="number">
+                Stock IN
+              </th>
+
+              <th class="number">
+                Stock OUT
+              </th>
+
+              <th class="number">
+                Current Balance
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="branchStockBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         BRANCH PRICE
+    ========================================== -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>💰 Price Balance by Branch</h2>
+
+        <span>
+          Recorded Stock IN value
+        </span>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Branch</th>
+
+              <th>Code</th>
+
+              <th class="number">
+                Price Balance
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="branchPriceBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         CATEGORY SUMMARY
+    ========================================== -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>📊 Category Summary</h2>
+
+        <span>
+          Stock and price by category
+        </span>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Category</th>
+
+              <th class="number">
+                Stock IN
+              </th>
+
+              <th class="number">
+                Stock OUT
+              </th>
+
+              <th class="number">
+                Current Balance
+              </th>
+
+              <th class="number">
+                Total Price
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="categoryBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         RELIEF SUMMARY
+    ========================================== -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>🆘 Relief Summary</h2>
+
+        <span>
+          Emergency relief information
+        </span>
+
+      </div>
+
+
+      <div class="relief-grid">
+
+        <div class="relief-card">
+
+          <strong id="reliefRecords">
+            0
+          </strong>
+
+          <span>
+            Relief Records
+          </span>
+
+        </div>
+
+
+        <div class="relief-card">
+
+          <strong id="reliefHouseholds">
+            0
+          </strong>
+
+          <span>
+            Households Assisted
+          </span>
+
+        </div>
+
+
+        <div class="relief-card">
+
+          <strong id="reliefItems">
+            0
+          </strong>
+
+          <span>
+            Relief Item Records
+          </span>
+
+        </div>
+
+
+        <div class="relief-card">
+
+          <strong id="reliefQuantity">
+            0
+          </strong>
+
+          <span>
+            Total Relief Quantity
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         RELIEF BY BRANCH
+    ========================================== -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>🏢 Relief by Branch</h2>
+
+        <span>
+          Emergency relief distribution
+        </span>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Branch</th>
+
+              <th>Code</th>
+
+              <th class="number">
+                Relief Records
+              </th>
+
+              <th class="number">
+                Households
+              </th>
+
+              <th class="number">
+                Item Records
+              </th>
+
+              <th class="number">
+                Quantity
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="reliefBranchBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <div class="footer">
+
+      <div>
+        AADLM — Addis Ababa Disaster Logistic Management
+      </div>
+
+      <div class="updated">
+        Last updated:
+        <span id="lastUpdated">-</span>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+  "https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
+
+
+/* =====================================================
+   BRANCHES
+===================================================== */
+
+const BRANCHES = [
+
+  {
+    id:"b7b2ff8c-0be4-4678-a6d3-63c05cdf144c",
+    code:"GUL",
+    name:"Gulele"
+  },
+
+  {
+    id:"9ed31570-9cfb-4706-82ed-049addf493fd",
+    code:"AKT",
+    name:"Addis Katama"
+  },
+
+  {
+    id:"6d51f505-1e5f-4c47-b2a9-ff83029293d4",
+    code:"KLF",
+    name:"Kolfee"
+  },
+
+  {
+    id:"ea8fcf0f-eb72-4b2c-a167-2ad7f380bade",
+    code:"NSL",
+    name:"Nifas Silk Lafto"
+  },
+
+  {
+    id:"06cda455-02cb-4b4b-a84b-b01bf1c28b33",
+    code:"KIR",
+    name:"Kirkos"
+  },
+
+  {
+    id:"6d9324f2-0120-455a-9161-ed46fbf06b61",
+    code:"LAM",
+    name:"Lami Kura"
+  },
+
+  {
+    id:"b0d43ff1-ba2d-4b90-aa65-eab6acec4bdb",
+    code:"ARA",
+    name:"Arada"
+  },
+
+  {
+    id:"f26b2605-f4df-4a32-8c61-76131fe7e559",
+    code:"LID",
+    name:"Lideta"
+  },
+
+  {
+    id:"d104e8ab-ed63-4d20-a314-6696abed839a",
+    code:"BOL",
+    name:"Bole"
+  },
+
+  {
+    id:"015d6857-73a2-4b05-8555-4091387a305d",
+    code:"EKA",
+    name:"Yekaa"
+  },
+
+  {
+    id:"ac4f8c9a-8855-42f4-b98f-35d454c8d89e",
+    code:"AKA",
+    name:"Akaki Kality"
+  },
+
+  {
+    id:"96a20750-5ff6-4475-ae03-009cd7688c33",
+    code:"CTR",
+    name:"Center"
+  }
+
+];
+
+
+const branchMap =
+  Object.fromEntries(
+    BRANCHES.map(b => [b.id,b])
+  );
+
+
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
+const CATEGORIES = [
+
+  "Strategic Food Items",
+
+  "Daily Food Items",
+
+  "Daily Non-Food Items",
+
+  "Non-Food Hygiene Items",
+
+  "Non-Food Kitchen Items",
+
+  "Non-Food Building/Construction Items"
+
+];
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function numberValue(value){
+
+  const n = Number(value);
+
+  return Number.isFinite(n) ? n : 0;
+
+}
+
+
+function money(value){
+
+  return numberValue(value)
+    .toLocaleString(
+      "en-US",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+function quantity(value){
+
+  return numberValue(value)
+    .toLocaleString("en-US",{
+      maximumFractionDigits:2
+    });
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   TRANSACTION TYPE
+===================================================== */
+
+function getTransactionType(row){
+
+  const type =
+    String(
+      row.transaction_type || ""
+    )
+    .trim()
+    .toUpperCase();
+
+  if(
+    type === "IN" ||
+    type.includes("STOCK IN") ||
+    type.includes("RECEIPT") ||
+    type.includes("ENTRY") ||
+    type.includes("RECEIVED") ||
+    type.includes("RECEIVE")
+  ){
+
+    return "IN";
+
+  }
+
+
+  if(
+    type === "OUT" ||
+    type.includes("STOCK OUT") ||
+    type.includes("ISSUE") ||
+    type.includes("ISSUED")
+  ){
+
+    return "OUT";
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =====================================================
+   TRANSACTION JSON
+===================================================== */
+
+function getTransactionObject(row){
+
+  if(
+    row.transaction &&
+    typeof row.transaction === "object"
+  ){
+
+    return row.transaction;
+
+  }
+
+
+  if(
+    typeof row.transaction === "string"
+  ){
+
+    try{
+
+      return JSON.parse(row.transaction);
+
+    }catch(e){
+
+      return {};
+
+    }
+
+  }
+
+
+  return {};
+
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+function getTransactionPrice(row){
+
+  if(
+    getTransactionType(row) !== "IN"
+  ){
+
+    return 0;
+
+  }
+
+
+  const tx =
+    getTransactionObject(row);
+
+
+  let total =
+    row.total_price;
+
+
+  if(
+    total === null ||
+    total === undefined ||
+    total === ""
+  ){
+
+    total = tx.total_price;
+
+  }
+
+
+  if(
+    total !== null &&
+    total !== undefined &&
+    total !== ""
+  ){
+
+    const n = Number(total);
+
+    if(Number.isFinite(n)){
+
+      return n;
+
+    }
+
+  }
+
+
+  let unitPrice =
+    row.unit_price;
+
+
+  if(
+    unitPrice === null ||
+    unitPrice === undefined ||
+    unitPrice === ""
+  ){
+
+    unitPrice = tx.unit_price;
+
+  }
+
+
+  return
+    numberValue(row.quantity) *
+    numberValue(unitPrice);
+
+}
+
+
+/* =====================================================
+   API
+===================================================== */
+
+async function apiRequest(path){
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/" +
+      path,
+      {
+        method:"GET",
+
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + SUPABASE_KEY,
+          "Content-Type":
+            "application/json"
+        }
+      }
+    );
+
+
+  if(!response.ok){
+
+    const text =
+      await response.text();
+
+    throw new Error(
+      "Supabase error: " +
+      response.status +
+      " " +
+      text
+    );
+
+  }
+
+
+  return response.json();
+
+}
+
+
+/* =====================================================
+   LOAD STOCK
+===================================================== */
+
+async function loadStockTransactions(){
+
+  return await apiRequest(
+    "stock_transactions" +
+    "?select=*" +
+    "&limit=10000"
+  );
+
+}
+
+
+/* =====================================================
+   LOAD HOUSEHOLDS
+===================================================== */
+
+async function loadHouseholds(){
+
+  return await apiRequest(
+    "emergency_households" +
+    "?select=id,branch_id,branch_code" +
+    "&limit=10000"
+  );
+
+}
+
+
+/* =====================================================
+   LOAD RELIEFS
+===================================================== */
+
+async function loadReliefs(){
+
+  return await apiRequest(
+    "emergency_reliefs" +
+    "?select=id,household_id,relief_date" +
+    "&limit=10000"
+  );
+
+}
+
+
+/* =====================================================
+   LOAD RELIEF ITEMS
+===================================================== */
+
+async function loadReliefItems(){
+
+  return await apiRequest(
+    "emergency_relief_items" +
+    "?select=relief_id,item_id,item_name,category,quantity,unit" +
+    "&limit=10000"
+  );
+
+}
+
+
+/* =====================================================
+   BRANCH STOCK DATA
+===================================================== */
+
+function buildBranchStock(transactions){
+
+  const result = {};
+
+
+  BRANCHES.forEach(branch => {
+
+    result[branch.id] = {
+
+      branch,
+
+      in:0,
+
+      out:0,
+
+      balance:0,
+
+      price:0
+
+    };
+
+  });
+
+
+  transactions.forEach(row => {
+
+    const branch =
+      result[row.branch_id];
+
+    if(!branch){
+
+      return;
+
+    }
+
+
+    const type =
+      getTransactionType(row);
+
+
+    const qty =
+      numberValue(row.quantity);
+
+
+    if(type === "IN"){
+
+      branch.in += qty;
+
+      branch.balance += qty;
+
+      branch.price +=
+        getTransactionPrice(row);
+
+    }
+
+
+    if(type === "OUT"){
+
+      branch.out += qty;
+
+      branch.balance -= qty;
+
+    }
+
+  });
+
+
+  Object.values(result).forEach(item => {
+
+    if(item.balance < 0){
+
+      item.balance = 0;
+
+    }
+
+  });
+
+
+  return result;
+
+}
+
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+function buildCategoryData(transactions){
+
+  const data = {};
+
+
+  CATEGORIES.forEach(category => {
+
+    data[category] = {
+
+      category,
+
+      in:0,
+
+      out:0,
+
+      balance:0,
+
+      price:0
+
+    };
+
+  });
+
+
+  transactions.forEach(row => {
+
+    const category =
+      String(
+        row.category || ""
+      ).trim();
+
+
+    if(!category){
+
+      return;
+
+    }
+
+
+    if(!data[category]){
+
+      data[category] = {
+
+        category,
+
+        in:0,
+
+        out:0,
+
+        balance:0,
+
+        price:0
+
+      };
+
+    }
+
+
+    const type =
+      getTransactionType(row);
+
+
+    const qty =
+      numberValue(row.quantity);
+
+
+    if(type === "IN"){
+
+      data[category].in += qty;
+
+      data[category].balance += qty;
+
+      data[category].price +=
+        getTransactionPrice(row);
+
+    }
+
+
+    if(type === "OUT"){
+
+      data[category].out += qty;
+
+      data[category].balance -= qty;
+
+    }
+
+  });
+
+
+  Object.values(data).forEach(item => {
+
+    if(item.balance < 0){
+
+      item.balance = 0;
+
+    }
+
+  });
+
+
+  return data;
+
+}
+
+
+/* =====================================================
+   RELIEF DATA
+===================================================== */
+
+function buildReliefData(
+  households,
+  reliefs,
+  reliefItems
+){
+
+  const householdMap = {};
+
+
+  households.forEach(h => {
+
+    householdMap[h.id] = h;
+
+  });
+
+
+  const reliefMap = {};
+
+
+  reliefs.forEach(relief => {
+
+    reliefMap[relief.id] = relief;
+
+  });
+
+
+  const branchData = {};
+
+
+  BRANCHES.forEach(branch => {
+
+    branchData[branch.id] = {
+
+      branch,
+
+      reliefRecords:0,
+
+      households:new Set(),
+
+      itemRecords:0,
+
+      quantity:0
+
+    };
+
+  });
+
+
+  const reliefHouseholds =
+    new Set();
+
+
+  reliefs.forEach(relief => {
+
+    const household =
+      householdMap[
+        relief.household_id
+      ];
+
+
+    if(!household){
+
+      return;
+
+    }
+
+
+    const branch =
+      branchData[
+        household.branch_id
+      ];
+
+
+    if(!branch){
+
+      return;
+
+    }
+
+
+    branch.reliefRecords++;
+
+    branch.households.add(
+      relief.household_id
+    );
+
+    reliefHouseholds.add(
+      relief.household_id
+    );
+
+  });
+
+
+  let totalItemRecords = 0;
+
+  let totalQuantity = 0;
+
+
+  reliefItems.forEach(item => {
+
+    const relief =
+      reliefMap[item.relief_id];
+
+
+    if(!relief){
+
+      return;
+
+    }
+
+
+    const household =
+      householdMap[
+        relief.household_id
+      ];
+
+
+    if(!household){
+
+      return;
+
+    }
+
+
+    const branch =
+      branchData[
+        household.branch_id
+      ];
+
+
+    if(!branch){
+
+      return;
+
+    }
+
+
+    const qty =
+      numberValue(item.quantity);
+
+
+    branch.itemRecords++;
+
+    branch.quantity += qty;
+
+
+    totalItemRecords++;
+
+    totalQuantity += qty;
+
+  });
+
+
+  return {
+
+    branchData,
+
+    totalRecords:reliefs.length,
+
+    totalHouseholds:
+      reliefHouseholds.size,
+
+    totalItemRecords,
+
+    totalQuantity
+
+  };
+
+}
+
+
+/* =====================================================
+   RENDER OVERALL
+===================================================== */
+
+function renderOverall(
+  transactions,
+  branchData
+){
+
+  let totalIn = 0;
+
+  let totalOut = 0;
+
+  let totalBalance = 0;
+
+  let totalPrice = 0;
+
+
+  Object.values(branchData).forEach(item => {
+
+    totalIn += item.in;
+
+    totalOut += item.out;
+
+    totalBalance += item.balance;
+
+    totalPrice += item.price;
+
+  });
+
+
+  document.getElementById(
+    "totalStock"
+  ).textContent =
+    quantity(totalBalance);
+
+
+  document.getElementById(
+    "totalPrice"
+  ).textContent =
+    money(totalPrice);
+
+
+  document.getElementById(
+    "totalIn"
+  ).textContent =
+    quantity(totalIn);
+
+
+  document.getElementById(
+    "totalOut"
+  ).textContent =
+    quantity(totalOut);
+
+}
+
+
+/* =====================================================
+   RENDER BRANCH STOCK
+===================================================== */
+
+function renderBranchStock(branchData){
+
+  const body =
+    document.getElementById(
+      "branchStockBody"
+    );
+
+
+  let html = "";
+
+  let totalIn = 0;
+
+  let totalOut = 0;
+
+  let totalBalance = 0;
+
+
+  Object.values(branchData)
+    .forEach(item => {
+
+      totalIn += item.in;
+
+      totalOut += item.out;
+
+      totalBalance += item.balance;
+
+
+      html += `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(item.branch.name)}
+          </td>
+
+          <td>
+            ${escapeHtml(item.branch.code)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.in)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.out)}
+          </td>
+
+          <td class="number">
+            <strong>
+              ${quantity(item.balance)}
+            </strong>
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+
+  html += `
+
+    <tr class="total-row">
+
+      <td colspan="2">
+        Total
+      </td>
+
+      <td class="number">
+        ${quantity(totalIn)}
+      </td>
+
+      <td class="number">
+        ${quantity(totalOut)}
+      </td>
+
+      <td class="number">
+        ${quantity(totalBalance)}
+      </td>
+
+    </tr>
+
+  `;
+
+
+  body.innerHTML = html;
+
+}
+
+
+/* =====================================================
+   RENDER BRANCH PRICE
+===================================================== */
+
+function renderBranchPrice(branchData){
+
+  const body =
+    document.getElementById(
+      "branchPriceBody"
+    );
+
+
+  let html = "";
+
+  let total = 0;
+
+
+  Object.values(branchData)
+    .forEach(item => {
+
+      total += item.price;
+
+
+      html += `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(item.branch.name)}
+          </td>
+
+          <td>
+            ${escapeHtml(item.branch.code)}
+          </td>
+
+          <td class="number">
+            <strong>
+              ${money(item.price)}
+            </strong>
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+
+  html += `
+
+    <tr class="total-row">
+
+      <td colspan="2">
+        Total
+      </td>
+
+      <td class="number">
+        ${money(total)}
+      </td>
+
+    </tr>
+
+  `;
+
+
+  body.innerHTML = html;
+
+}
+
+
+/* =====================================================
+   RENDER CATEGORY
+===================================================== */
+
+function renderCategory(data){
+
+  const body =
+    document.getElementById(
+      "categoryBody"
+    );
+
+
+  let html = "";
+
+  let totalIn = 0;
+
+  let totalOut = 0;
+
+  let totalBalance = 0;
+
+  let totalPrice = 0;
+
+
+  Object.values(data)
+    .forEach(item => {
+
+      totalIn += item.in;
+
+      totalOut += item.out;
+
+      totalBalance += item.balance;
+
+      totalPrice += item.price;
+
+
+      html += `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(item.category)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.in)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.out)}
+          </td>
+
+          <td class="number">
+            <strong>
+              ${quantity(item.balance)}
+            </strong>
+          </td>
+
+          <td class="number">
+            ${money(item.price)}
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+
+  html += `
+
+    <tr class="total-row">
+
+      <td>
+        Total
+      </td>
+
+      <td class="number">
+        ${quantity(totalIn)}
+      </td>
+
+      <td class="number">
+        ${quantity(totalOut)}
+      </td>
+
+      <td class="number">
+        ${quantity(totalBalance)}
+      </td>
+
+      <td class="number">
+        ${money(totalPrice)}
+      </td>
+
+    </tr>
+
+  `;
+
+
+  body.innerHTML = html;
+
+}
+
+
+/* =====================================================
+   RENDER RELIEF
+===================================================== */
+
+function renderRelief(data){
+
+  document.getElementById(
+    "reliefRecords"
+  ).textContent =
+    quantity(data.totalRecords);
+
+
+  document.getElementById(
+    "reliefHouseholds"
+  ).textContent =
+    quantity(data.totalHouseholds);
+
+
+  document.getElementById(
+    "reliefItems"
+  ).textContent =
+    quantity(data.totalItemRecords);
+
+
+  document.getElementById(
+    "reliefQuantity"
+  ).textContent =
+    quantity(data.totalQuantity);
+
+
+  const body =
+    document.getElementById(
+      "reliefBranchBody"
+    );
+
+
+  let html = "";
+
+  let records = 0;
+
+  let households = 0;
+
+  let itemRecords = 0;
+
+  let totalQuantity = 0;
+
+
+  Object.values(data.branchData)
+    .forEach(item => {
+
+      records += item.reliefRecords;
+
+      households += item.households.size;
+
+      itemRecords += item.itemRecords;
+
+      totalQuantity += item.quantity;
+
+
+      html += `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(item.branch.name)}
+          </td>
+
+          <td>
+            ${escapeHtml(item.branch.code)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.reliefRecords)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.households.size)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.itemRecords)}
+          </td>
+
+          <td class="number">
+            ${quantity(item.quantity)}
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+
+  html += `
+
+    <tr class="total-row">
+
+      <td colspan="2">
+        Total
+      </td>
+
+      <td class="number">
+        ${quantity(records)}
+      </td>
+
+      <td class="number">
+        ${quantity(households)}
+      </td>
+
+      <td class="number">
+        ${quantity(itemRecords)}
+      </td>
+
+      <td class="number">
+        ${quantity(totalQuantity)}
+      </td>
+
+    </tr>
+
+  `;
+
+
+  body.innerHTML = html;
+
+}
+
+
+/* =====================================================
+   MAIN LOAD
+===================================================== */
+
+async function loadPublicData(){
+
+  const loading =
+    document.getElementById(
+      "loading"
+    );
+
+  const content =
+    document.getElementById(
+      "content"
+    );
+
+  const errorBox =
+    document.getElementById(
+      "errorBox"
+    );
+
+
+  loading.style.display =
+    "block";
+
+  content.style.display =
+    "none";
+
+  errorBox.style.display =
+    "none";
+
+
+  try{
+
+    /*
+      Public page reads only.
+      No INSERT / UPDATE / DELETE is used.
+    */
+
+    const [
+      transactions,
+      households,
+      reliefs,
+      reliefItems
+    ] = await Promise.all([
+
+      loadStockTransactions(),
+
+      loadHouseholds(),
+
+      loadReliefs(),
+
+      loadReliefItems()
+
+    ]);
+
+
+    const branchData =
+      buildBranchStock(
+        transactions
+      );
+
+
+    const categoryData =
+      buildCategoryData(
+        transactions
+      );
+
+
+    const reliefData =
+      buildReliefData(
+        households,
+        reliefs,
+        reliefItems
+      );
+
+
+    renderOverall(
+      transactions,
+      branchData
+    );
+
+
+    renderBranchStock(
+      branchData
+    );
+
+
+    renderBranchPrice(
+      branchData
+    );
+
+
+    renderCategory(
+      categoryData
+    );
+
+
+    renderRelief(
+      reliefData
+    );
+
+
+    document.getElementById(
+      "lastUpdated"
+    ).textContent =
+      new Date().toLocaleString();
+
+
+    loading.style.display =
+      "none";
+
+    content.style.display =
+      "block";
+
+  }catch(error){
+
+    console.error(error);
+
+
+    loading.style.display =
+      "none";
+
+    errorBox.style.display =
+      "block";
+
+
+    errorBox.innerHTML = `
+
+      <strong>
+        Data could not be loaded.
+      </strong>
+
+      <br><br>
+
+      ${escapeHtml(error.message)}
+
+      <br><br>
+
+      Please check the Supabase
+      public SELECT permissions.
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadPublicData();
+
+</script>
+
+
+</body>
+
+</html>
