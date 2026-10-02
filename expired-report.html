@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta name="theme-color" content="#0d47a1">
+
+<title>AADLM - Expired Report</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  background:linear-gradient(135deg,#0d47a1,#e91e63);
+  color:white;
+  padding:14px 18px;
+  box-shadow:0 3px 10px rgba(0,0,0,.18);
+}
+
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.logo-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:52px;
+  height:52px;
+  border-radius:12px;
+  object-fit:cover;
+  background:white;
+  border:2px solid rgba(255,255,255,.8);
+}
+
+.title-box h1{
+  margin:0;
+  font-size:21px;
+}
+
+.title-box p{
+  margin:4px 0 0;
+  font-size:13px;
+  opacity:.92;
+}
+
+.back-btn{
+  display:inline-block;
+  text-decoration:none;
+  color:#0d47a1;
+  background:white;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.back-btn:hover{
+  background:#e3f2fd;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+  width:96%;
+  max-width:1500px;
+  margin:20px auto;
+}
+
+/* =========================
+   BRANCH INFO
+========================= */
+
+.branch-box{
+  background:white;
+  border-radius:12px;
+  padding:14px 16px;
+  margin-bottom:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  border-left:5px solid #0d47a1;
+}
+
+.branch-box strong{
+  color:#0d47a1;
+}
+
+/* =========================
+   MAIN MESSAGE
+========================= */
+
+.main-message{
+  display:none;
+  background:#e3f2fd;
+  color:#0d47a1;
+  border:1px solid #90caf9;
+  padding:12px;
+  border-radius:9px;
+  margin-bottom:16px;
+  font-weight:bold;
+}
+
+/* =========================
+   FILTER
+========================= */
+
+.filter-box{
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  margin-bottom:16px;
+}
+
+.filter-box label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.filter-box input{
+  width:100%;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:15px;
+  outline:none;
+}
+
+.filter-box input:focus{
+  border-color:#0d47a1;
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.summary-card{
+  background:white;
+  border-radius:12px;
+  padding:16px;
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.summary-card .number{
+  display:block;
+  font-size:27px;
+  font-weight:bold;
+  color:#0d47a1;
+  margin-bottom:5px;
+}
+
+.summary-card .label{
+  font-size:13px;
+  color:#64748b;
+  font-weight:bold;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-card{
+  background:white;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  overflow:hidden;
+}
+
+.table-title{
+  padding:15px;
+  background:#0d47a1;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1250px;
+}
+
+thead th{
+  background:#e8eef7;
+  color:#0f172a;
+  padding:11px 9px;
+  border-bottom:1px solid #cbd5e1;
+  text-align:left;
+  white-space:nowrap;
+  font-size:13px;
+}
+
+tbody td{
+  padding:10px 9px;
+  border-bottom:1px solid #e2e8f0;
+  font-size:13px;
+  vertical-align:top;
+}
+
+tbody tr:hover{
+  background:#f8fafc;
+}
+
+/* =========================
+   EXPIRED STATUS
+========================= */
+
+.status-expired{
+  display:inline-block;
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:5px 8px;
+  border-radius:6px;
+  font-weight:bold;
+  font-size:12px;
+}
+
+.passed{
+  color:#b91c1c;
+  font-weight:bold;
+}
+
+/* =========================
+   LOADING / EMPTY
+========================= */
+
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+}
+
+.empty{
+  text-align:center;
+  padding:30px 15px;
+  color:#64748b;
+  font-weight:bold;
+}
+
+.error{
+  background:#fee2e2;
+  color:#991b1b;
+  border:1px solid #fecaca;
+  padding:13px;
+  border-radius:9px;
+  margin-bottom:15px;
+  white-space:pre-wrap;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .header{
+    padding:12px;
+  }
+
+  .header-top{
+    align-items:flex-start;
+  }
+
+  .logo{
+    width:44px;
+    height:44px;
+  }
+
+  .title-box h1{
+    font-size:17px;
+  }
+
+  .title-box p{
+    font-size:11px;
+  }
+
+  .back-btn{
+    padding:8px 10px;
+    font-size:12px;
+  }
+
+  .container{
+    width:94%;
+    margin:14px auto;
+  }
+
+  .summary{
+    grid-template-columns:1fr;
+  }
+
+  .summary-card{
+    padding:13px;
+  }
+
+  .summary-card .number{
+    font-size:23px;
+  }
+
+}
+
+/* =========================
+   VERY SMALL SCREEN
+========================= */
+
+@media(max-width:430px){
+
+  .header-top{
+    flex-direction:column;
+  }
+
+  .back-btn{
+    width:100%;
+    text-align:center;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+  <div class="header-top">
+
+    <div class="logo-title">
+
+      <img
+        src="./1788633150526.jpg"
+        class="logo"
+        alt="AADLM Logo"
+        onerror="this.style.display='none'"
+      >
+
+      <div class="title-box">
+
+        <h1>AADLM - Expired Report</h1>
+
+        <p>
+          Expired Stock IN Items
+        </p>
+
+      </div>
+
+    </div>
+
+    <a
+      href="./reports.html"
+      class="back-btn"
+    >
+      ← Back to Reports
+    </a>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="container">
+
+  <div
+    id="errorBox"
+    class="error"
+    style="display:none;"
+  ></div>
+
+
+  <!-- BRANCH INFORMATION -->
+
+  <div class="branch-box">
+
+    <div>
+      <strong>Branch:</strong>
+      <span id="branchName">Loading...</span>
+    </div>
+
+    <div style="margin-top:5px;">
+      <strong>Branch Code:</strong>
+      <span id="branchCode">-</span>
+    </div>
+
+  </div>
+
+
+  <!-- MAIN / HQ MESSAGE -->
+
+  <div
+    id="mainMessage"
+    class="main-message"
+  >
+    Main / HQ view: expired Stock IN items from all branches are shown.
+  </div>
+
+
+  <!-- SEARCH -->
+
+  <div class="filter-box">
+
+    <label for="searchInput">
+      Search Expired Items
+    </label>
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Search item, category, branch, Model 19..."
+      autocomplete="off"
+    >
+
+  </div>
+
+
+  <!-- SUMMARY -->
+
+  <div class="summary">
+
+    <div class="summary-card">
+
+      <span
+        class="number"
+        id="totalExpired"
+      >
+        0
+      </span>
+
+      <span class="label">
+        Expired Transactions
+      </span>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <span
+        class="number"
+        id="totalQuantity"
+      >
+        0
+      </span>
+
+      <span class="label">
+        Total Expired Quantity
+      </span>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <span
+        class="number"
+        id="totalItems"
+      >
+        0
+      </span>
+
+      <span class="label">
+        Expired Items
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- TABLE -->
+
+  <section class="table-card">
+
+    <div class="table-title">
+      Expired Stock IN Details
+    </div>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>#</th>
+
+            <th>Item Name</th>
+
+            <th>Category</th>
+
+            <th>Unit</th>
+
+            <th>Quantity</th>
+
+            <th>Expiry Date</th>
+
+            <th>Status</th>
+
+            <th>Passed</th>
+
+            <th>Stock IN Date</th>
+
+            <th>Entered By</th>
+
+            <th>Model 19</th>
+
+            <th>Branch</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="reportBody">
+
+          <tr>
+
+            <td
+              colspan="12"
+              class="loading"
+            >
+              Loading expired items...
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+  "https://sslabegtsxlkafuygmar.supabase.co";
+
+const SUPABASE_KEY =
+  "YOUR_SUPABASE_ANON_KEY";
+
+
+/*
+  IMPORTANT:
+  Replace YOUR_SUPABASE_ANON_KEY with the same
+  Supabase anon/public key used by your other AADLM pages.
+*/
+
+
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
+
+let allRows = [];
+
+let itemMap = {};
+
+let branchMap = {};
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const reportBody =
+  document.getElementById("reportBody");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const branchNameEl =
+  document.getElementById("branchName");
+
+const branchCodeEl =
+  document.getElementById("branchCode");
+
+const totalExpiredEl =
+  document.getElementById("totalExpired");
+
+const totalQuantityEl =
+  document.getElementById("totalQuantity");
+
+const totalItemsEl =
+  document.getElementById("totalItems");
+
+const errorBox =
+  document.getElementById("errorBox");
+
+const mainMessage =
+  document.getElementById("mainMessage");
+
+
+/* =========================================================
+   LOCAL STORAGE HELPERS
+========================================================= */
+
+function getStorage(key){
+
+  try{
+    return localStorage.getItem(key);
+  }catch(error){
+    return null;
+  }
+
+}
+
+
+function getRole(){
+
+  return (
+    getStorage("user_role") ||
+    ""
+  ).toLowerCase();
+
+}
+
+
+function getLoginUser(){
+
+  return (
+    getStorage("login_user") ||
+    ""
+  ).toUpperCase();
+
+}
+
+
+function getBranchUUID(){
+
+  return (
+    getStorage("selected_branch_uuid") ||
+    getStorage("selected_branch_id") ||
+    ""
+  );
+
+}
+
+
+function getBranchCode(){
+
+  return (
+    getStorage("selected_branch_code") ||
+    getStorage("branch_code") ||
+    ""
+  ).toUpperCase();
+
+}
+
+
+function getBranchName(){
+
+  return (
+    getStorage("selected_branch_name") ||
+    getStorage("branch_name") ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   MAIN / HQ CHECK
+========================================================= */
+
+function isMainUser(){
+
+  const role =
+    getRole();
+
+  const loginUser =
+    getLoginUser();
+
+  const branchCode =
+    getBranchCode();
+
+  const branchUUID =
+    getBranchUUID();
+
+  return (
+    role === "main" ||
+    loginUser === "MAIN" ||
+    branchCode === "MAIN" ||
+    branchUUID ===
+      "bd1b10ec-43dc-4eb0-ad8c-53a78b80815d"
+  );
+
+}
+
+
+/* =========================================================
+   SUPABASE REQUEST
+========================================================= */
+
+async function supabaseGet(
+  table,
+  params = ""
+){
+
+  const url =
+    SUPABASE_URL +
+    "/rest/v1/" +
+    table +
+    params;
+
+  const response =
+    await fetch(
+      url,
+      {
+        method:"GET",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + SUPABASE_KEY,
+          "Content-Type":
+            "application/json"
+        }
+      }
+    );
+
+  const text =
+    await response.text();
+
+  if(!response.ok){
+
+    throw new Error(
+      table +
+      " request failed: " +
+      response.status +
+      " " +
+      text
+    );
+
+  }
+
+  try{
+
+    return JSON.parse(text);
+
+  }catch(error){
+
+    return [];
+
+  }
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   DATE HELPERS
+========================================================= */
+
+function dateOnly(value){
+
+  if(!value){
+    return "";
+  }
+
+  const d =
+    new Date(value);
+
+  if(Number.isNaN(d.getTime())){
+    return "";
+  }
+
+  const y =
+    d.getFullYear();
+
+  const m =
+    String(
+      d.getMonth()+1
+    ).padStart(2,"0");
+
+  const day =
+    String(
+      d.getDate()
+    ).padStart(2,"0");
+
+  return (
+    y +
+    "-" +
+    m +
+    "-" +
+    day
+  );
+
+}
+
+
+/* =========================================================
+   TODAY
+========================================================= */
+
+function todayDate(){
+
+  const now =
+    new Date();
+
+  const y =
+    now.getFullYear();
+
+  const m =
+    String(
+      now.getMonth()+1
+    ).padStart(2,"0");
+
+  const d =
+    String(
+      now.getDate()
+    ).padStart(2,"0");
+
+  return (
+    y +
+    "-" +
+    m +
+    "-" +
+    d
+  );
+
+}
+
+
+/* =========================================================
+   EXPIRED CHECK
+========================================================= */
+
+function isExpired(expiryDate){
+
+  if(!expiryDate){
+    return false;
+  }
+
+  const expiry =
+    dateOnly(expiryDate);
+
+  if(!expiry){
+    return false;
+  }
+
+  const today =
+    todayDate();
+
+  /*
+    IMPORTANT:
+    Only dates BEFORE today are expired.
+
+    Today itself is NOT expired.
+    Future dates are NOT expired.
+  */
+
+  return expiry < today;
+
+}
+
+
+/* =========================================================
+   PASSED DAYS
+========================================================= */
+
+function passedDays(expiryDate){
+
+  if(!expiryDate){
+    return 0;
+  }
+
+  const expiry =
+    new Date(
+      dateOnly(expiryDate) +
+      "T00:00:00"
+    );
+
+  const today =
+    new Date(
+      todayDate() +
+      "T00:00:00"
+    );
+
+  const difference =
+    today.getTime() -
+    expiry.getTime();
+
+  return Math.max(
+    0,
+    Math.floor(
+      difference /
+      (1000 * 60 * 60 * 24)
+    )
+  );
+
+}
+
+
+/* =========================================================
+   DISPLAY DATE
+========================================================= */
+
+function displayDate(value){
+
+  if(!value){
+    return "-";
+  }
+
+  const d =
+    new Date(value);
+
+  if(Number.isNaN(d.getTime())){
+    return escapeHTML(value);
+  }
+
+  const y =
+    d.getFullYear();
+
+  const m =
+    String(
+      d.getMonth()+1
+    ).padStart(2,"0");
+
+  const day =
+    String(
+      d.getDate()
+    ).padStart(2,"0");
+
+  return (
+    y +
+    "-" +
+    m +
+    "-" +
+    day
+  );
+
+}
+
+
+/* =========================================================
+   LOAD ITEMS
+========================================================= */
+
+async function loadItems(){
+
+  /*
+    We load item information and later apply branch
+    isolation to the report itself.
+  */
+
+  const rows =
+    await supabaseGet(
+      "items",
+      "?select=*"
+    );
+
+  itemMap = {};
+
+  rows.forEach(item => {
+
+    const id =
+      String(
+        item.id || ""
+      );
+
+    if(!id){
+      return;
+    }
+
+    itemMap[id] = item;
+
+  });
+
+}
+
+
+/* =========================================================
+   LOAD BRANCHES
+========================================================= */
+
+async function loadBranches(){
+
+  try{
+
+    const rows =
+      await supabaseGet(
+        "branches",
+        "?select=*"
+      );
+
+    branchMap = {};
+
+    rows.forEach(branch => {
+
+      if(branch.id){
+
+        branchMap[
+          String(branch.id)
+        ] = branch;
+
+      }
+
+      if(branch.uuid){
+
+        branchMap[
+          String(branch.uuid)
+        ] = branch;
+
+      }
+
+    });
+
+  }catch(error){
+
+    /*
+      Branch table is optional for displaying already
+      stored branch_name / branch_code.
+    */
+
+    branchMap = {};
+
+  }
+
+}
+
+
+/* =========================================================
+   GET ITEM
+========================================================= */
+
+function getItem(itemId){
+
+  if(!itemId){
+    return null;
+  }
+
+  return (
+    itemMap[
+      String(itemId)
+    ] || null
+  );
+
+}
+
+
+/* =========================================================
+   ITEM NAME
+========================================================= */
+
+function getItemName(row){
+
+  const item =
+    getItem(
+      row.item_id
+    );
+
+  return (
+    row.item_name ||
+    row.item ||
+    row.name ||
+    (item && (
+      item.item_name ||
+      item.name
+    )) ||
+    "-"
+  );
+
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+function getCategory(row){
+
+  const item =
+    getItem(
+      row.item_id
+    );
+
+  return (
+    row.category ||
+    (item && item.category) ||
+    "-"
+  );
+
+}
+
+
+/* =========================================================
+   UNIT
+========================================================= */
+
+function getUnit(row){
+
+  const item =
+    getItem(
+      row.item_id
+    );
+
+  return (
+    row.unit ||
+    (item && item.unit) ||
+    "-"
+  );
+
+}
+
+
+/* =========================================================
+   BRANCH ID
+========================================================= */
+
+function getRowBranchId(row){
+
+  return String(
+    row.branch_id ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   BRANCH CODE
+========================================================= */
+
+function getRowBranchCode(row){
+
+  const id =
+    getRowBranchId(row);
+
+  const branch =
+    branchMap[id];
+
+  return (
+    row.branch_code ||
+    row.branch ||
+    (branch && (
+      branch.code ||
+      branch.branch_code
+    )) ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   BRANCH NAME
+========================================================= */
+
+function getRowBranchName(row){
+
+  const id =
+    getRowBranchId(row);
+
+  const branch =
+    branchMap[id];
+
+  return (
+    row.branch_name ||
+    (branch && (
+      branch.name ||
+      branch.branch_name
+    )) ||
+    getRowBranchCode(row) ||
+    "-"
+  );
+
+}
+
+
+/* =========================================================
+   MODEL 19
+========================================================= */
+
+function getModel19(row){
+
+  const directValues = [
+
+    row.model_19,
+
+    row.model19,
+
+    row.model_19_number,
+
+    row.model19_number,
+
+    row.model_19_no,
+
+    row.model19_no
+
+  ];
+
+  for(
+    const value of directValues
+  ){
+
+    if(
+      value !== null &&
+      value !== undefined &&
+      String(value).trim() !== ""
+    ){
+
+      return String(value).trim();
+
+    }
+
+  }
+
+
+  const possibleText = [
+
+    row.transaction,
+
+    row.description,
+
+    row.note,
+
+    row.notes,
+
+    row.reference,
+
+    row.model
+
+  ];
+
+  for(
+    const value of possibleText
+  ){
+
+    if(!value){
+      continue;
+    }
+
+    const text =
+      String(value);
+
+    const match =
+      text.match(
+        /model\s*19\s*(?:number|no|#)?\s*[:\-]?\s*([A-Za-z0-9\/\-_]+)/i
+      );
+
+    if(match){
+
+      return (
+        "Model 19 " +
+        match[1]
+      );
+
+    }
+
+    if(
+      /model\s*19/i.test(text)
+    ){
+
+      return "Model 19";
+
+    }
+
+  }
+
+  return "-";
+
+}
+
+
+/* =========================================================
+   ENTERED BY
+========================================================= */
+
+function getEnteredBy(row){
+
+  return (
+    row.entered_by ||
+    row.received_by ||
+    row.created_by ||
+    "-"
+  );
+
+}
+
+
+/* =========================================================
+   STOCK IN DATE
+========================================================= */
+
+function getStockInDate(row){
+
+  return (
+    row.entered_at ||
+    row.received_at ||
+    row.created_at ||
+    row.transaction_date ||
+    row.date ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   LOAD TRANSACTIONS
+========================================================= */
+
+async function loadTransactions(){
+
+  const rows =
+    await supabaseGet(
+      "stock_transactions",
+      "?select=*"
+    );
+
+  const branchUUID =
+    getBranchUUID();
+
+  const main =
+    isMainUser();
+
+  /*
+    Only Stock IN transactions.
+  */
+
+  const filtered =
+    rows.filter(row => {
+
+      const transactionType =
+        String(
+          row.transaction_type ||
+          ""
+        ).toLowerCase()
+        .trim();
+
+      const isIN =
+        transactionType === "in" ||
+        transactionType === "stock in" ||
+        transactionType === "stock_in" ||
+        transactionType === "received" ||
+        transactionType === "receive";
+
+      if(!isIN){
+        return false;
+      }
+
+      /*
+        Expiry is mandatory for EX Report.
+      */
+
+      if(!row.expiry_date){
+        return false;
+      }
+
+      /*
+        Only expired:
+        expiry date < today
+      */
+
+      if(
+        !isExpired(
+          row.expiry_date
+        )
+      ){
+        return false;
+      }
+
+      /*
+        Main sees all branches.
+      */
+
+      if(main){
+        return true;
+      }
+
+      /*
+        Branch user sees only own branch.
+      */
+
+      if(!branchUUID){
+        return false;
+      }
+
+      return (
+        String(
+          row.branch_id || ""
+        ) ===
+        String(branchUUID)
+      );
+
+    });
+
+
+  /*
+    Oldest expired first.
+  */
+
+  filtered.sort(
+    (a,b) => {
+
+      const dateA =
+        dateOnly(
+          a.expiry_date
+        );
+
+      const dateB =
+        dateOnly(
+          b.expiry_date
+        );
+
+      return dateA.localeCompare(
+        dateB
+      );
+
+    }
+  );
+
+  return filtered;
+
+}
+
+
+/* =========================================================
+   UPDATE BRANCH HEADER
+========================================================= */
+
+function updateBranchHeader(){
+
+  const main =
+    isMainUser();
+
+  if(main){
+
+    branchNameEl.textContent =
+      "Main / HQ - All Branches";
+
+    branchCodeEl.textContent =
+      "MAIN";
+
+    mainMessage.style.display =
+      "block";
+
+    return;
+
+  }
+
+  branchNameEl.textContent =
+    getBranchName() ||
+    "Selected Branch";
+
+  branchCodeEl.textContent =
+    getBranchCode() ||
+    "-";
+
+}
+
+
+/* =========================================================
+   RENDER REPORT
+========================================================= */
+
+function renderReport(){
+
+  const search =
+    String(
+      searchInput.value || ""
+    )
+    .toLowerCase()
+    .trim();
+
+
+  let rows =
+    allRows.filter(row => {
+
+      if(!search){
+        return true;
+      }
+
+      const text = [
+
+        getItemName(row),
+
+        getCategory(row),
+
+        getUnit(row),
+
+        row.quantity,
+
+        row.expiry_date,
+
+        getEnteredBy(row),
+
+        getModel19(row),
+
+        getRowBranchCode(row),
+
+        getRowBranchName(row)
+
+      ]
+      .join(" ")
+      .toLowerCase();
+
+      return text.includes(search);
+
+    });
+
+
+  /* =========================
+     SUMMARY
+  ========================= */
+
+  totalExpiredEl.textContent =
+    rows.length.toLocaleString();
+
+
+  let quantity =
+    0;
+
+  const uniqueItems =
+    new Set();
+
+
+  rows.forEach(row => {
+
+    const q =
+      Number(
+        row.quantity || 0
+      );
+
+    if(
+      Number.isFinite(q)
+    ){
+      quantity += q;
+    }
+
+    const itemId =
+      row.item_id ||
+      getItemName(row);
+
+    uniqueItems.add(
+      String(itemId)
+    );
+
+  });
+
+
+  totalQuantityEl.textContent =
+    quantity.toLocaleString();
+
+
+  totalItemsEl.textContent =
+    uniqueItems.size.toLocaleString();
+
+
+  /* =========================
+     EMPTY
+  ========================= */
+
+  if(rows.length === 0){
+
+    reportBody.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="12"
+          class="empty"
+        >
+          No expired Stock IN items found.
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+
+  /* =========================
+     TABLE
+  ========================= */
+
+  reportBody.innerHTML =
+    rows.map(
+      (row,index) => {
+
+        const expiry =
+          displayDate(
+            row.expiry_date
+          );
+
+        const passed =
+          passedDays(
+            row.expiry_date
+          );
+
+        const quantity =
+          Number(
+            row.quantity || 0
+          );
+
+
+        return `
+
+          <tr>
+
+            <td>
+              ${index + 1}
+            </td>
+
+            <td>
+              <strong>
+                ${escapeHTML(
+                  getItemName(row)
+                )}
+              </strong>
+            </td>
+
+            <td>
+              ${escapeHTML(
+                getCategory(row)
+              )}
+            </td>
+
+            <td>
+              ${escapeHTML(
+                getUnit(row)
+              )}
+            </td>
+
+            <td>
+              ${Number.isFinite(quantity)
+                ? quantity.toLocaleString()
+                : escapeHTML(row.quantity || "-")
+              }
+            </td>
+
+            <td>
+              ${escapeHTML(expiry)}
+            </td>
+
+            <td>
+
+              <span class="status-expired">
+                EXPIRED
+              </span>
+
+            </td>
+
+            <td>
+
+              <span class="passed">
+                ${passed} day${passed === 1 ? "" : "s"}
+              </span>
+
+            </td>
+
+            <td>
+              ${escapeHTML(
+                displayDate(
+                  getStockInDate(row)
+                )
+              )}
+            </td>
+
+            <td>
+              ${escapeHTML(
+                getEnteredBy(row)
+              )}
+            </td>
+
+            <td>
+              ${escapeHTML(
+                getModel19(row)
+              )}
+            </td>
+
+            <td>
+              ${escapeHTML(
+                getRowBranchName(row)
+              )}
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================================================
+   SHOW ERROR
+========================================================= */
+
+function showError(message){
+
+  errorBox.style.display =
+    "block";
+
+  errorBox.textContent =
+    message;
+
+}
+
+
+/* =========================================================
+   LOAD EVERYTHING
+========================================================= */
+
+async function loadReport(){
+
+  try{
+
+    errorBox.style.display =
+      "none";
+
+    reportBody.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="12"
+          class="loading"
+        >
+          Loading expired items...
+        </td>
+
+      </tr>
+
+    `;
+
+
+    updateBranchHeader();
+
+
+    /*
+      Load item and branch information.
+    */
+
+    await Promise.all([
+      loadItems(),
+      loadBranches()
+    ]);
+
+
+    /*
+      Load Stock IN transactions.
+    */
+
+    allRows =
+      await loadTransactions();
+
+
+    renderReport();
+
+  }catch(error){
+
+    console.error(error);
+
+    reportBody.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="12"
+          class="empty"
+        >
+          Could not load expired report.
+        </td>
+
+      </tr>
+
+    `;
+
+    showError(
+      error.message ||
+      "Unknown error occurred."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SEARCH EVENT
+========================================================= */
+
+searchInput.addEventListener(
+  "input",
+  renderReport
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    loadReport();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
