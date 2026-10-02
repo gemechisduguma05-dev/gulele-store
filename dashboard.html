@@ -1,18 +1,23 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta
-name="viewport"
-content="width=device-width,initial-scale=1.0"
+<!DOCTYPE html>
+<html lang="en">
 
-«»
+<head>
+
+<meta charset="UTF-8">
 
 <meta
-name="theme-color"
-content="#0d47a1"
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
 
-«»
+<meta
+  name="theme-color"
+  content="#0d47a1"
+>
 
-<title>
-  AADLM - Dashboard
-</title><style>
+<title>AADLM - Dashboard</title>
+
+<style>
 
 *{
   box-sizing:border-box;
@@ -113,10 +118,6 @@ header h1{
   width:min(1100px,94%);
   margin:18px auto 100px;
 }
-
-/* =====================================================
-   HIDDEN BRANCH CARD
-===================================================== */
 
 .hidden{
   display:none !important;
@@ -318,10 +319,8 @@ header h1{
 .menu-icon{
   width:34px;
   height:34px;
-
   min-width:34px;
   min-height:34px;
-
   border-radius:50%;
 
   display:flex;
@@ -329,16 +328,11 @@ header h1{
   justify-content:center;
 
   background:transparent;
-
   border:2px solid #ffffff;
-
   color:#ffffff;
-
-  box-shadow:none;
 
   font-size:17px;
   line-height:1;
-
   margin-bottom:6px;
 
   overflow:hidden;
@@ -416,12 +410,14 @@ header h1{
   border:none;
   border-radius:12px;
   color:#fff;
+
   background:
     linear-gradient(
       135deg,
       #1565c0,
       #c2185b
     );
+
   font-weight:bold;
   cursor:pointer;
 }
@@ -530,7 +526,6 @@ header h1{
     min-width:32px;
     min-height:32px;
     font-size:16px;
-    border-width:2px;
   }
 
   .menu-label{
@@ -609,105 +604,144 @@ header h1{
   padding:20px;
 }
 
-</style></head><body><header>  <h1>
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>
     AADLM - STOCK MANAGEMENT
-  </h1>  <div
+  </h1>
+
+  <div
     class="branch"
     id="branchName"
   >
     🏢 Gulele
-  </div>  <div class="profile-area"><img
-  src="./1788633150526.jpg"
-  class="profile-picture"
-  alt="AADLM"
-  onerror="this.style.display='none';"
->
+  </div>
 
-<div
-  class="profile-name"
-  id="loginUserDisplay"
->
-  User
-</div>
+  <div class="profile-area">
 
-<div
-  class="mode-badge"
-  id="modeBadge"
->
-  Branch User
-</div>
+    <img
+      src="./1788633150526.jpg"
+      class="profile-picture"
+      alt="AADLM"
+      onerror="this.style.display='none';"
+    >
 
-  </div></header><div class="container">  <div class="card hidden"><div class="info">
+    <div
+      class="profile-name"
+      id="loginUserDisplay"
+    >
+      User
+    </div>
 
-  <span data-i18n="currentBranchLabel">
-    🏢 Current Branch:
-  </span>
+    <div
+      class="mode-badge"
+      id="modeBadge"
+    >
+      Branch User
+    </div>
 
-  <br>
+  </div>
 
-  <strong id="currentBranch">
-    Loading...
-  </strong>
+</header>
 
-  <br><br>
 
-  <span data-i18n="branchCodeLabel">
-    Branch Code:
-  </span>
+<div class="container">
 
-  <strong id="currentCode">
-    —
-  </strong>
+  <div class="card hidden">
 
-</div>
+    <div class="info">
 
-  </div>  <div
+      <span data-i18n="currentBranchLabel">
+        🏢 Current Branch:
+      </span>
+
+      <br>
+
+      <strong id="currentBranch">
+        Loading...
+      </strong>
+
+      <br><br>
+
+      <span data-i18n="branchCodeLabel">
+        Branch Code:
+      </span>
+
+      <strong id="currentCode">
+        —
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div
     class="status-bar loading"
     id="statusBar"
   >
     Loading dashboard...
-  </div>  <div
+  </div>
+
+
+  <div
     class="menu-grid"
     id="menuGrid"
-  >
-  </div>  <div
+  ></div>
+
+
+  <div
     class="branch-section hidden"
     id="mainBranchSection"
-  ><div class="section-title">
-  All Branches
+  >
+
+    <div class="section-title">
+      All Branches
+    </div>
+
+    <div
+      class="branch-grid"
+      id="branchGrid"
+    ></div>
+
+  </div>
+
 </div>
 
-<div
-  class="branch-grid"
-  id="branchGrid"
->
+
+<div class="bottom-controls">
+
+  <button
+    class="bottom-button"
+    onclick="refreshDashboard()"
+  >
+    ↻ Refresh
+  </button>
+
+  <button
+    class="bottom-button"
+    onclick="goDashboard()"
+  >
+    ⌂ Dashboard
+  </button>
+
+  <button
+    class="bottom-button logout"
+    onclick="logout()"
+  >
+    ⇥ Logout
+  </button>
+
 </div>
 
-  </div></div><div class="bottom-controls"><button
-class="bottom-button"
-onclick="refreshDashboard()"
 
-«»
-
-↻ Refresh
-
-  </button><button
-class="bottom-button"
-onclick="goDashboard()"
-
-«»
-
-⌂ Dashboard
-
-  </button><button
-class="bottom-button logout"
-onclick="logout()"
-
-«»
-
-⇥ Logout
-
-  </button></div><script>
+<script>
 
 /* =====================================================
    SUPABASE
@@ -724,11 +758,16 @@ const REST_URL =
 
 
 /* =====================================================
-   BRANCHES
+   MAIN BRANCH
 ===================================================== */
 
 const MAIN_BRANCH_ID =
   "bd1b10ec-43dc-4eb0-ad8c-53a78b80815d";
+
+
+/* =====================================================
+   BRANCHES
+===================================================== */
 
 const BRANCHES = [
 
@@ -843,6 +882,7 @@ const TRANSLATIONS = {
     menu:"Main Menu",
 
     allBranches:"Stock Report",
+
     branchUser:"Branch User",
     mainUser:"Main User",
 
@@ -854,6 +894,7 @@ const TRANSLATIONS = {
     logout:"⇥ Logout",
 
     openBranch:"Banuu",
+
     loading:"Dashboard fe'amaa jira...",
     loaded:"Dashboard qophaa'eera",
     error:"Rakkoo uumameera",
@@ -872,6 +913,7 @@ const TRANSLATIONS = {
     menu:"ዋና ምናሌ",
 
     allBranches:"የክምችት ሪፖርት",
+
     branchUser:"የቅርንጫፍ ተጠቃሚ",
     mainUser:"ዋና ተጠቃሚ",
 
@@ -883,6 +925,7 @@ const TRANSLATIONS = {
     logout:"⇥ ውጣ",
 
     openBranch:"ክፈት",
+
     loading:"ዳሽቦርዱ በመጫን ላይ...",
     loaded:"ዳሽቦርዱ ተዘጋጅቷል",
     error:"ስህተት ተፈጥሯል",
@@ -901,6 +944,7 @@ const TRANSLATIONS = {
     menu:"Main Menu",
 
     allBranches:"Stock Report",
+
     branchUser:"Branch User",
     mainUser:"Main User",
 
@@ -912,6 +956,7 @@ const TRANSLATIONS = {
     logout:"⇥ Logout",
 
     openBranch:"Open",
+
     loading:"Loading dashboard...",
     loaded:"Dashboard ready",
     error:"An error occurred",
@@ -961,6 +1006,7 @@ async function supabaseFetch(
       url,
       {
         method:"GET",
+
         headers:{
           "apikey":SUPABASE_KEY,
           "Authorization":
@@ -968,6 +1014,7 @@ async function supabaseFetch(
           "Content-Type":
             "application/json"
         }
+
       }
     );
 
@@ -1084,12 +1131,19 @@ document.getElementById(
    MAIN USER CHECK
 ===================================================== */
 
+/*
+  Main is recognized by:
+  1. user_role = main
+  2. Main UUID
+  3. Main code
+  4. login_user = MAIN
+*/
+
 const isMain =
-  userRole === "main" ||
-  selectedBranchUuid === MAIN_BRANCH_ID ||
-  String(
-    selectedBranchCode || ""
-  ).toUpperCase() === "MAIN";
+  String(userRole || "").toLowerCase() === "main" ||
+  String(selectedBranchUuid || "") === MAIN_BRANCH_ID ||
+  String(selectedBranchCode || "").toUpperCase() === "MAIN" ||
+  String(loginUser || "").toUpperCase() === "MAIN";
 
 
 /* =====================================================
@@ -1108,22 +1162,25 @@ function findBranch(){
 
   }
 
+
   let branch =
     BRANCHES.find(
       b =>
         b.id === selectedBranchUuid
     );
 
+
   if(!branch){
 
     branch =
       BRANCHES.find(
         b =>
-          b.code ===
-          selectedBranchCode
+          String(b.code).toUpperCase() ===
+          String(selectedBranchCode || "").toUpperCase()
       );
 
   }
+
 
   if(!branch){
 
@@ -1138,11 +1195,14 @@ function findBranch(){
 
   }
 
+
   return branch ||
   {
     id:
       "b7b2ff8c-0be4-4678-a6d3-63c05cdf144c",
+
     name:"Gulele",
+
     code:"GUL"
   };
 
@@ -1177,20 +1237,24 @@ function showBranch(){
   ).textContent =
     "🏢 " + branchName;
 
+
   document.getElementById(
     "currentBranch"
   ).textContent =
     branchName;
+
 
   document.getElementById(
     "currentCode"
   ).textContent =
     branchCode || "—";
 
+
   const modeBadge =
     document.getElementById(
       "modeBadge"
     );
+
 
   if(isMain){
 
@@ -1242,8 +1306,18 @@ function setupMenu(){
       "menuGrid"
     );
 
+  if(!menu){
+    return;
+  }
+
+
   menu.innerHTML = "";
 
+
+  /*
+    MAIN USER:
+    Stock Report + Settings + Main Menu
+  */
 
   if(isMain){
 
@@ -1251,9 +1325,10 @@ function setupMenu(){
       menu,
       "report",
       "▤",
-      t("allBranches"),
+      "Stock Report",
       "reports.html"
     );
+
 
     addMenu(
       menu,
@@ -1263,6 +1338,7 @@ function setupMenu(){
       "settings.html"
     );
 
+
     addMenu(
       menu,
       "menu",
@@ -1271,10 +1347,15 @@ function setupMenu(){
       "index.html"
     );
 
+
     return;
 
   }
 
+
+  /*
+    BRANCH USER
+  */
 
   addMenu(
     menu,
@@ -1349,9 +1430,11 @@ function addMenu(
       "a"
     );
 
+
   link.className =
     "menu-button " +
     className;
+
 
   link.href =
     href;
@@ -1388,6 +1471,7 @@ function showMainBranches(){
       "mainBranchSection"
     );
 
+
   if(!isMain){
 
     section.classList.add(
@@ -1409,6 +1493,7 @@ function showMainBranches(){
       "branchGrid"
     );
 
+
   grid.innerHTML = "";
 
 
@@ -1419,6 +1504,7 @@ function showMainBranches(){
         document.createElement(
           "div"
         );
+
 
       card.className =
         "branch-card";
@@ -1544,6 +1630,7 @@ async function loadItems(){
 
     return items || [];
 
+
   }catch(error){
 
     console.error(
@@ -1595,6 +1682,7 @@ async function loadTransactions(){
 
 
     return transactions || [];
+
 
   }catch(error){
 
@@ -1760,8 +1848,10 @@ async function showAllBranches(){
     const items =
       await loadItems();
 
+
     const transactions =
       await loadTransactions();
+
 
     const categoryData =
       prepareCategoryData(
@@ -1769,10 +1859,12 @@ async function showAllBranches(){
         transactions
       );
 
+
     console.log(
       "Main category data:",
       categoryData
     );
+
 
   }catch(error){
 
@@ -1836,11 +1928,13 @@ async function refreshDashboard(){
 
     await loadDashboard();
 
+
   }catch(error){
 
     console.error(
       error
     );
+
 
     setStatus(
       t("error"),
@@ -2030,5 +2124,7 @@ document.addEventListener(
   }
 );
 
-</script></body>
+</script>
+
+</body>
 </html>
