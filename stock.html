@@ -508,7 +508,7 @@ tr:hover td{
   <img
     src="./1788633150526.jpg"
     class="logo"
-    alt="AAFDRMC Logo"
+    alt="AADLM Logo"
   >
 
   <div>
@@ -523,23 +523,47 @@ tr:hover td{
 
   <div class="top-buttons">
 
-    <button class="btn-green" onclick="showStockIn()">
+    <button
+      class="btn-green"
+      onclick="showStockIn()"
+    >
       Stock IN
     </button>
 
-    <button class="btn-red" onclick="showStockOut()">
+    <button
+      class="btn-red"
+      onclick="showStockOut()"
+    >
       Stock OUT
     </button>
 
-    <button class="btn-blue" onclick="loadAll()">
+    <!-- ================= EXPIRY REPORT ================= -->
+
+    <button
+      class="btn-orange"
+      onclick="window.location.href='expiry-report.html'"
+    >
+      ⚠️ Expiry Report
+    </button>
+
+    <button
+      class="btn-blue"
+      onclick="loadAll()"
+    >
       Refresh
     </button>
 
-    <button class="btn-brown" onclick="window.location.href='reports.html'">
+    <button
+      class="btn-brown"
+      onclick="window.location.href='reports.html'"
+    >
       Stock Report
     </button>
 
-    <button class="btn-gray" onclick="window.location.href='dashboard.html'">
+    <button
+      class="btn-gray"
+      onclick="window.location.href='dashboard.html'"
+    >
       Back to Menu
     </button>
 
@@ -588,7 +612,10 @@ tr:hover td{
 
           <label>Item Name *</label>
 
-          <select id="inItem" onchange="itemChanged('in')">
+          <select
+            id="inItem"
+            onchange="itemChanged('in')"
+          >
 
             <option value="">
               -- Select Item --
@@ -1780,8 +1807,6 @@ async function saveStock(type){
     }
 
 
-    /* ================= PRICE ================= */
-
     let unitPrice = null;
     let totalPrice = null;
 
@@ -1816,8 +1841,6 @@ async function saveStock(type){
 
     }
 
-
-    /* ================= MODEL 19 ================= */
 
     let model19 = null;
 
@@ -1877,8 +1900,6 @@ async function saveStock(type){
     }
 
 
-    /* ================= MODEL 22 ================= */
-
     let model22 = null;
 
 
@@ -1930,8 +1951,6 @@ async function saveStock(type){
 
     }
 
-
-    /* ================= COMMON ================= */
 
     const enteredBy =
       document.getElementById(
@@ -2011,8 +2030,6 @@ async function saveStock(type){
       ).value.trim() || null;
 
 
-    /* ================= PAYLOAD ================= */
-
     const payload = {
 
       transaction_type:
@@ -2021,7 +2038,6 @@ async function saveStock(type){
           : "OUT",
 
       quantity:
-
         quantity,
 
       entered_by:
@@ -2104,14 +2120,10 @@ async function saveStock(type){
 
 
     if(isIN){
-
       clearStockIn();
-
     }
     else{
-
       clearStockOut();
-
     }
 
 
@@ -3034,8 +3046,6 @@ async function updateTransaction(id,type){
     }
 
 
-    /* ================= QUANTITY ================= */
-
     const quantity =
       Number(
         document.getElementById(
@@ -3058,8 +3068,6 @@ async function updateTransaction(id,type){
 
     }
 
-
-    /* ================= PRICE ================= */
 
     let unitPrice = null;
     let totalPrice = null;
@@ -3096,8 +3104,6 @@ async function updateTransaction(id,type){
     }
 
 
-    /* ================= DATE ================= */
-
     const dateTime =
       document.getElementById(
         "edit-date-" + id
@@ -3115,8 +3121,6 @@ async function updateTransaction(id,type){
 
     }
 
-
-    /* ================= FIELDS ================= */
 
     let patch = {
 
@@ -3282,14 +3286,11 @@ async function updateTransaction(id,type){
       }
 
 
-      /*
-        Re-check OUT balance.
-
-        Old quantity is removed from the calculation
-        before checking the new quantity.
-      */
-
       let availableBalance = 0;
+
+
+      const oldItem =
+        findItem(oldRow.item_id);
 
 
       TRANSACTIONS.forEach(row => {
@@ -3304,9 +3305,10 @@ async function updateTransaction(id,type){
 
 
         if(
+          !oldItem ||
           !transactionMatchesItem(
             row,
-            findItem(oldRow.item_id)
+            oldItem
           )
         ){
 
@@ -3367,18 +3369,12 @@ async function updateTransaction(id,type){
         "Model 22: " +
         model22Number;
 
-      /*
-        OUT does not receive a new price.
-        Keep the existing price fields unchanged.
-      */
 
       delete patch.unit_price;
       delete patch.total_price;
 
     }
 
-
-    /* ================= UPDATE ================= */
 
     await apiFetch(
       "/rest/v1/stock_transactions?id=eq." +
@@ -3827,26 +3823,11 @@ function formatDateTime(value){
 function escapeHtml(value){
 
   return String(value ?? "")
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
@@ -3858,22 +3839,10 @@ function escapeHtml(value){
 function escapeAttr(value){
 
   return String(value ?? "")
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
