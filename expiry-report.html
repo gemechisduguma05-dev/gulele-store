@@ -11,7 +11,7 @@
 
 <meta name="theme-color" content="#0d47a1">
 
-<title>AADLM - Expired Report</title>
+<title>AADLM - Expiry Report</title>
 
 <style>
 
@@ -25,7 +25,7 @@ html{
 
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
   background:#f1f5f9;
   color:#1e293b;
 }
@@ -143,12 +143,19 @@ body{
   margin-bottom:16px;
 }
 
-.filter-box label{
+.filter-grid{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:14px;
+}
+
+.filter-group label{
   display:block;
   font-weight:bold;
   margin-bottom:7px;
 }
 
+.filter-box select,
 .filter-box input{
   width:100%;
   padding:12px;
@@ -156,8 +163,10 @@ body{
   border-radius:8px;
   font-size:15px;
   outline:none;
+  background:white;
 }
 
+.filter-box select:focus,
 .filter-box input:focus{
   border-color:#0d47a1;
 }
@@ -168,7 +177,7 @@ body{
 
 .summary{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:12px;
   margin-bottom:18px;
 }
@@ -222,7 +231,7 @@ body{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:1250px;
+  min-width:1400px;
 }
 
 thead th{
@@ -247,8 +256,16 @@ tbody tr:hover{
 }
 
 /* =========================
-   EXPIRED STATUS
+   EXPIRED ROW
 ========================= */
+
+.expired-row{
+  background:#fff1f2;
+}
+
+.expired-row:hover{
+  background:#ffe4e6;
+}
 
 .status-expired{
   display:inline-block;
@@ -262,6 +279,33 @@ tbody tr:hover{
 
 .passed{
   color:#b91c1c;
+  font-weight:bold;
+}
+
+/* =========================
+   WARNING ROW
+========================= */
+
+.warning-row{
+  background:#fffbeb;
+}
+
+.warning-row:hover{
+  background:#fef3c7;
+}
+
+.status-warning{
+  display:inline-block;
+  background:#fef3c7;
+  color:#b45309;
+  padding:5px 8px;
+  border-radius:6px;
+  font-weight:bold;
+  font-size:12px;
+}
+
+.remaining{
+  color:#b45309;
   font-weight:bold;
 }
 
@@ -295,6 +339,18 @@ tbody tr:hover{
 /* =========================
    MOBILE
 ========================= */
+
+@media(max-width:850px){
+
+  .filter-grid{
+    grid-template-columns:1fr;
+  }
+
+  .summary{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
 
 @media(max-width:700px){
 
@@ -330,7 +386,7 @@ tbody tr:hover{
   }
 
   .summary{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
   }
 
   .summary-card{
@@ -343,10 +399,6 @@ tbody tr:hover{
 
 }
 
-/* =========================
-   VERY SMALL SCREEN
-========================= */
-
 @media(max-width:430px){
 
   .header-top{
@@ -356,6 +408,10 @@ tbody tr:hover{
   .back-btn{
     width:100%;
     text-align:center;
+  }
+
+  .summary{
+    grid-template-columns:1fr;
   }
 
 }
@@ -385,10 +441,10 @@ tbody tr:hover{
 
       <div class="title-box">
 
-        <h1>AADLM - Expired Report</h1>
+        <h1>AADLM - Expiry Report</h1>
 
         <p>
-          Expired Stock IN Items
+          Expired and Upcoming Expiry Stock IN
         </p>
 
       </div>
@@ -443,24 +499,58 @@ tbody tr:hover{
     id="mainMessage"
     class="main-message"
   >
-    Main / HQ view: expired Stock IN items from all branches are shown.
+    Main / HQ view: Expired and upcoming Stock IN items
+    from all branches are shown.
   </div>
 
 
-  <!-- SEARCH -->
+  <!-- FILTER -->
 
   <div class="filter-box">
 
-    <label for="searchInput">
-      Search Expired Items
-    </label>
+    <div class="filter-grid">
 
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="Search item, category, branch, Model 19..."
-      autocomplete="off"
-    >
+      <div class="filter-group">
+
+        <label for="statusFilter">
+          Expiry Status
+        </label>
+
+        <select id="statusFilter">
+
+          <option value="all">
+            All — Expired + Within 4 Months
+          </option>
+
+          <option value="expired">
+            Expired
+          </option>
+
+          <option value="warning">
+            Expire Within 4 Months
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label for="searchInput">
+          Search
+        </label>
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search item, category, branch, Model 19..."
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -473,13 +563,45 @@ tbody tr:hover{
 
       <span
         class="number"
+        id="totalRecords"
+      >
+        0
+      </span>
+
+      <span class="label">
+        Total Records
+      </span>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <span
+        class="number"
         id="totalExpired"
       >
         0
       </span>
 
       <span class="label">
-        Expired Transactions
+        Expired
+      </span>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <span
+        class="number"
+        id="totalWarning"
+      >
+        0
+      </span>
+
+      <span class="label">
+        Within 4 Months
       </span>
 
     </div>
@@ -495,23 +617,7 @@ tbody tr:hover{
       </span>
 
       <span class="label">
-        Total Expired Quantity
-      </span>
-
-    </div>
-
-
-    <div class="summary-card">
-
-      <span
-        class="number"
-        id="totalItems"
-      >
-        0
-      </span>
-
-      <span class="label">
-        Expired Items
+        Total Quantity
       </span>
 
     </div>
@@ -524,7 +630,7 @@ tbody tr:hover{
   <section class="table-card">
 
     <div class="table-title">
-      Expired Stock IN Details
+      Expiry Report — Stock IN Details
     </div>
 
     <div class="table-wrap">
@@ -549,7 +655,7 @@ tbody tr:hover{
 
             <th>Status</th>
 
-            <th>Passed</th>
+            <th>Remaining / Passed</th>
 
             <th>Stock IN Date</th>
 
@@ -571,7 +677,7 @@ tbody tr:hover{
               colspan="12"
               class="loading"
             >
-              Loading expired items...
+              Loading expiry report...
             </td>
 
           </tr>
@@ -628,20 +734,26 @@ const reportBody =
 const searchInput =
   document.getElementById("searchInput");
 
+const statusFilter =
+  document.getElementById("statusFilter");
+
 const branchNameEl =
   document.getElementById("branchName");
 
 const branchCodeEl =
   document.getElementById("branchCode");
 
+const totalRecordsEl =
+  document.getElementById("totalRecords");
+
 const totalExpiredEl =
   document.getElementById("totalExpired");
 
+const totalWarningEl =
+  document.getElementById("totalWarning");
+
 const totalQuantityEl =
   document.getElementById("totalQuantity");
-
-const totalItemsEl =
-  document.getElementById("totalItems");
 
 const errorBox =
   document.getElementById("errorBox");
@@ -657,9 +769,13 @@ const mainMessage =
 function getStorage(key){
 
   try{
+
     return localStorage.getItem(key);
+
   }catch(error){
+
     return null;
+
   }
 
 }
@@ -815,7 +931,9 @@ function escapeHTML(value){
     value === null ||
     value === undefined
   ){
+
     return "";
+
   }
 
   return String(value)
@@ -829,13 +947,37 @@ function escapeHTML(value){
 
 
 /* =========================================================
-   DATE HELPERS
+   DATE ONLY
 ========================================================= */
 
 function dateOnly(value){
 
   if(!value){
     return "";
+  }
+
+  /*
+    Handle YYYY-MM-DD directly.
+  */
+
+  const text =
+    String(value);
+
+  const direct =
+    text.match(
+      /^(\d{4})-(\d{2})-(\d{2})/
+    );
+
+  if(direct){
+
+    return (
+      direct[1] +
+      "-" +
+      direct[2] +
+      "-" +
+      direct[3]
+    );
+
   }
 
   const d =
@@ -903,34 +1045,191 @@ function todayDate(){
 
 
 /* =========================================================
-   EXPIRED CHECK
+   DATE OBJECT FROM DATE STRING
 ========================================================= */
 
-function isExpired(expiryDate){
+function localDateFromString(value){
 
-  if(!expiryDate){
-    return false;
+  const date =
+    dateOnly(value);
+
+  if(!date){
+    return null;
   }
+
+  const parts =
+    date.split("-");
+
+  if(parts.length !== 3){
+    return null;
+  }
+
+  const y =
+    Number(parts[0]);
+
+  const m =
+    Number(parts[1]);
+
+  const d =
+    Number(parts[2]);
+
+  const result =
+    new Date(
+      y,
+      m - 1,
+      d
+    );
+
+  if(Number.isNaN(result.getTime())){
+    return null;
+  }
+
+  return result;
+
+}
+
+
+/* =========================================================
+   ADD FOUR MONTHS
+========================================================= */
+
+function fourMonthsFromToday(){
+
+  const today =
+    localDateFromString(
+      todayDate()
+    );
+
+  if(!today){
+    return "";
+  }
+
+  const originalDay =
+    today.getDate();
+
+  today.setMonth(
+    today.getMonth() + 4
+  );
+
+  /*
+    Protect against month overflow,
+    e.g. January 31.
+  */
+
+  if(
+    today.getDate() !== originalDay
+  ){
+
+    today.setDate(0);
+
+  }
+
+  const y =
+    today.getFullYear();
+
+  const m =
+    String(
+      today.getMonth()+1
+    ).padStart(2,"0");
+
+  const d =
+    String(
+      today.getDate()
+    ).padStart(2,"0");
+
+  return (
+    y +
+    "-" +
+    m +
+    "-" +
+    d
+  );
+
+}
+
+
+/* =========================================================
+   EXPIRY STATUS
+========================================================= */
+
+function getExpiryStatus(expiryDate){
 
   const expiry =
     dateOnly(expiryDate);
 
   if(!expiry){
-    return false;
+    return "unknown";
   }
 
   const today =
     todayDate();
 
-  /*
-    IMPORTANT:
-    Only dates BEFORE today are expired.
+  const fourMonths =
+    fourMonthsFromToday();
 
-    Today itself is NOT expired.
-    Future dates are NOT expired.
+  /*
+    Expired = before today.
   */
 
-  return expiry < today;
+  if(expiry < today){
+
+    return "expired";
+
+  }
+
+  /*
+    Today through four months
+    is upcoming expiry.
+  */
+
+  if(
+    expiry >= today &&
+    expiry <= fourMonths
+  ){
+
+    return "warning";
+
+  }
+
+  /*
+    More than four months away.
+  */
+
+  return "normal";
+
+}
+
+
+/* =========================================================
+   DAYS BETWEEN
+========================================================= */
+
+function daysBetween(
+  fromDate,
+  toDate
+){
+
+  const from =
+    localDateFromString(
+      fromDate
+    );
+
+  const to =
+    localDateFromString(
+      toDate
+    );
+
+  if(!from || !to){
+    return 0;
+  }
+
+  return Math.round(
+    (
+      to.getTime() -
+      from.getTime()
+    ) /
+    (1000 * 60 * 60 * 24)
+  );
 
 }
 
@@ -941,31 +1240,28 @@ function isExpired(expiryDate){
 
 function passedDays(expiryDate){
 
-  if(!expiryDate){
-    return 0;
-  }
+  return Math.max(
+    0,
+    daysBetween(
+      dateOnly(expiryDate),
+      todayDate()
+    )
+  );
 
-  const expiry =
-    new Date(
-      dateOnly(expiryDate) +
-      "T00:00:00"
-    );
+}
 
-  const today =
-    new Date(
-      todayDate() +
-      "T00:00:00"
-    );
 
-  const difference =
-    today.getTime() -
-    expiry.getTime();
+/* =========================================================
+   REMAINING DAYS
+========================================================= */
+
+function remainingDays(expiryDate){
 
   return Math.max(
     0,
-    Math.floor(
-      difference /
-      (1000 * 60 * 60 * 24)
+    daysBetween(
+      todayDate(),
+      dateOnly(expiryDate)
     )
   );
 
@@ -978,37 +1274,10 @@ function passedDays(expiryDate){
 
 function displayDate(value){
 
-  if(!value){
-    return "-";
-  }
+  const date =
+    dateOnly(value);
 
-  const d =
-    new Date(value);
-
-  if(Number.isNaN(d.getTime())){
-    return escapeHTML(value);
-  }
-
-  const y =
-    d.getFullYear();
-
-  const m =
-    String(
-      d.getMonth()+1
-    ).padStart(2,"0");
-
-  const day =
-    String(
-      d.getDate()
-    ).padStart(2,"0");
-
-  return (
-    y +
-    "-" +
-    m +
-    "-" +
-    day
-  );
+  return date || "-";
 
 }
 
@@ -1018,11 +1287,6 @@ function displayDate(value){
 ========================================================= */
 
 async function loadItems(){
-
-  /*
-    We load item information and later apply branch
-    isolation to the report itself.
-  */
 
   const rows =
     await supabaseGet(
@@ -1088,11 +1352,6 @@ async function loadBranches(){
 
   }catch(error){
 
-    /*
-      Branch table is optional for displaying already
-      stored branch_name / branch_code.
-    */
-
     branchMap = {};
 
   }
@@ -1134,10 +1393,13 @@ function getItemName(row){
     row.item_name ||
     row.item ||
     row.name ||
-    (item && (
-      item.item_name ||
-      item.name
-    )) ||
+    (
+      item &&
+      (
+        item.item_name ||
+        item.name
+      )
+    ) ||
     "-"
   );
 
@@ -1157,7 +1419,10 @@ function getCategory(row){
 
   return (
     row.category ||
-    (item && item.category) ||
+    (
+      item &&
+      item.category
+    ) ||
     "-"
   );
 
@@ -1177,7 +1442,10 @@ function getUnit(row){
 
   return (
     row.unit ||
-    (item && item.unit) ||
+    (
+      item &&
+      item.unit
+    ) ||
     "-"
   );
 
@@ -1213,10 +1481,13 @@ function getRowBranchCode(row){
   return (
     row.branch_code ||
     row.branch ||
-    (branch && (
-      branch.code ||
-      branch.branch_code
-    )) ||
+    (
+      branch &&
+      (
+        branch.code ||
+        branch.branch_code
+      )
+    ) ||
     ""
   );
 
@@ -1237,10 +1508,13 @@ function getRowBranchName(row){
 
   return (
     row.branch_name ||
-    (branch && (
-      branch.name ||
-      branch.branch_name
-    )) ||
+    (
+      branch &&
+      (
+        branch.name ||
+        branch.branch_name
+      )
+    ) ||
     getRowBranchCode(row) ||
     "-"
   );
@@ -1395,8 +1669,10 @@ async function loadTransactions(){
   const main =
     isMainUser();
 
+
   /*
-    Only Stock IN transactions.
+    Only Stock IN transactions
+    with expiry date.
   */
 
   const filtered =
@@ -1406,7 +1682,8 @@ async function loadTransactions(){
         String(
           row.transaction_type ||
           ""
-        ).toLowerCase()
+        )
+        .toLowerCase()
         .trim();
 
       const isIN =
@@ -1421,25 +1698,34 @@ async function loadTransactions(){
       }
 
       /*
-        Expiry is mandatory for EX Report.
+        Expiry date is required.
       */
 
       if(!row.expiry_date){
         return false;
       }
 
+
       /*
-        Only expired:
-        expiry date < today
+        Only items that are:
+        1. Expired
+        2. Expiring within four months
       */
 
-      if(
-        !isExpired(
+      const status =
+        getExpiryStatus(
           row.expiry_date
-        )
+        );
+
+      if(
+        status !== "expired" &&
+        status !== "warning"
       ){
+
         return false;
+
       }
+
 
       /*
         Main sees all branches.
@@ -1449,8 +1735,10 @@ async function loadTransactions(){
         return true;
       }
 
+
       /*
-        Branch user sees only own branch.
+        Branch user sees only
+        his/her own branch.
       */
 
       if(!branchUUID){
@@ -1468,11 +1756,43 @@ async function loadTransactions(){
 
 
   /*
-    Oldest expired first.
+    Expired first.
+    Then upcoming by expiry date.
   */
 
   filtered.sort(
     (a,b) => {
+
+      const statusA =
+        getExpiryStatus(
+          a.expiry_date
+        );
+
+      const statusB =
+        getExpiryStatus(
+          b.expiry_date
+        );
+
+
+      if(
+        statusA === "expired" &&
+        statusB !== "expired"
+      ){
+
+        return -1;
+
+      }
+
+
+      if(
+        statusA !== "expired" &&
+        statusB === "expired"
+      ){
+
+        return 1;
+
+      }
+
 
       const dateA =
         dateOnly(
@@ -1490,6 +1810,7 @@ async function loadTransactions(){
 
     }
   );
+
 
   return filtered;
 
@@ -1520,6 +1841,7 @@ function updateBranchHeader(){
 
   }
 
+
   branchNameEl.textContent =
     getBranchName() ||
     "Selected Branch";
@@ -1545,12 +1867,42 @@ function renderReport(){
     .trim();
 
 
+  const selectedStatus =
+    statusFilter.value;
+
+
   let rows =
     allRows.filter(row => {
+
+
+      const status =
+        getExpiryStatus(
+          row.expiry_date
+        );
+
+
+      /*
+        Status filter.
+      */
+
+      if(
+        selectedStatus !== "all" &&
+        status !== selectedStatus
+      ){
+
+        return false;
+
+      }
+
+
+      /*
+        Search filter.
+      */
 
       if(!search){
         return true;
       }
+
 
       const text = [
 
@@ -1576,7 +1928,10 @@ function renderReport(){
       .join(" ")
       .toLowerCase();
 
-      return text.includes(search);
+
+      return text.includes(
+        search
+      );
 
     });
 
@@ -1585,47 +1940,69 @@ function renderReport(){
      SUMMARY
   ========================= */
 
-  totalExpiredEl.textContent =
+  totalRecordsEl.textContent =
     rows.length.toLocaleString();
 
+
+  let expiredCount =
+    0;
+
+  let warningCount =
+    0;
 
   let quantity =
     0;
 
-  const uniqueItems =
-    new Set();
-
 
   rows.forEach(row => {
+
+    const status =
+      getExpiryStatus(
+        row.expiry_date
+      );
+
+
+    if(status === "expired"){
+
+      expiredCount++;
+
+    }
+
+
+    if(status === "warning"){
+
+      warningCount++;
+
+    }
+
 
     const q =
       Number(
         row.quantity || 0
       );
 
+
     if(
       Number.isFinite(q)
     ){
+
       quantity += q;
+
     }
-
-    const itemId =
-      row.item_id ||
-      getItemName(row);
-
-    uniqueItems.add(
-      String(itemId)
-    );
 
   });
 
 
+  totalExpiredEl.textContent =
+    expiredCount.toLocaleString();
+
+
+  totalWarningEl.textContent =
+    warningCount.toLocaleString();
+
+
   totalQuantityEl.textContent =
     quantity.toLocaleString();
-
-
-  totalItemsEl.textContent =
-    uniqueItems.size.toLocaleString();
 
 
   /* =========================
@@ -1642,7 +2019,7 @@ function renderReport(){
           colspan="12"
           class="empty"
         >
-          No expired Stock IN items found.
+          No expiry Stock IN items found.
         </td>
 
       </tr>
@@ -1667,10 +2044,12 @@ function renderReport(){
             row.expiry_date
           );
 
-        const passed =
-          passedDays(
+
+        const status =
+          getExpiryStatus(
             row.expiry_date
           );
+
 
         const quantity =
           Number(
@@ -1678,9 +2057,82 @@ function renderReport(){
           );
 
 
+        let statusHTML = "";
+
+        let remainingHTML = "";
+
+        let rowClass = "";
+
+
+        if(status === "expired"){
+
+          const passed =
+            passedDays(
+              row.expiry_date
+            );
+
+
+          rowClass =
+            "expired-row";
+
+
+          statusHTML = `
+
+            <span class="status-expired">
+              EXPIRED
+            </span>
+
+          `;
+
+
+          remainingHTML = `
+
+            <span class="passed">
+              ${passed}
+              day${passed === 1 ? "" : "s"} passed
+            </span>
+
+          `;
+
+        }
+
+
+        if(status === "warning"){
+
+          const remaining =
+            remainingDays(
+              row.expiry_date
+            );
+
+
+          rowClass =
+            "warning-row";
+
+
+          statusHTML = `
+
+            <span class="status-warning">
+              EXPIRES WITHIN 4 MONTHS
+            </span>
+
+          `;
+
+
+          remainingHTML = `
+
+            <span class="remaining">
+              ${remaining}
+              day${remaining === 1 ? "" : "s"} remaining
+            </span>
+
+          `;
+
+        }
+
+
         return `
 
-          <tr>
+          <tr class="${rowClass}">
 
             <td>
               ${index + 1}
@@ -1707,30 +2159,27 @@ function renderReport(){
             </td>
 
             <td>
-              ${Number.isFinite(quantity)
+              ${
+                Number.isFinite(quantity)
                 ? quantity.toLocaleString()
-                : escapeHTML(row.quantity || "-")
+                : escapeHTML(
+                    row.quantity || "-"
+                  )
               }
             </td>
 
             <td>
-              ${escapeHTML(expiry)}
+              ${escapeHTML(
+                expiry
+              )}
             </td>
 
             <td>
-
-              <span class="status-expired">
-                EXPIRED
-              </span>
-
+              ${statusHTML}
             </td>
 
             <td>
-
-              <span class="passed">
-                ${passed} day${passed === 1 ? "" : "s"}
-              </span>
-
+              ${remainingHTML}
             </td>
 
             <td>
@@ -1795,6 +2244,7 @@ async function loadReport(){
     errorBox.style.display =
       "none";
 
+
     reportBody.innerHTML = `
 
       <tr>
@@ -1803,7 +2253,7 @@ async function loadReport(){
           colspan="12"
           class="loading"
         >
-          Loading expired items...
+          Loading expiry report...
         </td>
 
       </tr>
@@ -1819,8 +2269,11 @@ async function loadReport(){
     */
 
     await Promise.all([
+
       loadItems(),
+
       loadBranches()
+
     ]);
 
 
@@ -1838,6 +2291,7 @@ async function loadReport(){
 
     console.error(error);
 
+
     reportBody.innerHTML = `
 
       <tr>
@@ -1846,12 +2300,13 @@ async function loadReport(){
           colspan="12"
           class="empty"
         >
-          Could not load expired report.
+          Could not load expiry report.
         </td>
 
       </tr>
 
     `;
+
 
     showError(
       error.message ||
@@ -1864,11 +2319,17 @@ async function loadReport(){
 
 
 /* =========================================================
-   SEARCH EVENT
+   EVENTS
 ========================================================= */
 
 searchInput.addEventListener(
   "input",
+  renderReport
+);
+
+
+statusFilter.addEventListener(
+  "change",
   renderReport
 );
 
