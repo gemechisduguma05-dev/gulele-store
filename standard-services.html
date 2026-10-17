@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d47a1">
+<title>AADLM - Standard Service</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#172033;
+}
+header{
+  background:#0d47a1;
+  color:white;
+  padding:18px 14px;
+}
+header h2{margin:0 0 8px}
+header p{margin:0;font-size:13px}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:15px;
+}
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+button{
+  border:0;
+  border-radius:6px;
+  padding:11px 14px;
+  background:#0d47a1;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
+button.secondary{background:#475569}
+.card{
+  background:white;
+  border-radius:10px;
+  padding:16px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px #00000010;
+}
+label{
+  display:block;
+  margin:12px 0 5px;
+  font-weight:bold;
+}
+input,select{
+  width:100%;
+  padding:11px;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+  font-size:15px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:5px;
+  font-weight:bold;
+  font-size:12px;
+}
+.green{background:#dcfce7;color:#166534}
+.red{background:#fee2e2;color:#991b1b}
+.yellow{background:#fef3c7;color:#92400e}
+.blue{background:#dbeafe;color:#1e40af}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
+}
+th,td{
+  padding:11px 9px;
+  text-align:left;
+  border-bottom:1px solid #e2e8f0;
+  font-size:13px;
+}
+th{background:#eaf1fb}
+.table-wrap{overflow-x:auto}
+.message{margin:10px 0;font-size:14px}
+.small{font-size:12px;color:#64748b}
+.service-title{font-weight:bold}
+footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>AADLM - Standard Service</h2>
+  <p>Addis Ababa Disaster Logistics Management</p>
+</header>
+
+<main class="container">
+
+  <div class="actions">
+    <button onclick="loadStandards()">Refresh Data</button>
+    <button class="secondary" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+  </div>
+
+  <div class="card">
+    <h3>Record Service Delivery</h3>
+
+    <div class="grid">
+      <div>
+        <label for="branch">Branch</label>
+        <select id="branch">
+          <option value="GUL">Gulele (GUL)</option>
+          <option value="AKT">Addis Katama (AKT)</option>
+          <option value="KLF">Kolfee (KLF)</option>
+          <option value="NSL">Nifas Silk Lafto (NSL)</option>
+          <option value="KIR">Kirkos (KIR)</option>
+          <option value="LAM">Lami Kura (LAM)</option>
+          <option value="ARA">Arada (ARA)</option>
+          <option value="LID">Lideta (LID)</option>
+          <option value="BOL">Bole (BOL)</option>
+          <option value="EKA">Ekaa (EKA)</option>
+          <option value="AKA">Akaki Kality (AKA)</option>
+          <option value="CTR">Center (CTR)</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="service">Standard Service</label>
+        <select id="service">
+          <option value="">Loading services...</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="startTime">Service Start Date & Time</label>
+        <input type="datetime-local" id="startTime">
+      </div>
+
+      <div>
+        <label for="endTime">Service Completion Date & Time</label>
+        <input type="datetime-local" id="endTime">
+      </div>
+
+      <div>
+        <label for="caseNumber">Case / Report Number</label>
+        <input id="caseNumber" placeholder="Enter case number">
+      </div>
+
+      <div>
+        <label for="notes">Remark</label>
+        <input id="notes" placeholder="Enter remark">
+      </div>
+    </div>
+
+    <div class="message" id="result"></div>
+    <button onclick="saveDelivery()">Save Service Record</button>
+  </div>
+
+  <div class="card">
+    <h3>Standard Service Time Limits</h3>
+    <p class="small">
+      Green = completed within standard. Red = standard time exceeded.
+      Yellow = still in progress and approaching the maximum time.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Minimum Hours</th>
+            <th>Maximum Hours</th>
+          </tr>
+        </thead>
+        <tbody id="standardsTable">
+          <tr><td colspan="3">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Service Delivery Records</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Branch</th>
+            <th>Service</th>
+            <th>Start</th>
+            <th>Completed</th>
+            <th>Elapsed Hours</th>
+            <th>Status</th>
+            <th>Case No.</th>
+          </tr>
+        </thead>
+        <tbody id="recordsTable">
+          <tr><td colspan="7">No records loaded.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<footer>AADLM - Standard Service Monitoring</footer>
+
+<script>
+// IMPORTANT:
+// Replace these two values with the same Supabase URL and public
+// anon/publishable key already used in your dashboard.html.
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+
+let db = null;
+let standards = [];
+let records = [];
+
+function showMessage(message, type="yellow"){
+  const el = document.getElementById("result");
+  el.textContent = message;
+  el.className = "message status " + type;
+}
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[ch]);
+}
+
+function formatDate(value){
+  if(!value) return "-";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "-" : date.toLocaleString();
+}
+
+function elapsedHours(start, end){
+  const a = new Date(start).getTime();
+  const b = new Date(end || new Date()).getTime();
+  if(!Number.isFinite(a) || !Number.isFinite(b)) return null;
+  return Math.max(0, (b-a)/3600000);
+}
+
+function getStatus(hours, standard, completed){
+  if(hours === null) return {text:"Invalid time", css:"yellow"};
+
+  // For completed services, assess against the maximum standard.
+  if(completed){
+    return hours <= Number(standard.max_hours)
+      ? {text:"Within Standard",css:"green"}
+      : {text:"Standard Exceeded",css:"red"};
+  }
+
+  if(hours > Number(standard.max_hours)){
+    return {text:"Standard Exceeded",css:"red"};
+  }
+
+  if(hours >= Number(standard.max_hours) * 0.8){
+    return {text:"Approaching Limit",css:"yellow"};
+  }
+
+  return {text:"In Progress",css:"blue"};
+}
+
+async function loadStandards(){
+  if(!db){
+    showMessage("Supabase connection is not configured. Add your project URL and public key in this file.","red");
+    return;
+  }
+
+  const {data,error} = await db
+    .from("standard_services")
+    .select("*")
+    .order("id");
+
+  if(error){
+    showMessage("Could not load standards: " + error.message,"red");
+    document.getElementById("standardsTable").innerHTML =
+      '<tr><td colspan="3">Could not load standard services.</td></tr>';
+    return;
+  }
+
+  standards = data || [];
+
+  document.getElementById("standardsTable").innerHTML = standards.length
+    ? standards.map(s => `
+      <tr>
+        <td>${escapeHTML(s.service_name)}</td>
+        <td>${escapeHTML(s.min_hours)}</td>
+        <td>${escapeHTML(s.max_hours)}</td>
+      </tr>`).join("")
+    : '<tr><td colspan="3">No standard services found.</td></tr>';
+
+  const select = document.getElementById("service");
+  select.innerHTML = '<option value="">Select service</option>' +
+    standards.map(s => `
+      <option value="${escapeHTML(s.id)}">
+        ${escapeHTML(s.service_name)} (${escapeHTML(s.min_hours)}-${escapeHTML(s.max_hours)} hours)
+      </option>`).join("");
+
+  await loadRecords();
+}
+
+async function saveDelivery(){
+  if(!db){
+    showMessage("Supabase is not configured. Add the project URL and public key first.","red");
+    return;
+  }
+
+  const branch = document.getElementById("branch").value;
+  const serviceId = document.getElementById("service").value;
+  const start = document.getElementById("startTime").value;
+  const end = document.getElementById("endTime").value;
+  const caseNumber = document.getElementById("caseNumber").value.trim();
+  const notes = document.getElementById("notes").value.trim();
+
+  if(!serviceId || !start){
+    showMessage("Please select a service and enter the start date/time.","red");
+    return;
+  }
+
+  if(end && new Date(end) < new Date(start)){
+    showMessage("Completion time cannot be earlier than start time.","red");
+    return;
+  }
+
+  const standard = standards.find(s => String(s.id) === String(serviceId));
+  if(!standard){
+    showMessage("Selected standard service was not found. Refresh and try again.","red");
+    return;
+  }
+
+  const elapsed = elapsedHours(start,end || new Date());
+  const status = getStatus(elapsed,standard,Boolean(end));
+
+  // This insert requires the service_deliveries table below to exist.
+  const payload = {
+    branch_code: branch,
+    service_id: Number(serviceId),
+    start_time: new Date(start).toISOString(),
+    end_time: end ? new Date(end).toISOString() : null,
+    case_number: caseNumber || null,
+    notes: notes || null,
+    status: status.text
+  };
+
+  const {error} = await db.from("service_deliveries").insert(payload);
+
+  if(error){
+    showMessage("Could not save record: " + error.message +
+      " Check that the service_deliveries table has been created.","red");
+    return;
+  }
+
+  showMessage("Service record saved successfully.","green");
+  document.getElementById("caseNumber").value = "";
+  document.getElementById("notes").value = "";
+  await loadRecords();
+}
+
+async function loadRecords(){
+  const body = document.getElementById("recordsTable");
+
+  const {data,error} = await db
+    .from("service_deliveries")
+    .select("id,branch_code,service_id,start_time,end_time,case_number,status")
+    .order("start_time",{ascending:false})
+    .limit(100);
+
+  if(error){
+    body.innerHTML = '<tr><td colspan="7">Delivery records are not available yet. Create the service_deliveries table first.</td></tr>';
+    return;
+  }
+
+  records = data || [];
+
+  if(!records.length){
+    body.innerHTML = '<tr><td colspan="7">No service delivery records yet.</td></tr>';
+    return;
+  }
+
+  body.innerHTML = records.map(r => {
+    const standard = standards.find(s => String(s.id) === String(r.service_id));
+    const hours = elapsedHours(r.start_time,r.end_time || new Date());
+    const status = standard
+      ? getStatus(hours,standard,Boolean(r.end_time))
+      : {text:r.status || "Unknown",css:"yellow"};
+
+    return `<tr>
+      <td>${escapeHTML(r.branch_code)}</td>
+      <td>${escapeHTML(standard ? standard.service_name : "Unknown service")}</td>
+      <td>${escapeHTML(formatDate(r.start_time))}</td>
+      <td>${escapeHTML(formatDate(r.end_time))}</td>
+      <td>${hours === null ? "-" : hours.toFixed(2)}</td>
+      <td><span class="status ${status.css}">${escapeHTML(status.text)}</span></td>
+      <td>${escapeHTML(r.case_number || "-")}</td>
+    </tr>`;
+  }).join("");
+}
+
+function initialize(){
+  if(
+    SUPABASE_URL === "YOUR_SUPABASE_PROJECT_URL" ||
+    SUPABASE_KEY === "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY"
+  ){
+    showMessage("Configuration needed: copy your existing Supabase URL and public key from dashboard.html into this file.","red");
+    document.getElementById("standardsTable").innerHTML =
+      '<tr><td colspan="3">Connect Supabase to load the six saved standards.</td></tr>';
+    return;
+  }
+
+  db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  loadStandards();
+}
+
+initialize();
+</script>
+
+</body>
+</html>
