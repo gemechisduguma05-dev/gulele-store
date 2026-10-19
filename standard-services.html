@@ -220,8 +220,8 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 // IMPORTANT:
 // Replace these two values with the same Supabase URL and public
 // anon/publishable key already used in your dashboard.html.
-const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+const SUPABASE_URL = "https://sslabegtsxlkafuygmar.supabase.co";
+const SUPABASE_KEY = "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
 let db = null;
 let standards = [];
@@ -409,24 +409,25 @@ async function loadRecords(){
   }).join("");
 }
 
-function initialize(){
-  if(
-  
-const SUPABASE_URL =
-  "https://sslabegtsxlkafuygmar.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
-
-const REST_URL =
-  SUPABASE_URL + "/rest/v1";
-    showMessage("Configuration needed: copy your existing Supabase URL and public key from dashboard.html into this file.","red");
-    document.getElementById("standardsTable").innerHTML =
-      '<tr><td colspan="3">Connect Supabase to load the six saved standards.</td></tr>';
+function initialize() {
+  if (
+    !SUPABASE_URL ||
+    !SUPABASE_KEY ||
+    SUPABASE_URL.includes("https://sslabegtsxlkafuygmar.supabase.co") ||
+    SUPABASE_KEY.includes("sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x")
+  ) {
+    showMessage(
+      "Supabase URL or public key is missing.",
+      "red"
+    );
     return;
   }
 
-  db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
   loadStandards();
 }
 
