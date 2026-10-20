@@ -6,116 +6,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d47a1">
 <title>AADLM - Standard Service</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f1f5f9;
-  color:#172033;
-}
-header{
-  background:#0d47a1;
-  color:white;
-  padding:18px 14px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+header{background:#0d47a1;color:white;padding:18px 14px}
 header h2{margin:0 0 8px}
 header p{margin:0;font-size:13px}
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:15px;
-}
-.actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:15px;
-}
-button{
-  border:0;
-  border-radius:6px;
-  padding:11px 14px;
-  background:#0d47a1;
-  color:white;
-  cursor:pointer;
-  font-weight:bold;
-}
+.container{max-width:1150px;margin:auto;padding:15px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+button{border:0;border-radius:6px;padding:11px 14px;background:#0d47a1;color:white;cursor:pointer;font-weight:bold}
 button.secondary{background:#475569}
-.card{
-  background:white;
-  border-radius:10px;
-  padding:16px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px #00000010;
-}
-label{
-  display:block;
-  margin:12px 0 5px;
-  font-weight:bold;
-}
-input,select{
-  width:100%;
-  padding:11px;
-  border:1px solid #cbd5e1;
-  border-radius:6px;
-  font-size:15px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:12px;
-}
-.status{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:5px;
-  font-weight:bold;
-  font-size:12px;
-}
+button:disabled{opacity:.6;cursor:not-allowed}
+.card{background:white;border-radius:10px;padding:16px;margin-bottom:15px;box-shadow:0 2px 8px #00000010}
+label{display:block;margin:12px 0 5px;font-weight:bold}
+input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:6px;font-size:15px;background:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.status{display:inline-block;padding:5px 9px;border-radius:5px;font-weight:bold;font-size:12px}
 .green{background:#dcfce7;color:#166534}
 .red{background:#fee2e2;color:#991b1b}
 .yellow{background:#fef3c7;color:#92400e}
 .blue{background:#dbeafe;color:#1e40af}
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:650px;
-}
-th,td{
-  padding:11px 9px;
-  text-align:left;
-  border-bottom:1px solid #e2e8f0;
-  font-size:13px;
-}
+table{width:100%;border-collapse:collapse;min-width:720px}
+th,td{padding:11px 9px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:13px}
 th{background:#eaf1fb}
 .table-wrap{overflow-x:auto}
-.message{margin:10px 0;font-size:14px}
-.small{font-size:12px;color:#64748b}
-.service-title{font-weight:bold}
+.message{margin:10px 0;font-size:14px;white-space:pre-wrap}
+.small{font-size:12px;color:#64748b;line-height:1.5}
+.notice{padding:12px;background:#eff6ff;border-radius:7px;margin:12px 0;font-size:13px;line-height:1.5}
+.hidden{display:none!important}
 footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 </style>
 </head>
 
 <body>
-
 <header>
   <h2>AADLM - Standard Service</h2>
   <p>Addis Ababa Disaster Logistics Management</p>
 </header>
 
 <main class="container">
-
   <div class="actions">
-    <button onclick="loadStandards()">Refresh Data</button>
+    <button id="refreshBtn" onclick="loadStandards()">Refresh Data</button>
     <button class="secondary" onclick="location.href='dashboard.html'">Back to Dashboard</button>
   </div>
 
   <div class="card">
     <h3>Record Service Delivery</h3>
+    <p class="small">Services 1 and 4 are linked automatically to Household Registration and Individual Relief. Other services require actual start and completion times.</p>
 
     <div class="grid">
       <div>
@@ -130,7 +69,7 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
           <option value="ARA">Arada (ARA)</option>
           <option value="LID">Lideta (LID)</option>
           <option value="BOL">Bole (BOL)</option>
-          <option value="EKA">Ekaa (EKA)</option>
+          <option value="EKA">Yekaa (EKA)</option>
           <option value="AKA">Akaki Kality (AKA)</option>
           <option value="CTR">Center (CTR)</option>
         </select>
@@ -143,13 +82,13 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
         </select>
       </div>
 
-      <div>
-        <label for="startTime">Service Start Date & Time</label>
+      <div id="startWrap">
+        <label for="startTime">Service Start Date &amp; Time</label>
         <input type="datetime-local" id="startTime">
       </div>
 
-      <div>
-        <label for="endTime">Service Completion Date & Time</label>
+      <div id="endWrap">
+        <label for="endTime">Service Completion Date &amp; Time</label>
         <input type="datetime-local" id="endTime">
       </div>
 
@@ -164,283 +103,490 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
       </div>
     </div>
 
-    <div class="message" id="result"></div>
-    <button onclick="saveDelivery()">Save Service Record</button>
+    <div id="automaticInfo" class="notice hidden"></div>
+    <div id="result" class="message"></div>
+    <button id="saveBtn" onclick="saveDelivery()">Save Service Record</button>
   </div>
 
   <div class="card">
     <h3>Standard Service Time Limits</h3>
-    <p class="small">
-      Green = completed within standard. Red = standard time exceeded.
-      Yellow = still in progress and approaching the maximum time.
-    </p>
+    <p class="small">Green = completed within maximum standard. Red = maximum time exceeded. Yellow = approaching the limit or incomplete information. Blue = in progress.</p>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Minimum Hours</th>
-            <th>Maximum Hours</th>
-          </tr>
-        </thead>
-        <tbody id="standardsTable">
-          <tr><td colspan="3">Loading...</td></tr>
-        </tbody>
+        <thead><tr><th>ID</th><th>Service</th><th>Minimum Hours</th><th>Maximum Hours</th></tr></thead>
+        <tbody id="standardsTable"><tr><td colspan="4">Loading...</td></tr></tbody>
       </table>
     </div>
   </div>
 
   <div class="card">
     <h3>Service Delivery Records</h3>
+    <p class="small">Automatic records are linked using household_id or relief_id. Refresh to check for newly registered households and relief records.</p>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Branch</th>
-            <th>Service</th>
-            <th>Start</th>
-            <th>Completed</th>
-            <th>Elapsed Hours</th>
-            <th>Status</th>
-            <th>Case No.</th>
+            <th>Branch</th><th>Service</th><th>Start</th><th>Completed</th>
+            <th>Elapsed Hours</th><th>Status</th><th>Case / Model 22</th>
           </tr>
         </thead>
-        <tbody id="recordsTable">
-          <tr><td colspan="7">No records loaded.</td></tr>
-        </tbody>
+        <tbody id="recordsTable"><tr><td colspan="7">No records loaded.</td></tr></tbody>
       </table>
     </div>
   </div>
-
 </main>
 
 <footer>AADLM - Standard Service Monitoring</footer>
 
 <script>
-// IMPORTANT:
-// Replace these two values with the same Supabase URL and public
-// anon/publishable key already used in your dashboard.html.
 const SUPABASE_URL = "https://sslabegtsxlkafuygmar.supabase.co";
 const SUPABASE_KEY = "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
 let db = null;
 let standards = [];
 let records = [];
+let busy = false;
 
-function showMessage(message, type="yellow"){
-  const el = document.getElementById("result");
-  el.textContent = message;
-  el.className = "message status " + type;
+const $ = id => document.getElementById(id);
+
+function showMessage(message,type="yellow"){
+  const el=$("result");
+  el.textContent=message;
+  el.className="message status "+type;
 }
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+  return String(value ?? "").replace(/[&<>"']/g,ch=>({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[ch]);
 }
 
 function formatDate(value){
   if(!value) return "-";
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? "-" : date.toLocaleString();
+  const d=new Date(value);
+  return Number.isNaN(d.getTime()) ? "-" : d.toLocaleString();
 }
 
-function elapsedHours(start, end){
-  const a = new Date(start).getTime();
-  const b = new Date(end || new Date()).getTime();
-  if(!Number.isFinite(a) || !Number.isFinite(b)) return null;
-  return Math.max(0, (b-a)/3600000);
+function elapsedHours(start,end){
+  if(!start || !end) return null;
+  const a=new Date(start).getTime();
+  const b=new Date(end).getTime();
+  if(!Number.isFinite(a)||!Number.isFinite(b)||b<a) return null;
+  return (b-a)/3600000;
 }
 
-function getStatus(hours, standard, completed){
-  if(hours === null) return {text:"Invalid time", css:"yellow"};
+function getStatus(hours,standard,completed){
+  if(hours===null){
+    return {text:"Time unavailable",css:"yellow"};
+  }
 
-  // For completed services, assess against the maximum standard.
+  const max=Number(standard.max_hours);
+  if(!Number.isFinite(max)){
+    return {text:"Standard unavailable",css:"yellow"};
+  }
+
   if(completed){
-    return hours <= Number(standard.max_hours)
+    return hours<=max
       ? {text:"Within Standard",css:"green"}
       : {text:"Standard Exceeded",css:"red"};
   }
 
-  if(hours > Number(standard.max_hours)){
-    return {text:"Standard Exceeded",css:"red"};
-  }
-
-  if(hours >= Number(standard.max_hours) * 0.8){
-    return {text:"Approaching Limit",css:"yellow"};
-  }
-
+  if(hours>max) return {text:"Standard Exceeded",css:"red"};
+  if(hours>=max*.8) return {text:"Approaching Limit",css:"yellow"};
   return {text:"In Progress",css:"blue"};
 }
 
+function getBranchCode(){
+  return (
+    localStorage.getItem("selected_branch_code") ||
+    localStorage.getItem("branch_code") ||
+    $("branch").value
+  ).toUpperCase();
+}
+
+function configureBranch(){
+  const code=getBranchCode();
+  const select=$("branch");
+  const exists=[...select.options].some(o=>o.value===code);
+
+  if(exists) select.value=code;
+
+  const isMain=code==="MAIN";
+  select.disabled=true;
+
+  if(isMain){
+    $("automaticInfo").classList.remove("hidden");
+    $("automaticInfo").textContent=
+      "MAIN / HQ: records are displayed according to your database permissions. Automatic creation may be restricted by your Supabase policies.";
+  }
+}
+
+function getStandard(id){
+  return standards.find(s=>Number(s.id)===Number(id));
+}
+
+async function getAllRows(table,select,orderColumn){
+  const all=[];
+  const pageSize=500;
+
+  for(let offset=0;offset<10000;offset+=pageSize){
+    let query=db.from(table).select(select).range(offset,offset+pageSize-1);
+    if(orderColumn) query=query.order(orderColumn,{ascending:true});
+
+    const {data,error}=await query;
+    if(error) throw error;
+
+    all.push(...(data||[]));
+    if(!data||data.length<pageSize) break;
+  }
+
+  return all;
+}
+
 async function loadStandards(){
-  if(!db){
-    showMessage("Supabase connection is not configured. Add your project URL and public key in this file.","red");
-    return;
+  if(!db) return;
+
+  $("refreshBtn").disabled=true;
+  showMessage("Loading standards and checking linked records...","blue");
+
+  try{
+    const {data,error}=await db
+      .from("standard_services")
+      .select("id,service_name,min_hours,max_hours")
+      .order("id");
+
+    if(error) throw error;
+
+    standards=data||[];
+
+    $("standardsTable").innerHTML=standards.length
+      ? standards.map(s=>`
+          <tr>
+            <td>${escapeHTML(s.id)}</td>
+            <td>${escapeHTML(s.service_name)}</td>
+            <td>${escapeHTML(s.min_hours)}</td>
+            <td>${escapeHTML(s.max_hours)}</td>
+          </tr>`).join("")
+      : '<tr><td colspan="4">No standard services found.</td></tr>';
+
+    if(standards.length!==6){
+      showMessage(
+        "Warning: the database currently returns "+standards.length+
+        " services. The expected number is 6. Check standard_services before adding or deleting any records.",
+        "yellow"
+      );
+    }
+
+    $("service").innerHTML='<option value="">Select service</option>'+
+      standards.map(s=>`
+        <option value="${escapeHTML(s.id)}">
+          ${escapeHTML(s.id)}. ${escapeHTML(s.service_name)}
+          (${escapeHTML(s.min_hours)}-${escapeHTML(s.max_hours)} hours)
+        </option>`).join("");
+
+    await syncAutomaticRecords();
+    await loadRecords();
+    updateServiceForm();
+
+    if(standards.length===6){
+      showMessage("Standards loaded. Automatic household and relief records checked.","green");
+    }
+  }catch(error){
+    console.error(error);
+    showMessage("Could not load data: "+error.message,"red");
+  }finally{
+    $("refreshBtn").disabled=false;
   }
+}
 
-  const {data,error} = await db
-    .from("standard_services")
-    .select("*")
-    .order("id");
+/*
+ Service 1:
+ Disaster date at 00:00 local time -> household created_at.
 
-  if(error){
-    showMessage("Could not load standards: " + error.message,"red");
-    document.getElementById("standardsTable").innerHTML =
-      '<tr><td colspan="3">Could not load standard services.</td></tr>';
-    return;
+ Service 4:
+ Household registration created_at -> relief_date.
+ This measures the time between registration and aid distribution.
+ If no household registration time exists, use relief_date as the recorded
+ start and mark duration as unavailable rather than inventing a start time.
+*/
+async function syncAutomaticRecords(){
+  try{
+    const households=await getAllRows(
+      "emergency_households",
+      "id,branch_code,disaster_date,created_at",
+      "created_at"
+    );
+
+    const reliefs=await getAllRows(
+      "emergency_reliefs",
+      "id,household_id,relief_date,model_22_number,created_at",
+      "created_at"
+    );
+
+    const existing=await getAllRows(
+      "service_deliveries",
+      "id,branch_code,service_id,household_id,relief_id,start_time,end_time,case_number,notes,status,elapsed_hours",
+      "id"
+    );
+
+    const inserts=[];
+
+    for(const h of households){
+      if(!h.id||!h.created_at||!h.disaster_date) continue;
+
+      const already=existing.some(r=>
+        Number(r.service_id)===1 &&
+        String(r.household_id)===String(h.id)
+      );
+
+      if(already) continue;
+
+      const start=new Date(h.disaster_date+"T00:00:00");
+      const end=new Date(h.created_at);
+      if(!Number.isFinite(start.getTime())||
+         !Number.isFinite(end.getTime())||end<start) continue;
+
+      const elapsed=(end-start)/3600000;
+      const standard=getStandard(1);
+      if(!standard) continue;
+      const status=getStatus(elapsed,standard,true);
+
+      inserts.push({
+        branch_code:h.branch_code||"GUL",
+        service_id:1,
+        household_id:h.id,
+        start_time:start.toISOString(),
+        end_time:end.toISOString(),
+        case_number:"HOUSEHOLD-"+h.id,
+        notes:"Automatically linked: disaster date to household registration.",
+        elapsed_hours:Number(elapsed.toFixed(2)),
+        status:status.text
+      });
+    }
+
+    const householdMap=new Map(households.map(h=>[String(h.id),h]));
+
+    for(const r of reliefs){
+      if(!r.id||!r.relief_date) continue;
+
+      const already=existing.some(row=>
+        Number(row.service_id)===4 &&
+        String(row.relief_id)===String(r.id)
+      );
+
+      if(already) continue;
+
+      const household=householdMap.get(String(r.household_id));
+      const startValue=household?.created_at;
+      const start=startValue ? new Date(startValue) : null;
+      const end=new Date(r.relief_date);
+      const standard=getStandard(4);
+      if(!standard||!Number.isFinite(end.getTime())) continue;
+
+      const hasStart=!!start&&Number.isFinite(start.getTime())&&end>=start;
+      const elapsed=hasStart ? (end-start)/3600000 : null;
+      const status=hasStart
+        ? getStatus(elapsed,standard,true)
+        : {text:"Time unavailable",css:"yellow"};
+
+      inserts.push({
+        branch_code:household?.branch_code||"GUL",
+        service_id:4,
+        household_id:r.household_id||null,
+        relief_id:r.id,
+        start_time:hasStart ? start.toISOString() : end.toISOString(),
+        end_time:end.toISOString(),
+        case_number:r.model_22_number||("RELIEF-"+r.id),
+        notes:hasStart
+          ? "Automatically linked: household registration to relief distribution."
+          : "Automatically linked to relief; household registration time is unavailable.",
+        elapsed_hours:elapsed===null ? null : Number(elapsed.toFixed(2)),
+        status:status.text
+      });
+    }
+
+    if(inserts.length){
+      const {error}=await db.from("service_deliveries").insert(inserts);
+
+      if(error){
+        // The unique indexes may reject records already inserted elsewhere.
+        // Do not delete or overwrite existing records.
+        console.error("Automatic record insert:",error);
+        showMessage(
+          "Automatic record creation needs attention: "+error.message+
+          ". Existing records have not been deleted.",
+          "yellow"
+        );
+      }
+    }
+  }catch(error){
+    console.error("Automatic linking:",error);
+    showMessage(
+      "Could not synchronize household/relief records: "+error.message+
+      ". Check table permissions and column names.",
+      "red"
+    );
   }
+}
 
-  standards = data || [];
+function updateServiceForm(){
+  const id=Number($("service").value);
+  const automatic=id===1||id===4;
+  const info=$("automaticInfo");
 
-  document.getElementById("standardsTable").innerHTML = standards.length
-    ? standards.map(s => `
-      <tr>
-        <td>${escapeHTML(s.service_name)}</td>
-        <td>${escapeHTML(s.min_hours)}</td>
-        <td>${escapeHTML(s.max_hours)}</td>
-      </tr>`).join("")
-    : '<tr><td colspan="3">No standard services found.</td></tr>';
+  $("startWrap").classList.toggle("hidden",automatic);
+  $("endWrap").classList.toggle("hidden",automatic);
+  $("saveBtn").classList.toggle("hidden",automatic);
 
-  const select = document.getElementById("service");
-  select.innerHTML = '<option value="">Select service</option>' +
-    standards.map(s => `
-      <option value="${escapeHTML(s.id)}">
-        ${escapeHTML(s.service_name)} (${escapeHTML(s.min_hours)}-${escapeHTML(s.max_hours)} hours)
-      </option>`).join("");
-
-  await loadRecords();
+  if(automatic){
+    info.classList.remove("hidden");
+    info.textContent=id===1
+      ? "Service 1 is generated from disaster_date to household created_at. Use Refresh Data after registering households."
+      : "Service 4 is generated from household registration to relief_date. Use Refresh Data after recording Individual Relief.";
+  }else{
+    info.classList.add("hidden");
+  }
 }
 
 async function saveDelivery(){
-  if(!db){
-    showMessage("Supabase is not configured. Add the project URL and public key first.","red");
+  if(busy||!db) return;
+
+  const serviceId=Number($("service").value);
+  const standard=getStandard(serviceId);
+  const branch=getBranchCode();
+  const start=$("startTime").value;
+  const end=$("endTime").value;
+  const caseNumber=$("caseNumber").value.trim();
+  const notes=$("notes").value.trim();
+
+  if(!standard){
+    showMessage("Please select a valid service.","red");
     return;
   }
 
-  const branch = document.getElementById("branch").value;
-  const serviceId = document.getElementById("service").value;
-  const start = document.getElementById("startTime").value;
-  const end = document.getElementById("endTime").value;
-  const caseNumber = document.getElementById("caseNumber").value.trim();
-  const notes = document.getElementById("notes").value.trim();
-
-  if(!serviceId || !start){
-    showMessage("Please select a service and enter the start date/time.","red");
+  if(serviceId===1||serviceId===4){
+    showMessage("This service is linked automatically. Use Refresh Data.","yellow");
     return;
   }
 
-  if(end && new Date(end) < new Date(start)){
+  if(!start){
+    showMessage("Enter the actual service start date and time.","red");
+    return;
+  }
+
+  if(end&&!Number.isFinite(new Date(end).getTime())){
+    showMessage("The completion date/time is invalid.","red");
+    return;
+  }
+
+  if(end&&new Date(end)<new Date(start)){
     showMessage("Completion time cannot be earlier than start time.","red");
     return;
   }
 
-  const standard = standards.find(s => String(s.id) === String(serviceId));
-  if(!standard){
-    showMessage("Selected standard service was not found. Refresh and try again.","red");
-    return;
-  }
+  const startDate=new Date(start);
+  const endDate=end?new Date(end):null;
+  const hours=elapsedHours(startDate,endDate||new Date());
+  const status=getStatus(hours,standard,!!endDate);
 
-  const elapsed = elapsedHours(start,end || new Date());
-  const status = getStatus(elapsed,standard,Boolean(end));
-
-  // This insert requires the service_deliveries table below to exist.
-  const payload = {
-    branch_code: branch,
-    service_id: Number(serviceId),
-    start_time: new Date(start).toISOString(),
-    end_time: end ? new Date(end).toISOString() : null,
-    case_number: caseNumber || null,
-    notes: notes || null,
-    status: status.text
+  const payload={
+    branch_code:branch,
+    service_id:serviceId,
+    start_time:startDate.toISOString(),
+    end_time:endDate?endDate.toISOString():null,
+    case_number:caseNumber||null,
+    notes:notes||null,
+    elapsed_hours:hours===null?null:Number(hours.toFixed(2)),
+    status:status.text
   };
 
-  const {error} = await db.from("service_deliveries").insert(payload);
+  busy=true;
+  $("saveBtn").disabled=true;
 
-  if(error){
-    showMessage("Could not save record: " + error.message +
-      " Check that the service_deliveries table has been created.","red");
-    return;
+  try{
+    const {error}=await db.from("service_deliveries").insert(payload);
+    if(error) throw error;
+
+    showMessage("Service record saved successfully.","green");
+    $("caseNumber").value="";
+    $("notes").value="";
+    $("startTime").value="";
+    $("endTime").value="";
+    await loadRecords();
+  }catch(error){
+    console.error(error);
+    showMessage("Could not save service record: "+error.message,"red");
+  }finally{
+    busy=false;
+    $("saveBtn").disabled=false;
   }
-
-  showMessage("Service record saved successfully.","green");
-  document.getElementById("caseNumber").value = "";
-  document.getElementById("notes").value = "";
-  await loadRecords();
 }
 
 async function loadRecords(){
-  const body = document.getElementById("recordsTable");
+  const body=$("recordsTable");
 
-  const {data,error} = await db
+  const {data,error}=await db
     .from("service_deliveries")
-    .select("id,branch_code,service_id,start_time,end_time,case_number,status")
+    .select("id,branch_code,service_id,household_id,relief_id,start_time,end_time,case_number,status,elapsed_hours")
     .order("start_time",{ascending:false})
-    .limit(100);
+    .limit(500);
 
   if(error){
-    body.innerHTML = '<tr><td colspan="7">Delivery records are not available yet. Create the service_deliveries table first.</td></tr>';
+    body.innerHTML='<tr><td colspan="7">Could not load records: '+
+      escapeHTML(error.message)+'</td></tr>';
     return;
   }
 
-  records = data || [];
+  records=data||[];
 
   if(!records.length){
-    body.innerHTML = '<tr><td colspan="7">No service delivery records yet.</td></tr>';
+    body.innerHTML='<tr><td colspan="7">No service delivery records yet.</td></tr>';
     return;
   }
 
-  body.innerHTML = records.map(r => {
-    const standard = standards.find(s => String(s.id) === String(r.service_id));
-    const hours = elapsedHours(r.start_time,r.end_time || new Date());
-    const status = standard
-      ? getStatus(hours,standard,Boolean(r.end_time))
-      : {text:r.status || "Unknown",css:"yellow"};
+  body.innerHTML=records.map(r=>{
+    const standard=getStandard(r.service_id);
+    const hours=r.elapsed_hours!==null&&r.elapsed_hours!==undefined
+      ? Number(r.elapsed_hours)
+      : elapsedHours(r.start_time,r.end_time);
+
+    const status=standard
+      ? getStatus(hours,standard,!!r.end_time)
+      : {text:r.status||"Unknown",css:"yellow"};
+
+    const caseLabel=r.case_number||
+      (r.relief_id?"Relief "+r.relief_id:
+       r.household_id?"Household "+r.household_id:"-");
 
     return `<tr>
-      <td>${escapeHTML(r.branch_code)}</td>
-      <td>${escapeHTML(standard ? standard.service_name : "Unknown service")}</td>
+      <td>${escapeHTML(r.branch_code||"-")}</td>
+      <td>${escapeHTML(standard?standard.service_name:"Unknown service")}</td>
       <td>${escapeHTML(formatDate(r.start_time))}</td>
       <td>${escapeHTML(formatDate(r.end_time))}</td>
-      <td>${hours === null ? "-" : hours.toFixed(2)}</td>
+      <td>${hours===null||!Number.isFinite(hours)?"-":hours.toFixed(2)}</td>
       <td><span class="status ${status.css}">${escapeHTML(status.text)}</span></td>
-      <td>${escapeHTML(r.case_number || "-")}</td>
+      <td>${escapeHTML(caseLabel)}</td>
     </tr>`;
   }).join("");
 }
 
-
-function initialize() {
-  if (
-    !SUPABASE_URL ||
-    !SUPABASE_KEY ||
-    !window.supabase
-  ) {
-    showMessage(
-      "Supabase URL, public key, or library is missing.",
-      "red"
-    );
+function initialize(){
+  if(!window.supabase){
+    showMessage("Supabase library could not load. Check your internet connection.","red");
     return;
   }
 
-  try {
-    db = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
+  try{
+    db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    configureBranch();
+    $("service").addEventListener("change",updateServiceForm);
     loadStandards();
-  } catch (error) {
-    showMessage(
-      "Supabase initialization failed: " + error.message,
-      "red"
-    );
+  }catch(error){
+    showMessage("Supabase initialization failed: "+error.message,"red");
   }
 }
 
-initialize();
-
+document.addEventListener("DOMContentLoaded",initialize);
 </script>
-
 </body>
 </html>
