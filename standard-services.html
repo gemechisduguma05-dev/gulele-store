@@ -7,14 +7,13 @@
 <meta name="theme-color" content="#0d47a1">
 <title>AADLM - Standard Service</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
-header{background:#0d47a1;color:white;padding:18px 14px}
+header{background:linear-gradient(110deg,#0d47a1,#1565c0,#ec407a);color:white;padding:18px 14px}
 header h2{margin:0 0 8px}
 header p{margin:0;font-size:13px}
-.container{max-width:1150px;margin:auto;padding:15px}
+.container{max-width:1200px;margin:auto;padding:15px}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
 button{border:0;border-radius:6px;padding:11px 14px;background:#0d47a1;color:white;cursor:pointer;font-weight:bold}
 button.secondary{background:#475569}
@@ -28,8 +27,8 @@ input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:6px;
 .red{background:#fee2e2;color:#991b1b}
 .yellow{background:#fef3c7;color:#92400e}
 .blue{background:#dbeafe;color:#1e40af}
-table{width:100%;border-collapse:collapse;min-width:720px}
-th,td{padding:11px 9px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:13px}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{padding:10px 9px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:13px}
 th{background:#eaf1fb}
 .table-wrap{overflow-x:auto}
 .message{margin:10px 0;font-size:14px;white-space:pre-wrap}
@@ -39,7 +38,6 @@ th{background:#eaf1fb}
 footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 </style>
 </head>
-
 <body>
 <header>
   <h2>AADLM - Standard Service</h2>
@@ -48,13 +46,16 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 
 <main class="container">
   <div class="actions">
-    <button id="refreshBtn" onclick="loadStandards()">Refresh Data</button>
-    <button class="secondary" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+    <button id="refreshBtn" type="button">Refresh Data</button>
+    <button class="secondary" type="button" onclick="location.href='dashboard.html'">Back to Dashboard</button>
   </div>
 
   <div class="card">
     <h3>Record Service Delivery</h3>
-    <p class="small">Services 1 and 4 are linked automatically to Household Registration and Individual Relief. Other services require actual start and completion times.</p>
+    <p class="small">
+      Services 1 and 4 are linked to household registration and relief records.
+      Services 2, 3, 5 and 6 require manually entered start and completion times.
+    </p>
 
     <div class="grid">
       <div>
@@ -94,7 +95,7 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 
       <div>
         <label for="caseNumber">Case / Report Number</label>
-        <input id="caseNumber" placeholder="Enter case number">
+        <input id="caseNumber" placeholder="Enter case or report number">
       </div>
 
       <div>
@@ -105,23 +106,39 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 
     <div id="automaticInfo" class="notice hidden"></div>
     <div id="result" class="message"></div>
-    <button id="saveBtn" onclick="saveDelivery()">Save Service Record</button>
+    <button id="saveBtn" type="button">Save Service Record</button>
   </div>
 
   <div class="card">
     <h3>Standard Service Time Limits</h3>
-    <p class="small">Green = completed within maximum standard. Red = maximum time exceeded. Yellow = approaching the limit or incomplete information. Blue = in progress.</p>
+    <p class="small">
+      Green = completed within maximum standard. Red = maximum exceeded.
+      Yellow = approaching limit or unavailable time. Blue = in progress.
+    </p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>ID</th><th>Service</th><th>Minimum Hours</th><th>Maximum Hours</th></tr></thead>
-        <tbody id="standardsTable"><tr><td colspan="4">Loading...</td></tr></tbody>
+        <thead>
+          <tr><th>ID</th><th>Service</th><th>Minimum Hours</th><th>Maximum Hours</th></tr>
+        </thead>
+        <tbody id="standardsTable">
+          <tr><td colspan="4">Loading...</td></tr>
+        </tbody>
       </table>
     </div>
   </div>
 
   <div class="card">
     <h3>Service Delivery Records</h3>
-    <p class="small">Automatic records are linked using household_id or relief_id. Refresh to check for newly registered households and relief records.</p>
+    <div class="grid">
+      <div>
+        <label for="recordBranch">Show records</label>
+        <select id="recordBranch">
+          <option value="CURRENT">Selected branch</option>
+          <option value="ALL">All branches (permitted users only)</option>
+        </select>
+      </div>
+    </div>
+    <p class="small">Automatic records are linked by household_id and relief_id. Use Refresh Data to synchronize new source records.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -130,7 +147,9 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
             <th>Elapsed Hours</th><th>Status</th><th>Case / Model 22</th>
           </tr>
         </thead>
-        <tbody id="recordsTable"><tr><td colspan="7">No records loaded.</td></tr></tbody>
+        <tbody id="recordsTable">
+          <tr><td colspan="7">No records loaded.</td></tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -139,15 +158,23 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 <footer>AADLM - Standard Service Monitoring</footer>
 
 <script>
+"use strict";
+
 const SUPABASE_URL = "https://sslabegtsxlkafuygmar.supabase.co";
 const SUPABASE_KEY = "sb_publishable_G3Nv_yg4LaCiMtJMiadMxQ_f2fNHg5x";
 
 let db = null;
 let standards = [];
-let records = [];
 let busy = false;
 
 const $ = id => document.getElementById(id);
+
+const BRANCHES = [
+  ["GUL","Gulele"],["AKT","Addis Katama"],["KLF","Kolfee"],
+  ["NSL","Nifas Silk Lafto"],["KIR","Kirkos"],["LAM","Lami Kura"],
+  ["ARA","Arada"],["LID","Lideta"],["BOL","Bole"],["EKA","Yekaa"],
+  ["AKA","Akaki Kality"],["CTR","Center"]
+];
 
 function showMessage(message,type="yellow"){
   const el=$("result");
@@ -168,7 +195,7 @@ function formatDate(value){
 }
 
 function elapsedHours(start,end){
-  if(!start || !end) return null;
+  if(!start||!end) return null;
   const a=new Date(start).getTime();
   const b=new Date(end).getTime();
   if(!Number.isFinite(a)||!Number.isFinite(b)||b<a) return null;
@@ -176,48 +203,54 @@ function elapsedHours(start,end){
 }
 
 function getStatus(hours,standard,completed){
-  if(hours===null){
+  if(hours===null||!Number.isFinite(hours)){
     return {text:"Time unavailable",css:"yellow"};
   }
-
-  const max=Number(standard.max_hours);
-  if(!Number.isFinite(max)){
-    return {text:"Standard unavailable",css:"yellow"};
-  }
-
+  const max=Number(standard?.max_hours);
+  if(!Number.isFinite(max)) return {text:"Standard unavailable",css:"yellow"};
   if(completed){
     return hours<=max
       ? {text:"Within Standard",css:"green"}
       : {text:"Standard Exceeded",css:"red"};
   }
-
   if(hours>max) return {text:"Standard Exceeded",css:"red"};
   if(hours>=max*.8) return {text:"Approaching Limit",css:"yellow"};
   return {text:"In Progress",css:"blue"};
 }
 
 function getBranchCode(){
-  return (
-    localStorage.getItem("selected_branch_code") ||
-    localStorage.getItem("branch_code") ||
-    $("branch").value
-  ).toUpperCase();
+  const stored=(
+    localStorage.getItem("selected_branch_code")||
+    localStorage.getItem("branch_code")||
+    ""
+  ).trim().toUpperCase();
+
+  return BRANCHES.some(b=>b[0]===stored) ? stored : $("branch").value;
 }
 
 function configureBranch(){
-  const code=getBranchCode();
-  const select=$("branch");
-  const exists=[...select.options].some(o=>o.value===code);
+  const code=(
+    localStorage.getItem("selected_branch_code")||
+    localStorage.getItem("branch_code")||
+    ""
+  ).trim().toUpperCase();
 
-  if(exists) select.value=code;
+  const role=(localStorage.getItem("user_role")||"").toUpperCase();
+  const isMain=code==="MAIN"||role==="MAIN"||role==="HQ"||role==="ADMIN";
+  const branch=$("branch");
 
-  const isMain=code==="MAIN";
-  select.disabled=true;
+  if(BRANCHES.some(b=>b[0]===code)) branch.value=code;
 
+  // Main/HQ is a reporting role, not an operational branch.
   if(isMain){
+    branch.disabled=false;
+    $("recordBranch").value="ALL";
     $("automaticInfo").classList.remove("hidden");
     $("automaticInfo").textContent=
-      "MAIN / HQ: records are displayed according to your database permissions. Automatic creation may be restricted by your Supabase policies.";
+      "MAIN / HQ: select an operational branch to create manual service records. All-branch viewing depends on your database permissions.";
+  }else{
+    branch.disabled=true;
+    $("recordBranch").value="CURRENT";
   }
 }
 
@@ -239,193 +272,106 @@ async function getAllRows(table,select,orderColumn){
     all.push(...(data||[]));
     if(!data||data.length<pageSize) break;
   }
-
   return all;
 }
 
-async function loadStandards(){
-  if(!db) return;
-
-  $("refreshBtn").disabled=true;
-  showMessage("Loading standards and checking linked records...","blue");
-
-  try{
-    const {data,error}=await db
-      .from("standard_services")
-      .select("id,service_name,min_hours,max_hours")
-      .order("id");
-
-    if(error) throw error;
-
-    standards=data||[];
-
-    $("standardsTable").innerHTML=standards.length
-      ? standards.map(s=>`
-          <tr>
-            <td>${escapeHTML(s.id)}</td>
-            <td>${escapeHTML(s.service_name)}</td>
-            <td>${escapeHTML(s.min_hours)}</td>
-            <td>${escapeHTML(s.max_hours)}</td>
-          </tr>`).join("")
-      : '<tr><td colspan="4">No standard services found.</td></tr>';
-
-    if(standards.length!==6){
-      showMessage(
-        "Warning: the database currently returns "+standards.length+
-        " services. The expected number is 6. Check standard_services before adding or deleting any records.",
-        "yellow"
-      );
-    }
-
-    $("service").innerHTML='<option value="">Select service</option>'+
-      standards.map(s=>`
-        <option value="${escapeHTML(s.id)}">
-          ${escapeHTML(s.id)}. ${escapeHTML(s.service_name)}
-          (${escapeHTML(s.min_hours)}-${escapeHTML(s.max_hours)} hours)
-        </option>`).join("");
-
-    await syncAutomaticRecords();
-    await loadRecords();
-    updateServiceForm();
-
-    if(standards.length===6){
-      showMessage("Standards loaded. Automatic household and relief records checked.","green");
-    }
-  }catch(error){
-    console.error(error);
-    showMessage("Could not load data: "+error.message,"red");
-  }finally{
-    $("refreshBtn").disabled=false;
-  }
+function isDuplicate(existing,serviceId,linkColumn,linkId){
+  return existing.some(r=>
+    Number(r.service_id)===Number(serviceId) &&
+    String(r[linkColumn]||"")===String(linkId||"")
+  );
 }
 
-/*
- Service 1:
- Disaster date at 00:00 local time -> household created_at.
-
- Service 4:
- Household registration created_at -> relief_date.
- This measures the time between registration and aid distribution.
- If no household registration time exists, use relief_date as the recorded
- start and mark duration as unavailable rather than inventing a start time.
-*/
 async function syncAutomaticRecords(){
-  try{
-    const households=await getAllRows(
-      "emergency_households",
-      "id,branch_code,disaster_date,created_at",
-      "created_at"
-    );
+  const households=await getAllRows(
+    "emergency_households",
+    "id,branch_id,branch_code,disaster_date,created_at",
+    "created_at"
+  );
 
-    const reliefs=await getAllRows(
-      "emergency_reliefs",
-      "id,household_id,relief_date,model_22_number,created_at",
-      "created_at"
-    );
+  const reliefs=await getAllRows(
+    "emergency_reliefs",
+    "id,household_id,relief_date,model_22_number,created_at",
+    "created_at"
+  );
 
-    const existing=await getAllRows(
-      "service_deliveries",
-      "id,branch_code,service_id,household_id,relief_id,start_time,end_time,case_number,notes,status,elapsed_hours",
-      "id"
-    );
+  const existing=await getAllRows(
+    "service_deliveries",
+    "id,branch_code,service_id,household_id,relief_id,start_time,end_time,case_number,notes,status,elapsed_hours",
+    "id"
+  );
 
-    const inserts=[];
+  const inserts=[];
+  const standard1=getStandard(1);
+  const standard4=getStandard(4);
 
-    for(const h of households){
-      if(!h.id||!h.created_at||!h.disaster_date) continue;
+  // Service 1: disaster date at local midnight -> household registration.
+  for(const h of households){
+    if(!h.id||!h.created_at||!h.disaster_date||!standard1) continue;
+    if(isDuplicate(existing,1,"household_id",h.id)) continue;
 
-      const already=existing.some(r=>
-        Number(r.service_id)===1 &&
-        String(r.household_id)===String(h.id)
-      );
+    const start=new Date(h.disaster_date+"T00:00:00");
+    const end=new Date(h.created_at);
+    if(!Number.isFinite(start.getTime())||
+       !Number.isFinite(end.getTime())||end<start) continue;
 
-      if(already) continue;
+    const hours=(end-start)/3600000;
+    const status=getStatus(hours,standard1,true);
 
-      const start=new Date(h.disaster_date+"T00:00:00");
-      const end=new Date(h.created_at);
-      if(!Number.isFinite(start.getTime())||
-         !Number.isFinite(end.getTime())||end<start) continue;
+    inserts.push({
+      branch_code:h.branch_code||"GUL",
+      service_id:1,
+      household_id:h.id,
+      start_time:start.toISOString(),
+      end_time:end.toISOString(),
+      case_number:"HOUSEHOLD-"+h.id,
+      notes:"Automatic: disaster date to household registration time.",
+      elapsed_hours:Number(hours.toFixed(2)),
+      status:status.text
+    });
+  }
 
-      const elapsed=(end-start)/3600000;
-      const standard=getStandard(1);
-      if(!standard) continue;
-      const status=getStatus(elapsed,standard,true);
+  const householdMap=new Map(households.map(h=>[String(h.id),h]));
 
-      inserts.push({
-        branch_code:h.branch_code||"GUL",
-        service_id:1,
-        household_id:h.id,
-        start_time:start.toISOString(),
-        end_time:end.toISOString(),
-        case_number:"HOUSEHOLD-"+h.id,
-        notes:"Automatically linked: disaster date to household registration.",
-        elapsed_hours:Number(elapsed.toFixed(2)),
-        status:status.text
-      });
+  // Service 4: household registration -> aid distribution.
+  for(const r of reliefs){
+    if(!r.id||!r.relief_date||!standard4) continue;
+    if(isDuplicate(existing,4,"relief_id",r.id)) continue;
+
+    const h=householdMap.get(String(r.household_id));
+    const end=new Date(r.relief_date);
+    const start=h?.created_at ? new Date(h.created_at) : null;
+
+    if(!Number.isFinite(end.getTime())) continue;
+
+    const hasStart=!!start&&Number.isFinite(start.getTime())&&end>=start;
+    const hours=hasStart?(end-start)/3600000:null;
+    const status=hasStart
+      ? getStatus(hours,standard4,true)
+      : {text:"Time unavailable",css:"yellow"};
+
+    inserts.push({
+      branch_code:h?.branch_code||"GUL",
+      service_id:4,
+      household_id:r.household_id||null,
+      relief_id:r.id,
+      start_time:hasStart?start.toISOString():end.toISOString(),
+      end_time:end.toISOString(),
+      case_number:r.model_22_number||("RELIEF-"+r.id),
+      notes:hasStart
+        ? "Automatic: household registration to relief distribution."
+        : "Automatic relief link; household registration time is unavailable.",
+      elapsed_hours:hours===null?null:Number(hours.toFixed(2)),
+      status:status.text
+    });
+  }
+
+  if(inserts.length){
+    const {error}=await db.from("service_deliveries").insert(inserts);
+    if(error){
+      console.error("Automatic insert:",error);
+      throw new Error("Automatic records could not be saved: "+error.message);
     }
-
-    const householdMap=new Map(households.map(h=>[String(h.id),h]));
-
-    for(const r of reliefs){
-      if(!r.id||!r.relief_date) continue;
-
-      const already=existing.some(row=>
-        Number(row.service_id)===4 &&
-        String(row.relief_id)===String(r.id)
-      );
-
-      if(already) continue;
-
-      const household=householdMap.get(String(r.household_id));
-      const startValue=household?.created_at;
-      const start=startValue ? new Date(startValue) : null;
-      const end=new Date(r.relief_date);
-      const standard=getStandard(4);
-      if(!standard||!Number.isFinite(end.getTime())) continue;
-
-      const hasStart=!!start&&Number.isFinite(start.getTime())&&end>=start;
-      const elapsed=hasStart ? (end-start)/3600000 : null;
-      const status=hasStart
-        ? getStatus(elapsed,standard,true)
-        : {text:"Time unavailable",css:"yellow"};
-
-      inserts.push({
-        branch_code:household?.branch_code||"GUL",
-        service_id:4,
-        household_id:r.household_id||null,
-        relief_id:r.id,
-        start_time:hasStart ? start.toISOString() : end.toISOString(),
-        end_time:end.toISOString(),
-        case_number:r.model_22_number||("RELIEF-"+r.id),
-        notes:hasStart
-          ? "Automatically linked: household registration to relief distribution."
-          : "Automatically linked to relief; household registration time is unavailable.",
-        elapsed_hours:elapsed===null ? null : Number(elapsed.toFixed(2)),
-        status:status.text
-      });
-    }
-
-    if(inserts.length){
-      const {error}=await db.from("service_deliveries").insert(inserts);
-
-      if(error){
-        // The unique indexes may reject records already inserted elsewhere.
-        // Do not delete or overwrite existing records.
-        console.error("Automatic record insert:",error);
-        showMessage(
-          "Automatic record creation needs attention: "+error.message+
-          ". Existing records have not been deleted.",
-          "yellow"
-        );
-      }
-    }
-  }catch(error){
-    console.error("Automatic linking:",error);
-    showMessage(
-      "Could not synchronize household/relief records: "+error.message+
-      ". Check table permissions and column names.",
-      "red"
-    );
   }
 }
 
@@ -441,10 +387,64 @@ function updateServiceForm(){
   if(automatic){
     info.classList.remove("hidden");
     info.textContent=id===1
-      ? "Service 1 is generated from disaster_date to household created_at. Use Refresh Data after registering households."
-      : "Service 4 is generated from household registration to relief_date. Use Refresh Data after recording Individual Relief.";
-  }else{
+      ? "Service 1 is generated from disaster_date to household created_at. Press Refresh Data after household registration."
+      : "Service 4 is generated from household created_at to relief_date. Press Refresh Data after recording Individual Relief.";
+  }else if(
+    (localStorage.getItem("selected_branch_code")||"").toUpperCase()!=="MAIN"
+  ){
     info.classList.add("hidden");
+  }
+}
+
+async function loadStandards(){
+  if(!db) return;
+  $("refreshBtn").disabled=true;
+  showMessage("Loading standards and linked records...","blue");
+
+  try{
+    const {data,error}=await db
+      .from("standard_services")
+      .select("id,service_name,min_hours,max_hours")
+      .order("id");
+
+    if(error) throw error;
+    standards=data||[];
+
+    $("standardsTable").innerHTML=standards.length
+      ? standards.map(s=>`<tr>
+          <td>${escapeHTML(s.id)}</td>
+          <td>${escapeHTML(s.service_name)}</td>
+          <td>${escapeHTML(s.min_hours)}</td>
+          <td>${escapeHTML(s.max_hours)}</td>
+        </tr>`).join("")
+      : '<tr><td colspan="4">No standard services found.</td></tr>';
+
+    $("service").innerHTML='<option value="">Select service</option>'+
+      standards.map(s=>`<option value="${escapeHTML(s.id)}">${
+        escapeHTML(s.id)}. ${escapeHTML(s.service_name)} (${
+        escapeHTML(s.min_hours)}-${escapeHTML(s.max_hours)} hours)</option>`).join("");
+
+    if(standards.length!==6){
+      showMessage("Warning: database returned "+standards.length+
+        " services; expected 6. No service rows were changed.","yellow");
+    }
+
+    // Do not create records until the standards are verified.
+    if(standards.length===6){
+      await syncAutomaticRecords();
+    }
+
+    await loadRecords();
+    updateServiceForm();
+
+    if(standards.length===6){
+      showMessage("Standards loaded. Household and relief records synchronized.","green");
+    }
+  }catch(error){
+    console.error(error);
+    showMessage("Could not load/synchronize data: "+error.message,"red");
+  }finally{
+    $("refreshBtn").disabled=false;
   }
 }
 
@@ -454,8 +454,8 @@ async function saveDelivery(){
   const serviceId=Number($("service").value);
   const standard=getStandard(serviceId);
   const branch=getBranchCode();
-  const start=$("startTime").value;
-  const end=$("endTime").value;
+  const startValue=$("startTime").value;
+  const endValue=$("endTime").value;
   const caseNumber=$("caseNumber").value.trim();
   const notes=$("notes").value.trim();
 
@@ -465,35 +465,36 @@ async function saveDelivery(){
   }
 
   if(serviceId===1||serviceId===4){
-    showMessage("This service is linked automatically. Use Refresh Data.","yellow");
+    showMessage("This service is automatic. Press Refresh Data.","yellow");
     return;
   }
 
-  if(!start){
+  if(!startValue){
     showMessage("Enter the actual service start date and time.","red");
     return;
   }
 
-  if(end&&!Number.isFinite(new Date(end).getTime())){
-    showMessage("The completion date/time is invalid.","red");
+  const start=new Date(startValue);
+  const end=endValue?new Date(endValue):null;
+
+  if(!Number.isFinite(start.getTime())){
+    showMessage("Invalid start date/time.","red");
     return;
   }
 
-  if(end&&new Date(end)<new Date(start)){
-    showMessage("Completion time cannot be earlier than start time.","red");
+  if(end&&(!Number.isFinite(end.getTime())||end<start)){
+    showMessage("Completion must be valid and cannot be before the start.","red");
     return;
   }
 
-  const startDate=new Date(start);
-  const endDate=end?new Date(end):null;
-  const hours=elapsedHours(startDate,endDate||new Date());
-  const status=getStatus(hours,standard,!!endDate);
+  const hours=elapsedHours(start,end||new Date());
+  const status=getStatus(hours,standard,!!end);
 
   const payload={
     branch_code:branch,
     service_id:serviceId,
-    start_time:startDate.toISOString(),
-    end_time:endDate?endDate.toISOString():null,
+    start_time:start.toISOString(),
+    end_time:end?end.toISOString():null,
     case_number:caseNumber||null,
     notes:notes||null,
     elapsed_hours:hours===null?null:Number(hours.toFixed(2)),
@@ -524,62 +525,80 @@ async function saveDelivery(){
 
 async function loadRecords(){
   const body=$("recordsTable");
+  body.innerHTML='<tr><td colspan="7">Loading records...</td></tr>';
 
-  const {data,error}=await db
-    .from("service_deliveries")
-    .select("id,branch_code,service_id,household_id,relief_id,start_time,end_time,case_number,status,elapsed_hours")
-    .order("start_time",{ascending:false})
-    .limit(500);
+  try{
+    const {data,error}=await db
+      .from("service_deliveries")
+      .select("id,branch_code,service_id,household_id,relief_id,start_time,end_time,case_number,status,elapsed_hours")
+      .order("start_time",{ascending:false})
+      .limit(500);
 
-  if(error){
+    if(error) throw error;
+
+    let rows=data||[];
+    const mode=$("recordBranch").value;
+    const branch=getBranchCode();
+
+    if(mode!=="ALL"){
+      rows=rows.filter(r=>(r.branch_code||"").toUpperCase()===branch);
+    }
+
+    if(!rows.length){
+      body.innerHTML='<tr><td colspan="7">No records found for this selection.</td></tr>';
+      return;
+    }
+
+    body.innerHTML=rows.map(r=>{
+      const standard=getStandard(r.service_id);
+      const hours=r.elapsed_hours!==null&&r.elapsed_hours!==undefined
+        ? Number(r.elapsed_hours)
+        : elapsedHours(r.start_time,r.end_time);
+
+      const status=standard
+        ? getStatus(hours,standard,!!r.end_time)
+        : {text:r.status||"Unknown",css:"yellow"};
+
+      const label=r.case_number||
+        (r.relief_id?"Relief "+r.relief_id:
+         r.household_id?"Household "+r.household_id:"-");
+
+      return `<tr>
+        <td>${escapeHTML(r.branch_code||"-")}</td>
+        <td>${escapeHTML(standard?standard.service_name:"Unknown service")}</td>
+        <td>${escapeHTML(formatDate(r.start_time))}</td>
+        <td>${escapeHTML(formatDate(r.end_time))}</td>
+        <td>${hours===null||!Number.isFinite(hours)?"-":hours.toFixed(2)}</td>
+        <td><span class="status ${status.css}">${escapeHTML(status.text)}</span></td>
+        <td>${escapeHTML(label)}</td>
+      </tr>`;
+    }).join("");
+  }catch(error){
+    console.error(error);
     body.innerHTML='<tr><td colspan="7">Could not load records: '+
       escapeHTML(error.message)+'</td></tr>';
-    return;
   }
-
-  records=data||[];
-
-  if(!records.length){
-    body.innerHTML='<tr><td colspan="7">No service delivery records yet.</td></tr>';
-    return;
-  }
-
-  body.innerHTML=records.map(r=>{
-    const standard=getStandard(r.service_id);
-    const hours=r.elapsed_hours!==null&&r.elapsed_hours!==undefined
-      ? Number(r.elapsed_hours)
-      : elapsedHours(r.start_time,r.end_time);
-
-    const status=standard
-      ? getStatus(hours,standard,!!r.end_time)
-      : {text:r.status||"Unknown",css:"yellow"};
-
-    const caseLabel=r.case_number||
-      (r.relief_id?"Relief "+r.relief_id:
-       r.household_id?"Household "+r.household_id:"-");
-
-    return `<tr>
-      <td>${escapeHTML(r.branch_code||"-")}</td>
-      <td>${escapeHTML(standard?standard.service_name:"Unknown service")}</td>
-      <td>${escapeHTML(formatDate(r.start_time))}</td>
-      <td>${escapeHTML(formatDate(r.end_time))}</td>
-      <td>${hours===null||!Number.isFinite(hours)?"-":hours.toFixed(2)}</td>
-      <td><span class="status ${status.css}">${escapeHTML(status.text)}</span></td>
-      <td>${escapeHTML(caseLabel)}</td>
-    </tr>`;
-  }).join("");
 }
 
 function initialize(){
   if(!window.supabase){
-    showMessage("Supabase library could not load. Check your internet connection.","red");
+    showMessage("Supabase library failed to load. Check internet connectivity.","red");
     return;
   }
 
   try{
     db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
     configureBranch();
+
     $("service").addEventListener("change",updateServiceForm);
+    $("refreshBtn").addEventListener("click",loadStandards);
+    $("saveBtn").addEventListener("click",saveDelivery);
+    $("recordBranch").addEventListener("change",loadRecords);
+    $("branch").addEventListener("change",()=>{
+      loadRecords();
+      updateServiceForm();
+    });
+
     loadStandards();
   }catch(error){
     showMessage("Supabase initialization failed: "+error.message,"red");
